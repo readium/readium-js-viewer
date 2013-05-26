@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<title>The Coded Word: Scripted Interactivity</title>
+		<link rel="stylesheet" type="text/css" href="css/epub.css" />
+	</head>
+	<body>
+		<section class="sect1" title="The Coded Word: Scripted Interactivity">
+			<h2 class="title" id="_the_coded_word_scripted_interactivity">The Coded Word: Scripted Interactivity</h2>
+			<p>Whether you’re a fan of scripted ebooks or not, EPUB 3 has opened the door to their
+				creation, so we’ll now take a look at some of the potential accessibility pitfalls
+				and how they can be avoided.</p>
+			<p>One of the key new terms you’ll hear in relation to the use of scripting in EPUB 3 is
+				progressive enhancement. The concept of progressive enhancement is not original to
+				EPUB, however, nor is it limited to scripting. I’ve actually been making a case for
+				many of its other core tenets throughout this guide, such as separation of content
+				and style, content conveying meaning, etc. Applied in this context, however, it
+				means that scripting must only enhance your core content.</p>
+			<p>We’ve already covered why structure and semantics should carry all the information
+				necessary to understand your content, but that presupposes that it is all available.
+				The ability for scripts to remove access to content from anyone without a
+				JavaScript-enabled reading system is a major concern not just for persons using
+				accessible devices, but for all readers.</p>
+			<p>And that’s why scripting access to content <a class="ulink"
+					href="http://idpf.org/epub/30/spec/epub30-contentdocs.html#confreq-cd-scripted-spine"
+					target="_top">is forbidden in EPUB 3</a>. If you try to circumvent the
+				specification requirement and treat progressive enhancement as just an
+				“accessibility thing,” you’re underestimating the readership that are going to rely
+				on your content rendering properly without scripting. Picture buying a book that has
+				pages glued together and you’ll get an idea of how excited your readers will be that
+				you thought no one would notice.</p>
+			<aside class="note" title="Note">
+				<h3 class="title">Note</h3>
+				<p>Note that it’s not a truism that you can expect JavaScript support in EPUB 3
+					reading systems. There will undoubtedly be widespread support for scripting in
+					time, but support is an optional feature that vendors and developers can choose
+					to ignore.</p>
+			</aside>
+			<p>Meeting the general requirement to keep your text accessible is really not asking a
+				lot, though. As soon as you turn to JavaScript to alter (or enable) access to prose,
+				you should realize you’re on the wrong path. To this end:</p>
+			<ul class="itemizedlist">
+				<li class="listitem"><p> Don’t include content that can only be accessed (made
+						visible) through scripted interaction. </p></li>
+				<li class="listitem"><p> Don’t script-enable content based on a reader’s
+						preferences, location, language, or any other setting. </p></li>
+				<li class="listitem"><p> Don’t require scripting in order for the reader to continue
+						moving through the content (e.g., choose your own adventure books).
+					</p></li>
+			</ul>
+			<p>Whether or not your prose can be accessed is not hard to test, even if it can’t be
+				done reliably by validators like <a class="ulink"
+					href="http://code.google.com/p/epubcheck/" target="_top">epubcheck</a>. Turn off
+				JavaScript and see if you can navigate your document from beginning to end. You may
+				not get all the bells and whistles when scripting is turned off, but you should be
+				able to get through with no loss of information. If you can’t, you need to review
+				why prose is not available or has disappeared, why navigation gets blocked, etc.,
+				and find another way to do what you were attempting.</p>
+			<p>Don’t worry that this requirement means all the potential scripting fun is being
+				taken out of ebooks, though. Games and puzzles and animations and quizzes and any
+				other secondary content you can think of that requires scripting are all fair game
+				for inclusion. But when it comes to including these there are two considerations to
+				make, very similar to choosing when to describe images:</p>
+			<ul class="itemizedlist">
+				<li class="listitem"><p>Does the scripted content you’re embedding include
+						information that will be useful to the reader’s comprehension (demos, etc.),
+						or is it included purely for pleasure (games)? </p></li>
+				<li class="listitem"><p>Can the content be made accessible in a usable way and can
+						you provide a fallback alternative that provides the same or similar
+						experience?</p></li>
+			</ul>
+			<p>The answer to the first question will have some influence how you tackle the second.
+				If the scripted content provides information that the reader would otherwise not be
+				able to obtain from the prose, you should consider other alternative forms for
+				making that information available, for example:</p>
+			<ul class="itemizedlist">
+				<li class="listitem"><p> If you script an interactive demo using the <code
+							class="literal">canvas</code> element, consider also providing a
+						transcript of the information for readers who may not be able to interact
+						with it. </p></li>
+				<li class="listitem"><p> If you’re including an interactive form that automatically
+						evaluates the reader’s responses, also include access to an answer key.
+					</p></li>
+				<li class="listitem"><p> If you’re adding a problem or puzzle to solve, also provide
+						the solution so the reader can still learn the steps to its completion.
+					</p></li>
+			</ul>
+			<p>None of the above suggestions are intended to remove the responsibility to try and
+				make the content accessible in the first place, though. Scripting of accessible
+				forms, for example, should be a trivial task for developers familiar with WAI-ARIA
+				(we’ll look at some practices in the coming section). But trivial or not, because
+				scripting will not necessarily be available, it’s imperative that you provide other
+				means for readers to obtain the full experience.</p>
+			<p>If the scripted content is purely for entertainment purposes, however, create a
+				fallback commensurate with the value of that content to the overall ebook (if it
+				absolutely cannot be made accessible natively). Like decorative images, a reader
+				unable to interact with non-essential content is not going to be hugely interested
+				in reading a five-page dissertation on each level of your game. A simple idea of
+				what it does will usually suffice.</p>
+		</section>
+	</body>
+</html>
