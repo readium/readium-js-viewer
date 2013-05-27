@@ -21,6 +21,12 @@
             document.setModuleContainerHeight = function () {
                 $("#epub-reader-container").css({ "height" : document.height * 0.85 + "px" });
             };
+            document.parseXMLFromDOM = function (data) {
+
+                var serializer = new XMLSerializer();
+                var packageDocumentXML = serializer.serializeToString(data);
+                return packageDocumentXML;
+            };
 
             // This function will retrieve a package document and load an EPUB
             document.loadAndRenderEpub = function (packageDocumentURL) {
@@ -49,6 +55,10 @@
                             tocVisible : false,
                             currentTheme : "default"
                         };
+
+                        if (result.nodeType) {
+                            result = document.parseXMLFromDOM(result);
+                        }
 
                         // THE MOST IMPORTANT PART - INITIALIZING THE SIMPLE RWC MODEL
                         document.epubViewer = new SimpleRWC(elementToBindReaderTo, viewerPreferences, packageDocumentURL, result);
