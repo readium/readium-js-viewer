@@ -9,6 +9,8 @@
         <script src="modules_and_dependencies/backbone.js" type="text/javascript"></script>
         <script src="modules_and_dependencies/URI.js" type="text/javascript"></script>
 
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+
         <!-- Readium Web Components SimpleRWC.js -->
         <script src="modules_and_dependencies/SimpleRWC.js" type="text/javascript"></script>
 
@@ -44,6 +46,7 @@
                             tocVisible : false,
                             currentTheme : "default"
                         };
+                        var currLayoutIsSynthetic = viewerPreferences.syntheticLayout;
 
                         if (result.nodeType) {
                             result = RWCDemoApp.parseXMLFromDOM(result);
@@ -60,15 +63,15 @@
                         // These are application specific handlers that wire the HTML to the SimpleRWC module API
 
                         // Set handlers for click events
-                        $("#prev-page").unbind("click");
-                        $("#prev-page").on("click", function () {
+                        $("#previous-page-btn").unbind("click");
+                        $("#previous-page-btn").on("click", function () {
                             RWCDemoApp.epubViewer.previousPage(function () {
                                 console.log("went to previous page");
                             });
                         });
 
-                        $("#next-page").unbind("click");
-                        $("#next-page").on("click", function () {
+                        $("#next-page-btn").unbind("click");
+                        $("#next-page-btn").on("click", function () {
                             RWCDemoApp.epubViewer.nextPage(function () {
                                 console.log("went to next page");
                             });
@@ -86,14 +89,21 @@
                             RWCDemoApp.epubViewer.setFontSize(parseInt(fontVal));
                         });
 
-                        $("#set-one-page").unbind("click");
-                        $("#set-one-page").on("click", function () {
-                            RWCDemoApp.epubViewer.setSyntheticLayout(false);
-                        });
+                        $("#toggle-synthetic-btn").unbind("click");
+                        $("#toggle-synthetic-btn").on("click", function () {
 
-                        $("#set-two-pages").unbind("click");
-                        $("#set-two-pages").on("click", function () {
-                            RWCDemoApp.epubViewer.setSyntheticLayout(true);
+                            if (currLayoutIsSynthetic) {
+                                RWCDemoApp.epubViewer.setSyntheticLayout(false);
+                                currLayoutIsSynthetic = false;
+                                $("#single-page-ico").show();
+                                $("#synthetic-page-ico").hide();
+                            }
+                            else {
+                                RWCDemoApp.epubViewer.setSyntheticLayout(true);
+                                currLayoutIsSynthetic = true;
+                                $("#single-page-ico").hide();
+                                $("#synthetic-page-ico").show();
+                            }
                         });
 
                         // Render the reader. This will load all the viewable resources of the EPUB and fire 
@@ -140,20 +150,61 @@
 
     <!-- This is all application-specific HTML -->
     <body>
-        <button id="moby-dick">Moby Dick</button>
-        <button id="accessible-epub">Accessible-Epub</button>
-        <button id="page-blanche">Page-Blanche</button>
-        <br/>
-        <button id="prev-page" class="show-on-load">Previous page</button>
-        <button id="next-page" class="show-on-load">Next page</button>
-        <br/>
-        <button id="set-margin" class="show-on-load">Set margin</button><input id="margin-val" type="text" class="show-on-load"></input>
-        <button id="set-font-size" class="show-on-load">Font size</button><input id="font-size-val" type="text" class="show-on-load"></input>
-        <br/>
-        <button id="set-one-page" class="show-on-load">One page</button>
-        <button id="set-two-pages" class="show-on-load">Two pages</button>
-        <br/>
 
+        <!-- The navbar -->
+        <div class="navbar navbar-fixed-top" id="toolbar-el">
+            <div class="navbar-inner" id="top-bar" style="">
+                <div class="container" style="width: 100%">
+
+                    <!-- Navbar logo -->
+                    <a title="Simple RWC Demo" class="brand" href="#">
+                        <img src="images/readium_logo.png" class="nav-icon" id="readium-logo">
+                    </a>
+
+                    <!-- Navbar contents -->
+                    <ul class="nav pull-right">
+
+                        <!-- Previous page -->
+                        <li>
+                            <a accesskey="n" href="#" id="previous-page-btn" role="button" title="Previous Page">
+                                <img src="/images/arrow_previous_medium.png" class="nav-icon" id="arrow-previous-ico" alt="" style="">
+                            </a>
+                        </li>
+                        <!-- Next page -->
+                        <li>
+                            <a accesskey="n" href="#" id="next-page-btn" role="button" title="Next Page">
+                                <img src="/images/arrow_next_medium.png" class="nav-icon" id="arrow-next-ico">
+                            </a>
+                        </li>
+                        
+                        <li class="divider-vertical"></li>
+                        
+                        <!-- Toggle single or two pages -->
+                        <li>
+                            <a accesskey="n" href="#" id="toggle-synthetic-btn" role="button" title="Toggle page layout">
+                                <img src="/images/1page_view_toggle_medium.png" class="nav-icon" id="single-page-ico">
+                                <img src="/images/2page_view_toggle_medium.png" class="nav-icon" id="synthetic-page-ico" style="display:none;">
+                            </a>
+                        </li>
+
+                        <li class="divider-vertical"></li>
+
+                        <!-- The library for the sample reader -->
+                        <li>
+                            <a accesskey="n" href="#" id="toggle-synthetic-btn" role="button" title="Toggle page layout">
+                                <img src="/images/table_of_contents_medium.png" class="nav-icon" id="library-ico">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <button id="moby-dick" style="margin-top:50px;">Moby Dick</button>
+        <button id="accessible-epub" style="margin-top:50px;">Accessible-Epub</button>
+        <button id="page-blanche" style="margin-top:50px;">Page-Blanche</button>
+        <!-- <button id="set-margin" class="show-on-load">Set margin</button><input id="margin-val" type="text" class="show-on-load"></input> -->
+        <!-- <button id="set-font-size" class="show-on-load">Font size</button><input id="font-size-val" type="text" class="show-on-load"></input> -->
         <div id="epub-reader-container">
             <div id="reader" style="height:100%; width:100%">
             </div>
