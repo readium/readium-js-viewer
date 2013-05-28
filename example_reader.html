@@ -126,6 +126,9 @@
                 var that = this;
                 var packageDocumentURL;
 
+                // Load Moby Dick by default
+                RWCDemoApp.loadAndRenderEpub("/epub_content/moby_dick/OPS/package.opf");
+
                 $(".show-on-load").hide();
                 $("#accessible-epub").on("click", function () {
                     packageDocumentURL = "/epub_content/accessible_epub_3/EPUB/package.opf";
@@ -214,7 +217,7 @@
 
         <!-- <button id="set-margin" class="show-on-load">Set margin</button><input id="margin-val" type="text" class="show-on-load"></input> -->
         <!-- <button id="set-font-size" class="show-on-load">Font size</button><input id="font-size-val" type="text" class="show-on-load"></input> -->
-        <div id="epub-reader-container" style="margin-top:60px;">
+        <div id="epub-reader-container" style="margin-top:65px;">
         </div>
     </body>
 </html>
