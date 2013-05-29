@@ -3,7 +3,7 @@ RWCDemoApp.getInputValue = function (inputId) {
 };
 
 RWCDemoApp.setModuleContainerHeight = function () {
-    $("#epub-reader-container").css({ "height" : document.height * 0.85 + "px" });
+    $("#epub-reader-container").css({ "height" : $(document).height() * 0.85 + "px" });
 };
 
 RWCDemoApp.parseXMLFromDOM = function (data) {
