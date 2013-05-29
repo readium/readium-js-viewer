@@ -127,21 +127,21 @@
                 var packageDocumentURL;
 
                 // Load Moby Dick by default
-                RWCDemoApp.loadAndRenderEpub("/epub_content/moby_dick/OPS/package.opf");
+                RWCDemoApp.loadAndRenderEpub("epub_content/moby_dick/OPS/package.opf");
 
                 $(".show-on-load").hide();
                 $("#accessible-epub").on("click", function () {
-                    packageDocumentURL = "/epub_content/accessible_epub_3/EPUB/package.opf";
+                    packageDocumentURL = "epub_content/accessible_epub_3/EPUB/package.opf";
                     RWCDemoApp.loadAndRenderEpub(packageDocumentURL);
                 });
 
                 $("#moby-dick").on("click", function () {
-                    packageDocumentURL = "/epub_content/moby_dick/OPS/package.opf";
+                    packageDocumentURL = "epub_content/moby_dick/OPS/package.opf";
                     RWCDemoApp.loadAndRenderEpub(packageDocumentURL);
                 });
 
                 $("#page-blanche").on("click", function () {
-                    packageDocumentURL = "/epub_content/page-blanche/EPUB/package.opf";
+                    packageDocumentURL = "epub_content/page-blanche/EPUB/package.opf";
                     RWCDemoApp.loadAndRenderEpub(packageDocumentURL);
                 });
             });
