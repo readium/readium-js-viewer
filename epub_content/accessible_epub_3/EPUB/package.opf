@@ -57,9 +57,7 @@
 	</manifest>
 	<spine>
 		<itemref idref="cover" linear="no"/>
-		<itemref idref="spi_ad"/>
 		<itemref idref="id-id2442754"/>
-		<itemref idref="htmltoc" linear="yes"/>
 		<itemref idref="id-id2632344"/>
 		<itemref idref="id-id2604743"/>
 		<itemref idref="id-id2629773"/>
