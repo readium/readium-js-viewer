@@ -78,18 +78,6 @@
                             });
                         });
 
-                        $("#set-margin").unbind("click");
-                        $("#set-margin").on("click", function () {
-                            var marginVal = RWCDemoApp.getInputValue("margin-val");
-                            RWCDemoApp.epubViewer.setMargin(parseInt(marginVal));
-                        }); 
-
-                        $("#set-font-size").unbind("click");
-                        $("#set-font-size").on("click", function () {
-                            var fontVal = RWCDemoApp.getInputValue("font-size-val");
-                            RWCDemoApp.epubViewer.setFontSize(parseInt(fontVal));
-                        });
-
                         $("#toggle-synthetic-btn").unbind("click");
                         $("#toggle-synthetic-btn").on("click", function () {
 
@@ -107,9 +95,7 @@
                             }
                         });
 
-                        // Render the reader. This will load all the viewable resources of the EPUB and fire 
-                        //   an event when they've all loaded. Once the resources of the epub have been loaded, 
-                        //   the second spine item will be shown.
+                        // Render the reader
                         RWCDemoApp.epubViewer.on("epubLoaded", function () { 
                             RWCDemoApp.epubViewer.showSpineItem(0, function () {
                                 console.log("showed first spine item"); 
@@ -215,8 +201,6 @@
             </div>
         </div>
 
-        <!-- <button id="set-margin" class="show-on-load">Set margin</button><input id="margin-val" type="text" class="show-on-load"></input> -->
-        <!-- <button id="set-font-size" class="show-on-load">Font size</button><input id="font-size-val" type="text" class="show-on-load"></input> -->
         <div id="epub-reader-container" style="margin-top:65px;">
         </div>
     </body>

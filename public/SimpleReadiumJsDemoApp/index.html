@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- EPUB module dependencies -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js" type="text/javascript"></script>
+        <script src="modules_and_dependencies/URI.js" type="text/javascript"></script>
+        <script src="modules_and_dependencies/bootstrap.min.js" type="text/javascript"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+
+        <!-- Readium Web Components SimpleRWC.js -->
+        <script src="modules_and_dependencies/SimpleReadium.js" type="text/javascript"></script>
+
+        <!-- Example of initialization -->
+        <script type="text/javascript">
+
+            RWCDemoApp = {};
+
+            // This function will retrieve a package document and load an EPUB
+            RWCDemoApp.loadAndRenderEpub = function (packageDocumentURL) {
+
+                $(".show-on-load").show();
+                $("#epub-reader-container").html("");
+
+                var that = this;
+
+                // Clear the viewer, if it has been defined -> to load a new epub
+                RWCDemoApp.epubViewer = undefined;
+
+                // Get the package document and load the modules
+                $.ajax({
+                    url : packageDocumentURL,
+                    success : function (result) {
+
+                        // Get the HTML element to bind the module reader to
+                        var elementToBindReaderTo = $("#epub-reader-container");
+
+                        // Create an object of viewer preferences
+                        var viewerPreferences = {
+                            fontSize : 12,
+                            syntheticLayout : false,
+                            currentMargin : 3,
+                            tocVisible : false,
+                            currentTheme : "default"
+                        };
+                        var currLayoutIsSynthetic = viewerPreferences.syntheticLayout;
+
+                        if (result.nodeType) {
+                            result = RWCDemoApp.parseXMLFromDOM(result);
+                        }
+
+                        // THE MOST IMPORTANT PART - INITIALIZING THE SIMPLE RWC MODEL
+                        RWCDemoApp.epubViewer = new SimpleRWC(
+                            elementToBindReaderTo, viewerPreferences, packageDocumentURL, result, "lazy"
+                        );
+
+                        // Set a fixed height for the epub viewer container, as a function of the document height
+                        RWCDemoApp.setModuleContainerHeight();
+
+                        // These are application specific handlers that wire the HTML to the SimpleRWC module API
+
+                        // Set handlers for click events
+                        $("#previous-page-btn").unbind("click");
+                        $("#previous-page-btn").on("click", function () {
+                            RWCDemoApp.epubViewer.previousPage(function () {
+                                console.log("went to previous page");
+                            });
+                        });
+
+                        $("#next-page-btn").unbind("click");
+                        $("#next-page-btn").on("click", function () {
+                            RWCDemoApp.epubViewer.nextPage(function () {
+                                console.log("went to next page");
+                            });
+                        });
+
+                        $("#toggle-synthetic-btn").unbind("click");
+                        $("#toggle-synthetic-btn").on("click", function () {
+
+                            if (currLayoutIsSynthetic) {
+                                RWCDemoApp.epubViewer.setSyntheticLayout(false);
+                                currLayoutIsSynthetic = false;
+                                $("#single-page-ico").show();
+                                $("#synthetic-page-ico").hide();
+                            }
+                            else {
+                                RWCDemoApp.epubViewer.setSyntheticLayout(true);
+                                currLayoutIsSynthetic = true;
+                                $("#single-page-ico").hide();
+                                $("#synthetic-page-ico").show();
+                            }
+                        });
+
+                        // Render the reader
+                        RWCDemoApp.epubViewer.on("epubLoaded", function () { 
+                            RWCDemoApp.epubViewer.showSpineItem(0, function () {
+                                console.log("showed first spine item"); 
+                            });
+                        }, that);
+                        RWCDemoApp.epubViewer.render(0);
+                    }
+                });
+            };
+
+            // When the document is ready, choose an EPUB to show.
+            $(document).ready(function () {
+
+                var that = this;
+                var packageDocumentURL;
+
+                // Load Moby Dick by default
+                RWCDemoApp.loadAndRenderEpub("epub_content/moby_dick/OPS/package.opf");
+
+                $(".show-on-load").hide();
+                $("#accessible-epub").on("click", function () {
+                    packageDocumentURL = "epub_content/accessible_epub_3/EPUB/package.opf";
+                    RWCDemoApp.loadAndRenderEpub(packageDocumentURL);
+                });
+
+                $("#moby-dick").on("click", function () {
+                    packageDocumentURL = "epub_content/moby_dick/OPS/package.opf";
+                    RWCDemoApp.loadAndRenderEpub(packageDocumentURL);
+                });
+
+                $("#page-blanche").on("click", function () {
+                    packageDocumentURL = "epub_content/page-blanche/EPUB/package.opf";
+                    RWCDemoApp.loadAndRenderEpub(packageDocumentURL);
+                });
+            });
+
+        </script>
+
+        <!-- Demo application code -->
+        <script src="modules_and_dependencies/DemoAppCode.js" type="text/javascript"></script>
+    </head>
+
+    <!-- This is all application-specific HTML -->
+    <body>
+
+        <!-- The navbar -->
+        <div class="navbar navbar-fixed-top" id="toolbar-el">
+            <div class="navbar-inner" id="top-bar" style="">
+                <div class="container" style="width: 100%">
+
+                    <!-- Navbar logo -->
+                    <a title="Simple RWC Demo" class="brand" href="#">
+                        <img src="images/readium_logo.png" class="nav-icon" id="readium-logo">
+                    </a>
+
+                    <!-- Navbar contents -->
+                    <ul class="nav pull-right">
+
+                        <!-- Previous page -->
+                        <li>
+                            <a accesskey="n" href="#" id="previous-page-btn" role="button" title="Previous Page">
+                                <img src="images/arrow_previous_medium.png" class="nav-icon" id="arrow-previous-ico" alt="" style="">
+                            </a>
+                        </li>
+                        <!-- Next page -->
+                        <li>
+                            <a accesskey="n" href="#" id="next-page-btn" role="button" title="Next Page">
+                                <img src="images/arrow_next_medium.png" class="nav-icon" id="arrow-next-ico">
+                            </a>
+                        </li>
+                        
+                        <li class="divider-vertical"></li>
+                        
+                        <!-- Toggle single or two pages -->
+                        <li>
+                            <a accesskey="n" href="#" id="toggle-synthetic-btn" role="button" title="Toggle page layout">
+                                <img src="images/1page_view_toggle_medium.png" class="nav-icon" id="single-page-ico">
+                                <img src="images/2page_view_toggle_medium.png" class="nav-icon" id="synthetic-page-ico" style="display:none;">
+                            </a>
+                        </li>
+
+                        <li class="divider-vertical"></li>
+
+                        <!-- The library for the sample reader -->
+                        <li>
+                            <a accesskey="n" href="#" id="epub-demo-library" role="button" title="Demo Library" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="images/table_of_contents_medium.png" class="nav-icon" id="library-ico">
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dlabel">
+                                <li>
+                                    <a id="moby-dick" href="#">Moby dick</a>
+                                </li>
+                                <li>
+                                    <a id="accessible-epub" href="#">Accessible EPUB 3</a>
+                                </li>
+                                <li>
+                                    <a id="page-blanche" href="#">Page Blanche</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="epub-reader-container" style="margin-top:65px;">
+        </div>
+    </body>
+</html>

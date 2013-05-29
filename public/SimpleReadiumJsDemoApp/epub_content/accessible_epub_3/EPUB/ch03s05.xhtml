@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<title>A Little Help: WAI-ARIA</title>
+		<link rel="stylesheet" type="text/css" href="css/epub.css" />
+	</head>
+	<body>
+		<section class="sect1" title="A Little Help: WAI-ARIA">
+			<h2 class="title" id="_a_little_help_wai_aria">A Little Help: WAI-ARIA</h2>
+			<p>Although fallbacks are useful when scripting is not available, you should still aim
+				to make your scripted content accessible to all readers. Enter the W3C Web
+				Accessibility Initiative’s (WAI) <a class="ulink"
+					href="http://www.w3.org/TR/wai-aria/" target="_top">Accessible Rich Internet
+					Application</a> (ARIA) specification.</p>
+			<p>The technology defined in this specification can be used in many situations to
+				improve content accessibility. We’ve already encountered the <code class="literal"
+					>aria-describedby</code> attribute in looking at how to add descriptions and
+				summaries, for example.</p>
+			<p>I’m now going to pick out three common cases for scripting to further explore how
+				ARIA can enhance the accessibility of EPUBs: custom controls, forms, and live
+				regions.</p>
+			<section class="sect2" title="Custom Controls">
+				<h3 class="title" id="_custom_controls">Custom Controls</h3>
+				<p>Custom controls are not standard form elements that you stylize to suit your
+					needs, just to be clear. Those are the good kinds of custom controls—if you want
+					to call them custom—as they retain their inherent accessibility traits whatever
+					you style them to look like. Readers will not have problems interacting with
+					these controls as they natively map to the underlying accessibility APIs, and so
+					will work regardless of the scripting capabilities any reading system has built
+					in.</p>
+				<p>A custom control is the product of taking an HTML element and enhancing it with
+					script to emulate a standard control, or building up a number of elements for
+					the same purpose. Using images to simulate buttons is one of the more common
+					examples, as custom toolbars are often created in this way. There is typically
+					no native way for a reader using an accessible device to interact with these
+					kinds of custom controls, however, as they are presented to them as whatever
+					HTML element was used in their creation (e.g., just another <code
+						class="literal">img</code> element in the case of image buttons).</p>
+				<p>It would be ideal if no one used custom controls, and you should try to avoid
+					them unless you have no other choice, but the existence of ARIA reflects the
+					reality that these controls are also ubiquitous. The increase in native control
+					types in HTML5 holds out hope for a reduction in their use, but it would be
+					neglectful not to cover some of the basics of their accessible creation. Before
+					launching out on your own, it’s good to know what you’re getting into.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>There are widely available toolkits, like <a class="ulink"
+							href="http://jquery.com/" target="_top">jQuery</a>, that bake ARIA
+						accessibility into many of the custom widgets they allow you to create. You
+						should consider using these if you don’t have a background in creating
+						accessible controls.</p>
+				</aside>
+				<p>If you aren’t familiar with ARIA, a very quick, high-level introduction for
+					custom controls is that it provides a map between the new control and the
+					standard behaviors of the one being emulated (e.g., allowing your
+					otherwise-inaccessible image to function identically to the <code
+						class="literal">button</code> element as far as the reader is concerned).
+					This mapping is critical, as it’s what allows the reader to interact with your
+					controls through the underlying accessibility API. (The ARIA specification
+					includes a <a class="ulink"
+						href="http://www.w3.org/TR/wai-aria/introduction#contractmodel"
+						target="_top">graphical depiction</a> that can help visualize this
+					process.)</p>
+				<p>Or, put differently, ARIA is what allows the HTML element you use as a control to
+					be identified as what it represents (button) instead of what it is (image). It
+					also provides a set of attributes that can be set and controlled by script to
+					make interaction with the control accessible to all. As the reader manipulates
+					your now-identifiable control, the changes you make to these attributes in
+					response get passed back to the underlying accessibility API. That in turn
+					allows the reading system or assistive technology to relay the new state on to
+					the reader, completing the cycle of interaction.</p>
+				<p>But to get more specific, the role an element plays is defined by attaching the
+					ARIA <code class="literal">role</code> element to it. The following is a small
+					selection of the <a class="ulink"
+						href="http://www.w3.org/TR/wai-aria/roles#widget_roles" target="_top"
+						>available role values</a> you can use in this attribute:</p>
+				<ul class="itemizedlist">
+					<li class="listitem"><p> alert </p></li>
+					<li class="listitem"><p> button </p></li>
+					<li class="listitem"><p> checkbox </p></li>
+					<li class="listitem"><p> dialog </p></li>
+					<li class="listitem"><p> menuitem </p></li>
+					<li class="listitem"><p> progressbar </p></li>
+					<li class="listitem"><p> radio </p></li>
+					<li class="listitem"><p> scrollbar </p></li>
+					<li class="listitem"><p> tab </p></li>
+					<li class="listitem"><p> tree </p></li>
+				</ul>
+				<p>Here’s how we could now use this attribute to define an image as a audio clip
+					start button:</p>
+				<pre class="screen">&lt;img src="controls/start.png"
+        id="audio-start"
+        role="button"
+        tabindex="0"
+        alt="Start"/&gt;</pre>
+				<p>Identifying the role is the easy part, though. Just as standard form controls
+					have states and properties that are controlled by the reading system, so too
+					must you add and maintain these on any custom controls you create.</p>
+				<p>A state, to clarify, tells you something about the nature of the control at a
+					given point in time: if an element represents a checkable item, for example, its
+					current state will either be checked or unchecked; if it can be hidden, its
+					state may be either hidden or visible; if it’s collapsible, it could be expanded
+					or collapsed; and so on.</p>
+				<p>Properties, on the other hand, typically provide meta information about the
+					control: how to find its label, how to find a description for it, its position
+					in a set, etc.</p>
+				<p>States and properties are both expressed in ARIA using attributes. For example,
+					the list of available states currently includes all of the following:</p>
+				<ul class="itemizedlist">
+					<li class="listitem"><p> aria-busy </p></li>
+					<li class="listitem"><p> aria-checked </p></li>
+					<li class="listitem"><p> aria-disabled </p></li>
+					<li class="listitem"><p> aria-expanded </p></li>
+					<li class="listitem"><p> aria-grabbed </p></li>
+					<li class="listitem"><p> aria-hidden </p></li>
+					<li class="listitem"><p> aria-invalid </p></li>
+					<li class="listitem"><p> aria-pressed </p></li>
+					<li class="listitem"><p> aria-selected </p></li>
+				</ul>
+				<p>The list of available properties is much larger, but a small sampling
+					includes:</p>
+				<ul class="itemizedlist">
+					<li class="listitem"><p> aria-activedescendant </p></li>
+					<li class="listitem"><p> aria-controls </p></li>
+					<li class="listitem"><p> aria-describedby </p></li>
+					<li class="listitem"><p> aria-dropeffect </p></li>
+					<li class="listitem"><p> aria-flowto </p></li>
+					<li class="listitem"><p> aria-labelledby </p></li>
+					<li class="listitem"><p> aria-live </p></li>
+					<li class="listitem"><p> aria-posinset </p></li>
+					<li class="listitem"><p> aria-required </p></li>
+				</ul>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>See <a class="ulink"
+							href="http://www.w3.org/TR/wai-aria/states_and_properties#state_prop_def"
+							target="_top">section 6.6</a> of the ARIA specification for a complete
+						list of all states and properties, including definitions.</p>
+				</aside>
+				<p>All of these state and property attributes are supported in EPUB 3 content
+					documents, and their proper application and updating as your controls are
+					interacted with is how the needed information gets relayed back to the reader.
+					(Note: you only have to maintain their values; you don’t have to worry about the
+					underlying process that identifies the change and passes it on.)</p>
+				<p>The natural question at this point is which states and properties do you have to
+					set when creating a custom control. It would be great if there were a simple
+					chart that could be followed, but unfortunately the ones that you apply is very
+					much dependent on the type of control you’re creating, and what you’re using it
+					to do. To be fully accessible, you need to consider all the ways in which a
+					reader will be interacting with your control, and how the states and properties
+					need to be modified to reflect the reality of the control as each action is
+					performed. There is no one-size-fits-all solution, in other words.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>To see which properties and states are supported by the type of control
+						you’re creating, refer to the <a class="ulink"
+							href="http://www.w3.org/TR/wai-aria/roles#role_definitions"
+							target="_top">role definitions</a> in the specification. Knowing what
+						you can apply is helpful in narrowing down what you need to apply.</p>
+				</aside>
+				<p>If you don’t set the states and properties, or set them incorrectly, it follows
+					that you’ll impair the ability of the reader to access your content.
+					Implementing them badly can be just as frustrating for a reader as not
+					implementing them at all, too. You could, for example, leave the reader unable
+					to start your audio clip, unable to stop it, stuck with volume controls that
+					only go louder or softer, etc. Their only recourse will be shutting down their
+					ebook and starting over.</p>
+				<p>These are the accessibility pitfalls you have to be aware of when you roll your
+					own solutions. Some will be obvious, like a button failing to initiate playback,
+					but others will be more subtle and not caught without extensive testing, which
+					is also why you should engage the accessibility community in checking your
+					content.</p>
+				<p>But let’s take a look at some of the possible issues involved in maintaining
+					states. Have a look at the following much-reduced example of list items used to
+					control volume:</p>
+				<pre class="screen">&lt;ul&gt;
+    &lt;li role="button"
+         tabindex="0"
+         onclick="increaseVolume('audio01')"&gt;Louder&lt;/li&gt;
+
+    &lt;li role="button"
+         tabindex="0"
+         onclick="decreaseVolume('audio01')"&gt;Softer&lt;/li&gt;
+&lt;/ul&gt;</pre>
+				<p>This setup looks simple, as it omits any states or properties at the outset, but
+					now let’s consider it in the context of a real-world usage scenario. As the
+					reader increases the volume, you’ll naturally be checking whether the peak has
+					been reached in order to disable the control. With a standard button, when the
+					reader reached the maximum volume you’d just set the button to be disabled with
+					a line of JavaScript; the button gets grayed out for readers and is marked as
+					disabled for the accessibility API. Nice and simple.</p>
+				<p>List items can’t be natively disabled, however (it just doesn’t make any sense,
+					since they aren’t expected to be active in the first place). You instead have to
+					set the <code class="literal">aria-disabled</code> attribute on the list item to
+					identify the change to the accessibility API, remove the event that calls the
+					JavaScript (as anyone could still activate and fire the referenced code if you
+					don’t), and give sighted readers a visual effect to indicate that the button is
+					no longer active.</p>
+				<p>Likewise, when the reader decreases the volume from the max setting, you need to
+					re-enable the control, re-add the <code class="literal">onclick</code> event,
+					and re-style the option as active. The same scenario plays out when the reader
+					hits the bottom of the range for the volume decrease button.</p>
+				<p>In other words, instead of having to focus only on the logic of your application,
+					you now also have to focus on all the interactions with your custom controls.
+					This extra programming burden is why rolling your own was not recommended at the
+					outset. This is a simple example, too. The more controls you add, the more
+					complex the process becomes and the more potential side-effects you have to
+					consider and account for.</p>
+				<p>If you still want to pursue your own controls, though, or just want to learn
+					more, the <a class="ulink" href="http://test.cita.uiuc.edu/aria/" target="_top"
+						>Illinois Center for Information Technology and Web Accessibility</a>
+					maintains a comprehensive set of examples, with working code, that are worth the
+					time to review. You’ll discover much more from their many examples than I could
+					reproduce here. The ARIA authoring practices guide also walks through the
+					process of <a class="ulink"
+						href="http://www.w3.org/TR/wai-aria-practices/#accessiblewidget"
+						target="_top">creating an accessible control</a>.</p>
+				<p>A quick note on <code class="literal">tabindex</code> is also in order, as you no
+					doubt noticed it on the preceding examples. Although this is actually an HTML
+					attribute, it goes hand-in-hand with ARIA and custom controls because it allows
+					you to specify additional elements that can receive keyboard focus, as well the
+					order in which all elements are traversed (i.e., it improves keyboard
+					accessibility). It is critical that you add the attribute to your custom
+					controls, otherwise readers won’t be able to navigate to them.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>What elements a reader can access by the keyboard by default is reading
+						system-dependent, but typically only links, form elements, and multimedia
+						and other interactive elements receive focus by default. Keep this in mind
+						when you roll your own controls, otherwise readers may not have access to
+						them.</p>
+				</aside>
+				<p>Here’s another look at our earlier image button again:</p>
+				<pre class="screen">&lt;img src="controls/start.png"
+        id="audio-start"
+        alt="Start"
+        role="button"
+        tabindex="0"/&gt;</pre>
+				<p>By adding the attribute with the value <code class="literal">0</code>, we’ve
+					enabled direct keyboard access to this <code class="literal">img</code> element.
+					The <code class="literal">0</code> value indicates that we aren’t giving this
+					control any special significance within the document, which is the default for
+					all elements that can be natively tabbed to. To create a tab order, we could
+					assign incrementing positive integers to the controls, but be aware that this
+					can affect the navigation of your document, as all elements with a positive
+						<code class="literal">tabindex</code> value are traversed before those set
+					to <code class="literal">0</code> or not specified at all (in other words, don’t
+					add the value <code class="literal">1</code> because to you it’s the first
+					element in your control set).</p>
+				<p>In many situations, too, a single control would not be made directly accessible.
+					The element that contains all the controls would be the accessible element, as
+					in the following example:</p>
+				<pre class="screen">&lt;div role="group" tabindex="0"&gt;
+    &lt;img role="button" … /&gt;
+    &lt;img role="button" … /&gt;
+&lt;/div&gt;</pre>
+				<p>Access to the individual controls inside the grouping <code class="literal"
+						>div</code> would be script-enabled. This would allow the reader to quickly
+					skip past the control set if they aren’t interested in what it does (otherwise
+					they would have to tab through every control inside it).</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>See the HTML5 specification for more information on <a class="ulink"
+							href="http://dev.w3.org/html5/spec/Overview.html#attr-tabindex"
+							target="_top">how this attribute works</a>.</p>
+				</aside>
+				<p>A last note for this section concerns event handlers. Events are what are used to
+					trigger script actions (<code class="literal">onclick</code>, <code
+						class="literal">onblur</code>, etc.). How you wire up your events can impact
+					on the ability of the reader to access your controls, and can lead to keyboard
+					traps (i.e., the inability to leave the control), so you need to pay attention
+					to how you add them.</p>
+				<p>We could add an <code class="literal">onclick</code> event to our image button to
+					start playback as follows:</p>
+				<pre class="screen">&lt;img src="controls/start.png"
+        id="audio-start"
+        alt="Start"
+        role="button"
+        tabindex="0"
+        onclick="startPlayback('audio01')"/&gt;</pre>
+				<p>But, if we’d accidentally forgotten the <code class="literal">tabindex</code>
+					attribute, a reader navigating by keyboard would not have been able to find or
+					access this control. Even though <code class="literal">onclick</code> is
+					considered a device-independent event, if the reader cannot reach the element
+					they cannot use the Enter key to activate it, effectively hiding the
+					functionality from them.</p>
+				<p>You should always ensure that actions can be triggered in a device-independent
+					manner, even if that means repeating your script call in more than one event
+					type. Don’t rely on any of your readers using a mouse, for example.</p>
+				<p>But again, it pays to engage people who can test your content in real-world
+					scenarios to help discover these issues than to hope you’ve thought of
+					everything.</p>
+			</section>
+			<section class="sect2" title="Forms">
+				<h3 class="title" id="_forms">Forms</h3>
+				<p>Having covered how to create custom controls, we’ll now turn to forms, which are
+					another common problem area ARIA helps address. To repeat myself for a moment,
+					though, the first best practice when creating forms is to always use the native
+					form elements that HTML5 provides. See the last section again for why rolling
+					your own is not a good idea.</p>
+				<p>When it comes to implementing forms, the logical ordering of elements is one key
+					to simplifying access and comprehension. The use of <code class="literal"
+						>tabindex</code> can help to correct navigation, as we just covered, but
+					it’s better to ensure your form is logically navigable in the first place. Group
+					form fields and their labels together when you can, or place them immediately
+					next to each other so that one always follows the other in the reading
+					order.</p>
+				<p>And always clearly identify the purpose of form fields using the <code
+						class="literal">label</code> element. You should also always add the new
+					HTML5 <code class="literal">for</code> attribute so that the labels can be
+					located regardless of how the reader enters the field or where they are located
+					in the document markup. This attribute identifies the <code class="literal"
+						>id</code> of the form element the <code class="literal">label</code>
+					element labels:</p>
+				<pre class="screen">&lt;label id="fname-label" for="fname"&gt;First name:&lt;/label&gt;
+
+&lt;input type="text"
+          id="fname"
+          name="first-name"
+          aria-labelledby="fname-label" /&gt;</pre>
+				<p>I’ve also added the <code class="literal">aria-labelledby</code> attribute to the
+						<code class="literal">input</code> element in this example to ensure maximum
+					compatibility across systems, but its use is critical if your form field is not
+					identified by a <code class="literal">label</code> element (only <code
+						class="literal">label</code> takes the <code class="literal">for</code>
+					attribute). As the <code class="literal">label</code> element can be used in
+					just about every element that can carry a label, there’s little good reason to
+					omit using it.</p>
+				<p>For example, if you have to use a table to lay out your form, don’t be lazy and
+					use table cells alone to convey meaning:</p>
+				<pre class="screen">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;
+            &lt;label id="fname-label" for="fname"&gt;First name:&lt;/label&gt;
+        &lt;/td&gt;
+        &lt;td&gt;
+            &lt;input type="text"
+                      id="fname"
+                      name="first-name"
+                      aria-labelledby="fname-label" /&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    …
+&lt;table&gt;</pre>
+				<p>Note that you also should include the <code class="literal">for</code> attribute
+					regardless of whether the <code class="literal">label</code> precedes, follows
+					or includes the form field.</p>
+				<p>Another pain point comes when a reader fills in a form only to discover after the
+					fact that you had special instructions they were supposed to follow. When
+					specifying entry requirements for completing the field, include them within the
+						<code class="literal">label</code> or attach an <code class="literal"
+						>aria-describedby</code> attribute so that the reader can be informed right
+					away:</p>
+				<pre class="screen">&lt;label for="username-label"&gt;User name:&lt;/label&gt;
+
+&lt;input type="text"
+          id="uname"
+          name="username"
+          aria-labelledby="username-label"
+          aria-describedby="username-req" /&gt;
+
+&lt;span id="username-req"&gt;User names must be between 8 and 16 characters in length and contain only alphanumeric characters.&lt;/span&gt;</pre>
+				<p>The new HTML5 <code class="literal">pattern</code> attribute can also be used to
+					improve field completion. If your field accepts regular expression-validatable
+					data, you can add this attribute to automatically check the input. When using
+					this attribute, the HTML5 specification recommends the restriction be added to
+					the <code class="literal">title</code> attribute.</p>
+				<p>We could reformulate our previous example now as follows:</p>
+				<pre class="screen">&lt;input type="text"
+          id="uname"
+          name="username"
+          aria-labelledby="username-label"
+          pattern="[A-Za-z0-9]{8,16}"
+          title="Enter a user name between 8 and 16 characters in length
+and containing only alphanumeric characters" /&gt;</pre>
+				<p>Another common nuisance in web forms of old has been the use of asterisks and
+					similar text markers and visual cues to indicate when a field was required, as
+					there was no native way to indicate the requirement to complete. These markers
+					were not always identifiable by persons using assistive technologies. HTML5 now
+					includes the <code class="literal">required</code> attribute to cover this need,
+					however. ARIA also includes a required attribute of its own. Similar to
+					labeling, it’s a good practice at this time to add both to ensure maximum
+					compatibility:</p>
+				<pre class="screen">&lt;input type="text"
+          id="uname"
+          name="username"
+          aria-labelledby="username-label"
+          pattern="[A-Za-z0-9]{8,16}"
+          title="Enter a user name between 8 and 16 characters in length
+and containing only alphanumeric characters"
+          required="required"
+          aria-required="true" /&gt;</pre>
+				<p>An accessible reading system could now announce to the reader that the field is
+					required when the reader enters it. Adding a clear prose indication that the
+					field is required to the <code class="literal">label</code> is still good
+					practice, too, as colors and symbols are never a reliable or accessible means of
+					conveying information:</p>
+				<pre class="screen">&lt;label for="uname"&gt;User name: (required)&lt;/label&gt;</pre>
+				<p>ARIA also includes a property for setting the validity of an entry field. If the
+					reader enters invalid data, you can set the <code class="literal"
+						>aria-invalid</code> property in your code so that the reading system can
+					easily identify and move the reader to the incorrect field. For example, your
+					scripted validation might include the following line to set this state when the
+					input doesn’t pass your tests:</p>
+				<pre class="screen">document.getElementById('address').setAttribute('aria-invalid', true);</pre>
+				<p>Note, however, that you must not set this state by default; no data entered does
+					not indicate either validity or invalidity.</p>
+				<p>In addition to labeling individual form fields, you should also group and
+					identify any regions within your form (a common example on the web is forms with
+					separate fields for billing and shipping information). The traditional HTML
+						<code class="literal">fieldset</code> element and its child <code
+						class="literal">legend</code> element cover this need without special
+					attributes.</p>
+				<p>So, to try and sum up, the best advice with forms is to strive to make them as
+					accessible as you can natively (good markup and logical order), but not to
+					forget that WAI-ARIA exists and has a number of useful properties and states
+					that can enhance your forms to make them more accessible.</p>
+			</section>
+			<section class="sect2" title="Live Regions">
+				<h3 class="title" id="_live_regions">Live Regions</h3>
+				<p>Although manipulating the prose in your ebook by script is forbidden, it doesn’t
+					mean you can’t dynamically insert or modify any text. Automatically displaying
+					the result of a quiz or displaying the result of a calculation are a just a
+					couple of examples of cases where dynamic prose updates would legitimately be
+					useful for readers. You may also want to provide informative updates, such as
+					the number of characters remaining in an entry field.</p>
+				<p>The problem with these kinds of dynamic updates is how they’re made available to
+					readers using accessible technologies. When you update the main document by
+					re-writing the inner text or html of an element, how that change gets reported
+					to the accessible technology, if at all, is out of your control in plain old
+					HTML.</p>
+				<p>The update could force the reader to lose their place and listen to the changed
+					region every time, or it could be ignored entirely. ARIA has solved this problem
+					with the introduction of live regions, however.</p>
+				<p>If you’re going to use an element to insert dynamic text, you mark this purpose
+					by attaching an <code class="literal">aria-live</code> attribute to it. The
+					value of this attribute also tells an assistive technology how to present the
+					update to the reader. If you set the value <code class="literal">polite</code>,
+					for example, the assistive technology will wait until an idle period before
+					announcing the change (e.g., after the user is done typing for character
+					counts). If you set it to <code class="literal">assertive</code>, the reading
+					system will announce the change immediately (e.g., for results that the reader
+					is waiting on).</p>
+				<p>You could set up a simple element to write results to with no more code than
+					follows:</p>
+				<pre class="screen">&lt;div id="result" aria-live="assertive"/&gt;</pre>
+				<p>Now when you write using the <code class="literal">innerHTML</code> property, the
+					new text will be read out immediately. Be careful when using the <code
+						class="literal">assertive</code> setting, however. You can annoy your
+					readers if their system blurts out every inconsequential change you might happen
+					to write as it happens.</p>
+				<p>If you write out results a bit at a time, or need to update different elements
+					within the region, the <code class="literal">aria-busy</code> attribute should
+					be set to <code class="literal">true</code> before the first write to indicate
+					to the reading system that the update is in progress. If you don’t, the reading
+					system will announce the changes as you write them. So long as the state is
+					marked as busy (<code class="literal">true</code>), however, the reading system
+					will wait for the state to be changed backed to <code class="literal"
+						>false</code> before making any announcement.</p>
+				<p>You should also take care about how much information you inform the reader of. If
+					you’re updating only small bits of text, the reading system might only announce
+					the new text, leaving the reader confused about what is going on. Conversely,
+					you might add a new node to a long list, but the reader might be forced to
+					listen to all the entries that came before it again, depending on how you have
+					coded your application.</p>
+				<p>The <code class="literal">aria-atomic</code> attribute gives you control over the
+					amount of text that gets announced. If you set it to <code class="literal"
+						>true</code>, for a region, all the content will be read whenever you make a
+					change inside it. For example, if you set a paragraph as live and add this
+					attribute, then change the text in a <code class="literal">span</code> inside
+					it, the entire paragraph will be read. In this example:</p>
+				<pre class="screen">&lt;p aria-live="true" aria-atomic="true"&gt;
+    Your current BMI is: &lt;span id="result"/&gt;
+&lt;/p&gt;</pre>
+				<p>Writing the reader’s body mass index value to the embedded <code class="literal"
+						>span</code> will cause the whole text to be read. If you set the attribute
+					to <code class="literal">false</code> (or omit it), only the prose in the
+					element containing the text change gets announced. Using our last example, only
+					the body mass index value in isolation would be announced.</p>
+				<p>You can further control this behavior by also attaching the <code class="literal"
+						>aria-relevant</code> attribute. This attribute allows you to specify, for
+					example, that all node changes in the region should be announced, only new node
+					additions, or only deletions (e.g., for including data feeds). It can also be
+					set to only identify text changes. You can even combine values (the default is
+						<code class="literal">additions text</code>).</p>
+				<p>We could use these attributes to set up a fictional author update box using an
+					ordered list as follows:</p>
+				<pre class="screen">&lt;p id="feed-label"&gt;What's the Author Saying…&lt;/p&gt;
+&lt;ol id="feed"
+    aria-live="polite"
+    aria-atomic="true"
+    aria-relevant="additions"
+    aria-labelledby="feed-label"&gt;
+    …
+&lt;/ol&gt;
+&lt;a href="http://www.example.com/authorsonline"&gt;Go online to view&lt;/a&gt;</pre>
+				<p>Only the new list items added for each incoming message will be read now. The old
+					messages we pull out will disappear silently. (And I’ve also added a traditional
+					link out for anyone who doesn’t have scripting enabled!)</p>
+				<p>There are also special roles that automatically identify a region as live.
+					Instead of using the <code class="literal">aria-live</code> attribute to
+					indicate our results field, we could have instead set up an alert region as
+					follows:</p>
+				<p>&lt;div role="alert” id="results"/&gt;</p>
+				<p>The following roles are also treated as indicating live regions: <code
+						class="literal">marquee</code>, <code class="literal">log</code>, <code
+						class="literal">status</code>, and <code class="literal">timer</code>.</p>
+				<p>And that’s a quick run-through of how to ensure that all readers get alerted of
+					changes you make to the content. It’s not a complicated process, but you need to
+					remember to ensure that you set these regions otherwise a segment of your
+					readers will not get your updates.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>My hope is these sections have given you an easy introduction to ARIA and the
+						features it provides to make EPUB content accessible</p>
+					<p>For additional information, some good starting points include: the coverage
+						given in <a class="ulink"
+							href="http://shop.oreilly.com/product/9780596518745.do" target="_top"
+							>Universal Design for Web Applications</a> by Wendy Chisholm and Matt
+						May (also an excellent guide to accessible Web content development); Gez
+						Lemon’s <a class="ulink"
+							href="http://dev.opera.com/articles/view/introduction-to-wai-aria/"
+							target="_top">introduction to creating rich applications</a>; and, of
+						course, the <a class="ulink" href="http://www.w3.org/WAI/PF/aria-practices/"
+							target="_top">authoring practices guide</a> that accompanies the ARIA
+						specification.</p>
+				</aside>
+			</section>
+		</section>
+	</body>
+</html>
