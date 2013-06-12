@@ -1,0 +1,16 @@
+{
+    "library_epubs" : [
+        {
+            "title" : "Page Blanche",
+            "url_to_package_doc" : "epub_content/page-blanche/EPUB/package.opf"
+        },
+        {
+            "title" : "Moby Dick",
+            "url_to_package_doc" : "epub_content/moby_dick/OPS/package.opf"
+        },
+        {
+            "title" : "Accessible EPUB 3",
+            "url_to_package_doc" : "epub_content/accessible_epub_3/EPUB/package.opf"
+        }
+    ]
+}
