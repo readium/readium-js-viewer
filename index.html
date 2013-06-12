@@ -21,7 +21,7 @@
             RWCDemoApp = {};
 
             // This function will retrieve a package document and load an EPUB
-            RWCDemoApp.loadAndRenderEpub = function (packageDocumentURL) {
+            RWCDemoApp.loadAndRenderEpub = function (packageDocumentURL, startSpineItem) {
 
                 $(".show-on-load").show();
                 $("#epub-reader-container").html("");
@@ -98,8 +98,11 @@
                         // Render the reader
                         RWCDemoApp.epubViewer.on("epubLoaded", function () { 
 
+                            if (startSpineItem === undefined) {
+                                startSpineItem = 0;
+                            }
                             // Show the first content document in the spine
-                            RWCDemoApp.epubViewer.showSpineItem(0, function () {
+                            RWCDemoApp.epubViewer.showSpineItem(startSpineItem, function () {
                                 console.log("showed first spine item"); 
                             });
                             $(window).on("resize", function () {
@@ -120,7 +123,7 @@
                 var packageDocumentURL;
 
                 // Load Moby Dick by default
-                RWCDemoApp.loadAndRenderEpub("epub_content/moby_dick/OPS/package.opf");
+                RWCDemoApp.loadAndRenderEpub("epub_content/moby_dick/OPS/package.opf", 6);
 
                 // Generate the library
                 $.getJSON('epub_content/epub_library.json', function (data) {
