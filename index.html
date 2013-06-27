@@ -53,7 +53,7 @@
                             result = RWCDemoApp.parseXMLFromDOM(result);
                         }
 
-                        // THE MOST IMPORTANT PART - INITIALIZING THE SIMPLE RWC MODEL
+                        // THE MOST IMPORTANT PART - INITIALIZING THE SIMPLE READIUM JS MODULE
                         RWCDemoApp.epubViewer = new SimpleReadiumJs(
                             elementToBindReaderTo, viewerPreferences, packageDocumentURL, result, "lazy"
                         );
@@ -63,19 +63,32 @@
 
                         // These are application specific handlers that wire the HTML to the SimpleReadiumJs module API
 
+                        // Set callbacks for events triggered by SimpleReadium.js
+                        RWCDemoApp.epubViewer.on("atNextPage", function () {
+                            console.log("EVENT: atNextPage");
+                        });
+                        RWCDemoApp.epubViewer.on("atPreviousPage", function () {
+                            console.log("EVENT: atPreviousPage");
+                        });
+                        RWCDemoApp.epubViewer.on("atFirstPage", function () {
+                            console.log("EVENT: atFirstPage");
+                        });
+                        RWCDemoApp.epubViewer.on("atLastPage", function () {
+                            console.log("EVENT: atLastPage");
+                        });
+                        RWCDemoApp.epubViewer.on("displayedContentChanged", function () {
+                            console.log("EVENT: displayedContentChanged");
+                        });
+
                         // Set handlers for click events
                         $("#previous-page-btn").unbind("click");
                         $("#previous-page-btn").on("click", function () {
-                            RWCDemoApp.epubViewer.previousPage(function () {
-                                console.log("went to previous page");
-                            });
+                            RWCDemoApp.epubViewer.previousPage(function () {});
                         });
 
                         $("#next-page-btn").unbind("click");
                         $("#next-page-btn").on("click", function () {
-                            RWCDemoApp.epubViewer.nextPage(function () {
-                                console.log("went to next page");
-                            });
+                            RWCDemoApp.epubViewer.nextPage(function () {});
                         });
 
                         $("#toggle-synthetic-btn").unbind("click");
