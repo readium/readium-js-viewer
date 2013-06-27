@@ -122,6 +122,9 @@
                                 RWCDemoApp.setModuleContainerHeight();
                                 RWCDemoApp.epubViewer.resizeContent();
                             });
+
+                            // APPLY A CUSTOM STYLE TO THE VIEWER
+                            RWCDemoApp.epubViewer.customize("spine-divider", "box-shadow");
                         }, that);
 
                         RWCDemoApp.epubViewer.render(0);
