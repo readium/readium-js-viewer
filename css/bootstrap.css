@@ -170,7 +170,7 @@ textarea {
     clear: both;
     font-weight: normal;
     line-height: 18px;
-    color: #333333;
+    color: rgb(103, 148, 48);
     white-space: nowrap; }
 
 .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
@@ -811,8 +811,10 @@ button.btn, input[type="submit"].btn {
   min-height: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #2c2c2c;
-  background-image: -moz-linear-gradient(top, #333333, #222222);
+  background-color: rgb(232, 232, 232);
+  background-image: url('../images/actionbar_background_tile_horiz.png');
+  background-repeat: repeat-x;
+  /*background-image: -moz-linear-gradient(top, #333333, #222222);
   background-image: -ms-linear-gradient(top, #333333, #222222);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));
   background-image: -webkit-linear-gradient(top, #333333, #222222);
@@ -820,6 +822,7 @@ button.btn, input[type="submit"].btn {
   background-image: linear-gradient(top, #333333, #222222);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='ie-hex-str(#333333)', endColorstr='ie-hex-str(#222222)', GradientType=0);
+  */
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -840,8 +843,6 @@ button.btn, input[type="submit"].btn {
   .navbar .brand {
     float: left;
     display: block;
-    padding: 8px 20px 12px;
-    margin-left: -20px;
     font-size: 20px;
     font-weight: 200;
     line-height: 1;
@@ -955,7 +956,6 @@ button.btn, input[type="submit"].btn {
 
 .navbar .nav > li > a {
   float: none;
-  padding: 9px 10px 11px;
   line-height: 19px;
   color: #999999;
   text-decoration: none;
@@ -982,56 +982,20 @@ button.btn, input[type="submit"].btn {
   background-color: #222222; }
 
 .navbar .divider-vertical {
-  height: 50px;
-  width: 1px;
-  margin: 0 9px;
+  height: 40px;
+  width: 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: 0px;
+  margin-right: 0px;
   overflow: hidden;
-  background-color: #222222;
-  border-right: 1px solid #333333; }
+  background: transparent url('../images/icon_divider.png') center top no-repeat;
+  border: 0px;
+}
 
 .navbar .nav.pull-right {
   margin-left: 10px;
   margin-right: 0; }
-
-.navbar .btn-navbar {
-  display: none;
-  float: right;
-  padding: 7px 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-  background-color: #2c2c2c;
-  background-image: -moz-linear-gradient(top, #333333, #222222);
-  background-image: -ms-linear-gradient(top, #333333, #222222);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));
-  background-image: -webkit-linear-gradient(top, #333333, #222222);
-  background-image: -o-linear-gradient(top, #333333, #222222);
-  background-image: linear-gradient(top, #333333, #222222);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='ie-hex-str(#333333)', endColorstr='ie-hex-str(#222222)', GradientType=0);
-  border-color: #222222 #222222 black;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
-  *background-color: #222222;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
-  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075); }
-  .navbar .btn-navbar:hover, .navbar .btn-navbar:active, .navbar .btn-navbar.active, .navbar .btn-navbar.disabled, .navbar .btn-navbar[disabled] {
-    background-color: #222222;
-    *background-color: #151515; }
-  .navbar .btn-navbar:active, .navbar .btn-navbar.active {
-    background-color: #090909 \9; }
-
-.navbar .btn-navbar .icon-bar {
-  display: block;
-  width: 18px;
-  height: 2px;
-  background-color: #f5f5f5;
-  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
-  border-radius: 1px;
-  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25); }
 
 .btn-navbar .icon-bar + .icon-bar {
   margin-top: 3px; }
