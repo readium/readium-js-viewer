@@ -11,6 +11,7 @@
         <script src="modules_and_dependencies/bootstrap.min.js" type="text/javascript"></script>
 
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/readium_buttons.css">
 
         <!-- Readium Web Components SimpleRWC.js -->
         <script src="modules_and_dependencies/SimpleReadium.min.js" type="text/javascript"></script>
@@ -97,14 +98,14 @@
                             if (currLayoutIsSynthetic) {
                                 RWCDemoApp.epubViewer.setSyntheticLayout(false);
                                 currLayoutIsSynthetic = false;
-                                $("#single-page-ico").show();
-                                $("#synthetic-page-ico").hide();
+                                $("#toggle-synthetic-btn").removeClass('synthetic-page-ico');
+                                $("#toggle-synthetic-btn").addClass('single-page-ico');
                             }
                             else {
                                 RWCDemoApp.epubViewer.setSyntheticLayout(true);
                                 currLayoutIsSynthetic = true;
-                                $("#single-page-ico").hide();
-                                $("#synthetic-page-ico").show();
+                                $("#toggle-synthetic-btn").removeClass('single-page-ico');
+                                $("#toggle-synthetic-btn").addClass('synthetic-page-ico');
                             }
                         });
 
@@ -169,43 +170,25 @@
                 <div class="container" style="width: 100%">
 
                     <!-- Navbar logo -->
-                    <a title="Simple RWC Demo" class="brand" href="#">
-                        <img src="images/readium_logo.png" class="nav-icon" id="readium-logo">
+                    <a title="Simple RWC Demo" class="brand icon48" id="readium-logo" href="#">
                     </a>
 
                     <!-- Navbar contents -->
                     <ul class="nav pull-right">
 
-                        <!-- Previous page -->
-                        <li>
-                            <a accesskey="n" href="#" id="previous-page-btn" role="button" title="Previous Page">
-                                <img src="images/arrow_previous_medium.png" class="nav-icon" id="arrow-previous-ico" alt="" style="">
-                            </a>
-                        </li>
-                        <!-- Next page -->
-                        <li>
-                            <a accesskey="n" href="#" id="next-page-btn" role="button" title="Next Page">
-                                <img src="images/arrow_next_medium.png" class="nav-icon" id="arrow-next-ico">
-                            </a>
-                        </li>
                         
                         <li class="divider-vertical"></li>
                         
                         <!-- Toggle single or two pages -->
                         <li>
-                            <a accesskey="n" href="#" id="toggle-synthetic-btn" role="button" title="Toggle page layout">
-                                <img src="images/1page_view_toggle_medium.png" class="nav-icon" id="single-page-ico" style="display:none;">
-                                <img src="images/2page_view_toggle_medium.png" class="nav-icon" id="synthetic-page-ico">
-                            </a>
+                            <a accesskey="t" href="#" id="toggle-synthetic-btn" class="icon48 synthetic-page-ico" role="button" title="Toggle page layout"></a>
                         </li>
 
                         <li class="divider-vertical"></li>
 
                         <!-- The library for the sample reader -->
                         <li>
-                            <a accesskey="n" href="#" id="epub-demo-library" role="button" title="Demo Library" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="images/table_of_contents_medium.png" class="nav-icon" id="library-ico">
-                            </a>
+                            <a accesskey="l" href="#" id="epub-demo-library" role="button" class="icon48" title="Demo Library" class="dropdown-toggle" data-toggle="dropdown"></a>
                             <ul id="library-list" class="dropdown-menu" role="menu" aria-labelledby="dlabel">
                             </ul>
                         </li>
@@ -214,7 +197,13 @@
             </div>
         </div>
 
-        <div id="epub-reader-container" style="margin-top:65px;">
+        <div id="epub-reader-buttons-overlay">
+          <!-- Previous page -->
+          <a accesskey="p" href="#" id="previous-page-btn" class="page-switch-overlay-icon" role="button" title="Previous Page"></a>
+          <!-- Next page -->
+          <a accesskey="n" href="#" id="next-page-btn" class="page-switch-overlay-icon" role="button" title="Next Page"></a>
+          <div id="epub-reader-container" style="margin-top:65px;">
+          </div>
         </div>
     </body>
 </html>

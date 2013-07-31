@@ -1,0 +1,63 @@
+.icon48 {
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+}
+
+.page-switch-overlay-icon {
+  min-width: 52px;
+  min-height: 95px;
+  width: 52px;
+  height: 95px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  top: 50%;
+}
+
+*#readium-logo {
+  background: transparent url('../images/ico_readium_up.png') center top no-repeat;
+}
+*#readium-logo:hover {
+  background: transparent url('../images/ico_readium_over.png') center top no-repeat;
+}
+
+*#previous-page-btn {
+  background: transparent url('../images/pagination_previous_up.png') center top no-repeat;
+  left: 0;
+}
+*#previous-page-btn:hover {
+  background: transparent url('../images/pagination_previous_over.png') center top no-repeat;
+}
+
+*#next-page-btn {
+  background: transparent url('../images/pagination_next_up.png') center top no-repeat;
+  right: 0;
+}
+*#next-page-btn:hover {
+  background: transparent url('../images/pagination_next_over.png') center top no-repeat;
+}
+
+.synthetic-page-ico {
+  background: transparent url('../images/ico_doublepage_up.png') center top no-repeat;
+}
+.synthetic-page-ico:hover {
+  background: transparent url('../images/ico_doublepage_over.png') center top no-repeat;
+}
+
+.single-page-ico {
+  background: transparent url('../images/ico_singlepage_up.png') center top no-repeat;
+}
+.single-page-ico:hover {
+  background: transparent url('../images/ico_singlepage_over.png') center top no-repeat;
+}
+
+*#epub-demo-library {
+  background: transparent url('../images/ico_menu_up.png') center top no-repeat;
+}
+*#epub-demo-library:hover {
+  background: transparent url('../images/ico_menu_over.png') center top no-repeat;
+}
