@@ -1,0 +1,62 @@
+var EpubModule = function (packageDocumentObject, packageDocumentXML) {
+
+    var Epub = {};
+
+    // Rationale: The order of these matters
+    <%= manifest_item %>
+    <%= manifest %>
+    <%= metadata %>
+    <%= page_spread_property %>
+    <%= spine_item %>
+    <%= spine %>
+    <%= package_document %>
+
+    var packageDoc = new Epub.PackageDocument({
+        packageDocumentObject : packageDocumentObject,
+        packageDocument : packageDocumentXML
+    });
+
+    // Description: The public interface
+    return {
+
+        isFixedLayout : function () {
+            return packageDoc.isFixedLayout();
+        },
+        getManifestItemById : function (id) {
+            return packageDoc.getManifestItemById(id);
+        },
+        getManifestItemByIdref : function (idref) {
+            return packageDoc.getManifestItemByIdref(idref);
+        },
+        getSpineItemByIdref : function (idref) {
+            return packageDoc.getSpineItemByIdref(idref);
+        },
+        getSpineItemByIndex : function (spineIndex) {
+            return packageDoc.getSpineItem(spineIndex);
+        },
+        spineLength : function () {
+            return packageDoc.spineLength();
+        },
+        getNextLinearSpinePosition : function (currSpineIndex) {
+            return packageDoc.getNextLinearSpinePosition(currSpineIndex);
+        },
+        getPrevLinearSpinePosition : function (currSpineIndex) {
+            return packageDoc.getPrevLinearSpinePosition(currSpineIndex);
+        },
+        pageProgressionDirection : function () {
+            return packageDoc.pageProgressionDirection();
+        },
+        getSpineIndexByHref : function (manifestHref) {
+            return packageDoc.getSpineIndexByHref(manifestHref);
+        },
+        getTocURL : function () {
+            return packageDoc.getToc();
+        },
+        generateTocListDOM : function (ncxXML) {
+            return packageDoc.generateTocListDOM(ncxXML);
+        },
+        tocIsNcx : function () {
+            return packageDoc.tocIsNcx();
+        }
+    };
+};

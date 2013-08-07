@@ -1,164 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- EPUB module dependencies -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" type="text/javascript"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js" type="text/javascript"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js" type="text/javascript"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js" type="text/javascript"></script>
-        <script src="modules_and_dependencies/URI.js" type="text/javascript"></script>
-        <script src="modules_and_dependencies/bootstrap.min.js" type="text/javascript"></script>
-
+        
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/readium_buttons.css">
+        <link rel="stylesheet" type="text/css" href="css/reader_sdk.css">
+        <script src="./lib/modernizr-2.5.3.min.js" type="text/javascript"></script>
+        <script src="./lib/json2.js" type="text/javascript"></script>
+        <script src="./lib/zip.js" type="text/javascript"></script>
+        <script src="./lib/zip-fs.js" type="text/javascript"></script>
+        <script src="./lib/zip-ext.js" type="text/javascript"></script>
 
-        <!-- Readium Web Components SimpleRWC.js -->
-        <script src="modules_and_dependencies/SimpleReadium.min.js" type="text/javascript"></script>
+        <script data-main="./lib/initialize_rjs_reader" src="./lib/require.js" type="text/javascript"></script>
 
-        <!-- Example of initialization -->
-        <script type="text/javascript">
+                <!--reflowable view-->
+<script type="text/html" id="template-reflowable-view"><div id="viewport_reflowable" class="clearfix">
+<iframe scrolling="no" id="epubContentIframe"></iframe></div></script>
 
-            RWCDemoApp = {};
+        <!-- Fixed Layout View -->
+<script type="text/html" id="template-fixed-view"><div id="viewport_fixed"><div id="spread-wrap" class="clearfix"></div></div></script>
 
-            // This function will retrieve a package document and load an EPUB
-            RWCDemoApp.loadAndRenderEpub = function (packageDocumentURL, startSpineItem) {
+<script type="text/html" id="template-ope-fixed-page-view"><div class="fixed-page-wrap"><iframe class="fixed_iframe"></iframe></div></script>
 
-                $(".show-on-load").show();
-                $("#epub-reader-container").html("");
-
-                var that = this;
-
-                // Clear the viewer, if it has been defined -> to load a new epub
-                RWCDemoApp.epubViewer = undefined;
-
-                // Get the package document and load the modules
-                $.ajax({
-                    url : packageDocumentURL,
-                    success : function (result) {
-
-                        // Get the HTML element to bind the module reader to
-                        var elementToBindReaderTo = $("#epub-reader-container");
-
-                        // Create an object of viewer preferences
-                        var viewerPreferences = {
-                            fontSize : 12,
-                            syntheticLayout : true,
-                            currentMargin : 3,
-                            tocVisible : false,
-                            currentTheme : "default"
-                        };
-                        var currLayoutIsSynthetic = viewerPreferences.syntheticLayout;
-
-                        if (result.nodeType) {
-                            result = RWCDemoApp.parseXMLFromDOM(result);
-                        }
-
-                        // THE MOST IMPORTANT PART - INITIALIZING THE SIMPLE READIUM JS MODULE
-                        RWCDemoApp.epubViewer = new SimpleReadiumJs(
-                            elementToBindReaderTo, viewerPreferences, packageDocumentURL, result, "lazy"
-                        );
-
-                        // Set a fixed height for the epub viewer container, as a function of the document height
-                        RWCDemoApp.setModuleContainerHeight();
-
-                        // These are application specific handlers that wire the HTML to the SimpleReadiumJs module API
-
-                        // Set callbacks for events triggered by SimpleReadium.js
-                        RWCDemoApp.epubViewer.on("atNextPage", function () {
-                            console.log("EVENT: atNextPage");
-                        });
-                        RWCDemoApp.epubViewer.on("atPreviousPage", function () {
-                            console.log("EVENT: atPreviousPage");
-                        });
-                        RWCDemoApp.epubViewer.on("atFirstPage", function () {
-                            console.log("EVENT: atFirstPage");
-                        });
-                        RWCDemoApp.epubViewer.on("atLastPage", function () {
-                            console.log("EVENT: atLastPage");
-                        });
-                        RWCDemoApp.epubViewer.on("displayedContentChanged", function () {
-                            console.log("EVENT: displayedContentChanged");
-                        });
-
-                        // Set handlers for click events
-                        $("#previous-page-btn").unbind("click");
-                        $("#previous-page-btn").on("click", function () {
-                            RWCDemoApp.epubViewer.previousPage(function () {});
-                        });
-
-                        $("#next-page-btn").unbind("click");
-                        $("#next-page-btn").on("click", function () {
-                            RWCDemoApp.epubViewer.nextPage(function () {});
-                        });
-
-                        $("#toggle-synthetic-btn").unbind("click");
-                        $("#toggle-synthetic-btn").on("click", function () {
-
-                            if (currLayoutIsSynthetic) {
-                                RWCDemoApp.epubViewer.setSyntheticLayout(false);
-                                currLayoutIsSynthetic = false;
-                                $("#toggle-synthetic-btn").removeClass('synthetic-page-ico');
-                                $("#toggle-synthetic-btn").addClass('single-page-ico');
-                            }
-                            else {
-                                RWCDemoApp.epubViewer.setSyntheticLayout(true);
-                                currLayoutIsSynthetic = true;
-                                $("#toggle-synthetic-btn").removeClass('single-page-ico');
-                                $("#toggle-synthetic-btn").addClass('synthetic-page-ico');
-                            }
-                        });
-
-                        // Render the reader
-                        RWCDemoApp.epubViewer.on("epubLoaded", function () { 
-
-                            if (startSpineItem === undefined) {
-                                startSpineItem = 0;
-                            }
-                            // Show the first content document in the spine
-                            RWCDemoApp.epubViewer.showSpineItem(startSpineItem, function () {
-                                console.log("showed first spine item"); 
-                            });
-                            $(window).on("resize", function () {
-                                RWCDemoApp.setModuleContainerHeight();
-                                RWCDemoApp.epubViewer.resizeContent();
-                            });
-
-                            // APPLY A CUSTOM STYLE TO THE VIEWER
-                            RWCDemoApp.epubViewer.customize("spine-divider", "box-shadow");
-                        }, that);
-
-                        RWCDemoApp.epubViewer.render(0);
-                    }
-                });
-            };
-
-            // When the document is ready, choose an EPUB to show.
-            $(document).ready(function () {
-
-                var that = this;
-                var packageDocumentURL;
-
-                // Load Moby Dick by default
-                RWCDemoApp.loadAndRenderEpub("epub_content/moby_dick/OPS/package.opf", 6);
-
-                // Generate the library
-                $.getJSON('epub_content/epub_library.json', function (data) {
-
-                    $(".show-on-load").hide();
-
-                    // Generate the library list in a drop-down
-                    RWCDemoApp.addLibraryList($("#library-list"), data);
-
-                }).fail(function (result) {
-                    console.log("The library could not be loaded");
-                });
-            });
-
-        </script>
-
-        <!-- Demo application code -->
-        <script src="modules_and_dependencies/DemoAppCode.js" type="text/javascript"></script>
     </head>
 
     <!-- This is all application-specific HTML -->
@@ -170,7 +33,7 @@
                 <div class="container">
 
                     <!-- Navbar logo -->
-                    <a title="Simple RWC Demo" class="brand icon48" id="readium-logo" href="#">
+                    <a title="Simple RJS Demo" class="brand icon48" id="readium-logo" href="#">
                     </a>
 
                     <!-- Navbar contents -->
@@ -196,9 +59,9 @@
 
         <div id="epub-reader-buttons-overlay">
           <!-- Previous page -->
-          <a accesskey="p" href="#" id="previous-page-btn" class="page-switch-overlay-icon" role="button" title="Previous Page"></a>
+          <a accesskey="p" href="#" id="previous-page-btn" class="page-switch-overlay-icon" role="button" title="Previous Page" style="z-index:100"></a>
           <!-- Next page -->
-          <a accesskey="n" href="#" id="next-page-btn" class="page-switch-overlay-icon" role="button" title="Next Page"></a>
+          <a accesskey="n" href="#" id="next-page-btn" class="page-switch-overlay-icon" role="button" title="Next Page" style="z-index:100"></a>
           <div id="epub-reader-container" style="margin-top:65px;">
           </div>
         </div>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package xmlns='http://www.idpf.org/2007/opf' unique-identifier='ean' version='2.0'>
+  <metadata xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns='http://www.idpf.org/2007/opf'>
+    <dc:title>L'espagnol dans votre poche</dc:title>
+    <dc:creator></dc:creator>
+    <dc:publisher>Larousse</dc:publisher>
+    <dc:description>Lorem Ipsum Dolor sed</dc:description>
+    <dc:rights>copyright something or other</dc:rights>
+    <dc:identifier id='ean'>9782035862464</dc:identifier>
+    <dc:language>fr</dc:language>
+    <meta property="media:active-class">-epub-media-overlay-active</meta>
+  </metadata>
+  <manifest>
+    <item id='Page_1'  href='Page_1.html'  media-type='application/xhtml+xml'/>
+    <item id='Page_2'  href='Page_2.html'  media-type='application/xhtml+xml'/>
+    <item id='Page_3'  href='Page_3.html'  media-type='application/xhtml+xml'/>
+    <item id='Page_4'  href='Page_4.html' media-overlay='Page_4_MO' media-type='application/xhtml+xml'/>
+    <item id='Page_4_MO'  href='Page_4_MO.smil' media-type='application/smil+xml'/>
+    <item id='css' href='styles.css' media-type='text/css' />
+    <item id='ncx' href='toc.ncx' media-type='application/x-dtbncx+xml' />
+    <item id='cover' href='images/cover.jpg' media-type='image/jpeg'/>
+    <item id='font2' href='Fonts/HighlanderStd-Medium.otf' media-type='application/x-font-otf'/>
+    <item id='font3' href='Fonts/HighlanderStd-BookItalic.otf' media-type='application/x-font-otf'/>
+  </manifest>
+  <spine toc='ncx'>
+    <itemref idref='Page_1' properties='page-spread-right rendition:layout-pre-paginated'/>
+    <itemref idref='Page_2'/>
+    <itemref idref='Page_3'/>
+  </spine>
+  <bindings>
+    <mediaType handler='figure-gallery-impl' media-type='application/x-epub-figure-gallery'/>
+  </bindings>
+</package>
