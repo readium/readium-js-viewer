@@ -11,6 +11,10 @@
         {
             "title" : "Accessible EPUB 3",
             "url_to_package_doc" : "epub_content/accessible_epub_3/EPUB/package.opf"
+        },
+        {
+            "title" : "Zipped EPUB with internal links",
+            "url_to_package_doc" : "epub_content/internal_link.epub"
         }
     ]
 }

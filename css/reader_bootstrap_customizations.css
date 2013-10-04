@@ -1,0 +1,38 @@
+.dropdown-menu > li > a {
+  color: rgb(103, 148, 48);
+}
+
+.navbar-inner {
+  background-color: rgb(232, 232, 232);
+  background-image: none;
+ /* min-height: 0px;*/
+}
+
+.navbar-fixed-top .container {
+  width: auto;
+  height: 54px;
+  padding-top: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.navbar .brand {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.navbar .nav > li > a {
+  padding: 0px;
+}
+
+.navbar .divider-vertical {
+  height: 40px;
+  width: 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background: transparent url('../images/icon_divider.png') center top no-repeat;
+  border: 0px;
+}
+

@@ -1,0 +1,11 @@
+{
+  "name": "readium-viewer-demo",
+  "version": "0.0.1",
+  "homepage": "https://github.com/readium/readium-viewer-demo1",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-express": "~1.2.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-curl": "~1.1.1"
+  }
+}
