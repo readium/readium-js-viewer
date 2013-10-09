@@ -1,0 +1,3 @@
+[submodule "Readium-Web-Components"]
+	path = Readium-Web-Components
+	url = https://github.com/readium/Readium-Web-Components.git
