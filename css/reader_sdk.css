@@ -36,6 +36,10 @@ body {
     overflow: hidden;
 }
 
+#epub-reader-container {
+    position: relative;
+}
+
 iframe {
     border-width: 0;
 }
