@@ -48,6 +48,20 @@
   background: transparent url('../images/ico_doublepage_over.png') center top no-repeat;
 }
 
+.incr-fontsize-ico {
+  background: transparent url('../images/ico_incr_fontsize.png') center top no-repeat;
+}
+.incr-fontsize-ico:hover {
+  background: transparent url('../images/ico_incr_fontsize_over.png') center top no-repeat;
+}
+
+.decr-fontsize-ico {
+  background: transparent url('../images/ico_decr_fontsize.png') center top no-repeat;
+}
+.decr-fontsize-ico:hover {
+  background: transparent url('../images/ico_decr_fontsize_over.png') center top no-repeat;
+}
+
 .single-page-ico {
   background: transparent url('../images/ico_singlepage_up.png') center top no-repeat;
 }
