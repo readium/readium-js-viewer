@@ -11,6 +11,11 @@
         {
             "title" : "Accessible EPUB 3",
             "url_to_package_doc" : "epub_content/accessible_epub_3/EPUB/package.opf"
+        },
+        {
+            "title" : "Linear Algebra",
+            "url_to_package_doc" : "epub_content/linear-algebra/EPUB/package.opf"
         }
+
     ]
 }
