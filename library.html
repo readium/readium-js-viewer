@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/readium_buttons.css">
+        <link rel="stylesheet" type="text/css" href="css/reader_sdk.css">
+        <script src="./lib/modernizr-2.5.3.min.js" type="text/javascript"></script>
+        <script src="./lib/jquery-1.9.1.js" type="text/javascript"></script>
+        <script src="./lib/underscore-1.4.4.js" type="text/javascript"></script>
+        <script src="./lib/json2.js" type="text/javascript"></script>
+        <script type+"text/javascript">
+            $(document).ready(function () {
+                // Generate the library
+                
+                $("#library-list").html("");
+                var addLibraryList = function ($ulElementContainer, libraryJson) {
+
+                        _.each(libraryJson.library_epubs, function (currEpub) {
+
+                            var $currLi = $('<li><a id="' + currEpub.url_to_package_doc + '" href="viewer.html?pub=' + currEpub.url_to_package_doc + '">' + currEpub.title + '</a></li>');
+                            $ulElementContainer.append($currLi);
+                        });
+                    }
+                $.getJSON('epub_content/epub_library.json', function (data) {
+                    addLibraryList($("#library-list"), data);
+                }).fail(function (result) {
+                    console.log("The library could not be loaded");
+                });
+            });
+
+        </script>
+
+    </head>
+
+    <!-- This is all application-specific HTML -->
+    <body>
+
+        <!-- The navbar -->
+        <div class="navbar navbar-fixed-top" id="toolbar-el">
+            <div class="navbar-inner" id="top-bar" style="">
+                <div class="container">
+
+                    <!-- Navbar logo -->
+                    <a title="Readium Library Demo" class="brand icon48" id="readium-logo" href="#">
+                    </a>
+                    <!-- Navbar contents -->
+                </div>
+            </div>
+        </div>
+        <div id="library-list-container" style="margin-top:65px;">
+            <h1>Library</h1>
+            <ul id="library-list">
+                <li><a href="viewer.html?pub=adsf">Moby Dick</a></li>
+            </ul>
+        </div>
+
+
+    </body>
+</html>
