@@ -1,18 +1,18 @@
-# Readium.js demo application
-Welcome to the Readium.js demonstration application. This application is designed to provide a simple demonstration of Readium.js, a JS library for rendering EPUB files on any modern browser, via any web server. At present, it only demonstrates a subset of the functionality and flexibility of Readium.js. If you'd like to learn more, check out the [Readium.js website](http://readium.org/projects/readiumjs), and/or [source on Github](https://github.com/readium/Readium-Web-Components). Readium.js is in early development and it is not yet recommended that you use it for production deployment of EPUB files.
+# ReadiumJS Viewer
+Welcome to the ReadiumJS viewer web application. This application is the default viewer for Readium.js, a JS library for rendering EPUB files on any modern browser, via any web server. At present, the ReadiumJS viewer only demonstrates a subset of the functionality and flexibility of the underlying Readium.js library. If you'd like to learn more, check out the ReadiumJS website](http://readium.org/projects/readiumjs), and/or [source on Github](https://github.com/readium/readium-js). ReadiumJS is in early development and it is not yet recommended that you use it for production deployment of EPUB files.
 
 ## Getting started
 There are a few ways you can try out the sample application. 
 
 ### Visit online demo
-You can visit the hosted [version](http://readium.github.io/readium-viewer-demo1).
+You can visit the hosted [version](http://readium.github.io/readium-js-viewer).
 
 ### Clone into your own web server
 
-To test readium.js and the demonstration application on any static web server: 
+To test the ReadiumJS viewer on any static web server: 
 
-   * clone https://github.com/readium/readium-viewer-demo1.git into a content directory in your web server (e.g. into a "www/readium-viewer-demo1" folder)
-   * visit yourdomain/readium-viewer-demo1/index.html and enjoy! (access additional sample EPUB files with the rightmost button)
+   * clone https://github.com/readium/readium-js-viwer.git into a content directory in your web server (e.g. into a "www/readium-js-viewer" folder)
+   * visit yourdomain/readium-js-viewer/index.html and enjoy! (access additional sample EPUB files with the rightmost button)
    * there is no step three! (but it is not recommended to deploy the build-related files onto a publicly-accessible server)
 
 ### Clone and run an embedded Node.JS web server
@@ -28,7 +28,7 @@ You can also use the Grunt build configuration contained in cloned sources to ru
    
 ### Add additional EPUBs
 
-To add a new EPUB: 
+To add a new EPUB (NOTE: this process will be streamlined in the near future): 
 
    * unzip any (*) valid (**) .epub file (EPUB 2 or EPUB 3 version) in the "epub_content" directory
    * edit "epub_library.json" in that same directory to add a json object with two attributes:
