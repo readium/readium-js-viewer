@@ -30,16 +30,16 @@ You can also use the Grunt build configuration contained in cloned sources to ru
 
 To add a new EPUB (NOTE: this process will be streamlined in the near future): 
 
-   * unzip any **`(*)`** valid **`(**)`** .epub file (EPUB 2 or EPUB 3 version) in the "epub_content" directory
+   * unzip any <strong>`(*)`</strong> valid <strong>`(**)`</strong> .epub file (EPUB 2 or EPUB 3 version) in the "epub_content" directory
    * edit "epub_library.json" in that same directory to add a json object with two attributes:
     * "url_to_package_document", which contains the path to the EPUB's package document
            from the server root, which is the simple-epub-3/ directory. 
     * A title for the EPUB, at your
            discretion. 
 
-**`(*)`** NOTE1: This is somewhat aspirational; as Readium.js is still in early development not all EPUB 3 features are yet supported in  - see issues trackers for the consituent sub-projects for more info
+<strong>`(*)`</strong> NOTE1: This is somewhat aspirational; as Readium.js is still in early development not all EPUB 3 features are yet supported in  - see issues trackers for the consituent sub-projects for more info
 
-**`(**)`** NOTE2: "valid" means EPUBCHeck 3.0 reports zero errors. At this time Readium.js does not have robust error handling
+<strong>`(**)`</strong> NOTE2: "valid" means EPUBCHeck 3.0 reports zero errors. At this time Readium.js does not have robust error handling
    
 ### Use the latest Readium.js library version
 
