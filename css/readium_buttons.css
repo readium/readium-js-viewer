@@ -90,3 +90,9 @@
 .divider-vertical {
   opacity: 0.25;
 }
+
+#epub-reader-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
