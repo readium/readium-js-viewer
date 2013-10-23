@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/reader_bootstrap_customizations.css">
+        <link rel="stylesheet" type="text/css" href="css/readium_buttons.css">
+        <link rel="stylesheet" type="text/css" href="css/reader_sdk.css">
+        <script src="./lib/json2.js" type="text/javascript"></script>
+        <script src="./lib/zip.js" type="text/javascript"></script>
+        <script src="./lib/zip-fs.js" type="text/javascript"></script>
+        <script src="./lib/zip-ext.js" type="text/javascript"></script>
+
+        <script src="./lib/jquery-1.9.1.js" type="text/javascript"></script>
+        <script src="./lib/underscore-1.4.4.js" type="text/javascript"></script>
+        <script src="./lib/backbone-0.9.10.js" type="text/javascript"></script>
+        <script src="./lib/URIjs/URI.js" type="text/javascript"></script>
+        <script src="./lib/bootstrap.min.js" type="text/javascript"></script>
+
+        <script src="./lib/Readium.syncload.js" type="text/javascript"></script>
+        <script src="./lib/initialize_rjs_reader-sync.js" type="text/javascript"></script>
+
+                <!--reflowable view-->
+<script type="text/html" id="template-reflowable-view"><div id="viewport_reflowable" class="clearfix">
+<iframe scrolling="no" id="epubContentIframe"></iframe></div></script>
+
+        <!-- Fixed Layout View -->
+<script type="text/html" id="template-fixed-view"><div id="viewport_fixed"><div id="spread-wrap" class="clearfix"></div></div></script>
+
+<script type="text/html" id="template-ope-fixed-page-view"><div class="fixed-page-wrap"><iframe class="fixed_iframe"></iframe></div></script>
+
+    </head>
+
+    <!-- This is all application-specific HTML -->
+    <body>
+
+        <!-- The navbar -->
+        <div class="navbar navbar-fixed-top" id="toolbar-el">
+            <div class="navbar-inner" id="top-bar" style="">
+                <div class="container">
+
+                    <!-- Navbar logo -->
+                    <a title="Simple RJS Demo" class="brand icon48" id="readium-logo" href="#">
+                    </a>
+
+                    <!-- Navbar contents -->
+                    <ul class="nav pull-right">
+                        
+                        <!-- Toggle single or two pages -->
+                        <li>
+                            <a accesskey="t" href="#" id="toggle-synthetic-btn" class="icon48 synthetic-page-ico" role="button" title="Toggle page layout"></a>
+                        </li>
+
+                        <li class="divider-vertical"></li>
+
+                        <!-- The library for the sample reader -->
+                        <li>
+                            <a accesskey="l" href="#" id="epub-demo-library" role="button" class="icon48" title="Demo Library" class="dropdown-toggle" data-toggle="dropdown"></a>
+                            <ul id="library-list" class="dropdown-menu" role="menu" aria-labelledby="dlabel">
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="epub-reader-buttons-overlay">
+          <!-- Previous page -->
+          <a accesskey="p" href="#" id="previous-page-btn" class="page-switch-overlay-icon" role="button" title="Previous Page" style="z-index:100"></a>
+          <!-- Next page -->
+          <a accesskey="n" href="#" id="next-page-btn" class="page-switch-overlay-icon" role="button" title="Next Page" style="z-index:100"></a>
+          <div id="epub-reader-container" style="margin-top:65px;">
+          </div>
+        </div>
+    </body>
+</html>
