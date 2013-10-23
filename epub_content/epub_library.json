@@ -15,6 +15,10 @@
         {
             "title" : "Linear Algebra",
             "url_to_package_doc" : "epub_content/linear-algebra/EPUB/package.opf"
+        },
+        {
+            "title" : "Cole Voyage",
+            "url_to_package_doc" : "epub_content/cole-voyage-of-life-20120320.epub"
         }
 
     ]
