@@ -12,6 +12,7 @@ You can visit the hosted [version](http://readium.github.io/readium-js-viewer).
 To test the ReadiumJS viewer on any static web server: 
 
    * clone https://github.com/readium/readium-js-viewer.git into a content directory in your web server (e.g. into a "www/readium-js-viewer" folder)
+   * for zipped EPUB files support, configure your web server for [HTTP Byte Serving](http://en.wikipedia.org/wiki/Byte_serving) so that Readium.js library can fetch only the necessary portions of a zipped EPUB file that contain content for the displayed page
    * visit yourdomain/readium-js-viewer/index.html and enjoy! (access additional sample EPUB files with the rightmost button)
    * there is no step three! (but it is not recommended to deploy the build-related files onto a publicly-accessible server)
 
@@ -25,6 +26,8 @@ You can also use the Grunt build configuration contained in cloned sources to ru
    * run the embedded web server using the Grunt build system: `grunt`
    * visit [http://localhost:8080](http://localhost:8080) in your browser
    * when done, on the console press CTRL-C to interrupt Grunt build process and the embedded web server
+
+One of advantages of the embedded Node.JS + Express web server is that it supports HTTP Byte Serving out of the box, without additional configuration, required for efficient handling of zipped EPUB files.
    
 ### Add additional EPUBs
 
