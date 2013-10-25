@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" unique-identifier="uid" prefix="rendition: http://www.idpf.org/vocab/rendition/# cc: http://creativecommons.org/ns#">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title id="title">Thomas Cole - The Voyage of Life</dc:title>
+    <dc:creator>Jesse Dylan</dc:creator>
+    <dc:identifier id="uid">code.google.com.epub-samples.cole-voyage-of-life</dc:identifier>
+    <dc:language>en-US</dc:language>    
+    <meta property="dcterms:modified">2012-03-20T11:37:00Z</meta>
+    <dc:rights>This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.</dc:rights>               
+    <link rel="cc:license" href="http://creativecommons.org/licenses/by-sa/3.0/"/>
+    <link rel="cc:attributionURL" href="http://en.wikipedia.org/wiki/The_Voyage_of_Life"/>
+    <!-- 
+      The layout, orientation and spread properties default to their initial values; thus 
+      all explicit fixed layout metadata appears on spine items below. 
+    -->
+  </metadata>
+  <manifest>
+    <item id="i" href="xhtml/0-intro.xhtml" media-type="application/xhtml+xml"/>
+    <item id="s1a" href="xhtml/1a-childhood-text.xhtml" media-type="application/xhtml+xml" />
+    <item id="s1b" href="xhtml/1b-childhood-painting.xhtml" media-type="application/xhtml+xml" />
+    <item id="s2a" href="xhtml/2a-youth-text.xhtml" media-type="application/xhtml+xml" />
+    <item id="s2b" href="xhtml/2b-youth-painting.xhtml" media-type="application/xhtml+xml" />
+    <item id="s3a" href="xhtml/3a-manhood-text.xhtml" media-type="application/xhtml+xml" />
+    <item id="s3b" href="xhtml/3b-manhood-painting.xhtml" media-type="application/xhtml+xml" />
+    <item id="s4a" href="xhtml/4a-oldage-text.xhtml" media-type="application/xhtml+xml" />
+    <item id="s4b" href="xhtml/4b-oldage-painting.xhtml" media-type="application/xhtml+xml" />
+    <item id="s5" href="xhtml/5-significance.xhtml" media-type="application/xhtml+xml" />
+    <item id="j1_320" href="images/1-childhood-320.jpg" media-type="image/jpeg"/>
+    <item id="j1_1024" href="images/1-childhood-1024.jpg" media-type="image/jpeg"/>
+    <item id="j2_320" href="images/2-youth-320.jpg" media-type="image/jpeg"/>
+    <item id="j2_1024" href="images/2-youth-1024.jpg" media-type="image/jpeg"/>
+    <item id="j3_320" href="images/3-manhood-320.jpg" media-type="image/jpeg"/>
+    <item id="j3_1024" href="images/3-manhood-1024.jpg" media-type="image/jpeg"/>
+    <item id="j4_320" href="images/4-oldage-320.jpg" media-type="image/jpeg"/>
+    <item id="j4_1024" href="images/4-oldage-1024.jpg" media-type="image/jpeg"/>
+    <item id="prt" href="images/portrait.jpg" media-type="image/jpeg" properties="cover-image"/>
+    <item id="nav" href="xhtml/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="css" href="css/cole.css" media-type="text/css"/>
+  </manifest>
+  <spine>
+    <itemref idref="i"/>
+    <itemref idref="s1a"/>
+    <itemref idref="s1b" properties="rendition:layout-pre-paginated rendition:orientation-landscape rendition:spread-none"/>
+    <itemref idref="s2a"/>
+    <itemref idref="s2b" properties="rendition:layout-pre-paginated rendition:orientation-landscape rendition:spread-none"/>
+    <itemref idref="s3a"/>
+    <itemref idref="s3b" properties="rendition:layout-pre-paginated rendition:orientation-landscape rendition:spread-none"/>
+    <itemref idref="s4a"/>
+    <itemref idref="s4b" properties="rendition:layout-pre-paginated rendition:orientation-landscape rendition:spread-none"/>
+    <itemref idref="s5"/>
+  </spine>
+</package>

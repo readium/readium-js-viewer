@@ -1,0 +1,36 @@
+body {
+	background: white;
+	margin-left:2em;
+	margin-right:2em;
+}
+
+body#titlepage {
+	text-align: center;
+}
+
+#canvas {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+.mcol {
+  -webkit-column-count: 2;
+  column-count: 2;
+  
+  -webkit-column-gap: 1em;
+  column-gap: 1em;
+  
+  -webkit-column-rule: thin solid black;
+  column-rule: thin solid black;
+  
+  -webkit-column-fill: balance;
+  column-fill: balance;
+  
+    
+}
+
+body h2 { 
+    text-align: center;
+    letter-spacing: 0.4em;
+} 

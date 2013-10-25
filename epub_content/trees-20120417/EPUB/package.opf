@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package version="3.0" xml:lang="en" unique-identifier="uid" xmlns="http://www.idpf.org/2007/opf" prefix="cc: http://creativecommons.org/ns#">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:title id="title">Trees</dc:title>
+        <dc:identifier id="uid">code.google.com.epub-samples.trees</dc:identifier>
+        <dc:language>en</dc:language>        
+        <dc:description>Test of canvas element and CSS3 multi-column layout</dc:description>
+        <dc:contributor id="contrib1">mgylling</dc:contributor>
+        <meta refines="#contrib1" property="role" scheme="marc:relators">mrk</meta>
+        <meta property="dcterms:modified">2012-04-05T12:47:00Z</meta>                      
+        <link refines="#js" rel="cc:attributionURL" href="http://kennethjorgensen.com/canvas/tree.html"/>
+        <link refines="#c1" rel="cc:attributionURL" href="http://en.wikipedia.org/wiki/Tree"/>
+        <link refines="#c2" rel="cc:attributionURL" href="http://en.wikipedia.org/wiki/Tree"/>        
+    </metadata>
+    <manifest>
+        <item id="css" href="style.css" media-type="text/css"/>        
+        <item id="ttl" media-type="application/xhtml+xml" href="titlepage.xhtml" properties="nav scripted"/>        
+        <item id="c1" media-type="application/xhtml+xml" href="c1.xhtml" properties="scripted"/>
+        <item id="c2" media-type="application/xhtml+xml" href="c2.xhtml" properties="scripted"/>        
+        <item id="cover" media-type="image/jpeg" href="cover.jpg" properties="cover-image"/>     
+        <item id="js" href="script/tree.js" media-type="text/javascript"/> 
+        <item id="js2" href="script/Snake.js" media-type="text/javascript"/> 
+        <item id="js3" href="script/SnakeCollection.js" media-type="text/javascript"/>
+        <item id="js4" href="script/jquery-1.3.2.js" media-type="text/javascript"/>
+    </manifest>
+    <spine>
+        <itemref idref="ttl"/>
+        <itemref idref="c1"/>
+        <itemref idref="c2"/>        
+    </spine>
+</package>

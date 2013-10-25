@@ -16,9 +16,9 @@
             "url_to_cover" : "epub_content/accessible_epub_3/spi_global_ad.png"
         },
         {
-            "title" : "Zipped EPUB with internal links",
-            "url_to_package_doc" : "epub_content/internal_link.epub",
-            "url_to_cover" : "epub_content/internal_link/cover.jpg"
+            "title" : "Trees",
+            "url_to_package_doc" : "epub_content/trees-20120417/EPUB/package.opf",
+            "url_to_cover" : "epub_content/trees-20120417/EPUB/cover.jpg"
         },
         {
             "title" : "Linear Algebra",
@@ -27,8 +27,13 @@
         },
         {
             "title" : "Cole Voyage",
-            "url_to_package_doc" : "epub_content/cole-voyage-of-life-20120320.epub",
+            "url_to_package_doc" : "epub_content/cole-voyage-of-life-20120320/EPUB/cole.opf",
             "url_to_cover" : "epub_content/cole-voyage-of-life/3-manhood-1024.jpg"
+        },
+       {
+            "title" : "Wasteland",
+            "url_to_package_doc" : "epub_content/wasteland-20120118/EPUB/wasteland.opf",
+            "url_to_cover" : "epub_content/wasteland-20120118/EPUB/wasteland-cover.jpg"
         }
 
     ]
