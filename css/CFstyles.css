@@ -1,0 +1,244 @@
+body {
+        margin: 0px;
+        margin-top: 0px;
+        margin-right-value: 0px;
+        margin-bottom: 0px;
+        margin-left-value: 0px;
+        margin-left-ltr-source: physical;
+        margin-left-rtl-source: physical;
+        margin-right-ltr-source: physical;
+        margin-right-rtl-source: physical;
+        padding: 0px;
+        padding-top: 0px;
+        padding-right-value: 0px;
+        padding-bottom: 0px;
+        padding-left-value: 0px;
+        padding-left-ltr-source: physical;
+        padding-left-rtl-source: physical;
+        padding-right-ltr-source: physical;
+        padding-right-rtl-source: physical;
+        font-family: Arial,Helvetica,"Nimbus Sans L",sans-serif;
+}
+#page-top-wrapper {
+    background: none repeat scroll 0% 0% rgb(103, 148, 48);
+        background-color: none;
+        background-image: none;
+        background-repeat: repeat;
+        background-attachment: scroll;
+        background-position: 0% 0%;
+        background-clip: border-box;
+        background-origin: padding-box;
+        background-size: auto auto;
+}
+.titre { font-family:Georgia, "Times New Roman", Times, serif; font-weight:600; color:rgb(26,83,153); text-align: center;font-size: 3em;}
+h2 { font-family:Georgia, "Times New Roman", Times, serif; font-weight:400; color:rgb(26,83,153)}
+
+a,
+a:link,
+a:visited,
+a:active,
+a:hover {
+    text-decoration: none;
+    color: rgb(103, 148, 48);
+    font-weight: bold;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+._clear { clear: both; }
+
+img { border: none; }
+
+p {
+    line-height: 100%;
+    text-align: center;
+    font-family:Georgia, "Times New Roman", Times, serif; 
+    color:rgb(26,83,153);
+
+}
+pre {
+    font-family: sans-serif;
+    background: #222;
+}
+
+code {
+    font-family: monospace;
+    font-size: 0.9em;
+    line-height: 150%;
+}
+
+dl {
+    margin-left: 4ex;
+}
+
+    dl dt {
+        font-size: 0.9em;
+        font-weight: bold;
+        color: #eee;
+        font-family: monospace;
+    }
+        dl dd {
+            margin-bottom: 1.5em;
+            color: #ccc;
+            font-size: 0.85em;
+            line-height: 1.5em;
+        }
+
+
+ol {
+}
+    ol li {
+        margin-bottom: 1em;
+        line-height: 150%;
+    }
+
+ul {
+}
+    ul li {
+        margin-bottom: 0;
+    }
+/* ------------------------------------------------------------------------- */
+
+#normal_div { 
+    margin-top:10px;
+    margin-left:10px;
+}
+#image_div { 
+    margin-left:100px;
+}
+
+#picture {
+        float:right;
+        
+    }
+/* -------------------------------------------------------------------------- */
+#title {
+    margin: 0px auto;
+}
+
+#sponsor {
+    position: absolute;
+    right: 7%;
+    font-size: 10px;
+    height: 66px;
+    line-height: 66px;
+    padding: 0 20px;
+}
+
+div.maincontent {
+    margin: 0px auto 20pt auto;
+}
+
+p.maincontent
+{
+   text-align: center;
+}
+
+#menu {
+    display: block;
+    text-align: left;
+    background: white;
+    padding: 0em;
+    margin: 0em auto 0em auto;
+}
+
+    #menu li {
+        display: inline;
+        padding: 0px 20px;
+    }
+
+.totop {
+    text-align: center;
+    margin: 4em 10%;
+    padding: 0.25em;
+    background: #161616;
+}
+    .totop a {
+        margin-right: 7%;
+        color: silver;
+    }
+
+
+.block {
+    display: none;
+}
+
+
+#browserComp {
+    border-collapse: collapse;
+    margin: 40px auto;
+}
+    #browserComp caption {
+        text-align: center;
+        margin: 20px auto;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+    #browserComp th {
+        font-size: 10px;
+        padding: 5px 10px;
+        border-bottom: 1px solid silver;
+    }
+        #browserComp th img {
+            width: 22px;
+        }
+        #browserComp td {
+            text-align: center;
+        }
+            #browserComp th.feature,
+            #browserComp td.feature {
+                text-align: right;
+                padding: 5px;
+                padding-right: 10px;
+                border-right: 1px solid silver;
+            }
+
+.addon {
+    border: 1px solid #222;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #222;
+}
+    .addon .flowBox {
+        width: 500px;
+        margin-right: 40px;
+        float: left;
+    }
+    .addon .discription {
+        margin-left: 540px;
+    }
+        .addon .title {
+                line-height: 1.3em;
+        }
+            .addon .title h3 {
+                margin: 0;
+                display: inline;
+            }
+            .addon .title .by {
+                margin-left: 2em;
+                font-size: 0.8em;
+                text-decoration: none;
+            }
+        .addon p {
+            font-size: 0.9em;
+        }
+        .addon .comment {
+            margin-top: 2em;
+            font-style: italic;
+        }
+        .addon .download {
+            font-size: 0.8em;
+            float: right;
+            margin: 0 0 2em 4em;
+            line-height: 1.5em;
+        }
+            .addon .download a {
+                font-weight: normal;
+            }
+
+#info { /* for example.php */
+    color: red;
+    /*display: none;*/
+}
+
