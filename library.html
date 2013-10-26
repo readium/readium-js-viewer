@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="css/CFstyles.css" type="text/css" media="screen" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/readium_buttons.css">
         <link rel="stylesheet" type="text/css" href="css/reader_sdk.css">
-        
-        <script language="JavaScript" type="text/javascript" src="contentflow.js" load="white"></script>
-        <script tyle="text/javascript">
-            var cf = new ContentFlow('contentFlow', {reflectionColor: "#000000"});
-        </script>
         <script src="./lib/modernizr-2.5.3.min.js" type="text/javascript"></script>
         <script src="./lib/jquery-1.9.1.js" type="text/javascript"></script>
         <script src="./lib/underscore-1.4.4.js" type="text/javascript"></script>
@@ -19,17 +13,13 @@
                 // Generate the library
                 
                 $("#library-list").html("");
- 
                 var addLibraryList = function ($ulElementContainer, libraryJson) {
 
+                      <!-- alert("currEpub" + currEpub); -->
 
                         _.each(libraryJson.library_epubs, function (currEpub) {
 
-                            // <img class="item" href="epub_content/moby_dick/OPS/chapter_001.xhtml" src="pics/MobyCover.jpg" title="Moby Dick"/>
-                            var $currLi = $('<img class="item" id="' + currEpub.url_to_package_doc + '" href="viewer.html?pub=' + currEpub.url_to_package_doc + '" src="' + currEpub.url_to_cover + '" title="' + currEpub.title + '"/>');
-                   
-       
-                            //  var $currLi = $('<li><a id="' + currEpub.url_to_package_doc + '" href="viewer.html?pub=' + currEpub.url_to_package_doc + '" pic="'+currEpub.url_to_cover + '">' + currEpub.title + '</a></li>');
+                            var $currLi = $('<li><a id="' + currEpub.url_to_package_doc + '" href="viewer.html?pub=' + currEpub.url_to_package_doc + '">' + currEpub.title + '</a></li>');
                             $ulElementContainer.append($currLi);
                         });
                     }
@@ -47,43 +37,25 @@
     <!-- This is all application-specific HTML -->
     <body>
 
-    <div id="page-top-wrapper"><br/><br/></div>
+        <!-- The navbar -->
+        <div class="navbar navbar-fixed-top" id="toolbar-el">
+            <div class="navbar-inner" id="top-bar" style="">
+                <div class="container">
 
-    <div id="normal_div">
-         <p style="text-align:left">
-            <img src="images/ReadiumLogo.png" width="321" height="97" alt="Readium Logo"/>
-            <ul id="menu">
-                <li><a href="indexJS.html">Home</a></li>
-                <li><a href="http://github.com/readium/readium-js-viewer">ReadiumJS repo</a></li>
-                <li><a href="http://www.readium.org">Readium.org</a></li>
+                    <!-- Navbar logo -->
+                    <a title="Readium Library Demo" class="brand icon48" id="readium-logo" href="#">
+                    </a>
+                    <!-- Navbar contents -->
+                </div>
+            </div>
+        </div>
+        <div id="library-list-container" style="margin-top:65px;">
+            <h1>Library</h1>
+            <ul id="library-list">
+                <li><a href="viewer.html?pub=adsf">Moby Dick</a></li>
             </ul>
-        </p>
-        <p class="titre">ReadiumJS Viewer</p>
-
-        <div class="maincontent">
-            <p>ReadiumJS is an open-source EPUB 3 reading system distributed by the Readium Foundation</p>
-            <p>This site allows you to browse among online EPUB 3 samples rendered by the live Readium JS viewer<br/><br/><br/></p>
-        </div>
-    </div>
-    
-    <!-- div id="library-list-container" style="margin-top:65px;" -->
-  
-    <div id="contentFlow" class="ContentFlow" style="margin-top:65px;">
-        <!-- should be placed before flow so that contained images will be loaded first -->
-        <div class="loadIndicator">
-            <div class="indicator"></div>
         </div>
 
-        <div class="flow" id="library-list">         
-            <!-- this is where the list of img tags will be inserted -->
-        </div>
-
-        <div class="globalCaption"><p></p></div>
-
-        <div class="scrollbar">
-            <div class="slider"><div class="position"></div></div>
-        </div>
-    </div>
 
     </body>
 </html>
