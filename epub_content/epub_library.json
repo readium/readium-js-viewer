@@ -15,6 +15,11 @@
         {
             "title" : "Zipped EPUB with internal links",
             "url_to_package_doc" : "epub_content/internal_link.epub"
+        },
+        {
+            "title" : "Linear Algebra",
+            "url_to_package_doc" : "epub_content/linear-algebra/EPUB/package.opf"
         }
+
     ]
 }
