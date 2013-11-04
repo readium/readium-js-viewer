@@ -6,16 +6,36 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/reader_bootstrap_customizations.css">
         <link rel="stylesheet" type="text/css" href="css/readium_buttons.css">
-        <link rel="stylesheet" type="text/css" href="readium-js/epub-modules/epub-renderer/src/readium-shared-js/static/sdk.css">
+        <link rel="stylesheet" type="text/css" href="css/readium_js.css">
 
         <script src="./lib/json2.js" type="text/javascript"></script>
         <script src="./lib/zip.js" type="text/javascript"></script>
         <script src="./lib/zip-fs.js" type="text/javascript"></script>
         <script src="./lib/zip-ext.js" type="text/javascript"></script>
 
-        <script data-main="./lib/initialize_rjs_reader" src="./lib/require.js" type="text/javascript"></script>
 
-                <!--reflowable view-->
+
+        <!-- **** Begin of require.js configuration -->
+        <!---->
+
+        <!-- +++ @IF PRODUCTION (This uses ./lib/Readium.js, one huge file) -->
+         <script src="require_config.js" type="text/javascript"></script>
+        <!-- +++ @END IF -->
+
+        <!-- +-+ @ID DEVELOPMENT (This uses individual source files of Readium.js from readium-js submodule) -->
+        <!-- <script src="readium-js/rjs_require_config.js" type="text/javascript"></script> -->
+        <!-- <script type="text/javascript">  requirejs.baseUrl = "./readium-js" </script> -->
+        <!-- +-+ @END IF -->
+
+        <script src="extend_require_config.js" type="text/javascript"></script>
+        <script data-main="../lib/initialize_viewer" src="./lib/require.js" type="text/javascript"></script>
+
+        <!---->
+        <!-- **** End of require.js configuration -->
+
+
+
+        <!--reflowable view-->
         <script type="text/html" id="template-reflowable-view"><div id="viewport_reflowable" class="clearfix">
         <iframe scrolling="no" id="epubContentIframe"></iframe></div></script>
 
