@@ -14,20 +14,21 @@ module.exports = function (grunt) {
       },
       livereload: true
     },
+
     curl: {
-      Readium: {
-        src: 'https://raw.github.com/readium/Readium-Web-Components/master/epub-modules/readium-js/out/Readium.js',
-        dest: __dirname + '/lib/Readium.js'
-      },
-      ReadiumSync: {
-        src: 'https://raw.github.com/readium/Readium-Web-Components/master/epub-modules/readium-js/out/Readium.syncload.js',
-        dest: __dirname + '/lib/Readium.syncload.js'
-      }
+       Readium: {
+          src: 'https://raw.github.com/readium/readium-js/master/epub-modules/readium-js/out/Readium.js',
+          dest: __dirname + '/lib/Readium.js'
+       }
     }
+
   });
+
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-curl');
+
   grunt.registerTask('default', ['express', 'express-keepalive']);
   grunt.registerTask('update-readium', ['curl']);
 
 };
+
