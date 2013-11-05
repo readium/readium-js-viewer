@@ -6,16 +6,16 @@
 }
 
 .page-switch-overlay-icon {
-  min-width: 52px;
-  min-height: 95px;
-  width: 52px;
-  height: 95px;
   margin: 0;
   padding: 0;
   overflow: hidden;
   display: block;
   position: absolute;
   top: 50%;
+  padding-top: 200px;
+  padding-bottom: 200px;
+  margin-top: -250px;
+  animation-duration: 0.25s; /*0.25s*/
 }
 
 *#readium-logo {
@@ -26,19 +26,44 @@
 }
 
 *#previous-page-btn {
-  background: transparent url('../images/pagination_previous_up.png') center top no-repeat;
+  transform: scaleX(1);
   left: 0;
+  animation-name: page-btn-unhover;
+  opacity: 0.5;
 }
 *#previous-page-btn:hover {
-  background: transparent url('../images/pagination_previous_over.png') center top no-repeat;
+  animation-name: page-btn-hover;
+  opacity: 1.0;
 }
 
 *#next-page-btn {
-  background: transparent url('../images/pagination_next_up.png') center top no-repeat;
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
   right: 0;
+  animation-name: page-btn-unhover;
+  opacity: 0.5;
 }
 *#next-page-btn:hover {
-  background: transparent url('../images/pagination_next_over.png') center top no-repeat;
+  animation-name: page-btn-hover;
+  opacity: 1.0;
+}
+
+@keyframes page-btn-hover {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1.0;
+  }
+}
+@keyframes page-btn-unhover {
+  from {
+    opacity: 1.0;
+  }
+  to {
+    opacity: 0.5;
+  }
 }
 
 .synthetic-page-ico {
@@ -60,4 +85,14 @@
 }
 *#epub-demo-library:hover {
   background: transparent url('../images/ico_menu_over.png') center top no-repeat;
+}
+
+.divider-vertical {
+  opacity: 0.25;
+}
+
+#epub-reader-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
