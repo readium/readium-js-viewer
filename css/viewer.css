@@ -1,0 +1,33 @@
+/*body {*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*margin: 0;*/
+    /*padding: 10px;*/
+    /*position: absolute;*/
+    /*overflow: hidden;*/
+    /*box-sizing:border-box;*/
+    /*-moz-box-sizing:border-box; *//* Firefox */
+    /*-webkit-box-sizing:border-box; *//* Safari */
+/*}*/
+
+#reading-area {
+
+    position: absolute;
+
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    top: 75px;
+
+}
+
+#epub-reader-container {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+
+}
