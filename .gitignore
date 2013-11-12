@@ -1,2 +1,11 @@
 .DS_Store
 node_modules
+
+### vim ###
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*
+
+.tern
