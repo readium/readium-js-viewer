@@ -1,8 +1,45 @@
-.icon48 {
+
+.navbar .btn-group > .btn{
+  border: none;
+  border-radius: 0px;
+}
+
+
+.icon{
   width: 48px;
-  height: 48px;
-  margin: 0;
-  padding: 0;
+  height: 32px;
+  background: no-repeat center center;
+  margin-top: 12px;
+}
+
+.bookmark-icon{
+  height: 44px;
+  margin-top: 0px;
+  background-position-y: -2px; 
+  background-image: url('../images/bookmark-blank.png');
+}
+
+.show-hide-icon{
+  background-image: url('../images/glyphicons_224_chevron-left.png');
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.settings-icon{
+  background-image: url('../images/glyphicons_136_cogwheel.png');
+}
+
+.full-screen-icon{
+  background-image: url('../images/glyphicons_215_resize_full.png');
+}
+
+.logo-icon{
+  background-image: url('../images/readium.png');
+}
+
+.library-icon{
+  background-image: url('../images/glyphicons_319_sort.png');
 }
 
 .page-switch-overlay-icon {
@@ -18,74 +55,28 @@
   animation-duration: 0.25s; /*0.25s*/
 }
 
-*#readium-logo {
-  background: transparent url('../images/ico_readium_up.png') center top no-repeat;
-}
-*#readium-logo:hover {
-  background: transparent url('../images/ico_readium_over.png') center top no-repeat;
-}
 
-*#previous-page-btn {
+#previous-page-btn {
   transform: scaleX(1);
   left: 0;
-  animation-name: page-btn-unhover;
   opacity: 0.5;
 }
-*#previous-page-btn:hover {
-  animation-name: page-btn-hover;
+#previous-page-btn:hover {
   opacity: 1.0;
 }
 
-*#next-page-btn {
+#next-page-btn {
   -webkit-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
   right: 0;
-  animation-name: page-btn-unhover;
   opacity: 0.5;
 }
-*#next-page-btn:hover {
-  animation-name: page-btn-hover;
+#next-page-btn:hover {
   opacity: 1.0;
 }
 
-@keyframes page-btn-hover {
-  from {
-    opacity: 0.5;
-  }
-  to {
-    opacity: 1.0;
-  }
-}
-@keyframes page-btn-unhover {
-  from {
-    opacity: 1.0;
-  }
-  to {
-    opacity: 0.5;
-  }
-}
 
-.synthetic-page-ico {
-  background: transparent url('../images/ico_doublepage_up.png') center top no-repeat;
-}
-.synthetic-page-ico:hover {
-  background: transparent url('../images/ico_doublepage_over.png') center top no-repeat;
-}
-
-.single-page-ico {
-  background: transparent url('../images/ico_singlepage_up.png') center top no-repeat;
-}
-.single-page-ico:hover {
-  background: transparent url('../images/ico_singlepage_over.png') center top no-repeat;
-}
-
-*#epub-demo-library {
-  background: transparent url('../images/ico_menu_up.png') center top no-repeat;
-}
-*#epub-demo-library:hover {
-  background: transparent url('../images/ico_menu_over.png') center top no-repeat;
-}
 
 .divider-vertical {
   opacity: 0.25;

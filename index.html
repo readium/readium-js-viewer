@@ -43,54 +43,24 @@
         <script type="text/html" id="template-fixed-view"><div id="viewport_fixed"><div id="spread-wrap" class="clearfix"></div></div></script>
         <script type="text/html" id="template-ope-fixed-page-view"><div class="fixed-page-wrap"><iframe class="fixed_iframe"></iframe></div></script>
         
-        <link rel="prefetch" href="images/ico_doublepage_up.png">
-        <link rel="prefetch" href="images/ico_doublepage_over.png">
-        <link rel="prefetch" href="images/ico_singlepage_up.png">
-        <link rel="prefetch" href="images/ico_singlepage_over.png">
-        <link rel="prefetch" href="images/ico_menu_up.png">
-        <link rel="prefetch" href="images/ico_menu_over.png">
     </head>
 
     <!-- This is all application-specific HTML -->
     <body>
-
-        <!-- The navbar -->
-        <div class="navbar navbar-fixed-top" style="position: relative;" id="toolbar-el">
-            <div class="navbar-inner container" id="top-bar" style="">
-
-                    <!-- Navbar logo -->
-                    <a title="Simple RJS Demo" class="brand icon48" id="readium-logo" href="#" onclick="window.location = window.location+'#'">
-                    </a>
-
-                    <!-- Navbar contents -->
-                    <ul class="nav pull-right">
-                        
-                        <li>
-                            <a accesskey="" href="#" id="increase-font-size-btn" class="" role="button" title="increase font size">+</a>
-                        </li>
-
-                        <li>
-                            <a accesskey="" href="#" id="decrease-font-size-btn" class="" role="button" title="increase font size">-</a>
-                        </li>
-
-
-
-                        <!-- Toggle single or two pages -->
-                        <li>
-                            <a accesskey="t" href="#" id="toggle-synthetic-btn" class="icon48 synthetic-page-ico" role="button" title="T̲oggle page layout"></a>
-                        </li>
-
-                        <li class="divider-vertical"></li>
-
-                        <!-- The library for the sample reader -->
-                        <li>
-                            <a accesskey="l" href="#" id="epub-demo-library" role="button" class="icon48" title="Demo L̲ibrary" class="dropdown-toggle" data-toggle="dropdown"></a>
-                            <ul id="library-list" class="dropdown-menu" role="menu" aria-labelledby="dlabel">
-                            </ul>
-                        </li>
-                    </ul>
+       
+        <nav class="navbar" role="navigation">
+            <div class="btn-group navbar-left">
+                <button type="button" class="btn btn-default icon logo-icon"></button>
+                <button type="button" class="btn btn-default icon library-icon"></button>
             </div>
-        </div>
+            <div class="btn-group navbar-right">
+                <button type="button" class="btn btn-default icon settings-icon"></button>
+                <button type="button" class="btn btn-default icon full-screen-icon"></button>
+                <button type="button" class="btn btn-default icon bookmark-icon"></button>
+                <button type="button" class="btn btn-default icon show-hide-icon"></button>
+            </div>
+        </nav>
+        
 
         <div id="epub-reader-buttons-overlay">
           <!-- Previous page -->
@@ -105,13 +75,5 @@
           </div>
         </div>
         
-        <!--Preload the button images so we don't have flicker when we mouse over them for the first time.-->
-        <script type="text/javascript">
-            [   'images/ico_readium_over.png',
-                'images/ico_doublepage_over.png',
-                'images/ico_singlepage_over.png',
-                'images/ico_menu_over.png'
-            ].forEach(function(image) {document.createElement("img").src=image;});
-        </script>
     </body>
 </html>
