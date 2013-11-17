@@ -7,6 +7,14 @@
         <link rel="stylesheet" type="text/css" href="css/reader_bootstrap_customizations.css">
         <link rel="stylesheet" type="text/css" href="css/readium_buttons.css">
         <link rel="stylesheet" type="text/css" href="css/readium_js.css">
+        <link rel="stylesheet" type="text/css" href="css/viewer.css">
+
+        <!--We load common libraries explicitly because readium-share-js is not under RequireJS-->
+        <!--and we have to make sure that base libraries loaded before readium-shared-js-->
+
+        <script src="lib/jquery-1.9.1.js" type="text/javascript"></script>
+        <script src="lib/underscore-1.4.4.js" type="text/javascript"></script>
+        <script src="lib/backbone-0.9.10.js" type="text/javascript"></script>
 
         <script src="./lib/json2.js" type="text/javascript"></script>
         <script src="./lib/zip.js" type="text/javascript"></script>
@@ -19,12 +27,12 @@
         <!---->
 
         <!-- +++ @IF PRODUCTION (This uses ./lib/Readium.js, one huge file) -->
-         <script src="require_config.js" type="text/javascript"></script>
+        <script src="require_config.js" type="text/javascript"></script>
         <!-- +++ @END IF -->
 
         <!-- +-+ @ID DEVELOPMENT (This uses individual source files of Readium.js from readium-js submodule) -->
-         <!--<script src="readium-js/rjs_require_config.js" type="text/javascript"></script>-->
-         <!--<script type="text/javascript">  requirejs.baseUrl = "./readium-js" </script>-->
+        <!--<script src="readium-js/rjs_require_config.js" type="text/javascript"></script>-->
+        <!--<script type="text/javascript">  requirejs.baseUrl = "./readium-js" </script>-->
         <!-- +-+ @END IF -->
 
         <script src="extend_require_config.js" type="text/javascript"></script>
@@ -84,15 +92,15 @@
 
                         <!-- The library for the sample reader -->
                         <li>
-                            <a accesskey="l" href="#" id="epub-demo-library" role="button" class="icon48" title="Demo L̲ibrary" class="dropdown-toggle" data-toggle="dropdown"></a>
-                            <ul id="library-list" class="dropdown-menu" role="menu" aria-labelledby="dlabel">
+                            <a accesskey="l" href="#" id="epub-demo-library" role="button" class="icon48 dropdown-toggle" title="Demo L̲ibrary" data-toggle="dropdown"></a>
+                            <ul id="library-list" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                             </ul>
                         </li>
                     </ul>
             </div>
         </div>
 
-        <div id="epub-reader-buttons-overlay">
+        <div id="reading-area">
           <!-- Previous page -->
           <a accesskey="p" href="#" id="previous-page-btn" class="page-switch-overlay-icon" role="button" title="P̲revious Page" style="z-index:100">
               <img src="images/pagination.svg">
@@ -101,7 +109,7 @@
           <a accesskey="n" href="#" id="next-page-btn" class="page-switch-overlay-icon" role="button" title="N̲ext Page" style="z-index:100">
               <img src="images/pagination.svg">
           </a>
-          <div id="epub-reader-container" style="position: relative;">
+          <div id="epub-reader-container">
           </div>
         </div>
         

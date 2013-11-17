@@ -7,15 +7,18 @@ requirejs = {
         jquery: 'jquery-1.9.1',
         underscore: 'underscore-1.4.4',
         backbone: 'backbone-0.9.10',
-        bootstrap: 'bootstrap.min',
+        bootstrap: 'bootstrap.min'
 
-        URIjs: 'URIjs/URI',
-        punycode: 'URIjs/punycode',
-        SecondLevelDomains: 'URIjs/SecondLevelDomains',
-        IPv6: 'URIjs/IPv6',
-
-        Readium: 'Readium'
     },
+
+    packages: [
+
+        {
+            name: 'URIjs',
+            location: 'URIjs',
+            main: 'URI'
+        }
+    ],
 
     shim: {
         underscore: {
