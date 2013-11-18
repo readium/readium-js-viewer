@@ -1,5 +1,5 @@
 # ReadiumJS Viewer
-Welcome to the ReadiumJS viewer web application. This application is the default viewer for Readium.js, a JS library for rendering EPUB files on any modern browser, via any web server. At present, the ReadiumJS viewer only demonstrates a subset of the functionality and flexibility of the underlying Readium.js library. If you'd like to learn more, check out the ReadiumJS website](http://readium.org/projects/readiumjs), and/or [source on Github](https://github.com/readium/readium-js). ReadiumJS is in early development and it is not yet recommended that you use it for production deployment of EPUB files.
+Welcome to the ReadiumJS viewer web application. This application is the default viewer for Readium.js, a JS library for rendering EPUB files on any modern browser, via any web server. At present, the ReadiumJS viewer only demonstrates a subset of the functionality and flexibility of the underlying Readium.js library. If you'd like to learn more, check out the [ReadiumJS website](http://readium.org/projects/readiumjs), and/or [source on Github](https://github.com/readium/readium-js). ReadiumJS is in early development and it is not yet recommended that you use it for production deployment of EPUB files.
 
 ## Getting started
 There are a few ways you can try out the sample application. 
