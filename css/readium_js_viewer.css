@@ -1,47 +1,108 @@
 
+/* toolbar */
 .navbar .btn-group > .btn{
   border: none;
   border-radius: 0px;
 }
 
-
 .icon{
   width: 48px;
-  height: 32px;
+  height: 48px;
   background: no-repeat center center;
-  margin-top: 12px;
+  
 }
 
-.bookmark-icon{
-  height: 44px;
+.icon:before{
+  content: ' ';
+}
+
+.icon-bookmark{
+  height: 48px;
   margin-top: 0px;
-  background-position-y: -2px; 
+  background-position-y: -6px; 
   background-image: url('../images/bookmark-blank.png');
 }
 
-.show-hide-icon{
+.icon-show-hide{
   background-image: url('../images/glyphicons_224_chevron-left.png');
   -webkit-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
 
-.settings-icon{
+.icon-settings{
   background-image: url('../images/glyphicons_136_cogwheel.png');
 }
 
-.full-screen-icon{
+.icon-full-screen{
   background-image: url('../images/glyphicons_215_resize_full.png');
 }
 
-.logo-icon{
+.icon-logo{
   background-image: url('../images/readium.png');
 }
 
-.library-icon{
+.icon-library{
   background-image: url('../images/glyphicons_319_sort.png');
 }
 
+/* settings-dialog */
+#font-size-input, #margin-size-input{
+  width: 100%;
+  margin-top: 7px;
+}
+
+.icon-scale-down{
+  text-align: right;
+}
+
+.theme-option{
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #777;
+  padding: 3px;
+  margin-bottom: 10px;
+}
+.night-theme {
+  background-color: #141414;
+  color: white;
+}
+.parchment-theme {
+  background-color: #f7f1cf;
+  color: #774c27;
+}
+.ballard-theme {
+  background-color: #576b96;
+  color: #DDD;
+}
+.vancouver-theme {
+  background-color: #DDD;
+  color: #576b96;
+}
+
+.clickable{
+  user-select:none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.preview-text{
+  border: 1px solid #777;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  padding: 5px;
+  height: 75px;
+  overflow: hidden;
+  text-align: left;
+}
+.offscreen-text{
+  display:none;
+}
+
+
+/* page traversal buttons */
 .page-switch-overlay-icon {
   margin: 0;
   padding: 0;
@@ -77,7 +138,7 @@
 }
 
 
-
+/* epub container */
 .divider-vertical {
   opacity: 0.25;
 }
