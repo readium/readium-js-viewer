@@ -16,6 +16,9 @@
         <script src="lib/underscore-1.4.4.js" type="text/javascript"></script>
         <script src="lib/backbone-0.9.10.js" type="text/javascript"></script>
 
+        <!--until shared-js is not under require we have to load this explicitly -->
+        <script src="./lib/URI.js" type="text/javascript"></script>
+
         <script src="./lib/json2.js" type="text/javascript"></script>
         <script src="./lib/zip.js" type="text/javascript"></script>
         <script src="./lib/zip-fs.js" type="text/javascript"></script>
@@ -26,12 +29,12 @@
         <!---->
 
         <!-- +++ @IF PRODUCTION (This uses ./lib/Readium.js, one huge file) -->
-        <!--<script src="require_config.js" type="text/javascript"></script>-->
+        <script src="require_config.js" type="text/javascript"></script>
         <!-- +++ @END IF -->
 
         <!-- +-+ @ID DEVELOPMENT (This uses individual source files of Readium.js from readium-js submodule) -->
-        <script src="readium-js/rjs_require_config.js" type="text/javascript"></script>
-        <script type="text/javascript">  requirejs.baseUrl = "./readium-js" </script>
+        <!--<script src="readium-js/rjs_require_config.js" type="text/javascript"></script>-->
+        <!--<script type="text/javascript">  requirejs.baseUrl = "./readium-js" </script>-->
         <!-- +-+ @END IF -->
 
         <script src="extend_require_config.js" type="text/javascript"></script>

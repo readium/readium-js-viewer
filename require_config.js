@@ -18,6 +18,7 @@ requirejs = {
             location: 'URIjs',
             main: 'URI'
         }
+
     ],
 
     shim: {
@@ -34,6 +35,7 @@ requirejs = {
             deps: ['jquery'],
             exports: 'bootstrap'
         },
+
 
         Readium: {
             deps: ['backbone'],
