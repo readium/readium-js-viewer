@@ -1,0 +1,186 @@
+
+/* toolbar */
+.navbar .btn-group > .btn{
+  border: none;
+  border-radius: 0px;
+  user-select:none;
+}
+
+.navbar .btn-group > .btn:hover, .navbar .btn-group > .btn:active, .navbar .btn-group > .btn:focus{
+  box-shadow: none;
+  background-color: rgba(0,0,0,0);
+}
+
+.icon{
+  width: 48px;
+  height: 48px;
+  background: no-repeat center center;
+  
+}
+
+.icon:before{
+  content: ' ';
+}
+
+.icon-bookmark, .icon-bookmark:active{
+  height: 48px;
+  margin-top: 0px;
+  background-position-y: -6px; 
+  background-image: url('../images/bookmark-blank.png');
+}
+
+.icon-show-hide, .icon-show-hide:active{
+  background-image: url('../images/glyphicons_224_chevron-left.png');
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.icon-settings, .icon-settings:active{
+  background-image: url('../images/glyphicons_136_cogwheel.png');
+}
+
+.icon-full-screen, .icon-full-screen:active{
+  background-image: url('../images/glyphicons_215_resize_full.png');
+}
+
+.icon-full-screen:-webkit-full-screen-document{
+  background-image: url('../images/glyphicons_214_resize_small.png');
+}
+.icon-full-screen:-moz-full-screen{
+  background-image: url('../images/glyphicons_214_resize_small.png');
+}
+.icon-full-screen:fullscreen{
+  background-image: url('../images/glyphicons_214_resize_small.png');
+}
+
+
+.icon-logo, .icon-log:active{
+  background-image: url('../images/readium.png');
+}
+
+.icon-library, .icon-library:active{
+  background-image: url('../images/glyphicons_319_sort.png');
+}
+
+/* settings-dialog */
+#font-size-input, #margin-size-input{
+  width: 100%;
+  margin-top: 7px;
+}
+
+.icon-scale-down{
+  text-align: right;
+}
+
+@media (max-width:768px){
+  .navbar .btn-group > .btn.icon-full-screen,
+  .navbar .btn-group > .btn.icon-show-hide{
+    display:none;
+  }
+}
+
+.theme-option{
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #777;
+  padding: 3px;
+  margin-bottom: 10px;
+}
+.night-theme {
+  background-color: #141414;
+  color: white;
+}
+.parchment-theme {
+  background-color: #f7f1cf;
+  color: #774c27;
+}
+.ballard-theme {
+  background-color: #576b96;
+  color: #DDD;
+}
+.vancouver-theme {
+  background-color: #DDD;
+  color: #576b96;
+}
+
+.clickable{
+  user-select:none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.preview-text{
+  border: 1px solid #777;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  padding: 5px;
+  height: 75px;
+  overflow: hidden;
+  text-align: left;
+}
+.offscreen-text{
+  display:none;
+}
+
+
+/* page traversal buttons */
+.page-switch-overlay-icon {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  top: 50%;
+  padding-top: 200px;
+  padding-bottom: 200px;
+  margin-top: -250px;
+  animation-duration: 0.25s; /*0.25s*/
+}
+
+
+#previous-page-btn {
+  transform: scaleX(1);
+  left: 0;
+  opacity: 0.5;
+}
+#previous-page-btn:hover {
+  opacity: 1.0;
+}
+
+#next-page-btn {
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+  right: 0;
+  opacity: 0.5;
+}
+#next-page-btn:hover {
+  opacity: 1.0;
+}
+
+
+/* epub container */
+#reading-area {
+
+    position: absolute;
+
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    top: 75px;
+
+}
+
+#epub-reader-container {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+
+}

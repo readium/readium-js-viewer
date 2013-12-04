@@ -1,0 +1,23 @@
+<div class="row library-items">
+    {{#epubs}}
+    <div class="col-xs-4 col-sm-3 col-md-2 library-item">
+        <div class='info-wrap'>
+            <div class='caption book-info'>
+                <h4 class='title'>{{ title }}</h4>
+                <div class='author'>{{ author}}</div>
+            </div>
+            {{#coverHref}}
+            <img class="img-responsive read" data-book="{{packageUrl}}" src="{{ coverHref }}" alt="Open ePUB {{ title }}"> 
+            {{/coverHref}}
+            {{^coverHref}}
+            <div class="no-cover read" data-book="{{packageUrl}}"><p>{{title}}</p></div>
+            {{/coverHref}}
+        </div>
+        <div class="caption buttons">
+            <a href="#" class="btn btn-default read" data-book="{{packageUrl}}" role="button">{{strings.i18n_read}}</a>
+            <a href="#details-modal" data-book="{{packageUrl}}" aria-pressed="true" class="btn btn-default details" data-toggle="modal" role="button">{{strings.i18n_details}}</a>
+        </div>
+    </div>
+    {{/epubs}}
+</div>
+
