@@ -20,21 +20,37 @@
 }
 
 .highlight {
-    opacity : 0.2;
-    background-color : red;
+    position: absolute;
+    opacity: 0.2;
+    background-color: red;
 }
 
 .hover-highlight {
-    opacity : 0.4;
-    background-color : red;
+    position: absolute;
+    opacity: 0.4;
+    background-color: red;
 }
 
-.underline {
-    opacity : 0.2;
-    background-color : red;
+.underline-range {
+    position: absolute;
 }
 
-.hover-underline {
-    opacity : 0.4;
-    background-color : red;
+.underline-range > .underline {
+    position: relative;
+    height: 15%;
+    opacity: 0.2;
+    background-color: red;
+}
+
+.underline-range > .hover-underline {
+    position: relative;
+    height: 15%;
+    opacity: 0.4;
+    background-color: red;
+}
+
+.underline-range > .transparent-part {
+    position: relative;
+    height: 85%;
+    background-color: transparent;
 }
