@@ -74,7 +74,7 @@
 }
 
 .single-page-ico {
-  background: transparent url('../images/ico_singlepage_up.png') center top no-repeat;
+    background: transparent url('../images/ico_singlepage_up.png') center top no-repeat;
 }
 .single-page-ico:hover {
   background: transparent url('../images/ico_singlepage_over.png') center top no-repeat;
@@ -85,6 +85,14 @@
 }
 *#epub-demo-library:hover {
   background: transparent url('../images/ico_menu_over.png') center top no-repeat;
+}
+
+.night-mode-on-ico {
+  background: transparent url('../images/ico_nightmode_toggle_on.png') center top no-repeat;
+}
+
+.night-mode-off-ico {
+    background: transparent url('../images/ico_nightmode_toggle_off.png') center top no-repeat;
 }
 
 .divider-vertical {

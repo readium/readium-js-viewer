@@ -35,7 +35,7 @@ To add a new EPUB (NOTE: this process will be streamlined in the near future):
 
    * unzip any <strong>`(*)`</strong> valid <strong>`(**)`</strong> .epub file (EPUB 2 or EPUB 3 version) in the "epub_content" directory
    * edit "epub_library.json" in that same directory to add a json object with two attributes:
-    * "url_to_package_document", which contains the path to the EPUB's package document
+    * "url_to_book_root", which contains the path to the EPUB's package document
            from the server root, which is the simple-epub-3/ directory. 
     * A title for the EPUB, at your
            discretion. 

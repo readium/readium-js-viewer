@@ -2,24 +2,23 @@
     "library_epubs" : [
         {
             "title" : "Page Blanche",
-            "url_to_package_doc" : "epub_content/page-blanche/EPUB/package.opf"
+            "url_to_book_root" : "epub_content/page-blanche"
         },
         {
             "title" : "Moby Dick",
-            "url_to_package_doc" : "epub_content/moby_dick/OPS/package.opf"
+            "url_to_book_root" : "epub_content/moby_dick"
         },
         {
             "title" : "Accessible EPUB 3",
-            "url_to_package_doc" : "epub_content/accessible_epub_3/EPUB/package.opf"
+            "url_to_book_root" : "epub_content/accessible_epub_3"
         },
         {
             "title" : "Zipped EPUB with internal links",
-            "url_to_package_doc" : "epub_content/internal_link.epub"
+            "url_to_book_root" : "epub_content"
         },
         {
             "title" : "Linear Algebra",
-            "url_to_package_doc" : "epub_content/linear-algebra/EPUB/package.opf"
+            "url_to_book_root" : "epub_content/linear-algebra"
         }
-
     ]
 }
