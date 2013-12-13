@@ -1,5 +1,9 @@
-requirejs.config({
+require.config({
 	config : {
-        'EpubLibraryManager' : { 'indexUrl' : 'epub_content/epub_library.json'}
-    }
+        'workers/WorkerProxy' : {'workerUrl' : '/scripts/readium-worker.js'},
+        'EpubLibraryManager' : {
+        							'canHandleUrl' : true, 
+        							'canHandleDirectory' : true
+    						   }
+    },
 })

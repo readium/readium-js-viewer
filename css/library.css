@@ -1,6 +1,12 @@
+
+#app-container{
+	overflow-x: hidden;
+}
+
 .library-item{
 	position: relative;
 }
+
 .offscreenText{
 	display:none;
 }
@@ -56,8 +62,15 @@
 	position: relative;
 	margin-right: 20px;
 	height: 240px;
+	display: inline-block;
+	max-width: 185px;
+	vertical-align: top;
 }
-
+.modal-book-info{
+	display: inline-block;
+	vertical-align: top;
+	max-width: 370px;
+}
 .details-body{
 	height: 240px;
 }
@@ -69,6 +82,10 @@
 	text-overflow: ellipsis;
 }
 
+nav #remotestorage-widget, nav #remotestorage-widget .rs-cube {
+	position: static;
+}
+
 @media (max-width:768px){
 	.library-item .buttons{
 		display:none;
@@ -78,3 +95,87 @@
 		display: none;
 	}
 }
+
+/* list view styles */
+body.list-view #app-container{
+	position: relative;
+}
+body.list-view #app-container .library-item{
+	width: 100%;
+	height: 250px;
+	position: static;
+}
+
+body.list-view #app-container .library-item .book-info{
+	float: left;
+	margin-left: 250px;
+	margin-top: 60px;
+}
+
+body.list-view #app-container .library-item .book-info .title{
+	font-size: 24px;
+	font-weight: normal;
+	overflow: visible;
+	text-align: left;
+}
+body.list-view #app-container .library-item .book-info .author{
+	text-align: left;
+	overflow: visible;
+}
+
+body.list-view #app-container .library-item img{
+	margin-top: 30px;
+	max-height: 190px;
+	position: absolute;
+	margin-left: 20px
+}
+
+body.list-view #app-container .library-item .no-cover{
+	margin-top: 30px;
+	-webkit-transform: scale(.475,.475) translate(-160px,-210px);
+	padding: 5px;
+	position: absolute;
+	margin-left: 20px
+}
+
+body.list-view #app-container .library-item .buttons{
+	float: right;
+	position: static;
+	width: auto;
+}
+body.list-view #app-container .library-item a.read{
+	display: none;
+}
+body.list-view #app-container .library-item a.details{
+	margin-right: 30px;
+	margin-top: 70px;
+}
+
+.icon-library, .icon-library:active{
+  background-image: url('../images/glyphicons_319_sort.png');
+}
+
+.icon-add-epub, .icon-add-epub:active{
+  background-image: url('../images/glyphicons_432_plus.png');
+}
+
+.icon-thumbnails, .icon-thumbnails:active{
+  background-image: url('../images/glyphicons_156_show_thumbnails.png');
+}
+
+.icon-list-view, .icon-list-view:active{
+  background-image: url('../images/glyphicons_158_show_lines.png');
+}
+
+.icon-thumbnails{
+	display:none;
+}
+
+.list-view .icon-thumbnails{
+	display:block;
+}
+
+.list-view .icon-list-view{
+	display:none;
+}
+

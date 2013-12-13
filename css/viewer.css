@@ -1,3 +1,21 @@
+.chrome-app .icon-full-screen{
+  display:none;
+}
+
+
+#readium-toc-body{
+  display: none;
+  overflow: auto;
+}
+
+.toc-visible #readium-toc-body{
+  display: inline-block;
+  width: 30%;
+}
+
+.toc-visible #reading-area{
+  left: 30%;
+}
 
 /* toolbar */
 .navbar .btn-group > .btn{
@@ -59,9 +77,11 @@
   background-image: url('../images/readium.png');
 }
 
-.icon-library, .icon-library:active{
-  background-image: url('../images/glyphicons_319_sort.png');
+.icon-toc, .icon-toc:active{
+  background-image: url('../images/glyphicons_114_list.png');
 }
+
+
 
 /* settings-dialog */
 #font-size-input, #margin-size-input{

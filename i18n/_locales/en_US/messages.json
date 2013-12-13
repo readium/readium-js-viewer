@@ -1,9 +1,52 @@
 {
+
   "chrome_extension_name": {
     "message": "Readium"
   },
   "chrome_extension_description": {
     "message": "A reader for EPUB3 books."
+  },
+  "ok" : {
+    "message" : "Ok"
+  },
+  "delete_dlg_title" : {
+    "message" : "Confirm Delete"
+  },
+  "delete_progress_title" : {
+    "message" : "Delete in Progress"
+  },
+  "delete_progress_message" : {
+    "message" : "Deleting"
+  },
+  "replace_dlg_title" : {
+    "message": "Conflict Detected"
+  },
+  "replace_dlg_message": {
+    "message": "If you continue, the following epub will be replaced with the one you are importing"
+  },
+  "import_dlg_title" : {
+    "message": "Importing EPUB"
+  },
+  "import_dlg_message" : {
+    "message": "Examining EPUB content..."
+  },
+  "storing_file" : {
+    "message": "Storing file"
+  },
+  "err_unknown" : {
+    "message": "Unknown error. Check console for more details."
+  },
+  "err_storage" : {
+    "message": "Unable to access storage"
+  },
+  "err_epub_corrupt" : {
+    "message": "Invalid or corrupted EPUB package"
+  },
+  "err_dlg_title" : {
+    "message": "Unexpected Error"
+  },
+  "replace" : {
+    "message": "Replace"
   },
   "i18n_readium_library" : {
     "message" : "Readium Library"
