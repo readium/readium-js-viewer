@@ -6,6 +6,11 @@
     "grunt": "~0.4.1",
     "grunt-express": "~1.2.0",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-curl": "~1.1.1"
+    "grunt-curl": "~1.1.1",
+    "hogan.js": "~2.0.0",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0"
   }
 }

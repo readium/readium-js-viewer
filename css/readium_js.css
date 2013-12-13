@@ -7,7 +7,7 @@ body {
     height: 100%;
     width: 100%;
     margin: 0;
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     position: absolute;
     overflow: hidden;
     box-sizing:border-box;
@@ -57,41 +57,4 @@ iframe {
     opacity: 1;
     visibility: visible;
     overflow: hidden;
-}
-
-/*Classes to use for styling the book*/
-
-/*book*/
-.book-frame {
-
-}
-
-.fixed-book-frame {
-
-}
-
-/*fixed layout frames only*/
-.fixed-page-frame-left {
-
-}
-
-.fixed-page-frame-right {
-
-}
-
-.fixed-page-frame-center {
-
-} 
-
-/*reflowable layout*/
-.reflowable-book-frame {
-
-}
-
-.reflowable-content-frame {
-
-}
-
-.mo-active-default {
-
 }
