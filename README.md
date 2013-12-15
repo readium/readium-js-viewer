@@ -8,14 +8,14 @@ Welcome to the ReadiumJS viewer project. This project encapsulates several appli
  The viewer is the default viewer for Readium.js, a JS library for rendering EPUB files on any modern browser, via any web server. If you'd like to learn more, check out the ReadiumJS website](http://readium.org/projects/readiumjs), and/or [source on Github](https://github.com/readium/readium-js). ReadiumJS is in early development and it is not yet recommended that you use it for production deployment of EPUB files.
 
 ## Getting started
-  * [Basic EPUB viewer](#Basic-EPUB-Viewer)
-  * [Chrome packaged app](#Chrome-Packaged-App)
-  * [Custom EPUB management system](#Custom-EPUB-management-and-viewer-application)
+  * [Basic EPUB viewer](#basic-epub-viewer)
+  * [Chrome packaged app](#chrome-packaged-app)
+  * [Custom EPUB management system](#custom-epub-management-and-viewer-application)
 
 ### Basic EPUB Viewer
 
 #### Visit online demo
--You can visit the hosted [version](http://readium.github.io/readium-js-viewer).- Not currently working
+~~You can visit the hosted [version](http://readium.github.io/readium-js-viewer).~~ Currently running an older version
 
 #### Clone into your own web server
 
@@ -69,6 +69,6 @@ To run the chrome packaged app, you will need to do the following:
    * Open the App in Chrome.
 
 ### Custom EPUB management and viewer application
-The code that runs the chrome packaged app can also be run on a web server. However, it requires a backend to store and retrieve EPUB files. You would have to implement this yourself. You can see this in action by following the directions to [run a node web server](#Clone-and-run-an-embedded-Node.JS-web-server) and then navigating to http://localhost:8080/index.html. The backend the example uses is just static files so it doesn't support updating. 
+The code that runs the chrome packaged app can also be run on a web server. However, it requires a backend to store and retrieve EPUB files. You would have to implement this yourself. You can see this in action by following the directions to [run a node web server](#clone-and-run-an-embedded-node.js-web-server) and then navigating to http://localhost:8080/index.html. The backend the example uses is just static files so it doesn't support updating. 
 
 
