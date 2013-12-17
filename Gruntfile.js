@@ -15,13 +15,6 @@ module.exports = function (grunt) {
       livereload: true
     },
 
-    curl: {
-       Readium: {
-          src: 'https://raw.github.com/readium/readium-js/master/epub-modules/readium-js/out/Readium.js',
-          dest: __dirname + '/lib/Readium.js'
-       }
-    },
-
     requirejs: {
       chromeApp: {
         options: {
@@ -70,26 +63,59 @@ module.exports = function (grunt) {
             {expand: true, cwd: 'i18n', src: '_locales/**', dest: 'build/chrome-app'},
             {expand: true, cwd: 'lib/thirdparty/', src: ['inflate.js', 'deflate.js'], dest:'build/chrome-app'}
         ]
+      },
+      readiumjs: {
+        files: [
+          {expand: true, cwd: 'readium-js/out/', src: 'Readium.js', dest: 'lib'}
+        ]
       }
     },
-
+    nodeunit: {
+      chromeApp: ['chrome-app/tests/tests.js']
+    },
     clean : {
       chromeApp: ['build/chrome-app']
+    },
+    run_grunt: {
+      readiumjs : {
+        options: {
+          cwd: 'readium-js'
+        },
+        src: 'readium-js/Gruntfile.js'
+      }
+    },
+    watch : {
+      readiumjs:{
+        files: ['readium-js/**/*.js','!readium-js/out/Readium.js','!readium-js/**/node_modules/**'], 
+        tasks: ['update-readium']
+      }
+    },
+    concurrent : {
+      serverwatch : {
+        tasks: ['runserver', 'watch:readiumjs'],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
     }
 
   });
 
   grunt.loadNpmTasks('grunt-express');
-  grunt.loadNpmTasks('grunt-curl');
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-run-grunt');
+  grunt.loadNpmTasks('grunt-concurrent');
 
+  grunt.registerTask('runserver', ['express', 'express-keepalive']);
+  grunt.registerTask('default', 'concurrent:serverwatch');
+  grunt.registerTask('update-readium', ['run_grunt:readiumjs', 'copy:readiumjs']);
 
-  grunt.registerTask('default', ['express', 'express-keepalive']);
-  grunt.registerTask('update-readium', ['curl']);
   grunt.registerTask('chromeApp', ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'requirejs:chromeApp', 'requirejs:chromeAppWorker']);
 
 };
