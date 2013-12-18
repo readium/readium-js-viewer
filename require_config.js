@@ -62,7 +62,7 @@ require.config({
         },
 
         Readium: {
-            deps: ['backbone', 'zip-ext', 'crypto-sha1', 'URIjs'],
+            deps: ['backbone', 'zip-ext', 'crypto-sha1'],
             exports:'Readium'
         }
     }
