@@ -118,7 +118,7 @@
     "message" : "Sorry, the current EPUB does not contain a media overlay for this content"
   },
   "i18n_add_items" : {
-    "message" : "Add items to your</br>library here!"
+    "message" : "Add items to your library here!"
   },
   "i18n_extracting" : {
     "message" : "extracting: "

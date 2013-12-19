@@ -2,10 +2,19 @@
   display:none;
 }
 
-
 #readium-toc-body{
   display: none;
   overflow: auto;
+}
+
+#readium-toc-body button.close{
+  margin-right: 20px;
+  margin-top: 5px;
+  opacity: .8;
+}
+
+#readium-toc-body button.close:focus{
+  outline: none;
 }
 
 .toc-visible #readium-toc-body{
