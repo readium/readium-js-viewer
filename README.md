@@ -11,6 +11,7 @@ The viewer is the default viewer for Readium.js, a JS library for rendering EPUB
   * [Basic EPUB viewer](#basic-epub-viewer)
   * [Chrome packaged app](#chrome-packaged-app)
   * [Custom EPUB management system](#custom-epub-management-and-viewer-application)
+  * [Running the Tests](#running-the-tests)
 
 ### Basic EPUB Viewer
 
@@ -52,7 +53,7 @@ The viewer uses the `epub` url query parameter to find the ebook to display. The
    
 #### Use the latest Readium.js library version
 
-The Grunt build configuration also contains an optional task that downloads the latest versions of Readium.js library files and places them in the `lib/` directory.
+The Grunt build configuration also contains an optional task that builds the latest versions of Readium.js library files and places them in the `lib/` directory.
 
 Assuming that you have Grunt and project's dependencies already installed (see above), in order to run this task, execute the following command:
 
@@ -70,5 +71,13 @@ To run the chrome packaged app, you will need to do the following:
 
 ### Custom EPUB management and viewer application
 The code that runs the chrome packaged app can also be run on a web server. However, it requires a backend to store and retrieve EPUB files. You would have to implement this yourself. You can see this in action by following the directions to [run a node web server](#clone-and-run-an-embedded-nodejs-web-server) and then navigating to http://localhost:8080/index.html. The backend the example uses is just static files so it doesn't support updating. 
+
+### Running the Tests
+The viewer project contains some basic regression tests. These are run using [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/home), [Selenium WebdriverJS](https://code.google.com/p/selenium/wiki/WebDriverJs), and [nodeunit](https://github.com/caolan/nodeunit/). The tests target the chrome packaged app. **Assuming you have already followed the steps above to run the packaged app**, these are the additional steps if you want to run the tests
+  
+   * Install [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/home) for your platform and ensure it's on your system path somewhere.
+   * Install the Google Chrome browser or have it already installed in the default install location for your platform.
+   * run `grunt test`
+
 
 

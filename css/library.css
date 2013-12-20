@@ -3,6 +3,20 @@
 	overflow-x: hidden;
 }
 
+#empty-message{
+	display: inline-block;
+	font-size: 28px;
+	width: 200px;
+	margin-right: 60px;
+	margin-top: 30px;
+}
+
+#empty-message-arrow{
+	position: absolute;
+	right: 5px;
+	top: 40px;
+}
+
 .library-item{
 	position: relative;
 }
