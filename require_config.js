@@ -19,6 +19,9 @@ require.config({
         'Readium': 'Readium',
         'inflate' : 'thirdparty/inflate',
         'zip' : 'thirdparty/zip',
+        'zip-fs' : 'thirdparty/zip-fs',
+        'zip-ext' : 'thirdparty/zip-ext',
+        'crypto-sha1' : 'thirdparty/crypto-sha1',
         'i18n': '../i18n',
         'templates': '../templates',
         'storage/StorageManager' : 'storage/StaticStorageManager'
@@ -34,11 +37,16 @@ require.config({
         zip : {
             exports: 'zip'
         },
+        'zip-fs' : {
+            deps: ['zip'],
+            exports: 'zip-fs'
+        },
+        'zip-ext' : {
+            deps: ['zip-fs'],
+            exports: 'zip-ext'
+        },
         underscore: {
             exports: '_'
-        },
-        URIjs:{
-            exports: 'URI'
         },
         jath : {
             exports: 'Jath'
@@ -54,7 +62,7 @@ require.config({
         },
 
         Readium: {
-            deps: ['backbone'],
+            deps: ['backbone', 'zip-ext', 'crypto-sha1'],
             exports:'Readium'
         }
     }
