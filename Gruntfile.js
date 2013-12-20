@@ -120,7 +120,7 @@ module.exports = function (grunt) {
   grunt.registerTask('runserver', ['express', 'express-keepalive']);
   grunt.registerTask('default', 'concurrent:serverwatch');
   grunt.registerTask('update-readium', ['run_grunt:readiumjs', 'copy:readiumjs']);
-  grunt.registerTask('test', ['copy:prepareChromeAppTests', 'nodeunit:chromeApp']);
+  grunt.registerTask('test', ['chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp']);
 
   grunt.registerTask('chromeApp', ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'requirejs:chromeApp', 'requirejs:chromeAppWorker']);
 

@@ -1,3 +1,7 @@
+#about-dialog div{
+  text-align: center;
+}
+
 .chrome-app .icon-full-screen{
   display:none;
 }

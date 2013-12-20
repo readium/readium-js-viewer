@@ -18,6 +18,7 @@ exports.tearDown = function(callback){
 }
 
 var testErrback = function(test, msg){
+	debugger;
 	var msg = msg || 'Required element is not present or visible'
 	test.ok(false, msg);
 	test.done();
@@ -51,21 +52,22 @@ var initAddToLibTests = function(test){
 	waitForVisible(test, dlg, 'The add epub dialog didn\'t appear when the button was clicked');
 }
 
-exports.testLibraryNavbar = function(test){
+// this test just loads the extension for the first time. If I don't do this, the first test will fail.
+exports.noopTest = function(test){
 
 	driver.get(extensionUrl);
-	
-	driver.wait(function() {
-	 	return driver.isElementPresent({className : 'navbar'}).then(function(present){
-	 		test.ok(present, 'Navbar is not present, didn\'t load properly');
-	 		if (!present)
-	 			test.done();
-	 		return present;
-	 	});
-	}, 5000);
+	driver.sleep(3000);
+	driver.get(extensionUrl).then(function(){
+		test.done();
+	});
+}
+exports.testLibraryNavbar = function(test){
+	driver.get(extensionUrl);
 
-	driver.isElementPresent({className : 'icon-add-epub'}).then(function(present){
-		test.ok(present, 'Add epub button not present');
+	waitForPresent(test, {className : 'navbar'}, 'navbar not present');
+
+	waitForPresent(test, {className : 'icon-add-epub'}, 'epub button not present').then(function(){
+		//test.ok(present, 'Add epub button not present');
 		test.done();
 	});
 
@@ -233,7 +235,8 @@ exports.libViewTests = {
 		driver.sleep(500);
 		readBtn.click();
 
-		waitForPresent(test, {id: 'reading-area'}, 'The reader never loaded after trying to open it from the details dialog');
+		waitForPresent(test, {id: 'epubContentIframe'}, 'The reader never loaded after trying to open it from the details dialog');
+		//driver.sleep(1000);
 
 		driver.switchTo().frame('epubContentIframe').addErrback(testErrback.bind(null, test, 'The reader frame does not exist'));
 
@@ -586,5 +589,42 @@ exports.settingsTests = {
 			test.equal(bg, nightThemeBg);
 			test.done();
 		});
+	},
+
+	testMargins : function(test){
+		loadSettingsDialog(test);
+
+		var marginSlider = driver.findElement({id: 'margin-size-input'});
+		marginSlider.isDisplayed().then(function(displayed){
+			test.ok(displayed, 'margin slider is not visible');
+		});
+
+		driver.executeScript('return $(arguments[0]).val()', marginSlider).then(function(val){
+			test.equal(val, 20, "Font size default value is wrong")
+		});
+
+		driver.executeScript('$(arguments[0]).val(80);', marginSlider);
+
+		saveSettings(test);
+
+		driver.sleep(2000);
+
+		switchToReaderFrame(test);
+
+		var htmlElement = findElement(test, {css: 'html'}, 'No content in reader frame');
+		driver.executeScript('return arguments[0].style.webkitColumnGap;', htmlElement).then(function(gap){
+			test.equal(gap, '80px');
+		});
+
+		switchToDefaultFrame();
+
+		var container = findElement(test, {id: "epub-reader-container"}, 'Cannot locate reader container');
+
+		container.getCssValue('margin').then(function(margin){
+			test.equal(margin, '80px');
+			test.done();
+		})
+
+
 	}
 }
