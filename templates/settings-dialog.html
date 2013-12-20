@@ -1,0 +1,79 @@
+<div class="modal fade" id="settings-dialog" tabindex="-1" role="dialog" aria-labelledby="settings-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           
+            <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5>PREVIEW</h5>
+                <div class="row">
+                    <div data-theme="default-theme" class="col-xs-10 col-xs-offset-1 preview-text default-theme">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Cras in felis sed orci aliquam sagittis. 
+                    </div>
+                </div>
+                <div>
+                    <h5 tabindex="-1" id="setting-header-font-size" class="setting-header">FONT SIZE</h5>
+                    <div class="row">
+                        <div class="col-xs-2 icon-scale-down">
+                            <img src="images/glyphicons_115_text_smaller.png">
+                        </div>
+                        <div class="col-xs-8">
+                            <input type="range" aria-labelledby="setting-header-font-size" id="font-size-input" min="1" step="1" max="10" title="Font size" value="4"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <img src="images/glyphicons_116_text_bigger.png">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h5 id="setting-header-margins-legend" class="setting-header">MARGIN SIZE</h5>
+                     <div class="row">
+                        <div class="col-xs-2 icon-scale-down">
+                            <img style="height: 32px;" src="images/margin1_off.png">
+                        </div>
+                        <div class="col-xs-8">
+                            <input type="range" aria-labelledby="setting-header-margins-legend" id="margin-size-input" min="1" step="1" max="5" title="Margin"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <img style="height: 32px;" src="images/margin4_off.png">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h5 id="setting-header-color-legend" class="setting-header">TEXT AND BACKGROUND COLOR</h5>
+                    <div role="radiogroup" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="row">
+                        <div role="radio" data-theme="default-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option default-theme clickable">Black and White</div>
+                        <div role="radio" data-theme="night-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable">Arabian Nights</div>
+                        <div role="radio" data-theme="parchment-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable">Sands of Dune</div>
+                        <div role="radio" data-theme="ballard-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable">Ballard Blues</div>
+                        <div role="radio" data-theme="vancouver-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable">Vancouver Mist</div>
+                    </div>
+                </div>
+                <div>
+                    <h5 id="setting-header-display-legend" class="setting-header">DISPLAY FORMAT</h5>
+                    <div role="radiogroup" aria-labelledby="setting-header-display-legend" class="row">
+                        <div role="radio" id="one-up-option" class="col-xs-2 col-xs-offset-4">
+                            
+                            <input name="display-format" value="single" type="radio"><img src="/images/ico_singlepage_up.png">
+                                
+                            
+                            <span class="offscreen-text">Single Pages</span>
+                        </div>
+                        <div role="radio" id="two-up-option" class="col-xs-2">
+                            
+                                <input name="display-format" value="double" type="radio"><img src="/images/ico_doublepage_up.png">
+                                
+                            
+                            <span class="offscreen-text">Double Pages</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

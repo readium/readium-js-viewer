@@ -1,0 +1,1658 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-us" lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/> 
+        <link rel="stylesheet" type="text/css" href="../css/commonltr.css"/>
+        <title>Section CNO  Complex Number Operations</title>
+        <link type="text/css" rel="stylesheet" href="../css/epub.css"/>
+    </head>
+    <body id="d1e27">
+        <h1 class="title topictitle1">Section CNO  Complex Number Operations</h1>
+        <div class="body">
+            <p class="p"> From 
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmti-12">A First Course in Linear Algebra</span>
+                </span>
+                <br/>Version 2.30
+                <br/>
+                <span class="ph cmsy-10x-x-120">©</span> 2004.
+                <br/>Licensed under the 
+                <span class="xref broken http://www.gnu.org/licenses/fdl.html">GNU Free Documentation License</span>.
+                <br/>
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmtt-12">http://linear.ups.edu/</span>
+                </span>
+                <br/>
+                <br/> In this section we review of the basics of working with complex numbers. 
+            </p>
+        </div>
+        <div class="related-links">
+            <div class="familylinks">
+                <div class="parentlink">
+                    <strong>Parent topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li68.html">Appendix P  Preliminaries</a>
+                </div>
+                <div class="previouslink">
+                    <strong>Previous topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li68.html">Appendix P  Preliminaries</a>
+                </div>
+                <div class="nextlink">
+                    <strong>Next topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li70.html">Section SET  Sets</a>
+                </div>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e62">
+            <h2 class="title topictitle2">Subsection CNA: Arithmetic with complex numbers</h2>
+            <div class="body">
+                <p class="p"> A complex number is a linear combination of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>i</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <msqrt>
+                                <mrow>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>1</mn>
+                                </mrow>
+                            </msqrt>
+                        </math>
+                    </span>, typically written in the form 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span>. Complex numbers can be added, subtracted, multiplied and divided, just like we are used to doing with real numbers, including the restriction on division by zero. We will not define these operations carefully, but instead illustrate with examples. 
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Example</span>
+                    <span class="ph cmbx-12"> ACN</span>
+                    <br/>
+                    <span class="ph cmbx-12">Arithmetic of complex numbers</span>
+                    <br/>
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>5</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>6</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>6</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mn>4</mn>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mi>i</mi>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>8</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mi>i</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>5</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>6</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>6</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mn>4</mn>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mi>i</mi>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>4</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>9</mn>
+                                    <mi>i</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>5</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>6</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>6</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>6</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>1</mn>
+                                    <mn>2</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>3</mn>
+                                    <mn>0</mn>
+                                    <mi>i</mi>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>8</mn>
+                                    <mi>i</mi>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>2</mn>
+                                    <mn>0</mn>
+                                    <msup>
+                                        <mrow>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </msup>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>1</mn>
+                                    <mn>2</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>2</mn>
+                                    <mn>2</mn>
+                                    <mi>i</mi>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>2</mn>
+                                    <mn>0</mn>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>3</mn>
+                                    <mn>2</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>2</mn>
+                                    <mn>2</mn>
+                                    <mi>i</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label"/>
+                            </mtr>
+                            <mtr>
+                                <mtd columnspan="4" class="intertext">
+                                    <mtext> Division takes just a bit more care. We multiply the denominator by a complex number chosen to produce a real number and then we can produce a complex number as a result.</mtext>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd>
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>5</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>6</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </mfrac>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>5</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>6</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </mfrac>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>6</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>6</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>8</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>3</mn>
+                                            <mn>8</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>8</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>3</mn>
+                                            <mn>8</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mi>i</mi>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>1</mn>
+                                            <mn>3</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>1</mn>
+                                            <mn>9</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mn>6</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mi>i</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">⊠</mo>
+                    </math>
+                </p>
+                <p class="p"> In this example, we used 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>6</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>4</mn>
+                            <mi>i</mi>
+                        </math>
+                    </span> to convert the denominator in the fraction to a real number. This number is known as the conjugate, which we define in the next section. We will often exploit the basic properties of complex number addition, subtraction, multiplication and division, so we will carefully define the two basic operations, together with a definition of equality, and then collect nine basic properties in a theorem. 
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> CNE</span>
+                    <br/>
+                    <span class="ph cmbx-12">Complex Number Equality</span>
+                    <br/> The complex numbers 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>β</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>c</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>d</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span> are 
+                    <span class="ph cmbx-12">equal</span>, denoted 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>β</mi>
+                        </math>
+                    </span>, if 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>c</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>b</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>d</mi>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p">(This definition contains Notation CNE.) 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">△</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> CNA</span>
+                    <br/>
+                    <span class="ph cmbx-12">Complex Number Addition</span>
+                    <br/> The 
+                    <span class="ph cmbx-12">sum </span>of the complex numbers 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>β</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>c</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>d</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span> , denoted 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>β</mi>
+                        </math>
+                    </span>, is 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>a</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mi>c</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mo class="MathClass-bin">+</mo>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>b</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mi>d</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mi>i</mi>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p">(This definition contains Notation CNA.) 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">△</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> CNM</span>
+                    <br/>
+                    <span class="ph cmbx-12">Complex Number Multiplication</span>
+                    <br/> The 
+                    <span class="ph cmbx-12">product </span>of the complex numbers 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>β</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>c</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>d</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span> , denoted 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mi>β</mi>
+                        </math>
+                    </span>, is 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>a</mi>
+                                    <mi>c</mi>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mi>b</mi>
+                                    <mi>d</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mo class="MathClass-bin">+</mo>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>a</mi>
+                                    <mi>d</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mi>b</mi>
+                                    <mi>c</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mi>i</mi>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p">(This definition contains Notation CNM.) 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">△</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Theorem</span>
+                    <span class="ph cmbx-12"> PCNA</span>
+                    <br/>
+                    <span class="ph cmbx-12">Properties of Complex Number Arithmetic</span>
+                    <br/> The operations of addition and multiplication of complex numbers have the following properties. 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">□</mo>
+                    </math>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Proof</span>   We could derive each of these properties of complex numbers with a proof that builds on the identical properties of the real numbers. The only proof that might be at all interesting would be to show 
+                    <span class="xref broken fcla-xml-2.30li69.html#property.MICN">Property MICN</span> since we would need to trot out a conjugate. For this property, and especially for the others, we might be tempted to construct proofs of the identical properties for the reals. This would take us way too far afield, so we will draw a line in the sand right here and just agree that these nine fundamental behaviors are true. OK? 
+                </p>
+                <p class="p"> Mostly we have stated these nine properties carefully so that we can make reference to them later in other proofs. So we will be linking back here often. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-ord">■</mo>
+                        </math>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e1564">
+            <h2 class="title topictitle2">Subsection CCN: Conjugates of Complex Numbers</h2>
+            <div class="body">
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> CCN</span>
+                    <br/>
+                    <span class="ph cmbx-12">Conjugate of a Complex Number</span>
+                    <br/> The 
+                    <span class="ph cmbx-12">conjugate </span>of the complex number 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                            <mo class="MathClass-rel">∈</mo>
+                            <msup>
+                                <mrow>
+                                    <mi>ℂ</mi>
+                                </mrow>
+                                <mrow/>
+                            </msup>
+                        </math>
+                    </span> is the complex number 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>α</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">−</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p">(This definition contains Notation CCN.) 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">△</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Example</span>
+                    <span class="ph cmbx-12"> CSCN</span>
+                    <br/>
+                    <span class="ph cmbx-12">Conjugate of some complex numbers</span>
+                    <br/>
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>3</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>2</mn>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>3</mn>
+                                    <mi>i</mi>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>5</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>4</mn>
+                                    <mi>i</mi>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>3</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>0</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>3</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>0</mn>
+                                    <mi>i</mi>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mn>0</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>0</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>0</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>0</mn>
+                                    <mi>i</mi>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">⊠</mo>
+                    </math>
+                </p>
+                <p class="p"> Notice how the conjugate of a real number leaves the number unchanged. The conjugate enjoys some basic properties that are useful when we work with linear expressions involving addition and multiplication. </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Theorem</span>
+                    <span class="ph cmbx-12"> CCRA</span>
+                    <br/>
+                    <span class="ph cmbx-12">Complex Conjugation Respects Addition</span>
+                    <br/> Suppose that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>β</mi>
+                        </math>
+                    </span> are complex numbers. Then 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>α</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mi>β</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                            <mo class="MathClass-rel">=</mo>
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>α</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                            <mo class="MathClass-bin">+</mo>
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>β</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                        </math>
+                    </span>. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-ord">□</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Proof</span>   Let 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>β</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>r</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>s</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span>. Then 
+                </p>
+                <div class="tablenoborder">
+                    <table class="table" border="1">
+                        <tbody class="tbody">
+                            <tr class="row">
+                                <td class="entry">
+                                    <p class="p d4p_eqn_block">
+                                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                            <mover accent="false" class="mml-overline">
+                                                <mrow>
+                                                    <mi>α</mi>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mi>β</mi>
+                                                </mrow>
+                                                <mo accent="true">¯</mo>
+                                            </mover>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <mover accent="false" class="mml-overline">
+                                                <mrow>
+                                                    <mrow>
+                                                        <mo class="MathClass-open">(</mo>
+                                                        <mrow>
+                                                            <mi>a</mi>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <mi>r</mi>
+                                                        </mrow>
+                                                        <mo class="MathClass-close">)</mo>
+                                                    </mrow>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mrow>
+                                                        <mo class="MathClass-open">(</mo>
+                                                        <mrow>
+                                                            <mi>b</mi>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <mi>s</mi>
+                                                        </mrow>
+                                                        <mo class="MathClass-close">)</mo>
+                                                    </mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                                <mo accent="true">¯</mo>
+                                            </mover>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>a</mi>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mi>r</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>b</mi>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mi>s</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mi>i</mi>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>a</mi>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>b</mi>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>r</mi>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>s</mi>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <mover accent="false" class="mml-overline">
+                                                <mrow>
+                                                    <mi>α</mi>
+                                                </mrow>
+                                                <mo accent="true">¯</mo>
+                                            </mover>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mover accent="false" class="mml-overline">
+                                                <mrow>
+                                                    <mi>β</mi>
+                                                </mrow>
+                                                <mo accent="true">¯</mo>
+                                            </mover>
+                                        </math>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">■</mo>
+                    </math>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Theorem</span>
+                    <span class="ph cmbx-12"> CCRM</span>
+                    <br/>
+                    <span class="ph cmbx-12">Complex Conjugation Respects Multiplication</span>
+                    <br/> Suppose that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>β</mi>
+                        </math>
+                    </span> are complex numbers. Then 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>α</mi>
+                                    <mi>β</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                            <mo class="MathClass-rel">=</mo>
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>α</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>β</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                        </math>
+                    </span>. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-ord">□</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Proof</span>   Let 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>β</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>r</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>s</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span>. Then 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>α</mi>
+                                            <mi>β</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>a</mi>
+                                                    <mi>r</mi>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>b</mi>
+                                                    <mi>s</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>a</mi>
+                                                    <mi>s</mi>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mi>b</mi>
+                                                    <mi>r</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>a</mi>
+                                            <mi>r</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mi>b</mi>
+                                            <mi>s</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>a</mi>
+                                            <mi>s</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mi>b</mi>
+                                            <mi>r</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mi>i</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>a</mi>
+                                            <mi>r</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>b</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>s</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>a</mi>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>s</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>b</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mi>r</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mi>i</mi>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>a</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mi>b</mi>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>r</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mi>s</mi>
+                                            <mi>i</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>α</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>β</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">■</mo>
+                    </math>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Theorem</span>
+                    <span class="ph cmbx-12"> CCT</span>
+                    <br/>
+                    <span class="ph cmbx-12">Complex Conjugation Twice</span>
+                    <br/> Suppose that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                        </math>
+                    </span> is a complex number. Then 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>α</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>α</mi>
+                        </math>
+                    </span>. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-ord">□</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Proof</span>   Let 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                        </math>
+                    </span>. Then 
+                </p>
+                <div class="tablenoborder">
+                    <table class="table" border="1">
+                        <tbody class="tbody">
+                            <tr class="row">
+                                <td class="entry">
+                                    <p class="p d4p_eqn_block">
+                                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                            <mover accent="false" class="mml-overline">
+                                                <mrow>
+                                                    <mover accent="false" class="mml-overline">
+                                                        <mrow>
+                                                            <mi>α</mi>
+                                                        </mrow>
+                                                        <mo accent="true">¯</mo>
+                                                    </mover>
+                                                </mrow>
+                                                <mo accent="true">¯</mo>
+                                            </mover>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <mover accent="false" class="mml-overline">
+                                                <mrow>
+                                                    <mi>a</mi>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>b</mi>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                                <mo accent="true">¯</mo>
+                                            </mover>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <mi>a</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mi>b</mi>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <mi>a</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mi>b</mi>
+                                            <mi>i</mi>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <mi>α</mi>
+                                        </math>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">■</mo>
+                    </math>
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e2472">
+            <h2 class="title topictitle2">Subsection MCN: Modulus of a Complex Number</h2>
+            <div class="body">
+                <p class="p"> We define one more operation with complex numbers that may be new to you. </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> MCN</span>
+                    <br/>
+                    <span class="ph cmbx-12">Modulus of a Complex Number</span>
+                    <br/> The 
+                    <span class="ph cmbx-12">modulus </span>of the complex number 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>α</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>a</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>b</mi>
+                            <mi>i</mi>
+                            <mo class="MathClass-rel">∈</mo>
+                            <msup>
+                                <mrow>
+                                    <mi>ℂ</mi>
+                                </mrow>
+                                <mrow/>
+                            </msup>
+                        </math>
+                    </span>, is the nonnegative real number 
+                </p>
+                <div class="tablenoborder">
+                    <table class="table" border="1">
+                        <tbody class="tbody">
+                            <tr class="row">
+                                <td class="entry">
+                                    <p class="p d4p_eqn_block">
+                                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                            <mfenced separators="" open="|" close="|">
+                                                <mrow>
+                                                    <mi>α</mi>
+                                                </mrow>
+                                            </mfenced>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <msqrt>
+                                                <mrow>
+                                                    <mi>α</mi>
+                                                    <mover accent="false" class="mml-overline">
+                                                        <mrow>
+                                                            <mi>α</mi>
+                                                        </mrow>
+                                                        <mo accent="true">¯</mo>
+                                                    </mover>
+                                                </mrow>
+                                            </msqrt>
+                                            <mo class="MathClass-rel">=</mo>
+                                            <msqrt>
+                                                <mrow>
+                                                    <msup>
+                                                        <mrow>
+                                                            <mi>a</mi>
+                                                        </mrow>
+                                                        <mrow>
+                                                            <mn>2</mn>
+                                                        </mrow>
+                                                    </msup>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <msup>
+                                                        <mrow>
+                                                            <mi>b</mi>
+                                                        </mrow>
+                                                        <mrow>
+                                                            <mn>2</mn>
+                                                        </mrow>
+                                                    </msup>
+                                                </mrow>
+                                            </msqrt>
+                                            <mo class="MathClass-punc">.</mo>
+                                        </math>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">△</mo>
+                    </math>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Example</span>
+                    <span class="ph cmbx-12"> MSCN</span>
+                    <br/>
+                    <span class="ph cmbx-12">Modulus of some complex numbers</span>
+                    <br/>
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mfenced separators="" open="|" close="|">
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>3</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </mfenced>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <msqrt>
+                                        <mrow>
+                                            <mn>1</mn>
+                                            <mn>3</mn>
+                                        </mrow>
+                                    </msqrt>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mfenced separators="" open="|" close="|">
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </mfenced>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <msqrt>
+                                        <mrow>
+                                            <mn>4</mn>
+                                            <mn>1</mn>
+                                        </mrow>
+                                    </msqrt>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mfenced separators="" open="|" close="|">
+                                        <mrow>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>3</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>0</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </mfenced>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>3</mn>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mfenced separators="" open="|" close="|">
+                                        <mrow>
+                                            <mn>0</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>0</mn>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </mfenced>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>0</mn>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">⊠</mo>
+                    </math>
+                </p>
+                <p class="p"> The modulus can be interpreted as a version of the absolute value for complex numbers, as is suggested by the notation employed. You can see this in how 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mfenced separators="" open="|" close="|">
+                                <mrow>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>3</mn>
+                                </mrow>
+                            </mfenced>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="|" close="|">
+                                <mrow>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>3</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>0</mn>
+                                    <mi>i</mi>
+                                </mrow>
+                            </mfenced>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>3</mn>
+                        </math>
+                    </span>. Notice too how the modulus of the complex zero, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>0</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>0</mn>
+                            <mi>i</mi>
+                        </math>
+                    </span>, has value 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>0</mn>
+                        </math>
+                    </span>. 
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

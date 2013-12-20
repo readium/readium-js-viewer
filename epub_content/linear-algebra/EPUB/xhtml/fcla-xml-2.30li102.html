@@ -1,0 +1,3648 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-us" lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/> 
+        <link rel="stylesheet" type="text/css" href="../css/commonltr.css"/>
+        <title>Section VM  Vandermonde Matrix</title>
+        <link type="text/css" rel="stylesheet" href="../css/epub.css"/>
+    </head>
+    <body id="d1e33">
+        <h1 class="title topictitle1">
+            <span class="enumeration_chapter">Chapter 16. </span>Section VM  Vandermonde Matrix
+        </h1>
+        <div class="body">
+            <p class="p"> From 
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmti-12">A First Course in Linear Algebra</span>
+                </span>
+                <br/>Version 2.30
+                <br/>
+                <span class="ph cmsy-10x-x-120">©</span> 2004.
+                <br/>Licensed under the 
+                <span class="xref broken http://www.gnu.org/licenses/fdl.html">GNU Free Documentation License</span>.
+                <br/>
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmtt-12">http://linear.ups.edu/</span>
+                </span>
+                <br/>
+                <br/>
+                <span class="ph cmcsc-10x-x-144">T
+                    <span class="ph small-caps">h</span>
+                    <span class="ph small-caps">i</span>
+                    <span class="ph small-caps">s</span> S
+                    <span class="ph small-caps">e</span>
+                    <span class="ph small-caps">c</span>
+                    <span class="ph small-caps">t</span>
+                    <span class="ph small-caps">i</span>
+                    <span class="ph small-caps">o</span>
+                    <span class="ph small-caps">n</span>
+                    <span class="ph small-caps">i</span>
+                    <span class="ph small-caps">s</span>
+                    <span class="ph small-caps">a</span> D
+                    <span class="ph small-caps">r</span>
+                    <span class="ph small-caps">a</span>
+                    <span class="ph small-caps">f</span>
+                    <span class="ph small-caps">t</span>, S
+                    <span class="ph small-caps">u</span>
+                    <span class="ph small-caps">b</span>
+                    <span class="ph small-caps">j</span>
+                    <span class="ph small-caps">e</span>
+                    <span class="ph small-caps">c</span>
+                    <span class="ph small-caps">t</span>
+                    <span class="ph small-caps">t</span>
+                    <span class="ph small-caps">o</span> C
+                    <span class="ph small-caps">h</span>
+                    <span class="ph small-caps">a</span>
+                    <span class="ph small-caps">n</span>
+                    <span class="ph small-caps">g</span>
+                    <span class="ph small-caps">e</span>
+                    <span class="ph small-caps">s</span>
+                </span>
+            </p>
+            <p class="p"> Alexandre-Théophile Vandermonde was a French mathematician in the 1700’s who was among the first to write about basic properties of the determinant (such as the effect of swapping two rows). However, the determinant that bears his name (
+                <span class="xref broken fcla-xml-2.30li102.html#theorem.DVM">Theorem DVM</span>) does not appear in any of his four published mathematical papers. 
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Definition</span>
+                <span class="ph cmbx-12"> VM</span>
+                <br/>
+                <span class="ph cmbx-12">Vandermonde Matrix</span>
+                <br/> An square matrix of size 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span>, is a 
+                <span class="ph cmbx-12">Vandermonde matrix </span>if there are scalars, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mo class="MathClass-op">…</mo>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> such that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mi>A</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mrow>
+                            <mrow>
+                                <mi>i</mi>
+                                <mi>j</mi>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">=</mo>
+                        <msubsup>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>i</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>j</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msubsup>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>j</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                    </math>
+                </span>. 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">△</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Example</span>
+                <span class="ph cmbx-12"> VM4</span>
+                <br/>
+                <span class="ph cmbx-12">Vandermonde matrix of size 4</span>
+                <br/>
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>A</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>2</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>4</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>8</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mn>3</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>9</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mn>2</mn>
+                                                    <mn>7</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>4</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>6</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>6</mn>
+                                                    <mn>4</mn>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">is a Vandermonde matrix since it meets the definition with 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>2</mn>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">=</mo>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>3</mn>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>4</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>4</mn>
+                    </math>
+                </span>. 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">⊠</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p"> Vandermonde matrices are not very interesting as numerical matrices, but instead appear more often in proofs and applications where the scalars 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>i</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> are carried as symbols. Two such applications are in the sections on secret-sharing (
+                <span class="xref broken fcla-xml-2.30li112.html#d1e33__section.SAS">Section SAS</span>) and curve-fitting (
+                <span class="xref broken fcla-xml-2.30li111.html#d1e27__section.CF">Section CF</span>). Principally, we would like to know when Vandermonde matrices are nonsingular, and the most convenient way to check this is by determining when the determinant is nonzero (
+                <span class="xref broken fcla-xml-2.30li45.html#d1e30__theorem.SMZD">Theorem SMZD</span>). As a bonus, the determinant of a Vandermonde matrix has an especially pleasing formula. 
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Theorem</span>
+                <span class="ph cmbx-12"> DVM</span>
+                <br/>
+                <span class="ph cmbx-12">Determinant of a Vandermonde Matrix</span>
+                <br/> Suppose that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> is a Vandermonde matrix of size 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                    </math>
+                </span> built with the scalars 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mo class="MathClass-op">…</mo>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. Then 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>A</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munder class="msub">
+                                    <mrow>
+                                        <mo mathsize="big"> ∏</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-rel">≤</mo>
+                                        <mi>i</mi>
+                                        <mo class="MathClass-rel">&lt;</mo>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-rel">≤</mo>
+                                        <mi>n</mi>
+                                    </mrow>
+                                </munder>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>j</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mo class="MathClass-ord">□</mo>
+                </math>
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Proof</span>   The proof is by induction (
+                <span class="xref broken fcla-xml-2.30li71.html#d1e30__technique.I">Technique I</span>) on 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                    </math>
+                </span>, the size of the matrix. An empty product for a 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-bin">×</mo>
+                        <mn>1</mn>
+                    </math>
+                </span> matrix might make a good base case, but we’ll start at 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>2</mn>
+                    </math>
+                </span> instead. For a 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>2</mn>
+                        <mo class="MathClass-bin">×</mo>
+                        <mn>2</mn>
+                    </math>
+                </span> Vandermonde matrix, we have 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>A</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="|" close="|">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <msub>
+                                                        <mrow>
+                                                            <mi>x</mi>
+                                                        </mrow>
+                                                        <mrow>
+                                                            <mn>1</mn>
+                                                        </mrow>
+                                                    </msub>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <msub>
+                                                        <mrow>
+                                                            <mi>x</mi>
+                                                        </mrow>
+                                                        <mrow>
+                                                            <mn>2</mn>
+                                                        </mrow>
+                                                    </msub>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                                <mo class="MathClass-rel">=</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">−</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-rel">=</mo>
+                                <munder class="msub">
+                                    <mrow>
+                                        <mo mathsize="big"> ∏</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-rel">≤</mo>
+                                        <mi>i</mi>
+                                        <mo class="MathClass-rel">&lt;</mo>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-rel">≤</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </munder>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>j</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">For the induction step we will perform row operations on 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> to obtain the determinant of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> as multiple of the determinant of an 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                        <mo class="MathClass-bin">×</mo>
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                    </math>
+                </span> Vandermonde matrix. the notation in this theorem tens to obscure your intuition about the changes effected by various row and column manipulations. Construct a 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>4</mn>
+                        <mo class="MathClass-bin">×</mo>
+                        <mn>4</mn>
+                    </math>
+                </span> Vandermonde matrix with four symbols as the scalars (
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>4</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, or perhaps 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>a</mi>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>b</mi>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>c</mi>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>d</mi>
+                    </math>
+                </span>) and play along with the example as you study the proof. 
+            </p>
+            <p class="p"> First we convert most of the first column to zeros. Subtract row 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                    </math>
+                </span> from each of the other 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span> rows to form a matrix 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                    </math>
+                </span>. By 
+                <span class="xref broken fcla-xml-2.30li45.html#d1e30__theorem.DRCMA">Theorem DRCMA</span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                    </math>
+                </span> has the same determinant as 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span>. The entries of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                    </math>
+                </span>, in the first 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span> rows, i.e. for 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>j</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, are 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <mi>B</mi>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mi>j</mi>
+                                    </mrow>
+                                </msub>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-bin">−</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">As the elements of row 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>i</mi>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, have the common factor 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mfenced separators="" open="(" close=")">
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">−</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                </msub>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>, we form the new matrix 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>C</mi>
+                    </math>
+                </span> that differs from 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                    </math>
+                </span> by the removal of this factor from each of the first 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span> rows. This will change the determinant, as we will track carefully in a moment. We also have a first column with zeros in each location, except row 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                    </math>
+                </span>, so we can use it for a column expansion computation of the determinant. We now know, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>A</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>B</mi>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mtext> </mtext>
+                                <mtext class="label">Theorem DRCMA</mtext>
+                                <mtext class="endlabel"/>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>2</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-rel">⋯</mo>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>C</mi>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mtext> </mtext>
+                                <mtext class="label">Theorem DRCM</mtext>
+                                <mtext class="endlabel"/>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>2</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-rel">⋯</mo>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <msup>
+                                    <mrow>
+                                        <mrow>
+                                            <mo class="MathClass-open">(</mo>
+                                            <mrow>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                            <mo class="MathClass-close">)</mo>
+                                        </mrow>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                        <mo class="MathClass-bin">+</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msup>
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>C</mi>
+                                        <mfenced separators="" open="(" close=")">
+                                            <mrow>
+                                                <mi>n</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                                <mo class="MathClass-rel">|</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mtext> </mtext>
+                                <mtext class="label">Theorem DEC</mtext>
+                                <mtext class="endlabel"/>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>2</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-rel">⋯</mo>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <msup>
+                                    <mrow>
+                                        <mrow>
+                                            <mo class="MathClass-open">(</mo>
+                                            <mrow>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                            <mo class="MathClass-close">)</mo>
+                                        </mrow>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msup>
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>C</mi>
+                                        <mfenced separators="" open="(" close=")">
+                                            <mrow>
+                                                <mi>n</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                                <mo class="MathClass-rel">|</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>2</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-rel">⋯</mo>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>C</mi>
+                                        <mfenced separators="" open="(" close=")">
+                                            <mrow>
+                                                <mi>n</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                                <mo class="MathClass-rel">|</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">For convenience, denote 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>D</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mi>C</mi>
+                        <mfenced separators="" open="(" close=")">
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                                <mo class="MathClass-rel">|</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>. Entries of this matrix are similar to those of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                    </math>
+                </span>, but the factors used to build 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>C</mi>
+                    </math>
+                </span> are gone, and since the first column is gone, there is a slight re-indexing relative to the columns. For 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>j</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <mi>D</mi>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mi>j</mi>
+                                    </mrow>
+                                </msub>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">We will perform many column operations on the matrix 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>D</mi>
+                    </math>
+                </span>, always of the type where we multiply a column by a scalar and add the result to another column. As such, 
+                <span class="xref broken fcla-xml-2.30li45.html#d1e30__theorem.DRCM">Theorem DRCM</span> insures that the determinant will remain constant. We will work column by column, left to right, to convert 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>D</mi>
+                    </math>
+                </span> into a Vandermonde matrix with scalars 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mo class="MathClass-op">…</mo>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. More precisely, we will build a sequence of matrices 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>D</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, …, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, where each obtainable from the previous by a sequence of determinant-preserving column operations and the first 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>ℓ</mi>
+                    </math>
+                </span> columns of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>ℓ</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> are the first 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>ℓ</mi>
+                    </math>
+                </span> columns of a Vandermonde matrix with scalars 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mo class="MathClass-op">…</mo>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. We could establish this claim by induction (
+                <span class="xref broken fcla-xml-2.30li71.html#d1e30__technique.I">Technique I</span>) on 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>ℓ</mi>
+                    </math>
+                </span> if we were to expand the claim to specify the exact values of the final 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                        <mo class="MathClass-bin">−</mo>
+                        <mi>ℓ</mi>
+                    </math>
+                </span> columns as well. Since the claim is that matrices with certain properties exist, we will instead establish the claim by constructing the desired matrices one-by-one procedurally. The extension to an inductive proof should be clear, but not especially illuminating. 
+            </p>
+            <p class="p"> Set 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">=</mo>
+                        <mi>D</mi>
+                    </math>
+                </span> to begin, and note that the entries of the first column of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> are, for 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>1</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-rel">=</mo>
+                                <mn>1</mn>
+                                <mo class="MathClass-rel">=</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">So the first column of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> has the properties we desire. We will use this column of all 1’s to remove the highest power of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> from each of the remaining columns and so build 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. Precisely, perform the 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>2</mn>
+                    </math>
+                </span> column operations where column 1 is multiplied by 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msubsup>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>j</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msubsup>
+                    </math>
+                </span> and subtracted from column 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>j</mi>
+                    </math>
+                </span>, for 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>2</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>j</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>. Call the result 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, and examine its entries in columns 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>2</mn>
+                    </math>
+                </span> through 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>. For 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>2</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>j</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>2</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mi>j</mi>
+                                    </mrow>
+                                </msub>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mo class="MathClass-bin">−</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>1</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>1</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mi>j</mi>
+                                    </mrow>
+                                </msub>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mo class="MathClass-bin">−</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-bin">+</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mo class="MathClass-bin">−</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-bin">+</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mrow>
+                                            <mo class="MathClass-open">(</mo>
+                                            <mrow>
+                                                <mi>j</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                            <mo class="MathClass-close">)</mo>
+                                        </mrow>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-bin">+</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">In particular, we examine column 2 of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. For 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>2</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-rel">=</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-rel">=</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">Now, form 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. Perform the 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>3</mn>
+                    </math>
+                </span> column operations where column 2 of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> is multiplied by 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msubsup>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>j</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>2</mn>
+                            </mrow>
+                        </msubsup>
+                    </math>
+                </span> and subtracted from column 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>j</mi>
+                    </math>
+                </span>, for 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>3</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>j</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>. The result is 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, whose entries we now compute. For 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>3</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mi>j</mi>
+                                    </mrow>
+                                </msub>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mo class="MathClass-bin">−</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msubsup>
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>2</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>2</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mi>j</mi>
+                                    </mrow>
+                                </msub>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mo class="MathClass-bin">−</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-bin">+</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mo class="MathClass-bin">−</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-bin">+</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mrow>
+                                            <mo class="MathClass-open">(</mo>
+                                            <mrow>
+                                                <mi>j</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>2</mn>
+                                            </mrow>
+                                            <mo class="MathClass-close">)</mo>
+                                        </mrow>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-bin">+</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>3</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>3</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">Specifically, we examine column 3 of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. For 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <msub>
+                                    <mrow>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <msub>
+                                                    <mrow>
+                                                        <mi>D</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mn>3</mn>
+                                                    </mrow>
+                                                </msub>
+                                            </mrow>
+                                        </mfenced>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mn>3</mn>
+                                    </mrow>
+                                </msub>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∑</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>0</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>3</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>3</mn>
+                                    </mrow>
+                                </munderover>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>3</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-rel">=</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mo class="MathClass-rel">=</mo>
+                                <msubsup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>3</mn>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msubsup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">We could continue this procedure 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>4</mn>
+                    </math>
+                </span> more times, eventually totaling 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mfrac>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </mfrac>
+                        <mfenced separators="" open="(" close=")">
+                            <mrow>
+                                <msup>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msup>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>3</mn>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>2</mn>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span> column operations, and arriving at 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>, the Vandermonde matrix of size 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span> built from the scalars 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mo class="MathClass-op">…</mo>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. Informally, we chop off the last term of every sum, until a single term is left in a column, and it is of the right form for the Vandermonde matrix. This desired column is then used in the next iteration to chop off some more final terms for columns to the right. Now we can apply our induction hypothesis to the determinant of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>D</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> and arrive at an expression for 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="qopname"> det</mo>
+                        <mi>A</mi>
+                    </math>
+                </span>, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>A</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>C</mi>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∏</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </munderover>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>k</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <mi>D</mi>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∏</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </munderover>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>k</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <mo class="qopname"> det</mo>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>D</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                                <mo class="MathClass-bin">−</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munderover accentunder="false" accent="false">
+                                    <mrow>
+                                        <mo mathsize="big"> ∏</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </munderover>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>k</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <munder class="msub">
+                                    <mrow>
+                                        <mo mathsize="big"> ∏</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-rel">≤</mo>
+                                        <mi>i</mi>
+                                        <mo class="MathClass-rel">&lt;</mo>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-rel">≤</mo>
+                                        <mi>n</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </munder>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>j</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <munder class="msub">
+                                    <mrow>
+                                        <mo mathsize="big"> ∏</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo class="MathClass-rel">≤</mo>
+                                        <mi>i</mi>
+                                        <mo class="MathClass-rel">&lt;</mo>
+                                        <mi>j</mi>
+                                        <mo class="MathClass-rel">≤</mo>
+                                        <mi>n</mi>
+                                    </mrow>
+                                </munder>
+                                <mfenced separators="" open="(" close=")">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>j</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">which is the desired result. 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">■</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p"> Before we had 
+                <span class="xref broken fcla-xml-2.30li102.html#theorem.DVM">Theorem DVM</span> we could see that if two of the scalar values were equal, then the Vandermonde matrix would have two equal rows and hence be singular (
+                <span class="xref broken fcla-xml-2.30li45.html#d1e30__theorem.DERC">Theorem DERC</span>, 
+                <span class="xref broken fcla-xml-2.30li45.html#d1e30__theorem.SMZD">Theorem SMZD</span>). But with this expression for the determinant, we can establish the converse. 
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Theorem</span>
+                <span class="ph cmbx-12"> NVM</span>
+                <br/>
+                <span class="ph cmbx-12">Nonsingular Vandermonde Matrix</span>
+                <br/> A Vandermonde matrix of size 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                    </math>
+                </span> with scalars 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mo class="MathClass-op">…</mo>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> is nonsingular if and only if the scalars are all different. 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">□</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Proof</span>   Let 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> denote the Vandermonde matrix with scalars 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mo class="MathClass-op">…</mo>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. By 
+                <span class="xref broken fcla-xml-2.30li45.html#d1e30__theorem.SMZD">Theorem SMZD</span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> is nonsingular if and only if the determinant of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> is nonzero. The determinant is given by 
+                <span class="xref broken fcla-xml-2.30li102.html#theorem.DVM">Theorem DVM</span>, and this product is nonzero if and only if each term of the product is nonzero. This condition translates to 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>i</mi>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-bin">−</mo>
+                        <msub>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>j</mi>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">≠</mo>
+                        <mn>0</mn>
+                    </math>
+                </span> whenever 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≠</mo>
+                        <mi>j</mi>
+                    </math>
+                </span>. In other words, the matrix is nonsingular if and only if the scalars are all different. 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">■</mo>
+                    </math>
+                </span>
+            </p>
+        </div>
+        <div class="related-links">
+            <div class="familylinks">
+                <div class="parentlink">
+                    <strong>Parent topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li98.html">Part T  Topics</a>
+                </div>
+                <div class="previouslink">
+                    <strong>Previous topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li101.html">Section HP  Hadamard Product</a>
+                </div>
+                <div class="nextlink">
+                    <strong>Next topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li103.html">Section PSM  Positive Semi-definite Matrices</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

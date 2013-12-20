@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package version="3.0" xml:lang="en" unique-identifier="uid" prefix="cc: http://creativecommons.org/ns#" xmlns="http://www.idpf.org/2007/opf">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:title id="title">A First Course in Linear Algebra</dc:title>
+        <dc:identifier id="uid">code.google.com.epub-samples.linear-algebra</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:creator>Robert A. Beezer</dc:creator>
+        <meta property="dcterms:modified">2012-03-05T12:47:00Z</meta>
+        <dc:rights>This work is shared with the public using the GNU Free Documentation License, Version 1.2.</dc:rights>
+        <dc:rights>© 2004 by Robert A. Beezer.</dc:rights>
+        <link rel="cc:license" href="http://www.gnu.org/copyleft/fdl.html"/>
+        <meta property="dcterms:source">http://linear.ups.edu</meta>
+    </metadata>
+    <manifest>
+        <item id="css0" href="css/epub.css" media-type="text/css"/>
+        <item id="css7" href="css/commonltr.css" media-type="text/css"/>
+        <!-- <item id="css1" href="css/check/tree.css" media-type="text/css"/> <item id="css2" href="css/default/tree.css" media-type="text/css"/> <item id="css3" href="css/folders/tree.css" media-type="text/css"/> <item id="css4" href="css/local/tree.css" media-type="text/css"/> <item id="css5" href="css/menu/tree.css" media-type="text/css"/> <item id="css6" href="css/code.css" media-type="text/css"/> <item id="css8" href="css/commonrtl.css" media-type="text/css"/> <item id="css9" href="css/reset-html5.css" media-type="text/css"/> <item id="css10" href="css/root-page.css" media-type="text/css"/> <item id="css11" href="css/screen.css" media-type="text/css"/> <item id="gif0" href="img/check/check0.gif" media-type="image/gif"/> <item id="gif1" href="img/check/check1.gif" media-type="image/gif"/> <item id="gif2" href="img/check/check2.gif" media-type="image/gif"/> <item id="gif3" href="img/check/lm.gif" media-type="image/gif"/> <item id="gif4" href="img/check/lmh.gif" media-type="image/gif"/> <item id="gif5" href="img/check/ln.gif" media-type="image/gif"/> <item id="gif6" href="img/check/loading.gif" media-type="image/gif"/> <item id="gif7" href="img/check/lp.gif" media-type="image/gif"/> <item id="gif8" href="img/check/lph.gif" media-type="image/gif"/> <item id="gif9" href="img/check/tm.gif" media-type="image/gif"/> <item id="gif10" href="img/check/tmh.gif" media-type="image/gif"/> <item id="gif11" href="img/check/tn.gif" media-type="image/gif"/> <item id="gif12" href="img/check/tp.gif" media-type="image/gif"/> <item id="gif13" href="img/check/tph.gif" media-type="image/gif"/> <item id="gif14" href="img/check/vline.gif" media-type="image/gif"/> <item id="gif15" href="img/default/lm.gif" media-type="image/gif"/> <item id="gif16" href="img/default/lmh.gif" media-type="image/gif"/> <item id="gif17" href="img/default/ln.gif" media-type="image/gif"/> <item id="gif18" href="img/default/loading.gif" media-type="image/gif"/> <item id="gif19" href="img/default/lp.gif" media-type="image/gif"/> <item id="gif20" href="img/default/lph.gif" media-type="image/gif"/> <item id="gif21" href="img/default/tm.gif" media-type="image/gif"/> <item id="gif22" href="img/default/tmh.gif" media-type="image/gif"/> <item id="gif23" href="img/default/tn.gif" media-type="image/gif"/> <item id="gif24" href="img/default/tp.gif" media-type="image/gif"/> <item id="gif25" href="img/default/tph.gif" media-type="image/gif"/> <item id="gif26" href="img/default/vline.gif" media-type="image/gif"/> <item id="gif27" href="img/folders/lm.gif" media-type="image/gif"/> <item id="gif28" href="img/folders/lmh.gif" media-type="image/gif"/> <item id="gif29" href="img/folders/ln.gif" media-type="image/gif"/> <item id="gif30" href="img/folders/loading.gif" media-type="image/gif"/> <item id="gif31" href="img/folders/lp.gif" media-type="image/gif"/> <item id="gif32" href="img/folders/lph.gif" media-type="image/gif"/> <item id="gif33" href="img/folders/tm.gif" media-type="image/gif"/> <item id="gif34" href="img/folders/tmh.gif" media-type="image/gif"/> <item id="gif35" href="img/folders/tn.gif" media-type="image/gif"/> <item id="gif36" href="img/folders/tp.gif" media-type="image/gif"/> <item id="gif37" href="img/folders/tph.gif" media-type="image/gif"/> <item id="gif38" href="img/folders/vline.gif" media-type="image/gif"/> <item id="gif39" href="img/menu/collapse.gif" media-type="image/gif"/> <item id="gif40" href="img/menu/collapseh.gif" media-type="image/gif"/> <item id="gif41" href="img/menu/collapseon.gif" media-type="image/gif"/> <item id="gif42" href="img/menu/dash.gif" media-type="image/gif"/> <item id="gif43" href="img/menu/expand.gif" media-type="image/gif"/> <item id="gif44" href="img/menu/expandh.gif" media-type="image/gif"/> <item id="gif45" href="img/menu/expandon.gif" media-type="image/gif"/> <item id="gif46" href="img/menu/loading.gif" media-type="image/gif"/> -->
+        <item id="c1" media-type="application/xhtml+xml" href="xhtml/titlepage.html"/>
+        <item id="c2" media-type="application/xhtml+xml" href="xhtml/copyright.html"/>
+        <item id="c3" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li2.html"/>
+        <item id="c4" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li3.html"/>
+        <item id="c5" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li4.html"/>
+        <item id="c6" media-type="application/xhtml+xml" href="xhtml/nav.html" properties="nav"/>
+        <item id="c7" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li5.html"/>
+        <item id="c8" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li8.html" properties="mathml"/>
+        <item id="c9" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li9.html" properties="mathml"/>
+        <item id="c10" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li10.html"/>
+        <item id="c11" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li11.html" properties="mathml"/>
+        <item id="c12" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li12.html"/>
+        <item id="c13" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li13.html"/>
+        <item id="c14" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li14.html"/>
+        <item id="c15" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li15.html"/>
+        <item id="c16" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li16.html" properties="mathml"/>
+        <item id="c17" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li17.html" properties="mathml"/>
+        <item id="c18" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li18.html" properties="mathml"/>
+        <item id="c19" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li20.html" properties="mathml"/>
+        <item id="c20" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li21.html" properties="mathml"/>
+        <item id="c21" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li22.html"/>
+        <item id="c22" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li25.html" properties="mathml"/>
+        <item id="c23" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li28.html" properties="mathml"/>
+        <item id="c24" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li29.html"/>
+        <item id="c25" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li31.html" properties="mathml"/>
+        <item id="c26" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li32.html" properties="mathml"/>
+        <item id="c27" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li33.html" properties="mathml"/>
+        <item id="c28" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li34.html" properties="mathml"/>
+        <item id="c29" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li36.html"/>
+        <item id="c30" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li43.html"/>
+        <item id="c31" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li45.html" properties="mathml"/>
+        <item id="c32" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li46.html" properties="mathml"/>
+        <item id="c33" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li48.html" properties="mathml"/>
+        <item id="c34" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li50.html"/>
+        <item id="c35" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li52.html" properties="mathml"/>
+        <item id="c36" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li53.html" properties="mathml"/>
+        <item id="c37" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li54.html" properties="mathml"/>
+        <item id="c38" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li55.html" properties="mathml"/>
+        <item id="c39" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li58.html" properties="mathml"/>
+        <item id="c40" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li59.html" properties="mathml"/>
+        <item id="c41" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li60.html" properties="mathml"/>
+        <item id="c42" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li61.html" properties="mathml"/>
+        <item id="c43" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li62.html" properties="mathml"/>
+        <item id="c44" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li63.html"/>
+        <item id="c45" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li64.html" properties="mathml"/>
+        <item id="c46" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li65.html" properties="mathml"/>
+        <item id="c47" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li66.html" properties="mathml"/>
+        <item id="c48" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li67.html" properties="mathml"/>
+        <item id="c49" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li68.html" properties="mathml"/>
+        <item id="c50" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li69.html" properties="mathml"/>
+        <item id="c51" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li70.html" properties="mathml"/>
+        <item id="c52" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li71.html" properties="mathml"/>
+        <item id="c53" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li72.html"/>
+        <item id="c54" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li73.html" properties="mathml"/>
+        <item id="c55" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li74.html" properties="mathml"/>
+        <item id="c56" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li75.html" properties="mathml"/>
+        <item id="c57" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li76.html" properties="mathml"/>
+        <item id="c58" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li77.html" properties="mathml"/>
+        <item id="c59" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li78.html" properties="mathml"/>
+        <item id="c60" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li79.html" properties="mathml"/>
+        <item id="c61" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li80.html" properties="mathml"/>
+        <item id="c62" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li81.html" properties="mathml"/>
+        <item id="c63" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li82.html" properties="mathml"/>
+        <item id="c64" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li83.html" properties="mathml"/>
+        <item id="c65" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li84.html" properties="mathml"/>
+        <item id="c66" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li85.html" properties="mathml"/>
+        <item id="c67" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li86.html" properties="mathml"/>
+        <item id="c68" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li87.html" properties="mathml"/>
+        <item id="c69" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li88.html" properties="mathml"/>
+        <item id="c70" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li89.html" properties="mathml"/>
+        <item id="c71" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li90.html" properties="mathml"/>
+        <item id="c72" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li91.html" properties="mathml"/>
+        <item id="c73" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li92.html" properties="mathml"/>
+        <item id="c74" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li93.html" properties="mathml"/>
+        <item id="c75" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li94.html" properties="mathml"/>
+        <item id="c76" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li95.html" properties="mathml"/>
+        <item id="c77" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li96.html" properties="mathml"/>
+        <item id="c78" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li97.html"/>
+        <item id="c79" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li98.html"/>
+        <item id="c80" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li100.html" properties="mathml"/>
+        <item id="c81" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li101.html" properties="mathml"/>
+        <item id="c82" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li102.html" properties="mathml"/>
+        <item id="c83" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li103.html" properties="mathml"/>
+        <item id="c84" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li104.html" properties="mathml"/>
+        <item id="c85" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li105.html" properties="mathml"/>
+        <item id="c86" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li106.html" properties="mathml"/>
+        <item id="c87" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li107.html" properties="mathml"/>
+        <item id="c88" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li108.html" properties="mathml"/>
+        <item id="c89" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li109.html" properties="mathml"/>
+        <item id="c90" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li110.html"/>
+        <item id="c91" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li111.html" properties="mathml"/>
+        <item id="c92" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li112.html" properties="mathml"/>
+        <item id="c93" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li6.html"/>
+        <item id="c94" media-type="application/xhtml+xml" href="xhtml/fcla-xml-2.30li7.html" properties="mathml"/>
+    </manifest>
+    <spine>
+        <itemref idref="c1"/>
+        <itemref idref="c2"/>
+        <itemref idref="c3"/>
+        <itemref idref="c4"/>
+        <itemref idref="c5"/>
+        <itemref idref="c6"/>
+        <itemref idref="c7"/>
+        <itemref idref="c8"/>
+        <itemref idref="c9"/>
+        <itemref idref="c10"/>
+        <itemref idref="c11"/>
+        <itemref idref="c12"/>
+        <itemref idref="c13"/>
+        <itemref idref="c14"/>
+        <itemref idref="c15"/>
+        <itemref idref="c16"/>
+        <itemref idref="c17"/>
+        <itemref idref="c18"/>
+        <itemref idref="c19"/>
+        <itemref idref="c20"/>
+        <itemref idref="c21"/>
+        <itemref idref="c22"/>
+        <itemref idref="c23"/>
+        <itemref idref="c24"/>
+        <itemref idref="c25"/>
+        <itemref idref="c26"/>
+        <itemref idref="c27"/>
+        <itemref idref="c28"/>
+        <itemref idref="c29"/>
+        <itemref idref="c30"/>
+        <itemref idref="c31"/>
+        <itemref idref="c32"/>
+        <itemref idref="c33"/>
+        <itemref idref="c34"/>
+        <itemref idref="c35"/>
+        <itemref idref="c36"/>
+        <itemref idref="c37"/>
+        <itemref idref="c38"/>
+        <itemref idref="c39"/>
+        <itemref idref="c40"/>
+        <itemref idref="c41"/>
+        <itemref idref="c42"/>
+        <itemref idref="c43"/>
+        <itemref idref="c44"/>
+        <itemref idref="c45"/>
+        <itemref idref="c46"/>
+        <itemref idref="c47"/>
+        <itemref idref="c48"/>
+        <itemref idref="c49"/>
+        <itemref idref="c50"/>
+        <itemref idref="c51"/>
+        <itemref idref="c52"/>
+        <itemref idref="c53"/>
+        <itemref idref="c54"/>
+        <itemref idref="c55"/>
+        <itemref idref="c56"/>
+        <itemref idref="c57"/>
+        <itemref idref="c58"/>
+        <itemref idref="c59"/>
+        <itemref idref="c60"/>
+        <itemref idref="c61"/>
+        <itemref idref="c62"/>
+        <itemref idref="c63"/>
+        <itemref idref="c64"/>
+        <itemref idref="c65"/>
+        <itemref idref="c66"/>
+        <itemref idref="c67"/>
+        <itemref idref="c68"/>
+        <itemref idref="c69"/>
+        <itemref idref="c70"/>
+        <itemref idref="c71"/>
+        <itemref idref="c72"/>
+        <itemref idref="c73"/>
+        <itemref idref="c74"/>
+        <itemref idref="c75"/>
+        <itemref idref="c76"/>
+        <itemref idref="c77"/>
+        <itemref idref="c78"/>
+        <itemref idref="c79"/>
+        <itemref idref="c80"/>
+        <itemref idref="c81"/>
+        <itemref idref="c82"/>
+        <itemref idref="c83"/>
+        <itemref idref="c84"/>
+        <itemref idref="c85"/>
+        <itemref idref="c86"/>
+        <itemref idref="c87"/>
+        <itemref idref="c88"/>
+        <itemref idref="c89"/>
+        <itemref idref="c90"/>
+        <itemref idref="c91"/>
+        <itemref idref="c92"/>
+        <itemref idref="c93"/>
+        <itemref idref="c94"/>
+    </spine>
+</package>
