@@ -40,7 +40,7 @@ var waitForVisible = function(test, element, msg, timeout){
 
 var initAddToLibTests = function(test){
 	driver.get(extensionUrl);
-	driver.sleep(2000);
+	driver.sleep(3000);
 	driver.get(extensionUrl);
 
 	var err = testErrback.bind(null, test);
@@ -52,16 +52,9 @@ var initAddToLibTests = function(test){
 	waitForVisible(test, dlg, 'The add epub dialog didn\'t appear when the button was clicked');
 }
 
-// this test just loads the extension for the first time. If I don't do this, the first test will fail.
-exports.noopTest = function(test){
-
+exports.testLibraryNavbar = function(test){
 	driver.get(extensionUrl);
 	driver.sleep(3000);
-	driver.get(extensionUrl).then(function(){
-		test.done();
-	});
-}
-exports.testLibraryNavbar = function(test){
 	driver.get(extensionUrl);
 
 	waitForPresent(test, {className : 'navbar'}, 'navbar not present');
