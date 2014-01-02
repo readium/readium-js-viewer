@@ -1,0 +1,12 @@
+{
+  "name": "Readium",
+  "description": "EPUB reader for Chrome",
+  "version": "2.0",
+  "default_locale" : "en_US",
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions" : ["http://*/", "https://*/","storage", "fileSystem", "fileSystem.write", "unlimitedStorage"]
+}

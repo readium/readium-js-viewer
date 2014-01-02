@@ -1,132 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/reader_bootstrap_customizations.css">
-        <link rel="stylesheet" type="text/css" href="css/readium_buttons.css">
-        <link rel="stylesheet" type="text/css" href="css/readium_js.css">
-        <link rel="stylesheet" type="text/css" href="css/viewer.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .library-item{
+            height: 100px;
+        }
+        .library-item img{
+            max-height: 100%;
+        }
+        .library-item .no-cover{
+            transform: scale(1,1);
+            -webkit-transform: scale(1,1);
+            -ms-transform: scale(1,1);
+        }
+    </style>
 
-        <!--We load common libraries explicitly because readium-share-js is not under RequireJS-->
-        <!--and we have to make sure that base libraries loaded before readium-shared-js-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/viewer.css">
+    <link rel="stylesheet" type="text/css" href="css/library.css">
+    <link rel="stylesheet" type="text/css" href="css/readium_js.css">
 
-        <script src="lib/jquery-1.9.1.js" type="text/javascript"></script>
-        <script src="lib/underscore-1.4.4.js" type="text/javascript"></script>
-        <script src="lib/backbone-0.9.10.js" type="text/javascript"></script>
+    <!-- We load this explicitly because it is needed by shared js which is not under Require.JS-->
+    <script src="./lib/thirdparty/URIjs/URI.js" type="text/javascript"></script>
 
-        <!--until shared-js is not under require we have to load this explicitly -->
-        <script src="./lib/URI.js" type="text/javascript"></script>
+    <script data-main="../lib/ReadiumViewer.js" src="./lib/require.js" type="text/javascript"></script>
+    <script src="require_config.js" type="text/javascript"></script>
 
-        <script src="./lib/json2.js" type="text/javascript"></script>
-        <script src="./lib/zip.js" type="text/javascript"></script>
-        <script src="./lib/zip-fs.js" type="text/javascript"></script>
-        <script src="./lib/zip-ext.js" type="text/javascript"></script>
+    <script src="extend_require_config.js" type="text/javascript"></script>
+    
 
-
-        <!-- **** Begin of require.js configuration -->
-        <!---->
-
-        <!-- +++ @IF PRODUCTION (This uses ./lib/Readium.js, one huge file) -->
-        <!-- <script src="require_config.js" type="text/javascript"></script> -->
-        <!-- +++ @END IF -->
-
-        <!-- +-+ @ID DEVELOPMENT (This uses individual source files of Readium.js from readium-js submodule) -->
-        <script src="readium-js/rjs_require_config.js" type="text/javascript"></script> 
-        <script type="text/javascript">  requirejs.baseUrl = "./readium-js" </script> 
-        <!-- +-+ @END IF -->
-
-        <script src="extend_require_config.js" type="text/javascript"></script>
-        <script data-main="../lib/initialize_viewer" src="./lib/require.js" type="text/javascript"></script>
-
-        <!---->
-        <!-- **** End of require.js configuration -->
-
-
-
-        <!--reflowable view-->
-        <script type="text/html" id="template-reflowable-view"><div id="viewport_reflowable" class="clearfix">
-        <iframe scrolling="no" id="epubContentIframe"></iframe></div></script>
-
-        <!-- Fixed Layout View -->
-        <script type="text/html" id="template-fixed-view"><div id="viewport_fixed"><div id="spread-wrap" class="clearfix"></div></div></script>
-        <script type="text/html" id="template-ope-fixed-page-view"><div class="fixed-page-wrap"><iframe class="fixed_iframe"></iframe></div></script>
-        
-        <link rel="prefetch" href="images/ico_doublepage_up.png">
-        <link rel="prefetch" href="images/ico_doublepage_over.png">
-        <link rel="prefetch" href="images/ico_singlepage_up.png">
-        <link rel="prefetch" href="images/ico_singlepage_over.png">
-        <link rel="prefetch" href="images/ico_menu_up.png">
-        <link rel="prefetch" href="images/ico_menu_over.png">
     </head>
 
     <!-- This is all application-specific HTML -->
     <body>
-
-        <!-- The navbar -->
-        <div class="navbar navbar-fixed-top" style="position: relative;" id="toolbar-el">
-            <div class="navbar-inner container" id="top-bar" style="">
-
-                    <!-- Navbar logo -->
-                    <a title="Simple RJS Demo" class="brand icon48" id="readium-logo" href="#" onclick="window.location = window.location+'#'">
-                    </a>
-
-                    <!-- Navbar contents -->
-                    <ul class="nav pull-right">
-                        <li>
-                            <a accesskey="" href="#" id="annotations-highlight" class="" role="button" title="increase font size">Highlight</a>
-<!--                            <a accesskey="" href="#" id="annotations-underline" class="" role="button" title="increase font size">Underline</a>  -->
-                            <!--<a accesskey="" href="#" id="annotations-image-highlight" class="" role="button" title="increase font size">Image Highlight</a> -->
-                        </li>
-
-                        <li>
-                            <a accesskey="" href="#" id="increase-font-size-btn" class="" role="button" title="increase font size">+</a>
-                        </li>
-
-                        <li>
-                            <a accesskey="" href="#" id="decrease-font-size-btn" class="" role="button" title="increase font size">-</a>
-                        </li>
-
-
-
-                        <!-- Toggle single or two pages -->
-                        <li>
-                            <a accesskey="t" href="#" id="toggle-synthetic-btn" class="icon48 synthetic-page-ico" role="button" title="T̲oggle page layout"></a>
-                        </li>
-
-                        <li class="divider-vertical"></li>
-
-                        <!-- The library for the sample reader -->
-                        <li>
-                            <a accesskey="l" href="#" id="epub-demo-library" role="button" class="icon48 dropdown-toggle" title="Demo L̲ibrary" data-toggle="dropdown"></a>
-                            <ul id="library-list" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            </ul>
-                        </li>
-                    </ul>
-            </div>
+        <nav class="navbar" role="navigation">
+        </nav>
+        <div id="app-container">
         </div>
-
-        <div id="reading-area">
-          <!-- Previous page -->
-          <a accesskey="p" href="#" id="previous-page-btn" class="page-switch-overlay-icon" role="button" title="P̲revious Page" style="z-index:100">
-              <img src="images/pagination.svg">
-          </a>
-          <!-- Next page -->
-          <a accesskey="n" href="#" id="next-page-btn" class="page-switch-overlay-icon" role="button" title="N̲ext Page" style="z-index:100">
-              <img src="images/pagination.svg">
-          </a>
-          <div id="epub-reader-container">
-          </div>
-        </div>
-        
-        <!--Preload the button images so we don't have flicker when we mouse over them for the first time.-->
-        <script type="text/javascript">
-            [   'images/ico_readium_over.png',
-                'images/ico_doublepage_over.png',
-                'images/ico_singlepage_over.png',
-                'images/ico_menu_over.png'
-            ].forEach(function(image) {document.createElement("img").src=image;});
-        </script>
     </body>
+
 </html>
