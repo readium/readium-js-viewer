@@ -1,3 +1,4 @@
+
 #about-dialog div{
   text-align: center;
 }
@@ -61,14 +62,7 @@
 }
 
 .icon-show-hide, .icon-show-hide:active{
-  background-image: url('../images/glyphicons_224_chevron-left.png');
-  -webkit-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-}
-
-.icon-settings, .icon-settings:active{
-  background-image: url('../images/glyphicons_136_cogwheel.png');
+  display: none;
 }
 
 .icon-full-screen, .icon-full-screen:active{
@@ -85,6 +79,9 @@
   background-image: url('../images/glyphicons_214_resize_small.png');
 }
 
+.icon-settings, .icon-settings:active{
+  background-image: url('../images/glyphicons_136_cogwheel.png');
+}
 
 .icon-logo, .icon-log:active{
   background-image: url('../images/readium.png');
@@ -107,8 +104,7 @@
 }
 
 @media (max-width:768px){
-  .navbar .btn-group > .btn.icon-full-screen,
-  .navbar .btn-group > .btn.icon-show-hide{
+  .navbar .btn-group > .btn.icon-full-screen{
     display:none;
   }
 }
@@ -216,4 +212,98 @@
     bottom: 0;
     top: 0;
 
+}
+
+/* embedded mode styles */
+.embedded .navbar .btn-group > .btn.icon-full-screen, .embedded .navbar .btn-group > .btn.icon-show-hide{
+  display:block;
+}
+
+.embedded .navbar .btn-group > .btn, .embedded .navbar .btn-group > .btn:hover, .embedded .navbar .btn-group > .btn:active, .embedded .navbar .btn-group > .btn:focus{
+  background-color: rgba(0,0,0,0.2);
+}
+
+.embedded .navbar{
+  position: absolute;
+  top: 0px;
+  z-index: 2;
+  margin: 0px;
+  padding: 2px 5px 2px 5px;
+  width: 100%;
+  min-height:0px;
+  transition: background-color 0.2s;
+  border-radius: 0px;
+}
+.embedded .navbar.user-displayed{
+  background-color: rgba(0,0,0,0.8);
+}
+
+.embedded .navbar.user-displayed .btn-group > .btn {
+  display: block;
+  background-color: transparent;
+}
+
+.embedded #app-container #reading-area{
+  top: 10px;
+}
+
+.embedded .navbar .btn {
+  width: 24px;
+  height: 24px;
+  display: none;
+}
+.embedded .navbar .btn-group > .btn{
+  border-radius: 4px !important;
+}
+.embedded .icon-show-hide, .embedded .icon-show-hide:active{
+  background-image: url('../images/white-more.png');
+  background-size: 16px 4px;
+  display: block;
+}
+
+.embedded .navbar.user-displayed .btn-group .icon-show-hide{
+  background-image: url('../images/white-remove.png');
+  background-size: 16px 16px;
+}
+
+.embedded .icon-full-screen, .embedded .icon-full-screen:active{
+  background-image: url('../images/white-resize-full.png');
+  background-size: 16px 16px;
+}
+
+.embedded .icon-full-screen:-webkit-full-screen-document{
+  background-image: url('../images/white-resize-small.png');
+}
+.embedded .icon-full-screen:-moz-full-screen{
+  background-image: url('../images/white-resize-small.png');
+}
+.embedded .icon-full-screen:fullscreen{
+  background-image: url('../images/white-resize-small.png');
+}
+
+.embedded .icon-settings, .embedded .icon-settings:active{
+  background-image: url('../images/white-cogwheel.png');
+  background-size: 16px 16px;
+}
+
+.embedded .navbar .btn-group > .btn.icon-logo{
+  display:none;
+}
+
+.embedded .icon-toc, .embedded .icon-toc:active{
+  background-image: url('../images/white-list.png');
+  background-size: 16px 16px;
+}
+.embedded .toc-visible #readium-toc-body{
+  display: block;
+  width: 100%;
+}
+.embedded .toc-visible #reading-area{
+  display: none;
+}
+.embedded .navbar-left{
+  float: left!important;
+}
+.embedded .navbar-right{
+  float: right!important;
 }
