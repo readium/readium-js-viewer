@@ -22,6 +22,11 @@
   outline: none;
 }
 
+#readium-toc-body > ol{
+  list-style-type: none;
+  margin-top: 10px;
+}
+
 .toc-visible #readium-toc-body{
   display: inline-block;
   width: 30%;
@@ -61,10 +66,12 @@
   background-image: url('../images/bookmark-blank.png');
 }
 
-.icon-show-hide, .icon-show-hide:active{
+/*.icon-show-hide, .icon-show-hide:active{
   display: none;
+}*/
+.icon-annotations, .icon-annotations:active{
+  background-image: url('../images/glyphicons_150_edit.png');
 }
-
 .icon-full-screen, .icon-full-screen:active{
   background-image: url('../images/glyphicons_215_resize_full.png');
 }
@@ -196,9 +203,9 @@
 
     position: absolute;
 
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
     top: 75px;
 
 }
@@ -215,8 +222,27 @@
 }
 
 /* embedded mode styles */
-.embedded .navbar .btn-group > .btn.icon-full-screen, .embedded .navbar .btn-group > .btn.icon-show-hide{
-  display:block;
+.embedded .navbar .btn-group > .btn.icon-full-screen, .embedded .navbar .btn-group > .btn.icon-toc{
+  display:inline-block;
+  opacity: 1;
+}
+
+.embedded.hide-ui .navbar .btn-group > .btn.icon-full-screen, 
+.embedded.hide-ui .navbar .btn-group > .btn.icon-toc{
+  -webkit-transition: all .2s ease-out;
+  opacity:0;
+}
+
+.embedded.hide-ui #previous-page-btn, 
+.embedded.hide-ui #next-page-btn,
+.embedded .toc-visible #previous-page-btn, 
+.embedded .toc-visible #next-page-btn{
+  -webkit-transition: opacity .2s ease-out;
+  opacity: 0
+}
+
+.embedded .navbar .btn-group > .btn.icon-full-screen{
+  float: right;
 }
 
 .embedded .navbar .btn-group > .btn, .embedded .navbar .btn-group > .btn:hover, .embedded .navbar .btn-group > .btn:active, .embedded .navbar .btn-group > .btn:focus{
@@ -231,22 +257,24 @@
   padding: 2px 5px 2px 5px;
   width: 100%;
   min-height:0px;
-  transition: background-color 0.2s;
   border-radius: 0px;
 }
-.embedded .navbar.user-displayed{
+
+/*.embedded .navbar.user-displayed{
   background-color: rgba(0,0,0,0.8);
 }
 
 .embedded .navbar.user-displayed .btn-group > .btn {
   display: block;
   background-color: transparent;
-}
+}*/
 
 .embedded #app-container #reading-area{
   top: 10px;
 }
-
+.embedded #reflowable-content-frame{
+  margin: 20px;
+}
 .embedded .navbar .btn {
   width: 24px;
   height: 24px;
@@ -255,16 +283,16 @@
 .embedded .navbar .btn-group > .btn{
   border-radius: 4px !important;
 }
-.embedded .icon-show-hide, .embedded .icon-show-hide:active{
+/*.embedded .icon-show-hide, .embedded .icon-show-hide:active{
   background-image: url('../images/white-more.png');
   background-size: 16px 4px;
   display: block;
-}
+}*/
 
-.embedded .navbar.user-displayed .btn-group .icon-show-hide{
+/*.embedded .navbar.user-displayed .btn-group .icon-show-hide{
   background-image: url('../images/white-remove.png');
   background-size: 16px 16px;
-}
+}*/
 
 .embedded .icon-full-screen, .embedded .icon-full-screen:active{
   background-image: url('../images/white-resize-full.png');
@@ -281,12 +309,12 @@
   background-image: url('../images/white-resize-small.png');
 }
 
-.embedded .icon-settings, .embedded .icon-settings:active{
+/*.embedded .icon-settings, .embedded .icon-settings:active{
   background-image: url('../images/white-cogwheel.png');
   background-size: 16px 16px;
-}
+}*/
 
-.embedded .navbar .btn-group > .btn.icon-logo{
+.embedded .navbar .btn-group > .btn{
   display:none;
 }
 
@@ -294,16 +322,63 @@
   background-image: url('../images/white-list.png');
   background-size: 16px 16px;
 }
-.embedded .toc-visible #readium-toc-body{
+.embedded #readium-toc-body{
+  top: -100%;
+  -webkit-transition: top .3s ease-out;
+  -moz-transition: -moz-transform .3s ease-out;
+  -o-transition: -o-transform .3s ease-out;
+  transition: transform .3s ease-out;
   display: block;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  background-color: rgba(0,0,0,.7);
+  color: white;
+  
+}
+.embedded .toc-visible #readium-toc-body{
+  top: 0%;
+  -webkit-transition: top .3s ease-out;
+  /*-moz-transition: -moz-transform .3s ease-out, background-color .3s step-end, color .3s step-end, z-index .3s step-end, position .3s step-end;
+  -o-transition: -o-transform .3s ease-out, background-color .3s step-end, color .3s step-end, z-index .3s step-end, position .3s step-end;
+  transition: transform .3s ease-out, background-color .3s step-end, color .3s step-end, z-index .3s step-end, position .3s step-end;*/
+  
+}
+
+.embedded .toc-visible #reading-area{
+  left: 0%;
+}
+
+.embedded #readium-toc-body a{
+  color: white;
+}
+
+.embedded .toc-visible button.close{
+  color: transparent;
+  text-shadow: none;
+  position: fixed;
+  width: 16px;
+  background: url('../images/white-chevron-up.png') no-repeat;
+  background-size: 16px 11px;
+  left: 9px;
+  top: 5px;
+}
+
+/*.embedded .navbar-left{
+  float: left!important;
+}*/
+.embedded .navbar-right{
+  float: none!important;
+  clear: left;
   width: 100%;
 }
-.embedded .toc-visible #reading-area{
-  display: none;
+.embedded .btn-group{
+  display: block;
 }
-.embedded .navbar-left{
-  float: left!important;
+
+.embedded #annotations-highlight{
+  display:none;
 }
-.embedded .navbar-right{
-  float: right!important;
-}
+
+
+
