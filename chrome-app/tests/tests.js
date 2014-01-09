@@ -72,7 +72,7 @@ var verifyProgressBar = function(test){
 	waitForVisible(test, progressBar, 'The progress bar was never made visible');
 };
 var verifyLibraryItem = function(test, expectedTitle, expectedAuthor){
-	waitForPresent(test, {className:'library-item'}, 'The item was not imported into the library', 40000);
+	waitForPresent(test, {className:'library-item'}, 'The item was not imported into the library', 80000);
 
 	var titleElement = driver.findElement({css: '.library-item .title'});
 	titleElement.addErrback(testErrback.bind(null, test, 'The imported book has no title element'));

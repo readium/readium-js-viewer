@@ -13,10 +13,13 @@
 
 #empty-message-arrow{
 	position: absolute;
-	right: 5px;
+	right: -5px;
 	top: 40px;
 }
 
+.library-items{
+	margin: 0px 10px;
+}
 .library-item{
 	position: relative;
 }

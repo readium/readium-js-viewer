@@ -3,9 +3,10 @@
   text-align: center;
 }
 
-.chrome-app .icon-full-screen{
+.chrome-app .icon-full-screen, .chrome-app .icon-annotations{
   display:none;
 }
+
 
 #readium-toc-body{
   display: none;
@@ -22,7 +23,7 @@
   outline: none;
 }
 
-#readium-toc-body > ol{
+#readium-toc-body ol{
   list-style-type: none;
   margin-top: 10px;
 }
@@ -203,9 +204,9 @@
 
     position: absolute;
 
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
     top: 75px;
 
 }
@@ -271,6 +272,9 @@
 
 .embedded #app-container #reading-area{
   top: 10px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 }
 .embedded #reflowable-content-frame{
   margin: 20px;

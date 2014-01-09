@@ -61,7 +61,8 @@ module.exports = function (grunt) {
             {expand: true, cwd: 'chrome-app/', src: ['index.html', 'background.js', 'extended-config.js', 'manifest.json'], dest: 'build/chrome-app'},
             {expand: true, src: 'images/**', dest: 'build/chrome-app'},
             {expand: true, cwd: 'i18n', src: '_locales/**', dest: 'build/chrome-app'},
-            {expand: true, cwd: 'lib/thirdparty/', src: ['inflate.js', 'deflate.js'], dest:'build/chrome-app'}
+            {expand: true, cwd: 'lib/thirdparty/', src: ['inflate.js', 'deflate.js'], dest:'build/chrome-app'},
+            {expand: true, cwd: 'css', src: 'annotations.css', dest: 'build/chrome-app/css'}
         ]
       },
       readiumjs: {
