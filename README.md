@@ -9,6 +9,7 @@ The viewer is the default viewer for Readium.js, a JS library for rendering EPUB
 
 ## Getting started
   * [Basic EPUB viewer](#basic-epub-viewer)
+  * [Embeddable EPUB Viewer](#embeddable-epub-viewer)
   * [Chrome packaged app](#chrome-packaged-app)
   * [Custom EPUB management system](#custom-epub-management-and-viewer-application)
   * [Running the Tests](#running-the-tests)
@@ -58,6 +59,18 @@ The Grunt build configuration also contains an optional task that builds the lat
 Assuming that you have Grunt and project's dependencies already installed (see above), in order to run this task, execute the following command:
 
     grunt update-readium
+
+### Embeddable EPUB Viewer
+
+You can host an embeddable epub viewer using the same instructions as the [Basic EPUB viewer](#basic-epub-viewer). For example, if you wanted to add epub content to a blog or similar.
+
+Follow the same instructions as setting up the [Basic EPUB viewer](#basic-epub-viewer) then embed the epub reader using an iframe like so
+
+```html
+<iframe width="600" height="400" src="http://localhost:8080/simpleviewer.html?epub=epub_content/moby_dick&amp;embedded=true" style="border:1px #ddd solid;" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
+```
+
+Note the `embedded=true` query parameter. This adds a special UI and handling for a smaller screen. See the `embed.html` file in the root of the source tree for a complete example that works with the [Basic EPUB viewer](#basic-epub-viewer) setup.
 
 ### Chrome Packaged App
 To run the chrome packaged app, you will need to do the following:
