@@ -99,7 +99,51 @@
   background-image: url('../images/glyphicons_114_list.png');
 }
 
+/*   Audioplayer Controls START   */
+.navbar .btn-group #audioplayer .btn{
+  border: none;
+  border-radius: 0px;
+  user-select:none;
+}
 
+.navbar .btn-group #audioplayer .btn:hover,
+.navbar .btn-group #audioplayer .btn:active,
+.navbar .btn-group #audioplayer .btn:focus{
+  box-shadow: none;
+  outline: none;
+  background-color: rgba(0,0,0,0);
+}
+#audioplayer {
+    float: left;
+    position: relative;
+}
+#audioplayer button[disabled],
+#audioplayer input[disabled] {
+    opacity: 0.3;
+}
+.icon-audio {
+    background: url('../images/player_controls.png') no-repeat;
+}
+.icon-play-audio {
+    background-position: 4px 4px;
+}
+.icon-play-audio.pause-audio {
+    background-position: -36px 4px;
+}
+.icon-stop-audio {
+    background-position: -76px 4px;
+}
+.icon-audio-volume {
+    background-position: 4px -36px;
+}
+.icon-audio-volume.no-volume {
+    background-position: -36px -36px;
+}
+#volume-range-slider {
+    position: relative;
+    top: 8px;
+}
+/*   Audioplayer Controls END   */
 
 /* settings-dialog */
 #font-size-input, #margin-size-input{
