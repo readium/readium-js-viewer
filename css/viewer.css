@@ -124,6 +124,12 @@
 .icon-audio {
     background: url('../images/player_controls.png') no-repeat;
 }
+.icon-previous-audio {
+    background-position: 4px 4px;
+}
+.icon-next-audio {
+    background-position: 4px 4px;
+}
 .icon-play-audio {
     background-position: 4px 4px;
 }

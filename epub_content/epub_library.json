@@ -12,6 +12,12 @@
         "packageUrl" : "epub_content/moby_dick"
     },
     {
+        "title" : "Moby Dick MO",
+        "author" : "Herman Melville",
+        "coverHref" : "epub_content/moby-dick-MO-HACKED/OPS/images/9780316000000.jpg",
+        "packageUrl" : "epub_content/moby-dick-MO-HACKED"
+    },
+    {
         "title" : "Accessible EPUB 3",
         "author" : "Matt Garrish",
         "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",
