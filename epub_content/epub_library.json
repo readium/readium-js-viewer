@@ -18,6 +18,16 @@
         "packageUrl" : "epub_content/moby-dick-MO-HACKED"
     },
     {
+        "title" : "EPUB3 TEST 120 (MO reflow)",
+        "author" : "EPUB TEST SUITE",
+        "packageUrl" : "epub_content/epub30-test-0120-20131108"
+    },
+    {
+        "title" : "EPUB3 TEST 220 (MO fixed)",
+        "author" : "EPUB TEST SUITE",
+        "packageUrl" : "epub_content/epub30-test-0220-20131108"
+    },
+    {
         "title" : "Accessible EPUB 3",
         "author" : "Matt Garrish",
         "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",
