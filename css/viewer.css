@@ -125,10 +125,12 @@
     background: url('../images/player_controls.png') no-repeat;
 }
 .icon-previous-audio {
-    background-position: 4px 4px;
+    background: url('../images/glyphicons_224_chevron-left.png') no-repeat;
+    background-position: 24px 12px;
 }
 .icon-next-audio {
-    background-position: 4px 4px;
+    background: url('../images/glyphicons_223_chevron-right.png') no-repeat;
+    background-position: 6px 12px;
 }
 .icon-play-audio {
     background-position: 4px 4px;
