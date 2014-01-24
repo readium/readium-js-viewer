@@ -28,6 +28,18 @@
         "packageUrl" : "epub_content/epub30-test-0220-20131108"
     },
     {
+        "title" : "Ladybug Girl",
+        "author" : "David Soman and Jacky Davis",
+        "coverHref" : "epub_content/ladybugg_cbuscepgi034l00e/OEBPS/images/0001.jpg",
+        "packageUrl" : "epub_content/ladybugg_cbuscepgi034l00e"
+    },
+    {
+        "title" : "Ripple's Effect",
+        "author" : "KiteReaders",
+        "coverHref" : "epub_content/ripplese_cbuscekev007pt0h/OEBPS/images/cover.jpg",
+        "packageUrl" : "epub_content/ripplese_cbuscekev007pt0h"
+    },
+    {
         "title" : "Accessible EPUB 3",
         "author" : "Matt Garrish",
         "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",
@@ -37,6 +49,11 @@
         "title" : "A First Course in Linear Algebra",
         "author" : "Robert A. Beezer",
         "packageUrl" : "epub_content/linear-algebra"
+    },
+    {
+        "title" : "Missing library e-book",
+        "author" : "DanielW",
+        "packageUrl" : "epub_content/missing!"
     }
 
 ]
