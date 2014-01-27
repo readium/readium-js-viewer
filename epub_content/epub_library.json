@@ -12,6 +12,10 @@
         "packageUrl" : "epub_content/moby_dick"
     },
     {
+        "title" : "Internal Link",
+        "packageUrl" : "epub_content/internal_link.epub"
+    },
+    {
         "title" : "Moby Dick MO",
         "author" : "Herman Melville",
         "coverHref" : "epub_content/moby-dick-MO-HACKED/OPS/images/9780316000000.jpg",
