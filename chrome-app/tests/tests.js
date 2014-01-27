@@ -94,27 +94,27 @@ var verifyLibraryItem = function(test, expectedTitle, expectedAuthor){
 exports.addToLibTests = 
 {
 
-	testAddEpubFromWeb : function(test){
-		var err = testErrback.bind(null, test);
-		// have to reload because it seems like some chrome.* APIs don't get initialized unless I do.
-		initAddToLibTests(test);
+	// testAddEpubFromWeb : function(test){
+	// 	var err = testErrback.bind(null, test);
+	// 	// have to reload because it seems like some chrome.* APIs don't get initialized unless I do.
+	// 	initAddToLibTests(test);
 
-		var urlUpload = driver.findElement({id: 'url-upload'});
-		urlUpload.addErrback(err);
+	// 	var urlUpload = driver.findElement({id: 'url-upload'});
+	// 	urlUpload.addErrback(err);
 
-		var testUrl = 'http://www.gutenberg.org/ebooks/30971.epub.images';
-		urlUpload.sendKeys(testUrl).then(function(){
-			var dlgSubmit = driver.findElement({className: 'add-book'});
-			dlgSubmit.addErrback(err);
-			dlgSubmit.click();
-		});
+	// 	var testUrl = 'http://www.gutenberg.org/ebooks/30971.epub.images';
+	// 	urlUpload.sendKeys(testUrl).then(function(){
+	// 		var dlgSubmit = driver.findElement({className: 'add-book'});
+	// 		dlgSubmit.addErrback(err);
+	// 		dlgSubmit.click();
+	// 	});
 
 
-		verifyProgressBar(test);
-		verifyLibraryItem(test, 'Industrial Revolution', 'Poul William Anderson').then(function(){
-			test.done();
-		})
-	},
+	// 	verifyProgressBar(test);
+	// 	verifyLibraryItem(test, 'Industrial Revolution', 'Poul William Anderson').then(function(){
+	// 		test.done();
+	// 	})
+	// },
 
 	testAddEpubFromZipFile : function(test){
 		initAddToLibTests(test);

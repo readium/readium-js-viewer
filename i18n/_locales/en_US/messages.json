@@ -3,6 +3,36 @@
   "chrome_extension_name": {
     "message": "Readium"
   },
+  "about" : {
+    "message" : "About"
+  },
+  "preview" : {
+    "message" : "PREVIEW"
+  },
+  "list_view" : {
+    "message" : "List View"
+  },
+  "thumbnail_view" : {
+    "message" : "Thumbnail View"
+  },
+  "view_library": {
+    "message" : "Library"
+  },
+  "highlight_selection" : {
+    "message" : "Highlight Selected Text"
+  },
+  "toc" : {
+    "message" : "Table of Contents"
+  },
+  "settings" : {
+    "message" : "Settings"
+  },
+  "enter_fullscreen" : {
+    "message" : "Enter Fullscreen Mode"
+  },
+  "exit_fullscreen" : {
+    "message" : "Exit Fullscreen Mode"
+  },
   "chrome_extension_description": {
     "message": "A reader for EPUB3 books."
   },
@@ -17,6 +47,15 @@
   },
   "delete_progress_message" : {
     "message" : "Deleting"
+  },
+  "migrate_dlg_title" : {
+    "message" : "Migrating Books"
+  },
+  "migrate_dlg_message" : {
+    "message" : "Loading data..."
+  },
+  "migrating" : {
+    "message" : "Migrating"
   },
   "replace_dlg_title" : {
     "message": "Conflict Detected"

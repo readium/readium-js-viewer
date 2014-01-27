@@ -8,6 +8,7 @@ require.config({
         'hogan': 'thirdparty/hogan',
         'jath' : 'thirdparty/jath.min',
         'jquery': 'thirdparty/jquery-1.9.1',
+        'spin' : 'thirdparty/spin.min',
         'underscore': 'thirdparty/underscore-1.4.4',
         'backbone': 'thirdparty/backbone-0.9.10',
         'bootstrap': 'thirdparty/bootstrap.min',
@@ -50,6 +51,9 @@ require.config({
         },
         jath : {
             exports: 'Jath'
+        },
+        spin : {
+            exports: 'Spinner'
         },
         backbone: {
             deps: ['underscore', 'jquery'],
