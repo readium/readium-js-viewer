@@ -1,26 +1,48 @@
 <div class="btn-group navbar-left">
         <!-- <button type="button" class="btn btn-default icon icon-show-hide"></button>  -->
-    <button type="button" class="btn btn-default icon icon-logo" data-toggle="modal" data-target="#about-dialog" title="{{strings.about}}"></button>
-    <button type="button" class="btn btn-default icon icon-library" title="{{strings.view_library}}"></button>
+    <button type="button" class="btn icon-logo" data-toggle="modal" data-target="#about-dialog" title="{{strings.about}}">
+        <span class="icon-readium"></span>
+    </button>
+    
 </div>
 <div class="btn-group navbar-right">
     
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
-        <button id="btn-previous-audio" type="button" class="btn btn-default icon icon-audio-xxx icon-previous-audio" disabled></button>
-        <button id="btn-toggle-audio" type="button" class="btn btn-default icon icon-audio icon-play-audio" disabled></button>
-        <button id="btn-next-audio" type="button" class="btn btn-default icon icon-audio-xxx icon-next-audio" disabled></button>
+        <button id="btn-previous-audio" type="button" class="btn icon-previous-audio" disabled>
+            <span class="glyphicon glyphicon-backward"></span>
+        </button>
+        <button id="btn-toggle-audio" type="button" class="btn icon-play-audio" disabled>
+            <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button id="btn-next-audio" type="button" class="btn icon-next-audio" disabled>
+            <span class="glyphicon glyphicon-forward"></span>
+        </button>
         
-        <button id="btn-audio-volume" type="button" class="btn btn-default icon icon-audio icon-audio-volume" disabled></button>
+        <button id="btn-audio-volume" type="button" class="btn icon-audio-volume" disabled>
+            <span class="glyphicon glyphicon-volume-up"></span>
+        </button>
         <input id="volume-range-slider" type="range" min="0" max="100" disabled />
-    </div>
+    </div> 
     <!--Audioplayer Controls END-->
-
-    <button type="button" class="btn btn-default icon icon-annotations" title="{{strings.highlight_selection}}"></button>
-    <button type="button" class="btn btn-default icon icon-toc" title="{{strings.toc}}"></button>
-    <button type="button" class="btn btn-default icon icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}}"></button>
-    <button type="button" class="btn btn-default icon icon-full-screen" title="{{strings.enter_fullscreen}}"></button>
-    <button type="button" class="btn btn-default icon icon-exit-full-screen" title="{{strings.exit_fullscreen}}"></button>
+    <button type="button" class="btn icon-library" title="{{strings.view_library}}">
+        <span class="glyphicon glyphicon-folder-open"></span>
+    </button>
+    <button type="button" class="btn icon-annotations" title="{{strings.highlight_selection}}">
+        <span class="glyphicon glyphicon-edit"></span>
+    </button>
+    <button type="button" class="btn icon-toc" title="{{strings.toc}}">
+        <span class="glyphicon glyphicon-list"></span>
+    </button>
+    <button type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}}">
+        <span class="glyphicon glyphicon-cog"></span>
+    </button>
+    <button type="button" class="btn icon-full-screen" title="{{strings.enter_fullscreen}}">
+        <span class="glyphicon glyphicon-resize-full"></span>
+    </button>
+    <button type="button" class="btn icon-exit-full-screen" title="{{strings.exit_fullscreen}}">
+        <span class="glyphicon glyphicon-resize-small"></span>
+    </button>
     <!-- <button type="button" class="btn btn-default icon icon-bookmark"></button>-->
 </div>
 

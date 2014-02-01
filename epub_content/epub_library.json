@@ -12,38 +12,6 @@
         "packageUrl" : "epub_content/moby_dick/OPS/package.opf"
     },
     {
-        "title" : "Internal Link",
-        "packageUrl" : "epub_content/internal_link.epub"
-    },
-    {
-        "title" : "Moby Dick MO",
-        "author" : "Herman Melville",
-        "coverHref" : "epub_content/moby-dick-MO-HACKED/OPS/images/9780316000000.jpg",
-        "packageUrl" : "epub_content/moby-dick-MO-HACKED"
-    },
-    {
-        "title" : "EPUB3 TEST 120 (MO reflow)",
-        "author" : "EPUB TEST SUITE",
-        "packageUrl" : "epub_content/epub30-test-0120-20131108"
-    },
-    {
-        "title" : "EPUB3 TEST 220 (MO fixed)",
-        "author" : "EPUB TEST SUITE",
-        "packageUrl" : "epub_content/epub30-test-0220-20131108"
-    },
-    {
-        "title" : "Ladybug Girl",
-        "author" : "David Soman and Jacky Davis",
-        "coverHref" : "epub_content/ladybugg_cbuscepgi034l00e/OEBPS/images/0001.jpg",
-        "packageUrl" : "epub_content/ladybugg_cbuscepgi034l00e"
-    },
-    {
-        "title" : "Ripple's Effect",
-        "author" : "KiteReaders",
-        "coverHref" : "epub_content/ripplese_cbuscekev007pt0h/OEBPS/images/cover.jpg",
-        "packageUrl" : "epub_content/ripplese_cbuscekev007pt0h"
-    },
-    {
         "title" : "Accessible EPUB 3",
         "author" : "Matt Garrish",
         "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",

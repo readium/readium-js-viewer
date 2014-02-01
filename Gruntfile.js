@@ -27,7 +27,15 @@ module.exports = function (grunt) {
           paths: {
             'i18n/Strings': '../chrome-app/i18n/Strings',
             'storage/StorageManager' : '../chrome-app/storage/FileSystemStorage',
-            'storage/Settings' : '../chrome-app/storage/ChromeSettings'
+            'storage/Settings' : '../chrome-app/storage/ChromeSettings',
+            'analytics/Analytics' : '../chrome-app/analytics/ExtensionAnalytics',
+            'google-analytics-bundle' : '../chrome-app/analytics/google-analytics-bundle'
+
+          },
+          shim: {
+            'google-analytics-bundle' : {
+              exports: 'analytics'
+            }
           }
         }
       },
@@ -50,7 +58,7 @@ module.exports = function (grunt) {
     cssmin : {
         chromeApp : {
             files : {
-              'build/chrome-app/css/readium-all.css' : ['css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/library.css']
+              'build/chrome-app/css/readium-all.css' : ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/library.css']
             }
         }
     },
@@ -62,7 +70,8 @@ module.exports = function (grunt) {
             {expand: true, src: 'images/**', dest: 'build/chrome-app'},
             {expand: true, cwd: 'i18n', src: '_locales/**', dest: 'build/chrome-app'},
             {expand: true, cwd: 'lib/thirdparty/', src: ['inflate.js', 'deflate.js'], dest:'build/chrome-app'},
-            {expand: true, cwd: 'css', src: 'annotations.css', dest: 'build/chrome-app/css'}
+            {expand: true, cwd: 'css', src: 'annotations.css', dest: 'build/chrome-app/css'},
+            {expand: true, src: 'fonts/**', dest: 'build/chrome-app'}
         ]
       },
       readiumjs: {

@@ -11,6 +11,8 @@
 #readium-toc-body{
   display: none;
   overflow: auto;
+  background: #f3f3f3;
+  border-right: solid 2px rgba(0,0,0,.15);
 }
 
 #readium-toc-body button.close{
@@ -49,36 +51,47 @@
   background-color: rgba(0,0,0,0);
 }
 
-.icon{
+.navbar .btn {
+  color : #ddd;
+  font-size: 16px;
   width: 48px;
-  height: 48px;
+  height: 36px;
   background: no-repeat center center;
-  
 }
 
-.icon:before{
-  content: ' ';
+.navbar{
+  background: #4d4d4d;
+  box-shadow: 0px 1px 5px #333;
+  border-radius: 0px;
+  min-height: 36px;
+  margin-bottom: 0px;
 }
-
-.icon-bookmark, .icon-bookmark:active{
-  height: 48px;
-  margin-top: 0px;
-  background-position-y: -6px; 
-  background-image: url('../images/bookmark-blank.png');
+.book-title-header{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  text-align: center;
+  color: #999;
+  font-weight: normal;
+  font-size: 1.0em;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  margin: 15px 0px 0px 0px;
+  z-index: -1;
+  font-family: serif;
 }
-
 /*.icon-show-hide, .icon-show-hide:active{
   display: none;
 }*/
-.icon-annotations, .icon-annotations:active{
+/*.icon-annotations, .icon-annotations:active{
   background-image: url('../images/glyphicons_150_edit.png');
 }
 .icon-full-screen, .icon-full-screen:active{
   background-image: url('../images/glyphicons_215_resize_full.png');
-}
+}*/
 .icon-exit-full-screen, .icon-exit-full-screen:active{
   display: none;
-  background-image: url('../images/glyphicons_214_resize_small.png');
+  /*background-image: url('../images/glyphicons_214_resize_small.png');*/
 }
 
 .icon-exit-full-screen:-webkit-full-screen-document{
@@ -101,17 +114,19 @@
   display: none;
 }
 
-.icon-settings, .icon-settings:active{
+/*.icon-settings, .icon-settings:active{
   background-image: url('../images/glyphicons_136_cogwheel.png');
+}*/
+
+.navbar .icon-logo, .navbar .icon-logo:active{
+  background-image: url('../images/readium_logo.png');
+  width: 130px; 
+  background-size: auto 28px;
 }
 
-.icon-logo, .icon-log:active{
-  background-image: url('../images/readium.png');
-}
-
-.icon-toc, .icon-toc:active{
+/*.icon-toc, .icon-toc:active{
   background-image: url('../images/glyphicons_114_list.png');
-}
+}*/
 
 /*   Audioplayer Controls START   */
 .navbar .btn-group #audioplayer .btn{
@@ -122,7 +137,9 @@
 
 .navbar .btn-group #audioplayer .btn:hover,
 .navbar .btn-group #audioplayer .btn:active,
-.navbar .btn-group #audioplayer .btn:focus{
+.navbar .btn-group #audioplayer .btn:focus,
+.navbar .btn-group #audioplayer .btn[disabled]
+{
   box-shadow: none;
   outline: none;
   background-color: rgba(0,0,0,0);
@@ -130,40 +147,19 @@
 #audioplayer {
     float: left;
     position: relative;
+    border-right: 1px solid #888;
+    padding-right: 20px;
+    display: none;
 }
 #audioplayer button[disabled],
 #audioplayer input[disabled] {
     opacity: 0.3;
 }
-.icon-audio {
-    background: url('../images/player_controls.png') no-repeat;
-}
-.icon-previous-audio {
-    background: url('../images/glyphicons_224_chevron-left.png') no-repeat;
-    background-position: 24px 12px;
-}
-.icon-next-audio {
-    background: url('../images/glyphicons_223_chevron-right.png') no-repeat;
-    background-position: 6px 12px;
-}
-.icon-play-audio {
-    background-position: 4px 4px;
-}
-.icon-play-audio.pause-audio {
-    background-position: -36px 4px;
-}
-.icon-stop-audio {
-    background-position: -76px 4px;
-}
-.icon-audio-volume {
-    background-position: 4px -36px;
-}
-.icon-audio-volume.no-volume {
-    background-position: -36px -36px;
-}
+
+
 #volume-range-slider {
     position: relative;
-    top: 8px;
+    top: 3px;
 }
 /*   Audioplayer Controls END   */
 
@@ -273,7 +269,7 @@
     left: 5px;
     right: 5px;
     bottom: 5px;
-    top: 75px;
+    top: 38px;
 
 }
 
@@ -294,9 +290,7 @@
   opacity: 1;
 }
 
-.hide-ui .navbar .btn-group,
-.hide-ui .navbar .btn-group > .btn.icon-full-screen, 
-.hide-ui .navbar .btn-group > .btn.icon-toc{
+.hide-ui .navbar{
   -webkit-transition: all .2s ease-out;
   opacity:0;
 }

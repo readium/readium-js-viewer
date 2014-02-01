@@ -37,6 +37,11 @@ define(['URIjs'],function(URI){
 					callback(null);
 				}
 			});
+		},
+		getMultiple : function(keys, callback){
+			chrome.storage.local.get(keys, function(val){
+				callback(val);
+			});
 		}
 	}
 	return Settings;

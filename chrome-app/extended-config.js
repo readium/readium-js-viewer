@@ -4,6 +4,9 @@ require.config({
         'EpubLibraryManager' : {
         							'canHandleUrl' : true, 
         							'canHandleDirectory' : true
-    						   }
+    						   },
+    	'EpubReader' : {
+    		'annotationCssUrl' : self.location.origin  + '/css/annotations.css'
+    	}
     },
 })
