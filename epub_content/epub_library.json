@@ -12,10 +12,6 @@
         "packageUrl" : "epub_content/moby_dick/OPS/package.opf"
     },
     {
-        "title" : "Internal Link",
-        "packageUrl" : "epub_content/internal_link.epub"
-    },
-    {
         "title" : "Accessible EPUB 3",
         "author" : "Matt Garrish",
         "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",

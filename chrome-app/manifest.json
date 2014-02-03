@@ -9,6 +9,7 @@
          "local_path": "index.html"
       }
   },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "icons": {
       "16": "icons/small.png",
       "48": "icons/medium.png",

@@ -1,18 +1,24 @@
 <div class="col-xs-4 col-sm-3 col-md-2 library-item">
     <div class='info-wrap'>
-        <div class='caption book-info'>
+        <!-- <div class='caption book-info'>
             <h4 class='title'>{{ epub.title }}</h4>
             <div class='author'>{{ epub.author}}{{^epub.author}}No Author Listed{{/epub.author}}</div>
-        </div>
+        </div> -->
         {{#epub.coverHref}}
         <img class="img-responsive read" data-book="{{epub.packageUrl}}" src="{{ epub.coverHref }}" alt="Open ePUB {{ epub.title }}"> 
         {{/epub.coverHref}}
         {{^epub.coverHref}}
-        <div class="no-cover read" data-book="{{epub.packageUrl}}"><p>{{epub.title}}</p></div>
+        <div class="no-cover read" style="background-image: url('{{noCoverBackground}}')" data-book="{{epub.packageUrl}}"><p>{{epub.title}}</p></div>
         {{/epub.coverHref}}
     </div>
-    <div class="caption buttons">
+    <!-- <div class="caption buttons">
         <a href="#" class="btn btn-default read" data-book="{{epub.packageUrl}}" role="button">{{strings.i18n_read}}</a>
         <a href="#details-modal" data-book="{{epub.packageUrl}}" aria-pressed="true" class="btn btn-default details" data-toggle="modal" role="button">{{strings.i18n_details}}</a>
+    </div> -->
+    <div class='caption book-info'>
+        <h4 class='title'>{{ epub.title }}</h4>
+        <div class='author'>{{ epub.author}}{{^epub.author}}No Author Listed{{/epub.author}}</div>
+        <div class="buttons">
+         <a href="#details-modal" data-book="{{epub.packageUrl}}" data-package-path="{{epub.packagePath}}" aria-pressed="true" class="btn btn-info details" data-toggle="modal" role="button">{{strings.i18n_details}}</a></div>
     </div>
 </div>
