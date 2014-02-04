@@ -6,10 +6,10 @@
         <img class="details-cover-image img-responsive" src="{{ data.coverHref }}" alt="ePUB cover">
         {{/data.coverHref}}
         {{^data.coverHref}}
-        <div class="no-cover"><p>{{data.title}}</p></div>
+        <div class="no-cover" style="background-image: url('{{data.noCoverBackground}}')"><p>{{data.title}}</p></div>
         {{/data.coverHref}}
         <div class="buttons">
-            <a href="#" class="btn btn-default read" data-dismiss="modal" data-book="{{data.packageUrl}}" role="button">{{strings.i18n_read}}</a>
+            <a href="#" class="btn btn-default read" data-dismiss="modal" data-book="{{data.rootUrl}}" role="button">{{strings.i18n_read}}</a>
             <a class="btn btn-danger delete" data-dismiss="modal" role="button">{{strings.i18n_delete}}</a>
         </div>
     </div>

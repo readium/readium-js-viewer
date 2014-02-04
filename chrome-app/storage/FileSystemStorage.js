@@ -199,10 +199,10 @@ define(['workers/Messages'], function(Messages){
 		    		var newObj = {
 		    			id: ebook.id,
 		    			rootDir: ebook.key,
+		    			rootUrl : StaticStorageManager.getPathUrl(ebook.key),
 		    			packagePath: ebook.package_doc_path.substring(ebook.key.length + 1),
 		    			title: ebook.title,
 		    			author: ebook.author,
-		    			packageUrl: StaticStorageManager.getPathUrl(ebook.package_doc_path),
 		    			coverHref: (coverPath ? StaticStorageManager.getPathUrl(coverPath) : null)
 		    		}
 
