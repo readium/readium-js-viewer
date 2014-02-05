@@ -170,6 +170,12 @@
   "i18n_audio_unmute" : {
     "message" : "Restaurer le volume audio"
   },
+  "i18n_audio_touch_enable" : {
+    "message" : "Activer la function 'toucher pour jouer'"
+  },
+  "i18n_audio_touch_disable" : {
+    "message" : "Désactiver la function 'toucher pour jouer'"
+  },
   "i18n_page_previous" : {
     "message" : "Page précédente (P̲)"
   },

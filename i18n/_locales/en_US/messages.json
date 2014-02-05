@@ -252,6 +252,12 @@
   "i18n_audio_unmute" : {
     "message" : "Unmute audio"
   },
+  "i18n_audio_touch_enable" : {
+    "message" : "Enable touch-to-play"
+  },
+  "i18n_audio_touch_disable" : {
+    "message" : "Disable touch-to-play"
+  },
   "i18n_page_previous" : {
     "message" : "P̲revious Page"
   },
