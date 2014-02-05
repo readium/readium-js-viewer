@@ -159,8 +159,14 @@
 #btn-toggle-audio:not(.pause-audio) > #icon-pause {
     display: none;
 }
-
 #btn-toggle-audio.pause-audio > #icon-play {
+    display: none;
+}
+
+#btn-audio-volume:not(.no-volume) > #icon-volume-off {
+    display: none;
+}
+#btn-audio-volume.no-volume > #icon-volume-on {
     display: none;
 }
 

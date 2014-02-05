@@ -25,47 +25,6 @@
         "author" : "Robert A. Beezer",
         "packagePath" : "EPUB/package.opf",
         "rootUrl" : "epub_content/linear-algebra"
-    },
-
-    {
-        "title" : "Moby Dick MO",
-        "author" : "Herman Melville",
-        "coverHref" : "epub_content/moby-dick-MO-HACKED/OPS/images/9780316000000.jpg",
-        "packagePath" : "OPS/package.opf",
-        "rootUrl" : "epub_content/moby-dick-MO-HACKED"
-    },
-    {
-        "title" : "EPUB3 TEST 120 (MO reflow)",
-        "author" : "EPUB TEST SUITE",
-        "packagePath" : "EPUB/package.opf",
-        "rootUrl" : "epub_content/epub30-test-0120-20131108"
-    },
-    {
-        "title" : "EPUB3 TEST 220 (MO fixed)",
-        "author" : "EPUB TEST SUITE",
-        "packagePath" : "EPUB/package.opf",
-        "rootUrl" : "epub_content/epub30-test-0220-20131108"
-    },
-    {
-        "title" : "Ladybug Girl",
-        "author" : "David Soman and Jacky Davis",
-        "coverHref" : "epub_content/ladybugg_cbuscepgi034l00e/OEBPS/images/0001.jpg",
-        "packagePath" : "OEBPS/package.opf",
-        "rootUrl" : "epub_content/ladybugg_cbuscepgi034l00e"
-    },
-    {
-        "title" : "Ripple's Effect",
-        "author" : "KiteReaders",
-        "coverHref" : "epub_content/ripplese_cbuscekev007pt0h/OEBPS/images/cover.jpg",
-        "packagePath" : "OEBPS/package.opf",
-        "rootUrl" : "epub_content/ripplese_cbuscekev007pt0h"
-    },
-    {
-        "title" : "EPUB3-Sliderizer_epubReadingSystem",
-        "author" : "Daniel Weck",
-        "packagePath" : "epub/package.opf",
-        "rootUrl" : "epub_content/EPUB3-Sliderizer_epubReadingSystem"
     }
-
 ]
 
