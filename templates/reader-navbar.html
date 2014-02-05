@@ -9,22 +9,22 @@
     
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
-        <button id="btn-previous-audio" type="button" class="btn icon-previous-audio" disabled>
+        <button id="btn-previous-audio" type="button" class="btn icon-previous-audio" title="{{strings.i18n_audio_previous}}" disabled>
             <span class="glyphicon glyphicon-backward"></span>
         </button>
         <button id="btn-toggle-audio" type="button" class="btn icon-play-audio" disabled>
-            <span id="icon-play" class="glyphicon glyphicon-play"></span>
-            <span id="icon-pause" class="glyphicon glyphicon-pause"></span>
+            <span id="icon-play" class="glyphicon glyphicon-play" title="{{strings.i18n_audio_play}}"></span>
+            <span id="icon-pause" class="glyphicon glyphicon-pause" title="{{strings.i18n_audio_pause}}"></span>
         </button>
-        <button id="btn-next-audio" type="button" class="btn icon-next-audio" disabled>
+        <button id="btn-next-audio" type="button" class="btn icon-next-audio" title="{{strings.i18n_audio_next}}" disabled>
             <span class="glyphicon glyphicon-forward"></span>
         </button>
         
         <button id="btn-audio-volume" type="button" class="btn icon-audio-volume" disabled>
-            <span id="icon-volume-on" class="glyphicon glyphicon-volume-up"></span>
-            <span id="icon-volume-off" class="glyphicon glyphicon-volume-off"></span>
+            <span id="icon-volume-on" class="glyphicon glyphicon-volume-up" title="{{strings.i18n_audio_mute}}"></span>
+            <span id="icon-volume-off" class="glyphicon glyphicon-volume-off" title="{{strings.i18n_audio_unmute}}"></span>
         </button>
-        <input id="volume-range-slider" type="range" min="0" max="100" disabled />
+        <input id="volume-range-slider" type="range" min="0" max="100" title="{{strings.i18n_audio_volume}}" disabled />
     </div> 
     <!--Audioplayer Controls END-->
     <button type="button" class="btn icon-library" title="{{strings.view_library}}">

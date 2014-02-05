@@ -149,6 +149,33 @@
   "i18n_html_readium_tm_a_project" : {
     "message" : "Readium<sup>TM</sup>, un projet de l'International Digital Publishing Forum (IDPF) et de ses adhérents, est un système à code-source libre de référence et un moteur de rendu pour les publications EPUB&reg;. Pour en savoir plus, visitez <a href=\"http://readium.org/\">la page du projet</a>. À ce jour, le développement du projet a été menée par <a href=\"http://evidentpoint.com/\">Evident Point</a> et par <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. Pour contribuer, visiter le <a href=\"https://github.com/readium/readium\">dépôt github</a>."
   },
+  "i18n_audio_play" : {
+    "message" : "Jouer"
+  },
+  "i18n_audio_pause" : {
+    "message" : "Pauser"
+  },
+  "i18n_audio_previous" : {
+    "message" : "Phrase audio précédente"
+  },
+  "i18n_audio_next" : {
+    "message" : "Phrase audio suivante"
+  },
+  "i18n_audio_volume" : {
+    "message" : "Contrôle du volume audio"
+  },
+  "i18n_audio_mute" : {
+    "message" : "Silence audio"
+  },
+  "i18n_audio_unmute" : {
+    "message" : "Restaurer le volume audio"
+  },
+  "i18n_page_previous" : {
+    "message" : "Page précédente (P̲)"
+  },
+  "i18n_page_next" : {
+    "message" : "Page suivante (N̲)"
+  },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
     "placeholders": {
