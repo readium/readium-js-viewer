@@ -156,6 +156,13 @@
     opacity: 0.3;
 }
 
+#btn-toggle-audio:not(.pause-audio) > #icon-pause {
+    display: none;
+}
+
+#btn-toggle-audio.pause-audio > #icon-play {
+    display: none;
+}
 
 #volume-range-slider {
     position: relative;
