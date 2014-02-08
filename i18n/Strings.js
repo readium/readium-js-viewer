@@ -23,13 +23,20 @@ function(de, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 	Strings['zh_TW'] = zh_TW;
 
 	var language = navigator.userLanguage || navigator.language;
-
+    console.log("Language: [" + language + "]");
+    
+    var allowEnglishFallback = true;
+    
 	var i18nStr = Strings[language] || en_US;
 
 	var i18nObj = JSON.parse(i18nStr);
+    var i18nObj_en = i18nStr === en_US ? i18nObj : JSON.parse(en_US);
 
-	for(var prop in i18nObj){
-		i18nObj[prop] = i18nObj[prop].message;
+	for(var prop in i18nObj_en){
+        var okay = prop in i18nObj;
+        if (!okay) console.log("Language [" + language + "], missing string: [" + prop + "]");
+        
+		i18nObj[prop] = okay ? i18nObj[prop].message : (allowEnglishFallback ? ("* " + i18nObj_en[prop].message + " *") : "");
 	}
 	return i18nObj;
 
