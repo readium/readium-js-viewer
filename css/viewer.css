@@ -7,6 +7,14 @@
   display:none;
 }
 
+.about-message{
+  margin: 20px 0px;
+}
+
+#about-dialog .version{
+  margin-top: 10px;
+  font-weight: bold;
+}
 
 #readium-toc-body{
   display: none;
