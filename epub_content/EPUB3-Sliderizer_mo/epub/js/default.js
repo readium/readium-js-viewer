@@ -3793,7 +3793,7 @@ Epub3Sliderizer.init = function()
                 {
                     console.log("STILL !this.epubReadingSystem");
                 }
-            }, 500);
+            }, 1000);
         }
     }
     
@@ -4471,17 +4471,25 @@ function readyFirst()
     a.setAttribute("title", "Toggle reflow");
     a.setAttribute("href", "javascript:Epub3Sliderizer.toggleReflow();");
     
-    Epub3Sliderizer.readium = isDefinedAndNotNull(window.LauncherUI);
+    Epub3Sliderizer.readium = isDefinedAndNotNull(window.LauncherUI) || isDefinedAndNotNull(window.ReadiumSDK);
     if (!Epub3Sliderizer.readium)
     {
-        // try
-//         {
-//             Epub3Sliderizer.readium = isDefinedAndNotNull(window.parent.Readium);
-//         }
-//         catch(e)
-//         {
-//             console.error(e);
-//         }
+        var annotationCSS = querySelectorZ("head > link[href='/css/annotations\.css']");
+        if (annotationCSS)
+        {
+            Epub3Sliderizer.readium = true;
+        }
+        else
+        {
+            try
+            {
+                Epub3Sliderizer.readium = isDefinedAndNotNull(window.parent.ReadiumSDK);
+            }
+            catch(e)
+            {
+                console.error(e);
+            }
+        }
     }
     Epub3Sliderizer.ibooks = isDefinedAndNotNull(window.iBooks) || window.location.href && window.location.href.toLowerCase().indexOf("com.apple.bkagentservice") >= 0;
     Epub3Sliderizer.playbooks = isDefinedAndNotNull(window.editions);
