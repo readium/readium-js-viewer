@@ -1,0 +1,236 @@
+*:before,
+*:after,
+*
+{
+	
+-webkit-box-sizing:border-box;
+-moz-box-sizing:border-box;
+-ms-box-sizing:border-box;
+-o-box-sizing:border-box;
+box-sizing:border-box;
+
+	line-height: 1.5;
+	margin: 0;
+	padding: 0;
+}
+
+table
+{
+    font-size: 1em; /* quirk in text/html mode vs application/xml+xhtml */
+}
+html
+{
+	width:100%;
+	height:100%;
+	
+	/* rem unit NOT WORKING ON embedded WebKit / WebView */
+	font-size: 62.5%;
+	
+	/* 1.4rem == 14px */
+	
+	background-color: black;
+	
+	/*
+	-PREFIXED_PROPERTY-background-clip:border-box;
+	-PREFIXED_PROPERTY-background-origin:padding-box;
+	-PREFIXED_PROPERTY-background-size:auto;
+	-PREFIXED_PROPERTY-background-attachment:scroll;
+	-PREFIXED_PROPERTY-background-image:url(../img/back.png);
+	*/
+}
+
+body:not(.epb3sldrzr-epubReadingSystem):not(.basic):not(.reflow),
+body:not(.reflow).basic.epb3sldrzr-epubReadingSystem
+{
+	-webkit-font-smoothing: subpixel-antialiased;
+	
+	
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;
+
+}
+
+body:not(.epb3sldrzr-epubReadingSystem):not(.basic):not(.reflow):not(.author) img,
+body:not(.reflow).basic.epb3sldrzr-epubReadingSystem:not(.author) img
+{
+	
+-webkit-user-drag: none;
+-moz-user-drag: none;
+-ms-user-drag: none;
+-o-user-drag: none;
+user-drag: none;
+
+}
+
+body
+{
+    overflow:auto;
+	/*
+	-webkit-text-size-adjust:none;
+	*/
+
+	font-size: 40px;
+	
+	/* NOT WORKING ON embedded WebKit / WebView */
+	/* font-size: 4rem; */
+	
+	
+	font-weight: 400;
+	font-family: Lato, Tahoma, verdana, arial, sans-serif;
+}
+
+body:not(.reflow):not(.author)
+{
+	position: relative;
+
+	left: 0;
+	top: 0;
+	width:100%;
+	height:100%;
+
+    overflow:hidden;
+}
+
+body:not(.epb3sldrzr-epubReadingSystem):not(.reflow):not(.author)
+{
+	background-color: black;
+}
+
+body.epb3sldrzr-epubReadingSystem.static
+{
+	background-color: white;
+}
+
+body.author
+{   
+    position: absolute;
+    widthx: 100%;
+    heightx: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    
+	background-color: blue;
+}
+
+body.reflow
+{
+	background-color: white;
+
+	padding-bottom: 2em;
+	
+	/*
+	height:100%;
+	min-height:100%;
+	
+	font-size: 20px;
+	font-size: 2rem;
+	*/
+}
+
+
+/*
+body:not(.reflow):not(.author):not(.static):not(.basic).epb3sldrzr-epubReadingSystem
+{
+	border-right: none;
+	border-left: none;
+}
+
+body:not(.reflow):not(.author):not(.static):not(.basic)
+{
+	border-right: 0.08em solid transparent;
+	border-left: 0.08em solid transparent;
+}
+
+body:not(.reflow):not(.author):not(.static):not(.basic).epb3sldrzr-epubReadingSystem
+{
+	border-right: 0.08em solid #aaaaaa;
+	border-left: 0.08em solid #aaaaaa;
+}
+*/
+
+div#epb3sldrzr-body
+{
+	background-color:white;
+}	
+
+body.reflow div#epb3sldrzr-body
+{
+	font-size: 0.6em;
+}
+
+body:not(.reflow) div#epb3sldrzr-body
+{
+	display:block;
+
+	position:absolute;
+	top:0;
+	left:0;
+
+	width:1290px;
+	height:1000px;
+	
+	overflow:hidden;
+}
+
+
+
+
+body:not(.reflow):not(.epb3sldrzr-epubReadingSystem) div#epb3sldrzr-body,
+body:not(.reflow).basic.epb3sldrzr-epubReadingSystem div#epb3sldrzr-body
+{
+	border-radius: 20px;
+    /*
+	border-radius: 2rem;
+    */
+
+	/*
+	-PREFIXED_PROPERTY-box-shadow:0 0 40px rgba(0, 0, 0, 1);
+	*/
+}
+
+body:not(.reflow).static.epb3sldrzr-epubReadingSystem div#epb3sldrzr-body
+{
+	border-radius: 0;
+    /*
+	border-radius: 40px;
+    */
+}
+
+
+body:not(.epb3sldrzr-epubReadingSystem) div#epb3sldrzr-body
+{
+	visibility: hidden;
+}
+
+div#epb3sldrzr-root
+{
+	-webkit-overflow-scrolling: touch;
+}
+
+body:not(.reflow) div#epb3sldrzr-root
+{
+	overflow:auto;
+
+	width:100%;
+	height:100%;
+	position: static;
+
+	display:block;
+
+	/*
+	position:absolute;
+	top:0;
+	left:0;
+
+	width:1290px;
+	height:1000px;
+	*/
+	
+	
+	z-index:5;
+}
