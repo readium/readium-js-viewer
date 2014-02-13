@@ -251,10 +251,33 @@
     display: none;
 }
 
+#icon-skip-off,
+#icon-touch-off
+{
+    color: red;
+}
+#icon-skip-on,
+#icon-touch-on
+{
+    color: green;
+}
+
+#btn-esc-audio,
+#btn-skip-audio
+{
+    float: right;
+}
+
 #btn-touch-audio:not(.no-touch) > #icon-touch-off {
     display: none;
 }
 #btn-touch-audio.no-touch > #icon-touch-on {
+    display: none;
+}
+#btn-skip-audio:not(.skip) > #icon-skip-off {
+    display: none;
+}
+#btn-skip-audio.skip > #icon-skip-on {
     display: none;
 }
 

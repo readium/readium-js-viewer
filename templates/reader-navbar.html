@@ -50,10 +50,19 @@
             <input id="rate-range-slider" type="range" min="0" max="4" value="1" step="0.5" title="{{strings.i18n_audio_rate}}" disabled />
             
             <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" disabled>
-                <span class="glyphicon glyphicon-share"></span>
+                <span class="glyphicon glyphicon-new-window"></span>
+            </button>
+
+            <button id="btn-skip-audio" type="button" class="btn icon-skip-audio skip" disabled>
+                <span id="icon-skip-on" class="glyphicon glyphicon-ok-circle" title="{{strings.i18n_audio_skip_disable}}"></span>
+                <span id="icon-skip-off" class="glyphicon glyphicon-remove-circle" title="{{strings.i18n_audio_skip_enable}}"></span>
             </button>
             
-            
+            <!-- div class="checkbox">
+              <label>
+                <input type="checkbox" value="false"> Skip
+              </label>
+            </div -->
         </div>
     </div> 
     <!--Audioplayer Controls END-->

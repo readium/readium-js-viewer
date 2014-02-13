@@ -270,6 +270,12 @@
   "i18n_audio_rate_reset" : {
     "message" : "Reset audio playback to normal speed"
   },
+  "i18n_audio_skip_disable" : {
+    "message" : "Disable skippability"
+  },
+  "i18n_audio_skip_enable" : {
+    "message" : "Enable skippability"
+  },
   "i18n_audio_touch_enable" : {
     "message" : "Enable touch-to-play"
   },
