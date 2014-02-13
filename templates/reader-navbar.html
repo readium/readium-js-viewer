@@ -29,7 +29,7 @@
             <span id="icon-volume-on" class="glyphicon glyphicon-volume-up" title="{{strings.i18n_audio_mute}}"></span>
             <span id="icon-volume-off" class="glyphicon glyphicon-volume-off" title="{{strings.i18n_audio_unmute}}"></span>
         </button>
-        <input id="volume-range-slider" type="range" min="0" max="100" title="{{strings.i18n_audio_volume}}" disabled />
+        <input id="volume-range-slider" type="range" min="0" max="100" value="100" title="{{strings.i18n_audio_volume}}" disabled />
         
 
         <button id="btn-touch-audio" type="button" class="btn icon-touch-audio" disabled>
@@ -41,12 +41,19 @@
 
         <div id="audioExpanded">
             
-            <input id="time-range-slider" type="range" min="0" max="100" title="{{strings.i18n_audio_time}}" disabled />
+            <input id="time-range-slider" type="range" min="0" max="100" value="0" title="{{strings.i18n_audio_time}}" disabled />
             
+            <button id="btn-audio-rate" type="button" class="btn icon-rate-audio" title="{{strings.i18n_audio_rate_reset}}" disabled>
+                <span class="glyphicon glyphicon-play-circle"></span>
+            </button>
+            
+            <input id="rate-range-slider" type="range" min="0" max="4" value="1" step="0.5" title="{{strings.i18n_audio_rate}}" disabled />
             
             <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" disabled>
                 <span class="glyphicon glyphicon-share"></span>
             </button>
+            
+            
         </div>
     </div> 
     <!--Audioplayer Controls END-->

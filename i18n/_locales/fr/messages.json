@@ -182,6 +182,12 @@
   "i18n_audio_esc" : {
     "message" : "Echapper le contexte audio actuel"
   },
+  "i18n_audio_rate" : {
+    "message" : "Vitesse de lecture audio"
+  },
+  "i18n_audio_rate_reset" : {
+    "message" : "Retour à la vitesse normale de lecture audio"
+  },
   "i18n_audio_touch_enable" : {
     "message" : "Activer la function 'toucher pour jouer'"
   },
