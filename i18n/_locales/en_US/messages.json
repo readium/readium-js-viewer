@@ -87,6 +87,9 @@
   "replace" : {
     "message": "Replace"
   },
+  "gethelp" : {
+    "message" : "If you encounter any problems, have questions, or would like to say hello, visit <a href=\"http://idpf.org/forums/readium\">our forum</a>"
+  },
   "i18n_readium_library" : {
     "message" : "Readium Library"
   },
