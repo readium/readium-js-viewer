@@ -9,6 +9,11 @@
     
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
+        <button id="btn-expand-audio" type="button" class="btn icon-expand-audio" disabled>
+            <span id="icon-expand" class="glyphicon glyphicon-open" title="{{strings.i18n_audio_collapse}}"></span>
+            <span id="icon-collapse" class="glyphicon glyphicon-save" title="{{strings.i18n_audio_expand}}"></span>
+        </button>
+        
         <button id="btn-previous-audio" type="button" class="btn icon-previous-audio" title="{{strings.i18n_audio_previous}}" disabled>
             <span class="glyphicon glyphicon-backward"></span>
         </button>
@@ -24,7 +29,7 @@
             <span id="icon-volume-on" class="glyphicon glyphicon-volume-up" title="{{strings.i18n_audio_mute}}"></span>
             <span id="icon-volume-off" class="glyphicon glyphicon-volume-off" title="{{strings.i18n_audio_unmute}}"></span>
         </button>
-        <input id="volume-range-slider" type="range" min="0" max="100" title="{{strings.i18n_audio_volume}}" disabled />
+        <input id="volume-range-slider" type="range" min="0" max="100" value="100" title="{{strings.i18n_audio_volume}}" disabled />
         
 
         <button id="btn-touch-audio" type="button" class="btn icon-touch-audio" disabled>
@@ -33,6 +38,32 @@
             <span id="icon-touch-on" class="glyphicon glyphicon-ok" title="{{strings.i18n_audio_touch_disable}}"></span>
             <span id="icon-touch-off" class="glyphicon glyphicon-remove" title="{{strings.i18n_audio_touch_enable}}"></span>
         </button>
+
+        <div id="audioExpanded">
+            
+            <input id="time-range-slider" type="range" min="0" max="100" value="0" title="{{strings.i18n_audio_time}}" disabled />
+            
+            <button id="btn-audio-rate" type="button" class="btn icon-rate-audio" title="{{strings.i18n_audio_rate_reset}}" disabled>
+                <span class="glyphicon glyphicon-play-circle"></span>
+            </button>
+            
+            <input id="rate-range-slider" type="range" min="0" max="4" value="1" step="0.5" title="{{strings.i18n_audio_rate}}" disabled />
+            
+            <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" disabled>
+                <span class="glyphicon glyphicon-new-window"></span>
+            </button>
+
+            <button id="btn-skip-audio" type="button" class="btn icon-skip-audio skip" disabled>
+                <span id="icon-skip-on" class="glyphicon glyphicon-ok-circle" title="{{strings.i18n_audio_skip_disable}}"></span>
+                <span id="icon-skip-off" class="glyphicon glyphicon-remove-circle" title="{{strings.i18n_audio_skip_enable}}"></span>
+            </button>
+            
+            <!-- div class="checkbox">
+              <label>
+                <input type="checkbox" value="false"> Skip
+              </label>
+            </div -->
+        </div>
     </div> 
     <!--Audioplayer Controls END-->
     <button type="button" class="btn icon-library" title="{{strings.view_library}}">

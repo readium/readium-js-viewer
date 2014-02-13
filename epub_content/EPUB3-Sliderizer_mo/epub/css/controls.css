@@ -1,0 +1,389 @@
+
+a#epb3sldrzr-link-toc:before,
+a#epb3sldrzr-link-first:before,
+a#epb3sldrzr-link-last:before,
+a#epb3sldrzr-link-next:before,
+a#epb3sldrzr-link-previous:before,
+a#epb3sldrzr-link-epub:before,
+a#epb3sldrzr-link-textsize-plus:before,
+a#epb3sldrzr-link-textsize-minus:before,
+a#epb3sldrzr-link-textsize-reset:before,
+a#epb3sldrzr-link-reflow:before
+{
+	font-family: 'FontAwesome';
+	font-size: 1.1em;
+}
+
+a#epb3sldrzr-link-textsize-minus
+{
+	margin-left: 2em;
+}
+
+a#epb3sldrzr-link-textsize-reset:before
+{
+	content: "\f002";
+}
+
+a#epb3sldrzr-link-textsize-plus:before
+{
+	content: "\f00e";
+}
+
+a#epb3sldrzr-link-textsize-minus:before
+{
+	content: "\f010";
+}
+
+a#epb3sldrzr-link-reflow:before
+{
+	content: "\f15c";
+}
+
+a#epb3sldrzr-link-epub:before
+{
+	content: "\f0ed";
+}
+
+a#epb3sldrzr-link-toc:before
+{
+	content: "\f0ca";
+}
+
+a#epb3sldrzr-link-previous:before
+{
+	content: "\f0a8";
+}
+
+a#epb3sldrzr-link-next:before
+{
+	content: "\f0a9";
+}
+
+a#epb3sldrzr-link-first:before
+{
+	content: "\f100";
+}
+
+a#epb3sldrzr-link-last:before
+{
+	content: "\f101";
+}
+
+
+a#epb3sldrzr-link-noteback,
+a#epb3sldrzr-link-notesref,
+a#epb3sldrzr-link-epubReadingSystem
+{
+	text-transform: uppercase;
+}
+
+a#epb3sldrzr-link-noteback,
+a#epb3sldrzr-link-notesref,
+a#epb3sldrzr-link-previous,
+a#epb3sldrzr-link-next,
+a#epb3sldrzr-link-first,
+a#epb3sldrzr-link-last,
+a#epb3sldrzr-link-toc,
+a#epb3sldrzr-link-epub,
+a#epb3sldrzr-link-textsize-plus,
+a#epb3sldrzr-link-textsize-reset,
+a#epb3sldrzr-link-textsize-minus,
+a#epb3sldrzr-link-reflow,
+a#epb3sldrzr-link-epubReadingSystem
+{
+	font-weight: 400;
+
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+
+	/*
+	background-color:#eeeeee;
+	*/
+
+	border-radius: 0.4em;
+
+
+	border-bottom: none;
+	text-decoration:none;
+}
+
+a#epb3sldrzr-link-noteback:link,
+a#epb3sldrzr-link-noteback:visited,
+a#epb3sldrzr-link-noteback:active,
+a#epb3sldrzr-link-notesref:link,
+a#epb3sldrzr-link-notesref:visited,
+a#epb3sldrzr-link-notesref:active,
+a#epb3sldrzr-link-previous:link,
+a#epb3sldrzr-link-previous:visited,
+a#epb3sldrzr-link-previous:active,
+a#epb3sldrzr-link-next:link,
+a#epb3sldrzr-link-next:visited,
+a#epb3sldrzr-link-next:active,
+a#epb3sldrzr-link-first:link,
+a#epb3sldrzr-link-first:visited,
+a#epb3sldrzr-link-first:active,
+a#epb3sldrzr-link-last:link,
+a#epb3sldrzr-link-last:visited,
+a#epb3sldrzr-link-last:active,
+a#epb3sldrzr-link-epubReadingSystem:link,
+a#epb3sldrzr-link-epubReadingSystem:visited,
+a#epb3sldrzr-link-epubReadingSystem:active,
+a#epb3sldrzr-link-toc:link,
+a#epb3sldrzr-link-toc:visited,
+a#epb3sldrzr-link-toc:active,
+a#epb3sldrzr-link-epub:link,
+a#epb3sldrzr-link-epub:visited,
+a#epb3sldrzr-link-epub:active,
+a#epb3sldrzr-link-textsize-minus:link,
+a#epb3sldrzr-link-textsize-minus:visited,
+a#epb3sldrzr-link-textsize-minus:active,
+a#epb3sldrzr-link-textsize-reset:link,
+a#epb3sldrzr-link-textsize-reset:visited,
+a#epb3sldrzr-link-textsize-reset:active,
+a#epb3sldrzr-link-textsize-plus:link,
+a#epb3sldrzr-link-textsize-plus:visited,
+a#epb3sldrzr-link-textsize-plus:active,
+a#epb3sldrzr-link-reflow:link,
+a#epb3sldrzr-link-reflow:visited,
+a#epb3sldrzr-link-reflow:active
+{
+	/*
+	color:#3D6AA2;
+	*/
+	color:#999999;
+
+	border-bottom: none;
+	text-decoration:none;
+}
+
+
+
+a#epb3sldrzr-link-noteback:hover,
+a#epb3sldrzr-link-notesref:hover,
+a#epb3sldrzr-link-previous:hover,
+a#epb3sldrzr-link-next:hover,
+a#epb3sldrzr-link-first:hover,
+a#epb3sldrzr-link-last:hover,
+a#epb3sldrzr-link-toc:hover,
+a#epb3sldrzr-link-epub:hover,
+a#epb3sldrzr-link-epubReadingSystem:hover,
+a#epb3sldrzr-link-textsize-minus:hover,
+a#epb3sldrzr-link-textsize-reset:hover,
+a#epb3sldrzr-link-textsize-plus:hover,
+a#epb3sldrzr-link-reflow:hover
+{
+	/*
+	background-color:#003399;
+	color:white;
+	*/
+
+	background-color:black;
+	color:white;
+	
+	border-bottom: none;
+	text-decoration:none;
+}
+
+body.mobile a#epb3sldrzr-link-previous,
+body.mobile a#epb3sldrzr-link-next,
+body.mobile a#epb3sldrzr-link-first,
+body.mobile a#epb3sldrzr-link-last,
+body.mobile a#epb3sldrzr-link-toc,
+body.mobile a#epb3sldrzr-link-textsize-minus,
+body.mobile a#epb3sldrzr-link-textsize-reset,
+body.mobile a#epb3sldrzr-link-textsize-plus,
+body.mobile a#epb3sldrzr-link-reflow
+{
+	color:white;
+}
+
+/*
+a#epb3sldrzr-link-toc:link,
+a#epb3sldrzr-link-toc:visited,
+a#epb3sldrzr-link-toc:active
+{
+	color: #999999;
+}
+
+a#epb3sldrzr-link-toc:hover
+{
+	background-color:#33CC00;
+	color:white;
+}
+
+a#epb3sldrzr-link-textsize-plus:link,
+a#epb3sldrzr-link-textsize-plus:visited,
+a#epb3sldrzr-link-textsize-plus:active,
+a#epb3sldrzr-link-textsize-minus:link,
+a#epb3sldrzr-link-textsize-minus:visited,
+a#epb3sldrzr-link-textsize-minus:active,
+a#epb3sldrzr-link-reflow:link,
+a#epb3sldrzr-link-reflow:visited,
+a#epb3sldrzr-link-reflow:active
+{
+	color: #666666;
+}
+
+a#epb3sldrzr-link-textsize-plus:hover,
+a#epb3sldrzr-link-textsize-minus:hover,
+a#epb3sldrzr-link-reflow:hover
+{
+	background-color:#333333;
+	color:white;
+}
+
+*/
+
+a#epb3sldrzr-link-textsize-minus,
+a#epb3sldrzr-link-textsize-reset,
+a#epb3sldrzr-link-textsize-plus,
+a#epb3sldrzr-link-reflow
+{
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+}
+
+a#epb3sldrzr-link-reflow
+{
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+}
+
+a#epb3sldrzr-link-noteback
+{
+	position: fixed;
+}
+
+body:not(.reflow) a#epb3sldrzr-link-noteback
+{
+	position: absolute;
+}
+
+a#epb3sldrzr-link-noteback
+{
+	right: 1em;
+    bottom: 1em;
+    z-index: 99;
+}
+
+a#epb3sldrzr-link-noteback:active,
+a#epb3sldrzr-link-noteback:link,
+a#epb3sldrzr-link-noteback:visited
+{
+    color: magenta;
+}
+
+div#epb3sldrzr-controls
+{
+	
+-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+-ms-box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+-o-box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+
+	
+	border-bottom: 0.14em solid #666666; /* #CC3300 #8AC007 */
+
+	
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+    
+    /*
+	border-top-right-radius: 2rem;
+	border-top-left-radius: 2rem;
+    */
+
+	text-align: center;
+	vertical-align: middle;
+	
+	
+	padding-top: 0.2em;
+	padding-bottom: 0.1em;
+	
+	/*
+	background-color: transparent;
+	background-color: rgba(0,0,0,0.6);
+	background-color: rgba(255,255,255,0.8);
+	*/
+	
+	background-color: #333333;
+	
+	display: none;
+	
+	z-index:20;
+	left: 0px;
+	bottom:0px;
+	width: 100%;
+}
+
+body:not(.reflow) div#epb3sldrzr-controls
+{
+	position:absolute;
+}
+
+body.reflow div#epb3sldrzr-controls
+{
+	position: fixed;
+}
+
+a#epb3sldrzr-link-epub
+{
+	position:absolute;
+	top: 25px;
+	right: 20px;
+	z-index: 20;
+}
+
+
+a#epb3sldrzr-link-toc,
+a#epb3sldrzr-link-epubReadingSystem
+{
+	float: left;
+	margin-left: 0.5em;
+}
+
+
+a#epb3sldrzr-link-notesref
+{
+	float: right;
+	margin-right: 2em;
+	
+	font-size: 0.7em;
+}
+
+a#epb3sldrzr-link-first,
+a#epb3sldrzr-link-previous,
+a#epb3sldrzr-link-next,
+a#epb3sldrzr-link-last
+{
+	float: right;
+	margin-right: 0;
+}
+
+a#epb3sldrzr-link-last
+{
+	margin-right: 0.5em;
+}
+
+#epb3sldrzr-slide-indexCount
+{
+	float: right;
+    color: #dddddd;
+    font-size: 0.8em;
+    
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+
+    line-height: 1em;
+    margin-top: 0.4em;
+}
+
+body:not(.basic).epb3sldrzr-epubReadingSystem a#epb3sldrzr-link-noteback,
+body:not(.basic).epb3sldrzr-epubReadingSystem a#epb3sldrzr-link-notesref,
+body:not(.basic).epb3sldrzr-epubReadingSystem a#epb3sldrzr-link-epub,
+html#epb3sldrzr-NavDoc a#epb3sldrzr-link-toc
+{
+	display: none !important;
+}
+
