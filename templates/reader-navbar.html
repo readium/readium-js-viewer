@@ -9,7 +9,7 @@
     
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
-        <button id="btn-expand-audio" type="button" class="btn icon-expand-audio" title="{{strings.i18n_audio_expand}}" disabled>
+        <button id="btn-expand-audio" type="button" class="btn icon-expand-audio" disabled>
             <span id="icon-expand" class="glyphicon glyphicon-open" title="{{strings.i18n_audio_collapse}}"></span>
             <span id="icon-collapse" class="glyphicon glyphicon-save" title="{{strings.i18n_audio_expand}}"></span>
         </button>
@@ -38,6 +38,16 @@
             <span id="icon-touch-on" class="glyphicon glyphicon-ok" title="{{strings.i18n_audio_touch_disable}}"></span>
             <span id="icon-touch-off" class="glyphicon glyphicon-remove" title="{{strings.i18n_audio_touch_enable}}"></span>
         </button>
+
+        <div id="audioExpanded">
+            
+            <input id="time-range-slider" type="range" min="0" max="100" title="{{strings.i18n_audio_time}}" disabled />
+            
+            
+            <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" disabled>
+                <span class="glyphicon glyphicon-share"></span>
+            </button>
+        </div>
     </div> 
     <!--Audioplayer Controls END-->
     <button type="button" class="btn icon-library" title="{{strings.view_library}}">

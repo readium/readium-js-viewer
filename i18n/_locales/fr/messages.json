@@ -162,7 +162,10 @@
     "message" : "Phrase audio suivante"
   },
   "i18n_audio_volume" : {
-    "message" : "Contrôle du volume audio"
+    "message" : "Ajustement du volume audio"
+  },
+  "i18n_audio_time" : {
+    "message" : "Contrôle du curseur audio"
   },
   "i18n_audio_mute" : {
     "message" : "Silence audio"
@@ -175,6 +178,9 @@
   },
   "i18n_audio_collapse" : {
     "message" : "Fermer les contrôles audio avancés"
+  },
+  "i18n_audio_esc" : {
+    "message" : "Echapper le contexte audio actuel"
   },
   "i18n_audio_touch_enable" : {
     "message" : "Activer la function 'toucher pour jouer'"

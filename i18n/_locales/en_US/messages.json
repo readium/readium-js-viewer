@@ -246,6 +246,9 @@
   "i18n_audio_volume" : {
     "message" : "Audio volume"
   },
+  "i18n_audio_time" : {
+    "message" : "Audio cursor"
+  },
   "i18n_audio_mute" : {
     "message" : "Mute audio"
   },
@@ -257,6 +260,9 @@
   },
   "i18n_audio_collapse" : {
     "message" : "Close advanced audio controls"
+  },
+  "i18n_audio_esc" : {
+    "message" : "Escape current audio context"
   },
   "i18n_audio_touch_enable" : {
     "message" : "Enable touch-to-play"
