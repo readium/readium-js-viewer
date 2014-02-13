@@ -56,7 +56,6 @@
 
 .navbar .btn-group > .btn:hover, .navbar .btn-group > .btn:active, .navbar .btn-group > .btn:focus{
   box-shadow: none;
-  background-color: rgba(0,0,0,0);
 }
 
 .navbar .btn {
@@ -65,6 +64,7 @@
   width: 48px;
   height: 36px;
   background: no-repeat center center;
+    background-color: #4d4d4d;
 }
 
 .navbar,
@@ -75,6 +75,12 @@
   border-radius: 0px;
   min-height: 36px;
   margin-bottom: 0px;
+}
+
+.navbar-right
+{
+    min-height: 36px;
+    background-color: #4d4d4d;
 }
 
 #audioplayer.expanded-audio {
@@ -157,6 +163,7 @@
   user-select:none;
 }
 
+
 .navbar .btn-group #audioplayer .btn:hover,
 .navbar .btn-group #audioplayer .btn:active,
 .navbar .btn-group #audioplayer .btn:focus,
@@ -164,8 +171,8 @@
 {
   box-shadow: none;
   outline: none;
-  background-color: rgba(0,0,0,0);
 }
+
 #audioplayer {
     float: left;
     position: relative;
@@ -180,6 +187,9 @@
 }
 
 #audioplayer.isPlaying {
+    background-color: #000000;
+}
+#audioplayer.isPlaying .btn {
     background-color: #000000;
 }
 
@@ -443,9 +453,11 @@ box-shadow: 0 0 0 1px #6fb5f1;
   float: right;
 }
 
+/*
 .embedded .navbar .btn-group > .btn, .embedded .navbar .btn-group > .btn:hover, .embedded .navbar .btn-group > .btn:active, .embedded .navbar .btn-group > .btn:focus{
   background-color: rgba(0,0,0,0.2);
 }
+*/
 
 .embedded .navbar{
   position: absolute;
