@@ -247,7 +247,7 @@
     "message" : "Audio volume"
   },
   "i18n_audio_time" : {
-    "message" : "Audio cursor"
+    "message" : "Audio time cursor"
   },
   "i18n_audio_mute" : {
     "message" : "Mute audio"

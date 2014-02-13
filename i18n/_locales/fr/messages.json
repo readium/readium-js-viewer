@@ -165,7 +165,7 @@
     "message" : "Ajustement du volume audio"
   },
   "i18n_audio_time" : {
-    "message" : "Contrôle du curseur audio"
+    "message" : "Contrôle du curseur temporel audio"
   },
   "i18n_audio_mute" : {
     "message" : "Silence audio"
