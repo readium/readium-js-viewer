@@ -252,6 +252,12 @@
   "i18n_audio_unmute" : {
     "message" : "Unmute audio"
   },
+  "i18n_audio_expand" : {
+    "message" : "Show advanced audio controls"
+  },
+  "i18n_audio_collapse" : {
+    "message" : "Close advanced audio controls"
+  },
   "i18n_audio_touch_enable" : {
     "message" : "Enable touch-to-play"
   },
