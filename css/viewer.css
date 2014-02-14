@@ -286,12 +286,14 @@
 }
 
 
-
+/* Issues with thumb :(
 #rate-range-slider
 {
     position: relative;
     top: 2px;
 }
+*/
+
 #btn-audio-rate,
 #btn-audio-rate > .glyphicon
 {
