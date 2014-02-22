@@ -1,9 +1,13 @@
-
+#epub-reader-frame{
+  display: inline-block;
+  height: 100%;
+  position: relative;
+}
 #about-dialog div{
   text-align: center;
 }
 
-.chrome-app .icon-full-screen, .chrome-app .icon-annotations{
+.chrome-app .icon-annotations{
   display:none;
 }
 
@@ -504,9 +508,8 @@ box-shadow: 0 0 0 1px #6fb5f1;
 
 /* epub container */
 #reading-area {
-
+    text-align: center;
     position: absolute;
-
     left: 5px;
     right: 5px;
     bottom: 5px;
