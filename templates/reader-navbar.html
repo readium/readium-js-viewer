@@ -59,13 +59,15 @@
 
         <div id="audioExpanded" role="alert">
             
-            <input id="time-range-slider" type="range" min="0" max="100" value="0" title="{{strings.i18n_audio_time}}" aria-label="{{strings.i18n_audio_time}}" disabled />
+            <input id="time-range-slider" type="range" min="0" max="100" value="0" data-value="0" title="{{strings.i18n_audio_time}}" aria-label="{{strings.i18n_audio_time}}" disabled />
             
             <button id="btn-audio-rate" type="button" class="btn icon-rate-audio" title="{{strings.i18n_audio_rate_reset}}" aria-label="{{strings.i18n_audio_rate_reset}}" disabled>
                 <span class="glyphicon glyphicon-play-circle"></span>
             </button>
             
             <input id="rate-range-slider" type="range" min="0" max="4" value="1" step="0.5" title="{{strings.i18n_audio_rate}}" aria-label="{{strings.i18n_audio_rate}}" disabled />
+            
+            <span aria-hidden="true" id="rate-range-slider-label">1x</span>
             
             <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" aria-label="{{strings.i18n_audio_esc}}" disabled>
                 <span class="glyphicon glyphicon-new-window"></span>

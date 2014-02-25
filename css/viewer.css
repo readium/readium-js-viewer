@@ -318,7 +318,7 @@
     padding-left: 0;
     margin-left: 0;
 }
-.navbar #btn-audio-rate.btn {
+#btn-audio-rate {
   width: 30px;
 }
 
@@ -388,6 +388,22 @@
     border-radius: 4px;
 }
 
+#rate-range-slider-label
+{
+    font-family: monospace;
+    font-size: 90%;
+    font-weight: bold;
+    
+    padding: 0;
+    margin: 0;
+    
+    color: white;
+    
+    position: absolute;
+    margin-top: 0.6em;
+    margin-left: 0.4em;
+}
+
 #time-range-slider
 {
     width: 100%;
@@ -399,6 +415,40 @@
 {
     border-left: 10px solid #4d4d4d;
     border-right: 10px solid #4d4d4d;
+}
+
+
+#time-range-slider::-moz-range-thumb
+{
+    height: 18px;
+}
+#time-range-slider::-webkit-slider-thumb
+{
+    height: 18px;
+}
+
+#time-range-slider::after
+{
+    position: absolute;
+
+    font-family: monospace;
+    font-size: 90%;
+    font-weight: bold;
+    
+    padding: 0.4em;
+    padding-top: 0.01em;
+    padding-bottom: 0.01em;
+
+    margin: 0;
+    
+    min-width: 3em;
+    margin-left: -3em;
+    
+    text-align: left;
+    
+    color: white;
+
+    content: attr(data-value)"%";
 }
 
 /*
