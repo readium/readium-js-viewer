@@ -87,6 +87,9 @@
   "replace" : {
     "message": "Replace"
   },
+  "gethelp" : {
+    "message" : "If you encounter any problems, have questions, or would like to say hello, visit <a href=\"http://idpf.org/forums/readium\">our forum</a>"
+  },
   "i18n_readium_library" : {
     "message" : "Readium Library"
   },
@@ -246,11 +249,35 @@
   "i18n_audio_volume" : {
     "message" : "Audio volume"
   },
+  "i18n_audio_time" : {
+    "message" : "Audio time cursor"
+  },
   "i18n_audio_mute" : {
     "message" : "Mute audio"
   },
   "i18n_audio_unmute" : {
     "message" : "Unmute audio"
+  },
+  "i18n_audio_expand" : {
+    "message" : "Show advanced audio controls"
+  },
+  "i18n_audio_collapse" : {
+    "message" : "Close advanced audio controls"
+  },
+  "i18n_audio_esc" : {
+    "message" : "Escape current audio context"
+  },
+  "i18n_audio_rate" : {
+    "message" : "Audio playback rate"
+  },
+  "i18n_audio_rate_reset" : {
+    "message" : "Reset audio playback to normal speed"
+  },
+  "i18n_audio_skip_disable" : {
+    "message" : "Disable skippability"
+  },
+  "i18n_audio_skip_enable" : {
+    "message" : "Enable skippability"
   },
   "i18n_audio_touch_enable" : {
     "message" : "Enable touch-to-play"
