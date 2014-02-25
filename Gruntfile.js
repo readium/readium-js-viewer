@@ -74,6 +74,13 @@ module.exports = function (grunt) {
             {expand: true, src: 'fonts/**', dest: 'build/chrome-app'}
         ]
       },
+      chromeAppDevBuild: {
+        files: [
+            {expand: false, cwd: 'chrome-app/icons/devBuild/', src: ['*.*'], dest: 'build/chrome-app/icons/'
+            /* , rename: function(dest, src) { return dest + '/' + src } */
+            }
+        ]
+      },
       readiumjs: {
         files: [
           {expand: true, cwd: 'readium-js/out/', src: 'Readium.js', dest: 'lib'}
@@ -133,6 +140,16 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp']);
 
   grunt.registerTask('chromeApp', ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'requirejs:chromeApp', 'requirejs:chromeAppWorker']);
+  
+  grunt.registerTask('devBuildManifest', function() {
+       var manifest = require('./build/chrome-app/manifest.json');
 
+       manifest.description = manifest.description + " (DEV BUILD)";
+       manifest.version = manifest.version + ".999";
+
+       var fs = require('fs');
+       fs.writeFileSync('./build/chrome-app/manifest.json', JSON.stringify(manifest, null, 2));
+  });
+  grunt.registerTask('chromeAppDevBuild', ['update-readium', 'chromeApp', 'copy:chromeAppDevBuild', 'devBuildManifest']);
 };
 

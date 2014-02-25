@@ -162,13 +162,37 @@
     "message" : "Phrase audio suivante"
   },
   "i18n_audio_volume" : {
-    "message" : "Contrôle du volume audio"
+    "message" : "Ajustement du volume audio"
+  },
+  "i18n_audio_time" : {
+    "message" : "Contrôle du curseur temporel audio"
   },
   "i18n_audio_mute" : {
     "message" : "Silence audio"
   },
   "i18n_audio_unmute" : {
     "message" : "Restaurer le volume audio"
+  },
+  "i18n_audio_expand" : {
+    "message" : "Afficher les contrôles audio avancés"
+  },
+  "i18n_audio_collapse" : {
+    "message" : "Fermer les contrôles audio avancés"
+  },
+  "i18n_audio_esc" : {
+    "message" : "Echapper le contexte audio actuel"
+  },
+  "i18n_audio_rate" : {
+    "message" : "Vitesse de lecture audio"
+  },
+  "i18n_audio_rate_reset" : {
+    "message" : "Retour à la vitesse normale de lecture audio"
+  },
+  "i18n_audio_skip_disable" : {
+    "message" : "Désactiver la 'skippabilité'"
+  },
+  "i18n_audio_skip_enable" : {
+    "message" : "Activer la 'skippabilité'"
   },
   "i18n_audio_touch_enable" : {
     "message" : "Activer la function 'toucher pour jouer'"
