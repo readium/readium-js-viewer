@@ -1,6 +1,6 @@
 <div class="btn-group navbar-left">
         <!-- <button type="button" class="btn btn-default icon icon-show-hide"></button>  -->
-    <button type="button" class="btn icon-logo" data-toggle="modal" data-target="#about-dialog" title="{{strings.about}}">
+    <button type="button" class="btn icon-logo" data-toggle="modal" data-target="#about-dialog" title="{{strings.about}}" aria-label="{{strings.about}}">
         <span class="icon-readium"></span>
     </button>
     
@@ -9,53 +9,74 @@
     
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
-        <button id="btn-expand-audio" type="button" class="btn icon-expand-audio" disabled>
-            <span id="icon-expand" class="glyphicon glyphicon-open" title="{{strings.i18n_audio_collapse}}"></span>
-            <span id="icon-collapse" class="glyphicon glyphicon-save" title="{{strings.i18n_audio_expand}}"></span>
+        
+        <button id="btn-collapse-audio" type="button" class="btn icon-collapse-audio" title="{{strings.i18n_audio_collapse}}" aria-label="{{strings.i18n_audio_collapse}}" disabled>
+            <span class="glyphicon glyphicon-open"></span>
+        </button>
+
+        <button id="btn-expand-audio" type="button" class="btn icon-expand-audio" title="{{strings.i18n_audio_expand}}" aria-label="{{strings.i18n_audio_expand}}" disabled>
+            <span class="glyphicon glyphicon-save"></span>
         </button>
         
-        <button id="btn-previous-audio" type="button" class="btn icon-previous-audio" title="{{strings.i18n_audio_previous}}" disabled>
+        <button id="btn-previous-audio" type="button" class="btn icon-previous-audio" title="{{strings.i18n_audio_previous}}" aria-label="{{strings.i18n_audio_previous}}" disabled>
             <span class="glyphicon glyphicon-backward"></span>
         </button>
-        <button id="btn-toggle-audio" type="button" class="btn icon-play-audio" disabled>
-            <span id="icon-play" class="glyphicon glyphicon-play" title="{{strings.i18n_audio_play}}"></span>
-            <span id="icon-pause" class="glyphicon glyphicon-pause" title="{{strings.i18n_audio_pause}}"></span>
+        
+
+        <button id="btn-play-audio" type="button" class="btn icon-play-audio"  title="{{strings.i18n_audio_play}}"  aria-label="{{strings.i18n_audio_play}}" disabled>
+            <span class="glyphicon glyphicon-play"></span>
         </button>
-        <button id="btn-next-audio" type="button" class="btn icon-next-audio" title="{{strings.i18n_audio_next}}" disabled>
+        <button id="btn-pause-audio" type="button" class="btn icon-pause-audio"  title="{{strings.i18n_audio_pause}}"  aria-label="{{strings.i18n_audio_pause}}" disabled>
+            <span class="glyphicon glyphicon-pause"></span>
+        </button>
+        
+        
+        <button id="btn-next-audio" type="button" class="btn icon-next-audio" title="{{strings.i18n_audio_next}}" arial-label="{{strings.i18n_audio_next}}" disabled>
             <span class="glyphicon glyphicon-forward"></span>
         </button>
         
-        <button id="btn-audio-volume" type="button" class="btn icon-audio-volume" disabled>
-            <span id="icon-volume-on" class="glyphicon glyphicon-volume-up" title="{{strings.i18n_audio_mute}}"></span>
-            <span id="icon-volume-off" class="glyphicon glyphicon-volume-off" title="{{strings.i18n_audio_unmute}}"></span>
+        <button id="btn-audio-volume-mute" type="button" class="btn icon-audio-volume-mute" title="{{strings.i18n_audio_mute}}" aria-label="{{strings.i18n_audio_mute}}" disabled>
+            <span class="glyphicon glyphicon-volume-up"></span>
         </button>
-        <input id="volume-range-slider" type="range" min="0" max="100" value="100" title="{{strings.i18n_audio_volume}}" disabled />
+        <button id="btn-audio-volume-unmute" type="button" class="btn icon-audio-volume-unmute" title="{{strings.i18n_audio_unmute}}" aria-label="{{strings.i18n_audio_unmute}}" disabled>
+            <span class="glyphicon glyphicon-volume-off"></span>
+        </button>
+        
+        <input id="volume-range-slider" type="range" min="0" max="100" value="100" title="{{strings.i18n_audio_volume}}" arial-label="{{strings.i18n_audio_volume}}" disabled />
         
 
-        <button id="btn-touch-audio" type="button" class="btn icon-touch-audio" disabled>
-            <span id="icon-touch-hand" class="glyphicon glyphicon-hand-up"></span>
+        <button id="btn-touch-audio-enable" type="button" class="btn icon-touch-audio-enable" title="{{strings.i18n_audio_touch_enable}}" aria-label="{{strings.i18n_audio_touch_enable}}" disabled>
+            <span id="icon-touch-off-hand" class="glyphicon glyphicon-hand-up"></span>
 
-            <span id="icon-touch-on" class="glyphicon glyphicon-ok" title="{{strings.i18n_audio_touch_disable}}"></span>
-            <span id="icon-touch-off" class="glyphicon glyphicon-remove" title="{{strings.i18n_audio_touch_enable}}"></span>
+            <span id="icon-touch-off" class="glyphicon glyphicon-remove"></span>
         </button>
 
-        <div id="audioExpanded">
+        <button id="btn-touch-audio-disable" type="button" class="btn icon-touch-audio-disable" title="{{strings.i18n_audio_touch_disable}}" aria-label="{{strings.i18n_audio_touch_disable}}" disabled>
+            <span id="icon-touch-on-hand" class="glyphicon glyphicon-hand-up"></span>
+
+            <span id="icon-touch-on" class="glyphicon glyphicon-ok"></span>
+        </button>
+
+        <div id="audioExpanded" role="alert">
             
-            <input id="time-range-slider" type="range" min="0" max="100" value="0" title="{{strings.i18n_audio_time}}" disabled />
+            <input id="time-range-slider" type="range" min="0" max="100" value="0" title="{{strings.i18n_audio_time}}" aria-label="{{strings.i18n_audio_time}}" disabled />
             
-            <button id="btn-audio-rate" type="button" class="btn icon-rate-audio" title="{{strings.i18n_audio_rate_reset}}" disabled>
+            <button id="btn-audio-rate" type="button" class="btn icon-rate-audio" title="{{strings.i18n_audio_rate_reset}}" aria-label="{{strings.i18n_audio_rate_reset}}" disabled>
                 <span class="glyphicon glyphicon-play-circle"></span>
             </button>
             
-            <input id="rate-range-slider" type="range" min="0" max="4" value="1" step="0.5" title="{{strings.i18n_audio_rate}}" disabled />
+            <input id="rate-range-slider" type="range" min="0" max="4" value="1" step="0.5" title="{{strings.i18n_audio_rate}}" aria-label="{{strings.i18n_audio_rate}}" disabled />
             
-            <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" disabled>
+            <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" aria-label="{{strings.i18n_audio_esc}}" disabled>
                 <span class="glyphicon glyphicon-new-window"></span>
             </button>
 
-            <button id="btn-skip-audio" type="button" class="btn icon-skip-audio skip" disabled>
-                <span id="icon-skip-on" class="glyphicon glyphicon-ok-circle" title="{{strings.i18n_audio_skip_disable}}"></span>
-                <span id="icon-skip-off" class="glyphicon glyphicon-remove-circle" title="{{strings.i18n_audio_skip_enable}}"></span>
+            <button id="btn-skip-audio-enable" type="button" class="btn icon-skip-audio-enable" title="{{strings.i18n_audio_skip_enable}}" aria-label="{{strings.i18n_audio_skip_enable}}" disabled>
+                <span id="icon-skip-off" class="glyphicon glyphicon-remove-circle"></span>
+            </button>
+
+            <button id="btn-skip-audio-disable" type="button" class="btn icon-skip-audio-disable" title="{{strings.i18n_audio_skip_disable}}" aria-label="{{strings.i18n_audio_skip_disable}}" disabled>
+                <span id="icon-skip-on" class="glyphicon glyphicon-ok-circle"></span>
             </button>
             
             <!-- div class="checkbox">
@@ -66,22 +87,22 @@
         </div>
     </div> 
     <!--Audioplayer Controls END-->
-    <button type="button" class="btn icon-library" title="{{strings.view_library}}">
+    <button type="button" class="btn icon-library" title="{{strings.view_library}}" aria-label="{{strings.view_library}}">
         <span class="glyphicon glyphicon-folder-open"></span>
     </button>
-    <button type="button" class="btn icon-annotations" title="{{strings.highlight_selection}}">
+    <button type="button" class="btn icon-annotations" title="{{strings.highlight_selection}}" aria-label="{{strings.highlight_selection}}">
         <span class="glyphicon glyphicon-edit"></span>
     </button>
-    <button type="button" class="btn icon-toc" title="{{strings.toc}}">
+    <button type="button" class="btn icon-toc" title="{{strings.toc}}" aria-label="{{strings.toc}}">
         <span class="glyphicon glyphicon-list"></span>
     </button>
-    <button type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}}">
+    <button type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}}" aria-label="{{strings.settings}}">
         <span class="glyphicon glyphicon-cog"></span>
     </button>
-    <button type="button" class="btn icon-full-screen" title="{{strings.enter_fullscreen}}">
+    <button type="button" class="btn icon-full-screen" title="{{strings.enter_fullscreen}}" aria-label="{{strings.enter_fullscreen}}">
         <span class="glyphicon glyphicon-resize-full"></span>
     </button>
-    <button type="button" class="btn icon-exit-full-screen" title="{{strings.exit_fullscreen}}">
+    <button type="button" class="btn icon-exit-full-screen" title="{{strings.exit_fullscreen}}" aria-label="{{strings.exit_fullscreen}}">
         <span class="glyphicon glyphicon-resize-small"></span>
     </button>
     <!-- <button type="button" class="btn btn-default icon icon-bookmark"></button>-->
