@@ -35,7 +35,7 @@ iframe {
     position: absolute !important;
 }
 
-.fixed-page-frame iframe{
+/*.fixed-page-frame iframe{
     border: 1px solid rgba(0,0,0,.2);
 }
 .fixed-page-frame-left + .fixed-page-frame-right iframe{
@@ -44,7 +44,7 @@ iframe {
 
 .fixed-page-frame-right + .fixed-page-frame-left iframe{
     border-right: none;
-}
+}*/
 
 .iframe-fixed {
     width: 100%;
