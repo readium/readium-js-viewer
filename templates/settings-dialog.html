@@ -3,7 +3,7 @@
         <div class="modal-content">
            
             <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="{{strings.i18n_close}}" aria-label="{{strings.i18n_close}}">&times;</button>
                 <h5>{{strings.preview}}</h5>
                 <div class="row">
                     <div data-theme="default-theme" class="col-xs-10 col-xs-offset-1 preview-text default-theme">
@@ -14,13 +14,13 @@
                     <h5 tabindex="-1" id="setting-header-font-size" class="setting-header">{{strings.i18n_font_size}}</h5>
                     <div class="row">
                         <div class="col-xs-2 icon-scale-down">
-                            <img src="images/glyphicons_115_text_smaller.png">
+                            <img src="images/glyphicons_115_text_smaller.png" alt="" aria-hidden="true">
                         </div>
                         <div class="col-xs-8">
-                            <input type="range" aria-labelledby="setting-header-font-size" id="font-size-input" min="60" step="10" max="160" title="Font size" value="100"/>
+                            <input type="range" aria-labelledby="setting-header-font-size" id="font-size-input" min="60" step="10" max="160" title="{{strings.i18n_font_size}}" aria-label="{{strings.i18n_font_size}}" value="100"/>
                         </div>
                         <div class="col-xs-2">
-                            <img src="images/glyphicons_116_text_bigger.png">
+                            <img src="images/glyphicons_116_text_bigger.png" alt="" aria-hidden="true">
                         </div>
                     </div>
                 </div>
@@ -28,24 +28,24 @@
                     <h5 id="setting-header-margins-legend" class="setting-header">{{strings.i18n_margins}}</h5>
                      <div class="row">
                         <div class="col-xs-2 icon-scale-down">
-                            <img style="height: 32px;" src="images/margin1_off.png">
+                            <img style="height: 32px;" src="images/margin1_off.png" alt="" aria-hidden="true">
                         </div>
                         <div class="col-xs-8">
-                            <input type="range" aria-labelledby="setting-header-margins-legend" id="margin-size-input" min="20" step="20" max="100" value="20" title="Margin"/>
+                            <input type="range" aria-labelledby="setting-header-margins-legend" id="margin-size-input" min="20" step="20" max="100" value="20" title="{{strings.i18n_margins}}" aria-label="{{strings.i18n_margins}}"/>
                         </div>
                         <div class="col-xs-2">
-                            <img style="height: 32px;" src="images/margin4_off.png">
+                            <img style="height: 32px;" src="images/margin4_off.png" alt="" aria-hidden="true">
                         </div>
                     </div>
                 </div>
                 <div>
                     <h5 id="setting-header-color-legend" class="setting-header">{{strings.i18n_text_and_background_color}}</h5>
                     <div role="radiogroup" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="row">
-                        <div role="radio" data-theme="default-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option default-theme clickable">{{strings.i18n_black_and_white}}</div>
-                        <div role="radio" data-theme="night-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable">{{strings.i18n_arabian_nights}}</div>
-                        <div role="radio" data-theme="parchment-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable">{{strings.i18n_sands_of_dune}}</div>
-                        <div role="radio" data-theme="ballard-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable">{{strings.i18n_ballard_blues}}</div>
-                        <div role="radio" data-theme="vancouver-theme" tabindex="0" class="col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable">{{strings.i18n_vancouver_mist}}</div>
+                        <div role="radio" data-theme="default-theme" tabindex="0" title="{{strings.i18n_black_and_white}}" aria-label="{{strings.i18n_black_and_white}}" class="col-xs-8 col-xs-offset-2 theme-option default-theme clickable">{{strings.i18n_black_and_white}}</div>
+                        <div role="radio" data-theme="night-theme" tabindex="0" title="{{strings.i18n_arabian_nights}}" aria-label="{{strings.i18n_arabian_nights}}" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable">{{strings.i18n_arabian_nights}}</div>
+                        <div role="radio" data-theme="parchment-theme" tabindex="0" title="{{strings.i18n_sands_of_dune}}" aria-label="{{strings.i18n_sands_of_dune}}" class="col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable">{{strings.i18n_sands_of_dune}}</div>
+                        <div role="radio" data-theme="ballard-theme" tabindex="0" title="{{strings.i18n_ballard_blues}}" aria-label="{{strings.i18n_ballard_blues}}" class="col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable">{{strings.i18n_ballard_blues}}</div>
+                        <div role="radio" data-theme="vancouver-theme" tabindex="0" title="{{strings.i18n_vancouver_mist}}" aria-label="{{strings.i18n_vancouver_mist}}" class="col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable">{{strings.i18n_vancouver_mist}}</div>
                     </div>
                 </div>
                 <div>
@@ -53,14 +53,14 @@
                     <div role="radiogroup" aria-labelledby="setting-header-display-legend" class="row">
                         <div role="radio" id="one-up-option" class="col-xs-2 col-xs-offset-4">
                             
-                            <input name="display-format" value="single" type="radio"><img src="images/ico_singlepage_up.png">
+                            <input name="display-format" value="single" type="radio" title="{{strings.i18n_single_pages}}" aria-label="{{strings.i18n_single_pages}}"><img src="images/ico_singlepage_up.png">
                                 
                             
                             <span class="offscreen-text">{{strings.i18n_single_pages}}</span>
                         </div>
                         <div role="radio" id="two-up-option" class="col-xs-2">
                             
-                                <input name="display-format" value="double" type="radio"><img src="images/ico_doublepage_up.png">
+                                <input name="display-format" value="double" type="radio" title="{{strings.i18n_double_pages}}" aria-label="{{strings.i18n_double_pages}}"><img src="images/ico_doublepage_up.png">
                                 
                             
                             <span class="offscreen-text">{{strings.i18n_double_pages}}</span>
@@ -69,8 +69,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{strings.i18n_close}}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">{{strings.i18n_save_changes}}</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}}" aria-label="{{strings.i18n_close}}">{{strings.i18n_close}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" title="{{strings.i18n_save_changes}}" aria-label="{{strings.i18n_save_changes}}">{{strings.i18n_save_changes}}</button>
             </div>
         </div>
         <!-- /.modal-content -->
