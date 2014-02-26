@@ -488,7 +488,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
     margin-right: 0.2em;
     
     text-align: center;
-    border-radius: 0.4em;
+    border-radius: 0.6em !important;
 
     box-shadow: 0px 0px 0.4em #333333 !important;
 }
