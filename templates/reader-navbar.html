@@ -65,7 +65,7 @@
                 <span class="glyphicon glyphicon-play-circle"></span>
             </button>
             
-            <input id="rate-range-slider" type="range" min="0" max="4" value="1" step="0.5" title="{{strings.i18n_audio_rate}}" aria-label="{{strings.i18n_audio_rate}}" disabled />
+            <input id="rate-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="4" aria-value-max="4" aria-valuemax="4" value="1" aria-valuenow="1" aria-value-now="1" aria-valuetext="1" aria-value-text="1" step="0.5" title="{{strings.i18n_audio_rate}}" aria-label="{{strings.i18n_audio_rate}}" disabled />
             
             <span aria-hidden="true" id="rate-range-slider-label">1x</span>
             
