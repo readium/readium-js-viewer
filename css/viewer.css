@@ -485,11 +485,8 @@ box-shadow: 0 0 0 1px #6fb5f1;
 {
     display: none;
 }
-
 #mo-sync-form > input[type="radio"] + label
 {
-    cursor: pointer;
-    
     font-family: sans-serif;
     font-size: 84%;
     font-weight: normal;
@@ -508,11 +505,21 @@ box-shadow: 0 0 0 1px #6fb5f1;
     border: 1px solid #383838;
     border-radius: 0.5em;
 }
-#mo-sync-form > input[type="radio"]:checked + label
+#mo-sync-form > input[type="radio"]:not([disabled]):checked + label
 {
     color: black;
     background: #e1e1e1;
 }
+
+#mo-sync-form > input[type="radio"]:not([disabled]) + label
+{
+    cursor: pointer;
+}
+#mo-sync-form > input[type="radio"][disabled] + label
+{
+    color: black;
+}
+
 
 #mo-highlighters
 {
