@@ -69,9 +69,16 @@
             
             <span aria-hidden="true" id="rate-range-slider-label">1x</span>
             
-            <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" aria-label="{{strings.i18n_audio_esc}}" disabled>
-                <span class="glyphicon glyphicon-new-window"></span>
-            </button>
+            <form action="" id="mo-sync-form" title="{{strings.i18n_audio_sync}}">
+                <input type="radio" name="mo-sync" value="word" id="mo-sync-word" checked="checked"> </input>
+                <label for="mo-sync-word">{{strings.i18n_audio_sync_word}}</label>
+                
+                <input type="radio" name="mo-sync" value="sentence" id="mo-sync-sentence"> </input>
+                <label for="mo-sync-sentence">{{strings.i18n_audio_sync_sentence}}</label>
+                
+                <input type="radio" name="mo-sync" value="paragraph" id="mo-sync-paragraph"> </input>
+                <label for="mo-sync-paragraph">{{strings.i18n_audio_sync_paragraph}}</label>
+            </form>
 
             <button id="btn-skip-audio-enable" type="button" class="btn icon-skip-audio-enable" title="{{strings.i18n_audio_skip_enable}}" aria-label="{{strings.i18n_audio_skip_enable}}" disabled>
                 <span id="icon-skip-off" class="glyphicon glyphicon-remove-circle"></span>
@@ -79,6 +86,10 @@
 
             <button id="btn-skip-audio-disable" type="button" class="btn icon-skip-audio-disable" title="{{strings.i18n_audio_skip_disable}}" aria-label="{{strings.i18n_audio_skip_disable}}" disabled>
                 <span id="icon-skip-on" class="glyphicon glyphicon-ok-circle"></span>
+            </button>
+
+            <button id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}}" aria-label="{{strings.i18n_audio_esc}}" disabled>
+                <span class="glyphicon glyphicon-new-window"></span>
             </button>
             
             <div id="mo-highlighters" aria-hidden="true">

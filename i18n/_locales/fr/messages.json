@@ -200,6 +200,18 @@
   "i18n_audio_touch_disable" : {
     "message" : "Désactiver la function 'toucher pour jouer'"
   },
+  "i18n_audio_sync" : {
+    "message" : "Granularité de synchronisation texte / audio (si disponible)"
+  },
+  "i18n_audio_sync_word" : {
+    "message" : "Mot"
+  },
+  "i18n_audio_sync_sentence" : {
+    "message" : "Phrase"
+  },
+  "i18n_audio_sync_paragraph" : {
+    "message" : "Paragraphe"
+  },
   "i18n_page_previous" : {
     "message" : "Page précédente (P̲)"
   },
