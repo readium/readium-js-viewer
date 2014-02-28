@@ -1,12 +1,24 @@
-
+#epub-reader-frame{
+  display: inline-block;
+  height: 100%;
+  position: relative;
+}
 #about-dialog div{
   text-align: center;
 }
 
-.chrome-app .icon-full-screen, .chrome-app .icon-annotations{
+.chrome-app .icon-annotations{
   display:none;
 }
 
+.about-message{
+  margin: 20px 0px;
+}
+
+#about-dialog .version{
+  margin-top: 10px;
+  font-weight: bold;
+}
 
 #readium-toc-body{
   display: none;
@@ -39,6 +51,11 @@
   left: 30%;
 }
 
+.navbar
+{
+    z-index: 888;
+}
+
 /* toolbar */
 .navbar .btn-group > .btn{
   border: none;
@@ -48,7 +65,6 @@
 
 .navbar .btn-group > .btn:hover, .navbar .btn-group > .btn:active, .navbar .btn-group > .btn:focus{
   box-shadow: none;
-  background-color: rgba(0,0,0,0);
 }
 
 .navbar .btn {
@@ -57,15 +73,31 @@
   width: 48px;
   height: 36px;
   background: no-repeat center center;
+    background-color: #4d4d4d;
 }
 
-.navbar{
+.navbar,
+#audioplayer.expanded-audio
+{
   background: #4d4d4d;
   box-shadow: 0px 1px 5px #333;
   border-radius: 0px;
   min-height: 36px;
   margin-bottom: 0px;
 }
+
+.navbar-right
+{
+    min-height: 36px;
+    background-color: #4d4d4d;
+}
+
+#audioplayer.expanded-audio
+{
+    min-height: 144px;
+    border-bottom: 2px solid #888;
+}
+
 .book-title-header{
   position: absolute;
   top: 0px;
@@ -129,11 +161,19 @@
 }*/
 
 /*   Audioplayer Controls START   */
+
+.navbar-right
+{
+    overflow: visible;
+    height: 0.4em;
+}
+
 .navbar .btn-group #audioplayer .btn{
   border: none;
   border-radius: 0px;
   user-select:none;
 }
+
 
 .navbar .btn-group #audioplayer .btn:hover,
 .navbar .btn-group #audioplayer .btn:active,
@@ -142,16 +182,14 @@
 {
   box-shadow: none;
   outline: none;
-  background-color: rgba(0,0,0,0);
 }
+
 #audioplayer {
     float: left;
     position: relative;
-    border-right: 1px solid #888;
+    border-right: 2px solid #888;
+    border-left: 2px solid #888;
     display: none;
-}
-#audioplayer.isPlaying {
-    background-color: rgba(0,255,0,0.1);
 }
 
 #audioplayer button[disabled],
@@ -159,35 +197,348 @@
     opacity: 0.3;
 }
 
-#btn-toggle-audio:not(.pause-audio) > #icon-pause {
-    display: none;
+#audioplayer.isPlaying {
+    background-color: #000000;
 }
-#btn-toggle-audio.pause-audio > #icon-play {
+#audioplayer.isPlaying > .btn {
+    background-color: #000000;
+}
+
+#btn-expand-audio > .glyphicon,
+#btn-collapse-audio > .glyphicon
+{
+    color: #808080;
+}
+
+#audioplayer:not(.expanded-audio) > #btn-collapse-audio {
     display: none;
 }
 
-#btn-audio-volume:not(.no-volume) > #icon-volume-off {
-    display: none;
-}
-#btn-audio-volume.no-volume > #icon-volume-on {
+#audioplayer.expanded-audio > #btn-expand-audio {
     display: none;
 }
 
-#btn-touch-audio:not(.no-touch) > #icon-touch-off {
-    display: none;
-}
-#btn-touch-audio.no-touch > #icon-touch-on {
+#audioExpanded
+{
     display: none;
 }
 
-#icon-touch-hand {
+#audioplayer.expanded-audio > #audioExpanded
+{
+    display: block;
+    min-height: 36px;
+    background-color: #4d4d4d;
+}
+
+#audioplayer:not(.isPlaying) > #btn-pause-audio {
+    display: none;
+}
+
+#audioplayer.isPlaying > #btn-play-audio {
+    display: none;
+}
+
+#btn-audio-volume-mute,
+#btn-audio-volume-unmute,
+#btn-audio-volume-mute > .glyphicon,
+#btn-audio-volume-unmute > .glyphicon
+{
+    padding-right: 0;
+    margin-right: 0;
+}
+#volume-range-slider
+{
+    padding-left: 0;
+    margin-left: 0;
+}
+#btn-audio-volume-mute,
+#btn-audio-volume-unmute {
+  width: 30px;
+}
+
+#audioplayer:not(.no-volume) > #btn-audio-volume-unmute {
+    display: none;
+}
+#audioplayer.no-volume > #btn-audio-volume-mute {
+    display: none;
+}
+
+#icon-skip-off,
+#icon-touch-off
+{
+    color: red;
+}
+#icon-skip-on,
+#icon-touch-on
+{
+    color: green;
+}
+
+#btn-esc-audio,
+#btn-skip-audio-enable,
+#btn-skip-audio-disable
+{
+    float: right;
+}
+
+#audioplayer:not(.no-touch) > #btn-touch-audio-enable {
+    display: none;
+}
+#audioplayer.no-touch > #btn-touch-audio-disable {
+    display: none;
+}
+
+#audioplayer:not(.skip) > #audioExpanded > #btn-skip-audio-disable {
+    display: none;
+}
+#audioplayer.skip > #audioExpanded > #btn-skip-audio-enable {
+    display: none;
+}
+
+#icon-touch-on-hand,
+#icon-touch-off-hand {
     margin-right: -0.4em;
 }
 
-#volume-range-slider {
+
+/* Issues with thumb :(
+#rate-range-slider
+{
+    position: relative;
+    top: 2px;
+}
+*/
+
+#btn-audio-rate,
+#btn-audio-rate > .glyphicon
+{
+    padding-right: 0;
+    margin-right: 0;
+}
+#rate-range-slider
+{
+    padding-left: 0;
+    margin-left: 0;
+}
+#btn-audio-rate {
+  width: 30px;
+}
+
+
+#volume-range-slider
+{
     position: relative;
     top: 3px;
 }
+
+#volume-range-slider,
+#time-range-slider,
+#rate-range-slider
+{
+    -webkit-appearance: slider-horizontal;
+    -webkit-appearance: none;
+    
+    background-color: #484848;
+    border-radius: 8px;
+    border: 1px solid #383838;
+    
+    cursor: pointer;
+}
+
+#volume-range-slider::-moz-range-track,
+#time-range-slider::-moz-range-track,
+#rate-range-slider::-moz-range-track
+{    
+    background-color: #484848;
+    border-radius: 8px;
+    border: 1px solid #383838;
+    
+    cursor: pointer;
+}
+,
+
+#volume-range-slider:active,
+#time-range-slider:active,
+#rate-range-slider:active
+{
+    box-shadow: 0 0 0 1px #6fb5f1;
+}
+
+#volume-range-slider::-webkit-slider-thumb,
+#time-range-slider::-webkit-slider-thumb,
+#rate-range-slider::-webkit-slider-thumb
+{
+    -webkit-appearance: none;
+
+    background-color: #ddd;
+    
+    width: 10px;
+    height: 10px;
+    
+    border-radius: 4px;
+}
+
+#volume-range-slider::-moz-range-thumb,
+#time-range-slider::-moz-range-thumb,
+#rate-range-slider::-moz-range-thumb
+{
+    background-color: #ddd;
+    
+    width: 10px;
+    height: 10px;
+    
+    border-radius: 4px;
+}
+
+#rate-range-slider-label
+{
+    font-family: monospace;
+    font-size: 90%;
+    font-weight: bold;
+    
+    padding: 0;
+    margin: 0;
+    
+    color: white;
+    
+    position: absolute;
+    margin-top: 0.6em;
+    margin-left: 0.4em;
+}
+
+#time-range-slider
+{
+    width: 100%;
+
+    border-left: 10px solid #4d4d4d;
+    border-right: 10px solid #4d4d4d;
+}
+#time-range-slider::-moz-range-track
+{
+    border-left: 10px solid #4d4d4d;
+    border-right: 10px solid #4d4d4d;
+}
+
+
+#time-range-slider::-moz-range-thumb
+{
+    height: 18px;
+}
+#time-range-slider::-webkit-slider-thumb
+{
+    height: 18px;
+}
+
+#time-range-slider::after
+{
+    position: absolute;
+
+    font-family: monospace;
+    font-size: 90%;
+    font-weight: bold;
+    
+    padding: 0.4em;
+    padding-top: 0.01em;
+    padding-bottom: 0.01em;
+
+    margin: 0;
+    
+    min-width: 3em;
+    margin-left: -3em;
+    
+    text-align: left;
+    
+    color: white;
+
+    content: attr(data-value)"%";
+}
+
+/*
+#volume-range-slider:active::-webkit-slider-thumb
+{
+border: 1px solid #0940fd;
+box-shadow: 0 0 0 1px #6fb5f1;
+}
+#volume-range-slider:active::-moz-range-thumb
+{
+border: 1px solid #0940fd;
+box-shadow: 0 0 0 1px #6fb5f1;
+}
+*/
+
+#mo-highlighters
+{
+    font-family: monospace;
+    font-size: 90%;
+    font-weight: bold;
+    
+    background-color: #4d4d4d;
+    width: 100%;
+    text-align: center;
+    clear: both;
+    margin: 0;
+    padding: 0.5em;
+}
+.btn-mo-highlighter
+{
+    padding: 0;
+    
+    margin: 0;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    
+    text-align: center;
+    border-radius: 0.6em !important;
+
+    box-shadow: 0px 0px 0.4em #333333 !important;
+}
+
+.btn-mo-highlighter[aria-selected=true]
+{
+    border: 2px dashed white !important;
+}
+
+#mo-highlighter-1[aria-selected=true]
+{
+    border: 2px dashed black !important;
+}
+
+#mo-highlighter-0
+{
+    background-color: #4d4d4d !important;
+    color: #ddeedd !important;
+}
+#mo-highlighter-1
+{
+    background-color: yellow !important;
+    color: black !important;
+}
+#mo-highlighter-2
+{
+    background-color: black !important;
+    color: white !important;
+}
+#mo-highlighter-3
+{
+    background-color: orange !important;
+    color: black !important;
+}
+#mo-highlighter-4
+{
+    background-color: blue !important;
+    color: white !important;
+}
+#mo-highlighter-5
+{
+    background-color: magenta !important;
+    color: black !important;
+}
+#mo-highlighter-6
+{
+    background-color: #00FF00 !important;
+    color: black !important;
+}
+
 /*   Audioplayer Controls END   */
 
 /* settings-dialog */
@@ -290,9 +641,8 @@
 
 /* epub container */
 #reading-area {
-
+    text-align: center;
     position: absolute;
-
     left: 5px;
     right: 5px;
     bottom: 5px;
@@ -334,9 +684,11 @@
   float: right;
 }
 
+/*
 .embedded .navbar .btn-group > .btn, .embedded .navbar .btn-group > .btn:hover, .embedded .navbar .btn-group > .btn:active, .embedded .navbar .btn-group > .btn:focus{
   background-color: rgba(0,0,0,0.2);
 }
+*/
 
 .embedded .navbar{
   position: absolute;
