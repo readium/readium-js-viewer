@@ -285,6 +285,9 @@
   "i18n_audio_touch_disable" : {
     "message" : "Disable touch-to-play"
   },
+  "i18n_audio_highlight_default" : {
+    "message" : "default"
+  },
   "i18n_audio_sync" : {
     "message" : "Text/audio synchronization granularity (if available)"
   },
