@@ -94,7 +94,7 @@
 
 #audioplayer.expanded-audio
 {
-    min-height: 144px;
+    min-height: 130px;
     border-bottom: 2px solid #888;
 }
 
@@ -274,19 +274,6 @@
     color: green;
 }
 
-#btn-esc-audio,
-#btn-skip-audio-enable,
-#btn-skip-audio-disable
-{
-    float: right;
-    
-    padding: 0;
-    margin: 0;
-    padding-right: 10px;
-    
-    width: 30px;
-}
-
 #audioplayer:not(.no-touch) > #btn-touch-audio-enable {
     display: none;
 }
@@ -294,10 +281,10 @@
     display: none;
 }
 
-#audioplayer:not(.skip) > #audioExpanded > #btn-skip-audio-disable {
+#audioplayer:not(.skip) > #audioExpanded #btn-skip-audio-disable {
     display: none;
 }
-#audioplayer.skip > #audioExpanded > #btn-skip-audio-enable {
+#audioplayer.skip > #audioExpanded #btn-skip-audio-enable {
     display: none;
 }
 
@@ -474,11 +461,15 @@ box-shadow: 0 0 0 1px #6fb5f1;
 }
 */
 
+#audio-block
+{
+    display: block;
+}
+
 #mo-sync-form
 {
-    text-align: left;
     display: inline-block;
-    margin-left: 3em;
+    margin-left: 8.5em;
 }
 
 #mo-sync-form > input[type="radio"]
@@ -521,22 +512,38 @@ box-shadow: 0 0 0 1px #6fb5f1;
 }
 
 
+#btn-esc-audio,
+#btn-skip-audio-enable,
+#btn-skip-audio-disable
+{
+    display: inline-block;
+    
+    padding: 0;
+    margin: 0;
+    padding-right: 10px;
+    
+    width: 30px;
+}
+
 #mo-highlighters
 {
-    font-family: monospace;
-    font-size: 90%;
-    font-weight: bold;
-    
     background-color: #4d4d4d;
-    width: 100%;
-    text-align: center;
-    clear: both;
+    
+    display: inline-block;
+    
     margin: 0;
+    margin-right: 3.2em;
+    
     padding: 0.5em;
 }
 .btn-mo-highlighter
 {
-    width: 30px;
+    font-family: sans-serif !important;
+    font-size: 90% !important;
+    font-weight: normal !important;
+    
+    width: 30px !important;
+    height: 20px !important;
     
     padding: 0;
     
@@ -545,25 +552,23 @@ box-shadow: 0 0 0 1px #6fb5f1;
     margin-right: 0.2em;
     
     text-align: center;
-    border-radius: 0.6em !important;
+    border-radius: 0.4em !important;
 
-    box-shadow: 0px 0px 0.4em #333333 !important;
+    border: 1px solid #383838 !important;
 }
 
 .btn-mo-highlighter[aria-selected=true]
 {
-    border: 2px dashed white !important;
-}
-
-#mo-highlighter-1[aria-selected=true]
-{
-    border: 2px dashed black !important;
+    border: 1px solid white !important;
+    box-shadow: 0px 0px 0.4em black !important;
 }
 
 #mo-highlighter-0
 {
+    width: 70px !important;
+    
     background-color: #4d4d4d !important;
-    color: #ddeedd !important;
+    color: #e1e1e1 !important;
 }
 #mo-highlighter-1
 {
