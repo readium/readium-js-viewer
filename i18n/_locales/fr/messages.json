@@ -201,7 +201,7 @@
     "message" : "Désactiver la function 'toucher pour jouer'"
   },
   "i18n_audio_highlight_default" : {
-    "message" : "défault"
+    "message" : "défaut"
   },
   "i18n_audio_sync" : {
     "message" : "Granularité de synchronisation texte / audio (si disponible)"
