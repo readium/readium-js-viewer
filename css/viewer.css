@@ -536,6 +536,8 @@ box-shadow: 0 0 0 1px #6fb5f1;
 }
 .btn-mo-highlighter
 {
+    width: 30px;
+    
     padding: 0;
     
     margin: 0;
