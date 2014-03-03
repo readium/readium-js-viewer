@@ -50,20 +50,21 @@
                 </div>
                 <div>
                     <h5 id="setting-header-display-legend" class="setting-header">{{strings.i18n_display_format}}</h5>
-                    <div role="radiogroup" aria-labelledby="setting-header-display-legend" class="row">
+                    
+                    <div role="radiogroup" class="row"> <!-- aria-labelledby="setting-header-display-legend" -->
                         <div role="radio" id="one-up-option" class="col-xs-2 col-xs-offset-4">
                             
-                            <input name="display-format" value="single" type="radio" title="{{strings.i18n_single_pages}}" aria-label="{{strings.i18n_single_pages}}"><img src="images/ico_singlepage_up.png">
-                                
-                            
-                            <span class="offscreen-text">{{strings.i18n_single_pages}}</span>
+                            <input name="display-format" value="single" type="radio" id="single-page-radio" />
+                                            <label for="single-page-radio">
+                                            <img src="images/ico_singlepage_up.png" alt="{{strings.i18n_display_format}} {{strings.i18n_single_pages}}"/>
+                                            </label>
                         </div>
                         <div role="radio" id="two-up-option" class="col-xs-2">
                             
-                                <input name="display-format" value="double" type="radio" title="{{strings.i18n_double_pages}}" aria-label="{{strings.i18n_double_pages}}"><img src="images/ico_doublepage_up.png">
-                                
-                            
-                            <span class="offscreen-text">{{strings.i18n_double_pages}}</span>
+                                <input name="display-format" value="double" type="radio" id="double-page-radio" />
+                                            <label for="double-page-radio">
+                                            <img src="images/ico_doublepage_up.png" alt="{{strings.i18n_display_format}} {{strings.i18n_double_pages}}">
+                                            </label>
                         </div>
                     </div>
                 </div>
