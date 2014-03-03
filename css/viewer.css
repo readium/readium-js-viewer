@@ -477,7 +477,10 @@ box-shadow: 0 0 0 1px #6fb5f1;
 #mo-sync-form > input[type="radio"]
 {
     font-size: 50%;
-    /* display: none; */
+    opacity: 0;
+    /* display: none; 
+    z-index: -1;
+    visibility: hidden;*/
 }
 
 #mo-sync-form > input[type="radio"] + label
