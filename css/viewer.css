@@ -476,8 +476,10 @@ box-shadow: 0 0 0 1px #6fb5f1;
 
 #mo-sync-form > input[type="radio"]
 {
-    display: none;
+    font-size: 50%;
+    /* display: none; */
 }
+
 #mo-sync-form > input[type="radio"] + label
 {
     font-family: sans-serif;
@@ -485,6 +487,8 @@ box-shadow: 0 0 0 1px #6fb5f1;
     font-weight: normal;
     
     margin: 0;
+    margin-left: -1.5em;
+    margin-right: 0.5em;
     
     padding: 0;
     padding-top: 0.1em;
@@ -888,7 +892,8 @@ box-shadow: 0 0 0 1px #6fb5f1;
   display:none;
 }
 
-button:focus
+button:focus,
+input[type="radio"]:focus + label
 {
     box-shadow: 0px 0px 5px #6fb5f1 !important;
 }

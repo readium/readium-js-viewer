@@ -203,8 +203,11 @@
   "i18n_audio_highlight_default" : {
     "message" : "défaut"
   },
+  "i18n_audio_highlight" : {
+    "message" : "Couleur audio"
+  },
   "i18n_audio_sync" : {
-    "message" : "Granularité de synchronisation texte / audio (si disponible)"
+    "message" : "Granularité de synchronisation texte / audio"
   },
   "i18n_audio_sync_word" : {
     "message" : "Mot"

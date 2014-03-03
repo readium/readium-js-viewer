@@ -288,8 +288,11 @@
   "i18n_audio_highlight_default" : {
     "message" : "default"
   },
+  "i18n_audio_highlight" : {
+    "message" : "Audio color"
+  },
   "i18n_audio_sync" : {
-    "message" : "Text/audio synchronization granularity (if available)"
+    "message" : "Text/audio synchronization granularity"
   },
   "i18n_audio_sync_word" : {
     "message" : "Word"
