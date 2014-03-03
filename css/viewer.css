@@ -355,7 +355,9 @@
 #time-range-slider:active,
 #rate-range-slider:active
 {
-    box-shadow: 0 0 0 1px #6fb5f1;
+    -webkit-appearance: none;
+    
+    box-shadow: 0 0 0 5px #6fb5f1;
 }
 
 #volume-range-slider::-webkit-slider-thumb,
@@ -560,7 +562,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
 .btn-mo-highlighter[aria-selected=true]
 {
     border: 1px solid white !important;
-    box-shadow: 0px 0px 0.4em black !important;
+    box-shadow: 0px 0px 0.4em black;
 }
 
 #mo-highlighter-0
@@ -886,4 +888,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
   display:none;
 }
 
-
+button:focus
+{
+    box-shadow: 0px 0px 5px #6fb5f1 !important;
+}
