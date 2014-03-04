@@ -1,0 +1,12 @@
+{
+    "name": "ReadiumJS 'Chrome Extension' and 'Cloud Reader'",
+    "version": "0.0.0",
+    "layoutStyle": "paginated",
+    "hasFeature": "function (feature, version) {}",
+
+    "readium":
+    {
+    "about": "Readium Foundation, IDPF",
+    "modules": [ "readium-module.json" ]
+    }
+}
