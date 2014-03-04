@@ -285,6 +285,24 @@
   "i18n_audio_touch_disable" : {
     "message" : "Disable touch-to-play"
   },
+  "i18n_audio_highlight_default" : {
+    "message" : "default"
+  },
+  "i18n_audio_highlight" : {
+    "message" : "Audio color"
+  },
+  "i18n_audio_sync" : {
+    "message" : "Text/audio synchronization granularity"
+  },
+  "i18n_audio_sync_word" : {
+    "message" : "Word"
+  },
+  "i18n_audio_sync_sentence" : {
+    "message" : "Sentence"
+  },
+  "i18n_audio_sync_paragraph" : {
+    "message" : "Paragraph"
+  },
   "i18n_page_previous" : {
     "message" : "P̲revious Page"
   },

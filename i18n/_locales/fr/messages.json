@@ -200,6 +200,24 @@
   "i18n_audio_touch_disable" : {
     "message" : "Désactiver la function 'toucher pour jouer'"
   },
+  "i18n_audio_highlight_default" : {
+    "message" : "défaut"
+  },
+  "i18n_audio_highlight" : {
+    "message" : "Couleur audio"
+  },
+  "i18n_audio_sync" : {
+    "message" : "Granularité de synchronisation texte / audio"
+  },
+  "i18n_audio_sync_word" : {
+    "message" : "Mot"
+  },
+  "i18n_audio_sync_sentence" : {
+    "message" : "Phrase"
+  },
+  "i18n_audio_sync_paragraph" : {
+    "message" : "Paragraphe"
+  },
   "i18n_page_previous" : {
     "message" : "Page précédente (P̲)"
   },
