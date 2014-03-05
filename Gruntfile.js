@@ -5,6 +5,15 @@ var path = require('path');
 module.exports = function (grunt) {
 
   grunt.initConfig({
+   
+   "git-describe": {
+      options: {
+          cwd: '.'
+      },
+      target: {
+      },
+    },
+        
     express: {
       server: {
         options: {
@@ -134,6 +143,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-run-grunt');
   grunt.loadNpmTasks('grunt-concurrent');
 
+  grunt.loadNpmTasks('grunt-git-describe');
+
   grunt.registerTask('runserver', ['express', 'express-keepalive']);
   grunt.registerTask('default', 'concurrent:serverwatch');
   grunt.registerTask('update-readium', ['run_grunt:readiumjs', 'copy:readiumjs']);
@@ -162,8 +173,11 @@ module.exports = function (grunt) {
   // Also note that navigator.epubReadingSystem.hasFeature is a Javascript function (taking the parameters "feature" and "version")
   // so it cannot be serialised to JSON (it would just be a string). It therefore has to be defined in a JS file,
   // perhaps shared_js/readium_sdk.js (default baseline), and/or EpubReader.js (customised)
-  grunt.registerTask('epubReadingSystem', function() {
-      
+  grunt.registerTask('epubReadingSystemDo', function() {
+     
+      var epubReadingSystem = require('./epubReadingSystem.json');
+      var pack = grunt.file.readJSON('package.json');
+   
       Array.isArray = Array.isArray || function (obj) {
           return Object.prototype.toString.call(obj) === "[object Array]";
       };
@@ -196,19 +210,39 @@ module.exports = function (grunt) {
               }
           }
       };
-      
-       var epubReadingSystem = require('./epubReadingSystem.json');
 
-       epubReadingSystem.version = "0.0.0"; // TODO extract info from release tag?
-       
        // epubReadingSystem.hasFeature = function (feature, version) {}; TODO this gets done in shared_js/readium_sdk.js or EpubReader.js
-       
+
        processModules(".", epubReadingSystem.readium);
+       
+       epubReadingSystem.readium.date = grunt.template.today();
+   
+       var rev = grunt.option('gitRevision');
 
-grunt.log.writeln(JSON.stringify(epubReadingSystem, null, " "));
+       grunt.log.writeln("Git rev tag: " + rev.tag);
+       grunt.log.writeln("Git rev since: " + rev.since);
+       grunt.log.writeln("Git rev object: " + rev.object);
+       grunt.log.writeln("Git rev dirty: " + rev.dirty);
 
-       var fs = require('fs');
-       fs.writeFileSync('./build/epubReadingSystem.json', JSON.stringify(epubReadingSystem, null, 2));
+       epubReadingSystem.name = pack.name;
+       epubReadingSystem.version = rev.tag;
+       
+       epubReadingSystem.readium.modules[0].hash = rev.object;
+      
+       var jSon = JSON.stringify(epubReadingSystem, null, 2);
+grunt.log.writeln(jSon);
+
+       grunt.file.write('./build/epubReadingSystem.json', jSon);
+       // var fs = require('fs');
+       // fs.writeFileSync(...);
   });
+  grunt.registerTask('saveRevision', function() {
+      grunt.event.once('git-describe', function (rev) {
+          grunt.log.writeln("Git Revision: " + rev);
+          grunt.option('gitRevision', rev);
+      });    
+      grunt.task.run('git-describe');
+  });
+  grunt.registerTask('epubReadingSystem', ['saveRevision', 'epubReadingSystemDo']);
 };
 
