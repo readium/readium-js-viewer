@@ -1,0 +1,12 @@
+{
+    "name": "",
+    "version": "",
+    "layoutStyle": "paginated",
+    "hasFeature": "function (feature, version) {}",
+
+    "readium":
+    {
+    "about": "Readium Foundation, IDPF",
+    "modules": [ "readium-module.json" ]
+    }
+}
