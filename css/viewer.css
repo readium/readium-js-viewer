@@ -471,7 +471,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
 #mo-sync-form
 {
     display: inline-block;
-    margin-left: 8.5em;
+    margin-left: 6em;
 }
 
 #mo-sync-form > input[type="radio"]
@@ -505,6 +505,15 @@ box-shadow: 0 0 0 1px #6fb5f1;
     border: 1px solid #383838;
     border-radius: 0.5em;
 }
+
+#mo-sync-form > input[type="radio"]#mo-sync-default + label
+{
+    padding-top: 0.05em;
+    padding-bottom: 0.05em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+}
+
 #mo-sync-form > input[type="radio"]:not([disabled]):checked + label
 {
     color: black;
