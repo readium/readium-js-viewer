@@ -209,6 +209,9 @@
   "i18n_audio_sync" : {
     "message" : "Granularité de synchronisation texte / audio"
   },
+  "i18n_audio_sync_default" : {
+    "message" : "Défaut"
+  },
   "i18n_audio_sync_word" : {
     "message" : "Mot"
   },

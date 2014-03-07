@@ -69,15 +69,18 @@
             
             <span aria-hidden="true" id="rate-range-slider-label">1x</span>
             
-            <form action="" id="mo-sync-form" title="{{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync}}">
-                <input type="radio" name="mo-sync" value="word" id="mo-sync-word" class="mo-sync" checked="checked"  title="{{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync}}"> </input>
-                <label for="mo-sync-word">{{strings.i18n_audio_sync_word}}</label>
+            <form action="" id="mo-sync-form">
+                <input type="radio" name="mo-sync" value="word" id="mo-sync-default" class="mo-sync" checked="checked"  title="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}"> </input>
+                <label for="mo-sync-default" title="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">&#8855;</span></label>
+
+                <input type="radio" name="mo-sync" value="word" id="mo-sync-word" class="mo-sync" title="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}"> </input>
+                <label for="mo-sync-word" title="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_word}}</span></label>
                 
-                <input type="radio" name="mo-sync" value="sentence" id="mo-sync-sentence" class="mo-sync" title="{{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync}}"> </input>
-                <label for="mo-sync-sentence">{{strings.i18n_audio_sync_sentence}}</label>
+                <input type="radio" name="mo-sync" value="sentence" id="mo-sync-sentence" class="mo-sync" title="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}"> </input>
+                <label for="mo-sync-sentence" title="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_sentence}}</span></label>
                 
-                <input type="radio" name="mo-sync" value="paragraph" id="mo-sync-paragraph" class="mo-sync" title="{{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync}}"> </input>
-                <label for="mo-sync-paragraph">{{strings.i18n_audio_sync_paragraph}}</label>
+                <input type="radio" name="mo-sync" value="paragraph" id="mo-sync-paragraph" class="mo-sync" title="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}"> </input>
+                <label for="mo-sync-paragraph" title="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_paragraph}}</span></label>
             </form>
             
             <div id="audio-block">

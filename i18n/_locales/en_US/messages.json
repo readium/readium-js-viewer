@@ -294,6 +294,9 @@
   "i18n_audio_sync" : {
     "message" : "Text/audio synchronization granularity"
   },
+  "i18n_audio_sync_default" : {
+    "message" : "Default"
+  },
   "i18n_audio_sync_word" : {
     "message" : "Word"
   },
