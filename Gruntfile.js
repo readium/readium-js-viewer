@@ -173,10 +173,86 @@ module.exports = function (grunt) {
   // Also note that navigator.epubReadingSystem.hasFeature is a Javascript function (taking the parameters "feature" and "version")
   // so it cannot be serialised to JSON (it would just be a string). It therefore has to be defined in a JS file,
   // perhaps shared_js/readium_sdk.js (default baseline), and/or EpubReader.js (customised)
-  grunt.registerTask('epubReadingSystemDo', function() {
-     
+
+  grunt.registerTask('epubReadingSystem_gitDescribe', function(fullPath) {
+grunt.log.writeln("Module directory: " + fullPath);
+
+    var module = grunt.option('epubReadingSystem_moduleMap_' + fullPath);
+    //var module = grunt.config.get(["git-describe", "options", "moduleMap", fullPath]);
+//grunt.log.writeln("module: " + module);
+
+    //TODO: decide whether to grab info from package.json, or from the computed module info (in which case version comes from Git revision)
+    var packageJson = fullPath + '/package.json';
+    if (grunt.file.exists(packageJson)) {
+        var pack = grunt.file.readJSON(packageJson);
+        module.name = pack.name;
+        module.version = pack.version;
+
+        if (pack.title || pack.description) {
+            module.description = pack.title + " -- " + pack.description;
+        }
+    }
+
+    grunt.event.once('git-describe', function (rev) {
+//grunt.log.writeln("Git Revision: " + rev);
+
+          //grunt.option('gitRevision', rev);
+          //var rev = grunt.option('gitRevision');
+          
+grunt.log.writeln("Git rev tag: " + rev.tag);
+grunt.log.writeln("Git rev since: " + rev.since);
+grunt.log.writeln("Git rev object: " + rev.object);
+grunt.log.writeln("Git rev dirty: " + rev.dirty);
+
+        module["url_tag"] = module.url + "releases/tag/" + rev.tag;
+        module["url_hash"] = module.url + "tree/" + rev.object;
+
+        module.version = rev.tag;
+        module.hash = rev.object;
+
+        module.modules = module.modules;
+      });
+      
+      grunt.config.set(["git-describe", "options", "cwd"], fullPath);
+      grunt.task.run('git-describe');
+  });
+  
+  grunt.registerTask('epubReadingSystem_readJSON', function() {
+      
+      //var epubReadingSystem = grunt.file.readJSON('./epubReadingSystem.json');
       var epubReadingSystem = require('./epubReadingSystem.json');
-      var pack = grunt.file.readJSON('package.json');
+   
+      grunt.option('epubReadingSystem_JSON', epubReadingSystem);
+  });
+
+  grunt.registerTask('epubReadingSystem_writeJSON', function() {
+   
+      var epubReadingSystem = grunt.option('epubReadingSystem_JSON');
+       
+       epubReadingSystem.readium.date = grunt.template.today();
+
+       //TODO: decide whether to grab info from package.json, or from the computed module info (in which case version comes from Git revision)
+       var pack = grunt.file.readJSON('package.json');
+       epubReadingSystem.name = pack.name;
+       epubReadingSystem.version = pack.version;
+       
+       epubReadingSystem.name = epubReadingSystem.readium.modules[0].name;
+       epubReadingSystem.version = epubReadingSystem.readium.modules[0].version;
+       
+       
+       // TODO this gets done in shared_js/readium_sdk.js or EpubReader.js
+       //epubReadingSystem.hasFeature = eval(epubReadingSystem.hasFeature);
+       
+       
+       var jSon = JSON.stringify(epubReadingSystem, null, 2);
+grunt.log.writeln(jSon);
+
+       grunt.file.write('./build/epubReadingSystem.json', jSon);
+       // var fs = require('fs');
+       // fs.writeFileSync(...);
+  });
+  
+  grunt.registerTask('epubReadingSystem_processModules', function() {
    
       Array.isArray = Array.isArray || function (obj) {
           return Object.prototype.toString.call(obj) === "[object Array]";
@@ -200,49 +276,27 @@ module.exports = function (grunt) {
 
                           var moduleJson = require(fullPath);
                           json[prop][i] = moduleJson;
-                  
+
                           var slash = fullPath.lastIndexOf("/");
                           var rebased = fullPath.substr(0, slash);
-                  
+
+   
+                          grunt.option('epubReadingSystem_moduleMap_' + rebased, json[prop][i]);
+                          //grunt.config.set(["git-describe", "options", "moduleMap", rebased], json[prop][i]);
+                          grunt.task.run('epubReadingSystem_gitDescribe:' + rebased);
+
                           processModules(rebased, moduleJson);
                       }
                   }
               }
           }
       };
-
-       // epubReadingSystem.hasFeature = function (feature, version) {}; TODO this gets done in shared_js/readium_sdk.js or EpubReader.js
+   
+      var epubReadingSystem = grunt.option('epubReadingSystem_JSON');
 
        processModules(".", epubReadingSystem.readium);
-       
-       epubReadingSystem.readium.date = grunt.template.today();
-   
-       var rev = grunt.option('gitRevision');
-
-       grunt.log.writeln("Git rev tag: " + rev.tag);
-       grunt.log.writeln("Git rev since: " + rev.since);
-       grunt.log.writeln("Git rev object: " + rev.object);
-       grunt.log.writeln("Git rev dirty: " + rev.dirty);
-
-       epubReadingSystem.name = pack.name;
-       epubReadingSystem.version = rev.tag;
-       
-       epubReadingSystem.readium.modules[0].hash = rev.object;
-      
-       var jSon = JSON.stringify(epubReadingSystem, null, 2);
-grunt.log.writeln(jSon);
-
-       grunt.file.write('./build/epubReadingSystem.json', jSon);
-       // var fs = require('fs');
-       // fs.writeFileSync(...);
   });
-  grunt.registerTask('saveRevision', function() {
-      grunt.event.once('git-describe', function (rev) {
-          grunt.log.writeln("Git Revision: " + rev);
-          grunt.option('gitRevision', rev);
-      });    
-      grunt.task.run('git-describe');
-  });
-  grunt.registerTask('epubReadingSystem', ['saveRevision', 'epubReadingSystemDo']);
+  
+  grunt.registerTask('epubReadingSystem', ['epubReadingSystem_readJSON', 'epubReadingSystem_processModules', 'epubReadingSystem_writeJSON']);
 };
 
