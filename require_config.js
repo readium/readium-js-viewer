@@ -1,8 +1,13 @@
 
 require.config({
+    
+    /* http://requirejs.org/docs/api.html#config-waitSeconds */
+    waitSeconds: 0,
+    
     baseUrl: './lib/',
 
     paths: {
+        'console_shim': 'thirdparty/console_shim',
         'text': 'thirdparty/text/text',
         'hgn': 'thirdparty/hgn',
         'hogan': 'thirdparty/hogan',
