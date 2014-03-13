@@ -3,6 +3,7 @@ require.config({
     baseUrl: './lib/',
 
     paths: {
+        'console_shim': 'thirdparty/console_shim',
         'text': 'thirdparty/text/text',
         'hgn': 'thirdparty/hgn',
         'hogan': 'thirdparty/hogan',
