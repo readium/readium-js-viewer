@@ -1,5 +1,9 @@
 
 require.config({
+    
+    /* http://requirejs.org/docs/api.html#config-waitSeconds */
+    waitSeconds: 0,
+    
     baseUrl: './lib/',
 
     paths: {
