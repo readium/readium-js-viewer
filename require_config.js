@@ -9,6 +9,7 @@ require.config({
     baseUrl: './lib/',
 
     paths: {
+        'keymaster': 'thirdparty/keymaster',
         'console_shim': 'thirdparty/console_shim',
         'text': 'thirdparty/text/text',
         'hgn': 'thirdparty/hgn',
@@ -42,6 +43,9 @@ require.config({
         'workers/WorkerProxy' : {'workerUrl' : '/scripts/readium-worker.js'}
     },
     shim: {
+        keymaster : {
+            exports: 'key'
+        },
         zip : {
             exports: 'zip'
         },
