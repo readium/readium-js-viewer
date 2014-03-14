@@ -1,5 +1,7 @@
 
 require.config({
+
+    //xhtml: true, //document.createElementNS()
     
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
     waitSeconds: 0,
