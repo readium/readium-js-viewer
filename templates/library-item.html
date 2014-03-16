@@ -25,6 +25,6 @@
 
         <div class="buttons">
             
-         <button aria-label="{{strings.i18n_details}}" title="{{strings.i18n_details}}" tabindex="{{count.tabindex}}" data-toggle="modal" data-target="#details-modal" data-package="{{epub.rootUrl}}/{{epub.packagePath}}" data-root="{{epub.rootUrl}}" {{^epub.coverHref}} data-no-cover="{{noCoverBackground}}" {{/epub.coverHref}} class="btn btn-info details">{{strings.i18n_details}}</button></div>
+         <button aria-label="{{strings.i18n_details}} ({{count.n}}) {{epub.title}}" title="{{strings.i18n_details}} ({{count.n}}) {{epub.title}}" tabindex="{{count.tabindex}}" data-toggle="modal" data-target="#details-modal" data-package="{{epub.rootUrl}}/{{epub.packagePath}}" data-root="{{epub.rootUrl}}" {{^epub.coverHref}} data-no-cover="{{noCoverBackground}}" {{/epub.coverHref}} class="btn btn-info details">{{strings.i18n_details}}</button></div>
     </div>
 </div>
