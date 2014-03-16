@@ -1,5 +1,5 @@
 <div class="details-body">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <button type="button" class="close" data-dismiss="modal"  tabindex="1000" title="{{strings.i18n_close}}" aria-label="{{strings.i18n_close}}"><span aria-hidden="true">&times;</span></button>
     <div class="offscreenText">Details Start</div>
     <div class="modal-cover-wrap">
         {{#data.coverHref}}
@@ -9,8 +9,8 @@
         <div class="no-cover" style="background-image: url('{{data.noCoverBackground}}')"><p>{{data.title}}</p></div>
         {{/data.coverHref}}
         <div class="buttons">
-            <a href="#" class="btn btn-default read" data-dismiss="modal" data-book="{{data.rootUrl}}" role="button">{{strings.i18n_read}}</a>
-            <a class="btn btn-danger delete" data-dismiss="modal" role="button">{{strings.i18n_delete}}</a>
+            <button tabindex="1000" class="btn btn-default read" data-dismiss="modal" data-book="{{data.rootUrl}}" type="button">{{strings.i18n_read}}</button>
+            <button tabindex="1000" class="btn btn-danger delete" data-dismiss="modal" type="button">{{strings.i18n_delete}}</button>
         </div>
     </div>
     <div class='modal-book-info'>
