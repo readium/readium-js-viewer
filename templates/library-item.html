@@ -19,6 +19,6 @@
         <h4 class='title'>{{ epub.title }}</h4>
         <div class='author'>{{ epub.author}}{{^epub.author}}No Author Listed{{/epub.author}}</div>
         <div class="buttons">
-         <a href="#details-modal" data-package="{{epub.rootUrl}}/{{epub.packagePath}}" data-root="{{epub.rootUrl}}" {{^epub.coverHref}} data-no-cover="{{noCoverBackground}}" {{/epub.coverHref}} aria-pressed="true" class="btn btn-info details" data-toggle="modal" role="button">{{strings.i18n_details}}</a></div>
+         <a href="#details-modal" data-package="{{epub.rootUrl}}/{{epub.packagePath}}" data-root="{{epub.rootUrl}}" data-root-dir="{{epub.rootDir}}" {{^epub.coverHref}} data-no-cover="{{noCoverBackground}}" {{/epub.coverHref}} aria-pressed="true" class="btn btn-info details" data-toggle="modal" role="button">{{strings.i18n_details}}</a></div>
     </div>
 </div>
