@@ -250,6 +250,7 @@
 }
 #volume-range-slider
 {
+    width: 9em;
     padding-left: 0;
     margin-left: 0;
 }
@@ -910,4 +911,9 @@ button:focus,
 input[type="radio"]:focus + label
 {
     box-shadow: 0px 0px 5px #6fb5f1 !important;
+}
+
+input[type="range"]
+{
+    padding: 0;
 }
