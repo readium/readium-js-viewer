@@ -42,7 +42,7 @@
                     <h5 id="setting-header-color-legend" class="setting-header">{{strings.i18n_text_and_background_color}}</h5>
                     <div role="buttongroup" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="row">
                         <div role="button" data-theme="default-theme" tabindex="1000" title="{{strings.i18n_black_and_white}}" aria-label="{{strings.i18n_black_and_white}}" class="col-xs-8 col-xs-offset-2 theme-option default-theme clickable">{{strings.i18n_black_and_white}}</div>
-                        <div role="button" data-theme="night-theme" tabindex="1000" title="{{strings.i18n_arabian_nights}} [{{dialogs.keyboard.NightTheme}}]" aria-label="{{strings.i18n_arabian_nights}} [{{dialogs.keyboard.NightTheme}}]" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable">{{strings.i18n_arabian_nights}}</div>
+                        <div role="button" data-theme="night-theme" tabindex="1000" title="{{strings.i18n_arabian_nights}} [{{dialogs.keyboard.NightTheme}}]" aria-label="{{strings.i18n_arabian_nights}} [{{dialogs.keyboard.NightTheme}}]" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable" accesskey="{{dialogs.keyboard.NightTheme}}">{{strings.i18n_arabian_nights}}</div>
                         <div role="button" data-theme="parchment-theme" tabindex="1000" title="{{strings.i18n_sands_of_dune}}" aria-label="{{strings.i18n_sands_of_dune}}" class="col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable">{{strings.i18n_sands_of_dune}}</div>
                         <div role="button" data-theme="ballard-theme" tabindex="1000" title="{{strings.i18n_ballard_blues}}" aria-label="{{strings.i18n_ballard_blues}}" class="col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable">{{strings.i18n_ballard_blues}}</div>
                         <div role="button" data-theme="vancouver-theme" tabindex="1000" title="{{strings.i18n_vancouver_mist}}" aria-label="{{strings.i18n_vancouver_mist}}" class="col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable">{{strings.i18n_vancouver_mist}}</div>
@@ -70,8 +70,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button tabindex="1000" type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]">{{strings.i18n_close}}</button>
-                <button tabindex="1000" type="button" class="btn btn-primary" data-dismiss="modal" title="{{strings.i18n_save_changes}} [{{dialogs.keyboard.SettingsModalSave}}]" aria-label="{{strings.i18n_save_changes}} [{{dialogs.keyboard.SettingsModalSave}}]">{{strings.i18n_save_changes}}</button>
+                <button tabindex="1000" type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]"  accesskey="{{dialogs.keyboard.SettingsModalClose}}">{{strings.i18n_close}}</button>
+                <button tabindex="1000" type="button" class="btn btn-primary" data-dismiss="modal" title="{{strings.i18n_save_changes}} [{{dialogs.keyboard.SettingsModalSave}}]" aria-label="{{strings.i18n_save_changes}} [{{dialogs.keyboard.SettingsModalSave}}]"  accesskey="{{dialogs.keyboard.SettingsModalSave}}">{{strings.i18n_save_changes}}</button>
             </div>
         </div>
         <!-- /.modal-content -->
