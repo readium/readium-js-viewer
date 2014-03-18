@@ -105,11 +105,15 @@ module.exports = function (grunt) {
       },
       cloudReader: {
         files: [
-          {expand: true, src: 'epub_content/**/*.*', dest: 'build/cloud-reader'},
           {expand: true, cwd: 'chrome-app/', src: 'index.html', dest: 'build/cloud-reader'},
           {expand: true, src: 'images/**', dest: 'build/cloud-reader'},
           {expand: true, src: 'fonts/**', dest: 'build/cloud-reader'},
           {expand: true, cwd: 'css', src: 'annotations.css', dest: 'build/cloud-reader/css'},
+        ]
+      },
+      cloudReaderEpubContent: {
+        files: [
+          {expand: true, src: 'epub_content/**/*.*', dest: 'build/cloud-reader'}
         ]
       },
       readiumjs: {
@@ -174,7 +178,10 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp']);
 
   grunt.registerTask('chromeApp', ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'requirejs:chromeApp', 'requirejs:chromeAppWorker']);
+  
   grunt.registerTask('cloudReader', ['clean:cloudReader', 'copy:cloudReader', 'cssmin:cloudReader', 'requirejs:cloudReader']);
+  grunt.registerTask('cloudReaderWithEpub', ['clean:cloudReader', 'copy:cloudReader', 'copy:cloudReaderEpubContent', 'cssmin:cloudReader', 'requirejs:cloudReader']);
+  
   grunt.registerTask('devBuildManifest', function() {
        var manifest = require('./build/chrome-app/manifest.json');
 
