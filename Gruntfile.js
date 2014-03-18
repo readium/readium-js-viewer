@@ -61,13 +61,26 @@ module.exports = function (grunt) {
             'storage/StorageManager' : '../chrome-app/storage/FileSystemStorage'
           }
         }
+      },
+      cloudReader : {
+        options: {
+          mainConfigFile: './require_config.js',
+          include: ['ReadiumViewer'],
+          name: 'thirdparty/almond',
+          baseUrl: './lib/',
+          out: 'build/cloud-reader/scripts/readium-all.js'
+        }
       }
     },
-
     cssmin : {
         chromeApp : {
             files : {
               'build/chrome-app/css/readium-all.css' : ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/library.css']
+            }
+        },
+        cloudReader: {
+            files : {
+              'build/cloud-reader/css/readium-all.css' : ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/library.css']
             }
         }
     },
@@ -90,6 +103,15 @@ module.exports = function (grunt) {
             }
         ]
       },
+      cloudReader: {
+        files: [
+          {expand: true, src: 'epub_content/**/*.*', dest: 'build/cloud-reader'},
+          {expand: true, cwd: 'chrome-app/', src: 'index.html', dest: 'build/cloud-reader'},
+          {expand: true, src: 'images/**', dest: 'build/cloud-reader'},
+          {expand: true, src: 'fonts/**', dest: 'build/cloud-reader'},
+          {expand: true, cwd: 'css', src: 'annotations.css', dest: 'build/cloud-reader/css'},
+        ]
+      },
       readiumjs: {
         files: [
           {expand: true, cwd: 'readium-js/out/', src: 'Readium.js', dest: 'lib'}
@@ -105,7 +127,8 @@ module.exports = function (grunt) {
       chromeApp: ['chrome-app/tests/tests.js']
     },
     clean : {
-      chromeApp: ['build/chrome-app']
+      chromeApp: ['build/chrome-app'],
+      cloudReader: ['build/cloud-reader']
     },
     run_grunt: {
       readiumjs : {
@@ -151,7 +174,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp']);
 
   grunt.registerTask('chromeApp', ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'requirejs:chromeApp', 'requirejs:chromeAppWorker']);
-  
+  grunt.registerTask('cloudReader', ['clean:cloudReader', 'copy:cloudReader', 'cssmin:cloudReader', 'requirejs:cloudReader']);
   grunt.registerTask('devBuildManifest', function() {
        var manifest = require('./build/chrome-app/manifest.json');
 
