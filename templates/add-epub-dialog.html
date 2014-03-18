@@ -9,23 +9,23 @@
                 <form class="form-horizontal" role="form">
                 {{#canHandleUrl}}
                 <div class="form-group">
-                    <label class="control-label col-sm-5">From the web:</label>
+                    <label id="add1" class="control-label col-sm-5">From the web:</label>
                     <div class="col-sm-7">
-                        <input tabindex="1000" type="text" id="url-upload" class="form-control" placeholder="http://">
+                        <input tabindex="1000" type="text" id="url-upload" class="form-control" placeholder="http://" aria-labelledby="add1">
                     </div>
                 </div>
                 {{/canHandleUrl}}
                 <div id="epub-upload-div" class="form-group">
-                    <label class="control-label col-sm-5">From Local File:</label>
+                    <label id="add2" class="control-label col-sm-5">From Local File:</label>
                     <div class="col-sm-7">
-                        <input tabindex="1000" type="file" id="epub-upload" class="form-control" >
+                        <input tabindex="1000" type="file" id="epub-upload" class="form-control" aria-labelledby="add2">
                     </div>
                 </div>
                 {{#canHandleDirectory}}
                 <div class="form-group">
-                    <label class="control-label col-sm-5">From Unpacked Directory</label>
+                    <label id="add3" class="control-label col-sm-5">From Unpacked Directory</label>
                     <div class="col-sm-7">
-                        <input tabindex="1000" type="file" id="dir-upload" webkitdirectory="" mozdirectory="" directory="" class="form-control" >
+                        <input tabindex="1000" type="file" id="dir-upload" webkitdirectory="" mozdirectory="" directory="" class="form-control" aria-labelledby="add3">
                     </div>
                 </div>
                 {{/canHandleDirectory}}
