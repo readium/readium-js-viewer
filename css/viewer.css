@@ -61,6 +61,7 @@
   border: none;
   border-radius: 0px;
   user-select:none;
+  -webkit-user-select: none;
 }
 
 .navbar .btn-group > .btn:hover, .navbar .btn-group > .btn:active, .navbar .btn-group > .btn:focus{
@@ -172,6 +173,7 @@
   border: none;
   border-radius: 0px;
   user-select:none;
+  -webkit-user-select: none;
 }
 
 

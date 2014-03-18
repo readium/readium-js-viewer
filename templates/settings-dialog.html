@@ -54,14 +54,14 @@
                     <div role="radiogroup" class="row"> <!-- aria-labelledby="setting-header-display-legend" -->
                         <div role="radio" id="one-up-option" class="col-xs-2 col-xs-offset-4">
                             
-                            <input name="display-format" value="single" type="radio" id="single-page-radio" />
+                            <input tabindex="1000" name="display-format" value="single" type="radio" id="single-page-radio" />
                                             <label for="single-page-radio">
                                             <img src="images/ico_singlepage_up.png" alt="{{strings.i18n_display_format}} {{strings.i18n_single_pages}}"/>
                                             </label>
                         </div>
                         <div role="radio" id="two-up-option" class="col-xs-2">
                             
-                                <input name="display-format" value="double" type="radio" id="double-page-radio" />
+                                <input tabindex="1000" name="display-format" value="double" type="radio" id="double-page-radio" />
                                             <label for="double-page-radio">
                                             <img src="images/ico_doublepage_up.png" alt="{{strings.i18n_display_format}} {{strings.i18n_double_pages}}">
                                             </label>
@@ -70,8 +70,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]">{{strings.i18n_close}}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" title="{{strings.i18n_save_changes}} [{{dialogs.keyboard.SettingsModalSave}}]" aria-label="{{strings.i18n_save_changes}} [{{dialogs.keyboard.SettingsModalSave}}]">{{strings.i18n_save_changes}}</button>
+                <button tabindex="1000" type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]">{{strings.i18n_close}}</button>
+                <button tabindex="1000" type="button" class="btn btn-primary" data-dismiss="modal" title="{{strings.i18n_save_changes}} [{{dialogs.keyboard.SettingsModalSave}}]" aria-label="{{strings.i18n_save_changes}} [{{dialogs.keyboard.SettingsModalSave}}]">{{strings.i18n_save_changes}}</button>
             </div>
         </div>
         <!-- /.modal-content -->
