@@ -653,6 +653,10 @@ box-shadow: 0 0 0 1px #6fb5f1;
   background-color: #141414;
   color: white;
 }
+.default-theme {
+  background-color: white;
+  color: black;
+}
 .parchment-theme {
   background-color: #f7f1cf;
   color: #774c27;
