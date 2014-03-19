@@ -191,7 +191,7 @@ module.exports = function (grunt) {
        var fs = require('fs');
        fs.writeFileSync('./build/chrome-app/manifest.json', JSON.stringify(manifest, null, 2));
   });
-  grunt.registerTask('chromeAppDevBuild', ['update-readium', 'chromeApp', 'copy:chromeAppDevBuild', 'devBuildManifest']);
+  grunt.registerTask('chromeAppDevBuild', [ 'chromeApp', 'copy:chromeAppDevBuild', 'devBuildManifest']);
   
   //Populates the EPUB3 navigator.epubReadingSystem with versioning information for each Readium component / dependency.
   //This data gets serialised to a JSON file, 
