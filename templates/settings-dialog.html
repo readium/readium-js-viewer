@@ -1,16 +1,24 @@
 <div tabindex="-1" class="modal fade" id="settings-dialog" role="dialog" aria-labelledby="settings-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-           
-            <div class="modal-body">
+
+           <div class="modal-header">
+                
             <button tabindex="1000" type="button" class="close" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
-                <h5>{{strings.preview}}</h5>
-                <div class="row">
-                    <div aria-hidden="true" data-theme="default-theme" class="col-xs-10 col-xs-offset-1 preview-text default-theme">
+
+            <h4 class="modal-title" id="settings-label">{{strings.settings}}</h4>
+           </div>
+            <div class="modal-body">
+            
+                <h5 aria-hidden="true">{{strings.preview}}</h5>
+                <div  aria-hidden="true" class="row">
+                    <div data-theme="default-theme" class="col-xs-10 col-xs-offset-1 preview-text default-theme">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Cras in felis sed orci aliquam sagittis. 
                     </div>
                 </div>
-                <div>
+
+<!-- button tabindex="1000" type="button" title="TESTING" aria-label="TESTING">TESTING DANIEL</button -->
+                
                     <h5 id="setting-header-font-size" class="setting-header">{{strings.i18n_font_size}}</h5>
                     <div class="row">
                         <div class="col-xs-2 icon-scale-down">
@@ -23,8 +31,7 @@
                             <img src="images/glyphicons_116_text_bigger.png" alt="" aria-hidden="true">
                         </div>
                     </div>
-                </div>
-                <div>
+
                     <h5 id="setting-header-margins-legend" class="setting-header">{{strings.i18n_margins}}</h5>
                      <div class="row">
                         <div class="col-xs-2 icon-scale-down">
@@ -37,8 +44,7 @@
                             <img style="height: 32px;" src="images/margin4_off.png" alt="" aria-hidden="true">
                         </div>
                     </div>
-                </div>
-                <div>
+
                     <h5 id="setting-header-color-legend" class="setting-header">{{strings.i18n_text_and_background_color}}</h5>
                     <div role="buttongroup" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="row">
                         
@@ -52,8 +58,7 @@
                         
                         <button role="button" data-theme="vancouver-theme" tabindex="1000" title="{{strings.i18n_vancouver_mist}}" aria-label="{{strings.i18n_vancouver_mist}}" class="col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable">{{strings.i18n_vancouver_mist}}</button>
                     </div>
-                </div>
-                <div>
+
                     <h5 id="setting-header-display-legend" class="setting-header">{{strings.i18n_display_format}}</h5>
                     
                     <div role="radiogroup" class="row"> <!-- aria-labelledby="setting-header-display-legend" -->
@@ -72,7 +77,7 @@
                                             </label>
                         </div>
                     </div>
-                </div>
+
             </div>
             <div class="modal-footer">
                 <button id="buttClose" tabindex="1000" type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]">{{strings.i18n_close}}</button>
