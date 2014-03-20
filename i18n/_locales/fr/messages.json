@@ -222,10 +222,10 @@
     "message" : "Paragraphe"
   },
   "i18n_page_previous" : {
-    "message" : "Page précédente (P̲)"
+    "message" : "Page précédente"
   },
   "i18n_page_next" : {
-    "message" : "Page suivante (N̲)"
+    "message" : "Page suivante"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",

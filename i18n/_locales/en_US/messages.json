@@ -307,10 +307,10 @@
     "message" : "Paragraph"
   },
   "i18n_page_previous" : {
-    "message" : "P̲revious Page"
+    "message" : "Previous Page"
   },
   "i18n_page_next" : {
-    "message" : "N̲ext Page"
+    "message" : "Next Page"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
