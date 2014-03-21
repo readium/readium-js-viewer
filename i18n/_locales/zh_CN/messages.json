@@ -75,7 +75,7 @@
     "message" : "目前EPUB不支持此内容的媒体格式"
   },
   "i18n_add_items" : {
-    "message" : "点击这里<br>添加新书"
+    "message" : "点击这里添加新书"
   },
   "i18n_extracting" : {
     "message" : "解压中: "

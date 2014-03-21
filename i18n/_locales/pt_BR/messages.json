@@ -75,7 +75,7 @@
     "message" : "Desculpe, o atual EPUB não contém uma mídia de sobreposição para este conteúdo"
   },
   "i18n_add_items" : {
-    "message" : "Adicione itens para sua<br>biblioteca aqui!"
+    "message" : "Adicione itens para sua biblioteca aqui!"
   },
   "i18n_extracting" : {
     "message" : "extraindo: "

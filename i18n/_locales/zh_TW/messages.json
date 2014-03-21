@@ -75,7 +75,7 @@
     "message" : "目前的EPUB內容並不包含朗讀聲音"
   },
   "i18n_add_items" : {
-    "message" : "按下這裡<br>加入新書"
+    "message" : "按下這裡加入新書"
   },
   "i18n_extracting" : {
     "message" : "解壓縮中："

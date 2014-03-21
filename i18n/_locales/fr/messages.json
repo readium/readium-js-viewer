@@ -75,7 +75,7 @@
     "message" : "Désolé, l'EPUB actuel ne contient pas de média associé (media overlay) pour ce contenu"
   },
   "i18n_add_items" : {
-    "message" : "Ajoutez des articles<br>à votre bibliothèque<br>ici !"
+    "message" : "Ajoutez des articles à votre bibliothèque ici !"
   },
   "i18n_extracting" : {
     "message" : "extraction : "
