@@ -147,7 +147,7 @@
     "message" : "显示格式"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>，是一个International Digital Publishing Forum (IDPF)和技术支持者们共同开发的项目，也是一个开放源代码的EPUB格式出版物的渲染引擎。要了解更多信息，请访问<a href=\"http://readium.org/\">项目主页</a>。迄今为止，该项目的开发一直由<a href=\"http://evidentpoint.com/\">Evident Point</a>和<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>来领导。要贡献请访问<a href=\"https://github.com/readium/readium\">GitHub资料库</a>"
+    "message" : "Readium<sup>TM</sup>，是一个International Digital Publishing Forum (IDPF)和技术支持者们共同开发的项目，也是一个开放源代码的EPUB格式出版物的渲染引擎。要了解更多信息，请访问<a href=\"http://readium.org/\">项目主页</a>。迄今为止，该项目的开发一直由<a href=\"http://evidentpoint.com/\">Evident Point</a>和<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>来领导。要贡献请访问<a href=\"https://github.com/readium/readium-js-viewer\">GitHub资料库</a>"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
