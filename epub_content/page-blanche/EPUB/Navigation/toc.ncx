@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- For compatibility with ePub2 Player -->
-<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
 <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
 	<head>
-		<meta name="dtb:uid" content="c611a635-d1ec-f6c9-28c1-6c08f20c9f36"/>
+		<meta name="dtb:uid" content="code.google.com.epub-samples.page-blanche"/>
 		<meta name="dtb:depth" content="1"/>
 		<meta name="dtb:totalPageCount" content="0"/>
 		<meta name="dtb:maxPageNumber" content="0"/>
