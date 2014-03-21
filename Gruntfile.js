@@ -98,7 +98,7 @@ module.exports = function (grunt) {
       },
       chromeAppDevBuild: {
         files: [
-            {expand: false, cwd: 'chrome-app/icons/devBuild/', src: ['*.*'], dest: 'build/chrome-app/icons/'
+            {expand: true, cwd: 'chrome-app/icons/devBuild/', src: ['*.*'], dest: 'build/chrome-app/icons/'
             /* , rename: function(dest, src) { return dest + '/' + src } */
             }
         ]
