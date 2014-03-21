@@ -147,7 +147,7 @@
     "message" : "VISUALIZZAZIONE PAGINE"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>, progetto dell'International Digital Publishing Forum (IDPF) e dei suoi sostenitori, è una piattaforma open source di lettura e un motore di rendering per documenti in formato EPUB&reg;. Per saperne di più, visita la <a href=\"http://readium.org/\">pagina principale del progetto</a>. Lo sviluppo del progetto è stato guidato da <a href=\"http://evidentpoint.com/\">Evident Point</a> e <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. Per contribuire, visita il <a href=\"https://github.com/readium/readium\">repository github</a>."
+    "message" : "Readium<sup>TM</sup>, progetto dell'International Digital Publishing Forum (IDPF) e dei suoi sostenitori, è una piattaforma open source di lettura e un motore di rendering per documenti in formato EPUB&reg;. Per saperne di più, visita la <a href=\"http://readium.org/\">pagina principale del progetto</a>. Lo sviluppo del progetto è stato guidato da <a href=\"http://evidentpoint.com/\">Evident Point</a> e <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. Per contribuire, visita il <a href=\"https://github.com/readium/readium-js-viewer\">repository github</a>."
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accetta le seguenti lingue: $languages$",

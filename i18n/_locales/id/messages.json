@@ -147,7 +147,7 @@
     "message" : "DISPLAY FORMAT"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, adalah sistem referensi open source DAN rendering engine untuk EPUB&reg; publikasi.  Untuk mengetahui lebih lanjut, kunjungi <a href=\"http://readium.org/\">project homepage</a>. Sampai saat ini, pengembangan project telah dipimpin oleh  <a href=\"http://evidentpoint.com/\">Evident Point</a> and <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. Untuk kontribusi, kunjungi <a href=\"https://github.com/readium/readium\">github repository</a>"
+    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, adalah sistem referensi open source DAN rendering engine untuk EPUB&reg; publikasi.  Untuk mengetahui lebih lanjut, kunjungi <a href=\"http://readium.org/\">project homepage</a>. Sampai saat ini, pengembangan project telah dipimpin oleh  <a href=\"http://evidentpoint.com/\">Evident Point</a> and <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. Untuk kontribusi, kunjungi <a href=\"https://github.com/readium/readium-js-viewer\">github repository</a>"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",

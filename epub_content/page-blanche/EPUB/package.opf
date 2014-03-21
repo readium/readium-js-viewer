@@ -37,7 +37,7 @@
 	  <meta property="rendition:orientation">auto</meta>
 	  <meta property="rendition:spread">auto</meta>
 <!-- meta for the cover -->
-	  <meta name="cover" content="cover"/>
+	  <meta name="cover" content="id-cover-jpg"/>
    </metadata>
    <manifest>
       <item id="css" href="Style/style.css" media-type="text/css"/>
