@@ -10,6 +10,7 @@ require.config({
 
     paths: {
         'keymaster': 'thirdparty/keymaster',
+        'screenfull': 'thirdparty/screenfull',
         'console_shim': 'thirdparty/console_shim',
         'text': 'thirdparty/text/text',
         'hgn': 'thirdparty/hgn',
@@ -43,6 +44,9 @@ require.config({
         'workers/WorkerProxy' : {'workerUrl' : '/scripts/readium-worker.js'}
     },
     shim: {
+        screenfull : {
+            exports: 'screenfull'
+        },
         keymaster : {
             exports: 'key'
         },
