@@ -108,6 +108,9 @@
   "i18n_keyboard_shortcuts" : {
     "message" : "KEYBOARD"
   },
+  "i18n_keyboard_reload" : {
+    "message" : "Please reload the page for keyboard shortcuts to take effect."
+  },
   "i18n_reset_key" : {
     "message" : "Reset key"
   },
