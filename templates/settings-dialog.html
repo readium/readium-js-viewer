@@ -50,7 +50,7 @@
                         
                         <button role="button" data-theme="default-theme" tabindex="1000" title="{{strings.i18n_black_and_white}}" aria-label="{{strings.i18n_black_and_white}}" class="col-xs-8 col-xs-offset-2 theme-option default-theme clickable">{{strings.i18n_black_and_white}}</button>
                         
-                        <button role="button" data-theme="night-theme" tabindex="1000" title="{{strings.i18n_arabian_nights}} [{{dialogs.keyboard.NightTheme}}]" aria-label="{{strings.i18n_arabian_nights}} [{{dialogs.keyboard.NightTheme}}]" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable" >{{strings.i18n_arabian_nights}}</button> <!-- accesskey="{{dialogs.keyboard.NightTheme_accesskey}}" -->
+                        <button role="button" data-theme="night-theme" tabindex="1000" title="{{strings.i18n_arabian_nights}} [{{dialogs.keyboard.NightTheme}}]" aria-label="{{strings.i18n_arabian_nights}} [{{dialogs.keyboard.NightTheme}}]" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable" >{{strings.i18n_arabian_nights}}</button> <!-- accesskey="{{dialogs.keyboard.accesskeys.NightTheme}}" -->
                         
                         <button role="button" data-theme="parchment-theme" tabindex="1000" title="{{strings.i18n_sands_of_dune}}" aria-label="{{strings.i18n_sands_of_dune}}" class="col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable">{{strings.i18n_sands_of_dune}}</button>
                         
@@ -77,7 +77,15 @@
                                             </label>
                         </div>
                     </div>
+                    
+                    <h5 class="setting-header" id="keyboard-setting-header">{{strings.i18n_keyboard_shortcuts}} 
+            <button id="keyboard-button" role="button" tabindex="1000" title="{{strings.i18n_keyboard_show_hide}}" aria-label="{{strings.i18n_keyboard_show_hide}}" class="clickable">{{strings.i18n_keyboard_show_hide}} &#8645; <!-- &#8597; &#8673;&#8675; &#8593;&#8595; &#8613;&#8615; --></button></h5>
+            
+                    <div class="row">
+                        <ul id="keyboard-list" hidden="hidden" role="alert">
 
+                        </ul>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button id="buttClose" tabindex="1000" type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{dialogs.keyboard.SettingsModalClose}}]">{{strings.i18n_close}}</button>

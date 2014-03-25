@@ -20,6 +20,12 @@
   "i18n_close" : {
     "message" : "Fermer"
   },
+  "i18n_keyboard_shortcuts" : {
+    "message" : "CLAVIER"
+  },
+  "i18n_keyboard_show_hide" : {
+    "message" : "Ouvrir / fermer les raccourcis"
+  },
   "i18n_paginate_all" : {
     "message" : "Paginer tout le contenu des EPUB recomposables"
   },
