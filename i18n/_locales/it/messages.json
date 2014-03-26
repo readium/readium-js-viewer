@@ -1,15 +1,100 @@
 {
+
   "chrome_extension_name": {
     "message": "Readium"
   },
+  "about" : {
+    "message" : "Informazioni"
+  },
+  "preview" : {
+    "message" : "ANTEPRIMA"
+  },
+  "list_view" : {
+    "message" : "Lista"
+  },
+  "thumbnail_view" : {
+    "message" : "Icone"
+  },
+  "view_library": {
+    "message" : "Libreria"
+  },
+  "highlight_selection" : {
+    "message" : "Evidenzia testo selezionato"
+  },
+  "toc" : {
+    "message" : "Indice"
+  },
+  "settings" : {
+    "message" : "Impostazioni"
+  },
+  "enter_fullscreen" : {
+    "message" : "Apri a pieno schermo"
+  },
+  "exit_fullscreen" : {
+    "message" : "Chiudi pieno schermo"
+  },
   "chrome_extension_description": {
-    "message": "Un visualizzatore di documenti EPUB3"
+    "message": "Un lettore di ebook in formato EPUB3."
+  },
+  "ok" : {
+    "message" : "OK"
+  },
+  "delete_dlg_title" : {
+    "message" : "Conferma cancellazione"
+  },
+  "delete_progress_title" : {
+    "message" : "Cancellazione"
+  },
+  "delete_progress_message" : {
+    "message" : "Cancellazione in corso..."
+  },
+  "migrate_dlg_title" : {
+    "message" : "Trasferimento della libreria"
+  },
+  "migrate_dlg_message" : {
+    "message" : "Trasferimento in corso..."
+  },
+  "migrating" : {
+    "message" : "Trasferimento"
+  },
+  "replace_dlg_title" : {
+    "message": "È stato rilevato un conflitto"
+  },
+  "replace_dlg_message": {
+    "message": "Se confermi, il seguente file EPUB sarà sostituito dal file importato:"
+  },
+  "import_dlg_title" : {
+    "message": "Importazione EPUB"
+  },
+  "import_dlg_message" : {
+    "message": "Analisi del contenuto del file EPUB in corso..."
+  },
+  "storing_file" : {
+    "message": "Salvataggio del file in corso..."
+  },
+  "err_unknown" : {
+    "message": "Errore sconosciuto. Per dettagli, consulta la console."
+  },
+  "err_storage" : {
+    "message": "Impossibile accedere allo storage."
+  },
+  "err_epub_corrupt" : {
+    "message": "Il file EPUB non è valido o è corrotto."
+  },
+  "err_dlg_title" : {
+    "message": "Errore inatteso"
+  },
+  "replace" : {
+    "message": "Sostituisci"
+  },
+  "gethelp" : {
+    "message" : "Se riscontri problemi, hai domande o semplicemente vuoi farci un saluto, visita <a href=\"http://idpf.org/forums/readium\">il forum</a>."
   },
   "i18n_readium_library" : {
-    "message" : "Biblioteca di Readium"
+    "message" : "Libreria di Readium"
   },
   "i18n_loading" : {
-    "message" : "Caricamento biblioteca"
+    "message" : "Caricamento libreria"
   },
   "i18n_readium_options" : {
     "message" : "Opzioni di Readium"
@@ -20,8 +105,23 @@
   "i18n_close" : {
     "message" : "Chiudi"
   },
+  "i18n_keyboard_shortcuts" : {
+    "message" : "TASTIERA"
+  },
+  "i18n_keyboard_reload" : {
+    "message" : "Ricarica la pagina affinché le nuove scorciatoie divengano attive."
+  },
+  "i18n_reset_key" : {
+    "message" : "Reimposta scorciatoia"
+  },
+  "i18n_reset_key_all" : {
+    "message" : "Reimposta tutte le scorciatoie"
+  },
+  "i18n_keyboard_show_hide" : {
+    "message" : "Espandi/riduci scorciatoie"
+  },
   "i18n_paginate_all" : {
-    "message" : "Impagina anche i file EPUB reflowable"
+    "message" : "Impagina anche i file EPUB liquidi"
   },
   "i18n_automatically" : {
     "message" : "Apri in Readium gli URL che terminano in .epub"
@@ -45,7 +145,7 @@
     "message" : "Editore: "
   },
   "i18n_source" : {
-    "message" : "Origine: "
+    "message" : "Fonte: "
   },
   "i18n_pub_date" : {
     "message" : "Data pubblicazione: "
@@ -72,10 +172,10 @@
     "message" : "Sconosciuto"
   },
   "i18n_sorry" : {
-    "message" : "Spiacente, non ci sono risorse Media Overlays associate a questo elemento."
+    "message" : "Spiacente, non ci sono Media Overlays associati a questo elemento."
   },
   "i18n_add_items" : {
-    "message" : "Aggiungi libri alla</br>tua biblioteca!"
+    "message" : "Aggiungi ebook alla</br>tua libreria!"
   },
   "i18n_extracting" : {
     "message" : "Decomprimendo: "
@@ -84,10 +184,10 @@
     "message" : "Sei sicuro di voler cancellare definitivamente "
   },
   "i18n_add_book_to_readium_library" : {
-    "message" : "Aggiungi libro alla Biblioteca di Readium"
+    "message" : "Aggiungi ebook alla libreria di Readium"
   },
   "i18n_add_book" : {
-    "message" : "Aggiungi libro"
+    "message" : "Aggiungi ebook"
   },
   "i18n_cancel" : {
     "message" : "Annulla"
@@ -99,7 +199,7 @@
     "message" : "Importa file EPUB dal tuo computer:"
   },
   "i18n_enter_a_url" : {
-    "message" : "Indirizzo Web del file EPUB che vuoi aggiungere:"
+    "message" : "Indirizzo Web del file EPUB da importare:"
   },
   "i18n_unpacked_directory" : {
     "message" : "Importa directory decompressa:"
@@ -129,7 +229,7 @@
     "message" : "COMBINAZIONE COLORE TESTO/SFONDO"
   },
   "i18n_black_and_white" : {
-    "message" : "Bianco su nero"
+    "message" : "Bianconero"
   },
   "i18n_arabian_nights" : {
     "message" : "Notturno"
@@ -147,7 +247,103 @@
     "message" : "VISUALIZZAZIONE PAGINE"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>, progetto dell'International Digital Publishing Forum (IDPF) e dei suoi sostenitori, è una piattaforma open source di lettura e un motore di rendering per documenti in formato EPUB&reg;. Per saperne di più, visita la <a href=\"http://readium.org/\">pagina principale del progetto</a>. Lo sviluppo del progetto è stato guidato da <a href=\"http://evidentpoint.com/\">Evident Point</a> e <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. Per contribuire, visita il <a href=\"https://github.com/readium/readium\">repository github</a>."
+    "message" : "Readium per Chrome è l'estensione del browser Chrome di ReadiumJS, un sistema di lettura open source e una libreria JavaScript per visualizzare pubblicazioni EPUB® nei browser. ReadiumJS è un progetto della Readium Foundation (readium.org). Per maggiori informazioni e per contribuire allo sviluppo, visita la <a href=\"http://readium.org/projects/readiumjs\">homepage del progetto</a>."
+  },
+  "i18n_toolbar_show" : {
+    "message" : "Mostra la barra strumenti"
+  },
+  "i18n_toolbar_hide" : {
+    "message" : "Nascondi la barra strumenti"
+  },
+  "i18n_audio_play" : {
+    "message" : "Play"
+  },
+  "i18n_audio_pause" : {
+    "message" : "Pausa"
+  },
+  "i18n_audio_previous" : {
+    "message" : "Frase precedente"
+  },
+  "i18n_audio_next" : {
+    "message" : "Frase successiva"
+  },
+  "i18n_audio_volume" : {
+    "message" : "Volume"
+  },
+  "i18n_audio_volume_increase" : {
+    "message" : "Aumenta volume"
+  },
+  "i18n_audio_volume_decrease" : {
+    "message" : "Riduci volume"
+  },
+  "i18n_audio_time" : {
+    "message" : "Cursore audio"
+  },
+  "i18n_audio_mute" : {
+    "message" : "Rimuovi audio"
+  },
+  "i18n_audio_unmute" : {
+    "message" : "Ripristina audio"
+  },
+  "i18n_audio_expand" : {
+    "message" : "Mostra controlli avanzati"
+  },
+  "i18n_audio_collapse" : {
+    "message" : "Chiudi controlli avanzati"
+  },
+  "i18n_audio_esc" : {
+    "message" : "Salta il frammento audio corrente"
+  },
+  "i18n_audio_rate" : {
+    "message" : "Velocità audio"
+  },
+  "i18n_audio_rate_increase" : {
+    "message" : "Aumenta velocità audio"
+  },
+  "i18n_audio_rate_decrease" : {
+    "message" : "Riduci velocità audio"
+  },
+  "i18n_audio_rate_reset" : {
+    "message" : "Reimposta velocità audio"
+  },
+  "i18n_audio_skip_disable" : {
+    "message" : "Disabilita skippability"
+  },
+  "i18n_audio_skip_enable" : {
+    "message" : "Abilita skippability"
+  },
+  "i18n_audio_touch_enable" : {
+    "message" : "Abilita touch-to-play"
+  },
+  "i18n_audio_touch_disable" : {
+    "message" : "Disabilita touch-to-play"
+  },
+  "i18n_audio_highlight_default" : {
+    "message" : "Default"
+  },
+  "i18n_audio_highlight" : {
+    "message" : "Colore evidenziazione"
+  },
+  "i18n_audio_sync" : {
+    "message" : "Granularità evidenziazione"
+  },
+  "i18n_audio_sync_default" : {
+    "message" : "Default"
+  },
+  "i18n_audio_sync_word" : {
+    "message" : "Parola"
+  },
+  "i18n_audio_sync_sentence" : {
+    "message" : "Frase"
+  },
+  "i18n_audio_sync_paragraph" : {
+    "message" : "Paragrafo"
+  },
+  "i18n_page_previous" : {
+    "message" : "Pagina precedente"
+  },
+  "i18n_page_next" : {
+    "message" : "Pagina successiva"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accetta le seguenti lingue: $languages$",
