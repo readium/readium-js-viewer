@@ -129,6 +129,120 @@ define(['workers/Messages'], function(Messages){
 			console.error(data);
 		}
 	};
+	var copyDir = function(from, to, success, error){
+		FileUtils.ls(from, function(entries){
+			var counter = 0;
+			var checkFinished = function(){
+				if (++counter == entries.length){
+					success();
+				} 
+			}
+			entries.forEach(function(entry){
+				if (entry.isFile){
+					entry.file(function(file){
+						FileUtils.mkfile(to, entry.name, file, checkFinished);
+					});
+				}
+				else{
+					FileUtils.mkdirs(to, entry.name, function(dir){
+						copyDir(entry, dir, checkFinished);	
+					}, error);
+
+				}
+			});
+		}, error);
+	}
+	var migrateBook = function(tempRoot, ebookData, success, error){
+		var rootDirName = ebookData.key;
+        tempRoot.getDirectory(rootDirName, {create: false}, function(oldBookRoot){
+
+        	var nextStep = function(){
+        		rootDir.getDirectory(rootDirName, {create: true}, function(newBookRoot){
+        			copyDir(oldBookRoot, newBookRoot, success, error);
+
+        		}, error);
+        	}
+
+        	rootDir.getDirectory(rootDirName, {create: false}, function(newBookRoot){
+        		newBookRoot.removeRecursively(nextStep, error);
+        	}, nextStep);
+        }, error);
+	}
+
+	var migrateBookFiles = function(existingBooks, db, results, success, error, progress){
+		var extensionId = self.location.hostname;
+		requestFileSystem(self.TEMPORARY, 5*1024*1024*1024, function(fs){
+    		var tempRoot = fs.root;
+    		var ebooks = [];
+    		for (var i = 0; i < results.rows.length; i++){
+		        var ebookData = JSON.parse(results.rows.item(i).value);
+
+		        // not all records contain books
+		        if (ebookData.id){
+		            ebooks.push(ebookData);
+		        }       	
+		    }
+		    var count = 0;
+		    var checkFinished = function(ebook){
+		    	if (++count == ebooks.length){
+		    		success();
+		    	}
+		    	else{
+		    		progress(Math.round(count/ebooks.length * 100), ebook.title);
+		    	}
+		    }
+		    ebooks.forEach(function(ebook){
+		    	migrateBook(tempRoot, ebook, function(){
+		    		var oldRootUrl = "filesystem:chrome-extension://" + extensionId + '/temporary/',
+		    			coverPath = ebook.cover_href ? ebook.cover_href.substring(oldRootUrl.length) : null;
+
+		    		var newObj = {
+		    			id: ebook.id,
+		    			rootDir: ebook.key,
+		    			rootUrl : StaticStorageManager.getPathUrl(ebook.key),
+		    			packagePath: ebook.package_doc_path.substring(ebook.key.length + 1),
+		    			title: ebook.title,
+		    			author: ebook.author,
+		    			coverHref: (coverPath ? StaticStorageManager.getPathUrl(coverPath) : null)
+		    		}
+
+		    		existingBooks.push(newObj);
+		    		var blob = new Blob([JSON.stringify(existingBooks)]);
+            		StaticStorageManager.saveFile('/epub_library.json', blob, function(){
+            			db.transaction(function(t){
+            				t.executeSql('delete from records where id=? or id=?', [ebook.key, ebook.key + '_epubViewProperties'], checkFinished.bind(null, ebook), error);	
+            			});
+            		}, error);
+		    	});
+		    });
+    	}, error);	
+	}
+
+	var migrateBooks = function(success, error, progress){
+		var db = openDatabase('records', '1.0.0', 'records', 65536);
+
+        if (db){
+            db.transaction(function(t){ t.executeSql("select id, value from records", [], 
+                function(xxx, results){
+                    if (results.rows.length) {
+                    	
+                    	var nextStep = function(data){
+                    		var library = [];
+                    		if (typeof data == 'string' || data instanceof String){
+                    			library = JSON.parse(data);
+                    		}
+                    		migrateBookFiles(library, db, results, success, error, progress);
+                    	}
+
+                    	FileUtils.readFile(rootDir, '/epub_library.json', 'Text', nextStep, nextStep)
+					}
+					else{
+						success();
+					}
+				}, error);
+            });
+        }
+	}
 
 	self.requestFileSystem  = self.requestFileSystem || self.webkitRequestFileSystem;
 	
@@ -180,6 +294,16 @@ define(['workers/Messages'], function(Messages){
 				rootDir = fs.root;
 				success();
 			}, wrapErrorHandler('init', '/', error));
+		},
+		
+		migrateLegacyBooks : function(success, error, progress){
+			var errorWrap = function(){
+				var data = JSON.stringify(arguments);
+				var errorMsg = 'Unexpected error while migrating. ' +  data;
+				console.error(errorMsg)
+				error(errorMsg);
+			}
+			migrateBooks(success, errorWrap, progress);
 		}
 	}
 
