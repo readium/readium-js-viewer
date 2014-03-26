@@ -7,13 +7,13 @@
     "message" : "Informazioni"
   },
   "preview" : {
-    "message" : "ANTEPRIMA"
+    "message" : "Anteprima"
   },
   "list_view" : {
     "message" : "Lista"
   },
   "thumbnail_view" : {
-    "message" : "Icone"
+    "message" : "Griglia"
   },
   "view_library": {
     "message" : "Libreria"
@@ -106,7 +106,7 @@
     "message" : "Chiudi"
   },
   "i18n_keyboard_shortcuts" : {
-    "message" : "TASTIERA"
+    "message" : "Scorciatoie tastiera"
   },
   "i18n_keyboard_reload" : {
     "message" : "Ricarica la pagina affinché le nuove scorciatoie divengano attive."
@@ -133,7 +133,7 @@
     "message" : "Dettagli"
   },
   "i18n_read" : {
-    "message" : "Leggi"
+    "message" : "Apri"
   },
   "i18n_delete" : {
     "message" : "Elimina"
@@ -220,13 +220,13 @@
     "message" : "Applica"
   },
   "i18n_font_size" : {
-    "message" : "DIMENSIONE CARATTERE"
+    "message" : "Dimensione carattere"
   },
   "i18n_margins" : {
-    "message" : "MARGINI"
+    "message" : "Margini"
   },
   "i18n_text_and_background_color" : {
-    "message" : "COMBINAZIONE COLORE TESTO/SFONDO"
+    "message" : "Combinazione colore testo/sfondo"
   },
   "i18n_black_and_white" : {
     "message" : "Bianconero"
@@ -244,10 +244,10 @@
     "message" : "Nebbia"
   },
   "i18n_display_format" : {
-    "message" : "VISUALIZZAZIONE PAGINE"
+    "message" : "Colonne"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium per Chrome è l'estensione del browser Chrome di ReadiumJS, un sistema di lettura open source e una libreria JavaScript per visualizzare pubblicazioni EPUB® nei browser. ReadiumJS è un progetto della Readium Foundation (readium.org). Per maggiori informazioni e per contribuire allo sviluppo, visita la <a href=\"http://readium.org/projects/readiumjs\">homepage del progetto</a>."
+    "message" : "Readium per Chrome è l'estensione del browser Chrome di ReadiumJS, un sistema di lettura open source e una libreria JavaScript per visualizzare documenti EPUB® nei browser. ReadiumJS è un progetto della Readium Foundation (readium.org). Per maggiori informazioni e per contribuire allo sviluppo, visita la <a href=\"http://readium.org/projects/readiumjs\">homepage del progetto</a>."
   },
   "i18n_toolbar_show" : {
     "message" : "Mostra la barra strumenti"
@@ -277,13 +277,13 @@
     "message" : "Riduci volume"
   },
   "i18n_audio_time" : {
-    "message" : "Cursore audio"
+    "message" : "Posizione audio"
   },
   "i18n_audio_mute" : {
-    "message" : "Rimuovi audio"
+    "message" : "Muto"
   },
   "i18n_audio_unmute" : {
-    "message" : "Ripristina audio"
+    "message" : "Ripristina volume"
   },
   "i18n_audio_expand" : {
     "message" : "Mostra controlli avanzati"
