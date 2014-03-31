@@ -662,11 +662,10 @@ box-shadow: 0 0 0 1px #6fb5f1;
   }
 }
 
-
-#keyboard-setting-header
+#tab-butt-main,
+#tab-butt-keys 
 {
-  border-bottom: 1px dashed #777;
-  margin-bottom: 1.5em;
+    border:0;background:none;padding:0;margin:0; font-weight: bold; font-size: 110%;
 }
 
 #keyboard-button {
@@ -693,7 +692,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
 #keyboard-list > li {
     position: relative;
 
-    border-top: 2px solid grey;
+    border-top: 1px dashed silver;
     margin-bottom: 0.4em;
 }
 #keyboard-list > li > label {
@@ -707,6 +706,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
     text-align: right;
     position: absolute;
     right: 2em;
+    margin-top: 0.5em;
 }
 #keyboard-list > li > button.resetKey {
     text-align: center;
@@ -720,7 +720,8 @@ box-shadow: 0 0 0 1px #6fb5f1;
     padding: 3px;
     padding-bottom: 0px;
     padding-top: 0px;
-    margin-top: 3px;
+
+    margin-top: 0.5em;
     
     background-color: white;
     color: blue;

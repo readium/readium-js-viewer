@@ -106,7 +106,7 @@
     "message" : "Close"
   },
   "i18n_keyboard_shortcuts" : {
-    "message" : "KEYBOARD"
+    "message" : "Keyboard shortcuts"
   },
   "i18n_keyboard_reload" : {
     "message" : "Please reload the page for keyboard shortcuts to take effect."
@@ -116,9 +116,6 @@
   },
   "i18n_reset_key_all" : {
     "message" : "Reset all keyboard shortcuts"
-  },
-  "i18n_keyboard_show_hide" : {
-    "message" : "Expand / collapse shortcuts"
   },
   "i18n_paginate_all" : {
     "message" : "Paginate all reflowable ePUB content"

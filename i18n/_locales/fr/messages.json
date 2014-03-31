@@ -21,10 +21,16 @@
     "message" : "Fermer"
   },
   "i18n_keyboard_shortcuts" : {
-    "message" : "CLAVIER"
+    "message" : "Raccourcis clavier"
   },
-  "i18n_keyboard_show_hide" : {
-    "message" : "Ouvrir / fermer les raccourcis"
+  "i18n_keyboard_reload" : {
+    "message" : "Veuillez recharger la page pour que les raccourcis clavier prennent effet."
+  },
+  "i18n_reset_key" : {
+    "message" : "Reinitialiser le raccourci clavier par défaut"
+  },
+  "i18n_reset_key_all" : {
+    "message" : "Reinitialiser tous les raccourcis clavier par défaut"
   },
   "i18n_paginate_all" : {
     "message" : "Paginer tout le contenu des EPUB recomposables"

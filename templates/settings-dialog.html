@@ -2,14 +2,31 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-           <div class="modal-header">
-                
-            <button tabindex="1000" type="button" class="close" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
-
+           <!-- div class="modal-header">
             <h4 class="modal-title" id="settings-label">{{strings.settings}}</h4>
-           </div>
+           </div -->
+               
             <div class="modal-body">
-            
+               
+           <button tabindex="1000" type="button" class="close" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
+
+           <ul class="nav nav-tabs">
+             <li class="active">
+                 <a id="tab-a-main" style="outline:0!important;" href="#tab-main" tabindex="-1" data-toggle="tab">
+                 <button id="tab-butt-main" tabindex="1000" title="{{strings.settings}}" aria-label="{{strings.settings}}" role='button'>{{strings.settings}}</button>
+                 </a>
+             </li>
+             <li>
+                 <a id="tab-a-keys" style="outline:0!important;" href="#tab-keyboard" data-toggle="tab">
+                     <button id="tab-butt-keys" tabindex="1000" title="{{strings.i18n_keyboard_shortcuts}}" aria-label="{{strings.i18n_keyboard_shortcuts}}" role='button'>{{strings.i18n_keyboard_shortcuts}}</button>
+                 </a>
+             </li>
+           </ul>
+           
+           
+           <div class="tab-content">
+                <div id="tab-main" class="tab-pane active">
+                     
                 <h5 aria-hidden="true">{{strings.preview}}</h5>
                 <div  aria-hidden="true" class="row">
                     <div data-theme="default-theme" class="col-xs-10 col-xs-offset-1 preview-text default-theme">
@@ -77,15 +94,15 @@
                                             </label>
                         </div>
                     </div>
-                    
-                    <h5 class="setting-header" id="keyboard-setting-header">{{strings.i18n_keyboard_shortcuts}} 
-            <button id="keyboard-button" role="button" tabindex="1000" title="{{strings.i18n_keyboard_show_hide}}" aria-label="{{strings.i18n_keyboard_show_hide}}" class="clickable">{{strings.i18n_keyboard_show_hide}} &#8645; <!-- &#8597; &#8673;&#8675; &#8593;&#8595; &#8613;&#8615; --></button></h5>
-            
-                    <div class="row">
-                        <ul id="keyboard-list" hidden="hidden" role="alert">
+                    </div>
+                       <div id="tab-keyboard" class="tab-pane">
 
+                    <div class="row">
+                        <ul id="keyboard-list" role="alert">
                         </ul>
                     </div>
+                     </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="buttClose" tabindex="1000" type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{keyboard.SettingsModalClose}}]">{{strings.i18n_close}}</button>
