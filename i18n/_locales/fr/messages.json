@@ -20,6 +20,24 @@
   "i18n_close" : {
     "message" : "Fermer"
   },
+  "i18n_keyboard_shortcuts" : {
+    "message" : "Raccourcis clavier"
+  },
+  "i18n_keyboard_reload" : {
+    "message" : "Veuillez recharger la page pour que les raccourcis clavier prennent effet."
+  },
+  "i18n_reset_key" : {
+    "message" : "Reinitialiser le raccourci clavier par défaut"
+  },
+  "i18n_reset_key_all" : {
+    "message" : "Reinitialiser tous les raccourcis clavier par défaut"
+  },
+  "i18n_duplicate_keyboard_shortcut" : {
+    "message" : "DUPLIQUE"
+  },
+  "i18n_invalid_keyboard_shortcut" : {
+    "message" : "INVALIDE"
+  },
   "i18n_paginate_all" : {
     "message" : "Paginer tout le contenu des EPUB recomposables"
   },
@@ -222,10 +240,10 @@
     "message" : "Paragraphe"
   },
   "i18n_page_previous" : {
-    "message" : "Page précédente (P̲)"
+    "message" : "Page précédente"
   },
   "i18n_page_next" : {
-    "message" : "Page suivante (N̲)"
+    "message" : "Page suivante"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
