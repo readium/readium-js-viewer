@@ -68,3 +68,8 @@ iframe {
     visibility: visible;
     overflow: hidden;
 }
+
+/*fixed layout frames only*/
+.fixed-page-frame, .fixed-page-frame-left, .fixed-page-frame-right, .fixed-page-frame-center {
+    position: absolute !important;
+}
