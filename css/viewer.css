@@ -693,7 +693,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
     position: relative;
 
     border-top: 1px dashed silver;
-    margin-bottom: 0.4em;
+    margin-bottom: 0.6em;
 }
 #keyboard-list > li > label {
     text-align: left;
@@ -708,6 +708,45 @@ box-shadow: 0 0 0 1px #6fb5f1;
     right: 2em;
     margin-top: 0.5em;
 }
+
+#duplicate_keyboard_shortcut,
+#invalid_keyboard_shortcut
+{
+    font-weight: bold;
+    position: absolute;
+    right: 2.3em;
+    top: 2.3em;
+}
+
+#duplicate_keyboard_shortcut,
+#invalid_keyboard_shortcut
+{
+    display: none;
+}
+#keyboard-list > li.invalidShortcut > #invalid_keyboard_shortcut
+{
+    display: block;
+}
+
+#keyboard-list > li:not(.invalidShortcut).duplicateShortcut > #duplicate_keyboard_shortcut
+{
+    display: block;
+}
+
+#keyboard-list > li.invalidShortcut > input {
+    border: 2px solid red;
+}
+#keyboard-list > li:not(.invalidShortcut).duplicateShortcut > input {
+    border: 2px solid magenta;
+}
+
+#keyboard-list {
+    border: 2px solid transparent;
+}
+#keyboard-list.atLeastOneInvalidOrDuplicateShortcut {
+    border: 2px solid red;
+}
+
 #keyboard-list > li > button.resetKey {
     text-align: center;
   

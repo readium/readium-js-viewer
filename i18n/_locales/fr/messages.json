@@ -32,6 +32,12 @@
   "i18n_reset_key_all" : {
     "message" : "Reinitialiser tous les raccourcis clavier par défaut"
   },
+  "i18n_duplicate_keyboard_shortcut" : {
+    "message" : "DUPLIQUE"
+  },
+  "i18n_invalid_keyboard_shortcut" : {
+    "message" : "INVALIDE"
+  },
   "i18n_paginate_all" : {
     "message" : "Paginer tout le contenu des EPUB recomposables"
   },

@@ -117,6 +117,12 @@
   "i18n_reset_key_all" : {
     "message" : "Reset all keyboard shortcuts"
   },
+  "i18n_duplicate_keyboard_shortcut" : {
+    "message" : "DUPLICATE"
+  },
+  "i18n_invalid_keyboard_shortcut" : {
+    "message" : "INVALID"
+  },
   "i18n_paginate_all" : {
     "message" : "Paginate all reflowable ePUB content"
   },
