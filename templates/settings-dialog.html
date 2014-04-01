@@ -95,18 +95,20 @@
                         </div>
                     </div>
 
+                    <h5 id="setting-header-scroll-legend" class="setting-header">{{strings.i18n_scroll_mode}}</h5>
+                    
                     <div role="radiogroup" class="row">
                         <div role="radio" id="scroll-default-option" class="col-xs-3 col-xs-offset-1">
-                            <label for="scroll-default-radio">
-                                <input tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-default-radio" /> Document default</label>
+                            <input tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-default-radio" title="{{strings.i18n_scroll_mode}}: {{strings.i18n_scroll_mode_default}}" aria-label="{{strings.i18n_scroll_mode}}: {{strings.i18n_scroll_mode_default}}"/>
+                            <label aria-hidden="true" for="scroll-default-radio">{{strings.i18n_scroll_mode_default}}</label>
                         </div>
                         <div role="radio" id="scroll-doc-option" class="col-xs-3">
-                            <lebel for="scroll-doc-radio">
-                            <input tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-doc-radio" /> Scroll Document</lebel>
+                            <input tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-doc-radio" title="{{strings.i18n_scroll_mode}}: {{strings.i18n_scroll_mode_doc}}" aria-label="{{strings.i18n_scroll_mode}}: {{strings.i18n_scroll_mode_doc}}"/>
+                            <label aria-hidden="true" for="scroll-doc-radio">{{strings.i18n_scroll_mode_doc}}</label>
                         </div>
-                        <div role="radio" id="scroll-continues-option" class="col-xs-3">
-                            <label for="scroll-continues-radio">
-                            <input tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-continues-radio" /> Scroll Continues</label>
+                        <div role="radio" id="scroll-continuous-option" class="col-xs-3">
+                            <input tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-continuous-radio" title="{{strings.i18n_scroll_mode}}: {{strings.i18n_scroll_mode_continuous}}" aria-label="{{strings.i18n_scroll_mode}}: {{strings.i18n_scroll_mode_continuous}}"/>
+                            <label aria-hidden="true" for="scroll-continuous-radio">{{strings.i18n_scroll_mode_continuous}}</label>
                         </div>
                     </div>
 

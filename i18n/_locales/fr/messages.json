@@ -164,6 +164,18 @@
   "i18n_display_format" : {
     "message" : "FORMAT D'AFFICHAGE"
   },
+  "i18n_scroll_mode" : {
+    "message" : "MODE DE DEFILEMENT"
+  },
+  "i18n_scroll_mode_default" : {
+    "message" : "Défaut"
+  },
+  "i18n_scroll_mode_doc" : {
+    "message" : "Document"
+  },
+  "i18n_scroll_mode_continuous" : {
+    "message" : "Continu"
+  },
   "i18n_html_readium_tm_a_project" : {
     "message" : "Readium<sup>TM</sup>, un projet de l'International Digital Publishing Forum (IDPF) et de ses adhérents, est un système à code-source libre de référence et un moteur de rendu pour les publications EPUB&reg;. Pour en savoir plus, visitez <a href=\"http://readium.org/\">la page du projet</a>. À ce jour, le développement du projet a été menée par <a href=\"http://evidentpoint.com/\">Evident Point</a> et par <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. Pour contribuer, visiter le <a href=\"https://github.com/readium/readium\">dépôt github</a>."
   },
