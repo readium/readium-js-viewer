@@ -709,6 +709,17 @@ box-shadow: 0 0 0 1px #6fb5f1;
     margin-top: 0.5em;
 }
 
+#invalid_keyboard_shortcut_ALERT
+{
+    color:transparent;
+    width:1px;
+    height:1px;
+    overflow: hidden;
+    left: 0px;
+    right: 0px;
+    position:absolute;
+}
+
 #duplicate_keyboard_shortcut,
 #invalid_keyboard_shortcut
 {
@@ -723,6 +734,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
 {
     display: none;
 }
+
 #keyboard-list > li.invalidShortcut > #invalid_keyboard_shortcut
 {
     display: block;

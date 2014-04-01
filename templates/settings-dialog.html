@@ -8,7 +8,7 @@
                
             <div class="modal-body">
                
-           <button tabindex="1000" type="button" class="close" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
+           <button tabindex="1000" type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
 
            <ul class="nav nav-tabs">
              <li class="active">
@@ -110,8 +110,11 @@
                     </div>
                        <div id="tab-keyboard" class="tab-pane">
 
-                    <div class="row">
-                        <ul id="keyboard-list" role="alert">
+                    <div class="row" style="position:relative;">
+                        
+                        <div id="invalid_keyboard_shortcut_ALERT"></div>
+                        
+                        <ul id="keyboard-list">
                         </ul>
                     </div>
                      </div>
