@@ -1110,4 +1110,20 @@ input[type="range"]
     padding: 0;
 }
 
-    
+
+#scroll-default-radio,
+#scroll-doc-radio,
+#scroll-continuous-radio,
+#single-page-radio,
+#double-page-radio
+{
+    border-bottom: 2px solid transparent;
+}
+#scroll-default-radio:checked ~ label,
+#scroll-doc-radio:checked ~ label,
+#scroll-continuous-radio:checked ~ label,
+#single-page-radio:checked ~ label,
+#double-page-radio:checked ~ label
+{
+    border-bottom: 2px solid #333333;
+}
