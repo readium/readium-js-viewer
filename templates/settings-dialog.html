@@ -7,20 +7,11 @@
            </div -->
                
             <div class="modal-body">
-               
-           <button tabindex="1000" type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
+           <button tabindex="999" type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
 
            <ul class="nav nav-tabs">
-             <li class="active">
-                 <a id="tab-a-main" style="outline:0!important;" href="#tab-main" tabindex="-1" data-toggle="tab">
-                 <button id="tab-butt-main" tabindex="1000" title="{{strings.settings}}" aria-label="{{strings.settings}}" role='button'>{{strings.settings}}</button>
-                 </a>
-             </li>
-             <li>
-                 <a id="tab-a-keys" style="outline:0!important;" href="#tab-keyboard" data-toggle="tab">
-                     <button id="tab-butt-keys" tabindex="1000" title="{{strings.i18n_keyboard_shortcuts}}" aria-label="{{strings.i18n_keyboard_shortcuts}}" role='button'>{{strings.i18n_keyboard_shortcuts}}</button>
-                 </a>
-             </li>
+             <li class="active"><button id="tab-butt-main" tabindex="1000" title="{{strings.settings}}" aria-label="{{strings.settings}}" role='button'  data-toggle="tab" data-target="#tab-main">{{strings.settings}}</button></li>
+             <li><button id="tab-butt-keys" tabindex="1000" title="{{strings.i18n_keyboard_shortcuts}}" aria-label="{{strings.i18n_keyboard_shortcuts}}" role='button' data-toggle="tab" data-target="#tab-keyboard">{{strings.i18n_keyboard_shortcuts}}</button></li>
            </ul>
            
            
