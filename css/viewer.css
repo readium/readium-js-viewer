@@ -33,10 +33,6 @@
   opacity: .8;
 }
 
-#readium-toc-body button.close:focus{
-  outline: none;
-}
-
 #readium-toc-body ol{
   list-style-type: none;
   margin-top: 10px;
@@ -61,6 +57,7 @@
   border: none;
   border-radius: 0px;
   user-select:none;
+  -webkit-user-select: none;
 }
 
 .navbar .btn-group > .btn:hover, .navbar .btn-group > .btn:active, .navbar .btn-group > .btn:focus{
@@ -94,7 +91,7 @@
 
 #audioplayer.expanded-audio
 {
-    min-height: 144px;
+    min-height: 130px;
     border-bottom: 2px solid #888;
 }
 
@@ -172,16 +169,7 @@
   border: none;
   border-radius: 0px;
   user-select:none;
-}
-
-
-.navbar .btn-group #audioplayer .btn:hover,
-.navbar .btn-group #audioplayer .btn:active,
-.navbar .btn-group #audioplayer .btn:focus,
-.navbar .btn-group #audioplayer .btn[disabled]
-{
-  box-shadow: none;
-  outline: none;
+  -webkit-user-select: none;
 }
 
 #audioplayer {
@@ -238,16 +226,22 @@
     display: none;
 }
 
-#btn-audio-volume-mute,
-#btn-audio-volume-unmute,
 #btn-audio-volume-mute > .glyphicon,
 #btn-audio-volume-unmute > .glyphicon
 {
-    padding-right: 0;
-    margin-right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#btn-audio-volume-mute,
+#btn-audio-volume-unmute
+{
+    padding-right: 0.2em;
+    padding-left: 0.2em;
 }
 #volume-range-slider
 {
+    width: 10em;
     padding-left: 0;
     margin-left: 0;
 }
@@ -274,13 +268,6 @@
     color: green;
 }
 
-#btn-esc-audio,
-#btn-skip-audio-enable,
-#btn-skip-audio-disable
-{
-    float: right;
-}
-
 #audioplayer:not(.no-touch) > #btn-touch-audio-enable {
     display: none;
 }
@@ -288,10 +275,10 @@
     display: none;
 }
 
-#audioplayer:not(.skip) > #audioExpanded > #btn-skip-audio-disable {
+#audioplayer:not(.skip) > #audioExpanded #btn-skip-audio-disable {
     display: none;
 }
-#audioplayer.skip > #audioExpanded > #btn-skip-audio-enable {
+#audioplayer.skip > #audioExpanded #btn-skip-audio-enable {
     display: none;
 }
 
@@ -309,16 +296,25 @@
 }
 */
 
-#btn-audio-rate,
 #btn-audio-rate > .glyphicon
 {
-    padding-right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#btn-audio-rate
+{
+    margin-left: 0;
     margin-right: 0;
+    
+    padding-right: 0.2em;
+    padding-left: 0.2em;
 }
 #rate-range-slider
 {
     padding-left: 0;
     margin-left: 0;
+    width: 6em;
 }
 #btn-audio-rate {
   width: 30px;
@@ -333,7 +329,9 @@
 
 #volume-range-slider,
 #time-range-slider,
-#rate-range-slider
+#rate-range-slider,
+#font-size-input,
+#margin-size-input
 {
     -webkit-appearance: slider-horizontal;
     -webkit-appearance: none;
@@ -347,7 +345,9 @@
 
 #volume-range-slider::-moz-range-track,
 #time-range-slider::-moz-range-track,
-#rate-range-slider::-moz-range-track
+#rate-range-slider::-moz-range-track,
+#font-size-input::-moz-range-track,
+#margin-size-input::-moz-range-track
 {    
     background-color: #484848;
     border-radius: 8px;
@@ -359,14 +359,20 @@
 
 #volume-range-slider:active,
 #time-range-slider:active,
-#rate-range-slider:active
+#rate-range-slider:active,
+#font-size-input:active,
+#margin-size-input:active
 {
-    box-shadow: 0 0 0 1px #6fb5f1;
+    -webkit-appearance: none;
+    
+    box-shadow: 0 0 0 5px #6fb5f1;
 }
 
 #volume-range-slider::-webkit-slider-thumb,
 #time-range-slider::-webkit-slider-thumb,
-#rate-range-slider::-webkit-slider-thumb
+#rate-range-slider::-webkit-slider-thumb,
+#font-size-input::-webkit-slider-thumb,
+#margin-size-input::-webkit-slider-thumb
 {
     -webkit-appearance: none;
 
@@ -380,7 +386,9 @@
 
 #volume-range-slider::-moz-range-thumb,
 #time-range-slider::-moz-range-thumb,
-#rate-range-slider::-moz-range-thumb
+#rate-range-slider::-moz-range-thumb,
+#font-size-input::-moz-range-thumb,
+#margin-size-input::-moz-range-thumb
 {
     background-color: #ddd;
     
@@ -403,11 +411,12 @@
     
     position: absolute;
     margin-top: 0.6em;
-    margin-left: 0.4em;
+    margin-left: 0.2em;
 }
 
 #time-range-slider
 {
+    display: block;
     width: 100%;
 
     border-left: 10px solid #4d4d4d;
@@ -466,21 +475,119 @@ box-shadow: 0 0 0 1px #6fb5f1;
 }
 */
 
+#audio-block
+{
+    display: block;
+}
+
+#mo-sync-form
+{
+    display: inline-block;
+    margin-left: 6em;
+}
+
+#mo-sync-form > input[type="radio"]
+{
+    font-size: 50%;
+    opacity: 0;
+    /* display: none; 
+    z-index: -1;
+    visibility: hidden;*/
+}
+
+#mo-sync-form > input[type="radio"] + label
+{
+    font-family: sans-serif;
+    font-size: 84%;
+    font-weight: normal;
+    
+    margin: 0;
+    margin-left: -1.5em;
+    margin-right: 0.5em;
+    
+    padding: 0;
+    padding-top: 0.1em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    
+    display: inline-block;
+    
+    color: #e1e1e1;
+    background: #484848;
+    border: 1px solid #383838;
+    border-radius: 0.5em;
+}
+
+#mo-sync-form > input[type="radio"]#mo-sync-default + label
+{
+    padding-top: 0.05em;
+    padding-bottom: 0.05em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+}
+
+#mo-sync-form > input[type="radio"]:not([disabled]):checked + label
+{
+    color: black;
+    background: #e1e1e1;
+}
+
+#mo-sync-form > input[type="radio"]:not([disabled]) + label
+{
+    cursor: pointer;
+}
+#mo-sync-form > input[type="radio"][disabled] + label
+{
+    color: black;
+}
+
+
+
+#btn-esc-audio > .glyphicon,
+#btn-skip-audio-enable > .glyphicon,
+#btn-skip-audio-disable > .glyphicon
+{
+    margin: 0;
+    padding: 0;
+}
+
+#btn-esc-audio,
+#btn-skip-audio-enable,
+#btn-skip-audio-disable
+{
+    display: inline-block;
+    
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    
+    width: 30px;
+}
+
+#btn-esc-audio
+{
+    margin-left: 1.5em;
+}
+
 #mo-highlighters
 {
-    font-family: monospace;
-    font-size: 90%;
-    font-weight: bold;
-    
     background-color: #4d4d4d;
-    width: 100%;
-    text-align: center;
-    clear: both;
+    
+    display: inline-block;
+    
     margin: 0;
+    margin-right: 1.5em;
+    
     padding: 0.5em;
 }
 .btn-mo-highlighter
 {
+    font-family: sans-serif !important;
+    font-size: 90% !important;
+    font-weight: normal !important;
+    
+    width: 30px !important;
+    height: 20px !important;
+    
     padding: 0;
     
     margin: 0;
@@ -488,25 +595,23 @@ box-shadow: 0 0 0 1px #6fb5f1;
     margin-right: 0.2em;
     
     text-align: center;
-    border-radius: 0.6em !important;
+    border-radius: 0.4em !important;
 
-    box-shadow: 0px 0px 0.4em #333333 !important;
+    border: 1px solid #383838 !important;
 }
 
 .btn-mo-highlighter[aria-selected=true]
 {
-    border: 2px dashed white !important;
-}
-
-#mo-highlighter-1[aria-selected=true]
-{
-    border: 2px dashed black !important;
+    border: 1px solid white !important;
+    box-shadow: 0px 0px 0.4em black;
 }
 
 #mo-highlighter-0
 {
+    width: 70px !important;
+    
     background-color: #4d4d4d !important;
-    color: #ddeedd !important;
+    color: #e1e1e1 !important;
 }
 #mo-highlighter-1
 {
@@ -557,6 +662,138 @@ box-shadow: 0 0 0 1px #6fb5f1;
   }
 }
 
+#keyboard-button {
+  text-align: center;
+  
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  
+  color: black;
+  border: 1px solid grey;
+  
+  padding: 3px;
+  padding-bottom: 4px;
+
+  background-color: white;
+    float: right;
+}
+#keyboard-list {
+    list-style-type: none;
+    padding-right: 2em;
+    margin-bottom: 0;
+}
+#keyboard-list > li {
+    position: relative;
+
+    border-top: 1px dashed silver;
+    margin-bottom: 0.6em;
+}
+#keyboard-list > li > label {
+    text-align: left;
+}
+#keyboard-list > li > label > span {
+    font-weight: normal;
+    font-size: 90%;
+}
+#keyboard-list > li > input {
+    text-align: right;
+    position: absolute;
+    right: 2em;
+    margin-top: 0.5em;
+}
+
+#invalid_keyboard_shortcut_ALERT
+{
+    color:transparent;
+    width:1px;
+    height:1px;
+    overflow: hidden;
+    left: 0px;
+    right: 0px;
+    position:absolute;
+}
+
+#duplicate_keyboard_shortcut,
+#invalid_keyboard_shortcut
+{
+    font-weight: bold;
+    position: absolute;
+    right: 2.3em;
+    top: 2.3em;
+}
+
+#duplicate_keyboard_shortcut,
+#invalid_keyboard_shortcut
+{
+    display: none;
+}
+
+#keyboard-list > li.invalidShortcut > #invalid_keyboard_shortcut
+{
+    display: block;
+}
+
+#keyboard-list > li:not(.invalidShortcut).duplicateShortcut > #duplicate_keyboard_shortcut
+{
+    display: block;
+}
+
+#keyboard-list > li.invalidShortcut > input {
+    border: 2px solid red;
+}
+#keyboard-list > li:not(.invalidShortcut).duplicateShortcut > input {
+    border: 2px solid magenta;
+}
+
+#keyboard-list {
+    border: 2px solid transparent;
+}
+#keyboard-list.atLeastOneInvalidOrDuplicateShortcut {
+    border: 2px solid red;
+}
+
+#keyboard-list > li > button.resetKey {
+    text-align: center;
+  
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+  
+    border: 0;
+  
+    padding: 3px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+
+    margin-top: 0.5em;
+    
+    background-color: white;
+    color: blue;
+    
+    position: absolute;
+    right: 0;
+}
+#keyboard-list > li#resetAllKeysTOP
+{
+    border:0;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1em;
+}
+#keyboard-list > li#resetAllKeysBOTTOM
+{
+    border:0;
+    padding: 0;
+    margin: 0;
+}
+#keyboard-list > li.resetAllKeys > button.resetKey
+{
+    position: static;
+    text-align: right;
+    width: 100%;
+}
+
 .theme-option{
   text-align: center;
   -webkit-border-radius: 4px;
@@ -569,6 +806,10 @@ box-shadow: 0 0 0 1px #6fb5f1;
 .night-theme {
   background-color: #141414;
   color: white;
+}
+.default-theme {
+  background-color: white;
+  color: black;
 }
 .parchment-theme {
   background-color: #f7f1cf;
@@ -824,4 +1065,116 @@ box-shadow: 0 0 0 1px #6fb5f1;
   display:none;
 }
 
+button,
+input[type="radio"] + label,
+input[type="range"],
+input[type="text"]
+{
+    outline: 0 !important;
+}
 
+input[type="text"]
+{
+    -webkit-appearance: none !important;
+}
+
+body.keyboard button:focus,
+body.keyboard input[type="radio"]:focus + label,
+body.keyboard input[type="range"]:focus
+{
+    box-shadow: 0px 0px 5px #6fb5f1 !important;
+    outline: #6fb5f1 dotted 1px !important;
+}
+body.keyboard input[type="text"]:focus
+{
+    background: #fff;
+    box-shadow: 0px 0px 5px #6fb5f1 !important;
+    outline: #6fb5f1 dotted 1px !important;
+}
+
+body.keyboard #app-navbar button:focus,
+body.keyboard #app-navbar input[type="radio"]:focus + label,
+body.keyboard #app-navbar input[type="range"]:focus
+{
+    box-shadow: 0px 0px 5px #6fb5f1 !important;
+    outline: #6fb5f1 dotted 1px !important;
+}
+body.keyboard #app-navbar input[type="text"]:focus
+{
+    background: #fff;
+    box-shadow: 0px 0px 5px #6fb5f1 !important;
+    outline: #6fb5f1 dotted 1px !important;
+}
+
+#app-navbar #time-range-slider
+{
+    box-shadow: none !important;
+}
+
+input[type="range"]
+{
+    padding: 0;
+}
+
+#scroll-default-radio,
+#scroll-doc-radio,
+#scroll-continuous-radio
+{
+    margin-right:0.2em;
+}
+
+#scroll-default-radio ~ label,
+#scroll-doc-radio ~ label,
+#scroll-continuous-radio ~ label,
+#single-page-radio ~ label,
+#double-page-radio ~ label
+{
+    border-bottom: 2px solid transparent;
+}
+#scroll-default-radio:checked ~ label,
+#scroll-doc-radio:checked ~ label,
+#scroll-continuous-radio:checked ~ label,
+#single-page-radio:checked ~ label,
+#double-page-radio:checked ~ label
+{
+    border-bottom: 2px solid #333333;
+}
+
+ul.nav-tabs li button
+{
+    padding: 0.7em !important;
+    margin: 0.2em !important;
+    margin-bottom: 0 !important;
+    
+    font-weight: bold !important;
+    font-size: 110% !important;
+    
+    background:none !important;
+    
+    border:0 !important;
+    border: 1px solid transparent !important;
+    border-bottom: 2px solid transparent !important;
+    
+    color: #888888 !important;
+}
+
+ul.nav-tabs li.active button
+{
+    border: 1px solid silver !important;
+    border-bottom: 2px solid white !important;
+    border-radius: 0.5em !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    
+    color: black !important;
+}
+
+ul.nav-tabs li:not(.active) button:hover
+{
+    background: #dddddd !important;
+    color: #003366 !important;
+
+    border-radius: 0.5em !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}

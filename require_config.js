@@ -1,13 +1,22 @@
 
 require.config({
+
+    //xhtml: true, //document.createElementNS()
+    
+    /* http://requirejs.org/docs/api.html#config-waitSeconds */
+    waitSeconds: 0,
+    
     baseUrl: './lib/',
 
     paths: {
+        'keymaster': 'thirdparty/keymaster',
+        'screenfull': 'thirdparty/screenfull',
+        'console_shim': 'thirdparty/console_shim',
         'text': 'thirdparty/text/text',
         'hgn': 'thirdparty/hgn',
         'hogan': 'thirdparty/hogan',
         'jath' : 'thirdparty/jath.min',
-        'jquery': 'thirdparty/jquery-1.9.1',
+        'jquery': 'thirdparty/jquery-1.11.0',
         'spin' : 'thirdparty/spin.min',
         'underscore': 'thirdparty/underscore-1.4.4',
         'backbone': 'thirdparty/backbone-0.9.10',
@@ -35,6 +44,12 @@ require.config({
         'workers/WorkerProxy' : {'workerUrl' : '/scripts/readium-worker.js'}
     },
     shim: {
+        screenfull : {
+            exports: 'screenfull'
+        },
+        keymaster : {
+            exports: 'key'
+        },
         zip : {
             exports: 'zip'
         },
