@@ -687,12 +687,6 @@ box-shadow: 0 0 0 1px #6fb5f1;
   }
 }
 
-#tab-butt-main,
-#tab-butt-keys 
-{
-    border:0;background:none;padding:0;margin:0; font-weight: bold; font-size: 110%;
-}
-
 #keyboard-button {
   text-align: center;
   
@@ -734,6 +728,17 @@ box-shadow: 0 0 0 1px #6fb5f1;
     margin-top: 0.5em;
 }
 
+#invalid_keyboard_shortcut_ALERT
+{
+    color:transparent;
+    width:1px;
+    height:1px;
+    overflow: hidden;
+    left: 0px;
+    right: 0px;
+    position:absolute;
+}
+
 #duplicate_keyboard_shortcut,
 #invalid_keyboard_shortcut
 {
@@ -748,6 +753,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
 {
     display: none;
 }
+
 #keyboard-list > li.invalidShortcut > #invalid_keyboard_shortcut
 {
     display: block;
@@ -1135,4 +1141,65 @@ input[type="range"]
     padding: 0;
 }
 
+#scroll-default-radio,
+#scroll-doc-radio,
+#scroll-continuous-radio
+{
+    margin-right:0.2em;
+}
+
+#scroll-default-radio ~ label,
+#scroll-doc-radio ~ label,
+#scroll-continuous-radio ~ label,
+#single-page-radio ~ label,
+#double-page-radio ~ label
+{
+    border-bottom: 2px solid transparent;
+}
+#scroll-default-radio:checked ~ label,
+#scroll-doc-radio:checked ~ label,
+#scroll-continuous-radio:checked ~ label,
+#single-page-radio:checked ~ label,
+#double-page-radio:checked ~ label
+{
+    border-bottom: 2px solid #333333;
+}
+
+ul.nav-tabs li button
+{
+    padding: 0.7em !important;
+    margin: 0.2em !important;
+    margin-bottom: 0 !important;
     
+    font-weight: bold !important;
+    font-size: 110% !important;
+    
+    background:none !important;
+    
+    border:0 !important;
+    border: 1px solid transparent !important;
+    border-bottom: 2px solid transparent !important;
+    
+    color: #888888 !important;
+}
+
+ul.nav-tabs li.active button
+{
+    border: 1px solid silver !important;
+    border-bottom: 2px solid white !important;
+    border-radius: 0.5em !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    
+    color: black !important;
+}
+
+ul.nav-tabs li:not(.active) button:hover
+{
+    background: #dddddd !important;
+    color: #003366 !important;
+
+    border-radius: 0.5em !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}

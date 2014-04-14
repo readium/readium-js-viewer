@@ -2,7 +2,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" tabindex="1000" title="{{strings.i18n_close}} {{strings.i18n_add_book}}" aria-label="{{strings.i18n_close}} {{strings.i18n_add_book}}"><span aria-hidden="true">&times;</span></button>
+
+                <button id="closeAddEpubCross" type="button" class="close" data-dismiss="modal" tabindex="999" title="{{strings.i18n_close}} {{strings.i18n_add_book}}" aria-label="{{strings.i18n_close}} {{strings.i18n_add_book}}"><span aria-hidden="true">&times;</span></button>
+
                 <h4 class="modal-title" id="add-epub-label">{{strings.i18n_add_book}}</h4>
             </div>
             <div class="modal-body">
@@ -18,14 +20,14 @@
                 <div id="epub-upload-div" class="form-group">
                     <label id="add2" class="control-label col-sm-5">{{strings.i18n_from_local_file}}</label>
                     <div class="col-sm-7">
-                        <input tabindex="1000" type="file" id="epub-upload" class="form-control" aria-labelledby="add2">
+                        <input tabindex="1000" type="file" id="epub-upload" class="form-control" aria-labelledby="add2" role="button">
                     </div>
                 </div>
                 {{#canHandleDirectory}}
                 <div class="form-group">
                     <label id="add3" class="control-label col-sm-5">{{strings.i18n_unpacked_directory}}</label>
                     <div class="col-sm-7">
-                        <input tabindex="1000" type="file" id="dir-upload" webkitdirectory="" mozdirectory="" directory="" class="form-control" aria-labelledby="add3">
+                        <input tabindex="1000" type="file" id="dir-upload" webkitdirectory="" mozdirectory="" directory="" class="form-control" aria-labelledby="add3"  role="button">
                     </div>
                 </div>
                 {{/canHandleDirectory}}
