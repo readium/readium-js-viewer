@@ -1,4 +1,6 @@
 .DS_Store
+.idea
+*.iml
 node_modules
 build
 local_test_data
