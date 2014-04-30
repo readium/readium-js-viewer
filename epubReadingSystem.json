@@ -1,0 +1,12 @@
+{
+    "name": "",
+    "version": "",
+    "layoutStyle": "paginated",
+    "hasFeature": "function (feature, version) { if (version && version !== \"1.0\") { return false; } if (feature === \"dom-manipulation\") { return true; } if (feature === \"layout-changes\") { return true; } if (feature === \"touch-events\") { return false; } if (feature === \"mouse-events\") { return true; } if (feature === \"keyboard-events\") { return true; } if (feature === \"spine-scripting\") { return true; } return false; }",
+
+    "readium":
+    {
+    "about": "Readium Foundation, IDPF",
+    "modules": [ "readium-module.json" ]
+    }
+}

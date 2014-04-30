@@ -20,6 +20,24 @@
   "i18n_close" : {
     "message" : "Fermer"
   },
+  "i18n_keyboard_shortcuts" : {
+    "message" : "Raccourcis clavier"
+  },
+  "i18n_keyboard_reload" : {
+    "message" : "Veuillez recharger la page pour que les raccourcis clavier prennent effet."
+  },
+  "i18n_reset_key" : {
+    "message" : "Reinitialiser le raccourci clavier par défaut"
+  },
+  "i18n_reset_key_all" : {
+    "message" : "Reinitialiser tous les raccourcis clavier par défaut"
+  },
+  "i18n_duplicate_keyboard_shortcut" : {
+    "message" : "DUPLIQUE"
+  },
+  "i18n_invalid_keyboard_shortcut" : {
+    "message" : "INVALIDE"
+  },
   "i18n_paginate_all" : {
     "message" : "Paginer tout le contenu des EPUB recomposables"
   },
@@ -146,8 +164,98 @@
   "i18n_display_format" : {
     "message" : "FORMAT D'AFFICHAGE"
   },
+  "i18n_scroll_mode" : {
+    "message" : "MODE DE DEFILEMENT"
+  },
+  "i18n_scroll_mode_default" : {
+    "message" : "Défaut"
+  },
+  "i18n_scroll_mode_doc" : {
+    "message" : "Document"
+  },
+  "i18n_scroll_mode_continuous" : {
+    "message" : "Continu"
+  },
   "i18n_html_readium_tm_a_project" : {
     "message" : "Readium<sup>TM</sup>, un projet de l'International Digital Publishing Forum (IDPF) et de ses adhérents, est un système à code-source libre de référence et un moteur de rendu pour les publications EPUB&reg;. Pour en savoir plus, visitez <a href=\"http://readium.org/\">la page du projet</a>. À ce jour, le développement du projet a été menée par <a href=\"http://evidentpoint.com/\">Evident Point</a> et par <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. Pour contribuer, visiter le <a href=\"https://github.com/readium/readium\">dépôt github</a>."
+  },
+  "i18n_audio_play" : {
+    "message" : "Jouer"
+  },
+  "i18n_audio_pause" : {
+    "message" : "Pauser"
+  },
+  "i18n_audio_previous" : {
+    "message" : "Phrase audio précédente"
+  },
+  "i18n_audio_next" : {
+    "message" : "Phrase audio suivante"
+  },
+  "i18n_audio_volume" : {
+    "message" : "Ajustement du volume audio"
+  },
+  "i18n_audio_time" : {
+    "message" : "Contrôle du curseur temporel audio"
+  },
+  "i18n_audio_mute" : {
+    "message" : "Silence audio"
+  },
+  "i18n_audio_unmute" : {
+    "message" : "Restaurer le volume audio"
+  },
+  "i18n_audio_expand" : {
+    "message" : "Afficher les contrôles audio avancés"
+  },
+  "i18n_audio_collapse" : {
+    "message" : "Fermer les contrôles audio avancés"
+  },
+  "i18n_audio_esc" : {
+    "message" : "Echapper le contexte audio actuel"
+  },
+  "i18n_audio_rate" : {
+    "message" : "Vitesse de lecture audio"
+  },
+  "i18n_audio_rate_reset" : {
+    "message" : "Retour à la vitesse normale de lecture audio"
+  },
+  "i18n_audio_skip_disable" : {
+    "message" : "Désactiver la 'skippabilité'"
+  },
+  "i18n_audio_skip_enable" : {
+    "message" : "Activer la 'skippabilité'"
+  },
+  "i18n_audio_touch_enable" : {
+    "message" : "Activer la function 'toucher pour jouer'"
+  },
+  "i18n_audio_touch_disable" : {
+    "message" : "Désactiver la function 'toucher pour jouer'"
+  },
+  "i18n_audio_highlight_default" : {
+    "message" : "défaut"
+  },
+  "i18n_audio_highlight" : {
+    "message" : "Couleur audio"
+  },
+  "i18n_audio_sync" : {
+    "message" : "Granularité de synchronisation texte / audio"
+  },
+  "i18n_audio_sync_default" : {
+    "message" : "Défaut"
+  },
+  "i18n_audio_sync_word" : {
+    "message" : "Mot"
+  },
+  "i18n_audio_sync_sentence" : {
+    "message" : "Phrase"
+  },
+  "i18n_audio_sync_paragraph" : {
+    "message" : "Paragraphe"
+  },
+  "i18n_page_previous" : {
+    "message" : "Page précédente"
+  },
+  "i18n_page_next" : {
+    "message" : "Page suivante"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",

@@ -1,122 +1,52 @@
+//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
+//  
+//  Redistribution and use in source and binary forms, with or without modification, 
+//  are permitted provided that the following conditions are met:
+//  1. Redistributions of source code must retain the above copyright notice, this 
+//  list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice, 
+//  this list of conditions and the following disclaimer in the documentation and/or 
+//  other materials provided with the distribution.
+//  3. Neither the name of the organization nor the names of its contributors may be 
+//  used to endorse or promote products derived from this software without specific 
+//  prior written permission.
+
 'use strict';
 
-var path = require('path');
+module.exports = function(grunt) {
 
-module.exports = function (grunt) {
+    var config = {
+        // top-level task options, if needed.
+    };
 
-  grunt.initConfig({
-    express: {
-      server: {
-        options: {
-          port: 8080,
-          bases: path.resolve(__dirname)
-        }
-      },
-      livereload: true
-    },
+    grunt.loadNpmTasks('grunt-express');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-nodeunit');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-run-grunt');
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-git-describe');
+    grunt.loadNpmTasks('load-grunt-config');
 
-    requirejs: {
-      chromeApp: {
-        options: {
-          mainConfigFile: './require_config.js',
-          include: ['../chrome-app/extended-config','ReadiumViewer'],
-          name: 'thirdparty/almond',
-          baseUrl: './lib/',
-          optimize: 'none',
-          out: 'build/chrome-app/scripts/readium-all.js',
-          paths: {
-            'i18n/Strings': '../chrome-app/i18n/Strings',
-            'storage/StorageManager' : '../chrome-app/storage/FileSystemStorage',
-            'storage/Settings' : '../chrome-app/storage/ChromeSettings'
-          }
-        }
-      },
-      chromeAppWorker : {
-        options : {
-          mainConfigFile: './require_config.js',
-          include: ['workers/EpubLibraryWriter'],
-          name: 'thirdparty/almond',
-          baseUrl: './lib/',
-          optimize: 'none',
-          out: 'build/chrome-app/scripts/readium-worker.js',
-          paths: {
-            'i18n/Strings': '../chrome-app/i18n/Strings',
-            'storage/StorageManager' : '../chrome-app/storage/FileSystemStorage'
-          }
-        }
-      }
-    },
+    var path = require('path');
+    var configs = require('load-grunt-config')(grunt, {
+        configPath: path.join(process.cwd(), 'grunt'),
+        init: false
+        //loadGruntTasks: false
+    });
+    //grunt.loadTasks('grunt');
 
-    cssmin : {
-        chromeApp : {
-            files : {
-              'build/chrome-app/css/readium-all.css' : ['css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/library.css']
-            }
-        }
-    },
+    // console.log(JSON.stringify(subConfig));
+    // console.log('');
+    
+    //grunt.util._.extend({}, configs)
+    grunt.util._.merge(config, configs);
 
-    copy : {
-      chromeApp: {
-        files: [
-            {expand: true, cwd: 'chrome-app/', src: ['index.html', 'background.js', 'extended-config.js', 'manifest.json'], dest: 'build/chrome-app'},
-            {expand: true, src: 'images/**', dest: 'build/chrome-app'},
-            {expand: true, cwd: 'i18n', src: '_locales/**', dest: 'build/chrome-app'},
-            {expand: true, cwd: 'lib/thirdparty/', src: ['inflate.js', 'deflate.js'], dest:'build/chrome-app'}
-        ]
-      },
-      readiumjs: {
-        files: [
-          {expand: true, cwd: 'readium-js/out/', src: 'Readium.js', dest: 'lib'}
-        ]
-      }
-    },
-    nodeunit: {
-      chromeApp: ['chrome-app/tests/tests.js']
-    },
-    clean : {
-      chromeApp: ['build/chrome-app']
-    },
-    run_grunt: {
-      readiumjs : {
-        options: {
-          cwd: 'readium-js'
-        },
-        src: 'readium-js/Gruntfile.js'
-      }
-    },
-    watch : {
-      readiumjs:{
-        files: ['readium-js/**/*.js','!readium-js/out/Readium.js','!readium-js/**/node_modules/**'], 
-        tasks: ['update-readium']
-      }
-    },
-    concurrent : {
-      serverwatch : {
-        tasks: ['runserver', 'watch:readiumjs'],
-        options: {
-          logConcurrentOutput: true
-        }
-      }
-    }
+    // console.log(JSON.stringify(config));
+    // console.log('');
 
-  });
-
-  grunt.loadNpmTasks('grunt-express');
-
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-run-grunt');
-  grunt.loadNpmTasks('grunt-concurrent');
-
-  grunt.registerTask('runserver', ['express', 'express-keepalive']);
-  grunt.registerTask('default', 'concurrent:serverwatch');
-  grunt.registerTask('update-readium', ['run_grunt:readiumjs', 'copy:readiumjs']);
-
-  grunt.registerTask('chromeApp', ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'requirejs:chromeApp', 'requirejs:chromeAppWorker']);
-
+    grunt.initConfig(config);
 };
-
