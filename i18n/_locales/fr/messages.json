@@ -167,8 +167,8 @@
   "i18n_scroll_mode" : {
     "message" : "MODE DE DEFILEMENT"
   },
-  "i18n_scroll_mode_default" : {
-    "message" : "Défaut"
+  "i18n_scroll_mode_auto" : {
+    "message" : "Auto"
   },
   "i18n_scroll_mode_doc" : {
     "message" : "Document"

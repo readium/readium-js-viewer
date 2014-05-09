@@ -249,11 +249,14 @@
   "i18n_display_format" : {
     "message" : "DISPLAY FORMAT"
   },
+  "i18n_spread_auto" : {
+     "message" : "Auto"
+  },
   "i18n_scroll_mode" : {
     "message" : "SCROLL MODE"
   },
-  "i18n_scroll_mode_default" : {
-    "message" : "Default"
+  "i18n_scroll_mode_auto" : {
+    "message" : "Auto"
   },
   "i18n_scroll_mode_doc" : {
     "message" : "Document"
