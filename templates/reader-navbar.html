@@ -147,6 +147,14 @@
         </div>
     </div> 
     <!--Audioplayer Controls END-->
+    <div class="zoom-wrapper dropdown" style="display:none">
+        <a tabindex="1" href="#" data-toggle="dropdown"><input tabindex="1" type="text" value="100%" disabled/><span class="caret"></span></a>
+        <ul id="zoom-menu" class="dropdown-menu" role="menu">
+            <li id="zoom-custom"><a href="#" tabindex="1">Custom <span class="glyphicon glyphicon-ok"></span></a></li>
+            <li id="zoom-fit-width"><a href="#" tabindex="1">Fit Width <span class="glyphicon glyphicon-ok"></span></a></li>
+            <li id="zoom-fit-screen" class="active-zoom"><a href="#" tabindex="1">Fit Screen <span class="glyphicon glyphicon-ok"></span></a></li>
+        </ul>
+    </div>
     <button tabindex="1" type="button" class="btn icon-library" title="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" aria-label="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" accesskey="{{keyboard.accesskeys.SwitchToLibrary}}">
         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
     </button>

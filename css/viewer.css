@@ -153,9 +153,7 @@
   background-size: auto 28px;
 }
 
-/*.icon-toc, .icon-toc:active{
-  background-image: url('../images/glyphicons_114_list.png');
-}*/
+
 
 /*   Audioplayer Controls START   */
 
@@ -287,6 +285,33 @@
     margin-right: -0.4em;
 }
 
+.zoom-wrapper{
+  display: inline-block;
+  float: left;
+  padding: 6px 12px;
+}
+
+.zoom-wrapper input{
+  border: none;
+  width: 3em;
+  text-align: right;
+}
+.zoom-wrapper input[disabled]{
+  background-color: #4d4d4d;
+  color: #ddd;
+}
+
+.zoom-wrapper a{
+  color: #ddd;
+}
+
+#zoom-menu .glyphicon-ok{
+  display: none;
+}
+
+#zoom-menu .active-zoom .glyphicon-ok{
+  display: inline-block;
+}
 
 /* Issues with thumb :(
 #rate-range-slider
@@ -884,9 +909,9 @@ box-shadow: 0 0 0 1px #6fb5f1;
 #reading-area {
     text-align: center;
     position: absolute;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
     top: 38px;
 
 }
