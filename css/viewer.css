@@ -1148,21 +1148,28 @@ input[type="range"]
     margin-right:0.2em;
 }
 
+/*
 #scroll-default-radio ~ label,
 #scroll-doc-radio ~ label,
 #scroll-continuous-radio ~ label,
 #spread-default-radio ~ label,
 #single-page-radio ~ label,
 #double-page-radio ~ label
+*/
+.underlinedLabel
 {
     border-bottom: 2px solid transparent;
 }
+
+/*
 #scroll-default-radio:checked ~ label,
 #scroll-doc-radio:checked ~ label,
 #scroll-continuous-radio:checked ~ label,
 #spread-default-radio:checked ~ label,
 #single-page-radio:checked ~ label,
 #double-page-radio:checked ~ label
+*/
+input:checked ~ .underlinedLabel
 {
     border-bottom: 2px solid #333333;
 }
