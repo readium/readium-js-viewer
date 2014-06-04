@@ -1151,6 +1151,7 @@ input[type="range"]
 #scroll-default-radio ~ label,
 #scroll-doc-radio ~ label,
 #scroll-continuous-radio ~ label,
+#spread-default-radio ~ label,
 #single-page-radio ~ label,
 #double-page-radio ~ label
 {
@@ -1159,6 +1160,7 @@ input[type="range"]
 #scroll-default-radio:checked ~ label,
 #scroll-doc-radio:checked ~ label,
 #scroll-continuous-radio:checked ~ label,
+#spread-default-radio:checked ~ label,
 #single-page-radio:checked ~ label,
 #double-page-radio:checked ~ label
 {
