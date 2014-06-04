@@ -884,23 +884,23 @@ box-shadow: 0 0 0 1px #6fb5f1;
 }
 
 
-#previous-page-btn {
+#left-page-btn {
   transform: scaleX(1);
   left: 0;
   opacity: 0.5;
 }
-#previous-page-btn:hover {
+#left-page-btn:hover {
   opacity: 1.0;
 }
 
-#next-page-btn {
+#right-page-btn {
   -webkit-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
   right: 0;
   opacity: 0.5;
 }
-#next-page-btn:hover {
+#right-page-btn:hover {
   opacity: 1.0;
 }
 
@@ -938,10 +938,10 @@ box-shadow: 0 0 0 1px #6fb5f1;
   opacity:0;
 }
 
-.hide-ui #previous-page-btn, 
-.hide-ui #next-page-btn,
-.embedded .toc-visible #previous-page-btn, 
-.embedded .toc-visible #next-page-btn{
+.hide-ui #left-page-btn, 
+.hide-ui #right-page-btn,
+.embedded .toc-visible #left-page-btn, 
+.embedded .toc-visible #right-page-btn{
   -webkit-transition: opacity .2s ease-out;
   opacity: 0
 }
