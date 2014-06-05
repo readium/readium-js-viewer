@@ -209,6 +209,27 @@
     display: none;
 }
 
+
+
+#backgroundAudioTrack-div
+{
+    display: inline-block;
+    float: left;
+}
+#backgroundAudioTrack-div.none
+{
+    display: none;
+}
+
+#backgroundAudioTrack-div:not(.isPlaying) > #backgroundAudioTrack-button-pause
+{
+    display: none;
+}
+#backgroundAudioTrack-div.isPlaying > #backgroundAudioTrack-button-play
+{
+    display: none;
+}
+
 #audioplayer.expanded-audio > #audioExpanded
 {
     display: block;

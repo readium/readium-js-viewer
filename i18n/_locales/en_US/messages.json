@@ -299,6 +299,12 @@
   "i18n_audio_pause" : {
     "message" : "Pause"
   },
+  "i18n_audio_play_background" : {
+    "message" : "Play background track"
+  },
+  "i18n_audio_pause_background" : {
+    "message" : "Pause background track"
+  },
   "i18n_audio_previous" : {
     "message" : "Previous audio phrase"
   },

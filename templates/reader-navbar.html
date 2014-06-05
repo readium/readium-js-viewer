@@ -21,6 +21,19 @@
 </div>
 <div class="btn-group navbar-right">
     
+
+    <div id="backgroundAudioTrack-div">
+
+        <button tabindex="1" id="backgroundAudioTrack-button-play" type="button" class="btn icon-play-audio-background"  title="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]" accesskey="{{keyboard.accesskeys.BackgroundAudioPlayPause}}">
+            <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+        </button>
+        <button tabindex="1" id="backgroundAudioTrack-button-pause" type="button" class="btn icon-pause-audio-background"  title="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]">
+            <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+        </button>
+        
+    </div>
+    
+    
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
         
@@ -147,6 +160,9 @@
         </div>
     </div> 
     <!--Audioplayer Controls END-->
+    
+    
+    
     <div class="zoom-wrapper dropdown" style="display:none">
         <a tabindex="1" href="#" data-toggle="dropdown"><input tabindex="1" type="text" value="100%" disabled/><span class="caret"></span></a>
         <ul id="zoom-menu" class="dropdown-menu" role="menu">
