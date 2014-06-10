@@ -356,6 +356,14 @@
   "i18n_audio_skip_enable" : {
     "message" : "Enable skippability"
   },
+
+  "i18n_auto_page_turn_enable" : {
+    "message" : "Enable automatic page turn"
+  },
+  "i18n_auto_page_turn_disable" : {
+    "message" : "Disable automatic page turn"
+  },
+  
   "i18n_audio_touch_enable" : {
     "message" : "Enable touch-to-play"
   },

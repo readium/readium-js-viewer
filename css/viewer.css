@@ -277,12 +277,14 @@
 }
 
 #icon-skip-off,
-#icon-touch-off
+#icon-touch-off,
+#icon-auto-page-turn-off
 {
     color: red;
 }
 #icon-skip-on,
-#icon-touch-on
+#icon-touch-on,
+#icon-auto-page-turn-on
 {
     color: green;
 }
@@ -298,6 +300,13 @@
     display: none;
 }
 #audioplayer.skip > #audioExpanded #btn-skip-audio-enable {
+    display: none;
+}
+
+#audioplayer:not(.autoPageTurn) > #audioExpanded #btn-auto-page-turn-disable {
+    display: none;
+}
+#audioplayer.autoPageTurn > #audioExpanded #btn-auto-page-turn-enable {
     display: none;
 }
 
@@ -591,7 +600,9 @@ box-shadow: 0 0 0 1px #6fb5f1;
 
 #btn-esc-audio > .glyphicon,
 #btn-skip-audio-enable > .glyphicon,
-#btn-skip-audio-disable > .glyphicon
+#btn-skip-audio-disable > .glyphicon,
+#btn-auto-page-turn-enable > .glyphicon,
+#btn-auto-page-turn-disable > .glyphicon
 {
     margin: 0;
     padding: 0;
@@ -599,7 +610,9 @@ box-shadow: 0 0 0 1px #6fb5f1;
 
 #btn-esc-audio,
 #btn-skip-audio-enable,
-#btn-skip-audio-disable
+#btn-skip-audio-disable,
+#btn-auto-page-turn-enable,
+#btn-auto-page-turn-disable
 {
     display: inline-block;
     
@@ -611,7 +624,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
 
 #btn-esc-audio
 {
-    margin-left: 1.5em;
+    margin-left: 0.5em;
 }
 
 #mo-highlighters
