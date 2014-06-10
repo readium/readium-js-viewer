@@ -47,7 +47,8 @@ require.config({
         'crypto-sha1' : 'thirdparty/crypto-sha1',
         'i18n': '../i18n',
         'templates': '../templates',
-        'storage/StorageManager' : 'storage/StaticStorageManager'
+        'storage/StorageManager' : 'storage/StaticStorageManager',
+        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler'
     },
     hgn : {
         templateExtension : ""
