@@ -39,6 +39,8 @@ require.config({
         'SecondLevelDomains': 'thirdparty/URIjs/SecondLevelDomains',
         'IPv6': 'thirdparty/URIjs/IPv6',
         'remotestorage' : 'thirdparty/remotestorage',
+        'jquery_hammer' : 'thirdparty/jquery.hammer',
+        'hammer' : 'thirdparty/hammer',
         'Readium': 'Readium',
         'inflate' : 'thirdparty/inflate',
         'zip' : 'thirdparty/zip',
