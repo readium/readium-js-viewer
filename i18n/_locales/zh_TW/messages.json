@@ -75,7 +75,7 @@
     "message" : "目前的EPUB內容並不包含朗讀聲音"
   },
   "i18n_add_items" : {
-    "message" : "按下這裡<br>加入新書"
+    "message" : "按下這裡加入新書"
   },
   "i18n_extracting" : {
     "message" : "解壓縮中："
@@ -147,7 +147,7 @@
     "message" : "顯示格式"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>是由是International Digital Publishing Forum (IDPF)與技術協助者們共同開發的專案，是供EPUB&reg; 出版品使用的開放原始碼參考系統與排版引擎。要了解更多訊息，請前往<a href=\"http://readium.org/\">專案網頁</a>。迄今為止，本專案持續由<a href=\"http://evidentpoint.com/\">Evident Point</a>和<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>所主導。若想協助開發，請前往<a href=\"https://github.com/readium/readium\">GitHub專案</a>"
+    "message" : "Readium<sup>TM</sup>是由是International Digital Publishing Forum (IDPF)與技術協助者們共同開發的專案，是供EPUB&reg; 出版品使用的開放原始碼參考系統與排版引擎。要了解更多訊息，請前往<a href=\"http://readium.org/\">專案網頁</a>。迄今為止，本專案持續由<a href=\"http://evidentpoint.com/\">Evident Point</a>和<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>所主導。若想協助開發，請前往<a href=\"https://github.com/readium/readium-js-viewer\">GitHub專案</a>"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
