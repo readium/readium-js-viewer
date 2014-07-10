@@ -1,5 +1,5 @@
 <!-- Left page -->
-<button style="z-index:99; background: none; border: none; padding: 0; margin: 0;" tabindex="0" id="left-page-btn" class="page-switch-overlay-icon" type="button"
+<button tabindex="0" id="left-page-btn" class="page-switch-overlay-icon" type="button"
 
 {{#pageProgressionDirectionIsRTL}}
 title="{{strings.i18n_page_next}} [{{keyboard.PagePrevious}}] / [{{keyboard.PagePreviousAlt}}]"
@@ -18,11 +18,12 @@ accesskey="{{keyboard.accesskeys.PagePreviousAlt}}"
 {{/pageProgressionDirectionIsRTL}}
 
 >
-<img aria-hidden="true" src="images/pagination1.svg">
+<!-- img aria-hidden="true" src="images/pagination1.svg" -->
+<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 </button>
   
 <!-- Right page -->
-<button style="z-index:99; background: none; border: none; padding: 0; margin: 0;" tabindex="0" id="right-page-btn" class="page-switch-overlay-icon" type="button"
+<button tabindex="0" id="right-page-btn" class="page-switch-overlay-icon" type="button"
 
 {{#pageProgressionDirectionIsRTL}}
 title="{{strings.i18n_page_previous}} [{{keyboard.PageNext}}] / [{{keyboard.PageNextAlt}}]"
@@ -41,5 +42,6 @@ accesskey="{{keyboard.accesskeys.PageNextAlt}}"
 {{/pageProgressionDirectionIsRTL}}
 
 >
-<img aria-hidden="true" src="images/pagination1.svg">
+<!-- img aria-hidden="true" src="images/pagination1.svg" -->
+<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 </button>
