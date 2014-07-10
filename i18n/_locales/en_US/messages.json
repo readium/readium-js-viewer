@@ -231,6 +231,9 @@
   "i18n_text_and_background_color" : {
     "message" : "TEXT AND BACKGROUND COLOR"
   },
+  "i18n_author_theme" : {
+    "message" : "Default (author styles)"
+  },
   "i18n_black_and_white" : {
     "message" : "Black and White"
   },

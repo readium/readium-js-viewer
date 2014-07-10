@@ -876,6 +876,14 @@ box-shadow: 0 0 0 1px #6fb5f1;
   padding: 3px;
   margin-bottom: 10px;
 }
+.author-theme {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  font-style: italic;
+  border: 1px dashed #333333;
+}
+
 .night-theme {
   background-color: #141414;
   color: white;
