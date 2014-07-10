@@ -979,8 +979,8 @@ vertical-align: middle;
   border-top-right-radius: 0.3em;
   border-bottom-right-radius: 0.3em;
 }
-#left-page-btn:active,
-#left-page-btn:focus,
+
+/* #left-page-btn:focus, */
 #left-page-btn:hover
 {
   opacity: 1.0;
@@ -988,8 +988,7 @@ vertical-align: middle;
   background-color: rgba(0,0,0,0.2);
 }
 
-html[data-theme=night-theme] #left-page-btn:active,
-html[data-theme=night-theme] #left-page-btn:focus,
+/* html[data-theme=night-theme] #left-page-btn:focus, */
 html[data-theme=night-theme] #left-page-btn:hover
 {
   color: black;
@@ -1003,17 +1002,14 @@ html[data-theme=night-theme] #left-page-btn:hover
   border-bottom-left-radius: 0.3em;
 }
 
-#right-page-btn:active,
-#right-page-btn:focus,
+/* #right-page-btn:focus, */
 #right-page-btn:hover
 {
   opacity: 1.0;
   color: white;
   background-color: rgba(0,0,0,0.2);
 }
-
-html[data-theme=night-theme] #right-page-btn:active,
-html[data-theme=night-theme] #right-page-btn:focus,
+/* html[data-theme=night-theme] #right-page-btn:focus, */
 html[data-theme=night-theme] #right-page-btn:hover
 {
   color: black;
