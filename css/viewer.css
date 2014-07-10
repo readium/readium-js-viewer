@@ -33,9 +33,16 @@
   opacity: .8;
 }
 
+/*
+#readium-toc-body *[dir=rtl]{
+direction: rtl;
+}
+*/
+
 #readium-toc-body ol{
   list-style-type: none;
   margin-top: 10px;
+  padding-left: 20px;
 }
 
 .toc-visible #readium-toc-body{
