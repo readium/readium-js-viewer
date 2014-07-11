@@ -75,7 +75,7 @@
     "message" : "Desculpe, o atual EPUB não contém uma mídia de sobreposição para este conteúdo"
   },
   "i18n_add_items" : {
-    "message" : "Adicione itens para sua<br>biblioteca aqui!"
+    "message" : "Adicione itens para sua biblioteca aqui!"
   },
   "i18n_extracting" : {
     "message" : "extraindo: "
@@ -147,7 +147,7 @@
     "message" : "FORMATO DE EXIBIÇÃO"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, is an open source reference system and rendering engine for EPUB&reg; publications.  To learn more, visit the <a href=\"http://readium.org/\">project homepage</a>. To date, the project development has been lead by <a href=\"http://evidentpoint.com/\">Evident Point</a> and <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. To contribute visit the <a href=\"https://github.com/readium/readium\">github repository</a>"
+    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, is an open source reference system and rendering engine for EPUB&reg; publications.  To learn more, visit the <a href=\"http://readium.org/\">project homepage</a>. To date, the project development has been lead by <a href=\"http://evidentpoint.com/\">Evident Point</a> and <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>. To contribute visit the <a href=\"https://github.com/readium/readium-js-viewer\">github repository</a>"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",

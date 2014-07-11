@@ -1,3 +1,16 @@
+//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
+//  
+//  Redistribution and use in source and binary forms, with or without modification, 
+//  are permitted provided that the following conditions are met:
+//  1. Redistributions of source code must retain the above copyright notice, this 
+//  list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice, 
+//  this list of conditions and the following disclaimer in the documentation and/or 
+//  other materials provided with the distribution.
+//  3. Neither the name of the organization nor the names of its contributors may be 
+//  used to endorse or promote products derived from this software without specific 
+//  prior written permission.
+
 
 require.config({
 
@@ -26,6 +39,8 @@ require.config({
         'SecondLevelDomains': 'thirdparty/URIjs/SecondLevelDomains',
         'IPv6': 'thirdparty/URIjs/IPv6',
         'remotestorage' : 'thirdparty/remotestorage',
+        'jquery_hammer' : 'thirdparty/jquery.hammer',
+        'hammer' : 'thirdparty/hammer',
         'Readium': 'Readium',
         'inflate' : 'thirdparty/inflate',
         'zip' : 'thirdparty/zip',
@@ -34,7 +49,8 @@ require.config({
         'crypto-sha1' : 'thirdparty/crypto-sha1',
         'i18n': '../i18n',
         'templates': '../templates',
-        'storage/StorageManager' : 'storage/StaticStorageManager'
+        'storage/StorageManager' : 'storage/StaticStorageManager',
+        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler'
     },
     hgn : {
         templateExtension : ""

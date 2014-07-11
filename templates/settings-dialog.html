@@ -56,6 +56,8 @@
                     <h5 id="setting-header-color-legend" class="setting-header">{{strings.i18n_text_and_background_color}}</h5>
                     <div role="buttongroup" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="row">
                         
+                        <button role="button" data-theme="author-theme" tabindex="1000" title="{{strings.i18n_author_theme}}" aria-label="{{strings.i18n_author_theme}}" class="col-xs-8 col-xs-offset-2 theme-option author-theme clickable">{{strings.i18n_author_theme}}</button>
+                        
                         <button role="button" data-theme="default-theme" tabindex="1000" title="{{strings.i18n_black_and_white}}" aria-label="{{strings.i18n_black_and_white}}" class="col-xs-8 col-xs-offset-2 theme-option default-theme clickable">{{strings.i18n_black_and_white}}</button>
                         
                         <button role="button" data-theme="night-theme" tabindex="1000" title="{{strings.i18n_arabian_nights}} [{{keyboard.NightTheme}}]" aria-label="{{strings.i18n_arabian_nights}} [{{keyboard.NightTheme}}]" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable" >{{strings.i18n_arabian_nights}}</button> <!-- accesskey="{{keyboard.accesskeys.NightTheme}}" -->
@@ -69,18 +71,30 @@
 
                     <h5 id="setting-header-display-legend" class="setting-header">{{strings.i18n_display_format}}</h5>
                     
-                    <div role="radiogroup" class="row"> <!-- aria-labelledby="setting-header-display-legend" -->
-                        <div role="radio" id="one-up-option" class="col-xs-2 col-xs-offset-4">
+                    <div role="radiogroup" class="row" style="width:100%;text-align:center;"> <!-- aria-labelledby="setting-header-display-legend" -->
+
+                        <div role="radio" id="spread-default-option"
+                        style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="display-format" value="single" type="radio" id="spread-default-radio"/>
+                            <label style="" for="spread-default-radio" class="underlinedLabel">
+                                {{strings.i18n_spread_auto}}
+                            </label>
+                        </div>
+
+
+                        <div role="radio" id="one-up-option"
+                        style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
                             
                             <input tabindex="1000" name="display-format" value="single" type="radio" id="single-page-radio" />
-                                            <label for="single-page-radio">
+                                            <label for="single-page-radio" class="underlinedLabel">
                                             <img src="images/ico_singlepage_up.png" alt="{{strings.i18n_display_format}} {{strings.i18n_single_pages}}"/>
                                             </label>
                         </div>
-                        <div role="radio" id="two-up-option" class="col-xs-2">
+                        <div role="radio" id="two-up-option"
+                        style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
                             
                                 <input tabindex="1000" name="display-format" value="double" type="radio" id="double-page-radio" />
-                                            <label for="double-page-radio">
+                                            <label for="double-page-radio" class="underlinedLabel">
                                             <img src="images/ico_doublepage_up.png" alt="{{strings.i18n_display_format}} {{strings.i18n_double_pages}}">
                                             </label>
                         </div>
@@ -90,14 +104,72 @@
                     
                     <div role="radiogroup" class="row" style="width:100%;text-align:center;">
                         
-                        <div role="radio" id="scroll-default-option" style="vertical-align:middle;width:30%;display:inline-block;position:relative;"><input style="" tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-default-radio"/><label style="" for="scroll-default-radio"><span style="color:transparent;width:1px;height:1px;position:absolute;">{{strings.i18n_scroll_mode}}: </span> <span style="font-size:150%;color:#888888;" class="glyphicon" aria-hidden="true"> </span> {{strings.i18n_scroll_mode_default}}</label></div>
+                        <div role="radio" id="scroll-default-option" style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-default-radio"/>
+                            <label style="" for="scroll-default-radio" class="underlinedLabel">
+                                {{strings.i18n_scroll_mode_auto}}
+                            </label>
+                        </div>
                         
-                        <div role="radio" id="scroll-doc-option" style="vertical-align:middle;width:30%;display:inline-block;position:relative;"><input style="" tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-doc-radio"/><label style="" for="scroll-doc-radio"><span style="color:transparent;width:1px;height:1px;position:absolute;">{{strings.i18n_scroll_mode}}: </span> <span style="font-size:150%;color:#888888;" class="glyphicon glyphicon-file" aria-hidden="true"></span> {{strings.i18n_scroll_mode_doc}}</label></div>
+                        <div role="radio" id="scroll-doc-option" style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-doc-radio"/>
+                            <label style="" for="scroll-doc-radio" class="underlinedLabel">
+                                <span style="font-size:150%;color:#888888;" class="glyphicon glyphicon-file" aria-hidden="true"></span> {{strings.i18n_scroll_mode_doc}}
+                            </label>
+                        </div>
                         
-                        <div role="radio" id="scroll-continuous-option" style="vertical-align:middle;width:30%;display:inline-block;position:relative;"><input style="" tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-continuous-radio"/><label style="" for="scroll-continuous-radio"><span style="color:transparent;width:1px;height:1px;position:absolute;">{{strings.i18n_scroll_mode}}: </span> <span style="font-size:150%;color:#888888;" class="glyphicon glyphicon-road" aria-hidden="true"></span> {{strings.i18n_scroll_mode_continuous}}</label></div>
+                        <div role="radio" id="scroll-continuous-option" style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="scrolling" value="single" type="radio" id="scroll-continuous-radio"/>
+                            <label style="" for="scroll-continuous-radio" class="underlinedLabel">
+                                <span style="font-size:150%;color:#888888;" class="glyphicon glyphicon-road" aria-hidden="true"></span> {{strings.i18n_scroll_mode_continuous}}
+                            </label>
+                        </div>
                         
                     </div>
 
+                    <h5 hiddenx="hidden" id="setting-header-pageTransition-legend" class="setting-header">{{strings.i18n_page_transition}}</h5>
+                    
+                    <div hiddenx="hidden" role="radiogroup" class="row" style="width:100%;text-align:center;">
+                        
+                        <div role="radio" id="pageTransition-none-option" style="vertical-align:middle;width:15%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="pageTransition" value="single" type="radio" id="pageTransition-none-radio"/>
+                            <label style="" for="pageTransition-none-radio" class="underlinedLabel">
+                                {{strings.i18n_page_transition_none}}
+                            </label>
+                        </div>
+                        
+                        <div role="radio" id="pageTransition-1-option" style="vertical-align:middle;width:15%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="pageTransition" value="single" type="radio" id="pageTransition-1-radio"/>
+                            <label style="" for="pageTransition-1-radio" class="underlinedLabel">
+                                {{strings.i18n_page_transition_fade}}
+                            </label>
+                        </div>
+                        
+                        <div role="radio" id="pageTransition-2-option" style="vertical-align:middle;width:15%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="pageTransition" value="single" type="radio" id="pageTransition-2-radio"/>
+                            <label style="" for="pageTransition-2-radio" class="underlinedLabel">
+                                {{strings.i18n_page_transition_slide}}
+                            </label>
+                        </div>
+                        
+                        <div role="radio" id="pageTransition-3-option" style="vertical-align:middle;width:15%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="pageTransition" value="single" type="radio" id="pageTransition-3-radio"/>
+                            <label style="" for="pageTransition-3-radio" class="underlinedLabel">
+                                {{strings.i18n_page_transition_swoosh}}
+                            </label>
+                        </div>
+                        
+                        <div role="radio" id="pageTransition-4-option" style="vertical-align:middle;width:15%;display:inline-block;position:relative;">
+                            <input style="" tabindex="1000" name="pageTransition" value="single" type="radio" id="pageTransition-4-radio"/>
+                            <label style="" for="pageTransition-4-radio" class="underlinedLabel">
+                                {{strings.i18n_page_transition_butterfly}}
+                            </label>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    
                     </div>
                        <div id="tab-keyboard" class="tab-pane">
 
