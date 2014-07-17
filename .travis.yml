@@ -16,24 +16,30 @@ install: npm install
 before_script:
     - pwd
     - git status
+#    - git fetch origin develop
+    - git fetch
     - git branch -avv
-    - git fetch origin develop
-    - git checkout -t origin/develop
+#    - git checkout -t origin/develop
+    - git checkout develop
     - git pull origin develop
     - git status
     - cd readium-js
     - git status
+#    - git fetch origin develop
+    - git fetch
     - git branch -avv
-    - git fetch origin develop
-    - git checkout -t origin/develop
+#    - git checkout -t origin/develop
+    - git checkout develop
     - git pull origin develop
     - git status
     - cd ..
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
     - git status
+#    - git fetch origin develop
+    - git fetch
     - git branch -avv
-    - git fetch origin develop
-    - git checkout -t origin/develop
+#    - git checkout -t origin/develop
+    - git checkout develop
     - git pull origin develop
     - git status
     - cd -
@@ -51,7 +57,7 @@ after_script:
     - cd ..
     - git config --global user.email "daniel.weck@gmail.com"
     - git config --global user.name "Daniel Weck (Travis CI)"
-    - git commit -m "Travis $(date '+%m/%d/%y %H:%M')"
+    - git commit -m "Travis CI $(date '+%m/%d/%y %H:%M')"
     - git log
     - git reflog
     - git status
