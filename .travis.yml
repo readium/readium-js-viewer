@@ -15,6 +15,7 @@ before_install:
 install: npm install
 before_script:
     - pwd
+    - git config -l
     - git status
     - git branch -avv
     - git remote update
