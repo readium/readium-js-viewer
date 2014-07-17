@@ -52,4 +52,5 @@ after_script:
     - git log
     - git reflog
     - git status
+
 #    - git push "$REPO_URL" master | grep -v http
