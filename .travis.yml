@@ -24,14 +24,16 @@ before_script:
     - git fetch origin develop:origin/develop
     - git branch -avv
     - git remote show origin
-    - git checkout develop
-#    - git checkout -b develop --track origin/develop
+#    - git checkout develop
+#    - git checkout --track origin/develop
+    - git checkout -b develop --track origin/develop
 #    - git checkout -b develop
 #    - git reset --hard origin/develop
     - git branch -avv
     - git pull origin develop
     - git status
     - cd readium-js
+    - pwd
     - git status
     - git branch -avv
     - git remote update
@@ -40,7 +42,8 @@ before_script:
     - git fetch origin develop:origin/develop
     - git branch -avv
     - git remote show origin
-    - git checkout develop
+#    - git checkout develop
+    - git checkout --track origin/develop
 #    - git checkout -b develop --track origin/develop
 #    - git checkout -b develop
 #    - git reset --hard origin/develop
@@ -49,6 +52,7 @@ before_script:
     - git status
     - cd ..
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
+    - pwd
     - git status
     - git branch -avv
     - git remote update
@@ -57,7 +61,8 @@ before_script:
     - git fetch origin develop:origin/develop
     - git branch -avv
     - git remote show origin
-    - git checkout develop
+#    - git checkout develop
+    - git checkout --track origin/develop
 #    - git checkout -b develop --track origin/develop
 #    - git checkout -b develop
 #    - git reset --hard origin/develop
