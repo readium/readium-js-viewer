@@ -17,14 +17,16 @@ before_script:
     - pwd
     - git status
     - git branch -avv
-    - git fetch --all && git checkout --track origin/develop
+    - git remote -v
+    - git fetch origin && git checkout --track origin/develop
     - git branch -avv
     - git pull origin develop
     - git status
     - cd readium-js
     - git status
     - git branch -avv
-    - git fetch --all && git checkout --track origin/develop
+    - git remote -v
+    - git fetch origin && git checkout --track origin/develop
     - git branch -avv
     - git pull origin develop
     - git status
@@ -32,7 +34,8 @@ before_script:
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
     - git status
     - git branch -avv
-    - git fetch --all && git checkout --track origin/develop
+    - git remote -v
+    - git fetch origin && git checkout --track origin/develop
     - git branch -avv
     - git pull origin develop
     - git status
