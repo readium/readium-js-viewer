@@ -16,30 +16,24 @@ install: npm install
 before_script:
     - pwd
     - git status
-#    - git fetch origin develop
-    - git fetch
+    - git fetch --all
     - git branch -avv
-#    - git checkout -t origin/develop
-    - git checkout develop
+    - git checkout --track origin/develop
     - git pull origin develop
     - git status
     - cd readium-js
     - git status
-#    - git fetch origin develop
-    - git fetch
+    - git fetch --all
     - git branch -avv
-#    - git checkout -t origin/develop
-    - git checkout develop
+    - git checkout --track origin/develop
     - git pull origin develop
     - git status
     - cd ..
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
     - git status
-#    - git fetch origin develop
-    - git fetch
+    - git fetch --all
     - git branch -avv
-#    - git checkout -t origin/develop
-    - git checkout develop
+    - git checkout --track origin/develop
     - git pull origin develop
     - git status
     - cd -
