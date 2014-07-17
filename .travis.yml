@@ -26,6 +26,8 @@ before_script:
     - git status
     - cd readium-js
     - pwd
+    - npm install -g grunt-cli
+    - npm install
     - git remote update
     - git remote -v
     - git checkout develop
@@ -59,8 +61,7 @@ after_script:
     - git config --global user.email "daniel.weck@gmail.com"
     - git config --global user.name "Daniel Weck (Travis CI)"
     - git commit -m "Travis CI $(date '+%m/%d/%y %H:%M')"
-    - git log
-    - git reflog
+#    - git log
+#    - git reflog
     - git status
-
 #    - git push "$REPO_URL" develop | grep -v http
