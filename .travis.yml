@@ -24,7 +24,8 @@ before_script:
     - git fetch origin develop:origin/develop
     - git branch -avv
     - git remote show origin
-    - git checkout -b develop --track origin/develop
+    - git checkout develop
+#    - git checkout -b develop --track origin/develop
 #    - git checkout -b develop
 #    - git reset --hard origin/develop
     - git branch -avv
@@ -39,7 +40,8 @@ before_script:
     - git fetch origin develop:origin/develop
     - git branch -avv
     - git remote show origin
-    - git checkout -b develop --track origin/develop
+    - git checkout develop
+#    - git checkout -b develop --track origin/develop
 #    - git checkout -b develop
 #    - git reset --hard origin/develop
     - git branch -avv
@@ -55,7 +57,8 @@ before_script:
     - git fetch origin develop:origin/develop
     - git branch -avv
     - git remote show origin
-    - git checkout -b develop --track origin/develop
+    - git checkout develop
+#    - git checkout -b develop --track origin/develop
 #    - git checkout -b develop
 #    - git reset --hard origin/develop
     - git branch -avv
