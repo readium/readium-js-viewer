@@ -17,6 +17,7 @@ before_script:
     - pwd
     - git status
     - git branch -avv
+    - git remote update
     - git remote -v
     - git remote show origin
     - git fetch origin
@@ -30,6 +31,7 @@ before_script:
     - cd readium-js
     - git status
     - git branch -avv
+    - git remote update
     - git remote -v
     - git remote show origin
     - git fetch origin
@@ -42,6 +44,7 @@ before_script:
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
     - git status
     - git branch -avv
+    - git remote update
     - git remote -v
     - git remote show origin
     - git fetch origin
