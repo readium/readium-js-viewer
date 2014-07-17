@@ -20,11 +20,12 @@ before_script:
     - git remote update
     - git remote -v
     - git remote show origin
-    - git fetch origin
+    - git fetch origin develop:origin/develop
     - git branch -avv
-#    - git checkout -b develop --track origin/develop
-    - git checkout -b develop
-    - git reset --hard origin/develop
+    - git remote show origin
+    - git checkout -b develop --track origin/develop
+#    - git checkout -b develop
+#    - git reset --hard origin/develop
     - git branch -avv
     - git pull origin develop
     - git status
@@ -34,11 +35,12 @@ before_script:
     - git remote update
     - git remote -v
     - git remote show origin
-    - git fetch origin
+    - git fetch origin develop:origin/develop
     - git branch -avv
-#    - git checkout -b develop --track origin/develop
-    - git checkout -b develop
-    - git reset --hard origin/develop
+    - git remote show origin
+    - git checkout -b develop --track origin/develop
+#    - git checkout -b develop
+#    - git reset --hard origin/develop
     - git branch -avv
     - git pull origin develop
     - git status
@@ -49,11 +51,12 @@ before_script:
     - git remote update
     - git remote -v
     - git remote show origin
-    - git fetch origin
+    - git fetch origin develop:origin/develop
     - git branch -avv
-#    - git checkout -b develop --track origin/develop
-    - git checkout -b develop
-    - git reset --hard origin/develop
+    - git remote show origin
+    - git checkout -b develop --track origin/develop
+#    - git checkout -b develop
+#    - git reset --hard origin/develop
     - git branch -avv
     - git pull origin develop
     - git status
