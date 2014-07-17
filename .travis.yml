@@ -14,59 +14,33 @@ before_install:
     - npm install -g grunt-cli
 install: npm install
 before_script:
-    - pwd
     - git config -l
-    - git status
-    - git branch -avv
+    - pwd
     - git remote update
     - git remote -v
-    - git remote show origin
     - git fetch origin develop:origin/develop
+    - git checkout -b develop --track origin/develop
     - git branch -avv
     - git remote show origin
-#    - git checkout develop
-#    - git checkout --track origin/develop
-    - git checkout -b develop --track origin/develop
-#    - git checkout -b develop
-#    - git reset --hard origin/develop
-    - git branch -avv
     - git pull origin develop
     - git status
     - cd readium-js
     - pwd
-    - git status
-    - git branch -avv
     - git remote update
     - git remote -v
-    - git remote show origin
-#    - git fetch origin develop:origin/develop
-    - git branch -avv
-#    - git remote show origin
     - git checkout develop
-#    - git checkout --track origin/develop
-#    - git checkout -b develop --track origin/develop
-#    - git checkout -b develop
-#    - git reset --hard origin/develop
     - git branch -avv
+    - git remote show origin
     - git pull origin develop
     - git status
     - cd ..
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
     - pwd
-    - git status
-    - git branch -avv
     - git remote update
     - git remote -v
-    - git remote show origin
-    - git fetch origin develop:origin/develop
+    - git checkout develop
     - git branch -avv
     - git remote show origin
-#    - git checkout develop
-    - git checkout --track origin/develop
-#    - git checkout -b develop --track origin/develop
-#    - git checkout -b develop
-#    - git reset --hard origin/develop
-    - git branch -avv
     - git pull origin develop
     - git status
     - cd -
