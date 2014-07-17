@@ -1,0 +1,55 @@
+#env:
+#  global:
+#    - secure: "c9B/oOzXH5e/lmosV7Ug7F8R1HZPNoSZQrYEj+f5VX9PDs6Lxo0t0agg43epT9NDBN5i+CbL0AR7SbD3gpd6VkYBr7JT64IVhQrF2xEwXuJ0NxnF4PazH5ONRm2guHAvTp3JpozyviCrWJ17IpC81R4VeZTuo5wGMrYDy+xs1O8Xx="
+branches:
+  only:
+  - feature/travis
+language: node_js
+node_js:
+  - "0.10"
+git:
+  submodules: false
+before_install:
+    - git submodule update --init --recursive
+    - npm install -g grunt-cli
+install: npm install
+before_script:
+    - pwd
+    - git info
+    - git status
+    - git branch -avv
+    - git checkout develop
+    - git pull origin develop
+    - cd readium-js
+    - git info
+    - git status
+    - git branch -avv
+    - git checkout develop
+    - git pull origin develop
+    - cd ..
+    - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
+    - git info
+    - git status
+    - git branch -avv
+    - git checkout develop
+    - git pull origin develop
+    - cd -
+    - pwd
+    - grunt clean
+script:
+    - grunt update-readium
+    - grunt chromeApp
+    - grunt cloudReader
+    - grunt epubReadingSystem
+after_script:
+    - cd build
+    - pwd
+    - ls -als
+    - cd ..
+    - git config --global user.email "daniel.weck@gmail.com"
+    - git config --global user.name "Daniel Weck (Travis CI)"
+    - git commit -m "Travis $(date '+%m/%d/%y %H:%M')"
+    - git log
+    - git reflog
+    - git status
+#    - git push "$REPO_URL" master | grep -v http
