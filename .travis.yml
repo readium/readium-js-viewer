@@ -17,19 +17,22 @@ before_script:
     - pwd
     - git status
     - git branch -avv
-    - git checkout develop
+    - git fetch origin develop && git checkout develop
     - git pull origin develop
+    - git status
     - cd readium-js
     - git status
     - git branch -avv
-    - git checkout develop
+    - git fetch origin develop && git checkout develop
     - git pull origin develop
+    - git status
     - cd ..
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
     - git status
     - git branch -avv
-    - git checkout develop
+    - git fetch origin develop && git checkout develop
     - git pull origin develop
+    - git status
     - cd -
     - pwd
     - grunt clean
@@ -50,4 +53,4 @@ after_script:
     - git reflog
     - git status
 
-#    - git push "$REPO_URL" master | grep -v http
+#    - git push "$REPO_URL" develop | grep -v http
