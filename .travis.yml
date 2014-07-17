@@ -15,20 +15,17 @@ before_install:
 install: npm install
 before_script:
     - pwd
-    - git info
     - git status
     - git branch -avv
     - git checkout develop
     - git pull origin develop
     - cd readium-js
-    - git info
     - git status
     - git branch -avv
     - git checkout develop
     - git pull origin develop
     - cd ..
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
-    - git info
     - git status
     - git branch -avv
     - git checkout develop
