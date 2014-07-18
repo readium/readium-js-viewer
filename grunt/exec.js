@@ -25,7 +25,7 @@ module.exports = function(grunt) {
                 {
                     grunt.log.writeln("Git version update script: " + script);
                     
-                    return 'cd "' + folder + '" && source "update-version.sh"';
+                    return 'cd "' + folder + '" && . "./update-version.sh"';
                 }
                 else {
                     return 'echo "Git version update script not found?! ['+script+']"';
