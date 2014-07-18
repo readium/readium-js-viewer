@@ -22,8 +22,8 @@ before_install:
     - git pull origin develop
 #- git fetch
 #- git merge origin/develop
-    - git branch -avv
-    - git pull
+#- git branch -avv
+#- git pull
     - git status
     - git branch -avv
     - cd readium-js
