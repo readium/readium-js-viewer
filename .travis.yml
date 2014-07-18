@@ -20,8 +20,8 @@ before_install:
     - git branch -avv
     - git remote show origin
     - git pull origin develop
-    - git fetch
-    - git merge origin/develop
+#- git fetch
+#- git merge origin/develop
     - git branch -avv
     - git pull
     - git status
