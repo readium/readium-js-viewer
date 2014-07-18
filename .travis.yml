@@ -21,7 +21,7 @@ before_install:
     - git remote show origin
     - git pull origin develop
     - git fetch
-    - git merge origin develop
+    - git merge origin/develop
     - git branch -avv
     - git pull
     - git status
