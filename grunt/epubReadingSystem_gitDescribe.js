@@ -36,14 +36,16 @@ module.exports = function(grunt) {
         //grunt.log.writeln("module: " + module);
 
         //TODO: decide whether to grab info from package.json, or from the computed module info (in which case version comes from Git revision)
-        var packageJson = fullPath + '/package.json';
-        if (grunt.file.exists(packageJson)) {
-            var pack = grunt.file.readJSON(packageJson);
-            module.name = pack.name;
-            module.version = pack.version;
+        if (false) {
+            var packageJson = fullPath + '/package.json';
+            if (grunt.file.exists(packageJson)) {
+                var pack = grunt.file.readJSON(packageJson);
+                module.name = pack.name;
+                module.version = pack.version;
 
-            if (pack.title || pack.description) {
-                module.description = pack.title + " -- " + pack.description;
+                if (pack.title || pack.description) {
+                    module.description = pack.title + " -- " + pack.description;
+                }
             }
         }
 
@@ -61,16 +63,26 @@ module.exports = function(grunt) {
             module["url_tag"] = module.url + "releases/tag/" + rev.tag;
             module["url_hash"] = module.url + "tree/" + rev.object;
 
-            module.version = rev.tag;
-            module.hash = rev.object;
+            // see exec:gitVersionUpdate
+            //module.version = rev.tag + "-" + rev.since + "-" + rev.object;
+            //module.hash = rev.object;
+
+            if (module.hash.indexOf(rev.object) !== 0)
+            {
+                grunt.log.writeln("Git hash differ?! " + rev.object + " != " + module.hash);
+            }
+
+            if (module.version.indexOf(rev.tag) !== 0)
+            {
+                grunt.log.writeln("Git tag differ?! " + rev.tag + " != " + module.version);
+            }
 
             module.modules = module.modules;
         });
 
         grunt.config.set(["git-describe", "options", "cwd"], fullPath);
         grunt.task.run('git-describe');
-
     });
-
+    
     return {};
 };

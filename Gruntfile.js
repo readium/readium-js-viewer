@@ -18,7 +18,8 @@ module.exports = function(grunt) {
     var config = {
         // top-level task options, if needed.
     };
-
+    
+    grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-cssmin');

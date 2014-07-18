@@ -31,12 +31,13 @@ module.exports = function(grunt) {
                         if (typeof module === "string") {
                             var fullPath = basePath + "/" + json[prop];
 
-                            var moduleJson = require(fullPath);
-                            json[prop][i] = moduleJson;
-
                             var slash = fullPath.lastIndexOf("/");
                             var rebased = fullPath.substr(0, slash);
-
+                            
+                            grunt.task.run('exec:gitVersionUpdate:' + rebased);
+                            
+                            var moduleJson = require(fullPath);
+                            json[prop][i] = moduleJson;
 
                             grunt.option('epubReadingSystem_moduleMap_' + rebased, json[prop][i]);
                             //grunt.config.set(["git-describe", "options", "moduleMap", rebased], json[prop][i]);
