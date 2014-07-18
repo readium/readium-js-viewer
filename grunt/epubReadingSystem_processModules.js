@@ -34,8 +34,25 @@ module.exports = function(grunt) {
                             var slash = fullPath.lastIndexOf("/");
                             var rebased = fullPath.substr(0, slash);
                             
+                            // Async child process!
                             grunt.task.run('exec:gitVersionUpdate:' + rebased);
+                            // grunt.util.spawn({
+                            //     cmd: '...',
+                            //     args: ['...'],
+                            //     opts: { stdio: 'inherit' }
+                            // },
+                            // function(error, result, code) {
+                                //...
+                            // });
                             
+                            // TODO: SUPER HACK!!!! (sleep(milliseconds))
+                            var start = new Date().getTime();
+                            while (true) {
+                                if ((new Date().getTime() - start) > 1500) {
+                                  break;
+                                }
+                            }
+                              
                             var moduleJson = require(fullPath);
 
                             grunt.log.writeln("Git describe: " + moduleJson.version);
