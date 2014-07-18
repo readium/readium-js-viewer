@@ -37,8 +37,12 @@ module.exports = function(grunt) {
                             grunt.task.run('exec:gitVersionUpdate:' + rebased);
                             
                             var moduleJson = require(fullPath);
-                            json[prop][i] = moduleJson;
 
+                            grunt.log.writeln("Git describe: " + moduleJson.version);
+                            grunt.log.writeln("Git hash: " + moduleJson.hash);
+
+                            json[prop][i] = moduleJson;
+                            
                             grunt.option('epubReadingSystem_moduleMap_' + rebased, json[prop][i]);
                             //grunt.config.set(["git-describe", "options", "moduleMap", rebased], json[prop][i]);
                             grunt.task.run('epubReadingSystem_gitDescribe:' + rebased);

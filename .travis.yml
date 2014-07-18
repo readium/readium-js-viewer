@@ -62,10 +62,10 @@ install: npm install
 before_script:
     - grunt clean
 script:
+    - grunt epubReadingSystem
     - grunt update-readium
     - grunt chromeApp
     - grunt cloudReader
-    - grunt epubReadingSystem
 after_script:
     - cd build
     - pwd
