@@ -24,6 +24,7 @@ before_script:
     - git remote show origin
     - git pull origin develop
     - git status
+    - git branch -avv
     - cd readium-js
     - pwd
     - npm install -g grunt-cli
@@ -35,6 +36,7 @@ before_script:
     - git remote show origin
     - git pull origin develop
     - git status
+    - git branch -avv
     - cd ..
     - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
     - pwd
@@ -45,6 +47,7 @@ before_script:
     - git remote show origin
     - git pull origin develop
     - git status
+    - git branch -avv
     - cd -
     - pwd
     - grunt clean
