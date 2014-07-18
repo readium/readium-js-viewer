@@ -10,12 +10,9 @@ node_js:
 git:
   submodules: false
 before_install:
-    - git submodule update --init --recursive
-    - npm install -g grunt-cli
-install: npm install
-before_script:
     - git config -l
     - pwd
+    - git submodule update --init --recursive
     - git remote update
     - git remote -v
     - git fetch origin develop:origin/develop
@@ -54,6 +51,15 @@ before_script:
     - git branch -avv
     - cd -
     - pwd
+    - cd readium-js
+    - pwd
+    - npm install -g grunt-cli
+    - npm install
+    - cd -
+    - pwd
+    - npm install -g grunt-cli
+install: npm install
+before_script:
     - grunt clean
 script:
     - grunt update-readium
