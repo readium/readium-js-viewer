@@ -6,9 +6,53 @@
         </div> -->
 
             <button type="button" style="background: none; border: none; padding: 0; margin: 0;" class="read" data-book="{{epub.rootUrl}}"  aria-label="({{count.n}}) {{epub.title}}" title="({{count.n}}) {{epub.title}}"  tabindex="{{count.tabindex}}">
-        {{#epub.coverHref}}
-        <img aria-hidden="true" class="img-responsive" src="{{ epub.coverHref }}" alt="" /> 
-        {{/epub.coverHref}}
+            
+                {{#epub.coverHref}}
+        <div aria-hidden="true" class="no-cover" style="-webkit-background-repeat:no-repeat;
+        -webkit-background-clip:border-box;
+        -webkit-background-origin:padding-box;
+        -webkit-background-position:center;
+        -webkit-background-attachment:scroll;
+        -webkit-background-image:url({{ epub.coverHref }});
+        -webkit-background-size:contain;
+
+        -ms-background-repeat:no-repeat;
+        -ms-background-clip:border-box;
+        -ms-background-origin:padding-box;
+        -ms-background-position:center;
+        -ms-background-attachment:scroll;
+        -ms-background-image:url({{ epub.coverHref }});
+        -ms-background-size:contain;
+
+
+        -moz-background-repeat:no-repeat;
+        -moz-background-clip:border-box;
+        -moz-background-origin:padding-box;
+        -moz-background-position:center;
+        -moz-background-attachment:scroll;
+        -moz-background-image:url({{ epub.coverHref }});
+        -moz-background-size:contain;
+
+
+        -o-background-repeat:no-repeat;
+        -o-background-clip:border-box;
+        -o-background-origin:padding-box;
+        -o-background-position:center;
+        -o-background-attachment:scroll;
+        -o-background-image:url({{ epub.coverHref }});
+        -o-background-size:contain;
+
+
+        background-repeat:no-repeat;
+        background-clip:border-box;
+        background-origin:padding-box;
+        background-position:center;
+        background-attachment:scroll;
+        background-image:url({{ epub.coverHref }});
+        background-size:contain;"><p></p></div>
+                {{/epub.coverHref}}
+            
+                
         {{^epub.coverHref}}
         <div aria-hidden="true" class="no-cover" style="background-image: url('{{noCoverBackground}}')"><p>{{epub.title}}</p></div>
         {{/epub.coverHref}}
