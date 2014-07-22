@@ -3,6 +3,6 @@
     "description": "ReadiumJS viewer ('Offline Chrome Extension / App' + 'Online Cloud Reader')",
     "url": "https://github.com/readium/readium-js-viewer/",
     "modules": [ "readium-js/readium-module.json" ],
-    "version": "Release-0.10-399-g74db923",
-    "hash": "74db923c1213adab09fc15793aa5a8c5809992b7"
+    "version": "Release-0.10-430-gf5f4ced",
+    "hash": "f5f4ced0b10bf1f71fba4d611e30977490442615"
 }
