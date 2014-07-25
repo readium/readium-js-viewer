@@ -155,6 +155,23 @@ body.list-view #app-container .library-item .no-cover{
 	padding: 5px;
 	font-size: 19px;
 }
+
+.has-cover{
+	
+	height: 190px;
+	width: 142px;
+	padding: 5px;
+	font-size: 19px;
+    
+    background-repeat:no-repeat;
+    background-clip:border-box;
+    background-origin:padding-box;
+    background-position:center;
+    background-attachment:scroll;
+    
+    background-size:contain;
+}
+
 body.list-view .buttons{
 	margin-top: 10px;
 }
