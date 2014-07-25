@@ -57,7 +57,7 @@ iframe {
 #reflowable-book-frame {
     position: absolute !important;
     left:0;
-    top:0;
+    top:10px;
     right:0;
     bottom:0;
 }
