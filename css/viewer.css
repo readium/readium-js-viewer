@@ -940,9 +940,6 @@ box-shadow: 0 0 0 1px #6fb5f1;
   position: absolute;
 
   top: 50%;
-  
-top: 20%;
-bottom: 20%;
 
   opacity: 0.3;
   
@@ -953,6 +950,7 @@ bottom: 20%;
   padding: 0;
   margin: 0;
   padding-top: 0.2em;
+  padding-bottom: 0.44em;
 
   font-size: 360%;
 
