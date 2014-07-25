@@ -37,7 +37,8 @@
 	position: absolute;
 	bottom: 0px;
 	width: 100%;
-	text-align: center;
+	min-width: 150%;
+	text-align: left;
 }
 
 .library-item img{
@@ -81,7 +82,7 @@
 	max-width: 370px;
 }
 .details-body{
-	height: 240px;
+	height: 100%;
 }
 
 .title, .author{
