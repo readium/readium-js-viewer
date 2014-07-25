@@ -19,7 +19,6 @@ module.exports = function(grunt) {
         // top-level task options, if needed.
     };
     
-    grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -29,7 +28,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-run-grunt');
     grunt.loadNpmTasks('grunt-concurrent');
-    grunt.loadNpmTasks('grunt-git-describe');
     grunt.loadNpmTasks('load-grunt-config');
 
     var path = require('path');
