@@ -6,8 +6,8 @@
   width: 100%;
   overflow: hidden;
 
-  border-left: 48px solid transparent;
-  border-right: 48px solid transparent;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
 }
 
 #about-dialog div{
@@ -743,21 +743,6 @@ box-shadow: 0 0 0 1px #6fb5f1;
   text-align: right;
 }
 
-@media (max-width:768px){
-  .navbar .btn-group > .btn.icon-full-screen{
-    display:none;
-  }
-  #epub-reader-frame
-  {
-      border-left: 30px solid transparent;
-      border-right: 30px solid transparent;
-  }
-  .page-switch-overlay-icon
-  {
-      font-size: 30px;
-  }
-}
-
 #keyboard-button {
   text-align: center;
   
@@ -1337,4 +1322,21 @@ ul.nav-tabs li:not(.active) button:hover
     border-radius: 0.5em !important;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
+}
+
+
+@media (max-width:768px){
+  .navbar .btn-group > .btn.icon-full-screen
+  {
+    display:none;
+  }
+  #epub-reader-frame
+  {
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+  }
+  .page-switch-overlay-icon
+  {
+      font-size: 30px;
+  }
 }
