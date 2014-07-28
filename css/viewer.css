@@ -5,6 +5,9 @@
   
   width: 100%;
   overflow: hidden;
+
+  border-left: 48px solid transparent;
+  border-right: 48px solid transparent;
 }
 #about-dialog div{
   text-align: center;
@@ -942,7 +945,8 @@ box-shadow: 0 0 0 1px #6fb5f1;
   display: block;
   position: absolute;
 
-  top: 50%;
+  top: 20%;
+  bottom: 20%;
 
   opacity: 0.3;
   
