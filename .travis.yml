@@ -14,9 +14,6 @@ install:
     - cd readium-js
     - pwd
     - npm install
-    - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
-    - pwd
-    - npm install
 before_script:
     - grunt clean
 script:
