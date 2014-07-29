@@ -245,6 +245,11 @@ describe("chrome extension tests", function() {
                   .frame()
                   .openSettingsDialog()
                   .execute('$("#two-up-option input").prop("checked", true)')
+                  .elementByCss('#settings-dialog .btn-primary')
+                  .click()
+                  .sleep(500)
+                  .frame('epubContentIframe')
+                  .execute('return document.querySelector("html").style.width')
                   .should.not.become(width);
               })
 
