@@ -14,6 +14,7 @@ install:
     - cd readium-js
     - pwd
     - npm install
+    - cd ..
 before_script:
     - grunt clean
 script:
