@@ -37,7 +37,7 @@ describe("chrome extension tests", function() {
   
   var openExtensionUrl = function(){
   	// this is necessary because it seems that chrome won't load the extension immediately after startup.
-  	return this.get(extensionUrl).sleep(500).get(extensionUrl);
+  	return this.get(extensionUrl).sleep(1000).get(extensionUrl);
   }
 
   wd.addPromiseChainMethod('addLibraryItem', config.chromeExtension ? addLibraryItemForApp : addLibraryItemForBrowser);
@@ -164,6 +164,7 @@ describe("chrome extension tests", function() {
               .elementByCss('.library-item button.read')
               .click()
               .waitForElementByCss('#epubContentIframe', asserters.isDisplayed , 10000)
+              .sleep(500)
               .frame('epubContentIframe')
               .waitForElementByCss('h1.title', asserters.isDisplayed , 10000)
               .frame()
@@ -173,7 +174,7 @@ describe("chrome extension tests", function() {
       return browser
               .elementByCss('#right-page-btn')
               .click()
-              .sleep(500)
+              .sleep(1000)
               .waitForElementByCss('#epubContentIframe', asserters.isDisplayed , 10000)
               .frame('epubContentIframe')
               .waitForElementByCss('h2.title', asserters.isDisplayed , 10000)
