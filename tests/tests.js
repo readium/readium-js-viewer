@@ -51,7 +51,7 @@ describe("chrome extension tests", function() {
       }
     }
     else{
-  	   browser = wd.promiseChainRemote();
+  	   browser = wd.promiseChainRemote(); 
     }
    
     return browser.init(config.browser);
