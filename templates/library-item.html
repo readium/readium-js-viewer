@@ -6,9 +6,12 @@
         </div> -->
 
             <button type="button" style="background: none; border: none; padding: 0; margin: 0;" class="read" data-book="{{epub.rootUrl}}"  aria-label="({{count.n}}) {{epub.title}}" title="({{count.n}}) {{epub.title}}"  tabindex="{{count.tabindex}}">
-        {{#epub.coverHref}}
-        <img aria-hidden="true" class="img-responsive" src="{{ epub.coverHref }}" alt="" /> 
-        {{/epub.coverHref}}
+            
+                {{#epub.coverHref}}
+        <div aria-hidden="true" class="no-cover has-cover" style="background-image:url({{ epub.coverHref }});"><p>&nbsp;</p></div>
+                {{/epub.coverHref}}
+            
+                
         {{^epub.coverHref}}
         <div aria-hidden="true" class="no-cover" style="background-image: url('{{noCoverBackground}}')"><p>{{epub.title}}</p></div>
         {{/epub.coverHref}}

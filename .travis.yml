@@ -1,0 +1,80 @@
+#env:
+#  global:
+#    - secure: "c9B/oOzXH5e/lmosV7Ug7F8R1HZPNoSZQrYEj+f5VX9PDs6Lxo0t0agg43epT9NDBN5i+CbL0AR7SbD3gpd6VkYBr7JT64IVhQrF2xEwXuJ0NxnF4PazH5ONRm2guHAvTp3JpozyviCrWJ17IpC81R4VeZTuo5wGMrYDy+xs1O8Xx="
+branches:
+  only:
+  - feature/travis
+language: node_js
+node_js:
+  - "0.10"
+git:
+  submodules: false
+before_install:
+    - git config -l
+    - pwd
+    - git submodule update --init --recursive
+    - git remote update
+    - git remote -v
+    - git fetch origin develop:origin/develop
+    - git checkout -b develop --track origin/develop
+    - git branch -avv
+    - git remote show origin
+    - git pull origin develop
+#- git fetch
+#- git merge origin/develop
+#- git branch -avv
+#- git pull
+    - git status
+    - git branch -avv
+    - cd readium-js
+    - pwd
+    - npm install -g grunt-cli
+    - npm install
+    - git remote update
+    - git remote -v
+    - git checkout develop
+    - git branch -avv
+    - git remote show origin
+    - git pull origin develop
+    - git status
+    - git branch -avv
+    - cd ..
+    - cd readium-js/epub-modules/epub-renderer/src/readium-shared-js
+    - pwd
+    - git remote update
+    - git remote -v
+    - git checkout develop
+    - git branch -avv
+    - git remote show origin
+    - git pull origin develop
+    - git status
+    - git branch -avv
+    - cd -
+    - pwd
+    - cd readium-js
+    - pwd
+    - npm install -g grunt-cli
+    - npm install
+    - cd -
+    - pwd
+    - npm install -g grunt-cli
+install: npm install
+before_script:
+    - grunt clean
+script:
+#    - grunt epubReadingSystem
+    - grunt update-readium
+    - grunt chromeApp
+    - grunt cloudReader
+after_script:
+    - cd build
+    - pwd
+    - ls -als
+    - cd ..
+    - git config --global user.email "daniel.weck@gmail.com"
+    - git config --global user.name "Daniel Weck (Travis CI)"
+    - git commit -m "Travis CI $(date '+%m/%d/%y %H:%M')"
+#    - git log
+#    - git reflog
+    - git status
+#    - git push "$REPO_URL" develop | grep -v http
