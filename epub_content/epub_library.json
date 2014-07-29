@@ -1,10 +1,17 @@
-[
+[      
+
+{
+    "title" : "Edge-country-content",
+    "author" : "Adobe",
+    "coverHref" : "epub_content/Edge-country-content/OEBPS/image/203.png",
+    "packagePath" : "OEBPS/content.opf",
+    "rootUrl" : "epub_content/Edge-country-content"
+},
     {
-        "title" : "Accessible EPUB 3",
-        "author" : "Matt Garrish",
-        "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",
+        "title" : "epub3-accessibility-guidelines",
+        "author" : "IDPF Matt Garish",
         "packagePath" : "EPUB/package.opf",
-        "rootUrl" : "epub_content/accessible_epub_3"
+        "rootUrl" : "epub_content/epub3-accessibility-guidelines"
     },
     {
         "title" : "Page Blanche",
@@ -21,9 +28,315 @@
         "rootUrl" : "epub_content/moby_dick"
     },
     {
-        "title" : "A First Course in Linear Algebra",
-        "author" : "Robert A. Beezer",
+        "title" : "Accessible EPUB 3",
+        "author" : "Matt Garrish",
+        "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",
         "packagePath" : "EPUB/package.opf",
-        "rootUrl" : "epub_content/linear-algebra"
+        "rootUrl" : "epub_content/accessible_epub_3"
+    },
+    {
+        "title" : "Ripple's Effect",
+        "author" : "KiteReaders",
+        "coverHref" : "epub_content/ripplese_cbuscekev007pt0h/OEBPS/images/cover.jpg",
+        "packagePath" : "OEBPS/package.opf",
+        "rootUrl" : "epub_content/ripplese_cbuscekev007pt0h"
+    },
+
+    {
+        "title" : "Ladybug Girl",
+        "author" : "David Soman and Jacky Davis",
+        "coverHref" : "epub_content/ladybugg_cbuscepgi034l00e/OEBPS/images/0001.jpg",
+        "packagePath" : "OEBPS/package.opf",
+        "rootUrl" : "epub_content/ladybugg_cbuscepgi034l00e"
+    },
+    {
+        "title" : "Moby Dick MO",
+        "author" : "Herman Melville",
+        "coverHref" : "epub_content/moby-dick-MO-HACKED/OPS/images/9780316000000.jpg",
+        "packagePath" : "OPS/package.opf",
+        "rootUrl" : "epub_content/moby-dick-MO-HACKED"
+    },
+
+{
+    "title" : "SmokeTestFXL",
+    "author" : "Ric",
+    "coverHref" : "epub_content/SmokeTestFXL/images/EPUB-Logo-Smoke.png",
+    "packagePath" : "content.opf",
+    "rootUrl" : "epub_content/SmokeTestFXL"
+},
+
+{
+    "title" : "tiny3-J",
+    "author" : "Ric",
+    "packagePath" : "OPS/content.opf",
+    "rootUrl" : "epub_content/tiny3-J"
+},
+
+{
+    "title" : "ADE4 Japanese",
+    "author" : "Forum dude",
+    "packagePath" : "OEBPS/package.opf",
+    "rootUrl" : "epub_content/ADE4_9784865263282"
+},
+{
+    "title" : "LADY EPUB",
+    "author" : "TEST",
+    "packagePath" : "OEBPS/package.opf",
+    "rootUrl" : "epub_content/ladybugg_cbuscepgi034l00e.epub"
+},
+    {
+        "title" : "KOREAN android bug",
+        "author" : "Mingh",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/universal_book_sample"
+    },
+
+    {
+        "title" : "EPUB3 Sliderizer (current)",
+        "author" : "Daniel Weck",
+        "packagePath" : "epub/package.opf",
+        "rootUrl" : "epub_content/EPUB3"
+    },         
+    
+    {
+        "title" : "ibooksperfectcentering",
+        "author" : "Creativist",
+        "packagePath" : "OEBPS/content.opf",
+        "rootUrl" : "epub_content/ibooksperfectcentering"
+    },     
+    {
+        "title" : "wasteland-otf-obf-20120118",
+        "author" : "EPUB3 Sample",
+        "packagePath" : "EPUB/wasteland.opf",
+        "rootUrl" : "epub_content/wasteland-otf-obf-20120118"
+    },     
+    {
+        "title" : "wasteland-woff-obf-20120118",
+        "author" : "EPUB3 Sample",
+        "packagePath" : "EPUB/wasteland.opf",
+        "rootUrl" : "epub_content/wasteland-woff-obf-20120118"
+    },     
+    {
+        "title" : "2014_DemoAssets_Playfest_souvenir",
+        "author" : "Adobe InDesign",
+        "packagePath" : "OEBPS/content.opf",
+        "rootUrl" : "epub_content/2014_DemoAssets_Playfest_souvenir"
+    },     
+
+    {
+        "title" : "Tiny Moby",
+        "author" : "Ric",
+        "packagePath" : "OPS/package.opf",
+        "rootUrl" : "epub_content/Tiny-Moby-Obf"
+    }, 
+    {
+        "title" : "Japanese MyMedia",
+        "author" : "Sample",
+        "packagePath" : "OEBPS/mymedia_lite.opf",
+        "rootUrl" : "epub_content/mymedia_lite-20130621"
+    },    
+    
+    {
+        "title" : "Chimpanzee Obi audio",
+        "author" : "Obi audio-only",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/Chimpanzees_AudioOnly"
+    },    
+
+    {
+        "title" : "regime",
+        "author" : "Arabic",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/regime-anticancer-arabic-20130327"
+    },    
+    
+    {
+        "title" : "kusamakura",
+        "author" : "Japanese",
+        "packagePath" : "OPS/package.opf",
+        "rootUrl" : "epub_content/kusamakura-japanese-vertical-writing-20121124"
+    },
+    {
+        "title" : "Gon",
+        "author" : "Japanese",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/gon"
+    },
+
+{
+    "title" : "Alice 3",
+    "author" : "Ric",
+    "packagePath" : "content.opf",
+    "rootUrl" : "epub_content/alice3"
+},
+
+{
+    "title" : "Llama 1",
+    "author" : "Bluefire",
+    "packagePath" : "OEBPS/content.opf",
+    "rootUrl" : "epub_content/llamalla_cbuscepgi034l30h"
+},
+    {
+        "title" : "Llama 2",
+        "author" : "Bluefire",
+        "packagePath" : "OEBPS/content.opf",
+        "rootUrl" : "epub_content/llamalla_cbuscepgi034kw09"
+    },
+    
+{
+    "title" : "recollections-of-wartime",
+    "author" : "Azardi",
+    "packagePath" : "OPS/package.opf",
+    "rootUrl" : "epub_content/recollections-of-wartime"
+},
+    
+    {
+        "title" : "igp-year5-school-maths",
+        "author" : "Azardi",
+        "packagePath" : "OPS/package.opf",
+        "rootUrl" : "epub_content/igp-year5-school-maths"
+    },
+    
+    {
+        "title" : "PubCoder sample",
+        "author" : "PubCoder",
+        "packagePath" : "OEBPS/content.opf",
+        "rootUrl" : "epub_content/PubCoder_Example-Project"
+    },
+    {
+        "title" : "Structure and Interpretation of Computer Programs, Second Edition",
+        "author" : "Harold Abelson, Gerald Jay Sussman, Julie Sussman",
+        "packagePath" : "content.opf",
+        "rootUrl" : "epub_content/sicp"
+    },
+    {
+        "title" : "SpacePirates",
+        "author" : "LeaningA11y",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/SpacePirates"
+    },
+    {
+        "title" : "multiple_synchronization_granularity",
+        "author" : "DANIEL WECK",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/multiple_synchronization_granularity"
+    },
+    {
+        "title" : "DerAbenteuerlicheSimplicissimus",
+        "author" : "ReadBeyond Sync",
+        "packagePath" : "OEBPS/content.opf",
+        "rootUrl" : "epub_content/DerAbenteuerlicheSimplicissimus"
+    },
+
+    {
+        "title" : "rb_smil_emulator_1.11",
+        "author" : "Alberto Pettarin",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/rb_smil_emulator_1.11"
+    },
+    {
+        "title" : "EPUB3-Sliderizer_demo1",
+        "author" : "Daniel Weck",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/EPUB3-Sliderizer_demo1"
+    },
+    {
+        "title" : "EPUB3-Sliderizer_doc",
+        "author" : "Daniel Weck",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/EPUB3-Sliderizer_doc"
+    },
+    {
+        "title" : "EPUB3-Sliderizer_epubReadingSystem",
+        "author" : "Daniel Weck",
+        "packagePath" : "epub/package.opf",
+        "rootUrl" : "epub_content/EPUB3-Sliderizer_epubReadingSystem"
+    },
+    {
+        "title" : "EPUB3-Sliderizer_mo_cfi",
+        "author" : "Daniel Weck",
+        "packagePath" : "epub/package.opf",
+        "rootUrl" : "epub_content/EPUB3-Sliderizer_mo_cfi"
+    },
+
+    {
+        "title" : "EPUB3 TEST 120 (MO reflow)",
+        "author" : "EPUB TEST SUITE",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/epub30-test-0120"
+    },
+    {
+        "title" : "EPUB3 TEST 220 (MO fixed)",
+        "author" : "EPUB TEST SUITE",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/epub30-test-0220"
+    },
+    {
+        "title" : "epub30-test-0160",
+        "author" : "Daniel Weck",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/epub30-test-0160"
+    },
+    {
+        "title" : "pigs_en",
+        "author" : "Mayu",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/pigs_en"
+    },
+    {
+        "title" : "match_en",
+        "author" : "Mayu",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/match_en"
+    },
+    {
+        "title" : "diagram",
+        "author" : "DIAGRAM",
+        "packagePath" : "EPUB/content.opf",
+        "rootUrl" : "epub_content/diagram"
     }
+    ,
+        {
+            "title" : "moby-dick-mo-20120214",
+            "author" : "EPBU",
+            "packagePath" : "OPS/package.opf",
+            "rootUrl" : "epub_content/moby-dick-mo-20120214"
+        }
+        ,
+            {
+                "title" : "multiSynchExample",
+                "author" : "LearningA11y",
+                "packagePath" : "EPUB/package.opf",
+                "rootUrl" : "epub_content/multiSynchExample"
+            }
+            ,
+                {
+                    "title" : "wasteland-20120118",
+                    "author" : "EPUB3 samples",
+                    "packagePath" : "EPUB/wasteland.opf",
+                    "rootUrl" : "epub_content/wasteland-20120118"
+                }
+            ,
+                {
+                    "title" : "Audio_WAV",
+                    "author" : "Bluefire",
+                    "packagePath" : "EPUB/package.opf",
+                    "rootUrl" : "epub_content/Audio_WAV"
+                }
+            ,
+                {
+                    "title" : "Audio_AIFF",
+                    "author" : "Bluefire",
+                    "packagePath" : "EPUB/package.opf",
+                    "rootUrl" : "epub_content/Audio_AIFF"
+                }
+                ,
+                {
+                    "title" : "A First Course in Linear Algebra",
+                    "author" : "Robert A. Beezer",
+                    "packagePath" : "EPUB/package.opf",
+                    "rootUrl" : "epub_content/linear-algebra"
+                }
+
 ]
+

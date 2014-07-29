@@ -658,7 +658,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
 
 #btn-esc-audio
 {
-    margin-left: 0.5em;
+    margin-left: 0em;
 }
 
 #mo-highlighters
@@ -668,9 +668,10 @@ box-shadow: 0 0 0 1px #6fb5f1;
     display: inline-block;
     
     margin: 0;
-    margin-right: 1.5em;
+    margin-right: 0em;
     
     padding: 0.5em;
+    padding-right: 0;
 }
 .btn-mo-highlighter
 {
@@ -701,7 +702,7 @@ box-shadow: 0 0 0 1px #6fb5f1;
 
 #mo-highlighter-0
 {
-    width: 70px !important;
+    width: 60px !important;
     
     background-color: #4d4d4d !important;
     color: #e1e1e1 !important;
