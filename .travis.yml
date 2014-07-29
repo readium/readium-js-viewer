@@ -19,6 +19,7 @@ before_script:
     - grunt clean
 script:
     - grunt test_travis
+after_failure: cat ./sauce_connect.log
 env:
     global:
         - USE_SAUCE=true

@@ -3,7 +3,7 @@
 module.exports = function(grunt) {
 	return {
 		options: {
-	      timeout: 60000,
+	      timeout: 180000,
 	      ui: 'bdd'
 	    },
 
