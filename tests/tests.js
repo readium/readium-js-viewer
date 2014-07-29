@@ -34,6 +34,12 @@ describe("chrome extension tests", function() {
     return this.noop();
   }
 
+  var switchToReaderFrameOnTransition = function(){
+    return this
+            .waitFor(asserters.jsCondition('document.querySelectorAll("#reading-area .spinner").length == 0 && document.querySelectorAll("#epubContentIframe").length == 1', 10000))
+            .frame('epubContentIframe');
+
+  }
   
   var openExtensionUrl = function(){
   	// this is necessary because it seems that chrome won't load the extension immediately after startup.
@@ -42,6 +48,7 @@ describe("chrome extension tests", function() {
 
   wd.addPromiseChainMethod('addLibraryItem', config.chromeExtension ? addLibraryItemForApp : addLibraryItemForBrowser);
   wd.addPromiseChainMethod('openExtensionUrl', openExtensionUrl);
+  wd.addPromiseChainMethod('switchToReaderFrameOnTransition', switchToReaderFrameOnTransition);
 
   beforeEach(function() {
     if (process.env.USE_SAUCE){
@@ -53,8 +60,15 @@ describe("chrome extension tests", function() {
     else{
   	   browser = wd.promiseChainRemote(); 
     }
-   
-    return browser.init(config.browser);
+    
+
+    var retVal = browser.init(config.browser).setAsyncScriptTimeout(30000);;
+    if (process.env.TRAVIS_JOB_NUMBER){
+      return retVal.sauceJobUpdate({name: process.env.TRAVIS_JOB_NUMBER});
+    }
+    else{
+      return retVal;
+    }
   });
 
   afterEach(function() {
@@ -137,8 +151,7 @@ describe("chrome extension tests", function() {
         .click()
         .waitForElementByCss('.details-dialog button.read', asserters.isDisplayed , 10000)
         .click()
-        .waitForElementByCss('#epubContentIframe', asserters.isDisplayed , 10000)
-        .frame('epubContentIframe')
+        .switchToReaderFrameOnTransition()
         .waitForElementByCss('h1.title', asserters.isDisplayed , 10000)
         .text()
         .should.become('Accessible EPUB 3');
@@ -164,9 +177,7 @@ describe("chrome extension tests", function() {
               .addLibraryItem(testFile)
               .elementByCss('.library-item button.read')
               .click()
-              .waitForElementByCss('#epubContentIframe', asserters.isDisplayed , 10000)
-              .sleep(2000)
-              .frame('epubContentIframe')
+              .switchToReaderFrameOnTransition()
               .waitForElementByCss('h1.title', asserters.isDisplayed , 10000)
               .frame()
     });
@@ -175,9 +186,7 @@ describe("chrome extension tests", function() {
       return browser
               .elementByCss('#right-page-btn')
               .click()
-              .sleep(1000)
-              .waitForElementByCss('#epubContentIframe', asserters.isDisplayed , 10000)
-              .frame('epubContentIframe')
+              .switchToReaderFrameOnTransition()
               .waitForElementByCss('h2.title', asserters.isDisplayed , 10000)
               .text()
               .should.become('Preface');
@@ -193,9 +202,7 @@ describe("chrome extension tests", function() {
               .should.become('1. Introduction')
               .elementByCss('a[href="ch01.xhtml"]')
               .click()
-              .sleep(500)
-              .waitForElementByCss('#epubContentIframe', asserters.isDisplayed , 10000)
-              .frame('epubContentIframe')
+              .switchToReaderFrameOnTransition()
               .waitForElementByCss('#introduction h2.title')
               .text()
               .should.become('Chapter 1. Introduction');
