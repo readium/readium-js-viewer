@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     return {
         "default": 'concurrent:serverwatch',
 
-        "runserver": ['express', 'express-keepalive'],
+        "runserver": ['express:dev', 'express-keepalive'],
 
         "update-readium": ['run_grunt:readiumjs', 'copy:readiumjs'],
 
@@ -26,8 +26,15 @@ module.exports = function(grunt) {
         "cloudReaderWithEpub": ['clean:cloudReader', 'copy:cloudReader', 'copy:cloudReaderEpubContent', 'cssmin:cloudReader', 'requirejs:cloudReader'],
 
         //"test": ['selenium_start', 'chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp'],
+        "test_chromeApp" : ['chromeApp', 'env:chromeApp', 'simplemocha'],
 
-        "test_ng": ['selenium_start', 'chromeApp', 'copy:prepareChromeAppTests', 'simplemocha:chromeApp'],
+        "test_firefox" : ['selenium_start', 'cloudReaderWithEpub', 'express:test','env:ff', 'simplemocha'],
+
+        "test" : ['selenium_start', "test_chromeApp"],
+
+        "test_sauce" : ['env:sauce', 'chromeApp', 'crx', 'env:chromeApp', 'simplemocha'],
+
+        //"test_travis" : ['']
 
         "epubReadingSystem": ['epubReadingSystem_readJSON', 'epubReadingSystem_processModules', 'epubReadingSystem_writeJSON']
     };

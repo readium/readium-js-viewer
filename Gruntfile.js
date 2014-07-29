@@ -32,6 +32,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-simple-mocha');
     grunt.loadNpmTasks('load-grunt-config');
     grunt.loadNpmTasks('grunt-selenium-webdriver');
+    grunt.loadNpmTasks('grunt-env');
+    grunt.loadNpmTasks('grunt-crx');
 
     var path = require('path');
     var configs = require('load-grunt-config')(grunt, {

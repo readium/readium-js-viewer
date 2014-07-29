@@ -44,7 +44,15 @@ describe("chrome extension tests", function() {
   wd.addPromiseChainMethod('openExtensionUrl', openExtensionUrl);
 
   beforeEach(function() {
-  	browser = wd.promiseChainRemote();
+    if (process.env.USE_SAUCE){
+      browser = wd.promiseChainRemote("ondemand.saucelabs.com", 80, 'readium', 'b0dd7376-7731-47db-bed0-850912b75f2b');
+      if (process.env.TRAVIS_JOB_NUMBER){
+        config.browser["tunnel-identifier"] = process.env.TRAVIS_JOB_NUMBER;
+      }
+    }
+    else{
+  	   browser = wd.promiseChainRemote();
+    }
    
     return browser.init(config.browser);
   });
@@ -53,18 +61,22 @@ describe("chrome extension tests", function() {
     return browser.quit();
   });
 
-  if (config.chromeExtension)
-  it('confirm install and find url', function(){
-    var extensionsHome = 'chrome://extensions'
-    return browser.get(extensionsHome).sleep(500).get(extensionsHome)
-            .frame('extensions')
-            .elementsByCss('.extension-list-item-wrapper')
-            .second()
-            .getAttribute('id').then(function(id){
-              extensionUrl = 'chrome-extension://' + id + '/index.html';
-            });
+  if (config.chromeExtension){
+    it('confirm install and find url', function(){
+      var extensionsHome = 'chrome://inspect/#extensions'
+      return browser.get(extensionsHome).sleep(500).get(extensionsHome)
+              .elementByXPath("//div[text()='Readium']/following-sibling::*")
+              .text().then(function(url){
+                var pathStart = url.lastIndexOf('/');
+                extensionUrl = url.substring(0, pathStart) + '/index.html'
+              });
 
-  })
+    })
+  }
+  else{
+    extensionUrl = config.url;
+    console.log(extensionUrl);
+  }
   it('should display library navbar', function(){
   	return browser.openExtensionUrl()
   		.waitForElementByCss('.navbar',  asserters.isDisplayed , 10000)
@@ -149,7 +161,7 @@ describe("chrome extension tests", function() {
 
       return browser.openExtensionUrl()
               .addLibraryItem(testFile)
-              .elementByCss('.library-item')
+              .elementByCss('.library-item button.read')
               .click()
               .waitForElementByCss('#epubContentIframe', asserters.isDisplayed , 10000)
               .frame('epubContentIframe')
@@ -230,7 +242,7 @@ describe("chrome extension tests", function() {
                   .should.become(width)
                   .frame()
                   .openSettingsDialog()
-                  .execute('return $("#two-up-option input").prop("checked", true)')
+                  .execute('$("#two-up-option input").prop("checked", true)')
                   .should.not.become(width);
               })
 

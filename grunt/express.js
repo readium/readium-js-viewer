@@ -18,12 +18,19 @@ module.exports = function(grunt) {
     var path = require('path');
     
     return {
-        server: {
+        dev: {
             options: {
+                livereload: true,
                 port: 8080,
                 bases: process.cwd() //path.resolve(__dirname)
             }
         },
-        livereload: true
+        test : {
+            options: {
+                port: 8080,
+                bases: process.cwd() + '/build/cloud-reader'//path.resolve(__dirname)
+            }
+        }
+        
     };
 };

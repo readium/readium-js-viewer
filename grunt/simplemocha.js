@@ -8,6 +8,6 @@ module.exports = function(grunt) {
 	      reporter: 'XUnit'
 	    },
 
-	    chromeApp: { src: ['build/tests/chrome-app/tests.js'] }
+	    all: { src: ['tests/tests.js'] }
 	}
 }
