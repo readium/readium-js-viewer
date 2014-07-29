@@ -164,7 +164,7 @@ describe("chrome extension tests", function() {
               .elementByCss('.library-item button.read')
               .click()
               .waitForElementByCss('#epubContentIframe', asserters.isDisplayed , 10000)
-              .sleep(500)
+              .sleep(2000)
               .frame('epubContentIframe')
               .waitForElementByCss('h1.title', asserters.isDisplayed , 10000)
               .frame()
@@ -207,7 +207,7 @@ describe("chrome extension tests", function() {
               .openSettingsDialog()
               .elementByCss('#font-size-input')
               .getValue()
-              .should.become('110')
+              .should.become('100')
               .execute('$("#font-size-input").val(160).change();')
               .elementByCss('#font-size-input')
               .getValue()
@@ -217,7 +217,7 @@ describe("chrome extension tests", function() {
               .elementByCss('#settings-dialog .btn-primary')
               .click()
               .sleep(500)
-              .frame('epubContentIframe')
+              .frame('epubContentIframe') 
               .execute('return document.querySelector("html").style.fontSize')
               .should.become('160%');
 
