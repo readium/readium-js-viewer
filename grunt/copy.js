@@ -101,14 +101,29 @@ module.exports = function(grunt) {
                 src: 'Readium.js',
                 dest: 'lib'
             }]
-        },
-        prepareChromeAppTests: {
-            files: [{
-                expand: true,
-                cwd: 'chrome-app/tests/',
-                src: 'manifest.json',
-                dest: 'build/chrome-app'
-            }]
         }
+        // prepareChromeAppTests: {
+        //     files: [{
+        //         expand: true,
+        //         cwd: 'tests/',
+        //         src: 'manifest.json',
+        //         dest: 'build/chrome-app'
+        //     },
+        //     {
+        //         expand: true,
+        //         cwd: 'tests/',
+        //         src: 'tests.js',
+        //         dest: 'build/tests/chrome-app'
+        //     },
+        //     {
+        //         expand: true,
+        //         cwd: 'tests/test-configs',
+        //         src: 'chromeExtension.js',
+        //         dest: 'build/tests/chrome-app',
+        //         rename: function(dest, src) {
+        //           return dest + '/config.js';
+        //         }
+        //     }]
+        // }
     };
 };

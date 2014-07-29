@@ -33,7 +33,7 @@ To test the ReadiumJS viewer on any static web server:
 You can also use the Grunt build configuration contained in cloned sources to run an embedded Node.JS + Express web server that serves the demo application:
 
    * install [Node.JS](http://nodejs.org) (details depend on your operating system)
-   * install the Grunt build tool: `npm install -g grunt-cli`
+   * install the Grunt build tool: `npm install -g grunt-cli` (Currently requires v0.4.4)
    * install the project's dependencies: `npm install`
    * run the embedded web server using the Grunt build system: `grunt`
    * visit [http://localhost:8080/simpleviewer.html?epub=epub_content/moby_dick](http://localhost:8080/simpleviewer.html?epub=epub_content/moby_dick) in your browser
