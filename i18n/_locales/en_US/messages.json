@@ -369,6 +369,13 @@
   "i18n_auto_page_turn_disable" : {
     "message" : "Disable automatic page turn"
   },
+
+  "i18n_playback_scroll_enable" : {
+    "message" : "Enable scroll during playback"
+  },
+  "i18n_playback_scroll_disable" : {
+    "message" : "Disable scroll during playback"
+  },
   
   "i18n_audio_touch_enable" : {
     "message" : "Enable touch-to-play"
