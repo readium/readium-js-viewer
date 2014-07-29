@@ -150,7 +150,8 @@ describe("chrome extension tests", function() {
     var openSettingsDialog = function(){
       return this.elementByCss('.icon-settings')
               .click()
-              .waitForElementByCss('#settings-dialog', asserters.isDisplayed , 10000);
+              .waitForElementByCss('#settings-dialog', asserters.isDisplayed , 10000)
+              .sleep(500);
               //.sleep(500);
     }
 
