@@ -20,7 +20,6 @@ module.exports = function(grunt) {
     return {
         dev: {
             options: {
-                livereload: true,
                 port: 8080,
                 bases: process.cwd() //path.resolve(__dirname)
             }
