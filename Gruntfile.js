@@ -24,11 +24,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-run-grunt');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-simple-mocha');
     grunt.loadNpmTasks('load-grunt-config');
+    grunt.loadNpmTasks('grunt-selenium-webdriver');
+    grunt.loadNpmTasks('grunt-env');
+    grunt.loadNpmTasks('grunt-crx');
 
     var path = require('path');
     var configs = require('load-grunt-config')(grunt, {
