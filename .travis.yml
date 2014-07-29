@@ -30,7 +30,7 @@ env:
 addons:
   sauce_connect:
     username: "readium"
-    access_key: "b0dd7376-7731-47db-bed0-850912b75f2b"
+    access_key: "b0dd7376-7731-47db-bed0-850912b75f2b" 
 #    - git log
 #    - git reflog
 #    - git push "$REPO_URL" develop | grep -v http
