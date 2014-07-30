@@ -199,6 +199,7 @@ html[data-theme=night-theme] .modal
 }
 
 #audioplayer {
+    background: #4d4d4d;
     float: left;
     position: relative;
     border-right: 2px solid #888;
