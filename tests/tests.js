@@ -36,7 +36,7 @@ describe("chrome extension tests", function() {
 
   var switchToReaderFrameOnTransition = function(){
     return this
-            .waitFor(asserters.jsCondition('document.querySelectorAll("#reading-area .spinner").length == 0 && document.querySelectorAll("#epubContentIframe").length == 1', 10000))
+            .waitFor(asserters.jsCondition('document.querySelectorAll("#reading-area .spinner").length == 0 && document.querySelectorAll("#epubContentIframe").length == 1'), 10000)
             .frame('epubContentIframe');
 
   }
@@ -52,10 +52,17 @@ describe("chrome extension tests", function() {
 
   beforeEach(function() {
     if (process.env.USE_SAUCE){
-      browser = wd.promiseChainRemote("ondemand.saucelabs.com", 80, 'readium', 'b0dd7376-7731-47db-bed0-850912b75f2b');
+      var url = "ondemand.saucelabs.com",
+          port = 80;
+
       if (process.env.TRAVIS_JOB_NUMBER){
         config.browser["tunnel-identifier"] = process.env.TRAVIS_JOB_NUMBER;
+        url = 'localhost';
+        port = 4445;
       }
+
+      browser = wd.promiseChainRemote(url, port, 'readium', 'b0dd7376-7731-47db-bed0-850912b75f2b');
+      
     }
     else{
   	   browser = wd.promiseChainRemote(); 
