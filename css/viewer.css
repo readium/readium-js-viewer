@@ -14,7 +14,8 @@
   text-align: center;
 }
 
-.chrome-app .icon-annotations{
+/* .chrome-app */
+.icon-annotations{
   display:none;
 }
 
@@ -354,7 +355,8 @@ html[data-theme=night-theme] .modal
 }
 
 .zoom-wrapper{
-  display: inline-block;
+  /* display: inline-block; */
+  display: none;
   float: left;
   padding: 6px 12px;
 }
