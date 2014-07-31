@@ -1,6 +1,3 @@
-#env:
-#  global:
-#    - secure: "c9B/oOzXH5e/lmosV7Ug7F8R1HZPNoSZQrYEj+f5VX9PDs6Lxo0t0agg43epT9NDBN5i+CbL0AR7SbD3gpd6VkYBr7JT64IVhQrF2xEwXuJ0NxnF4PazH5ONRm2guHAvTp3JpozyviCrWJ17IpC81R4VeZTuo5wGMrYDy+xs1O8Xx="
 branches:
   only:
   - develop
@@ -30,6 +27,3 @@ addons:
   sauce_connect:
     username: "readium"
     access_key: "b0dd7376-7731-47db-bed0-850912b75f2b" 
-#    - git log
-#    - git reflog
-#    - git push "$REPO_URL" develop | grep -v http
