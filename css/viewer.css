@@ -7,7 +7,8 @@
   text-align: center;
 }
 
-.chrome-app .icon-annotations{
+/* .chrome-app */
+.icon-annotations{
   display:none;
 }
 
@@ -192,6 +193,7 @@ html[data-theme=night-theme] .modal
 }
 
 #audioplayer {
+    background: #4d4d4d;
     float: left;
     position: relative;
     border-right: 2px solid #888;
@@ -346,7 +348,8 @@ html[data-theme=night-theme] .modal
 }
 
 .zoom-wrapper{
-  display: inline-block;
+  /* display: inline-block; */
+  display: none;
   float: left;
   padding: 6px 12px;
 }
