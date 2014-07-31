@@ -19,7 +19,8 @@ require.config({
         							'canHandleDirectory' : true
     						   },
     	'EpubReader' : {
-    		'annotationCssUrl' : self.location.origin  + '/css/annotations.css'
+    		'annotationCssUrl' : self.location.origin  + '/css/annotations.css',
+    		'mathJaxUrl' : self.location.origin  + '/scripts/mathjax/MathJax.js'
     	}
-    },
-})
+    }
+});
