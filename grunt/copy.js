@@ -45,6 +45,11 @@ module.exports = function(grunt) {
                 expand: true,
                 src: 'fonts/**',
                 dest: 'build/chrome-app'
+            }, {
+                expand: true,
+                cwd: 'lib',
+                src: 'mathjax/**',
+                dest: 'build/chrome-app/scripts'
             }]
         },
         chromeAppDevBuild: {
@@ -75,7 +80,12 @@ module.exports = function(grunt) {
                 cwd: 'css',
                 src: 'annotations.css',
                 dest: 'build/cloud-reader/css'
-            }, ]
+            }, {
+                expand: true,
+                cwd: 'lib',
+                src: 'mathjax/**',
+                dest: 'build/cloud-reader/scripts'
+            } ]
         },
         cloudReaderEpubContent: {
             files: [{
