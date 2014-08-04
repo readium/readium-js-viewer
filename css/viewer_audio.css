@@ -34,7 +34,9 @@
 #audioplayer.isPlaying {
     background-color: #000000;
 }
-#audioplayer.isPlaying > .btn {
+#audioplayer.isPlaying > .btn,
+#audioplayer.isPlaying #audioResponsive > .btn
+{
     background-color: #000000;
 }
 
