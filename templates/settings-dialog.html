@@ -9,14 +9,14 @@
             <div class="modal-body">
            <button tabindex="999" type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
 
-           <ul class="nav nav-tabs">
-             <li class="active"><button id="tab-butt-main" tabindex="1000" title="{{strings.settings}}" aria-label="{{strings.settings}}" role='button'  data-toggle="tab" data-target="#tab-main">{{strings.settings}}</button></li>
-             <li><button id="tab-butt-keys" tabindex="1000" title="{{strings.i18n_keyboard_shortcuts}}" aria-label="{{strings.i18n_keyboard_shortcuts}}" role='button' data-toggle="tab" data-target="#tab-keyboard">{{strings.i18n_keyboard_shortcuts}}</button></li>
+           <ul class="nav nav-tabs" role="tablist" aria-controls="tab-main tab-keyboard">
+             <li class="active"><button id="tab-butt-main" tabindex="1000" title="{{strings.settings}}" aria-label="{{strings.settings}}" role='tab'  data-toggle="tab" data-target="#tab-main">{{strings.settings}}</button></li>
+             <li><button id="tab-butt-keys" tabindex="1000" title="{{strings.i18n_keyboard_shortcuts}}" aria-label="{{strings.i18n_keyboard_shortcuts}}" role='tab' data-toggle="tab" data-target="#tab-keyboard">{{strings.i18n_keyboard_shortcuts}}</button></li>
            </ul>
            
            
            <div class="tab-content">
-                <div id="tab-main" class="tab-pane active">
+                <div id="tab-main" class="tab-pane active" role="tabpanel">
                      
                 <h5 aria-hidden="true">{{strings.preview}}</h5>
                 <div  aria-hidden="true" class="row">
@@ -171,7 +171,7 @@
                     
                     
                     </div>
-                       <div id="tab-keyboard" class="tab-pane">
+                       <div id="tab-keyboard" class="tab-pane" role="tabpanel">
 
                     <div class="row" style="position:relative;">
                         
