@@ -360,6 +360,63 @@
     "i18n_page_next" : {
         "message" : "Página siguiente"
     },
+    "i18n_author_theme" : {
+      "message" : "Por defecto (estilos de autor)"
+    },
+
+  "i18n_spread_auto" : {
+       "message" : "Automático"
+    },
+
+  "i18n_scroll_mode_auto" : {
+      "message" : "Automático"
+    },
+
+   "i18n_page_transition" : {
+      "message" : "EFECTOS DE PÁGINA"
+    },
+    "i18n_page_transition_none" : {
+      "message" : "Desactivado"
+    },
+    "i18n_page_transition_fade" : {
+      "message" : "Apagarse"
+    },
+    "i18n_page_transition_slide" : {
+      "message" : "Deslizar"
+    },
+    "i18n_page_transition_swoosh" : {
+      "message" : "Swoosh"
+    },
+    "i18n_page_transition_butterfly" : {
+      "message" : "Mariposa"
+    },
+
+  "i18n_toolbar" : {
+      "message" : "Barra de herramientas"
+    },
+
+   "i18n_audio_play_background" : {
+      "message" : "Reproducir pista en segundo plano"
+    },
+    "i18n_audio_pause_background" : {
+      "message" : "Pausar pista en segundo plano"
+},
+
+   "i18n_auto_page_turn_enable" : {
+      "message" : "Activar vuelta de página automática"
+    },
+    "i18n_auto_page_turn_disable" : {
+      "message" : "Desactivar vuelta de página automática"
+    },
+
+   "i18n_playback_scroll_enable" : {
+      "message" : "Activar desplazamiento durante la reproducción"
+    },
+
+    "i18n_playback_scroll_disable" : {
+      "message" : "Desactivar desplazamiento durante la reproducción"
+    },
+
     "chrome_accept_languages": {
         "message": "$CHROME$ acepta idiomas $languages$",
         "placeholders": {
