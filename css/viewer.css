@@ -2,7 +2,14 @@
   display: inline-block;
   height: 100%;
   position: relative;
+  
+  width: 100%;
+  overflow: auto;
+
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
 }
+
 #about-dialog div{
   text-align: center;
 }
@@ -179,12 +186,6 @@ html[data-theme=night-theme] .modal
   text-align: right;
 }
 
-@media (max-width:768px){
-  .navbar .btn-group > .btn.icon-full-screen{
-    display:none;
-  }
-}
-
 .clickable{
   user-select:none;
   -webkit-user-select: none;
@@ -202,7 +203,8 @@ html[data-theme=night-theme] .modal
   display: block;
   position: absolute;
 
-  top: 50%;
+  top: 20%;
+  bottom: 20%;
 
   opacity: 0.3;
   
@@ -215,7 +217,7 @@ html[data-theme=night-theme] .modal
   padding-top: 0.2em;
   padding-bottom: 0.44em;
 
-  font-size: 360%;
+  font-size: 40px;
 
   background-color: rgba(255,255,255,0.5);
     color: black;
@@ -573,7 +575,21 @@ ul.nav-tabs li:not(.active) button:hover
     border-bottom-right-radius: 0 !important;
 }
 
-
+@media (max-width:768px){
+  .navbar .btn-group > .btn.icon-full-screen
+  {
+    display:none;
+  }
+  #epub-reader-frame
+  {
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+  }
+  .page-switch-overlay-icon
+  {
+      font-size: 30px;
+  }
+}
 
 .zoom-wrapper{
   /* display: inline-block; */
