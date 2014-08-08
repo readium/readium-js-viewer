@@ -99,6 +99,9 @@ direction: rtl;
 
 .navbar-right
 {
+    overflow: visible;
+    height: 0.4em;
+    margin-right: 0 !important;
     min-height: 36px;
     background-color: #4d4d4d;
 }
@@ -176,11 +179,6 @@ html[data-theme=night-theme] .modal
 }
 
 
-.navbar-right
-{
-    overflow: visible;
-    height: 0.4em;
-}
 
 .icon-scale-down{
   text-align: right;
@@ -507,6 +505,7 @@ body.keyboard #app-navbar input[type="text"]:focus
 
 input[type="range"]
 {
+    display: inline-block;
     padding: 0;
 }
 
