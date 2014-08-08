@@ -1,6 +1,6 @@
 <div class="btn-group navbar-left">
         <!-- <button type="button" class="btn btn-default icon icon-show-hide"></button>  -->
-    <button id="aboutButt1" tabindex="1" type="button" class="btn icon-logo" data-toggle="modal" data-target="#about-dialog" title="{{strings.about}}" aria-label="{{strings.about}}">
+    <button id="aboutButt1" tabindex="1" type="button" class="btn icon-logo tooltipx" data-toggle="modal" data-target="#about-dialog" title="{{strings.about}}" aria-label="{{strings.about}}">
         <span class="icon-readium" aria-hidden="true"></span>
     </button>
     
@@ -24,10 +24,10 @@
 
     <div id="backgroundAudioTrack-div">
 
-        <button tabindex="1" id="backgroundAudioTrack-button-play" type="button" class="btn icon-play-audio-background"  title="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]" accesskey="{{keyboard.accesskeys.BackgroundAudioPlayPause}}">
+        <button tabindex="1" id="backgroundAudioTrack-button-play" type="button" class="btn icon-play-audio-background tooltipx"  title="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]" accesskey="{{keyboard.accesskeys.BackgroundAudioPlayPause}}">
             <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
         </button>
-        <button tabindex="1" id="backgroundAudioTrack-button-pause" type="button" class="btn icon-pause-audio-background"  title="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]">
+        <button tabindex="1" id="backgroundAudioTrack-button-pause" type="button" class="btn icon-pause-audio-background tooltipx"  title="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]">
             <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
         </button>
         
@@ -37,50 +37,50 @@
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
         
-        <button tabindex="1" id="btn-collapse-audio" type="button" class="btn icon-collapse-audio" title="{{strings.i18n_audio_collapse}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]" aria-label="{{strings.i18n_audio_collapse}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]">
+        <button tabindex="1" id="btn-collapse-audio" type="button" class="btn icon-collapse-audio tooltipx" title="{{strings.i18n_audio_collapse}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]" aria-label="{{strings.i18n_audio_collapse}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]">
             <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
         </button>
 
-        <button tabindex="1" id="btn-expand-audio" type="button" class="btn icon-expand-audio" title="{{strings.i18n_audio_expand}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]" aria-label="{{strings.i18n_audio_expand}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysAdvancedPanelShowHide}}">
+        <button tabindex="1" id="btn-expand-audio" type="button" class="btn icon-expand-audio tooltipx" title="{{strings.i18n_audio_expand}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]" aria-label="{{strings.i18n_audio_expand}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysAdvancedPanelShowHide}}">
             <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
         </button>
         
-        <button tabindex="1" id="btn-previous-audio" type="button" class="btn icon-previous-audio" title="{{strings.i18n_audio_previous}} [{{keyboard.MediaOverlaysPrevious}}]" aria-label="{{strings.i18n_audio_previous}} [{{keyboard.MediaOverlaysPrevious}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysPrevious}}">
+        <button tabindex="1" id="btn-previous-audio" type="button" class="btn icon-previous-audio tooltipx" title="{{strings.i18n_audio_previous}} [{{keyboard.MediaOverlaysPrevious}}]" aria-label="{{strings.i18n_audio_previous}} [{{keyboard.MediaOverlaysPrevious}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysPrevious}}">
             <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
         </button>
         
 
-        <button tabindex="1" id="btn-play-audio" type="button" class="btn icon-play-audio"  title="{{strings.i18n_audio_play}} [{{keyboard.MediaOverlaysPlayPause}}]"  aria-label="{{strings.i18n_audio_play}} [{{keyboard.MediaOverlaysPlayPause}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysPlayPause}}">
+        <button tabindex="1" id="btn-play-audio" type="button" class="btn icon-play-audio tooltipx"  title="{{strings.i18n_audio_play}} [{{keyboard.MediaOverlaysPlayPause}}]"  aria-label="{{strings.i18n_audio_play}} [{{keyboard.MediaOverlaysPlayPause}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysPlayPause}}">
             <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
         </button>
-        <button tabindex="1" id="btn-pause-audio" type="button" class="btn icon-pause-audio"  title="{{strings.i18n_audio_pause}} [{{keyboard.MediaOverlaysPlayPause}}]"  aria-label="{{strings.i18n_audio_pause}} [{{keyboard.MediaOverlaysPlayPause}}]">
+        <button tabindex="1" id="btn-pause-audio" type="button" class="btn icon-pause-audio tooltipx"  title="{{strings.i18n_audio_pause}} [{{keyboard.MediaOverlaysPlayPause}}]"  aria-label="{{strings.i18n_audio_pause}} [{{keyboard.MediaOverlaysPlayPause}}]">
             <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
         </button>
         
         
-        <button tabindex="1" id="btn-next-audio" type="button" class="btn icon-next-audio" title="{{strings.i18n_audio_next}} [{{keyboard.MediaOverlaysNext}}]" arial-label="{{strings.i18n_audio_next}} [{{keyboard.MediaOverlaysNext}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysNext}}">
+        <button tabindex="1" id="btn-next-audio" type="button" class="btn icon-next-audio tooltipx" title="{{strings.i18n_audio_next}} [{{keyboard.MediaOverlaysNext}}]" arial-label="{{strings.i18n_audio_next}} [{{keyboard.MediaOverlaysNext}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysNext}}">
             <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
         </button>
 
         <div id="audioResponsive">
         
-        <button tabindex="1" id="btn-audio-volume-mute" type="button" class="btn icon-audio-volume-mute" title="{{strings.i18n_audio_mute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]" aria-label="{{strings.i18n_audio_mute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysVolumeMuteToggle}}">
+        <button tabindex="1" id="btn-audio-volume-mute" type="button" class="btn icon-audio-volume-mute tooltipx" title="{{strings.i18n_audio_mute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]" aria-label="{{strings.i18n_audio_mute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysVolumeMuteToggle}}">
             <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
         </button>
-        <button tabindex="1" id="btn-audio-volume-unmute" type="button" class="btn icon-audio-volume-unmute" title="{{strings.i18n_audio_unmute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]" aria-label="{{strings.i18n_audio_unmute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]">
+        <button tabindex="1" id="btn-audio-volume-unmute" type="button" class="btn icon-audio-volume-unmute tooltipx" title="{{strings.i18n_audio_unmute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]" aria-label="{{strings.i18n_audio_unmute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]">
             <span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>
         </button>
         
-        <input tabindex="1" id="volume-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="100" aria-value-max="100" aria-valuemax="100" value="100" aria-valuenow="100" aria-value-now="100" aria-valuetext="100%" aria-value-text="100%" title="{{strings.i18n_audio_volume}} [{{keyboard.MediaOverlaysVolumeDecrease}}] / [{{keyboard.MediaOverlaysVolumeIncrease}}]" arial-label="{{strings.i18n_audio_volume}} [{{keyboard.MediaOverlaysVolumeDecrease}}] / [{{keyboard.MediaOverlaysVolumeIncrease}}]" />
+        <input class="tooltipx" tabindex="1" id="volume-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="100" aria-value-max="100" aria-valuemax="100" value="100" aria-valuenow="100" aria-value-now="100" aria-valuetext="100%" aria-value-text="100%" title="{{strings.i18n_audio_volume}} [{{keyboard.MediaOverlaysVolumeDecrease}}] / [{{keyboard.MediaOverlaysVolumeIncrease}}]" arial-label="{{strings.i18n_audio_volume}} [{{keyboard.MediaOverlaysVolumeDecrease}}] / [{{keyboard.MediaOverlaysVolumeIncrease}}]" />
         
 
-        <button tabindex="1" tabindex="1" id="btn-touch-audio-enable" type="button" class="btn icon-touch-audio-enable" title="{{strings.i18n_audio_touch_enable}}" aria-label="{{strings.i18n_audio_touch_enable}}" >
+        <button tabindex="1" tabindex="1" id="btn-touch-audio-enable" type="button" class="btn icon-touch-audio-enable tooltipx" title="{{strings.i18n_audio_touch_enable}}" aria-label="{{strings.i18n_audio_touch_enable}}" >
             <span id="icon-touch-off-hand" class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
 
             <span id="icon-touch-off" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
 
-        <button tabindex="1" id="btn-touch-audio-disable" type="button" class="btn icon-touch-audio-disable" title="{{strings.i18n_audio_touch_disable}}" aria-label="{{strings.i18n_audio_touch_disable}}" >
+        <button tabindex="1" id="btn-touch-audio-disable" type="button" class="btn icon-touch-audio-disable tooltipx" title="{{strings.i18n_audio_touch_disable}}" aria-label="{{strings.i18n_audio_touch_disable}}" >
             <span id="icon-touch-on-hand" class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
 
             <span id="icon-touch-on" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
@@ -91,87 +91,87 @@
 
         <div id="audioExpanded" role="alert">
             
-            <input tabindex="1" id="time-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="100" aria-value-max="100" aria-valuemax="100" value="0" aria-valuenow="0" aria-value-now="0" aria-valuetext="0%" aria-value-text="0%" data-value="0" title="{{strings.i18n_audio_time}}" aria-label="{{strings.i18n_audio_time}}"  />
+            <input class="tooltipx" tabindex="1" id="time-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="100" aria-value-max="100" aria-valuemax="100" value="0" aria-valuenow="0" aria-value-now="0" aria-valuetext="0%" aria-value-text="0%" data-value="0" title="{{strings.i18n_audio_time}}" aria-label="{{strings.i18n_audio_time}}"  />
             
             
-            <button tabindex="1" id="btn-audio-rate" type="button" class="btn icon-rate-audio" title="{{strings.i18n_audio_rate_reset}} [{{keyboard.MediaOverlaysRateReset}}]" aria-label="{{strings.i18n_audio_rate_reset}} [{{keyboard.MediaOverlaysRateReset}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysRateReset}}">
+            <button tabindex="1" id="btn-audio-rate" type="button" class="btn icon-rate-audio tooltipx" title="{{strings.i18n_audio_rate_reset}} [{{keyboard.MediaOverlaysRateReset}}]" aria-label="{{strings.i18n_audio_rate_reset}} [{{keyboard.MediaOverlaysRateReset}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysRateReset}}">
                 <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
             </button>
             
-            <input tabindex="1" id="rate-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="4" aria-value-max="4" aria-valuemax="4" value="1" aria-valuenow="1" aria-value-now="1" aria-valuetext="1x" aria-value-text="1x" step="0.5" title="{{strings.i18n_audio_rate}} [{{keyboard.MediaOverlaysRateDecrease}}] / [{{keyboard.MediaOverlaysRateIncrease}}]" aria-label="{{strings.i18n_audio_rate}} [{{keyboard.MediaOverlaysRateDecrease}}] / [{{keyboard.MediaOverlaysRateIncrease}}]" />
+            <input class="tooltipx" tabindex="1" id="rate-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="4" aria-value-max="4" aria-valuemax="4" value="1" aria-valuenow="1" aria-value-now="1" aria-valuetext="1x" aria-value-text="1x" step="0.5" title="{{strings.i18n_audio_rate}} [{{keyboard.MediaOverlaysRateDecrease}}] / [{{keyboard.MediaOverlaysRateIncrease}}]" aria-label="{{strings.i18n_audio_rate}} [{{keyboard.MediaOverlaysRateDecrease}}] / [{{keyboard.MediaOverlaysRateIncrease}}]" />
             
             <span aria-hidden="true" tabindex="-1" id="rate-range-slider-label">1x</span>
             
             <form action="" id="mo-sync-form">
-                <input tabindex="1" type="radio" name="mo-sync" value="default" id="mo-sync-default" class="mo-sync" checked="checked"  title="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}"> </input>
-                <label tabindex="1" for="mo-sync-default" title="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">&#8855;</span></label>
+                <input tabindex="1" type="radio" name="mo-sync" value="default" id="mo-sync-default" class="mo-sync tooltipx" checked="checked"  title="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}"> </input>
+                <label class="tooltipx" tabindex="1" for="mo-sync-default" title="{{strings.i18n_audio_sync_default}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">&#8855;</span></label>
 
-                <input tabindex="1" type="radio" name="mo-sync" value="word" id="mo-sync-word" class="mo-sync" title="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}"> </input>
-                <label tabindex="1" for="mo-sync-word" title="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_word}}</span></label>
+                <input tabindex="1" type="radio" name="mo-sync" value="word" id="mo-sync-word" class="mo-sync tooltipx" title="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}"> </input>
+                <label class="tooltipx" tabindex="1" for="mo-sync-word" title="{{strings.i18n_audio_sync_word}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_word}}</span></label>
                 
-                <input tabindex="1" type="radio" name="mo-sync" value="sentence" id="mo-sync-sentence" class="mo-sync" title="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}"> </input>
-                <label tabindex="1" for="mo-sync-sentence" title="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_sentence}}</span></label>
+                <input tabindex="1" type="radio" name="mo-sync" value="sentence" id="mo-sync-sentence" class="mo-sync tooltipx" title="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}"> </input>
+                <label class="tooltipx" tabindex="1" for="mo-sync-sentence" title="{{strings.i18n_audio_sync_sentence}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_sentence}}</span></label>
                 
-                <input tabindex="1" type="radio" name="mo-sync" value="paragraph" id="mo-sync-paragraph" class="mo-sync" title="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}"> </input>
-                <label tabindex="1" for="mo-sync-paragraph" title="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_paragraph}}</span></label>
+                <input tabindex="1" type="radio" name="mo-sync" value="paragraph" id="mo-sync-paragraph" class="mo-sync tooltipx" title="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}" aria-label="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}"> </input>
+                <label class="tooltipx" tabindex="1" for="mo-sync-paragraph" title="{{strings.i18n_audio_sync_paragraph}} {{strings.i18n_audio_sync}}"><span aria-hidden="true">{{strings.i18n_audio_sync_paragraph}}</span></label>
             </form>
             
             <div id="audio-block">
             
             <div id="mo-highlighters">
-                <button tabindex="1" id="mo-highlighter-0" type="button" class="btn btn-mo-highlighter" title="{{strings.i18n_audio_highlight}}: {{strings.i18n_audio_highlight_default}}" aria-label="{{strings.i18n_audio_highlight}}: {{strings.i18n_audio_highlight_default}}" aria-selected="true" data-mohighlight="0" >
+                <button tabindex="1" id="mo-highlighter-0" type="button" class="btn btn-mo-highlighter tooltipx" title="{{strings.i18n_audio_highlight}}: {{strings.i18n_audio_highlight_default}}" aria-label="{{strings.i18n_audio_highlight}}: {{strings.i18n_audio_highlight_default}}" aria-selected="true" data-mohighlight="0" >
                     {{strings.i18n_audio_highlight_default}}
                 </button>
-                <button tabindex="1" id="mo-highlighter-1" type="button" class="btn btn-mo-highlighter" title="{{strings.i18n_audio_highlight}}: #1" aria-label="{{strings.i18n_audio_highlight}}: #1" data-mohighlight="1" >
+                <button tabindex="1" id="mo-highlighter-1" type="button" class="btn btn-mo-highlighter tooltipx" title="{{strings.i18n_audio_highlight}}: #1" aria-label="{{strings.i18n_audio_highlight}}: #1" data-mohighlight="1" >
 
                 </button>
-                <button tabindex="1" id="mo-highlighter-2" type="button" class="btn btn-mo-highlighter" title="{{strings.i18n_audio_highlight}}: #2" aria-label="{{strings.i18n_audio_highlight}}: #2" data-mohighlight="2" >
+                <button tabindex="1" id="mo-highlighter-2" type="button" class="btn btn-mo-highlighter tooltipx" title="{{strings.i18n_audio_highlight}}: #2" aria-label="{{strings.i18n_audio_highlight}}: #2" data-mohighlight="2" >
 
                 </button>
-                <button tabindex="1" id="mo-highlighter-3" type="button" class="btn btn-mo-highlighter" title="{{strings.i18n_audio_highlight}}: #3" aria-label="{{strings.i18n_audio_highlight}}: #3" data-mohighlight="3" >
+                <button tabindex="1" id="mo-highlighter-3" type="button" class="btn btn-mo-highlighter tooltipx" title="{{strings.i18n_audio_highlight}}: #3" aria-label="{{strings.i18n_audio_highlight}}: #3" data-mohighlight="3" >
 
                 </button>
-                <button tabindex="1" id="mo-highlighter-4" type="button" class="btn btn-mo-highlighter" title="{{strings.i18n_audio_highlight}}: #4" aria-label="{{strings.i18n_audio_highlight}}: #4" data-mohighlight="4" >
+                <button tabindex="1" id="mo-highlighter-4" type="button" class="btn btn-mo-highlighter tooltipx" title="{{strings.i18n_audio_highlight}}: #4" aria-label="{{strings.i18n_audio_highlight}}: #4" data-mohighlight="4" >
 
                 </button>
-                <button tabindex="1" id="mo-highlighter-5" type="button" class="btn btn-mo-highlighter" title="{{strings.i18n_audio_highlight}}: #5" aria-label="{{strings.i18n_audio_highlight}}: #5" data-mohighlight="5" >
+                <button tabindex="1" id="mo-highlighter-5" type="button" class="btn btn-mo-highlighter tooltipx" title="{{strings.i18n_audio_highlight}}: #5" aria-label="{{strings.i18n_audio_highlight}}: #5" data-mohighlight="5" >
 
                 </button>
-                <button tabindex="1" id="mo-highlighter-6" type="button" class="btn btn-mo-highlighter" title="{{strings.i18n_audio_highlight}}: #6" aria-label="{{strings.i18n_audio_highlight}}: #6" data-mohighlight="6" >
+                <button tabindex="1" id="mo-highlighter-6" type="button" class="btn btn-mo-highlighter tooltipx" title="{{strings.i18n_audio_highlight}}: #6" aria-label="{{strings.i18n_audio_highlight}}: #6" data-mohighlight="6" >
 
                 </button>
             </div>
 
 
 
-            <button tabindex="1" id="btn-playback-scroll-enable" type="button" class="btn icon-playback-scroll-enable" title="{{strings.i18n_playback_scroll_enable}}" aria-label="{{strings.i18n_playback_scroll_enable}}" >
+            <button tabindex="1" id="btn-playback-scroll-enable" type="button" class="btn icon-playback-scroll-enable tooltipx" title="{{strings.i18n_playback_scroll_enable}}" aria-label="{{strings.i18n_playback_scroll_enable}}" >
                 <span id="icon-playback-scroll-off" class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
             </button>
 
-            <button tabindex="1" id="btn-playback-scroll-disable" type="button" class="btn icon-playback-scroll-disable" title="{{strings.i18n_playback_scroll_disable}}" aria-label="{{strings.i18n_playback_scroll_disable}}" >
+            <button tabindex="1" id="btn-playback-scroll-disable" type="button" class="btn icon-playback-scroll-disable tooltipx" title="{{strings.i18n_playback_scroll_disable}}" aria-label="{{strings.i18n_playback_scroll_disable}}" >
                 <span id="icon-playback-scroll-on" class="glyphicon glyphicon-sort" aria-hidden="true"></span>
             </button>
 
 
 
-            <button tabindex="1" id="btn-auto-page-turn-enable" type="button" class="btn icon-auto-page-turn-enable" title="{{strings.i18n_auto_page_turn_enable}}" aria-label="{{strings.i18n_auto_page_turn_enable}}" >
+            <button tabindex="1" id="btn-auto-page-turn-enable" type="button" class="btn icon-auto-page-turn-enable tooltipx" title="{{strings.i18n_auto_page_turn_enable}}" aria-label="{{strings.i18n_auto_page_turn_enable}}" >
                 <span id="icon-auto-page-turn-off" class="glyphicon glyphicon-sound-stereo" aria-hidden="true"></span>
             </button>
 
-            <button tabindex="1" id="btn-auto-page-turn-disable" type="button" class="btn icon-auto-page-turn-disable" title="{{strings.i18n_auto_page_turn_disable}}" aria-label="{{strings.i18n_auto_page_turn_disable}}" >
+            <button tabindex="1" id="btn-auto-page-turn-disable" type="button" class="btn icon-auto-page-turn-disable tooltipx" title="{{strings.i18n_auto_page_turn_disable}}" aria-label="{{strings.i18n_auto_page_turn_disable}}" >
                 <span id="icon-auto-page-turn-on" class="glyphicon glyphicon-sound-dolby" aria-hidden="true"></span>
             </button>
 
-            <button tabindex="1" id="btn-skip-audio-enable" type="button" class="btn icon-skip-audio-enable" title="{{strings.i18n_audio_skip_enable}}" aria-label="{{strings.i18n_audio_skip_enable}}" >
+            <button tabindex="1" id="btn-skip-audio-enable" type="button" class="btn icon-skip-audio-enable tooltipx" title="{{strings.i18n_audio_skip_enable}}" aria-label="{{strings.i18n_audio_skip_enable}}" >
                 <span id="icon-skip-off" class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
             </button>
 
-            <button tabindex="1" id="btn-skip-audio-disable" type="button" class="btn icon-skip-audio-disable" title="{{strings.i18n_audio_skip_disable}}" aria-label="{{strings.i18n_audio_skip_disable}}" >
+            <button tabindex="1" id="btn-skip-audio-disable" type="button" class="btn icon-skip-audio-disable tooltipx" title="{{strings.i18n_audio_skip_disable}}" aria-label="{{strings.i18n_audio_skip_disable}}" >
                 <span id="icon-skip-on" class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
             </button>
 
 
-            <button tabindex="1" id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}} [{{keyboard.MediaOverlaysEscape}}]" aria-label="{{strings.i18n_audio_esc}} [{{keyboard.MediaOverlaysEscape}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysEscape}}">
+            <button tabindex="1" id="btn-esc-audio" type="button" class="btn icon-esc-audio tooltipx" title="{{strings.i18n_audio_esc}} [{{keyboard.MediaOverlaysEscape}}]" aria-label="{{strings.i18n_audio_esc}} [{{keyboard.MediaOverlaysEscape}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysEscape}}">
                 <span class="glyphicon glyphicon-eject" aria-hidden="true"></span>
             </button>
             
@@ -196,23 +196,23 @@
             <li id="zoom-fit-screen" class="active-zoom"><a href="#" tabindex="1">Fit Screen <span class="glyphicon glyphicon-ok"></span></a></li>
         </ul>
     </div>
-    <button tabindex="1" type="button" class="btn icon-library" title="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" aria-label="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" accesskey="{{keyboard.accesskeys.SwitchToLibrary}}">
+    <button tabindex="1" type="button" class="btn icon-library tooltipx" title="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" aria-label="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" accesskey="{{keyboard.accesskeys.SwitchToLibrary}}">
         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
     </button>
-    <button tabindex="1" type="button" class="btn icon-annotations" title="{{strings.highlight_selection}}" aria-label="{{strings.highlight_selection}}">
+    <button tabindex="1" type="button" class="btn icon-annotations tooltipx" title="{{strings.highlight_selection}}" aria-label="{{strings.highlight_selection}}">
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
     </button>
-    <button id="tocButt" tabindex="1" tabindex="1" type="button" class="btn icon-toc" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}">
+    <button id="tocButt" tabindex="1" tabindex="1" type="button" class="btn icon-toc tooltipx" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}">
         <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
     </button>
-    <button id="settbutt1" tabindex="1" type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}">
+    <button id="settbutt1" tabindex="1" type="button" class="btn icon-settings tooltipx" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}">
         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
     </button>
     
-    <button tabindex="1" id="buttFullScreenOn" type="button" class="btn icon-full-screen" title="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" accesskey="{{keyboard.accesskeys.FullScreenToggle}}">
+    <button tabindex="1" id="buttFullScreenOn" type="button" class="btn icon-full-screen tooltipx" title="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" accesskey="{{keyboard.accesskeys.FullScreenToggle}}">
         <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>
     </button>
-    <button tabindex="1" id="buttFullScreenOff" type="button" class="btn icon-exit-full-screen" title="{{strings.exit_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.exit_fullscreen}} [{{keyboard.FullScreenToggle}}]" >
+    <button tabindex="1" id="buttFullScreenOff" type="button" class="btn icon-exit-full-screen tooltipx" title="{{strings.exit_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.exit_fullscreen}} [{{keyboard.FullScreenToggle}}]" >
         <span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span>
     </button>
     <!-- <button type="button" class="btn btn-default icon icon-bookmark"></button>-->
