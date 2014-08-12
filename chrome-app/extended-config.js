@@ -20,7 +20,7 @@ require.config({
     						   },
     	'EpubReader' : {
     		'annotationCssUrl' : self.location.origin  + '/css/annotations.css',
-    		'mathJaxUrl' : self.location.origin  + '/scripts/mathjax/MathJax.js'
+            'useSimpleLoader' : true
     	}
     }
 });
