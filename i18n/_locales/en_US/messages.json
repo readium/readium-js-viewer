@@ -5,7 +5,15 @@
   },
   "about" : {
     "message" : "About"
+  }, 
+   
+  "add_epub_dialog"  : {
+      "message" : "Add Epub to Library"
   },
+     
+  "list_view_thumbnail_view_toggle" : {
+      "message" : "Toggle List View and Thumbnail View"},
+      
   "preview" : {
     "message" : "PREVIEW"
   },
