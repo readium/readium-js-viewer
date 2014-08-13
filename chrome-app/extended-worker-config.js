@@ -13,14 +13,9 @@
 
 require.config({
 	config : {
-        'workers/WorkerProxy' : {'workerUrl' : '/scripts/readium-worker.js'},
-        'EpubLibraryManager' : {
-        							'canHandleUrl' : true, 
-        							'canHandleDirectory' : true
-    						   },
-    	'EpubReader' : {
-    		'annotationCssUrl' : self.location.origin  + '/css/annotations.css',
-            'useSimpleLoader' : true
+    	'workers/ContentTransformer' : {
+    		'mathJaxUrl' : self.location.protocol + '//' + self.location.host + '/scripts/mathjax/MathJax.js',
+            'epubReadingSystemUrl' : self.location.protocol + '//' + self.location.host + '/scripts/epubReadingSystem.js'
     	}
     }
 });
