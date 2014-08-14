@@ -42,7 +42,7 @@ module.exports = function(grunt) {
         chromeAppWorker: {
             options: {
                 mainConfigFile: './require_config.js',
-                include: ['workers/EpubLibraryWriter'],
+                include: ['../chrome-app/extended-worker-config','workers/EpubLibraryWriter'],
                 name: 'thirdparty/almond',
                 baseUrl: './lib/',
                 optimize: 'none',

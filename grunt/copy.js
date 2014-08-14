@@ -24,6 +24,11 @@ module.exports = function(grunt) {
                 dest: 'build/chrome-app'
             }, {
                 expand: true,
+                cwd: 'chrome-app/',
+                src: 'epubReadingSystem.js',
+                dest: 'build/chrome-app/scripts'
+            }, {
+                expand: true,
                 src: 'images/**',
                 dest: 'build/chrome-app'
             }, {
