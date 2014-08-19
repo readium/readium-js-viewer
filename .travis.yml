@@ -15,7 +15,7 @@ install:
 before_script:
     - grunt clean
 script:
-    - grunt test_travis -v
+    - grunt test_travis --stack
 after_failure: cat ./sauce_connect.log
 env:
     global:
