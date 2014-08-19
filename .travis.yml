@@ -6,7 +6,6 @@ node_js:
   - "0.10"
 before_install:
     - npm install -g grunt-cli
-    - cat .git/HEAD
 install: 
     - npm install
     - cd readium-js
@@ -16,7 +15,7 @@ install:
 before_script:
     - grunt clean
 script:
-    - grunt test_travis --stack
+    - grunt test_travis
 after_failure: cat ./sauce_connect.log
 env:
     global:

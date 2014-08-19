@@ -23,9 +23,7 @@ module.exports = function(grunt) {
         
         var myRepo = git('.');
 
-        myRepo.branch(function(err, head){
-            //console.log(head.name);
-            var sha = head.commit.id;
+        var buildVersion = function(branchName, sha){
 
             var pkgJson = fs.readFileSync('package.json', 'utf-8');
             var pkg = JSON.parse(pkgJson);
@@ -37,14 +35,28 @@ module.exports = function(grunt) {
                     chromeVersion: '2.' + pkg.version.substring(2),
                     sha: sha,
                     clean: status.clean,
-                    release: head.name.indexOf('release/') == 0,
+                    release: branchName.indexOf('release/') == 0,
                     timestamp: Date.now() 
                 }
                 fs.writeFileSync('build/version.json', JSON.stringify(obj));
                 done();
             });
-            
-        });
+        }
+
+        // work around a bug in gift that blows it up on a detached head
+        var ref = fs.readFileSync('.git/HEAD', 'utf-8');
+        if (ref.indexOf('ref: ') == 0){
+            myRepo.branch(function(err, head){
+                //console.log(head.name);
+                var sha = head.commit.id;
+                var branchName = head.name;
+
+                buildVersion(branchName, sha);
+            });
+        }
+        else{
+            buildVersion('', ref.substring(0, ref.length - 1));
+        }
         
     });
 
