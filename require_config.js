@@ -50,6 +50,7 @@ require.config({
         'i18n': '../i18n',
         'templates': '../templates',
         'storage/StorageManager' : 'storage/StaticStorageManager',
+        'versioning/Versioning' : 'versioning/UnpackagedVersioning',
         'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler'
     },
     hgn : {
