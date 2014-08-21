@@ -148,30 +148,6 @@ html[data-theme=night-theme] .modal
 .icon-full-screen, .icon-full-screen:active{
   background-image: url('../images/glyphicons_215_resize_full.png');
 }*/
-.icon-exit-full-screen, .icon-exit-full-screen:active{
-  display: none;
-  /*background-image: url('../images/glyphicons_214_resize_small.png');*/
-}
-
-.icon-exit-full-screen:-webkit-full-screen-document{
-  display: block;
-}
-.icon-exit-full-screen:-moz-full-screen{
-  display: block;
-}
-.icon-exit-full-screen:fullscreen{
-  display: block;
-}
-
-.icon-full-screen:-webkit-full-screen-document{
-  display: none;
-}
-.icon-full-screen:-moz-full-screen{
-  display: none;
-}
-.icon-full-screen:fullscreen{
-  display: none;
-}
 
 /*.icon-settings, .icon-settings:active{
   background-image: url('../images/glyphicons_136_cogwheel.png');
