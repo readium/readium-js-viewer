@@ -3,5 +3,4 @@ node_modules
 build
 local_test_data
 /nbproject/private/
-/epub_content/
 /start_git_bash.cmd
