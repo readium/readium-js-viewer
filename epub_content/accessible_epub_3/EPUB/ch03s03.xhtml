@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:ssml="http://www.w3.org/2001/10/synthesis" ssml:alphabet="x-sampa" xml:lang="en" lang="en">
+	<head>
+		<title>Tell It Like It Is: Text-to-Speech (TTS)</title>
+		<link rel="stylesheet" type="text/css" href="css/epub.css" />
+		<link rel="stylesheet" media="speech" href="css/synth.css" />
+		<link
+			rel="pronunciation"
+			href="lexicon/en.pls"
+			type="application/pls+xml"
+			hreflang="en" />
+		
+		<link
+			rel="pronunciation"
+			href="lexicon/fr.pls"
+			type="application/pls+xml"
+			hreflang="fr" />
+	</head>
+	<body>
+		<section class="sect1" title="Tell It Like It Is: Text-to-Speech (TTS)">
+			<h2 class="title" id="_tell_it_like_it_is_text_to_speech_tts">Tell It Like It Is: Text-to-Speech (TTS)</h2>
+			<p>An alternative (and complement) to human narration, and the associated costs of
+				creating and distributing it, is speech synthesis—when done right, that is. The mere
+				thought of synthesized speech is enough to make some people cringe, though, as it’s
+				still typically equated with the likes of poor old much-maligned Microsoft Sam and
+				his tinny, often-incomprehensible renderings. Modern high-end voices are getting
+				harder and harder to distinguish as synthesized, however, and the voices on most
+				reading systems and computers are getting progressively more natural sounding and
+				pleasant to the ears for extended listening.</p>
+			<p>But whatever you think of the voices, the need to be able to synthesize the text of
+				your ebook is always going to be vital to a segment of your readers, especially when
+				human narration is not available. It’s also generally useful to the broader reading
+				demographic, as I’ll return to.</p>
+			<p>And the voice issues are a bit of a red herring. The real issue here is not how the
+				voices sound but the mispronunciations the rendering engines make, and the frequency
+				with which they often make them. The constant mispronunciation of words disrupts
+				comprehension and ruins reading enjoyment, as it breaks the narrative flow and
+				leaves the reader to guess what the engine was actually trying to speak. It doesn’t
+				have to be this way, though; the errors occur because the mechanisms to enhance
+				default synthetic renderings haven’t been made available in ebooks, not because
+				there aren’t any.</p>
+			<p>But to step back slightly, synthetic speech engines aren’t inherently riddled with
+				errors, they just fail because word pronunciation can be an incredibly complex task,
+				one that requires more than just the simple recognition of character data. Picture
+				yourself learning a new language and struggling to understand why some vowels are
+				silent in some situations and not in others, or why their pronunciation changes in
+				seemingly haphazard ways, not to mention trying to grasp where phonetic boundaries
+				are and so on. A rendering engine faces the same issues with less intelligence and
+				no ability to learn on its own or from past mistakes.</p>
+			<p>The issue is often sometimes as simple as not being able to parse parts of speech.
+				For example, consider the following sentence:</p>
+			<p>An official group record of past achievements was never kept.</p>
+			<p>A speech engine may or may not say “record” properly, because record used as noun is
+				not pronounced the same way as when used as a verb in English.</p>
+			<p>The result is that most reading systems with built-in synthetic speech capabilities
+				will do a decent job with the most common words in any language, but can trip over
+				themselves when trying to pronounce complex compound words, technical terms, proper
+				names, abbreviations, numbers, and the like. Heteronyms—words that are spelled the
+				same way but have different pronunciations and meanings—also offer a challenge, as
+				you can’t always be sure which pronunciation will come out. The word <em>bass</em>
+				in English, for example, is pronounced one way to indicate a fish (bass) and another
+				to indicate an instrument (base).</p>
+			<p>When you add up the various problem areas, it’s not a surprise why there’s a high
+				frequency of errors. These failings are especially problematic in educational,
+				science, medical, legal, tax, and similar technical publishing fields, as you might
+				expect, as the proper pronunciation of terms is critical to comprehension and being
+				able to communicate with peers.</p>
+			<p>The ability to correctly voice individual words is a huge benefit to all readers, in
+				other words, which is why you should care about the synthetic rendering quality of
+				your ebooks, as I said I’d get back to. Even if all your readers aren’t going to
+				read your whole book via synthetic speech, everyone comes across words they aren’t
+				sure how to pronounce, weird-looking character names, etc. In the print world,
+				they’d just have to guess at the pronunciation and live with the nuisance of
+				wondering for the rest of the book whether they have the it right in their head or
+				not (barring the rare pronunciation guide in the back, of course).</p>
+			<p>The embedded dictionaries and pronunciations that reading systems offer are a step up
+				from print, but typically are of little-to-no help in many of these cases, since
+				specialized terms and names don’t appear in general dictionaries. Enhancing your
+				ebooks even just to cover the most complicated names and terms goes a long way to
+				making the entire experience better for all. Enhanced synthetic speech capabilities
+				are a great value-add to set you apart from the crowd, especially if you’re
+				targeting broad audience groups.</p>
+			<p>Synthetic speech can also reduce the cost to produce audio-enhanced ebooks. Human
+				narration is costly, as I mentioned at the outset, and typically only practical for
+				novels, general non-fiction, and the like. But even in those kinds of books, are you
+				going to have a person narrate the bibliographies and indexes and other complex
+				structures in the back matter, or would it make more sense to leave them to the
+				reader’s device to voice? Having the pronunciation of words consistent across the
+				human-machine divide takes on a little more importance in this light, unless you
+				want to irk your readers with rotten sounding back matter (or worse, omitted
+				material).</p>
+			<p>And as I mentioned in the overlays section, there are reading systems that already
+				give word-level text-audio synchronization in synthetic speech playback mode,
+				surpassing what most people would attempt with an overlay and human narration. As
+				each word is fed for rendering it gets highlighted on the screen auto-magically;
+				there’s nothing special you have to do.</p>
+			<p>The cost and effort to improve synthetic speech is also one that has the potential to
+				decrease over time as you build re-usable lexicons and processes to enhance your
+				books.</p>
+			<p>But enough selling of benefits. You undoubtedly want to know how EPUB 3 helps you, so
+				let’s get on with the task.</p>
+			<p>The new specification adds three mechanisms specifically aimed at synthetic speech
+				production: PLS lexicon files, SSML markup, and CSS3 Speech style sheets. We’ll go
+				into each of these in turn and explore how you can now combine them to optimize the
+				quality of your ebooks.</p>
+			<section class="sect2" title="PLS Lexicons">
+				<h3 class="title" id="_pls_lexicons">PLS Lexicons</h3>
+				<p>The first of the new synthetic speech enhancement layers we’ll look at is PLS
+					files, which are xml lexicon files that conform to the <a class="ulink"
+						href="http://www.w3.org/TR/pronunciation-lexicon/" target="_top">W3C
+						Pronunciation Lexicon Specification</a>. The entries in these files identify
+					the word(s) to apply each pronunciation rule to. The entries also include the
+					correct phonetic spelling, which provides the text-to-speech engine with the
+					proper pronunciation to render.</p>
+				<p>Perhaps a simpler way of thinking about PLS files, though, is as containing
+					globally-applicable pronunciation rules: the entries you define in these files
+					will be used for all matching cases in your content. Instead of having to add
+					the pronunciation over and over every time the word is encountered in your
+					markup, as SSML requires, these lexicons are used as global lookups.</p>
+				<p>PLS files are consequently the ideal place to define all the proper names and
+					technical terms and other complex words that do not change based on the context
+					in which they are used. Even in the case of heteronyms, it’s good to define the
+					pronunciation you deem the most commonly used in your PLS file, as it may be the
+					only case in your ebook(s). It also ensures that you know how the heteronym will
+					always be pronounced by default, to remove the element of chance.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>The PLS specification does define a role attribute to enable
+						context-dependent pronunciations (e.g., to differentiate the pronunciation
+						of a word when used as a verb or noun), but support for it is not widespread
+						and no vocabulary is defined for standard use. I’ll defer context-dependent
+						differentiation to SSML, as a result, even though a measure is technically
+						possible in PLS files.</p>
+				</aside>
+				<p>But let’s take a look at a minimal example of a complete PLS file to see how they
+					work in practice. Here we’ll define a single entry for “acetaminophen” to cure
+					our pronunciation headaches:</p>
+				<pre class="screen">&lt;lexicon
+    version="1.0"
+    alphabet="x-sampa"
+    xml:lang="en"
+    xmlns="http://www.w3.org/2005/01/pronunciation-lexicon"&gt;
+    &lt;lexeme&gt;
+        &lt;grapheme&gt;acetaminophen&lt;/grapheme&gt;
+        &lt;phoneme&gt;@"sit@'mIn@f@n&lt;/phoneme&gt;
+    &lt;/lexeme&gt;
+&lt;/lexicon&gt;</pre>
+				<p>To start breaking this markup down, the <code class="literal">alphabet</code>
+					attribute on the root <code class="literal">lexicon</code> element defines the
+					phonetic alphabet we’re going to use to write our pronunciations. In this case,
+					I’m indicating that I’m going to write them using X-SAMPA.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>X-SAMPA is the Extended Speech Assessment Methods Phonetic Alphabet. Being an
+						ASCII-based phonetic alphabet, I’ve chosen to use it here only because it is
+						more easily writable (by mere mortals like this author) than the
+						International Phonetic Alphabet (IPA). It is not clear at this time which
+						alphabet(s) will receive the most widespread support in reading systems,
+						however.</p>
+				</aside>
+				<p>The <code class="literal">version</code> and <code class="literal">xmlns</code>
+					namespace declaration attributes are static values, so nothing exciting to see
+					there, as usual. The <code class="literal">xml:lang</code> attribute, however,
+					is required, and must reflect the language of the entries contained in the
+					lexicon. Here we’re declaring that all the entries are in English.</p>
+				<p>The root would normally contain many more <code class="literal">lexeme</code>
+					elements than in this example, as each defines the word(s) the rule applies to
+					in the child <code class="literal">grapheme</code> element(s). (Graphemes, of
+					course, don’t have to take the form of words, but for simplicity of explanation
+					I’ll stick to the general concept.) When the string is matched, the
+					pronunciation in the <code class="literal">phoneme</code> element gets rendered
+					in place of the default rendering the engine would have performed.</p>
+				<p>Or, if it helps conceptualize, when the word “acetaminophen” is encountered in
+					the prose, before passing the word to the rendering engine to voice, an internal
+					lookup of the defined graphemes occurs. Because we’ve defined a match, the
+					phoneme and the alphabet it adheres to are swapped in instead for voicing.</p>
+				<p>That you can include multiple graphemes may not seem immediately useful, but it
+					enables you to create a single entry for regional variations in spelling, for
+					example. British and American variants of “defense” could be defined in a single
+					rule as:</p>
+				<pre class="screen">&lt;lexeme&gt;
+    &lt;grapheme&gt;defense&lt;/grapheme&gt;
+    &lt;grapheme&gt;defence&lt;/grapheme&gt;
+    &lt;phoneme&gt;dI'fEns&lt;/phoneme&gt;
+&lt;/lexeme&gt;</pre>
+				<p>It is similarly possible to define more than one pronunciation by adding multiple
+						<code class="literal">phoneme</code> elements. We could add the IPA spelling
+					to the last example as follows, in case reading systems end up only supporting
+					one or the other alphabet:</p>
+				<pre class="screen">&lt;lexeme&gt;
+    &lt;grapheme&gt;defense&lt;/grapheme&gt;
+    &lt;grapheme&gt;defence&lt;/grapheme&gt;
+    &lt;phoneme&gt;dI'fEns&lt;/phoneme&gt;
+    &lt;phoneme alphabet="ipa"&gt;dɪˈfɛns&lt;/phoneme&gt;
+&lt;/lexeme&gt;</pre>
+				<p>The <code class="literal">alphabet</code> attribute on the new <code
+						class="literal">phoneme</code> element is required because its spelling
+					doesn’t conform to the default defined on the root. If the rendering engine
+					doesn’t support X-SAMPA, it could now possibly make use of this embedded IPA
+					version instead.</p>
+				<p>The phoneme doesn’t have to be in another alphabet, however; you could add a
+					regional dialect as a secondary pronunciation, for example. The specification
+					unfortunately doesn’t provide any mechanisms to indicate why you’ve included
+					such additional pronunciations or when they should be used, so there’s not much
+					value in doing so at this time.</p>
+				<p>There’s much more to creating PLS files than can be covered here, of course, but
+					you’re now versed in the basics and ready to start compiling your own lexicons.
+					You only need to attach your PLS file to your publication to complete the
+					process of enhancing your ebook.</p>
+				<p>The first step is to include an entry for the PLS file in the EPUB manifest:</p>
+				<pre class="screen">&lt;item href="lexicon.pls" id="pls" media-type="application/pls+xml"/&gt;</pre>
+				<p>The <code class="literal">href</code> attribute defines the location of the file
+					relative to the package document and the <code class="literal"
+						>media-type</code> attribute value “application/pls+xml” identifies to a
+					reading system that we’ve attached a PLS file.</p>
+				<p>Including one or more PLS files does not mean they apply by default to all your
+					content, however; in fact, they apply to none of it by default. You next have to
+					explicitly tie each PLS lexicon to each XHTML content document it is to be used
+					with by adding a <code class="literal">link</code> element to the document’s
+					header:</p>
+				<pre class="screen">&lt;html …&gt;
+    &lt;head&gt;
+        …
+        &lt;link
+            rel="pronunciation"
+            href="lexicon.pls"
+            type="application/pls+xml"
+            hreflang="en" /&gt;
+        …
+    &lt;/head&gt;
+    …
+&lt;/html&gt;</pre>
+				<p>There are a number of differences between the declaration for the PLS file in the
+					publication manifest above and in the content file here. The first is the use of
+					the <code class="literal">rel</code> attribute to include an explicit
+					relationship (that the referenced file represents pronunciation information).
+					This attribute represents somewhat redundant information, however, since the
+					media type is once again specified (here in the <code class="literal"
+						>type</code> attribute). But as it is a required attribute in HTML5, it
+					can’t be omitted.</p>
+				<p>The HTML <code class="literal">link</code> element also includes an additional
+					piece of information to allow selective targeting of lexicons: the <code
+						class="literal">hreflang</code> attribute. This attribute specifies the
+					language to which the included pronunciations apply. For example, if you have an
+					English document (as defined in the <code class="literal">xml:lang</code>
+					attribute on the html <code class="literal">root</code> element) that embeds
+					French prose, you could include two lexicon files:</p>
+				<pre class="screen">&lt;link
+    rel="pronunciation"
+    href="lexicon/en.pls"
+    type="application/pls+xml"
+    hreflang="en" /&gt;
+
+&lt;link
+    rel="pronunciation"
+    href="lexicon/fr.pls"
+    type="application/pls+xml"
+    hreflang="fr" /&gt;</pre>
+				<p>Assuming all your French passages have <code class="literal">xml:lang</code>
+					attributes on them, the reading system can selectively apply the lexicons to
+					prevent any possible pronunciation confusion:</p>
+				<pre class="screen">&lt;p&gt;It's the Hunchback of &lt;i xml:lang="fr"&gt;<span xml:lang="fr">Notre Dame</span>&lt;/i&gt; not of Notre Dame.&lt;/p&gt;</pre>
+				<p>A unilingual person reading this prose probably would not understand the
+					distinction being made here: that the French pronunciation is not the same as
+					the Americanization. Including separate lexicons by language, however, would
+					ensure that readers would hear the Indiana university name differently than the
+					French cathedral if they turn on TTS:</p>
+				<pre class="screen">&lt;lexicon
+    version="1.0"
+    alphabet="x-sampa"
+    xml:lang="en"
+    xmlns="http://www.w3.org/2005/01/pronunciation-lexicon"&gt;
+    &lt;lexeme&gt;
+        &lt;grapheme&gt;Notre Dame&lt;/grapheme&gt;
+        &lt;phoneme&gt;noUt@r 'deIm&lt;/phoneme&gt;
+    &lt;/lexeme&gt;
+&lt;/lexicon&gt;
+
+&lt;lexicon
+    version="1.0"
+    alphabet="x-sampa"
+    xml:lang="fr"
+    xmlns="http://www.w3.org/2005/01/pronunciation-lexicon"&gt;
+    &lt;lexeme&gt;
+        &lt;grapheme&gt;<span xml:lang="fr">Notre Dame</span>&lt;/grapheme&gt;
+        &lt;phoneme&gt;n%oUtr@ d"Am&lt;/phoneme&gt;
+    &lt;/lexeme&gt;
+&lt;/lexicon&gt;</pre>
+				<p>When the contents of the <code class="literal">i</code> tag are encountered, and
+					identified as French, the pronunciation from the corresponding lexicon gets
+					applied instead of the one from the default English lexicon.</p>
+				<p>Now that we know how to globally define pronunciation rules, let’s turn to how we
+					can override and/or define behavior at the markup level.</p>
+			</section>
+			<section class="sect2" title="SSML">
+				<h3 class="title" id="_ssml">SSML</h3>
+				<p>Although PLS files are a great way to globally set the pronunciation of words,
+					their primary failing is that they aren’t a lot of help where context matters in
+					determining the correct pronunciation. Leave the pronunciation of heteronyms to
+					chance, for example, and you’re invariably going to be disappointed by the
+					result; the cases where context might not significantly influence comprehension
+					(e.g., an English heteronym like “mobile”), are going to be dwarfed by the ones
+					where it does.</p>
+				<p>By way of example, when talking about PLS files I mentioned bass the instrument
+					and bass the fish as an example of how context influences pronunciation. Let’s
+					take a look at this problem in practice now:</p>
+				<pre class="screen">&lt;p&gt;The guitarist was playing a bass that was shaped like a <span ssml:ph="b&amp;s">bass</span>.&lt;/p&gt;</pre>
+				<p>Human readers won’t have much of a struggle with this sentence, despite the
+					contrived oddity of it. A guitarist is not going to be playing a fish shaped
+					like a guitar, and it would be strange to note that the bass guitar is shaped
+					like a bass guitar. From context you’re able to determine without much pause
+					that we’re talking about someone playing a guitar shaped like a fish.</p>
+				<p>All good and simple. Now consider your reaction if, when listening to a synthetic
+					speech engine pronounce the sentence, you heard both words pronounced the same
+					way, which is the typical result. The process to correct the mistake takes you
+					out of the flow of the narrative. You’re going to wonder why the guitar is
+					shaped like a guitar, admit it.</p>
+				<p>Synthetic narration doesn’t afford you the same ease to move forward and back
+					through the prose that visual reading does, as words are only announced as
+					they’re voiced. The engine may be applying heuristic tests to attempt to better
+					interpret the text for you behind the scenes, but you’re at its mercy. You can
+					back up and listen to the word again to verify whether the engine said what you
+					thought it did, but it’s an intrusive process that requires you to interact with
+					the reading system. If you still can’t make sense of the word, you can have the
+					reading system spell it out as a last resort, but now you’re train of thought is
+					completely on understanding the word.</p>
+				<p>And this is an easy example. A blind reader used to synthetic speech engines
+					would probably just keep listening past this sentence having made a quick
+					assumption that the engine should have said something else, for example, but
+					that’s not a justification for neglect. The problems only get more complex and
+					less avoidable, no matter your familiarity. And that you’re asking your readers
+					to compensate is a major red flag you’re not being accessible, as
+					mispronunciations are not always easily overcome depending on the reader’s
+					disability. It also doesn’t reflect well on your ebooks if readers turn to
+					synthetic speech engines to help with pronunciation and find gibberish, as I
+					touched on in the last section.</p>
+				<p>And the problems are rarely one-time occurrences. When the reader figures out
+					what the engine was trying to say they will, in all likelihood, have to make a
+					mental note on how to translate the synthetic gunk each time it is
+					re-encountered to avoid repeatedly going through the same process. If you don’t
+					think that makes reading comprehension a headache, try it sometime.</p>
+				<p>But this is where the Synthetic Speech Markup Language (SSML) comes in, allowing
+					you to define individual pronunciations at the markup level. EPUB 3 adds the
+						<code class="literal">ssml:alphabet</code> and <code class="literal"
+						>ssml:ph</code> attributes, which allow you to specify the alphabet you’re
+					using and phonemic pronunciation of the containing element’s content,
+					respectively. These attributes work in very much the same way as the PLS entries
+					we just reviewed, as you might already suspect.</p>
+				<p>For example, we could revise our earlier example as follows to ensure the proper
+					pronunciation for each use of bass:</p>
+				<pre class="screen">&lt;p&gt;
+    The guitarist was playing a
+    &lt;span ssml:alphabet="x-sampa" ssml:ph="beIs"&gt;bass&lt;/span&gt; that was shaped
+    like a &lt;span ssml:alphabet="x-sampa" ssml:ph="b&amp;amp;s"&gt;<span ssml:ph="b&amp;s">bass</span>&lt;/span&gt;.
+&lt;/p&gt;</pre>
+				<p>The <code class="literal">ssml:alphabet</code> attribute on each span element
+					identifies that the pronunciation carried in the <code class="literal"
+						>ssml:ph</code> attribute is written in X-SAMPA, identically to the PLS
+						<code class="literal">alphabet</code> attribute. We don’t need a grapheme to
+					match against, because we’re telling the synthetic speech engine to replace the
+					content of the <code class="literal">span</code> element. The engine will now
+					voice the provided pronunciations instead of applying its own rules. In other
+					words, no more ambiguity and no more rendering problem; it really is that
+					simple.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>The second <code class="literal">ssml:ph</code> attribute includes an
+						&amp;amp; entity as the actual X-SAMPA spelling is: <span class="spell">b&amp;s</span>. Ampersands are
+						special characters in XHTML that denote the start of a character entity, so
+						have to be converted to entities themselves in order for your document to be
+						valid. When passed to the synthetic speech engine, however, the entity will
+						be converted back to the ampersand character. (In other words, the extra
+						characters to encode the character will not affect the rendering.)</p>
+					<p>Single and double quote characters in X-SAMPA representations would similarly
+						need to be escaped depending on the characters you use to enclose the
+						attribute value.</p>
+				</aside>
+				<p>It bears a quick note that the pronunciation in the <code class="literal"
+						>ssml:ph</code> attribute has to match the prose contained in the element it
+					is attached to. By wrapping <code class="literal">span</code> elements around
+					each individual word in this example, I’ve limited the translation of text to
+					phonetic code to just the problematic words I want to fix. If I put the
+					attribute on the parent <code class="literal">p</code> element, I’d have to
+					transcode the entire sentence.</p>
+				<p>The upside of the granularity SSML markup provides should be clear now, though:
+					you can overcome any problem no matter how small (or big) with greater precision
+					than PLS files offer. The downside, of course, is having to work at the markup
+					level to correct each instance that has to be overridden.</p>
+				<p>To hark back to the discussion of PLS files for a moment, though, we could
+					further simplify the correction process by moving the more common pronunciation
+					to our PLS lexicon and only fix the differing heteronym:</p>
+				<pre class="screen">&lt;lexicon
+    version="1.0"
+    alphabet="x-sampa"
+    xml:lang="en"
+    xmlns="http://www.w3.org/2005/01/pronunciation-lexicon"&gt;
+    &lt;lexeme&gt;
+        &lt;grapheme&gt;bass&lt;/grapheme&gt;
+        &lt;phoneme&gt;beIs&lt;/phoneme&gt;
+    &lt;/lexeme&gt;
+&lt;/lexicon&gt;
+
+&lt;p&gt;
+    The guitarist was playing a bass that was shaped like a
+    &lt;span ssml:alphabet="x-sampa" ssml:ph="b&amp;amp;s"&gt;<span ssml:ph="b&amp;s">bass</span>&lt;/span&gt;.
+&lt;/p&gt;</pre>
+				<p>It’s also not necessary to define the <code class="literal">ssml:alphabet</code>
+					attribute every time. If we were only using a single alphabet throughout the
+					document, which would be typical of most ebooks, we could instead define the
+					alphabet once on the root <code class="literal">html</code> element:</p>
+				<pre class="screen">&lt;html … ssml:alphabet="x-sampa"&gt;</pre>
+				<p>So long as the alphabet is defined on an ancestor of the element carrying the
+						<code class="literal">ssml:ph</code> attribute, a rendering engine will
+					interpret it correctly (and your document will be valid). (The root element is
+					the ancestor of all the elements in the document, which is why these kinds of
+					declarations are invariably found on it, in case you’ve ever wondered but were
+					afraid to ask.)</p>
+				<p>Our markup can now be reduced to the much more legible and easily maintained:</p>
+				<pre class="screen">&lt;p&gt;
+    The guitarist was playing a bass that was shaped like a
+    &lt;span ssml:ph="b&amp;amp;s"&gt;<span ssml:ph="b&amp;s">bass</span>&lt;/span&gt;.
+&lt;/p&gt;</pre>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>If you’re planning to share content across ebooks or across content files
+						within one, it’s better to keep the attributes paired so that there is no
+						confusion about which alphabet was used to define the pronunciation. It’s
+						not a common requirement, however.</p>
+				</aside>
+				<p>But heteronyms are far from the only case for SSML. Any language construct that
+					can be voiced differently depending on the context in which it is used is a
+					candidate for SSML. Numbers are always problematic, as are weights and
+					measures:</p>
+				<pre class="screen">&lt;p&gt;
+    There are &lt;span
+    ssml:ph="w&amp;quot;Vn T&amp;quot;aUz@n t_hw&amp;quot;En4i f&amp;quot;O:r"&gt;<span ssml:ph="w&quot;Vn T&quot;aUz@n t_hw&quot;En4i f&quot;O:r">1024</span>&lt;/span&gt; bits
+    in a byte, not &lt;span ssml:ph="t_h&amp;quot;En t_hw&amp;quot;En4i f&amp;quot;O:r"&gt;<span ssml:ph="t_h&quot;En t_hw&quot;En4i f&quot;O:r">1024</span>&lt;/span&gt;,
+    as the year is pronounced.
+&lt;/p&gt;
+
+&lt;p&gt;
+    It reached a high of &lt;span
+    ssml:ph="'T3rti s&amp;quot;Ev@n 'sEntI&amp;quot;greId"&gt;<span ssml:ph="'T3rti s&quot;Ev@n 'sEntI&quot;greId">37C</span>&lt;/span&gt; in the sun as I stood
+    outside &lt;span ssml:ph="'T3rti s&amp;quot;Ev@n si"&gt;<span ssml:ph="'T3rti s&quot;Ev@n si">37C</span>&lt;/span&gt; waiting for someone
+    to answer my knocks and let me in.
+&lt;/p&gt;
+
+&lt;p&gt;
+    You'll be an &lt;span ssml:ph="Ekstr@ lArdZ"&gt;<span ssml:ph="Ekstr@ lArdZ">XL</span>&lt;/span&gt; by the end of Super Bowl
+    &lt;span ssml:ph="'fOrti"&gt;<span ssml:ph="'fOrti">XL</span>&lt;/span&gt; at the rate you're eating.
+&lt;/p&gt;</pre>
+				<p>But there’s unfortunately no simple guideline to give in terms of finding issues.
+					It takes an eye for detail and an ear for possible different aural renderings.
+					Editors and indexers are good starting resources for the process, as they should
+					be able to quickly flag problem words during production so they don’t have to be
+					rooted out after the fact. Programs that can analyze books and report on
+					potentially problematic words, although not generally available, are not just a
+					fantasy. Their prevalence will hopefully grow now that EPUB 3 incorporates more
+					facilities to enhance default renderings, as they can greatly reduce the human
+					burden.</p>
+				<p>The only other requirement when using the SSML attributes that I haven’t touched
+					on is that you always have to declare the SSML namespace. I’ve omitted the
+					declaration from the previous examples for clarity, and because the namespace is
+					typically only specified once on the root <code class="literal">html</code>
+					element as follows:</p>
+				<pre class="screen">&lt;html … xmlns:ssml="http://www.w3.org/2001/10/synthesis"&gt;</pre>
+				<p>Similar to the <code class="literal">alphabet</code> attribute, we could have
+					equally well attached the namespace declaration to each instance where we used
+					the attributes:</p>
+				<pre class="screen">&lt;span
+    xmlns:ssml="http://www.w3.org/2001/10/synthesis"
+    ssml:ph="x-sampa"
+    …&gt;</pre>
+				<p>But that’s a verbose approach to markup, and generally only makes sense when
+					content is encapsulated and shared across documents, as I just noted, or
+					expected to be extracted into foreign playback environments where the full
+					document context is unavailable.</p>
+				<p>The question you may still be wondering at this point is what happens if a PLS
+					file contains a pronunciation rule that matches a word that is also defined by
+					an SSML pronunciation, how can you be sure which one wins? You don’t have to
+					worry, however, as the EPUB 3 specification defines a precedence rule that
+					states that the SSML pronunciation must be honored. There’d be no way to
+					override the global PLS definitions, otherwise, which would make SSML largely
+					useless in resolving conflicts.</p>
+				<p>But to wrap up, a final note is that there is no reason why you couldn’t make all
+					your improvements in SSML. It’s not the ideal way to tackle the problem, because
+					of the text-level recognition and tagging it requires, at least in this author’s
+					opinion, but it may make more sense to internal production to only use a single
+					technology and/or support for PLS may not prove universal (it’s too early to
+					know yet).</p></section>
+			<section class="sect2" title="CSS3 Speech">
+				<h3 class="title" id="_css3_speech">CSS3 Speech</h3>
+				<p>You might be thinking the global definition power of PLS lexicons combined with
+					the granular override abilities of SSML might be sufficient to cover all cases,
+					so why a third technology? But you’d be only partly right.</p>
+				<p>The CSS3 Speech module is not about word pronunciation, however. It includes no
+					phonetic capabilities, but defines how you can use CSS style sheet technology to
+					control such aspects of synthetic speech rendering as the gender of voice to
+					use, the amount of time to pause before and after elements, when to insert aural
+					cues, etc.</p>
+				<p>The CSS3 Speech module also provides a simpler entry point for some basic voicing
+					enhancements. The ability to write X-SAMPA or IPA pronunciations requires
+					specialized knowledge, but the <code class="literal">speak-as</code> property
+					masks the complexity for some common use cases.</p>
+				<p>You could use this property to mark all acronyms that are to be spelled out
+					letter-by-letter, for example. If we added a class called ‘spell’ to the <code
+						class="literal">abbr</code> elements we want spelled, as in the following
+					example:</p>
+				<pre class="screen">&lt;abbr class="spell"&gt;<abbr class="spell">IBM</abbr>&lt;/abbr&gt;</pre>
+				<p>we could then define a CSS class to indicate that each letter should be voiced
+					individually using the <code class="literal">spell-out</code> value:</p>
+				<pre class="screen">.spell {
+    -epub-speak-as: spell-out
+}</pre>
+				<p>It’s no longer left to the rendering engine to determine whether the acronym is
+					“wordy” enough to attempt to voice as a word now.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>Note that the properties are all prefixed with “-epub-” because the Speech
+						module was not a recommendation at the time that EPUB 3 was finalized. You
+						must use this prefix until the Speech module is finalized and reading
+						systems begin supporting the unprefixed versions.</p>
+				</aside>
+				<p>The <code class="literal">speak-as</code> property provides the same
+					functionality for numbers, ensuring they get spoken one digit at a time instead
+					of as a single number, something engines will not typically do by default.</p>
+				<pre class="screen">.digits {
+    -epub-speak-as: digits
+}</pre>
+				<p>Adding this class to the following number would ensure that readers understand
+					you’re referring to the North American emergency line when listening to TTS
+					playback:</p>
+				<pre class="screen">&lt;span class="digits"&gt;<span class="digits">911</span>&lt;/span&gt;</pre>
+				<p>The property also allows you to control whether or not to read out punctuation.
+					Only some punctuation ever gets announced in normal playback, as it’s generally
+					used for pause effects, but you could require all punctuation to be voiced using
+					the <code class="literal">literal-punctuation</code> value:</p>
+				<pre class="screen">.punctuate {
+    -epub-speak-as: literal-punctuation
+}</pre>
+				<p>This setting would be vital for grammar books, for example, where you would want
+					the entire punctuation for each example to be read out to the student.
+					Conversely, to turn punctuation off you’d use the <code class="literal"
+						>no-punctuation</code> value.</p>
+				<p>The <code class="literal">speak-as</code> property isn’t a complex control
+					mechanism, but definitely serves a useful role. Even if you are fluent with
+					phonetic alphabets, there’s a point where it doesn’t make sense to have to
+					define or write out every letter or number to ensure the engine doesn’t do the
+					wrong thing, and this is where the Speech module helps.</p>
+				<p>Where the module excels, however, is in providing playback control. But this is
+					also an area where you may want to think twice before adding your own custom
+					style sheet rules. Most reading systems typically have their own internal rules
+					for playback so that the synthetic speech rendering doesn’t come out as one long
+					uninterrupted stream of monotone narration. When you add your own rules, you
+					have the potential to interfere with the reader’s default settings. But in the
+					interests of thoroughness, we’ll take a quick tour.</p>
+				<p>The first stop is the ability to insert pauses. Pauses are an integral part of
+					the synthetic speech reading process, as they provide a non-verbal indication of
+					change. Without them, it wouldn’t always be clear if a new sentence were
+					beginning or a new paragraph, or when one section ends and another begins.</p>
+				<p>The CSS3 Speech module includes a <code class="literal">pause</code> property
+					that allows you to control the duration to pause before and after any element.
+					For example, we could define a half-second pause before headings followed by a
+					quarter-second pause after by including the following rule:</p>
+				<pre class="screen">h1 {
+    -epub-pause: 50ms 25ms
+}</pre>
+				<p>Aural cues are equally helpful when it comes to identifying new headings, as the
+					pause alone may not be interpreted by the listener as you expect. The Speech
+					module includes a <code class="literal">cue</code> property for exactly this
+					purpose:</p>
+				<pre class="screen">h1 {
+    -epub-pause: 50ms 25ms;
+    -epub-cue: url('audio/ping.mp3') none
+}</pre>
+				<p>(Note that the addition of the <code class="literal">none</code> value after the
+					audio file location. If omitted, the cue would also sound after the heading was
+					finished.)</p>
+				<p>And finally, the <code class="literal">rest</code> property provides fine-grained
+					control when using cues. Cues occur after any initial pause before the element
+					(as defined by the <code class="literal">pause</code> property), and before any
+					pause after. But you may still want to control the pause that occurs between the
+					cue sounding and the text being read and between the end of the text being read
+					and the trailing cue sounding (i.e., so that the sound and the text aren’t run
+					together). The <code class="literal">rest</code> property is how you control the
+					duration of these pauses.</p>
+				<p>We could update our previous example to add a 10 millisecond rest after the cue
+					is sounded to prevent run-ins as follows:</p>
+				<pre class="screen">h1 {
+    -epub-pause: 50ms 25ms;
+    -epub-cue: url('audio/ping.mp3') none;
+    -epub-rest: 10ms 0ms
+}</pre>
+				<p>But again, if I didn’t say it forcefully enough earlier, it’s best not to tweak
+					these properties unless you’re targeting a specific user group, know their
+					needs, and know that their players will not provide sufficient quality “out of
+					the box.” Tread lightly, in other words.</p>
+				<p>A final property, that is slightly more of an aside, is <code class="literal"
+						>voice-family</code>. Although not specifically accessibility related, it
+					can provide a more flavorful synthesis experience for your readers.</p>
+				<p>If your ebook contains dialogue, or the gender of the narrator is important, you
+					can use this property to specify the appropriate gender voice. We could set a
+					female narrator as follows:</p>
+				<pre class="screen">body {
+    -epub-voice-family: female
+}</pre>
+				<p>and a male class to use as needed for male characters:</p>
+				<pre class="screen">.male {
+    -epub-voice-family: male
+}</pre>
+				<p>If we added these rules to a copy of Alice’s Adventures in Wonderland, we could
+					now differentiate the Cheshire Cat using the male voice as follows:</p>
+				<pre class="screen">&lt;p&gt;
+    Alice: But I don't want to go among mad people.
+&lt;/p&gt;
+
+&lt;p class="male"&gt;
+    The Cat: Oh, you can't help that.
+    We're all mad here. I'm mad. You're mad.
+&lt;/p&gt;</pre>
+				<p>You can also specify different voices within the specified gender. For example,
+					if a reading system had two male voices available, you could add some variety to
+					the characters as follows by indicating the number of the voice to use:</p>
+				<pre class="screen">.first-male {
+    -epub-voice-family: male 1
+}
+
+.second-male {
+    -epub-voice-family: male 2
+}</pre>
+				<p>At worst, the reading system will ignore your instruction and only present
+					whatever voice it has available, but this property gives you the ability to be
+					more creative with your text-to-speech renderings for those systems that do
+					provide better support.</p>
+				<aside class="note" title="Note">
+					<h3 class="title">Note</h3>
+					<p>The CSS3 Speech module contains more properties than I’ve covered here, but
+						reading systems are only required to implement the limited set of features
+						described in this section. You may use the additional properties the module
+						makes available (e.g., pitch and loudness control), but if you do your
+						content may not render uniformly across platforms. Carefully consider using
+						innovative or disruptive features in your content, as this may hinder
+						interoperability across reading systems.</p>
+				</aside>
+				<p>Whatever properties you decide to add, it is always good practice to separate
+					them into their own style sheet. You should also define them as applicable only
+					for synthetic speech playback using a media at-rule as follows:</p>
+				<pre class="screen">@media speech {
+
+    .spell {
+        -epub-speak-as: spell-out
+    }
+
+}</pre>
+				<p>As I noted earlier, reading systems will typically have their own defaults, and
+					separating your aural instructions will allow them to be ignored and/or turned
+					off on systems where they’re unwanted.</p>
+				<p>For completeness, you should also indicate the correct media type for the style
+					sheet when linking from your content document:</p>
+				<pre class="screen">&lt;link rel="stylesheet" media="speech" href="synth.css" /&gt;</pre>
+				<p>And that covers the full range of synthetic speech enhancements. You now have a
+					whole arsenal at your disposal to create high-quality synthetic
+				speech.</p>
+			</section>
+		</section>
+	</body>
+</html>

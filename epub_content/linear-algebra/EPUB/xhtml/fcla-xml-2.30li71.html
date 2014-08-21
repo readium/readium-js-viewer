@@ -1,0 +1,2270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-us" lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/> 
+        <link rel="stylesheet" type="text/css" href="../css/commonltr.css"/>
+        <title>Section PT  Proof Techniques</title>
+        <link type="text/css" rel="stylesheet" href="../css/epub.css"/>
+    </head>
+    <body id="d1e30">
+        <h1 class="title topictitle1">Section PT  Proof Techniques</h1>
+        <div class="body">
+            <p class="p"> From 
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmti-12">A First Course in Linear Algebra</span>
+                </span>
+                <br/>Version 2.30
+                <br/>
+                <span class="ph cmsy-10x-x-120">©</span> 2004.
+                <br/>Licensed under the 
+                <span class="xref broken http://www.gnu.org/licenses/fdl.html">GNU Free Documentation License</span>.
+                <br/>
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmtt-12">http://linear.ups.edu/</span>
+                </span>
+                <br/>
+                <br/> In this section we collect many short essays designed to help you understand how to read, understand and construct proofs. Some are very factual, while others consist of advice. They appear in the order that they are first needed (or advisable) in the text, and are meant to be self-contained. So you should not think of reading through this section in one sitting as you begin this course. But be sure to head back here for a first reading whenever the text suggests it. Also think about returning to browse at various points during the course, and especially as you struggle with becoming an accomplished mathematician who is comfortable with the difficult process of designing new proofs. 
+            </p>
+        </div>
+        <div class="related-links">
+            <div class="familylinks">
+                <div class="parentlink">
+                    <strong>Parent topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li68.html">Appendix P  Preliminaries</a>
+                </div>
+                <div class="previouslink">
+                    <strong>Previous topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li70.html">Section SET  Sets</a>
+                </div>
+                <div class="nextlink">
+                    <strong>Next topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li72.html">Appendix A  Archetypes</a>
+                </div>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e62">
+            <h2 class="title topictitle2">Proof Technique D: Definitions</h2>
+            <div class="body">
+                <p class="p"> A definition is a made-up term, used as a kind of shortcut for some typically more complicated idea. For example, we say a whole number is 
+                    <span class="ph cmbx-12">even </span>as a shortcut for saying that when we divide the number by two we get a remainder of zero. With a precise definition, we can answer certain questions unambiguously. For example, did you ever wonder if zero was an even number? Now the answer should be clear since we have a precise definition of what we mean by the term even. 
+                </p>
+                <p class="p"> A single term might have several possible definitions. For example, we could say that the whole number 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                        </math>
+                    </span> is even if there is another whole number 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>k</mi>
+                        </math>
+                    </span> such that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>2</mn>
+                            <mi>k</mi>
+                        </math>
+                    </span>. We say this is an equivalent definition since it categorizes even numbers the same way our first definition does. 
+                </p>
+                <p class="p"> Definitions are like two-way streets — we can use a definition to replace something rather complicated by its definition (if it fits) 
+                    <span class="ph cmti-12">and </span>we can replace a definition by its more complicated description. A definition is usually written as some form of an implication, such as “If something-nice-happens, then 
+                    <span class="ph cmbx-12">blatzo</span>.” However, this also means that “If blatzo, then something-nice-happens,” even though this may not be formally stated. This is what we mean when we say a definition is a two-way street — it is really two implications, going in opposite “directions.” 
+                </p>
+                <p class="p"> Anybody (including you) can make up a definition, so long as it is unambiguous, but the real test of a definition’s utility is whether or not it is useful for describing interesting or frequent situations. </p>
+                <p class="p"> We will talk about theorems later (and especially equivalences). For now, be sure not to confuse the notion of a definition with that of a theorem. </p>
+                <p class="p"> In this book, we will display every new definition carefully set-off from the text, and the term being defined will be written thus: 
+                    <span class="ph cmbx-12">definition</span>. Additionally, there is a full list of all the definitions, in order of their appearance located at the front of the book (
+                    <span class="xref broken fcla-xml-2.30li71.html#definition">Definitions</span>). Finally, the acronym for each definition can be found in the index (
+                    <span class="xref broken fcla-xml-2.30li71.html#index">Index</span>). Definitions are critical to doing mathematics and proving theorems, so we’ve given you lots of ways to locate a definition should you forget its…uh, well, …definition. 
+                </p>
+                <p class="p"> Can you formulate a precise definition for what it means for a number to be 
+                    <span class="ph cmbx-12">odd</span>? (Don’t just say it is the opposite of even. Act as if you don’t have a definition for even yet.) Can you formulate your definition a second, equivalent, way? Can you employ your definition to test an odd and an even number for “odd-ness”? 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e136">
+            <h2 class="title topictitle2">Proof Technique T: Theorems</h2>
+            <div class="body">
+                <p class="p"> Higher mathematics is about understanding theorems. Reading them, understanding them, applying them, proving them. Every theorem is a shortcut — we prove something in general, and then whenever we find a specific instance covered by the theorem we can immediately say that we know something else about the situation by applying the theorem. In many cases, this new information can be gained with much less effort than if we did not know the theorem. </p>
+                <p class="p"> The first step in understanding a theorem is to realize that the statement of every theorem can be rewritten using statements of the form “If something-happens, then something-else-happens.” The “something-happens” part is the 
+                    <span class="ph cmbx-12">hypothesis</span> and the “something-else-happens” is the 
+                    <span class="ph cmbx-12">conclusion</span>. To understand a theorem, it helps to rewrite its statement using this construction. To apply a theorem, we verify that “something-happens” in a particular instance and immediately conclude that “something-else-happens.” To prove a theorem, we must argue based on the assumption that the hypothesis is true, and arrive through the process of logic that the conclusion must then also be true. 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e159">
+            <h2 class="title topictitle2">Proof Technique L: Language</h2>
+            <div class="body">
+                <p class="p">Mathematics is a language. It is a way to express complicated ideas clearly, precisely, and unambiguously. Because of this, it can be difficult to read. Read slowly, and have pencil and paper at hand. It will usually be necessary to read something several times. While reading can be difficult, it is even harder to speak mathematics, and so that is the topic of this technique. </p>
+                <p class="p"> “Natural” language, in the present case English, is fraught with ambiguity. Consider the possible meanings of the sentence: The fish is ready to eat. One fish, or two fish? Are the fish hungry, or will the fish be eaten? (See 
+                    <span class="xref broken fcla-xml-2.30li17.html#d1e33__exercise.SSLE.M10">Exercise SSLE.M10</span>, 
+                    <span class="xref broken fcla-xml-2.30li17.html#d1e33__exercise.SSLE.M11">Exercise SSLE.M11</span>, 
+                    <span class="xref broken fcla-xml-2.30li17.html#d1e33__exercise.SSLE.M12">Exercise SSLE.M12</span>, 
+                    <span class="xref broken fcla-xml-2.30li17.html#d1e33__exercise.SSLE.M13">Exercise SSLE.M13</span>.) In your daily interactions with others, give some thought to how many mis-understandings arise from the ambiguity of pronouns, modifiers and objects. 
+                </p>
+                <p class="p"> I am going to suggest a simple modification to the way you use language that will make it much, much easier to become proficient at speaking mathematics and eventually it will become second nature. Think of it as a training aid or practice drill you might use when learning to become skilled at a sport. </p>
+                <p class="p"> First, eliminate pronouns from your vocabulary when discussing linear algebra, in class or with your colleagues. Do not use: it, that, those, their or similar sources of confusion. This is the single easiest step you can take to make your oral expression of mathematics clearer to others, and in turn, it will greatly help your own understanding. </p>
+                <p class="p"> Now rid yourself of the word “thing” (or variants like “something”). When you are tempted to use this word realize that there is some object you want to discuss, and we likely have a definition for that object (see the discussion at 
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.D">Technique D</span>). Always “think about your objects” and many aspects of the study of mathematics will get easier. Ask yourself: “Am I working with a set, a number, a function, an operation, a differential equation, or what?” Knowing what an object 
+                    <span class="ph cmti-12">is </span>will allow you to narrow down the procedures you may apply to 
+                    <span class="ph cmbx-12">it</span>. If you have studied an object-oriented computer programming language, then you will already have experience identifying objects and thinking carefully about what procedures are allowed to be applied to them. 
+                </p>
+                <p class="p"> Third, eliminate the verb “works” (as in “the equation works”) from your vocabulary. This term is used as a substitute when we are not sure just what we are trying to accomplish. Usually we are trying to say that some object fulfills some condition. The condition might even have a definition associated with it, making it even easier to describe. </p>
+                <p class="p"> Last, speak slooooowly and thoughtfully as you try to get by without all these lazy words. It is hard at first, but you will get better with practice. Especially in class, when the pressure is on and all eyes are on you, don’t succumb to the temptation to use these weak words. Slow down, we’d all rather wait for a slow, well-formed question or answer than a fast, sloppy, incomprehensible one. </p>
+                <p class="p"> You will find the improvement in your ability to 
+                    <span class="ph cmti-12">speak </span>clearly about complicated ideas will greatly improve your ability to 
+                    <span class="ph cmti-12">think </span>clearly about complicated ideas. And I believe that you cannot think clearly about complicated ideas if you cannot formulate questions or answers clearly in the correct language. This is as applicable to the study of law, economics or philosophy as it is to the study of science or mathematics. 
+                </p>
+                <p class="p"> In this spirit, 
+                    <span class="xref broken fcla-xml-2.30li6.html#x7-6000__HubertDupont">Dupont Hubert</span> has contributed the following quotation, which is widely used in French mathematics courses (and which might be construed as the contrapositive of 
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.CP">Technique CP</span>) 
+                </p>
+                <p class="p">which translates as </p>
+                <p class="p"> So when you come to class, check your pronouns at the door, along with other weak words. And when studying with friends, you might make a game of catching one another using pronouns, “thing,” or “works.” I know I’ll be calling you on it! </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e270">
+            <h2 class="title topictitle2">Proof Technique GS: Getting Started</h2>
+            <div class="body">
+                <p class="p"> “I don’t know how to get started!” is often the lament of the novice proof-builder. Here are a few pieces of advice. </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e377">
+            <h2 class="title topictitle2">Proof Technique C: Constructive Proofs</h2>
+            <div class="body">
+                <p class="p"> Conclusions of proofs come in a variety of types. Often a theorem will simply 
+                    <span class="ph cmti-12">assert </span>that something exists. The best way, but not the only way, to show something exists is to actually build it. Such a proof is called 
+                    <span class="ph cmbx-12">constructive</span>. The thing to realize about constructive proofs is that the proof itself will contain a procedure that might be used computationally to construct the desired object. If the procedure is not too cumbersome, then the proof itself is as useful as the statement of the theorem. 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e396">
+            <h2 class="title topictitle2">Proof Technique E: Equivalences</h2>
+            <div class="body">
+                <p class="p"> When a theorem uses the phrase “if and only if” (or the abbreviation “iff”) it is a shorthand way of saying that two if-then statements are true. So if a theorem says “P if and only if Q,” then it is true that “if P, then Q” while it is also true that “if Q, then P.” For example, it may be a theorem that “I wear bright yellow knee-high plastic boots if and only if it is raining.” This means that I 
+                    <span class="ph cmti-12">never </span>forget to wear my super-duper yellow boots when it is raining 
+                    <span class="ph cmti-12">and </span>I wouldn’t be seen in such silly boots 
+                    <span class="ph cmti-12">unless </span>it was raining. You never have one without the other. I’ve got my boots on and it is raining 
+                    <span class="ph cmti-12">or </span>I don’t have my boots on and it is dry. 
+                </p>
+                <p class="p"> The upshot for proving such theorems is that it is like a 2-for-1 sale, we get to do 
+                    <span class="ph cmti-12">two </span>proofs. Assume 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                        </math>
+                    </span> and conclude 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Q</mi>
+                        </math>
+                    </span>, then start over and assume 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Q</mi>
+                        </math>
+                    </span> and conclude 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                        </math>
+                    </span>. For this reason, “if and only if” is sometimes abbreviated by 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mspace width="3.26288pt" class="tmspace"/>
+                            <mo class="MathClass-rel">⇔</mo>
+                            <mspace width="3.26288pt" class="tmspace"/>
+                        </math>
+                    </span>, while proofs indicate which of the two implications is being proved by prefacing each with 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-rel">⇒</mo>
+                        </math>
+                    </span> or 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-rel">⇐</mo>
+                        </math>
+                    </span>. A carefully written proof will remind the reader which statement is being used as the hypothesis, a quicker version will let the reader deduce it from the direction of the arrow. Tradition dictates we do the “easy” half first, but that’s hard for a student to know until you’ve finished doing both halves! Oh well, if you rewrite your proofs (a good habit), you can then choose to put the easy half first. 
+                </p>
+                <p class="p"> Theorems of this type are called “equivalences” or “characterizations,” and they are some of the most pleasing results in mathematics. They say that two objects, or two situations, are really the same. You don’t have one without the other, like rain and my yellow boots. The more different 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Q</mi>
+                        </math>
+                    </span> seem to be, the more pleasing it is to discover they are really equivalent. And if 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                        </math>
+                    </span> describes a very mysterious solution or involves a tough computation, while 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Q</mi>
+                        </math>
+                    </span> is transparent or involves easy computations, then we’ve found a great shortcut for better understanding or faster computation. Remember that every theorem really is a shortcut in some form. You will also discover that if proving 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>Q</mi>
+                        </math>
+                    </span> is very easy, then proving 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Q</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>P</mi>
+                        </math>
+                    </span> is likely to be proportionately harder. Sometimes the two halves are about equally hard. And in rare cases, you can string together a whole sequence of other equivalences to form the one you’re after and you don’t even need to do two halves. In this case, the argument of one half is just the argument of the other half, but in reverse. 
+                </p>
+                <p class="p"> One last thing about equivalences. If you see a statement of a theorem that says two things are “equivalent,” translate it first into an “if and only if” statement. </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e512">
+            <h2 class="title topictitle2">Proof Technique N: Negation</h2>
+            <div class="body">
+                <p class="p"> When we construct the contrapositive of a theorem (
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.CP">Technique CP</span>), we need to negate the two statements in the implication. And when we construct a proof by contradiction (
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.CD">Technique CD</span>), we need to negate the conclusion of the theorem. One way to construct a converse (
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.CV">Technique CV</span>) is to simultaneously negate the hypothesis and conclusion of an implication (but remember that this is not guaranteed to be a true statement). So we often have the need to negate statements, and in some situations it can be tricky. 
+                </p>
+                <p class="p"> If a statement says that a set is empty, then its negation is the statement that the set is nonempty. That’s straightforward. Suppose a statement says “something-happens” for all 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>i</mi>
+                        </math>
+                    </span>, or every 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>i</mi>
+                        </math>
+                    </span>, or any 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>i</mi>
+                        </math>
+                    </span>. Then the negation is that “something-doesn’t-happen” for at least one value of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>i</mi>
+                        </math>
+                    </span>. If a statement says that there exists at least one “thing,” then the negation is the statement that there is no “thing.” If a statement says that a “thing” is unique, then the negation is that there is zero, or more than one, of the “thing.” 
+                </p>
+                <p class="p"> We are not covering all of the possibilities, but we wish to make the point that logical qualifiers like “there exists” or “for every” must be handled with care when negating statements. Studying the proofs which employ contradiction (as listed in 
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.CD">Technique CD</span>) is a good first step towards understanding the range of possibilities. 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e565">
+            <h2 class="title topictitle2">Proof Technique CP: Contrapositives</h2>
+            <div class="body">
+                <p class="p"> The 
+                    <span class="ph cmbx-12">contrapositive </span>of an implication 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>Q</mi>
+                        </math>
+                    </span> is the implication 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mi>o</mi>
+                            <mi>t</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>Q</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>n</mi>
+                            <mi>o</mi>
+                            <mi>t</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>P</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>, where “not” means the logical negation, or opposite. An implication is true if and only if its contrapositive is true. In symbols, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>P</mi>
+                                    <mo class="MathClass-rel">⇒</mo>
+                                    <mi>Q</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mspace width="3.26288pt" class="tmspace"/>
+                            <mo class="MathClass-rel">⇔</mo>
+                            <mspace width="3.26288pt" class="tmspace"/>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>n</mi>
+                                    <mi>o</mi>
+                                    <mi>t</mi>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>Q</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-rel">⇒</mo>
+                                    <mi>n</mi>
+                                    <mi>o</mi>
+                                    <mi>t</mi>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>P</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> is a theorem. Such statements about logic, that are always true, are known as 
+                    <span class="ph cmbx-12">tautologies</span>. 
+                </p>
+                <p class="p"> For example, it is a theorem that “if a vehicle is a fire truck, then it has big tires and has a siren.” (Yes, I’m sure you can conjure up a counterexample, but play along with me anyway.) The contrapositive is “if a vehicle does not have big tires or does not have a siren, then it is not a fire truck.” Notice how the “and” became an “or” when we negated the conclusion of the original theorem. </p>
+                <p class="p"> It will frequently happen that it is easier to construct a proof of the contrapositive than of the original implication. If you are having difficulty formulating a proof of some implication, see if the contrapositive is easier for you. The trick is to construct the negation of complicated statements accurately. More on that later. </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e689">
+            <h2 class="title topictitle2">Proof Technique CV: Converses</h2>
+            <div class="body">
+                <p class="p"> The 
+                    <span class="ph cmbx-12">converse </span>of the implication 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>Q</mi>
+                        </math>
+                    </span> is the implication 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Q</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>P</mi>
+                        </math>
+                    </span>. There is no guarantee that the truth of these two statements are related. In particular, if an implication has been proven to be a theorem, then do not try to use its converse too, as if it were a theorem. Sometimes the converse is true (and we have an equivalence, see 
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.E">Technique E</span>). But more likely the converse is false, especially if it wasn’t included in the statement of the original theorem. 
+                </p>
+                <p class="p"> For example, we have the theorem, “if a vehicle is a fire truck, then it is has big tires and has a siren.” The converse is false. The statement that “if a vehicle has big tires and a siren, then it is a fire truck” is false. A police vehicle for use on a sandy public beach would have big tires and a siren, yet is not equipped to fight fires. </p>
+                <p class="p"> We bring this up now, because Theorem CSRN has a tempting converse. Does this theorem say that if 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>r</mi>
+                            <mo class="MathClass-rel">&lt;</mo>
+                            <mi>n</mi>
+                        </math>
+                    </span>, then the system is consistent? Definitely not, as 
+                    <span class="xref broken fcla-xml-2.30li77.html#d1e33__archetype.E">Archetype E</span> has 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>r</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>3</mn>
+                            <mo class="MathClass-rel">&lt;</mo>
+                            <mn>4</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>n</mi>
+                        </math>
+                    </span>, yet is inconsistent. This example is then said to be a 
+                    <span class="ph cmbx-12">counterexample </span>to the converse. Whenever you think a theorem that is an implication might actually be an equivalence, it is good to hunt around for a counterexample that shows the converse to be false (the archetypes, 
+                    <span class="xref broken fcla-xml-2.30li72.html#x73-378000__appendix.A">Appendix A</span>, can be a good hunting ground). 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e772">
+            <h2 class="title topictitle2">Proof Technique CD: Contradiction</h2>
+            <div class="body">
+                <p class="p"> Another proof technique is known as “proof by contradiction” and it can be a powerful (and satisfying) approach. Simply put, suppose you wish to prove the implication, “If 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>A</mi>
+                        </math>
+                    </span>, then 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>B</mi>
+                        </math>
+                    </span>.” As usual, we assume that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>A</mi>
+                        </math>
+                    </span> is true, but we also make the additional assumption that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>B</mi>
+                        </math>
+                    </span> is false. If our original implication is true, then these twin assumptions should lead us to a logical inconsistency. In practice we assume the negation of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>B</mi>
+                        </math>
+                    </span> to be true (see 
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.N">Technique N</span>). So we argue from the assumptions 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>A</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mtext> not</mtext>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>B</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> looking for some obviously false conclusion such as 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>6</mn>
+                        </math>
+                    </span>, or a set is simultaneously empty and nonempty, or a matrix is both nonsingular and singular. 
+                </p>
+                <p class="p"> You should be careful about formulating proofs that look like proofs by contradiction, but really aren’t. This happens when you assume 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>A</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mtext> not</mtext>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>B</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> and proceed to give a “normal” and direct proof that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>B</mi>
+                        </math>
+                    </span> is true by only using the assumption that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>A</mi>
+                        </math>
+                    </span> is true. Your last step is to then claim that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>B</mi>
+                        </math>
+                    </span> is true and you then appeal to the assumption that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mtext> not</mtext>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>B</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> is true, thus getting the desired contradiction. Instead, you could have avoided the overhead of a proof by contradiction and just run with the direct proof. This stylistic flaw is known, quite graphically, as “setting up the strawman to knock him down.” 
+                </p>
+                <p class="p"> Here is a simple example of a proof by contradiction. There are direct proofs that are just about as easy, but this will demonstrate the point, while narrowly avoiding knocking down the straw man. </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Theorem</span>: If 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>b</mi>
+                        </math>
+                    </span> are odd integers, then their product, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                            <mi>b</mi>
+                        </math>
+                    </span>, is odd. 
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Proof</span>: To begin a proof by contradiction, assume the hypothesis, that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>b</mi>
+                        </math>
+                    </span> are odd. Also assume the negation of the conclusion, in this case, that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                            <mi>b</mi>
+                        </math>
+                    </span> is even. Then there are integers, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>j</mi>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>k</mi>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>ℓ</mi>
+                        </math>
+                    </span> so that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>2</mn>
+                            <mi>j</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>1</mn>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>b</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>2</mn>
+                            <mi>k</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>1</mn>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                            <mi>b</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>2</mn>
+                            <mi>ℓ</mi>
+                        </math>
+                    </span>. Then 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mn>0</mn>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mi>a</mi>
+                                    <mi>b</mi>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mi>a</mi>
+                                    <mi>b</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mi>j</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mi>k</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mi>ℓ</mi>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>4</mn>
+                                    <mi>j</mi>
+                                    <mi>k</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>2</mn>
+                                    <mi>j</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>2</mn>
+                                    <mi>k</mi>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>2</mn>
+                                    <mi>ℓ</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>1</mn>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>2</mn>
+                                    <mfenced separators="" open="(" close=")">
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mi>j</mi>
+                                            <mi>k</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mi>j</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mi>k</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mi>ℓ</mi>
+                                        </mrow>
+                                    </mfenced>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>1</mn>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">Notice how we used both our hypothesis and the negation of the conclusion in the second line. Now divide the integer on each end of this string of equalities by 2. On the left we get a remainder of 0, while on the right we see that the remainder will be 1. Both remainders cannot be correct, so this is our desired contradiction. Thus, the conclusion (that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>a</mi>
+                            <mi>b</mi>
+                        </math>
+                    </span> is odd) is true. 
+                </p>
+                <p class="p"> Again, we do not offer this example as the 
+                    <span class="ph cmti-12">best </span>proof of this fact about even and odd numbers, but rather it is a simple illustration of a proof by contradiction. You can find examples of proofs by contradiction in 
+                    <span class="xref broken fcla-xml-2.30li18.html#d1e33__theorem.RREFU">Theorem RREFU</span>, 
+                    <span class="xref broken fcla-xml-2.30li21.html#d1e30__theorem.NMUS">Theorem NMUS</span>, 
+                    <span class="xref broken fcla-xml-2.30li33.html#d1e33__theorem.NPNT">Theorem NPNT</span>, 
+                    <span class="xref broken fcla-xml-2.30li32.html#d1e33__theorem.TTMI">Theorem TTMI</span>, 
+                    <span class="xref broken fcla-xml-2.30li28.html#d1e30__theorem.GSP">Theorem GSP</span>, Theorem ELIS, Theorem EDYES, Theorem EMHE, 
+                    <span class="xref broken fcla-xml-2.30li48.html#d1e33__theorem.EDELI">Theorem EDELI</span>, and Theorem DMFE, in addition to several examples and solutions to exercises. 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e1211">
+            <h2 class="title topictitle2">Proof Technique U: Uniqueness</h2>
+            <div class="body">
+                <p class="p"> A theorem will sometimes claim that some object, having some desirable property, is unique. In other words, there should be only one such object. To prove this, a standard technique is to assume there are two such objects and proceed to analyze the consequences. The end result may be a contradiction (
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.CD">Technique CD</span>), or the conclusion that the two allegedly different objects really are equal. 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e1227">
+            <h2 class="title topictitle2">Proof Technique ME: Multiple Equivalences</h2>
+            <div class="body">
+                <p class="p"> A very specialized form of a theorem begins with the statement “The following are equivalent…,” which is then followed by a list of statements. Informally, this lead-in sometimes gets abbreviated by “TFAE.” This formulation means that any two of the statements on the list can be connected with an “if and only if” to form a theorem. So if the list has 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                        </math>
+                    </span> statements then, there are 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mfrac>
+                                <mrow>
+                                    <mi>n</mi>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>n</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span> possible equivalences that can be constructed (and are claimed to be true). 
+                </p>
+                <p class="p"> Suppose a theorem of this form has statements denoted as 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>A</mi>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>B</mi>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>C</mi>
+                        </math>
+                    </span>,…
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Z</mi>
+                        </math>
+                    </span>. To prove the entire theorem, we can prove 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>A</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>B</mi>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>B</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>C</mi>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>C</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>D</mi>
+                        </math>
+                    </span>,…, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Y</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>Z</mi>
+                        </math>
+                    </span> and finally, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>Z</mi>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>A</mi>
+                        </math>
+                    </span>. This circular chain of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                        </math>
+                    </span> equivalences would allow us, logically, if not practically, to form any one of the 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mfrac>
+                                <mrow>
+                                    <mi>n</mi>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>n</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span> possible equivalences by chasing the equivalences around the circle as far as required. 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e1366">
+            <h2 class="title topictitle2">Proof Technique PI: Proving Identities</h2>
+            <div class="body">
+                <p class="p"> Many theorems have conclusions that say two objects are equal. Perhaps one object is hard to compute or understand, while the other is easy to compute or understand. This would make for a pleasing theorem. Whether the result is pleasing or not, we take the same approach to formulate a proof. Sometimes we need to employ specialized notions of equality, such as 
+                    <span class="xref broken fcla-xml-2.30li70.html#d1e33__definition.SE">Definition SE</span> or Definition CVE, but in other cases we can string together a list of equalities. 
+                </p>
+                <p class="p"> The wrong way to prove an identity is to begin by writing it down and then beating on it until it reduces to an obvious identity. The first flaw is that you would be writing down the statement you wish to prove, as if you already believed it to be true. But more dangerous is the possibility that some of your maneuvers are not reversible. Here’s an example. Let’s prove that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>3</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mo class="MathClass-bin">−</mo>
+                            <mn>3</mn>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mn>3</mn>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>3</mn>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mtext> (This is a bad start)</mtext>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <msup>
+                                        <mrow>
+                                            <mn>3</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </msup>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <msup>
+                                        <mrow>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mn>3</mn>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </msup>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mtext> Square both sides</mtext>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mn>9</mn>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>9</mn>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mn>0</mn>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mn>0</mn>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mtext> Subtract 9 from both sides</mtext>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">So because 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>0</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>0</mn>
+                        </math>
+                    </span> is a true statement, does it follow that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>3</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mo class="MathClass-bin">−</mo>
+                            <mn>3</mn>
+                        </math>
+                    </span> is a true statement? Nope. Of course, we didn’t really expect a legitimate proof of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>3</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mo class="MathClass-bin">−</mo>
+                            <mn>3</mn>
+                        </math>
+                    </span>, but this attempt should illustrate the dangers of this (incorrect) approach. 
+                </p>
+                <p class="p"> What you have just seen in the proof of Theorem VSPCV, and what you will see consistently throughout this text, is proofs of the following form. To prove that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>A</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mi>D</mi>
+                        </math>
+                    </span> we write 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mi>A</mi>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mi>B</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mtext> Theorem, Definition or Hypothesis justifying </mtext>
+                                    <mi>A</mi>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mi>B</mi>
+                                    <mtext/>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mi>C</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mtext> Theorem, Definition or Hypothesis justifying </mtext>
+                                    <mi>B</mi>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mi>C</mi>
+                                    <mtext/>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mi>D</mi>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mtext> Theorem, Definition or Hypothesis justifying </mtext>
+                                    <mi>C</mi>
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mi>D</mi>
+                                    <mtext/>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">In your scratch work exploring possible approaches to proving a theorem you may massage a variety of expressions, sometimes making connections to various bits and pieces, while some parts get abandoned. Once you see a line of attack, rewrite your proof carefully mimicking this style. </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e1657">
+            <h2 class="title topictitle2">Proof Technique DC: Decompositions</h2>
+            <div class="body">
+                <p class="p"> Much of your mathematical upbringing, especially once you began a study of algebra, revolved around simplifying expressions — combining like terms, obtaining common denominators so as to add fractions, factoring in order to solve polynomial equations. However, as often as not, we will do the opposite. Many theorems and techniques will revolve around taking some object and “decomposing” it into some combination of other objects, ostensibly in a more complicated fashion. When we say something can “be written as” something else, we mean that the one object can be decomposed into some combination of other objects. This may seem unnatural at first, but results of this type will give us insight into the structure of the original object by exposing its inner workings. An appropriate analogy might be stripping the wallboards away from the interior of a building to expose the structural members supporting the whole building. </p>
+                <p class="p"> Perhaps you have studied integral calculus, or a pre-calculus course, where you learned about partial fractions. This is a technique where a fraction of two polynomials is 
+                    <span class="ph cmti-12">decomposed </span>(written as, expressed as) a sum of simpler fractions. The purpose in calculus is to make finding an antiderivative simpler. For example, you can verify the truth of the expression 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>1</mn>
+                                            <mn>2</mn>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>5</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>2</mn>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>4</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>2</mn>
+                                            <mn>0</mn>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>3</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>6</mn>
+                                            <mn>6</mn>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>2</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>2</mn>
+                                            <mn>9</mn>
+                                            <mn>4</mn>
+                                            <mi>x</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>3</mn>
+                                            <mn>0</mn>
+                                            <mn>8</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>6</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>5</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>3</mn>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>4</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>2</mn>
+                                            <mn>1</mn>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>3</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>5</mn>
+                                            <mn>2</mn>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>2</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>2</mn>
+                                            <mn>0</mn>
+                                            <mi>x</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>4</mn>
+                                            <mn>8</mn>
+                                        </mrow>
+                                    </mfrac>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>5</mn>
+                                            <mi>x</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>2</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>2</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mi>x</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>6</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>3</mn>
+                                            <mi>x</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>7</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>x</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>2</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>3</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>x</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>4</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>x</mi>
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">In an early course in algebra, you might be expected to combine the four terms on the right over a common denominator to create the “simpler” expression on the left. Going the other way, the partial fraction technique would allow you to systematically 
+                    <span class="ph cmti-12">decompose </span>the fraction of polynomials on the left into the sum of the four (arguably) simpler fractions of polynomials on the right. 
+                </p>
+                <p class="p"> This is a major shift in thinking, so come back here often, especially when we say “can be written as”, or “can be expressed as,” or “can be decomposed as.” </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e1914">
+            <h2 class="title topictitle2">Proof Technique I: Induction</h2>
+            <div class="body">
+                <p class="p"> “Induction” or “mathematical induction” is a framework for proving statements that are indexed by integers. In other words, suppose you have a statement to prove that is really multiple statements, one for 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>1</mn>
+                        </math>
+                    </span>, another for 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>2</mn>
+                        </math>
+                    </span>, a third for 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>3</mn>
+                        </math>
+                    </span>, and so on. If there is enough similarity between the statements, then you can use a script (the framework) to prove them all at once. 
+                </p>
+                <p class="p"> For example, consider the theorem </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Theorem </span>
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>2</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>3</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mo class="MathClass-rel">⋯</mo>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mi>n</mi>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>n</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span> for 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">≥</mo>
+                            <mn>1</mn>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p"> This is shorthand for the many statements 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>1</mn>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>1</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>2</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>2</mn>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>2</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>3</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>3</mn>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>3</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>2</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>3</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>4</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>4</mn>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>4</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span>, and so on. Forever. You can do the calculations in each of these statements and verify that all four are true. We might not be surprised to learn that the fifth statement is true as well (go ahead and check). However, do we think the theorem is true for 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>8</mn>
+                            <mn>7</mn>
+                            <mn>2</mn>
+                        </math>
+                    </span>? Or 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>1</mn>
+                            <mo class="MathClass-punc">,</mo>
+                            <mn>2</mn>
+                            <mn>3</mn>
+                            <mn>4</mn>
+                            <mo class="MathClass-punc">,</mo>
+                            <mn>5</mn>
+                            <mn>2</mn>
+                            <mn>9</mn>
+                        </math>
+                    </span>? 
+                </p>
+                <p class="p"> To see that these questions are not so ridiculous, consider the following example from Rotman’s 
+                    <span class="ph cmsl-12">Journey into Mathematics</span>. The statement “
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <msup>
+                                <mrow>
+                                    <mi>n</mi>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </msup>
+                            <mo class="MathClass-bin">−</mo>
+                            <mi>n</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>4</mn>
+                            <mn>1</mn>
+                        </math>
+                    </span> is prime” is true for integers 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-rel">≤</mo>
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">≤</mo>
+                            <mn>4</mn>
+                            <mn>0</mn>
+                        </math>
+                    </span> (check a few). However, when we check 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>4</mn>
+                            <mn>1</mn>
+                        </math>
+                    </span> we find 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>4</mn>
+                            <msup>
+                                <mrow>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </msup>
+                            <mo class="MathClass-bin">−</mo>
+                            <mn>4</mn>
+                            <mn>1</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>4</mn>
+                            <mn>1</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>4</mn>
+                            <msup>
+                                <mrow>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </msup>
+                        </math>
+                    </span>, which is not prime. 
+                </p>
+                <p class="p"> So how do we prove infinitely many statements all at once? More formally, lets denote our statements as 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>n</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>. Then, if we can prove the two assertions 
+                </p>
+                <p class="p">then it follows that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>n</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> is true for all 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">≥</mo>
+                            <mn>1</mn>
+                        </math>
+                    </span>. To understand this, I liken the process to climbing an infinitely long ladder with equally spaced rungs. Confronted with such a ladder, suppose I tell you that you are able to step up onto the first rung, and if you are on any particular rung, then you are capable of stepping up to the next rung. It follows that you can climb the ladder as far up as you wish. The first formal assertion above is akin to stepping onto the first rung, and the second formal assertion is akin to assuming that if you are on any one rung then you can always reach the next rung. 
+                </p>
+                <p class="p"> In practice, establishing that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> is true is called the “base case” and in most cases is straightforward. Establishing that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> is referred to as the “induction step,” or in this book (and elsewhere) we will typically refer to the assumption of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> as the “induction hypothesis.” This is perhaps the most mysterious part of a proof by induction, since it looks like you are assuming (
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>) what you are trying to prove (
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>n</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>). Sometimes it is even worse, since as you get more comfortable with induction, we often don’t bother to use a different letter (
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>k</mi>
+                        </math>
+                    </span>) for the index (
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                        </math>
+                    </span>) in the induction step. Notice that the second formal assertion never says that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> is true, it simply says that 
+                    <span class="ph cmti-12">if </span>
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> were true, what might logically follow. We can establish statements like “If I lived on the moon, then I could pole-vault over a bar 12 meters high.” This may be a true statement, but it does not say we live on the moon, and indeed we may never live there. 
+                </p>
+                <p class="p"> Enough generalities. Let’s work an example and prove the theorem above about sums of integers. Formally, our statement is 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>n</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mo class="MathClass-punc">:</mo>
+                            <mspace width="1em" class="nbsp"/>
+                            <mn>1</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>2</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>3</mn>
+                            <mo class="MathClass-bin">+</mo>
+                            <mo class="MathClass-rel">⋯</mo>
+                            <mo class="MathClass-bin">+</mo>
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mi>n</mi>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>n</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Proof</span>: Base Case. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> is the statement 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>1</mn>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mn>1</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </span>, which we see simplifies to the true statement 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mn>1</mn>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>1</mn>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p"> Induction Step: We will assume 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> is true, and will try to prove 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>. Given what we want to accomplish, it is natural to begin by examining the sum of the first 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>k</mi>
+                            <mo class="MathClass-bin">+</mo>
+                            <mn>1</mn>
+                        </math>
+                    </span> integers. 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mn>1</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>2</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>3</mn>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mo class="MathClass-rel">⋯</mo>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>k</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfenced separators="" open="(" close=")">
+                                        <mrow>
+                                            <mn>1</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>2</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>3</mn>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mo class="MathClass-rel">⋯</mo>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mi>k</mi>
+                                        </mrow>
+                                    </mfenced>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>k</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mi>k</mi>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>k</mi>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mn>1</mn>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mrow>
+                                        <mo class="MathClass-open">(</mo>
+                                        <mrow>
+                                            <mi>k</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mo class="MathClass-close">)</mo>
+                                    </mrow>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mtext> Induction Hypothesis</mtext>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>k</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>2</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mi>k</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mn>2</mn>
+                                            <mi>k</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>2</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <msup>
+                                                <mrow>
+                                                    <mi>k</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mn>2</mn>
+                                                </mrow>
+                                            </msup>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>3</mn>
+                                            <mi>k</mi>
+                                            <mo class="MathClass-bin">+</mo>
+                                            <mn>2</mn>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>k</mi>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mn>1</mn>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>k</mi>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mn>2</mn>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mi>k</mi>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mn>1</mn>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                            <mrow>
+                                                <mo class="MathClass-open">(</mo>
+                                                <mrow>
+                                                    <mrow>
+                                                        <mo class="MathClass-open">(</mo>
+                                                        <mrow>
+                                                            <mi>k</mi>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <mn>1</mn>
+                                                        </mrow>
+                                                        <mo class="MathClass-close">)</mo>
+                                                    </mrow>
+                                                    <mo class="MathClass-bin">+</mo>
+                                                    <mn>1</mn>
+                                                </mrow>
+                                                <mo class="MathClass-close">)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </mfrac>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">We then recognize the two ends of this chain of equalities as 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>. So, by mathematical induction, the theorem is true for all 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p"> How do you recognize when to use induction? The first clue is a statement that is really many statements, one for each integer. The second clue would be that you begin a more standard proof and you find yourself using words like “and so on” (as above!) or lots of ellipses (dots) to establish patterns that you are convinced continue on and on forever. However, there are many minor instances where induction might be warranted but we don’t bother. </p>
+                <p class="p"> Induction is important enough, and used often enough, that it appears in various variations. The base case sometimes begins with 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>0</mn>
+                        </math>
+                    </span>, or perhaps an integer greater than 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>n</mi>
+                        </math>
+                    </span>. Some formulate the induction step as 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                    <mo class="MathClass-bin">−</mo>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                            <mo class="MathClass-rel">⇒</mo>
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>. There is also a “strong form” of induction where we assume all of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>, 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mn>3</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>, …
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span> as a hypothesis for showing the conclusion 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mrow>
+                                <mo class="MathClass-open">(</mo>
+                                <mrow>
+                                    <mi>k</mi>
+                                    <mo class="MathClass-bin">+</mo>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mo class="MathClass-close">)</mo>
+                            </mrow>
+                        </math>
+                    </span>.
+                    <br/>You can find examples of induction in the proofs of 
+                    <span class="xref broken fcla-xml-2.30li28.html#d1e30__theorem.GSP">Theorem GSP</span>, Theorem DER, Theorem DT, 
+                    <span class="xref broken fcla-xml-2.30li45.html#d1e30__theorem.DIM">Theorem DIM</span>, 
+                    <span class="xref broken fcla-xml-2.30li48.html#d1e33__theorem.EOMP">Theorem EOMP</span>, 
+                    <span class="xref broken fcla-xml-2.30li48.html#d1e33__theorem.DCP">Theorem DCP</span>, and 
+                    <span class="xref broken fcla-xml-2.30li60.html#d1e33__theorem.KPLT">Theorem KPLT</span>. 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e3110">
+            <h2 class="title topictitle2">Proof Technique P: Practice</h2>
+            <div class="body">
+                <p class="p"> Here is a technique used by many practicing mathematicians when they are teaching themselves new mathematics. As they read a textbook, monograph or research article, they attempt to prove each new theorem themselves, 
+                    <span class="ph cmti-12">before</span> reading the proof. Often the proofs can be very difficult, so it is wise not to spend too much time on each. Maybe limit your losses and try each proof for 10 or 15 minutes. Even if the proof is not found, it is time well-spent. You become more familiar with the definitions involved, and the hypothesis and conclusion of the theorem. When you do work through the proof, it might make more sense, and you will gain added insight about just how to construct a proof. 
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e3130">
+            <h2 class="title topictitle2">Proof Technique LC: Lemmas and Corollaries</h2>
+            <div class="body">
+                <p class="p"> Theorems often go by different titles. Two of the most popular being “lemma” and “corollary.” Before we describe the fine distinctions, be aware that lemmas, corollaries, propositions, claims and facts are all just theorems. And every theorem can be rephrased as an “if-then” statement, or perhaps a pair of “if-then” statements expressed as an equivalence (
+                    <span class="xref broken fcla-xml-2.30li71.html#technique.E">Technique E</span>). 
+                </p>
+                <p class="p"> A lemma is a theorem that is not too interesting in its own right, but is important for proving other theorems. It might be a generalization or abstraction of a key step of several different proofs. For this reason you often hear the phrase “technical lemma” though some might argue that the adjective “technical” is redundant. </p>
+                <p class="p"> A corollary is a theorem that follows very easily from another theorem. For this reason, corollaries frequently do not have proofs. You are expected to easily and quickly see how a previous theorem implies the corollary. </p>
+                <p class="p"> A proposition or fact is really just a codeword for a theorem. A claim might be similar, but some authors like to use claims within a proof to organize key steps. In a similar manner, some long proofs are organized as a series of lemmas. </p>
+                <p class="p"> In order to not confuse the novice, we have just called all our theorems theorems. It is also an organizational convenience. With only theorems and definitions, the theoretical backbone of the course is laid bare in the two lists of 
+                    <span class="xref broken fcla-xml-2.30li71.html#definition">Definitions</span> and 
+                    <span class="xref broken fcla-xml-2.30li71.html#theorem">Theorems</span>.  
+                    <br/>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
