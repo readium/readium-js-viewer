@@ -29,8 +29,9 @@ module.exports = function(grunt) {
                     'storage/StorageManager': '../chrome-app/storage/FileSystemStorage',
                     'storage/Settings': '../chrome-app/storage/ChromeSettings',
                     'analytics/Analytics': '../chrome-app/analytics/ExtensionAnalytics',
-                    'google-analytics-bundle': '../chrome-app/analytics/google-analytics-bundle'
-
+                    'google-analytics-bundle': '../chrome-app/analytics/google-analytics-bundle',
+                    'versioning/Versioning' : 'versioning/PackagedVersioning',
+                    'viewer-version' : '../build/version.json'
                 },
                 shim: {
                     'google-analytics-bundle': {
@@ -59,7 +60,11 @@ module.exports = function(grunt) {
                 include: ['ReadiumViewer'],
                 name: 'thirdparty/almond',
                 baseUrl: './lib/',
-                out: 'build/cloud-reader/scripts/readium-all.js'
+                out: 'build/cloud-reader/scripts/readium-all.js',
+                paths: {
+                    'versioning/Versioning' : 'versioning/PackagedVersioning',
+                    'viewer-version' : '../build/version.json'
+                }
             }
         }
     };

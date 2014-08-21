@@ -19,11 +19,11 @@ module.exports = function(grunt) {
 
         "update-readium": ['run_grunt:readiumjs', 'copy:readiumjs'],
 
-        "chromeApp": ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'requirejs:chromeApp', 'requirejs:chromeAppWorker'],
-        "chromeAppDevBuild": ['chromeApp', 'copy:chromeAppDevBuild', 'chromeAppDevBuildManifest'],
+        "chromeApp": ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'versioning', 'requirejs:chromeApp', 'requirejs:chromeAppWorker', 'updateChromeManifest'],
+        //"chromeAppDevBuild": ['chromeApp', 'copy:chromeAppDevBuild', 'chromeAppDevBuildManifest'],
 
-        "cloudReader": ['clean:cloudReader', 'copy:cloudReader', 'cssmin:cloudReader', 'requirejs:cloudReader'],
-        "cloudReaderWithEpub": ['clean:cloudReader', 'copy:cloudReader', 'copy:cloudReaderEpubContent', 'cssmin:cloudReader', 'requirejs:cloudReader'],
+        "cloudReader": ['clean:cloudReader', 'copy:cloudReader', 'cssmin:cloudReader', 'versioning', 'requirejs:cloudReader'],
+        "cloudReaderWithEpub": ['clean:cloudReader', 'copy:cloudReader', 'copy:cloudReaderEpubContent', 'cssmin:cloudReader', 'versioning', 'requirejs:cloudReader'],
 
         //"test": ['selenium_start', 'chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp'],
         "test_chromeApp" : ['chromeApp', 'env:chromeApp', 'simplemocha'],

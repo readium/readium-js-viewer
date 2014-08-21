@@ -28,6 +28,14 @@
   font-weight: bold;
 }
 
+#about-dialog .version-details{
+  font-size: 0.8em;
+}
+
+#about-dialog .local-changes-alert{
+  color: red;
+}
+
 #readium-toc-body{
   display: none;
   overflow: auto;

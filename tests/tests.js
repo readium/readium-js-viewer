@@ -86,7 +86,7 @@ describe("chrome extension tests", function() {
     it('confirm install and find url', function(){
       var extensionsHome = 'chrome://inspect/#extensions'
       return browser.get(extensionsHome).sleep(500).get(extensionsHome)
-              .elementByXPath("//div[text()='Readium']/following-sibling::*")
+              .elementByXPath("//div[starts-with(text(), 'Readium')]/following-sibling::*")
               .text().then(function(url){
                 var pathStart = url.lastIndexOf('/');
                 extensionUrl = url.substring(0, pathStart) + '/index.html'
