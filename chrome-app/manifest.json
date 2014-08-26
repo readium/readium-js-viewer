@@ -18,5 +18,5 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "permissions" : ["http://*/", "https://*/","storage", "unlimitedStorage"]
+  "permissions" : ["storage", "unlimitedStorage"]
 }

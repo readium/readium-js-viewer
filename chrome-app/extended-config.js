@@ -15,7 +15,7 @@ require.config({
 	config : {
         'workers/WorkerProxy' : {'workerUrl' : '/scripts/readium-worker.js'},
         'EpubLibraryManager' : {
-        							'canHandleUrl' : true, 
+        							'canHandleUrl' : false, 
         							'canHandleDirectory' : true
     						   },
     	'EpubReader' : {
