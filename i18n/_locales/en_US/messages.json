@@ -410,6 +410,9 @@
   "i18n_page_next" : {
     "message" : "Next Page"
   },
+  "i18n_page_navigation" : {
+    "message" : "Page Navigation"
+  },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
     "placeholders": {
