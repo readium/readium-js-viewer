@@ -2,3 +2,5 @@
 node_modules
 build
 local_test_data
+/nbproject/private/
+/start_git_bash.cmd
