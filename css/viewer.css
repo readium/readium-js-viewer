@@ -107,6 +107,10 @@ direction: rtl;
 
 .navbar-right
 {
+overflow: visible;
+height: 0.4em;
+margin-right: 0 !important;
+
     min-height: 36px;
     background-color: #4d4d4d;
 }
@@ -158,13 +162,6 @@ html[data-theme=night-theme] .modal
   background-image: url('../images/readium_logo.png');
   width: 130px; 
   background-size: auto 28px;
-}
-
-
-.navbar-right
-{
-    overflow: visible;
-    height: 0.4em;
 }
 
 .icon-scale-down{
@@ -492,6 +489,7 @@ body.keyboard #app-navbar input[type="text"]:focus
 
 input[type="range"]
 {
+    display: inline-block;
     padding: 0;
 }
 
