@@ -14,7 +14,7 @@
 require.config({
 	config : {
     	'EpubReader' : {
-            'useSimpleLoader' : true
+            'useSimpleLoader' : false // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too.
     	}
     }
 });
