@@ -155,7 +155,7 @@
         "message": "Unbekannter Fehler. Für Details öffnen Sie die Konsole."
     },
     "err_storage": {
-        "message": "Zugriff auf Datei-Speicher nicht möglich."
+        "message": "Zugriff auf Dateispeicher nicht möglich."
     },
     "err_epub_corrupt": {
         "message": "Ungültiges oder beschädigtes EPUB Paket"
@@ -337,10 +337,10 @@
         "message": "Hintergrundaudio aus"
     },
     "i18n_audio_previous": {
-        "message": "Vorige Audio-Phrase"
+        "message": "Vorige Audiophrase"
     },
     "i18n_audio_next": {
-        "message": "Nächste Audio-Phrase"
+        "message": "Nächste Audiophrase"
     },
     "i18n_audio_volume": {
         "message": "Lautstärke"
@@ -408,7 +408,6 @@
     "i18n_page_next": {
         "message": "Nächste Seite"
     },
-
     "chrome_accept_languages": {
         "message": "$CHROME$ akzeptiert $languages$ Sprachen",
         "placeholders": {
