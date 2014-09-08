@@ -23,10 +23,10 @@
         "message": "Einstellungen"
     },
     "enter_fullscreen": {
-        "message": "Vollbild-Modus"
+        "message": "Vollbildmodus"
     },
     "exit_fullscreen": {
-        "message": "Vollbild-Modus verlassen"
+        "message": "Vollbildmodus verlassen"
     },
     "chrome_extension_name": {
         "message": "Readium"
@@ -65,10 +65,10 @@
         "message": "Alle Funktionstasten auf Standard zurücksetzen"
     },
     "i18n_duplicate_keyboard_shortcut": {
-        "message": "DOPPELBELEGUNG"
+        "message": "Doppelbelegung"
     },
     "i18n_invalid_keyboard_shortcut": {
-        "message": "NICHT ZULÄSSIG"
+        "message": "Nicht zulässig"
     },
     "i18n_paginate_all": {
         "message": "Fließtext des EPUB Inhalts paginieren"
@@ -128,13 +128,13 @@
         "message": "Löschen"
     },
     "migrate_dlg_title": {
-        "message": "Migrating Books"
+        "message": "Bücher migrieren"
     },
     "migrate_dlg_message": {
         "message": "Daten werden geladen..."
     },
     "migrating": {
-        "message": "Migrating"
+        "message": "Migrieren..."
     },
     "replace_dlg_title": {
         "message": "Konflikt festgestellt"
@@ -188,13 +188,13 @@
         "message": "EPUB Version: "
     },
     "i18n_created_at": {
-        "message": "Erstellt: "
+        "message": "Erstellt am: "
     },
     "i18n_format": {
         "message": "Format: "
     },
     "i18n_added": {
-        "message": "Hinzugefügt: "
+        "message": "Hinzugefügt am: "
     },
     "i18n_unknown": {
         "message": "Unbekannt"
@@ -203,10 +203,10 @@
         "message": "Das aktuelle EPUB enthält für diesen Inhalt keine Media Overlays."
     },
     "i18n_add_items": {
-        "message": "Füge Werke zur Bibliothek hinzu!"
+        "message": "Füge Werke zur Bibliothek hinzu."
     },
     "i18n_extracting": {
-        "message": "entpacke: "
+        "message": "Entpacke: "
     },
     "i18n_add_book_to_readium_library": {
         "message": "Buch zur Readium Bibliothek hinzufügen:"
@@ -218,7 +218,7 @@
         "message": "Abbrechen"
     },
     "i18n_from_the_web": {
-        "message": "Aus dem Internet:"
+        "message": "Internet:"
     },
     "i18n_from_local_file": {
         "message": "Lokale Datei:"
@@ -294,7 +294,7 @@
         "message": "Umblätter-Effekt"
     },
     "i18n_page_transition_none": {
-        "message": "keiner"
+        "message": "Keiner"
     },
     "i18n_page_transition_fade": {
         "message": "Fade"
@@ -331,10 +331,10 @@
         "message": "Audio - Pause"
     },
     "i18n_audio_play_background": {
-        "message": "Hintergrund-Ton ein"
+        "message": "Hintergrundaudio ein"
     },
     "i18n_audio_pause_background": {
-        "message": "Hintergrund-Ton aus"
+        "message": "Hintergrundaudio aus"
     },
     "i18n_audio_previous": {
         "message": "Vorige Audio-Phrase"
@@ -355,10 +355,10 @@
         "message": "Audio - Zeitmarke"
     },
     "i18n_audio_mute": {
-        "message": "Ton ausschalten"
+        "message": "Audio ausschalten"
     },
     "i18n_audio_unmute": {
-        "message": "Ton einschalten"
+        "message": "Audio einschalten"
     },
     "i18n_audio_expand": {
         "message": "Erweiterte Audio-Steuerung anzeigen"
@@ -388,10 +388,10 @@
         "message": "Audio - Überspringen ermöglichen"
     },
     "i18n_audio_sync": {
-        "message": "Text/Audio Synchronisation"
+        "message": "Text-Audio-Synchronisation"
     },
     "i18n_audio_sync_default": {
-        "message": "nach Vorgabe"
+        "message": "Nach Vorgabe"
     },
     "i18n_audio_sync_word": {
         "message": "Wort"
