@@ -24,6 +24,11 @@ module.exports = function(grunt) {
                 dest: 'build/chrome-app'
             }, {
                 expand: true,
+                cwd: 'chrome-app/',
+                src: 'epubReadingSystem.js',
+                dest: 'build/chrome-app/scripts'
+            }, {
+                expand: true,
                 src: 'images/**',
                 dest: 'build/chrome-app'
             }, {
@@ -45,6 +50,11 @@ module.exports = function(grunt) {
                 expand: true,
                 src: 'fonts/**',
                 dest: 'build/chrome-app'
+            }, {
+                expand: true,
+                cwd: 'lib',
+                src: 'mathjax/**',
+                dest: 'build/chrome-app/scripts'
             }]
         },
         chromeAppDevBuild: {
@@ -75,7 +85,12 @@ module.exports = function(grunt) {
                 cwd: 'css',
                 src: 'annotations.css',
                 dest: 'build/cloud-reader/css'
-            }, ]
+            }, {
+                expand: true,
+                cwd: 'lib',
+                src: 'mathjax/**',
+                dest: 'build/cloud-reader/scripts'
+            } ]
         },
         cloudReaderEpubContent: {
             files: [{
@@ -91,14 +106,29 @@ module.exports = function(grunt) {
                 src: 'Readium.js',
                 dest: 'lib'
             }]
-        },
-        prepareChromeAppTests: {
-            files: [{
-                expand: true,
-                cwd: 'chrome-app/tests/',
-                src: 'manifest.json',
-                dest: 'build/chrome-app'
-            }]
         }
+        // prepareChromeAppTests: {
+        //     files: [{
+        //         expand: true,
+        //         cwd: 'tests/',
+        //         src: 'manifest.json',
+        //         dest: 'build/chrome-app'
+        //     },
+        //     {
+        //         expand: true,
+        //         cwd: 'tests/',
+        //         src: 'tests.js',
+        //         dest: 'build/tests/chrome-app'
+        //     },
+        //     {
+        //         expand: true,
+        //         cwd: 'tests/test-configs',
+        //         src: 'chromeExtension.js',
+        //         dest: 'build/tests/chrome-app',
+        //         rename: function(dest, src) {
+        //           return dest + '/config.js';
+        //         }
+        //     }]
+        // }
     };
 };

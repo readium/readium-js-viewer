@@ -1,0 +1,29 @@
+branches:
+  only:
+  - develop
+language: node_js
+node_js:
+  - "0.10"
+before_install:
+    - npm install -g grunt-cli
+install: 
+    - npm install
+    - cd readium-js
+    - pwd
+    - npm install
+    - cd ..
+before_script:
+    - grunt clean
+script:
+    - grunt test_travis
+after_failure: cat ./sauce_connect.log
+env:
+    global:
+        - USE_SAUCE=true
+    matrix:
+        - MODE=chromeApp
+        - MODE=firefox
+addons:
+  sauce_connect:
+    username: "readium"
+    access_key: "b0dd7376-7731-47db-bed0-850912b75f2b" 

@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Readium",
   "description": "EPUB reader for Chrome",
-  "version": "2.14.1",
+  "version": "2.14.2",
   "default_locale" : "en_US",
   "app": {
       "launch": {
@@ -18,5 +18,5 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "permissions" : ["http://*/", "https://*/","storage", "unlimitedStorage"]
+  "permissions" : ["storage", "unlimitedStorage"]
 }

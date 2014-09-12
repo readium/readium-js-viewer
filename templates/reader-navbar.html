@@ -21,6 +21,19 @@
 </div>
 <div class="btn-group navbar-right">
     
+
+    <div id="backgroundAudioTrack-div">
+
+        <button tabindex="1" id="backgroundAudioTrack-button-play" type="button" class="btn icon-play-audio-background"  title="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]" accesskey="{{keyboard.accesskeys.BackgroundAudioPlayPause}}">
+            <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+        </button>
+        <button tabindex="1" id="backgroundAudioTrack-button-pause" type="button" class="btn icon-pause-audio-background"  title="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]">
+            <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+        </button>
+        
+    </div>
+    
+    
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
         
@@ -48,6 +61,8 @@
         <button tabindex="1" id="btn-next-audio" type="button" class="btn icon-next-audio" title="{{strings.i18n_audio_next}} [{{keyboard.MediaOverlaysNext}}]" arial-label="{{strings.i18n_audio_next}} [{{keyboard.MediaOverlaysNext}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysNext}}">
             <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
         </button>
+
+        <div id="audioResponsive">
         
         <button tabindex="1" id="btn-audio-volume-mute" type="button" class="btn icon-audio-volume-mute" title="{{strings.i18n_audio_mute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]" aria-label="{{strings.i18n_audio_mute}} [{{keyboard.MediaOverlaysVolumeMuteToggle}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysVolumeMuteToggle}}">
             <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
@@ -70,6 +85,9 @@
 
             <span id="icon-touch-on" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
         </button>
+
+        
+    </div>
 
         <div id="audioExpanded" role="alert">
             
@@ -124,6 +142,26 @@
                 </button>
             </div>
 
+
+
+            <button tabindex="1" id="btn-playback-scroll-enable" type="button" class="btn icon-playback-scroll-enable" title="{{strings.i18n_playback_scroll_enable}}" aria-label="{{strings.i18n_playback_scroll_enable}}" >
+                <span id="icon-playback-scroll-off" class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+            </button>
+
+            <button tabindex="1" id="btn-playback-scroll-disable" type="button" class="btn icon-playback-scroll-disable" title="{{strings.i18n_playback_scroll_disable}}" aria-label="{{strings.i18n_playback_scroll_disable}}" >
+                <span id="icon-playback-scroll-on" class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </button>
+
+
+
+            <button tabindex="1" id="btn-auto-page-turn-enable" type="button" class="btn icon-auto-page-turn-enable" title="{{strings.i18n_auto_page_turn_enable}}" aria-label="{{strings.i18n_auto_page_turn_enable}}" >
+                <span id="icon-auto-page-turn-off" class="glyphicon glyphicon-sound-stereo" aria-hidden="true"></span>
+            </button>
+
+            <button tabindex="1" id="btn-auto-page-turn-disable" type="button" class="btn icon-auto-page-turn-disable" title="{{strings.i18n_auto_page_turn_disable}}" aria-label="{{strings.i18n_auto_page_turn_disable}}" >
+                <span id="icon-auto-page-turn-on" class="glyphicon glyphicon-sound-dolby" aria-hidden="true"></span>
+            </button>
+
             <button tabindex="1" id="btn-skip-audio-enable" type="button" class="btn icon-skip-audio-enable" title="{{strings.i18n_audio_skip_enable}}" aria-label="{{strings.i18n_audio_skip_enable}}" >
                 <span id="icon-skip-off" class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
             </button>
@@ -134,7 +172,7 @@
 
 
             <button tabindex="1" id="btn-esc-audio" type="button" class="btn icon-esc-audio" title="{{strings.i18n_audio_esc}} [{{keyboard.MediaOverlaysEscape}}]" aria-label="{{strings.i18n_audio_esc}} [{{keyboard.MediaOverlaysEscape}}]" accesskey="{{keyboard.accesskeys.MediaOverlaysEscape}}">
-                <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-eject" aria-hidden="true"></span>
             </button>
             
             </div>
@@ -147,6 +185,17 @@
         </div>
     </div> 
     <!--Audioplayer Controls END-->
+    
+    
+    
+    <div class="zoom-wrapper dropdown" style="display:none">
+        <a tabindex="1" href="#" data-toggle="dropdown"><input tabindex="1" type="text" value="100%" disabled/><span class="caret"></span></a>
+        <ul id="zoom-menu" class="dropdown-menu" role="menu">
+            <li id="zoom-custom"><a href="#" tabindex="1">Custom <span class="glyphicon glyphicon-ok"></span></a></li>
+            <li id="zoom-fit-width"><a href="#" tabindex="1">Fit Width <span class="glyphicon glyphicon-ok"></span></a></li>
+            <li id="zoom-fit-screen" class="active-zoom"><a href="#" tabindex="1">Fit Screen <span class="glyphicon glyphicon-ok"></span></a></li>
+        </ul>
+    </div>
     <button tabindex="1" type="button" class="btn icon-library" title="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" aria-label="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" accesskey="{{keyboard.accesskeys.SwitchToLibrary}}">
         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
     </button>
@@ -160,12 +209,10 @@
         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
     </button>
     
-    <button tabindex="1" id="buttFullScreenOn" type="button" class="btn icon-full-screen" title="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" accesskey="{{keyboard.accesskeys.FullScreenToggle}}">
+    <button tabindex="1" id="buttFullScreenToggle" type="button" class="btn icon-full-screen" title="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" accesskey="{{keyboard.accesskeys.FullScreenToggle}}">
         <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>
     </button>
-    <button tabindex="1" id="buttFullScreenOff" type="button" class="btn icon-exit-full-screen" title="{{strings.exit_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.exit_fullscreen}} [{{keyboard.FullScreenToggle}}]" >
-        <span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span>
-    </button>
+    
     <!-- <button type="button" class="btn btn-default icon icon-bookmark"></button>-->
 </div>
 

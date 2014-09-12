@@ -1,16 +1,17 @@
-<div id="readium-toc-body">
+<div id="readium-toc-body"
+aria-label="{{strings.toc}}"
+role="navigation"
+>
 </div>
-<div id="reading-area">
-  <!-- Previous page -->
-  <button style="z-index:99; background: none; border: none; padding: 0; margin: 0;" tabindex="0" id="previous-page-btn" class="page-switch-overlay-icon" type="button" title="{{strings.i18n_page_previous}} [{{keyboard.PagePrevious}}] / [{{keyboard.PagePreviousAlt}}]" aria-label="{{strings.i18n_page_previous}} [{{keyboard.PagePrevious}}] / [{{keyboard.PagePreviousAlt}}]" accesskey="{{keyboard.accesskeys.PagePreviousAlt}}">
-      <img aria-hidden="true" src="images/pagination1.svg">
-      </button>
-  <!-- Next page -->
-  <button style="z-index:99; background: none; border: none; padding: 0; margin: 0;" tabindex="0" id="next-page-btn" class="page-switch-overlay-icon" type="button" title="{{strings.i18n_page_next}} [{{keyboard.PageNext}}] / [{{keyboard.PageNextAlt}}]" aria-label="{{strings.i18n_page_next}} [{{keyboard.PageNext}}] / [{{keyboard.PageNextAlt}}]" accesskey="{{keyboard.accesskeys.PageNextAlt}}">
-      <img aria-hidden="true" src="images/pagination1.svg">
-  </button>
+
+<div id="reading-area" role="main">  
   <div id="epub-reader-container">
     <div id="epub-reader-frame">
     </div>
   </div>
+  
+  <div id="readium-page-btns" role="region" aria-label="{{strings.i18n_page_navigation}}">
+  <!-- page left/right buttons inserted here when EPUB is loaded (page progression direction) -->
+  </div>
+  
 </div>

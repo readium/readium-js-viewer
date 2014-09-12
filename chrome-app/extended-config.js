@@ -15,11 +15,12 @@ require.config({
 	config : {
         'workers/WorkerProxy' : {'workerUrl' : '/scripts/readium-worker.js'},
         'EpubLibraryManager' : {
-        							'canHandleUrl' : true, 
+        							'canHandleUrl' : false, 
         							'canHandleDirectory' : true
     						   },
     	'EpubReader' : {
-    		'annotationCssUrl' : self.location.origin  + '/css/annotations.css'
+    		'annotationCssUrl' : self.location.origin  + '/css/annotations.css',
+            'useSimpleLoader' : true
     	}
-    },
-})
+    }
+});

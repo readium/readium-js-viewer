@@ -7,26 +7,19 @@
         <link href="images/readium_favicon.png" rel="shortcut icon"/>
         <!-- link href="images/readium-touch-icon.png" rel="apple-touch-icon"/ -->
         
-        <style>
+        <style>    
             .library-item{
-            height: 100px;
+                height: 100px;
 
-        }
-        .library-item img{
-            height: 100%;
-            border-radius: 3px;
-            border: 1px solid rgba(0,0,0,.2);
-        }
+            }
         
-        .library-item .no-cover{
-            width: 300px;
-            height: 400px;
-            font-size: 40px;
-            cursor: pointer;
-            border-radius: 3px;
-            border: 1px solid rgba(0,0,0,.1);
-        }
+            body:not(.list-view) .library-item .no-cover{
+                width: 300px;
+                height: 400px;
+                font-size: 40px;
+            }
         </style>
+        
         <link rel="stylesheet" type="text/css" href="css/readium-all.css">
         <script src="scripts/readium-all.js" type="text/javascript"></script>
         <title></title>
@@ -34,7 +27,7 @@
 
     <!-- This is all application-specific HTML -->
     <body class="chrome-app">
-        <nav id="app-navbar" class="navbar" role="navigation">
+        <nav id="app-navbar" class="navbar" role="banner" aria-label="{{Strings.i18n_toolbar}}">
         </nav>
         <div id="app-container">
         </div>

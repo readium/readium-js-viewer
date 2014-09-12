@@ -39,6 +39,8 @@ require.config({
         'SecondLevelDomains': 'thirdparty/URIjs/SecondLevelDomains',
         'IPv6': 'thirdparty/URIjs/IPv6',
         'remotestorage' : 'thirdparty/remotestorage',
+        'jquery_hammer' : 'thirdparty/jquery.hammer',
+        'hammer' : 'thirdparty/hammer',
         'Readium': 'Readium',
         'inflate' : 'thirdparty/inflate',
         'zip' : 'thirdparty/zip',
@@ -47,7 +49,9 @@ require.config({
         'crypto-sha1' : 'thirdparty/crypto-sha1',
         'i18n': '../i18n',
         'templates': '../templates',
-        'storage/StorageManager' : 'storage/StaticStorageManager'
+        'storage/StorageManager' : 'storage/StaticStorageManager',
+        'versioning/Versioning' : 'versioning/UnpackagedVersioning',
+        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler'
     },
     hgn : {
         templateExtension : ""

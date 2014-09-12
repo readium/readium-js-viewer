@@ -15,17 +15,26 @@ module.exports = function(grunt) {
     return {
         "default": 'concurrent:serverwatch',
 
-        "runserver": ['express', 'express-keepalive'],
+        "runserver": ['express:dev', 'express-keepalive'],
 
         "update-readium": ['run_grunt:readiumjs', 'copy:readiumjs'],
 
-        "chromeApp": ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'requirejs:chromeApp', 'requirejs:chromeAppWorker'],
-        "chromeAppDevBuild": ['chromeApp', 'copy:chromeAppDevBuild', 'chromeAppDevBuildManifest'],
+        "chromeApp": ['clean:chromeApp', 'copy:chromeApp', 'cssmin:chromeApp', 'versioning', 'requirejs:chromeApp', 'requirejs:chromeAppWorker', 'updateChromeManifest'],
+        //"chromeAppDevBuild": ['chromeApp', 'copy:chromeAppDevBuild', 'chromeAppDevBuildManifest'],
 
-        "cloudReader": ['clean:cloudReader', 'copy:cloudReader', 'cssmin:cloudReader', 'requirejs:cloudReader'],
-        "cloudReaderWithEpub": ['clean:cloudReader', 'copy:cloudReader', 'copy:cloudReaderEpubContent', 'cssmin:cloudReader', 'requirejs:cloudReader'],
+        "cloudReader": ['clean:cloudReader', 'copy:cloudReader', 'cssmin:cloudReader', 'versioning', 'requirejs:cloudReader'],
+        "cloudReaderWithEpub": ['clean:cloudReader', 'copy:cloudReader', 'copy:cloudReaderEpubContent', 'cssmin:cloudReader', 'versioning', 'requirejs:cloudReader'],
 
-        "test": ['chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp'],
+        //"test": ['selenium_start', 'chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp'],
+        "test_chromeApp" : ['chromeApp', 'env:chromeApp', 'simplemocha'],
+
+        "test_firefox" : ['selenium_start', 'cloudReaderWithEpub', 'express:test','env:ff', 'simplemocha'],
+
+        "test" : ['selenium_start', "test_chromeApp"],
+
+        "test_sauce" : ['env:sauce', 'chromeApp', 'crx', 'env:chromeApp', 'simplemocha'],
+
+        "test_travis" : ['cloudReaderWithEpub', 'chromeApp', 'crx', 'express:test', 'simplemocha'],
 
         "epubReadingSystem": ['epubReadingSystem_readJSON', 'epubReadingSystem_processModules', 'epubReadingSystem_writeJSON']
     };
