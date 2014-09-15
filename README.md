@@ -14,6 +14,19 @@ The viewer is the default viewer for Readium.js, a JS library for rendering EPUB
   * [Custom EPUB management system](#custom-epub-management-and-viewer-application)
   * [Running the Tests](#running-the-tests)
 
+### Initialize your repository
+
+  * git clone https://github.com/readium/readium-js-viewer.git
+  * cd readium-js-viewer
+  * git submodule update --init --recursive
+  * install Node.JS
+  * npm install -g grunt-cli
+  * npm install (in the readium-js-viewer directory)
+  * cd readium-js
+  * npm install (in the readium-js directory)
+  * cd ..
+  * You should now be able to run the grunt commands specified below.
+
 ### Basic EPUB Viewer
 
 #### Visit online demo
