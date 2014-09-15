@@ -10,13 +10,14 @@
            <button type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
 
            <ul class="nav nav-tabs" role="tablist" aria-owns="tab-butt-main tab-butt-keys">
-             <li class="active" role="presentation"><button id="tab-butt-main"  title="{{strings.settings}}" aria-label="{{strings.settings}}" role='tab' aria-controls="tab-main" data-toggle="tab" data-target="#tab-main">{{strings.settings}}</button></li>
+             <li class="active" role="presentation"><button id="tab-butt-main"  title="{{strings.style}}" aria-label="{{strings.style}}" role='tab' aria-controls="tab-main" data-toggle="tab" data-target="#tab-style">{{strings.style}}</button></li>
+             <li role="presentation"><button id="tab-butt-main"  title="{{strings.layout}}" aria-label="{{strings.layout}}" role='tab' aria-controls="tab-main" data-toggle="tab" data-target="#tab-layout">{{strings.layout}}</button></li>
              <li role="presentation"><button id="tab-butt-keys"  title="{{strings.i18n_keyboard_shortcuts}}" aria-label="{{strings.i18n_keyboard_shortcuts}}" role='tab' aria-controls="tab-keyboard" data-toggle="tab" data-target="#tab-keyboard">{{strings.i18n_keyboard_shortcuts}}</button></li>
            </ul>
            
            
            <div class="tab-content">
-                <div id="tab-main" class="tab-pane active" role="tabpanel" aria-expanded="true">
+                <div id="tab-style" class="tab-pane active" role="tabpanel" aria-expanded="true">
                      
                 <h5 aria-hidden="true">{{strings.preview}}</h5>
                 <div  aria-hidden="true" class="row">
@@ -40,19 +41,6 @@
                         </div>
                     </div>
 
-                    <h5 id="setting-header-margins-legend" class="setting-header">{{strings.i18n_margins}}</h5>
-                     <div class="row">
-                        <div class="col-xs-2 icon-scale-down">
-                            <img style="height: 32px;" src="images/margin1_off.png" alt="" aria-hidden="true">
-                        </div>
-                        <div class="col-xs-8">
-                            <input  type="range" role="slider" aria-labelledby="setting-header-margins-legend" id="margin-size-input" min="20" aria-value-min="20" aria-valuemin="20" step="20" max="100" aria-value-max="100" aria-valuemax="100" value="20" aria-valuenow="20" aria-value-now="20" aria-valuetext="20" aria-value-text="20" title="{{strings.i18n_margins}}" aria-label="{{strings.i18n_margins}}"/>
-                        </div>
-                        <div class="col-xs-2">
-                            <img style="height: 32px;" src="images/margin4_off.png" alt="" aria-hidden="true">
-                        </div>
-                    </div>
-
                     <h5 id="setting-header-color-legend" class="setting-header">{{strings.i18n_text_and_background_color}}</h5>
                     <div role="group" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="row">
                         
@@ -67,6 +55,21 @@
                         <button role="button" data-theme="ballard-theme"  title="{{strings.i18n_ballard_blues}}" aria-label="{{strings.i18n_ballard_blues}}" class="col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable">{{strings.i18n_ballard_blues}}</button>
                         
                         <button role="button" data-theme="vancouver-theme"  title="{{strings.i18n_vancouver_mist}}" aria-label="{{strings.i18n_vancouver_mist}}" class="col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable">{{strings.i18n_vancouver_mist}}</button>
+                    </div>
+                </div>
+                <div id="tab-layout" class="tab-pane" role="tabpanel">
+                    
+                    <h5 id="setting-header-margins-legend" class="setting-header">{{strings.i18n_margins}}</h5>
+                     <div class="row">
+                        <div class="col-xs-2 icon-scale-down">
+                            <img style="height: 32px;" src="images/margin1_off.png" alt="" aria-hidden="true">
+                        </div>
+                        <div class="col-xs-8">
+                            <input  type="range" role="slider" aria-labelledby="setting-header-margins-legend" id="margin-size-input" min="20" aria-value-min="20" aria-valuemin="20" step="20" max="100" aria-value-max="100" aria-valuemax="100" value="20" aria-valuenow="20" aria-value-now="20" aria-valuetext="20" aria-value-text="20" title="{{strings.i18n_margins}}" aria-label="{{strings.i18n_margins}}"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <img style="height: 32px;" src="images/margin4_off.png" alt="" aria-hidden="true">
+                        </div>
                     </div>
 
                     <h5 id="setting-header-display-legend" class="setting-header">{{strings.i18n_display_format}}</h5>
@@ -171,7 +174,7 @@
                     
                     
                     </div>
-                       <div id="tab-keyboard" class="tab-pane" role="tabpanel">
+                    <div id="tab-keyboard" class="tab-pane" role="tabpanel">
 
                     <div class="row" style="position:relative;">
                         
