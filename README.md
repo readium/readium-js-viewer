@@ -80,7 +80,7 @@ To run the chrome packaged app, you will need to do the following:
    * install the project's dependencies: `npm install`
    * Build the application `grunt chromeApp`
    * Load the app as an unpacked extension from `(project-root)/build/chrome-app`. [Directions here](http://developer.chrome.com/extensions/getstarted.html#unpacked)
-   * Open the App in Chrome.
+   * Open the App in Chrome via [chrome://apps/](chrome://apps/)
 
 ### Custom EPUB management and viewer application
 The code that runs the chrome packaged app can also be run on a web server. However, it requires a backend to store and retrieve EPUB files. You would have to implement this yourself. You can see this in action by following the directions to [run a node web server](#clone-and-run-an-embedded-nodejs-web-server) and then navigating to http://localhost:8080/index.html. The backend the example uses is just static files so it doesn't support updating. 
