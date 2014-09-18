@@ -51,7 +51,7 @@ if (process.env.MODE == 'chromeApp')
 		var httpOptions = {
 			hostname: 'uploads.github.com',
 			port: 443,
-			path: '/repos/ryanackley/speakeasy-plugin/releases/' + releaseId + '/assets?name=Readium.crx',
+			path: '/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx',
 			method: 'POST',
 			headers: {
 				'Content-Type': contentType,
@@ -67,7 +67,7 @@ if (process.env.MODE == 'chromeApp')
 			}
 			else{
 				console.log('error uploading binary: ' + res.statusCode);
-				
+
 			}
 		});
 
