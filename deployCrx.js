@@ -1,5 +1,7 @@
-if (process.env.MODE == 'chrome')
+if (process.env.MODE == 'chromeApp')
 {
+	console.log('deploying crx to github');
+	
 	var GitHubApi = require("github");
 	var https = require('https');
 	var fs = require("fs");
