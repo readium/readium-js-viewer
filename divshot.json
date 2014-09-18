@@ -1,0 +1,4 @@
+{
+  "name": "readium-cloudreader",
+  "root": "./build/cloud-reader"
+}

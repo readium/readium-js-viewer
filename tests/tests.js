@@ -274,6 +274,8 @@ describe("chrome extension tests", function() {
     it('test margins', function(){
       return browser
               .openSettingsDialog()
+              .elementByCss('#tab-butt-layout')
+              .click()
               .elementByCss('#margin-size-input')
               .isDisplayed()
               .should.eventually.be.true
