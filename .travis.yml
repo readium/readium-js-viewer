@@ -22,7 +22,7 @@ after_success:
 env:
   global:
   - USE_SAUCE=true
-  - secure: Qsy3vxTGf84SOhvDHGhhaSqwRrh256JLemn4tamEWIqkUYHgvYHyQsmvgitBCKTYGagG2F6Ag95BbmeKzhTAEhz94awMP3RcVrKxCMjoxmNGj6Mms1Y9310ZgOoSG2Pkz7ydkIzddyW9bGyrLrep4nzWMg3iaE6DU4ZcfhdMAaQ=
+  - secure: onYFok5CBcV1116+kOEZJsyDB1kRHF+8deU1cll3vhxBEM/woSRvpso32oxjuza+or2uXuBT1SiZn0oTmuKD/TRaKw1e8wTtX6kQzCUhyeGoAyJH8SeGIwkt8+x232rFUe2bNLr6e0JAGZMtTjk1Q1zqfONNWAQzsUWDeUqvwt8=
   matrix:
   - MODE=chromeApp
   - MODE=firefox

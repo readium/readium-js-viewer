@@ -59,11 +59,15 @@ if (process.env.MODE == 'chromeApp')
 				'Authorization' : 'token ' + oauthToken
 			}
 		}
-		console.log(httpOptions);
+		//console.log(httpOptions);
 
 		var req = https.request(httpOptions, function(res){
 			if (res.statusCode < 400){
 				console.log('binary uploaded successfully');
+			}
+			else{
+				console.log('error uploading binary: ' + res.statusCode);
+				
 			}
 		});
 
