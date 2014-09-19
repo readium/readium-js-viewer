@@ -139,6 +139,30 @@ html[data-theme=night-theme] .modal
     color: black;
 }
 
+html[data-theme=parchment-theme] .book-title-header,
+html[data-theme=parchment-theme] body,
+html[data-theme=parchment-theme] #readium-toc-body
+{
+  background-color: #f7f1cf;
+  color: #774c27;
+}
+
+html[data-theme=ballard-theme] .book-title-header,
+html[data-theme=ballard-theme] body,
+html[data-theme=ballard-theme] #readium-toc-body
+{
+  background-color: #576b96;
+  color: #DDD;
+}
+
+html[data-theme=vancouver-theme] .book-title-header,
+html[data-theme=vancouver-theme] body,
+html[data-theme=vancouver-theme] #readium-toc-body
+{
+  background-color: #DDD;
+  color: #576b96;
+}
+
 /*.icon-show-hide, .icon-show-hide:active{
   display: none;
 }*/
