@@ -28,7 +28,7 @@
   font-weight: bold;
 }
 
-#about-dialog .version-details{
+#about-dialog .version-details, #about-dialog .build-date{
   font-size: 0.8em;
 }
 
