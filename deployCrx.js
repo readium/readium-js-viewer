@@ -127,7 +127,7 @@ if (true)//process.env.MODE == 'chromeApp')
 		tagRef.sha = process.env.TRAVIS_COMMIT;
 		if (error){
 			console.log(version + ' tag does not exist, creating.');
-			tagRef.ref = 'refs/' + tagRef;
+			tagRef.ref = 'refs/' + tagRef.ref;
 			github.gitdata.createReference(tagRef, deleteOldRelease);
 		}	
 		else{
