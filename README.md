@@ -20,15 +20,15 @@ ReadiumJS uses git submodules to embed other repositories and it uses [Node.js](
 
   * Install [Node.js](http://nodejs.org) (details depend on your operating system)
   * Install the Grunt build tool: `npm install -g grunt-cli` (requires at least version 0.4.4)
-  * git clone https://github.com/readium/readium-js-viewer.git
-  * cd readium-js-viewer
-  * git submodule update --init --recursive
+  * run the command `git clone https://github.com/readium/readium-js-viewer.git`
+  * `cd readium-js-viewer`
+  * run the command `git submodule update --init --recursive`
   * install Node.JS
-  * npm install -g grunt-cli
-  * npm install (in the readium-js-viewer directory)
-  * cd readium-js
-  * npm install (a second time in the readium-js directory)
-  * cd ..
+  * `npm install -g grunt-cli`
+  * `npm install` (in the readium-js-viewer directory)
+  * `cd readium-js`
+  * `npm install` (a second time in the readium-js directory)
+  * `cd ..`
   * You should now be able to run the grunt commands specified below.
 
 ### Basic EPUB Viewer
