@@ -14,7 +14,8 @@
 require.config({
 	config : {
     	'EpubReader' : {
-            'useSimpleLoader' : false // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too.
+            'useSimpleLoader' : false, // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too.
+            'mathJaxUrl' : '/lib/mathjax/MathJax.js'
     	}
     }
 });
