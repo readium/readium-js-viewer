@@ -23,13 +23,13 @@ env:
   global:
   - USE_SAUCE=true
   - secure: onYFok5CBcV1116+kOEZJsyDB1kRHF+8deU1cll3vhxBEM/woSRvpso32oxjuza+or2uXuBT1SiZn0oTmuKD/TRaKw1e8wTtX6kQzCUhyeGoAyJH8SeGIwkt8+x232rFUe2bNLr6e0JAGZMtTjk1Q1zqfONNWAQzsUWDeUqvwt8=
-  - secure: AFmLry0PpNfWwDpOtk/Lo4SSNPSiJta8MuJ0zTL9SXdQdY/baFWrQW7GF47C/Tg0Gt1rJL9XZTPbyph8oPR7Okt/RagZegYwBjgrsfxFiZkMAGEzybxDwivlRtQYVk2hsDaxcJw4NjAowVHoN76WmAuD4oYOBbGlfugvSMhnc1k=
-  - secure: duDHgHjVH+fVHhEwclGN1op44wGdpAPdPye3ix8aFw+F2jh5hj4RRqD0DLaCpDpxHpPEiaVcYIbPoJC3qbh4c+fmTAIHbIgWHxTFrHuFzwnkFO6+BYrGpbCHam9RPkqurtYbKm6ArWrGz+LBLDYoqRYmsKySAAFLgpegeNOAvI0=
   matrix:
   - MODE=chromeApp
   - MODE=firefox
 addons:
-  sauce_connect: true
+  sauce_connect:
+    username: readium
+    access_key: a36ebc10-e514-4da6-924c-307aec513550
 deploy:
   provider: divshot
   skip_cleanup: true
