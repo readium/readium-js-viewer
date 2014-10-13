@@ -1,5 +1,11 @@
 [
     {
+        "title" : "navigator.epubReadingSystem",
+        "author" : "Readium",
+        "packagePath" : "package.opf",
+        "rootUrl" : "epub_content/epubReadingSystem"
+    },
+    {
         "title" : "Accessible EPUB 3",
         "author" : "Matt Garrish",
         "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",
