@@ -19,6 +19,10 @@
   display:none;
 }
 
+html#simpleViewer .icon-library{
+  display:none;
+}
+
 .about-message{
   margin: 20px 0px;
 }
