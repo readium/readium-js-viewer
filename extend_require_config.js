@@ -12,6 +12,10 @@
 //  prior written permission.
 
 require.config({
+    paths: {
+        'versioning/Versioning' : 'versioning/PackagedVersioning',
+        'viewer-version' : '../build/version.json'
+    },
 	config : {
     	'EpubReader' : {
             'useSimpleLoader' : false, // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too.

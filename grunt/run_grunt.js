@@ -21,6 +21,13 @@ module.exports = function(grunt) {
                 cwd: 'readium-js'
             },
             src: 'readium-js/Gruntfile.js'
+        },
+        readiumjs_versioning: {
+            options: {
+                task: ['versioning'],
+                cwd: 'readium-js'
+            },
+            src: 'readium-js/Gruntfile.js'
         }
     };
 };

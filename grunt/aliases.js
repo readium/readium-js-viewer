@@ -13,7 +13,7 @@
 
 module.exports = function(grunt) {
     return {
-        "default": 'concurrent:serverwatch',
+        "default": ['copy:cloudReaderDev', 'clean:cloudReaderDev', 'run_grunt:readiumjs_versioning', 'versioning', 'concurrent:serverwatch'],
 
         "runserver": ['express:dev', 'express-keepalive'],
 

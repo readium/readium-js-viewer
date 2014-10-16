@@ -127,6 +127,7 @@ function epubReadingSystem()
         var repo = window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories[i];
         appendNameValuePair("name", repo.name);
         appendNameValuePair("sha", repo.sha);
+        appendNameValuePair("tag", repo.tag);
         appendNameValuePair("clean", repo.clean);
         appendNameValuePair("url", repo.url, true);
     }
