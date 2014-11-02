@@ -165,7 +165,7 @@ html[data-theme=night-theme] .modal
 .navbar .icon-logo, .navbar .icon-logo:active{
   background-image: url('../images/readium_logo.png');
   width: 130px; 
-  background-size: auto 28px;
+  background-size: auto 28px !important;
 }
 
 .icon-scale-down{
