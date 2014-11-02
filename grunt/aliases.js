@@ -13,7 +13,7 @@
 
 module.exports = function(grunt) {
     return {
-        "default": 'concurrent:serverwatch',
+        "default": ['copy:cloudReaderDev', 'clean:cloudReaderDev', 'versioning', 'concurrent:serverwatch'],
 
         "runserver": ['express:dev', 'express-keepalive'],
 
@@ -34,8 +34,6 @@ module.exports = function(grunt) {
 
         "test_sauce" : ['env:sauce', 'chromeApp', 'crx', 'env:chromeApp', 'simplemocha'],
 
-        "test_travis" : ['cloudReaderWithEpub', 'chromeApp', 'crx', 'express:test', 'simplemocha'],
-
-        "epubReadingSystem": ['epubReadingSystem_readJSON', 'epubReadingSystem_processModules', 'epubReadingSystem_writeJSON']
+        "test_travis" : ['cloudReaderWithEpub', 'chromeApp', 'crx', 'express:test', 'simplemocha']
     };
 };

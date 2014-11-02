@@ -106,6 +106,14 @@ module.exports = function(grunt) {
                 src: 'Readium.js',
                 dest: 'lib'
             }]
+        },
+        cloudReaderDev: {
+            files: [{
+                expand: true,
+                cwd: './',
+                src: 'index.html',
+                dest: 'build/cloud-reader-dev'
+            }]
         }
         // prepareChromeAppTests: {
         //     files: [{

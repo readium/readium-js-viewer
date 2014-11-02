@@ -19,6 +19,10 @@
   display:none;
 }
 
+html#simpleViewer .icon-library{
+  display:none;
+}
+
 .about-message{
   margin: 20px 0px;
 }
@@ -28,7 +32,7 @@
   font-weight: bold;
 }
 
-#about-dialog .version-details{
+#about-dialog .version-details, #about-dialog .build-date{
   font-size: 0.8em;
 }
 

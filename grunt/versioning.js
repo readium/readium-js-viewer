@@ -34,12 +34,35 @@ module.exports = function(grunt) {
                     version: pkg.version,
                     chromeVersion: '2.' + pkg.version.substring(2),
                     sha: sha,
+                    tag: "",
                     clean: status.clean,
                     release: branchName.indexOf('release/') == 0,
                     timestamp: Date.now() 
-                }
-                fs.writeFileSync('build/version.json', JSON.stringify(obj));
-                done();
+                };
+                
+                var exec = require('child_process').exec;
+                //var cmd = "git --git-dir='" + process.cwd() + "/.git' name-rev --tags --name-only " + sha;
+                var cmd = "git --git-dir='" + process.cwd() + "/.git' describe --tags --long " + sha;
+                grunt.log.writeln(cmd);
+                exec(cmd,
+                    { cwd: process.cwd() },
+                    function(err, stdout, stderr) {
+                        if (err) {
+                            grunt.log.writeln(err);
+                        }
+                        if (stderr) {
+                            grunt.log.writeln(stderr);
+                        }
+                        if (stdout) {
+                            grunt.log.writeln(stdout);
+                    
+                            obj["tag"] = stdout.trim();
+                        }
+
+                        fs.writeFileSync('build/version.json', JSON.stringify(obj));
+                        done();
+                    }
+                );
             });
         }
 
