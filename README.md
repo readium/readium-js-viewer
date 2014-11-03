@@ -108,3 +108,7 @@ The viewer project contains some basic regression tests. These are run using [ch
    * Install [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/home) for your platform and ensure it's on your system path somewhere.
    * Install the Google Chrome browser or have it already installed in the default install location for your platform.
    * run `grunt test`
+
+Licensing info
+----------------
+Licensing information can be found in the file license.txt in the root of the repo, as well as in the source code itself.
