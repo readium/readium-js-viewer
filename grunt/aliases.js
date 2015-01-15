@@ -13,6 +13,7 @@
 
 module.exports = function(grunt) {
     return {
+        // Note: the "cloudReaderDev" tasks create the 'build' folder in preparation for the "versioning" task, but the HTTP files are actually served from the current directory, not 'build' (only 'build/version.json' is necessary, imported by RequireJS)
         "default": ['copy:cloudReaderDev', 'clean:cloudReaderDev', 'versioning', 'concurrent:serverwatch'],
 
         "runserver": ['express:dev', 'express-keepalive'],
@@ -23,6 +24,9 @@ module.exports = function(grunt) {
         //"chromeAppDevBuild": ['chromeApp', 'copy:chromeAppDevBuild', 'chromeAppDevBuildManifest'],
 
         "cloudReader": ['clean:cloudReader', 'copy:cloudReader', 'cssmin:cloudReader', 'versioning', 'requirejs:cloudReader'],
+
+        "cloudReaderLite": ['clean:cloudReaderLite', 'copy:cloudReaderLite', 'cssmin:cloudReaderLite', 'versioning', 'requirejs:cloudReaderLite'],
+        
         "cloudReaderWithEpub": ['clean:cloudReader', 'copy:cloudReader', 'copy:cloudReaderEpubContent', 'cssmin:cloudReader', 'versioning', 'requirejs:cloudReader'],
 
         "cloudReaderWithFullEpub" : ['cloudReaderWithEpub', 'createTestLibrary'],

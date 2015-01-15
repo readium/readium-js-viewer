@@ -25,6 +25,11 @@ module.exports = function(grunt) {
             files: {
                 'build/cloud-reader/css/readium-all.css': ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/viewer_audio.css', 'css/settings.css', 'css/library.css']
             }
+        },
+        cloudReaderLite: {
+            files: {
+                'build/cloud-reader-lite/css/readium-all.css': ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/viewer_audio.css', 'css/settings.css']
+            }
         }
     };
 };

@@ -114,6 +114,35 @@ module.exports = function(grunt) {
                 src: 'index.html',
                 dest: 'build/cloud-reader-dev'
             }]
+        },
+        cloudReaderLite: {
+            files: [{
+                expand: true,
+                cwd: 'chrome-app/',
+                src: 'index_lite.html',
+                dest: 'build/cloud-reader-lite',
+                rename: function(dest, src) {
+                    return dest + "/" + src.replace("index_lite", "index");
+                }
+            }, {
+                expand: true,
+                src: 'images/**',
+                dest: 'build/cloud-reader-lite'
+            }, {
+                expand: true,
+                src: 'fonts/**',
+                dest: 'build/cloud-reader-lite'
+            }, {
+                expand: true,
+                cwd: 'css',
+                src: 'annotations.css',
+                dest: 'build/cloud-reader-lite/css'
+            }, {
+                expand: true,
+                cwd: 'lib',
+                src: 'mathjax/**',
+                dest: 'build/cloud-reader-lite/scripts'
+            } ]
         }
         // prepareChromeAppTests: {
         //     files: [{

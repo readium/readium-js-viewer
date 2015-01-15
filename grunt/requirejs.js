@@ -64,7 +64,34 @@ module.exports = function(grunt) {
                 paths: {
                     'versioning/Versioning' : 'versioning/PackagedVersioning',
                     'viewer-version' : '../build/version.json'
-                }
+                },
+                // TODO: pass these config parameters so they are picked-up by module.config() in EpubReader.js (readerOptions object)
+                // config : {
+                //     'EpubReader' : {
+                //         'useSimpleLoader' : false, // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
+                //         'mathJaxUrl' : '/scripts/mathjax/MathJax.js'
+                //     }
+                // }
+            }
+        },
+        cloudReaderLite: {
+            options: {
+                mainConfigFile: './require_config.js',
+                include: ['ReadiumViewerLite'],
+                name: 'thirdparty/almond',
+                baseUrl: './lib/',
+                out: 'build/cloud-reader-lite/scripts/readium-all.js',
+                paths: {
+                    'versioning/Versioning' : 'versioning/PackagedVersioning',
+                    'viewer-version' : '../build/version.json'
+                },
+                // TODO: pass these config parameters so they are picked-up by module.config() in EpubReader.js (readerOptions object)
+                // config : {
+                //     'EpubReader' : {
+                //         'useSimpleLoader' : false, // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
+                //         'mathJaxUrl' : '/scripts/mathjax/MathJax.js'
+                //     }
+                // }
             }
         }
     };
