@@ -18,6 +18,8 @@ module.exports = function(grunt) {
     return {
         chromeApp: ['build/chrome-app'],
         cloudReader: ['build/testbooks.zip', 'build/cloud-reader'],
-        cloudReaderDev: ['build/cloud-reader-dev']
+        cloudReaderLite: ['build/cloud-reader-lite'],
+        cloudReaderDev: ['build/cloud-reader-dev'],
+        version: ['build/version.json']
     };
 };
