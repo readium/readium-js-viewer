@@ -169,6 +169,7 @@ html[data-theme=night-theme] .modal
 {
     overflow: visible;
     height: 0.4em;
+    background-size: auto 28px !important;
 }
 
 .icon-scale-down{
