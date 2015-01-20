@@ -51,7 +51,8 @@ require.config({
         'templates': '../templates',
         'storage/StorageManager' : 'storage/StaticStorageManager',
         'versioning/Versioning' : 'versioning/UnpackagedVersioning',
-        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler'
+        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler',
+        'bootstrapA11y': 'thirdparty/bootstrap-accessibility.min'
     },
     hgn : {
         templateExtension : ""
@@ -95,6 +96,10 @@ require.config({
         bootstrap: {
             deps: ['jquery'],
             exports: 'bootstrap'
+        },
+        bootstrapA11y: {
+            deps: ['bootstrap'],
+            exports: 'bootstrapA11y'
         },
 
         Readium: {
