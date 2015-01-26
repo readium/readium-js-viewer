@@ -65,11 +65,16 @@ module.exports = function(grunt) {
                     'versioning/Versioning' : 'versioning/PackagedVersioning',
                     'viewer-version' : '../build/version.json'
                 },
-                // TODO: pass these config parameters so they are picked-up by module.config() in EpubReader.js (readerOptions object)
+                
+                // JUST FOR TESTING! (non-minified source code)
+                //optimize: "none" 
+                
+                // TODO: pass these config parameters so they are picked-up by module.config() in EpubReader.js (readerOptions and readiumOptions objects)
                 // config : {
                 //     'EpubReader' : {
                 //         'useSimpleLoader' : false, // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
-                //         'mathJaxUrl' : '/scripts/mathjax/MathJax.js'
+                //         'mathJaxUrl' : '/scripts/mathjax/MathJax.js',
+                //         jsLibRoot: './scripts/zip/',
                 //     }
                 // }
             }
@@ -85,11 +90,16 @@ module.exports = function(grunt) {
                     'versioning/Versioning' : 'versioning/PackagedVersioning',
                     'viewer-version' : '../build/version.json'
                 },
-                // TODO: pass these config parameters so they are picked-up by module.config() in EpubReader.js (readerOptions object)
+                
+                // JUST FOR TESTING! (non-minified source code)
+                //optimize: "none" 
+                
+                // TODO: pass these config parameters so they are picked-up by module.config() in EpubReader.js (readerOptions and readiumOptions objects)
                 // config : {
                 //     'EpubReader' : {
                 //         'useSimpleLoader' : false, // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
                 //         'mathJaxUrl' : '/scripts/mathjax/MathJax.js'
+                //         jsLibRoot: './scripts/zip/',
                 //     }
                 // }
             }

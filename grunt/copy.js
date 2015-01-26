@@ -90,6 +90,16 @@ module.exports = function(grunt) {
                 cwd: 'lib',
                 src: 'mathjax/**',
                 dest: 'build/cloud-reader/scripts'
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'inflate.js',
+                dest: 'build/cloud-reader/scripts/zip'
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'deflate.js',
+                dest: 'build/cloud-reader/scripts/zip'
             } ]
         },
         cloudReaderEpubContent: {
@@ -142,7 +152,17 @@ module.exports = function(grunt) {
                 cwd: 'lib',
                 src: 'mathjax/**',
                 dest: 'build/cloud-reader-lite/scripts'
-            } ]
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'inflate.js',
+                dest: 'build/cloud-reader-lite/scripts/zip'
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'deflate.js',
+                dest: 'build/cloud-reader-lite/scripts/zip'
+            }  ]
         }
         // prepareChromeAppTests: {
         //     files: [{
