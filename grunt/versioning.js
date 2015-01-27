@@ -17,7 +17,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask("versioning", function() {
         var git = require('gift'),
-            fs = require('fs');
+            fs = require('fs'),
+			path = require('path');
 
         var done = this.async();
         
@@ -42,7 +43,7 @@ module.exports = function(grunt) {
                 
                 var exec = require('child_process').exec;
                 //var cmd = "git --git-dir='" + process.cwd() + "/.git' name-rev --tags --name-only " + sha;
-                var cmd = "git --git-dir='" + process.cwd() + "/.git' describe --tags --long " + sha;
+                var cmd = "git --git-dir=\"" + path.join(process.cwd(), ".git") + "\" describe --tags --long " + sha;
                 grunt.log.writeln(cmd);
                 exec(cmd,
                     { cwd: process.cwd() },
