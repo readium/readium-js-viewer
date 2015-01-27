@@ -13,7 +13,7 @@
 
 require.config({
     paths: {
-        'versioning/Versioning' : 'versioning/PackagedVersioning',
+        'versioning/Versioning' : 'versioning/UnpackagedVersioning',
         'viewer-version' : '../build/version.json'
     },
 	config : {
