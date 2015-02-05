@@ -1,5 +1,6 @@
 html.disable-ie-back-swipe {
-    overflow: scroll;
+    overflow-x: scroll;
+	-ms-overflow-style: none;
     -ms-scroll-chaining: none;
 }
 html {
@@ -14,6 +15,7 @@ body {
     margin: 0;
     position: absolute;
     overflow: hidden;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
     box-sizing:border-box;
 	-moz-box-sizing:border-box; /* Firefox */
 	-webkit-box-sizing:border-box; /* Safari */
