@@ -1,3 +1,7 @@
+html.disable-ie-back-swipe {
+    overflow: scroll;
+    -ms-scroll-chaining: none;
+}
 html {
     height: 100%;
     margin: 0;
