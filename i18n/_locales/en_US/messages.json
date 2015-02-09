@@ -278,6 +278,12 @@
   "i18n_multipleRenditions" : {
     "message" : "Renditions"
   },
+  "i18n_multipleRenditionsList" : {
+    "message" : "AVAILABLE RENDITIONS"
+  },
+  "i18n_multipleRenditionsSelect" : {
+    "message" : "Pick values"
+  },
   
   "i18n_renditionsAccessMode" : {
     "message" : "ACCESS MODE"
