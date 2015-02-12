@@ -29,7 +29,7 @@ require.config({
         'hgn': 'thirdparty/hgn',
         'hogan': 'thirdparty/hogan',
         'jath' : 'thirdparty/jath.min',
-        'jquery': 'thirdparty/jquery-1.11.0',
+        'jquery': 'thirdparty/jquery',
         'spin' : 'thirdparty/spin.min',
         'underscore': 'thirdparty/underscore-1.4.4',
         'backbone': 'thirdparty/backbone-0.9.10',
