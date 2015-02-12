@@ -28,7 +28,7 @@ require.config({
         'text': 'thirdparty/text/text',
         'hgn': 'thirdparty/hgn',
         'hogan': 'thirdparty/hogan',
-        'jath' : 'thirdparty/jath.min',
+        'jxpath' : 'thirdparty/jquery.xpath.min',
         'jquery': 'thirdparty/jquery',
         'spin' : 'thirdparty/spin.min',
         'underscore': 'thirdparty/underscore-1.4.4',
@@ -82,8 +82,8 @@ require.config({
         underscore: {
             exports: '_'
         },
-        jath : {
-            exports: 'Jath'
+        jxpath : {
+            exports: 'JXPath'
         },
         spin : {
             exports: 'Spinner'
