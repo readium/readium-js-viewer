@@ -30,17 +30,20 @@ define(['workers/Messages'], function(Messages){
 						if (writer.position < writer.length){
 							writer.truncate(writer.position);	
 						}
-						else if (callback)
+						else if (callback) {
 							callback(fileEntry);
+						}
 
 					}
 					writer.onerror = function(e){
-						throw(e);
+						console.error('failed: ' + filename);
+						error(writer.error);
 					}
 					if (contents instanceof ArrayBuffer){
 						contents = new Uint8Array(contents);
 					}
-					writer.write(new Blob([contents]));
+					var blob = contents instanceof Blob ? contents : new Blob([contents]);
+					writer.write(blob);
 				}, error);
 			}, error);
 		}
@@ -137,7 +140,7 @@ define(['workers/Messages'], function(Messages){
 
 	var wrapErrorHandler = function(op, path, handler){
 		return function(err){
-			var data = {path: path, error: err.name, op: op};
+			var data = {original: err, path: path, error: err.name, op: op};
 			handler(Messages.ERROR_STORAGE, data);
 			console.error(data);
 		}
