@@ -61,7 +61,7 @@ describe("chrome extension tests", function() {
         port = 4445;
       }
 
-      browser = wd.promiseChainRemote(url, port, 'readium', 'b0dd7376-7731-47db-bed0-850912b75f2b');
+      browser = wd.promiseChainRemote(url, port, 'readium', 'a36ebc10-e514-4da6-924c-307aec513550');
       
     }
     else{

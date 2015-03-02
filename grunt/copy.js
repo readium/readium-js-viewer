@@ -90,6 +90,16 @@ module.exports = function(grunt) {
                 cwd: 'lib',
                 src: 'mathjax/**',
                 dest: 'build/cloud-reader/scripts'
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'inflate.js',
+                dest: 'build/cloud-reader/scripts/zip'
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'deflate.js',
+                dest: 'build/cloud-reader/scripts/zip'
             } ]
         },
         cloudReaderEpubContent: {
@@ -106,6 +116,53 @@ module.exports = function(grunt) {
                 src: 'Readium.js',
                 dest: 'lib'
             }]
+        },
+        cloudReaderDev: {
+            files: [{
+                expand: true,
+                cwd: './',
+                src: 'index.html',
+                dest: 'build/cloud-reader-dev'
+            }]
+        },
+        cloudReaderLite: {
+            files: [{
+                expand: true,
+                cwd: 'chrome-app/',
+                src: 'index_lite.html',
+                dest: 'build/cloud-reader-lite',
+                rename: function(dest, src) {
+                    return dest + "/" + src.replace("index_lite", "index");
+                }
+            }, {
+                expand: true,
+                src: 'images/**',
+                dest: 'build/cloud-reader-lite'
+            }, {
+                expand: true,
+                src: 'fonts/**',
+                dest: 'build/cloud-reader-lite'
+            }, {
+                expand: true,
+                cwd: 'css',
+                src: 'annotations.css',
+                dest: 'build/cloud-reader-lite/css'
+            }, {
+                expand: true,
+                cwd: 'lib',
+                src: 'mathjax/**',
+                dest: 'build/cloud-reader-lite/scripts'
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'inflate.js',
+                dest: 'build/cloud-reader-lite/scripts/zip'
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'deflate.js',
+                dest: 'build/cloud-reader-lite/scripts/zip'
+            }  ]
         }
         // prepareChromeAppTests: {
         //     files: [{

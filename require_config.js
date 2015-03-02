@@ -29,7 +29,7 @@ require.config({
         'hgn': 'thirdparty/hgn',
         'hogan': 'thirdparty/hogan',
         'jath' : 'thirdparty/jath.min',
-        'jquery': 'thirdparty/jquery-1.11.0',
+        'jquery': 'thirdparty/jquery',
         'spin' : 'thirdparty/spin.min',
         'underscore': 'thirdparty/underscore-1.4.4',
         'backbone': 'thirdparty/backbone-0.9.10',
@@ -51,7 +51,8 @@ require.config({
         'templates': '../templates',
         'storage/StorageManager' : 'storage/StaticStorageManager',
         'versioning/Versioning' : 'versioning/UnpackagedVersioning',
-        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler'
+        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler',
+        'bootstrapA11y': 'thirdparty/bootstrap-accessibility.min'
     },
     hgn : {
         templateExtension : ""
@@ -95,6 +96,10 @@ require.config({
         bootstrap: {
             deps: ['jquery'],
             exports: 'bootstrap'
+        },
+        bootstrapA11y: {
+          deps: ['bootstrap'],
+          exports: 'bootstrapA11y'
         },
 
         Readium: {

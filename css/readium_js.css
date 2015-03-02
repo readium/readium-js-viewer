@@ -1,6 +1,7 @@
 html {
     height: 100%;
     margin: 0;
+	overflow: hidden;
 }
 
 body {
@@ -18,6 +19,7 @@ iframe {
     border-width: 0;
 }
 
+/* TODO: is that needed? See #epub-reader-frame in viewer.css */
 #viewport {
     width: 100%;
     height: 100%;

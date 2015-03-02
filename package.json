@@ -1,6 +1,6 @@
 {
   "name": "readium-js-viewer",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "homepage": "https://github.com/readium/readium-js-viewer",
   "repository": {
     "type": "git",
@@ -26,7 +26,10 @@
     "grunt-selenium-webdriver": "^0.2.421",
     "grunt-simple-mocha": "^0.4.0",
     "hogan.js": "~2.0.0",
+    "httpreq": "^0.4.2",
     "load-grunt-config": "~0.8.0-beta.1",
-    "wd": "^0.3.4"
+    "unzip": "^0.1.11",
+    "wd": "^0.3.4",
+    "xml2js": "^0.4.4"
   }
 }
