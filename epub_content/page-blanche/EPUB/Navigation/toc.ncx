@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+	<head>
+		<meta name="dtb:uid" content="code.google.com.epub-samples.page-blanche"/>
+		<meta name="dtb:depth" content="1"/>
+		<meta name="dtb:totalPageCount" content="0"/>
+		<meta name="dtb:maxPageNumber" content="0"/>
+	</head>
+	<docTitle>
+		<text>Page Blanche</text>
+	</docTitle>
+	<navMap>
+		<navPoint id="navpoint1" playOrder="1">
+			<navLabel>
+				<text>Dédicace</text>
+			</navLabel>
+			<content src="../Content/PageBlanche_Page_002.xhtml"/>
+		</navPoint>
+		<navPoint id="navpoint2" playOrder="2">
+			<navLabel>
+				<text>Commencer la lecture</text>
+			</navLabel>
+			<content src="../Content/PageBlanche_Page_005.xhtml"/>
+		</navPoint>
+	</navMap>
+	<pageList>
+        <pageTarget id="p1" type="normal" value="1">
+            <navLabel><text>1</text></navLabel>
+            <content src="../Content/PageBlanche_Page_001.xhtml"/>
+        </pageTarget>
+        <pageTarget id="p2" type="normal" value="2">
+            <navLabel><text>2</text></navLabel>
+            <content src="../Content/PageBlanche_Page_002.xhtml"/>
+        </pageTarget>
+        <pageTarget id="p3" type="normal" value="3">
+            <navLabel><text>3</text></navLabel>
+            <content src="../Content/PageBlanche_Page_003.xhtml"/>
+        </pageTarget>
+        <pageTarget id="p4" type="normal" value="4">
+            <navLabel><text>4</text></navLabel>
+            <content src="../Content/PageBlanche_Page_004.xhtml"/>
+        </pageTarget>  
+        <pageTarget id="p5" type="normal" value="5">
+            <navLabel><text>5</text></navLabel>
+            <content src="../Content/PageBlanche_Page_005.xhtml"/>
+        </pageTarget>
+        <pageTarget id="p6" type="normal" value="6">
+            <navLabel><text>6</text></navLabel>
+            <content src="../Content/PageBlanche_Page_006.xhtml"/>
+        </pageTarget>  
+        <pageTarget id="p7" type="normal" value="7">
+            <navLabel><text>7</text></navLabel>
+            <content src="../Content/PageBlanche_Page_007.xhtml"/>
+        </pageTarget>
+        <pageTarget id="p8" type="normal" value="8">
+            <navLabel><text>8</text></navLabel>
+            <content src="../Content/PageBlanche_Page_008.xhtml"/>
+        </pageTarget>          
+    </pageList>
+</ncx>

@@ -1,0 +1,1819 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-us" lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/> 
+        <link rel="stylesheet" type="text/css" href="../css/commonltr.css"/>
+        <title>Section SAS  Sharing A Secret</title>
+        <link type="text/css" rel="stylesheet" href="../css/epub.css"/>
+    </head>
+    <body id="d1e33">
+        <h1 class="title topictitle1">
+            <span class="enumeration_chapter">Chapter 20. </span>Section SAS  Sharing A Secret
+        </h1>
+        <div class="body">
+            <p class="p"> From 
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmti-12">A First Course in Linear Algebra</span>
+                </span>
+                <br/>Version 2.30
+                <br/>
+                <span class="ph cmsy-10x-x-120">©</span> 2004.
+                <br/>Licensed under the 
+                <span class="xref broken http://www.gnu.org/licenses/fdl.html">GNU Free Documentation License</span>.
+                <br/>
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmtt-12">http://linear.ups.edu/</span>
+                </span>
+                <br/>
+                <br/>
+                <span class="ph cmcsc-10x-x-144">T
+                    <span class="ph small-caps">h</span>
+                    <span class="ph small-caps">i</span>
+                    <span class="ph small-caps">s</span> S
+                    <span class="ph small-caps">e</span>
+                    <span class="ph small-caps">c</span>
+                    <span class="ph small-caps">t</span>
+                    <span class="ph small-caps">i</span>
+                    <span class="ph small-caps">o</span>
+                    <span class="ph small-caps">n</span>
+                    <span class="ph small-caps">i</span>
+                    <span class="ph small-caps">s</span>
+                    <span class="ph small-caps">a</span> D
+                    <span class="ph small-caps">r</span>
+                    <span class="ph small-caps">a</span>
+                    <span class="ph small-caps">f</span>
+                    <span class="ph small-caps">t</span>, S
+                    <span class="ph small-caps">u</span>
+                    <span class="ph small-caps">b</span>
+                    <span class="ph small-caps">j</span>
+                    <span class="ph small-caps">e</span>
+                    <span class="ph small-caps">c</span>
+                    <span class="ph small-caps">t</span>
+                    <span class="ph small-caps">t</span>
+                    <span class="ph small-caps">o</span> C
+                    <span class="ph small-caps">h</span>
+                    <span class="ph small-caps">a</span>
+                    <span class="ph small-caps">n</span>
+                    <span class="ph small-caps">g</span>
+                    <span class="ph small-caps">e</span>
+                    <span class="ph small-caps">s</span>
+                </span>
+            </p>
+            <p class="p"> In this section we will see how to use solutions to systems of equations to share a secret among a group of people. We will be able to break a secret up into, say 10 pieces, so as to distribute the secret among 10 people. But rather than requiring all 10 people to collaborate on restoring the secret, we can design the split so that any smaller group, of say just 4 of these people, can collaborate and restore the secret. The numbers 10 and 4 here are arbitrary, we can choose them to be anything. </p>
+            <p class="p"> Suppose we have a secret, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span>. This could be the combination to a lock, a password on an account, or a recipe for chocolate chip cookies. If the secret is text, we will assume that the characters have been translated into integers (say with the ASCII code), and these numbers have been rolled up into one grand positive integer (perhaps by concatenating binary strings for the ASCII code numbers, and interpreting the longer string as one big base 2 integer). So we will assume 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span> is some positive integer. 
+            </p>
+            <p class="p"> Suppose you wish to give parts of your secret to 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                    </math>
+                </span> people, and you wish to require that any group of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                    </math>
+                </span> (or more) of these people should be able to combine their parts and recover the secret. Perhaps you are President and CEO of a small company and only you know the password that authorizes large transfers of money among the company’s bank accounts. If you were to die or become incapacitated, it would perhaps hamper the company’s ability to function if they couldn’t quickly rearrange their assets, especially since they are also without a CEO. So you might wish to give this secret to six of your trusted Vice-Presidents. But you don’t trust them that much and you certainly don’t want any one of these people to be able to access the company’s accounts all by themselves without anybody else in the company knowing about it. Simultaneously, you know that in an emergency, it might not be possible to get all six Vice-Presidents together and maybe even one or two of them have met the same unfortunate fate you did. So you would like any group of three Vice-Presidents to be able to combine their parts and recover 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span>. So you would choose 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>6</mn>
+                    </math>
+                </span> and 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>3</mn>
+                    </math>
+                </span>. 
+            </p>
+            <p class="p"> We will describe the split, with no motivation. The explanation of how the secret recovery is handled will explain our choices here. Choose a large prime number, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>p</mi>
+                    </math>
+                </span>, bigger than any possible secret. For a single number in a combination lock, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>p</mi>
+                    </math>
+                </span> could be small. For a one-page recipe, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>p</mi>
+                    </math>
+                </span> would need to be huge. All of our subsequent arithmetic will be modulo 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>p</mi>
+                    </math>
+                </span>, so consult Subsection F.FF for a brief description of how we do linear algebra when our field is 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>ℤ</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>p</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. Build a polynomial, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>r</mi>
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                    </math>
+                </span>, of degree 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span> as follows. Set the constant term to 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span>, and choose the other 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span> coefficients at random from 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>ℤ</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>p</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>. The quality of your random generator will ultimately affect the quality of how hidden your secret remains. 
+            </p>
+            <p class="p"> Compute the pairs 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo class="MathClass-punc">,</mo>
+                                <mspace width="0.3em" class="thinspace"/>
+                                <mi>r</mi>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                    </math>
+                </span>. To person 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>i</mi>
+                    </math>
+                </span>, of the 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>n</mi>
+                    </math>
+                </span> persons you will give a part of your secret, present the pair 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo class="MathClass-punc">,</mo>
+                                <mspace width="0.3em" class="thinspace"/>
+                                <mi>r</mi>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                    </math>
+                </span>, and instruct them to keep this secret, for all 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>i</mi>
+                        <mo class="MathClass-rel">≤</mo>
+                        <mi>n</mi>
+                    </math>
+                </span>. They could perhaps encrypt their pairs with AES (Advanced Encryption Standard) using a password known only to them individually. Or you could do this for each of them in advance and tell them the chose password orally, in private. At any rate, each person gets a pair of integers, an input to the polynomial, and the output of evaluating the polynomial, and they keep this information secret. They do not know the polynomial itself, and certainly not the constant term 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span>, so the secret is still safe. 
+            </p>
+            <p class="p"> Now suppose that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                    </math>
+                </span> of these people get together, in the event you are unable to act, or perhaps without your permission. Suppose they pool all of their pairs, or even just turn them over to one member of the group. What do they now know collectively? Suppose that 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>r</mi>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-rel">=</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>0</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mi>x</mi>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <msup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msup>
+                                <mo class="MathClass-bin">+</mo>
+                                <mo class="MathClass-rel">⋯</mo>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>m</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <msup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>m</mi>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msup>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">where, of course, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>a</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>0</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">=</mo>
+                        <mi>S</mi>
+                    </math>
+                </span> is the secret. A single pair, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo class="MathClass-punc">,</mo>
+                                <mspace width="0.3em" class="thinspace"/>
+                                <mi>r</mi>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                    </math>
+                </span>, results in a linear equation whose unknowns are the 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                    </math>
+                </span> coefficients of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>r</mi>
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                    </math>
+                </span>. With 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                    </math>
+                </span> pairs revealed, we now have 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                    </math>
+                </span> equations in 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                    </math>
+                </span> variables. Furthermore, the coefficient matrix of this system is a Vandermonde matrix (
+                <span class="xref broken fcla-xml-2.30li102.html#d1e33__definition.VM">Definition VM</span>). With our inputs to the polynomial all different (we used 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mn>2</mn>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mn>3</mn>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mo class="MathClass-op">…</mo>
+                        <mo class="MathClass-punc">,</mo>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mi>n</mi>
+                    </math>
+                </span>), the Vandermonde matrix is nonsingular (
+                <span class="xref broken fcla-xml-2.30li102.html#d1e33__theorem.NVM">Theorem NVM</span>). Thus by 
+                <span class="xref broken fcla-xml-2.30li21.html#d1e30__theorem.NMUS">Theorem NMUS</span> there is a unique solution for the coefficients of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>r</mi>
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                    </math>
+                </span>. We only desire the constant term — the other coefficients (the randomly chosen ones) are of no interest, they were used to mask the secret as it was split into parts. 
+            </p>
+            <p class="p"> A few practical considerations. If certain individuals in your group are more important, or more trustworthy, you can give them more than one part. You could split a secret into 30 parts, giving 5 Vice-Presidents each 4 parts and give 10 department heads each 1 part. Then you might require 12 parts to be present. This way three Vice-Presidents could recover the secret, or 4 department heads could stand-in for a Vice-President. Furthermore, the 10 department heads could not recover the secret without having at least one Vice-President present. </p>
+            <p class="p"> The inputs do not have to be consecutive integers, starting at 1. Any set of 
+                <span class="ph cmti-12">different </span>integers will suffice. Why make it any easier for an attacker? Mix it up and choose the inputs randomly as well, just keep them different. 
+            </p>
+            <p class="p"> Why do all this arithmetic over 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>ℤ</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>p</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span>? If we worked with polynomials having real number coefficients, properties of polynomials as continuous functions might give an attacker the ability to compute the secret with a reasonable amount of computing time. For example, the magnitude of the output is going to dominated by the term of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>r</mi>
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                    </math>
+                </span> having degree 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                        <mo class="MathClass-bin">−</mo>
+                        <mn>1</mn>
+                    </math>
+                </span>. Suppose an attacker had a few of the pairs, but not a full set of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                    </math>
+                </span> of them. Or even worse, suppose some group of fewer than 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                    </math>
+                </span> of your trusted acquaintances were to conspire against you. It might be possible to guess a limited range of values for the coefficient of the largest term. With a limited range of values here, the next term might fall to a similar analysis. And so on. However, modular arithmetic is in some ways very unpredictable looking and as high powers “wrap-around” this sort of analysis will be frustrated. And we know it is no harder to do linear algebra in 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msub>
+                            <mrow>
+                                <mi>ℤ</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>p</mi>
+                            </mrow>
+                        </msub>
+                    </math>
+                </span> than in 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>ℂ</mi>
+                    </math>
+                </span>. 
+            </p>
+            <p class="p"> OK, here’s a non-trivial example. </p>
+            <p class="p">
+                <span class="ph cmbx-12">Example</span>
+                <span class="ph cmbx-12"> SS6W</span>
+                <br/>
+                <span class="ph cmbx-12">Sharing a secret 6 ways</span>
+                <br/> Let’s return to the CEO and his six Vice-Presidents. Suppose the password for the company’s accounts is a sequence of 5 two-digit numbers, which we will concatenate into a 10-digit number, in this case 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>0</mn>
+                        <mn>6</mn>
+                        <mn>0</mn>
+                        <mn>3</mn>
+                        <mn>7</mn>
+                        <mn>2</mn>
+                        <mn>5</mn>
+                        <mn>9</mn>
+                        <mn>6</mn>
+                        <mn>2</mn>
+                    </math>
+                </span>. For a prime 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>p</mi>
+                    </math>
+                </span> we choose the 11-digit prime number 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>p</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>2</mn>
+                        <mn>2</mn>
+                        <mn>8</mn>
+                        <mn>0</mn>
+                        <mn>1</mn>
+                        <mn>7</mn>
+                        <mn>6</mn>
+                        <mn>1</mn>
+                        <mn>3</mn>
+                        <mn>7</mn>
+                        <mn>9</mn>
+                    </math>
+                </span>. From the requirement that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>m</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>3</mn>
+                    </math>
+                </span> Vice-Presidents are needed to recover the secret, we need a second-degree polynomial and so need two more coefficients, which we will construct at random between 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                    </math>
+                </span> and 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>p</mi>
+                    </math>
+                </span>. The resulting polynomial is 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>r</mi>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-rel">=</mo>
+                                <mn>6</mn>
+                                <mn>0</mn>
+                                <mn>3</mn>
+                                <mn>7</mn>
+                                <mn>2</mn>
+                                <mn>5</mn>
+                                <mn>9</mn>
+                                <mn>6</mn>
+                                <mn>2</mn>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>2</mn>
+                                <mn>2</mn>
+                                <mn>5</mn>
+                                <mn>6</mn>
+                                <mn>1</mn>
+                                <mn>9</mn>
+                                <mn>8</mn>
+                                <mn>2</mn>
+                                <mn>9</mn>
+                                <mn>1</mn>
+                                <mn>9</mn>
+                                <mi>x</mi>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>8</mn>
+                                <mn>8</mn>
+                                <mn>4</mn>
+                                <mn>4</mn>
+                                <mn>0</mn>
+                                <mn>8</mn>
+                                <mn>8</mn>
+                                <mn>3</mn>
+                                <mn>3</mn>
+                                <mn>8</mn>
+                                <msup>
+                                    <mrow>
+                                        <mi>x</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msup>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">We will now build six pairs of inputs and outputs, where we will choose the inputs at random (not allowing duplicates) and we do all our arithmetic modulo 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>p</mi>
+                    </math>
+                </span>, 
+            </p>
+            <p class="p">The two numbers of each row of the table are then given to the indicated Vice-President. Done. The secret has been split six ways, and any three VP’s can jointly recover the secret. </p>
+            <p class="p"> Let’s test the recovery process, especially since it contains the relevant linear algebra. Suppose we write the unknown polynomial as 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>r</mi>
+                        <mrow>
+                            <mo class="MathClass-open">(</mo>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mo class="MathClass-close">)</mo>
+                        </mrow>
+                        <mo class="MathClass-rel">=</mo>
+                        <msub>
+                            <mrow>
+                                <mi>a</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>0</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-bin">+</mo>
+                        <msub>
+                            <mrow>
+                                <mi>a</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mi>x</mi>
+                        <mo class="MathClass-bin">+</mo>
+                        <msub>
+                            <mrow>
+                                <mi>a</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msub>
+                        <msup>
+                            <mrow>
+                                <mi>x</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>2</mn>
+                            </mrow>
+                        </msup>
+                    </math>
+                </span> and the VP’s for Finance, Marketing and Legal all get together to recover the secret. The equations we arrive at are, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mtext> Finance</mtext>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mn>7</mn>
+                                <mn>2</mn>
+                                <mn>0</mn>
+                                <mn>5</mn>
+                                <mn>6</mn>
+                                <mn>9</mn>
+                                <mn>9</mn>
+                                <mn>6</mn>
+                                <mn>5</mn>
+                                <mn>4</mn>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mi>r</mi>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mn>2</mn>
+                                        <mn>0</mn>
+                                        <mn>2</mn>
+                                        <mn>2</mn>
+                                        <mn>0</mn>
+                                        <mn>4</mn>
+                                        <mn>0</mn>
+                                        <mn>6</mn>
+                                        <mn>0</mn>
+                                        <mn>4</mn>
+                                        <mn>6</mn>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>0</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mn>2</mn>
+                                        <mn>0</mn>
+                                        <mn>2</mn>
+                                        <mn>2</mn>
+                                        <mn>0</mn>
+                                        <mn>4</mn>
+                                        <mn>0</mn>
+                                        <mn>6</mn>
+                                        <mn>0</mn>
+                                        <mn>4</mn>
+                                        <mn>6</mn>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <msup>
+                                    <mrow>
+                                        <mrow>
+                                            <mo class="MathClass-open">(</mo>
+                                            <mrow>
+                                                <mn>2</mn>
+                                                <mn>0</mn>
+                                                <mn>2</mn>
+                                                <mn>2</mn>
+                                                <mn>0</mn>
+                                                <mn>4</mn>
+                                                <mn>0</mn>
+                                                <mn>6</mn>
+                                                <mn>0</mn>
+                                                <mn>4</mn>
+                                                <mn>6</mn>
+                                            </mrow>
+                                            <mo class="MathClass-close">)</mo>
+                                        </mrow>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>0</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>2</mn>
+                                <mn>0</mn>
+                                <mn>2</mn>
+                                <mn>2</mn>
+                                <mn>0</mn>
+                                <mn>4</mn>
+                                <mn>0</mn>
+                                <mn>6</mn>
+                                <mn>0</mn>
+                                <mn>4</mn>
+                                <mn>6</mn>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>7</mn>
+                                <mn>7</mn>
+                                <mn>9</mn>
+                                <mn>3</mn>
+                                <mn>5</mn>
+                                <mn>9</mn>
+                                <mn>6</mn>
+                                <mn>2</mn>
+                                <mn>1</mn>
+                                <mn>5</mn>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mtext> Marketing</mtext>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mn>1</mn>
+                                <mn>8</mn>
+                                <mn>5</mn>
+                                <mn>0</mn>
+                                <mn>3</mn>
+                                <mn>1</mn>
+                                <mn>5</mn>
+                                <mn>8</mn>
+                                <mn>0</mn>
+                                <mn>7</mn>
+                                <mn>9</mn>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mi>r</mi>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mn>3</mn>
+                                        <mn>7</mn>
+                                        <mn>4</mn>
+                                        <mn>7</mn>
+                                        <mn>1</mn>
+                                        <mn>2</mn>
+                                        <mn>7</mn>
+                                        <mn>9</mn>
+                                        <mn>5</mn>
+                                        <mn>7</mn>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>0</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mn>3</mn>
+                                        <mn>7</mn>
+                                        <mn>4</mn>
+                                        <mn>7</mn>
+                                        <mn>1</mn>
+                                        <mn>2</mn>
+                                        <mn>7</mn>
+                                        <mn>9</mn>
+                                        <mn>5</mn>
+                                        <mn>7</mn>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <msup>
+                                    <mrow>
+                                        <mrow>
+                                            <mo class="MathClass-open">(</mo>
+                                            <mrow>
+                                                <mn>1</mn>
+                                                <mn>3</mn>
+                                                <mn>7</mn>
+                                                <mn>4</mn>
+                                                <mn>7</mn>
+                                                <mn>1</mn>
+                                                <mn>2</mn>
+                                                <mn>7</mn>
+                                                <mn>9</mn>
+                                                <mn>5</mn>
+                                                <mn>7</mn>
+                                            </mrow>
+                                            <mo class="MathClass-close">)</mo>
+                                        </mrow>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>0</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>1</mn>
+                                <mn>3</mn>
+                                <mn>7</mn>
+                                <mn>4</mn>
+                                <mn>7</mn>
+                                <mn>1</mn>
+                                <mn>2</mn>
+                                <mn>7</mn>
+                                <mn>9</mn>
+                                <mn>5</mn>
+                                <mn>7</mn>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>1</mn>
+                                <mn>8</mn>
+                                <mn>8</mn>
+                                <mn>4</mn>
+                                <mn>0</mn>
+                                <mn>3</mn>
+                                <mn>0</mn>
+                                <mn>1</mn>
+                                <mn>3</mn>
+                                <mn>7</mn>
+                                <mn>0</mn>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mtext> Legal</mtext>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mn>1</mn>
+                                <mn>4</mn>
+                                <mn>0</mn>
+                                <mn>6</mn>
+                                <mn>0</mn>
+                                <mn>7</mn>
+                                <mn>0</mn>
+                                <mn>5</mn>
+                                <mn>9</mn>
+                                <mn>9</mn>
+                                <mn>9</mn>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mi>r</mi>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mn>5</mn>
+                                        <mn>8</mn>
+                                        <mn>3</mn>
+                                        <mn>5</mn>
+                                        <mn>1</mn>
+                                        <mn>2</mn>
+                                        <mn>0</mn>
+                                        <mn>3</mn>
+                                        <mn>1</mn>
+                                        <mn>9</mn>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>0</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mrow>
+                                    <mo class="MathClass-open">(</mo>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mn>5</mn>
+                                        <mn>8</mn>
+                                        <mn>3</mn>
+                                        <mn>5</mn>
+                                        <mn>1</mn>
+                                        <mn>2</mn>
+                                        <mn>0</mn>
+                                        <mn>3</mn>
+                                        <mn>1</mn>
+                                        <mn>9</mn>
+                                    </mrow>
+                                    <mo class="MathClass-close">)</mo>
+                                </mrow>
+                                <mo class="MathClass-bin">+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <msup>
+                                    <mrow>
+                                        <mrow>
+                                            <mo class="MathClass-open">(</mo>
+                                            <mrow>
+                                                <mn>1</mn>
+                                                <mn>5</mn>
+                                                <mn>8</mn>
+                                                <mn>3</mn>
+                                                <mn>5</mn>
+                                                <mn>1</mn>
+                                                <mn>2</mn>
+                                                <mn>0</mn>
+                                                <mn>3</mn>
+                                                <mn>1</mn>
+                                                <mn>9</mn>
+                                            </mrow>
+                                            <mo class="MathClass-close">)</mo>
+                                        </mrow>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msup>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>0</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>1</mn>
+                                <mn>5</mn>
+                                <mn>8</mn>
+                                <mn>3</mn>
+                                <mn>5</mn>
+                                <mn>1</mn>
+                                <mn>2</mn>
+                                <mn>0</mn>
+                                <mn>3</mn>
+                                <mn>1</mn>
+                                <mn>9</mn>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mo class="MathClass-bin">+</mo>
+                                <mn>8</mn>
+                                <mn>8</mn>
+                                <mn>7</mn>
+                                <mn>4</mn>
+                                <mn>4</mn>
+                                <mn>1</mn>
+                                <mn>2</mn>
+                                <mn>9</mn>
+                                <mn>9</mn>
+                                <mn>9</mn>
+                                <msub>
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msub>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">So they have a linear system, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi mathvariant="bold-script">ℒ</mi>
+                        <mi mathvariant="bold-script">S</mi>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mfenced separators="" open="(" close=")">
+                            <mrow>
+                                <mi>A</mi>
+                                <mo class="MathClass-punc">,</mo>
+                                <mspace width="0.3em" class="thinspace"/>
+                                <mi>b</mi>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span> with 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>A</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>2</mn>
+                                                    <mn>0</mn>
+                                                    <mn>2</mn>
+                                                    <mn>2</mn>
+                                                    <mn>0</mn>
+                                                    <mn>4</mn>
+                                                    <mn>0</mn>
+                                                    <mn>6</mn>
+                                                    <mn>0</mn>
+                                                    <mn>4</mn>
+                                                    <mn>6</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>7</mn>
+                                                    <mn>7</mn>
+                                                    <mn>9</mn>
+                                                    <mn>3</mn>
+                                                    <mn>5</mn>
+                                                    <mn>9</mn>
+                                                    <mn>6</mn>
+                                                    <mn>2</mn>
+                                                    <mn>1</mn>
+                                                    <mn>5</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>3</mn>
+                                                    <mn>7</mn>
+                                                    <mn>4</mn>
+                                                    <mn>7</mn>
+                                                    <mn>1</mn>
+                                                    <mn>2</mn>
+                                                    <mn>7</mn>
+                                                    <mn>9</mn>
+                                                    <mn>5</mn>
+                                                    <mn>7</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>8</mn>
+                                                    <mn>8</mn>
+                                                    <mn>4</mn>
+                                                    <mn>0</mn>
+                                                    <mn>3</mn>
+                                                    <mn>0</mn>
+                                                    <mn>1</mn>
+                                                    <mn>3</mn>
+                                                    <mn>7</mn>
+                                                    <mn>0</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>5</mn>
+                                                    <mn>8</mn>
+                                                    <mn>3</mn>
+                                                    <mn>5</mn>
+                                                    <mn>1</mn>
+                                                    <mn>2</mn>
+                                                    <mn>0</mn>
+                                                    <mn>3</mn>
+                                                    <mn>1</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>8</mn>
+                                                    <mn>8</mn>
+                                                    <mn>7</mn>
+                                                    <mn>4</mn>
+                                                    <mn>4</mn>
+                                                    <mn>1</mn>
+                                                    <mn>2</mn>
+                                                    <mn>9</mn>
+                                                    <mn>9</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>b</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>7</mn>
+                                                    <mn>2</mn>
+                                                    <mn>0</mn>
+                                                    <mn>5</mn>
+                                                    <mn>6</mn>
+                                                    <mn>9</mn>
+                                                    <mn>9</mn>
+                                                    <mn>6</mn>
+                                                    <mn>5</mn>
+                                                    <mn>4</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>8</mn>
+                                                    <mn>5</mn>
+                                                    <mn>0</mn>
+                                                    <mn>3</mn>
+                                                    <mn>1</mn>
+                                                    <mn>5</mn>
+                                                    <mn>8</mn>
+                                                    <mn>0</mn>
+                                                    <mn>7</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>4</mn>
+                                                    <mn>0</mn>
+                                                    <mn>6</mn>
+                                                    <mn>0</mn>
+                                                    <mn>7</mn>
+                                                    <mn>0</mn>
+                                                    <mn>5</mn>
+                                                    <mn>9</mn>
+                                                    <mn>9</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">With a Vandermonde matrix as the coefficient matrix, they know there is a solution, and it is unique. By 
+                <span class="xref broken fcla-xml-2.30li33.html#d1e33__theorem.SNCM">Theorem SNCM</span> (or through row-reducing the augmented matrix) they arrive at the solution, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <msup>
+                                    <mrow>
+                                        <mi>A</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mo class="MathClass-bin">−</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msup>
+                                <mi>b</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>5</mn>
+                                                    <mn>7</mn>
+                                                    <mn>1</mn>
+                                                    <mn>6</mn>
+                                                    <mn>9</mn>
+                                                    <mn>0</mn>
+                                                    <mn>0</mn>
+                                                    <mn>8</mn>
+                                                    <mn>7</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>9</mn>
+                                                    <mn>2</mn>
+                                                    <mn>3</mn>
+                                                    <mn>4</mn>
+                                                    <mn>4</mn>
+                                                    <mn>3</mn>
+                                                    <mn>7</mn>
+                                                    <mn>6</mn>
+                                                    <mn>4</mn>
+                                                    <mn>6</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>7</mn>
+                                                    <mn>8</mn>
+                                                    <mn>5</mn>
+                                                    <mn>0</mn>
+                                                    <mn>4</mn>
+                                                    <mn>2</mn>
+                                                    <mn>2</mn>
+                                                    <mn>8</mn>
+                                                    <mn>5</mn>
+                                                    <mn>5</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>2</mn>
+                                                    <mn>0</mn>
+                                                    <mn>9</mn>
+                                                    <mn>5</mn>
+                                                    <mn>2</mn>
+                                                    <mn>2</mn>
+                                                    <mn>0</mn>
+                                                    <mn>0</mn>
+                                                    <mn>7</mn>
+                                                    <mn>4</mn>
+                                                    <mn>7</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>6</mn>
+                                                    <mn>4</mn>
+                                                    <mn>5</mn>
+                                                    <mn>2</mn>
+                                                    <mn>5</mn>
+                                                    <mn>9</mn>
+                                                    <mn>5</mn>
+                                                    <mn>9</mn>
+                                                    <mn>2</mn>
+                                                    <mn>2</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>8</mn>
+                                                    <mn>1</mn>
+                                                    <mn>9</mn>
+                                                    <mn>8</mn>
+                                                    <mn>7</mn>
+                                                    <mn>2</mn>
+                                                    <mn>6</mn>
+                                                    <mn>0</mn>
+                                                    <mn>8</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>7</mn>
+                                                    <mn>2</mn>
+                                                    <mn>8</mn>
+                                                    <mn>6</mn>
+                                                    <mn>9</mn>
+                                                    <mn>4</mn>
+                                                    <mn>3</mn>
+                                                    <mn>7</mn>
+                                                    <mn>9</mn>
+                                                    <mn>6</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>8</mn>
+                                                    <mn>0</mn>
+                                                    <mn>1</mn>
+                                                    <mn>8</mn>
+                                                    <mn>2</mn>
+                                                    <mn>4</mn>
+                                                    <mn>1</mn>
+                                                    <mn>5</mn>
+                                                    <mn>9</mn>
+                                                    <mn>7</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>0</mn>
+                                                    <mn>2</mn>
+                                                    <mn>9</mn>
+                                                    <mn>8</mn>
+                                                    <mn>3</mn>
+                                                    <mn>3</mn>
+                                                    <mn>7</mn>
+                                                    <mn>3</mn>
+                                                    <mn>6</mn>
+                                                    <mn>5</mn>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>7</mn>
+                                                    <mn>2</mn>
+                                                    <mn>0</mn>
+                                                    <mn>5</mn>
+                                                    <mn>6</mn>
+                                                    <mn>9</mn>
+                                                    <mn>9</mn>
+                                                    <mn>6</mn>
+                                                    <mn>5</mn>
+                                                    <mn>4</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>8</mn>
+                                                    <mn>5</mn>
+                                                    <mn>0</mn>
+                                                    <mn>3</mn>
+                                                    <mn>1</mn>
+                                                    <mn>5</mn>
+                                                    <mn>8</mn>
+                                                    <mn>0</mn>
+                                                    <mn>7</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                    <mn>4</mn>
+                                                    <mn>0</mn>
+                                                    <mn>6</mn>
+                                                    <mn>0</mn>
+                                                    <mn>7</mn>
+                                                    <mn>0</mn>
+                                                    <mn>5</mn>
+                                                    <mn>9</mn>
+                                                    <mn>9</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>6</mn>
+                                                    <mn>0</mn>
+                                                    <mn>3</mn>
+                                                    <mn>7</mn>
+                                                    <mn>2</mn>
+                                                    <mn>5</mn>
+                                                    <mn>9</mn>
+                                                    <mn>6</mn>
+                                                    <mn>2</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>2</mn>
+                                                    <mn>2</mn>
+                                                    <mn>5</mn>
+                                                    <mn>6</mn>
+                                                    <mn>1</mn>
+                                                    <mn>9</mn>
+                                                    <mn>8</mn>
+                                                    <mn>2</mn>
+                                                    <mn>9</mn>
+                                                    <mn>1</mn>
+                                                    <mn>9</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>8</mn>
+                                                    <mn>8</mn>
+                                                    <mn>4</mn>
+                                                    <mn>4</mn>
+                                                    <mn>0</mn>
+                                                    <mn>8</mn>
+                                                    <mn>8</mn>
+                                                    <mn>3</mn>
+                                                    <mn>3</mn>
+                                                    <mn>8</mn>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">So the CEO’s password is the secret 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <msub>
+                            <mrow>
+                                <mi>a</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>0</mn>
+                            </mrow>
+                        </msub>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>6</mn>
+                        <mn>0</mn>
+                        <mn>3</mn>
+                        <mn>7</mn>
+                        <mn>2</mn>
+                        <mn>5</mn>
+                        <mn>9</mn>
+                        <mn>6</mn>
+                        <mn>2</mn>
+                        <mo class="MathClass-rel">=</mo>
+                        <mn>0</mn>
+                        <mn>6</mn>
+                        <mn>0</mn>
+                        <mn>3</mn>
+                        <mn>7</mn>
+                        <mn>2</mn>
+                        <mn>5</mn>
+                        <mn>9</mn>
+                        <mn>6</mn>
+                        <mn>2</mn>
+                    </math>
+                </span> (as expected). 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">⊠</mo>
+                    </math>
+                </span>
+            </p>
+        </div>
+        <div class="related-links">
+            <div class="familylinks">
+                <div class="parentlink">
+                    <strong>Parent topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li110.html">Part A  Applications</a>
+                </div>
+                <div class="previouslink">
+                    <strong>Previous topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li111.html">Section CF  Curve Fitting</a>
+                </div>
+                <div class="nextlink">
+                    <strong>Next topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li6.html">Contributors</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

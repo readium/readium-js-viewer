@@ -1,0 +1,35 @@
+[
+    {
+        "title" : "Accessible EPUB 3",
+        "author" : "Matt Garrish",
+        "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/accessible_epub_3"
+    },
+    {
+        "title" : "Page Blanche",
+        "author" : "Boulet and Penelope Bagieu",
+        "coverHref" : "epub_content/page-blanche/EPUB/Image/cover.jpg",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/page-blanche"
+    },
+    {
+        "title" : "Moby Dick",
+        "author" : "Herman Melville",
+        "coverHref" : "epub_content/moby_dick/OPS/images/9780316000000.jpg",
+        "packagePath" : "OPS/package.opf",
+        "rootUrl" : "epub_content/moby_dick"
+    },
+    {
+        "title" : "A First Course in Linear Algebra",
+        "author" : "Robert A. Beezer",
+        "packagePath" : "EPUB/package.opf",
+        "rootUrl" : "epub_content/linear-algebra"
+    },
+    {
+        "title" : "navigator.epubReadingSystem",
+        "author" : "Readium",
+        "packagePath" : "package.opf",
+        "rootUrl" : "epub_content/epubReadingSystem"
+    }
+]

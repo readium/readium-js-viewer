@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-us" lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/> 
+        <link rel="stylesheet" type="text/css" href="../css/commonltr.css"/>
+        <title>Archetype P   </title>
+        <link type="text/css" rel="stylesheet" href="../css/epub.css"/>
+    </head>
+    <body id="d1e33">
+        <h1 class="title topictitle1">Archetype P   </h1>
+        <div class="body">
+            <p class="p"> From 
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmti-12">A First Course in Linear Algebra</span>
+                </span>
+                <br/>Version 2.30
+                <br/>
+                <span class="ph cmsy-10x-x-120">©</span> 2004.
+                <br/>Licensed under the 
+                <span class="xref broken http://www.gnu.org/licenses/fdl.html">GNU Free Documentation License</span>.
+                <br/>
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmtt-12">http://linear.ups.edu/</span>
+                </span>
+                <br/>
+                <br/>
+            </p>
+            <p class="p">
+                <span class="ph paragraphHead">
+                    <span class="ph cmbx-12">Summary</span>
+                </span>  Linear transformation with a domain smaller that its codomain, so it is guaranteed to not be surjective. Happens to be injective. 
+            </p>
+            <p class="p">
+                <span class="ph framebox-c"/> A linear transformation: (Definition LT) 
+            </p>
+            <div class="tablenoborder">
+                <table class="table" border="1">
+                    <tbody class="tbody">
+                        <tr class="row">
+                            <td class="entry">
+                                <p class="p d4p_eqn_block">
+                                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mi>T</mi>
+                                        <mo class="MathClass-punc">:</mo>
+                                        <msup>
+                                            <mrow>
+                                                <mi>ℂ</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>3</mn>
+                                            </mrow>
+                                        </msup>
+                                        <mo class="MathClass-rel">→</mo>
+                                        <msup>
+                                            <mrow>
+                                                <mi>ℂ</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>5</mn>
+                                            </mrow>
+                                        </msup>
+                                        <mo class="MathClass-punc">,</mo>
+                                        <mspace width="1em" class="quad"/>
+                                        <mi>T</mi>
+                                        <mfenced separators="" open="(" close=")">
+                                            <mrow>
+                                                <mfenced separators="" open="[" close="]">
+                                                    <mrow>
+                                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <msub>
+                                                                        <mrow>
+                                                                            <mi>x</mi>
+                                                                        </mrow>
+                                                                        <mrow>
+                                                                            <mn>1</mn>
+                                                                        </mrow>
+                                                                    </msub>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <msub>
+                                                                        <mrow>
+                                                                            <mi>x</mi>
+                                                                        </mrow>
+                                                                        <mrow>
+                                                                            <mn>2</mn>
+                                                                        </mrow>
+                                                                    </msub>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <msub>
+                                                                        <mrow>
+                                                                            <mi>x</mi>
+                                                                        </mrow>
+                                                                        <mrow>
+                                                                            <mn>3</mn>
+                                                                        </mrow>
+                                                                    </msub>
+                                                                </mtd>
+                                                            </mtr>
+                                                        </mtable>
+                                                    </mrow>
+                                                </mfenced>
+                                            </mrow>
+                                        </mfenced>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mo class="MathClass-bin">−</mo>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>1</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>2</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>3</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                        </mtd>
+                                                    </mtr>
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mo class="MathClass-bin">−</mo>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>1</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <mn>2</mn>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>2</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <mn>2</mn>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>3</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                        </mtd>
+                                                    </mtr>
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>1</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>2</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <mn>3</mn>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>3</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                        </mtd>
+                                                    </mtr>
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>2</mn>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>1</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <mn>3</mn>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>2</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>3</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                        </mtd>
+                                                    </mtr>
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mo class="MathClass-bin">−</mo>
+                                                            <mn>2</mn>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>1</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>2</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                            <mo class="MathClass-bin">+</mo>
+                                                            <mn>3</mn>
+                                                            <msub>
+                                                                <mrow>
+                                                                    <mi>x</mi>
+                                                                </mrow>
+                                                                <mrow>
+                                                                    <mn>3</mn>
+                                                                </mrow>
+                                                            </msub>
+                                                        </mtd>
+                                                    </mtr>
+                                                </mtable>
+                                            </mrow>
+                                        </mfenced>
+                                    </math>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="p">
+                <span class="ph framebox-c"/> A basis for the null space of the linear transformation: (
+                <span class="xref broken fcla-xml-2.30li52.html#d1e33__definition.KLT">Definition KLT</span>)
+                <br/>
+            </p>
+            <div class="tablenoborder">
+                <table class="table" border="1">
+                    <tbody class="tbody">
+                        <tr class="row">
+                            <td class="entry">
+                                <p class="p d4p_eqn_block">
+                                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mfenced separators="" open="{" close="}">
+                                            <mrow>
+                                                <mspace width="1em" class="nbsp"/>
+                                            </mrow>
+                                        </mfenced>
+                                    </math>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="p">
+                <span class="ph framebox-c"/> Injective: Yes. (
+                <span class="xref broken fcla-xml-2.30li52.html#d1e33__definition.ILT">Definition ILT</span>)
+                <br/>Since 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi mathvariant="bold-script">K</mi>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mfenced separators="" open="(" close=")">
+                            <mrow>
+                                <mi>T</mi>
+                            </mrow>
+                        </mfenced>
+                        <mo class="MathClass-rel">=</mo>
+                        <mfenced separators="" open="{" close="}">
+                            <mrow>
+                                <mn>0</mn>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>, 
+                <span class="xref broken fcla-xml-2.30li52.html#d1e33__theorem.KILT">Theorem KILT</span> tells us that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>T</mi>
+                    </math>
+                </span> is injective. 
+            </p>
+            <p class="p">
+                <span class="ph framebox-c"/> A basis for the range of the linear transformation: (
+                <span class="xref broken fcla-xml-2.30li53.html#d1e33__definition.RLT">Definition RLT</span>)
+                <br/>Evaluate the linear transformation on a standard basis to get a spanning set for the range (
+                <span class="xref broken fcla-xml-2.30li53.html#d1e33__theorem.SSRLT">Theorem SSRLT</span>):
+                <br/>
+            </p>
+            <div class="tablenoborder">
+                <table class="table" border="1">
+                    <tbody class="tbody">
+                        <tr class="row">
+                            <td class="entry">
+                                <p class="p d4p_eqn_block">
+                                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mfenced separators="" open="{" close="}">
+                                            <mrow>
+                                                <mfenced separators="" open="[" close="]">
+                                                    <mrow>
+                                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mo class="MathClass-bin">−</mo>
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mo class="MathClass-bin">−</mo>
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>2</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mo class="MathClass-bin">−</mo>
+                                                                    <mn>2</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                        </mtable>
+                                                    </mrow>
+                                                </mfenced>
+                                                <mo class="MathClass-punc">,</mo>
+                                                <mspace width="0.3em" class="thinspace"/>
+                                                <mfenced separators="" open="[" close="]">
+                                                    <mrow>
+                                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>2</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>3</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                        </mtable>
+                                                    </mrow>
+                                                </mfenced>
+                                                <mo class="MathClass-punc">,</mo>
+                                                <mspace width="0.3em" class="thinspace"/>
+                                                <mfenced separators="" open="[" close="]">
+                                                    <mrow>
+                                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>2</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>3</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>3</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                        </mtable>
+                                                    </mrow>
+                                                </mfenced>
+                                            </mrow>
+                                        </mfenced>
+                                    </math>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="p"> If the linear transformation is injective, then the set above is guaranteed to be linearly independent (
+                <span class="xref broken fcla-xml-2.30li52.html#d1e33__theorem.ILTLI">Theorem ILTLI</span>). This spanning set may be converted to a “nice” basis, by making the vectors the rows of a matrix (perhaps after using a vector reperesentation), row-reducing, and retaining the nonzero rows (
+                <span class="xref broken fcla-xml-2.30li34.html#d1e33__theorem.BRS">Theorem BRS</span>), and perhaps un-coordinatizing. A basis for the range is: 
+            </p>
+            <div class="tablenoborder">
+                <table class="table" border="1">
+                    <tbody class="tbody">
+                        <tr class="row">
+                            <td class="entry">
+                                <p class="p d4p_eqn_block">
+                                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mfenced separators="" open="{" close="}">
+                                            <mrow>
+                                                <mfenced separators="" open="[" close="]">
+                                                    <mrow>
+                                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>0</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>0</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mo class="MathClass-bin">−</mo>
+                                                                    <mn>1</mn>
+                                                                    <mn>0</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>6</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                        </mtable>
+                                                    </mrow>
+                                                </mfenced>
+                                                <mo class="MathClass-punc">,</mo>
+                                                <mspace width="0.3em" class="thinspace"/>
+                                                <mfenced separators="" open="[" close="]">
+                                                    <mrow>
+                                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>0</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>0</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>7</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mo class="MathClass-bin">−</mo>
+                                                                    <mn>3</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                        </mtable>
+                                                    </mrow>
+                                                </mfenced>
+                                                <mo class="MathClass-punc">,</mo>
+                                                <mspace width="0.3em" class="thinspace"/>
+                                                <mfenced separators="" open="[" close="]">
+                                                    <mrow>
+                                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>0</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>0</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mo class="MathClass-bin">−</mo>
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                            <mtr>
+                                                                <mtd class="array" columnalign="center">
+                                                                    <mn>1</mn>
+                                                                </mtd>
+                                                            </mtr>
+                                                        </mtable>
+                                                    </mrow>
+                                                </mfenced>
+                                            </mrow>
+                                        </mfenced>
+                                    </math>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="p">
+                <span class="ph framebox-c"/> Surjective: No. (
+                <span class="xref broken fcla-xml-2.30li53.html#d1e33__definition.SLT">Definition SLT</span>)
+                <br/>The dimension of the range is 3, and the codomain (
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msup>
+                            <mrow>
+                                <mi>ℂ</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>5</mn>
+                            </mrow>
+                        </msup>
+                    </math>
+                </span>) has dimension 5. So the transformation is not surjective. Notice too that since the domain 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msup>
+                            <mrow>
+                                <mi>ℂ</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>3</mn>
+                            </mrow>
+                        </msup>
+                    </math>
+                </span> has dimension 3, it is impossible for the range to have a dimension greater than 3, and no matter what the actual definition of the function, it cannot possibly be surjective in this situation. 
+            </p>
+            <p class="p"> To be more precise, verify that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mfenced separators="" open="[" close="]">
+                            <mrow>
+                                <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                    <mtr>
+                                        <mtd class="array" columnalign="center">
+                                            <mn>2</mn>
+                                        </mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd class="array" columnalign="center">
+                                            <mn>1</mn>
+                                        </mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd class="array" columnalign="center">
+                                            <mo class="MathClass-bin">−</mo>
+                                            <mn>3</mn>
+                                        </mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd class="array" columnalign="center">
+                                            <mn>2</mn>
+                                        </mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd class="array" columnalign="center">
+                                            <mn>6</mn>
+                                        </mtd>
+                                    </mtr>
+                                </mtable>
+                            </mrow>
+                        </mfenced>
+                        <mo class="MathClass-rel">∉</mo>
+                        <mi mathvariant="bold-script">ℛ</mi>
+                        <mspace width="0.3em" class="thinspace"/>
+                        <mfenced separators="" open="(" close=")">
+                            <mrow>
+                                <mi>T</mi>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>, by setting the output equal to this vector and seeing that the resulting system of linear equations has no solution, i.e. is inconsistent. So the preimage, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <msup>
+                            <mrow>
+                                <mi>T</mi>
+                            </mrow>
+                            <mrow>
+                                <mo class="MathClass-bin">−</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msup>
+                        <mfenced separators="" open="(" close=")">
+                            <mrow>
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>2</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mn>3</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>2</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>6</mn>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>, is empty. This alone is sufficient to see that the linear transformation is not onto. 
+            </p>
+            <p class="p">
+                <span class="ph framebox-c"/> Subspace dimensions associated with the linear transformation. Examine parallels with earlier results for matrices. Verify 
+                <span class="xref broken fcla-xml-2.30li54.html#d1e30__theorem.RPNDD">Theorem RPNDD</span>. 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mtext> Domain dimension:  </mtext>
+                                <mn>3</mn>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mtext> Rank:  </mtext>
+                                <mn>3</mn>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mtext> Nullity:  </mtext>
+                                <mn>0</mn>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">
+                <span class="ph framebox-c"/> Invertible: No.
+                <br/>The relative dimensions of the domain and codomain prohibit any possibility of being surjective, so apply 
+                <span class="xref broken fcla-xml-2.30li54.html#d1e30__theorem.ILTIS">Theorem ILTIS</span>. 
+            </p>
+            <p class="p">
+                <span class="ph framebox-c"/> Matrix representation (Theorem MLTCV):
+                <br/>
+            </p>
+            <div class="tablenoborder">
+                <table class="table" border="1">
+                    <tbody class="tbody">
+                        <tr class="row">
+                            <td class="entry">
+                                <p class="p d4p_eqn_block">
+                                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mi>T</mi>
+                                        <mo class="MathClass-punc">:</mo>
+                                        <msup>
+                                            <mrow>
+                                                <mi>ℂ</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>3</mn>
+                                            </mrow>
+                                        </msup>
+                                        <mo class="MathClass-rel">→</mo>
+                                        <msup>
+                                            <mrow>
+                                                <mi>ℂ</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>5</mn>
+                                            </mrow>
+                                        </msup>
+                                        <mo class="MathClass-punc">,</mo>
+                                        <mspace width="1em" class="quad"/>
+                                        <mi>T</mi>
+                                        <mfenced separators="" open="(" close=")">
+                                            <mrow>
+                                                <mi>x</mi>
+                                            </mrow>
+                                        </mfenced>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mi>A</mi>
+                                        <mi>x</mi>
+                                        <mo class="MathClass-punc">,</mo>
+                                        <mspace width="1em" class="quad"/>
+                                        <mi>A</mi>
+                                        <mo class="MathClass-rel">=</mo>
+                                        <mfenced separators="" open="[" close="]">
+                                            <mrow>
+                                                <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mo class="MathClass-bin">−</mo>
+                                                            <mn>1</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>1</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>1</mn>
+                                                        </mtd>
+                                                    </mtr>
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mo class="MathClass-bin">−</mo>
+                                                            <mn>1</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>2</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>2</mn>
+                                                        </mtd>
+                                                    </mtr>
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>1</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>1</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>3</mn>
+                                                        </mtd>
+                                                    </mtr>
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>2</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>3</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>1</mn>
+                                                        </mtd>
+                                                    </mtr>
+                                                    <mtr>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mo class="MathClass-bin">−</mo>
+                                                            <mn>2</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>1</mn>
+                                                        </mtd>
+                                                        <mtd class="array" columnalign="center">
+                                                            <mn>3</mn>
+                                                        </mtd>
+                                                    </mtr>
+                                                </mtable>
+                                            </mrow>
+                                        </mfenced>
+                                    </math>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="related-links">
+            <div class="familylinks">
+                <div class="parentlink">
+                    <strong>Parent topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li72.html">Appendix A  Archetypes</a>
+                </div>
+                <div class="previouslink">
+                    <strong>Previous topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li87.html">Archetype O   </a>
+                </div>
+                <div class="nextlink">
+                    <strong>Next topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li89.html">Archetype Q   </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

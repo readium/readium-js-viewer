@@ -1,0 +1,1339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-us" lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/> 
+        <link rel="stylesheet" type="text/css" href="../css/commonltr.css"/>
+        <title>Section SET  Sets</title>
+        <link type="text/css" rel="stylesheet" href="../css/epub.css"/>
+    </head>
+    <body id="d1e33">
+        <h1 class="title topictitle1">Section SET  Sets</h1>
+        <div class="body">
+            <p class="p"> From 
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmti-12">A First Course in Linear Algebra</span>
+                </span>
+                <br/>Version 2.30
+                <br/>
+                <span class="ph cmsy-10x-x-120">©</span> 2004.
+                <br/>Licensed under the 
+                <span class="xref broken http://www.gnu.org/licenses/fdl.html">GNU Free Documentation License</span>.
+                <br/>
+                <span class="xref broken http://linear.ups.edu/">
+                    <span class="ph cmtt-12">http://linear.ups.edu/</span>
+                </span>
+                <br/>
+                <br/>
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Definition</span>
+                <span class="ph cmbx-12"> SET</span>
+                <br/>
+                <span class="ph cmbx-12">Set</span>
+                <br/> A 
+                <span class="ph cmbx-12">set </span>is an unordered collection of objects. If 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span> is a set and 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>x</mi>
+                    </math>
+                </span> is an object that is in the set 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span>, we write 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>x</mi>
+                        <mo class="MathClass-rel">∈</mo>
+                        <mi>S</mi>
+                    </math>
+                </span>. If 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>x</mi>
+                    </math>
+                </span> is not in 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span>, then we write 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>x</mi>
+                        <mo class="MathClass-rel">∉</mo>
+                        <mi>S</mi>
+                    </math>
+                </span>. We refer to the objects in a set as its 
+                <span class="ph cmbx-12">elements</span>. 
+            </p>
+            <p class="p">(This definition contains Notation SETM.) 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">△</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p"> Hard to get much more basic than that. Notice that the objects in a set can be 
+                <span class="ph cmti-12">anything</span>, and there is no notion of order among the elements of the set. A set can be finite as well as infinite. A set can contain other sets as its objects. At a primitive level, a set is just a way to break up some class of objects into two groupings: those objects in the set, and those objects not in the set. 
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Example</span>
+                <span class="ph cmbx-12"> SETM</span>
+                <br/>
+                <span class="ph cmbx-12">Set membership</span>
+                <br/> From the set of all possible symbols, construct the following set of three symbols, 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>S</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="{" close="}">
+                                    <mrow>
+                                        <mo class="MathClass-ord">■</mo>
+                                        <mo class="MathClass-punc">,</mo>
+                                        <mspace width="0.3em" class="thinspace"/>
+                                        <mo class="MathClass-ord">♦</mo>
+                                        <mo class="MathClass-punc">,</mo>
+                                        <mspace width="0.3em" class="thinspace"/>
+                                        <mo class="MathClass-ord">⋆</mo>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">Then the statement 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">■</mo>
+                        <mo class="MathClass-rel">∈</mo>
+                        <mi>S</mi>
+                    </math>
+                </span> is true, while the statement 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">▴</mo>
+                        <mo class="MathClass-rel">∈</mo>
+                        <mi>S</mi>
+                    </math>
+                </span> is false. However, then the statement 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-ord">▴</mo>
+                        <mo class="MathClass-rel">∉</mo>
+                        <mi>S</mi>
+                    </math>
+                </span> is true. 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">⊠</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p"> A portion of a set is known as a subset. Notice how the following definition uses an implication (if whenever…then…). Note too how the definition of a subset relies on the definition of a set through the idea of set membership. </p>
+            <p class="p">
+                <span class="ph cmbx-12">Definition</span>
+                <span class="ph cmbx-12"> SSET</span>
+                <br/>
+                <span class="ph cmbx-12">Subset</span>
+                <br/> If 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span> and 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>T</mi>
+                    </math>
+                </span> are two sets, then 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span> is a subset of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>T</mi>
+                    </math>
+                </span>, written 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                        <mo class="MathClass-rel">⊆</mo>
+                        <mi>T</mi>
+                    </math>
+                </span> if whenever 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>x</mi>
+                        <mo class="MathClass-rel">∈</mo>
+                        <mi>S</mi>
+                    </math>
+                </span> then 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>x</mi>
+                        <mo class="MathClass-rel">∈</mo>
+                        <mi>T</mi>
+                    </math>
+                </span>. 
+            </p>
+            <p class="p">(This definition contains Notation SSET.) 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">△</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p"> If we want to disallow the possibility that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span> is the same as 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>T</mi>
+                    </math>
+                </span>, we use the notation 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                        <mo class="MathClass-rel">⊂</mo>
+                        <mi>T</mi>
+                    </math>
+                </span> and we say that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span> is a 
+                <span class="ph cmbx-12">proper subset </span>of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>T</mi>
+                    </math>
+                </span>. We’ll do an example, but first we’ll define a special set. 
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Definition</span>
+                <span class="ph cmbx-12"> ES</span>
+                <br/>
+                <span class="ph cmbx-12">Empty Set</span>
+                <br/> The empty set is the set with no elements. Its is denoted by 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>∅</mi>
+                    </math>
+                </span>. 
+            </p>
+            <p class="p">(This definition contains Notation ES.) 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">△</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Example</span>
+                <span class="ph cmbx-12"> SSET</span>
+                <br/>
+                <span class="ph cmbx-12">Subset</span>
+                <br/> If 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mfenced separators="" open="{" close="}">
+                            <mrow>
+                                <mo class="MathClass-ord">■</mo>
+                                <mo class="MathClass-punc">,</mo>
+                                <mspace width="0.3em" class="thinspace"/>
+                                <mo class="MathClass-ord">♦</mo>
+                                <mo class="MathClass-punc">,</mo>
+                                <mspace width="0.3em" class="thinspace"/>
+                                <mo class="MathClass-ord">⋆</mo>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>T</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mfenced separators="" open="{" close="}">
+                            <mrow>
+                                <mo class="MathClass-ord">⋆</mo>
+                                <mo class="MathClass-punc">,</mo>
+                                <mspace width="0.3em" class="thinspace"/>
+                                <mo class="MathClass-ord">♦</mo>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>R</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mfenced separators="" open="{" close="}">
+                            <mrow>
+                                <mo class="MathClass-ord">▴</mo>
+                                <mo class="MathClass-punc">,</mo>
+                                <mspace width="0.3em" class="thinspace"/>
+                                <mo class="MathClass-ord">⋆</mo>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>, then 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>T</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">⊆</mo>
+                                <mi>S</mi>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>R</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">⊈</mo>
+                                <mi>T</mi>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>∅</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">⊆</mo>
+                                <mi>S</mi>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>T</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">⊂</mo>
+                                <mi>S</mi>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>S</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">⊆</mo>
+                                <mi>S</mi>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>S</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">⊄</mo>
+                                <mi>S</mi>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mo class="MathClass-bin">⊠</mo>
+                </math>
+            </p>
+            <p class="p"> What does it mean for two sets to be equal? They must be the same. Well, that explanation is not really too helpful, is it? How about: If 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                        <mo class="MathClass-rel">⊆</mo>
+                        <mi>B</mi>
+                    </math>
+                </span> and 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                        <mo class="MathClass-rel">⊆</mo>
+                        <mi>A</mi>
+                    </math>
+                </span>, then 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> equals 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                    </math>
+                </span>. This gives us something to work with, if 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> is a subset of 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                    </math>
+                </span>, and 
+                <span class="ph cmti-12">vice versa</span>, then they must really be the same set. We will now make the symbol “
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-rel">=</mo>
+                    </math>
+                </span>” do double-duty and extend its use to statements like 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mi>B</mi>
+                    </math>
+                </span>, where 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>A</mi>
+                    </math>
+                </span> and 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>B</mi>
+                    </math>
+                </span> are sets. Here’s the definition, which we will reference often. 
+            </p>
+            <p class="p">
+                <span class="ph cmbx-12">Definition</span>
+                <span class="ph cmbx-12"> SE</span>
+                <br/>
+                <span class="ph cmbx-12">Set Equality</span>
+                <br/> Two sets, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                    </math>
+                </span> and 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>T</mi>
+                    </math>
+                </span>, are equal, if 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                        <mo class="MathClass-rel">⊆</mo>
+                        <mi>T</mi>
+                    </math>
+                </span> and 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>T</mi>
+                        <mo class="MathClass-rel">⊆</mo>
+                        <mi>S</mi>
+                    </math>
+                </span>. In this case, we write 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>S</mi>
+                        <mo class="MathClass-rel">=</mo>
+                        <mi>T</mi>
+                    </math>
+                </span>. 
+            </p>
+            <p class="p">(This definition contains Notation SE.) 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-bin">△</mo>
+                    </math>
+                </span>
+            </p>
+            <p class="p"> Sets are typically written inside of braces, as 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mfenced separators="" open="{" close="}">
+                            <mrow>
+                                <mspace width="1em" class="nbsp"/>
+                            </mrow>
+                        </mfenced>
+                    </math>
+                </span>, as we have seen above. However, when sets have more than a few elements, a description will typically have two components. The first is a description of the general type of objects contained in a set, while the second is some sort of restriction on the properties the objects have. Every object in the set must be of the type described in the first part and it must satisfy the restrictions in the second part. Conversely, any object of the proper type for the first part, that also meets the conditions of the second part, will be in the set. These two parts are set off from each other somehow, often with a vertical bar (
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mo class="MathClass-rel">|</mo>
+                    </math>
+                </span>) or a colon (:). 
+            </p>
+            <p class="p"> I like to think of sets as clubs. The first part is some description of the type of people who 
+                <span class="ph cmti-12">might </span>belong to the club, the basic objects. For example, a bicycle club would describe its members as being people who like to ride bicycles. The second part is like a membership committee, it restricts the people who are allowed in the club. Continuing with our bicycle club analogy, we might decide to limit ourselves to “serious” riders and only have members who can document having ridden 100 kilometers or more in a single day at least one time. 
+            </p>
+            <p class="p"> The restrictions on membership can migrate around some between the first and second part, and there may be several ways to describe the same set of objects. Here’s a more mathematical example, employing the set of all integers, 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mi>ℤ</mi>
+                    </math>
+                </span>, to describe the set of even integers. 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mi>E</mi>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="{" close="}">
+                                    <mrow>
+                                        <mfenced separators="" open="" close="|">
+                                            <mrow>
+                                                <mi>x</mi>
+                                                <mo class="MathClass-rel">∈</mo>
+                                                <mi>ℤ</mi>
+                                            </mrow>
+                                        </mfenced>
+                                        <mi>x</mi>
+                                        <mtext>  is an even number</mtext>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="{" close="}">
+                                    <mrow>
+                                        <mfenced separators="" open="" close="|">
+                                            <mrow>
+                                                <mi>x</mi>
+                                                <mo class="MathClass-rel">∈</mo>
+                                                <mi>ℤ</mi>
+                                            </mrow>
+                                        </mfenced>
+                                        <mn>2</mn>
+                                        <mtext>  divides </mtext>
+                                        <mi>x</mi>
+                                        <mtext>  evenly</mtext>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd"/>
+                            <mtd class="align-even">
+                                <mo class="MathClass-rel">=</mo>
+                                <mfenced separators="" open="{" close="}">
+                                    <mrow>
+                                        <mfenced separators="" open="" close="|">
+                                            <mrow>
+                                                <mn>2</mn>
+                                                <mi>k</mi>
+                                            </mrow>
+                                        </mfenced>
+                                        <mi>k</mi>
+                                        <mo class="MathClass-rel">∈</mo>
+                                        <mi>ℤ</mi>
+                                    </mrow>
+                                </mfenced>
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                            <mtd class="align-label">
+                                <mspace width="2em"/>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">Notice how this set tells us that its objects are integer numbers (not, say, matrices or functions, for example) and just those that are even. So we can write that 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mn>0</mn>
+                        <mo class="MathClass-rel">∈</mo>
+                        <mi>E</mi>
+                    </math>
+                </span>, while 
+                <span class="ph d4p_eqn_inline">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mn>1</mn>
+                        <mn>7</mn>
+                        <mo class="MathClass-rel">∉</mo>
+                        <mi>E</mi>
+                    </math>
+                </span> once we check the membership criteria. We also recognize the question 
+            </p>
+            <p class="p d4p_eqn_block">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mtable columnalign="left" class="align-star">
+                        <mtr>
+                            <mtd columnalign="right" class="align-odd">
+                                <mfenced separators="" open="[" close="]">
+                                    <mrow>
+                                        <mtable style="text-align:axis;" equalrows="false" columnlines="none none none none none none none none none none none" equalcolumns="false" class="array">
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>1</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mo class="MathClass-bin">−</mo>
+                                                    <mn>3</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>5</mn>
+                                                </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>2</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>0</mn>
+                                                </mtd>
+                                                <mtd class="array" columnalign="center">
+                                                    <mn>3</mn>
+                                                </mtd>
+                                            </mtr>
+                                        </mtable>
+                                    </mrow>
+                                </mfenced>
+                                <mo class="MathClass-rel">∈</mo>
+                                <mi>E</mi>
+                                <mtext> ?</mtext>
+                            </mtd>
+                            <mtd class="align-even">
+                                <mspace width="2em"/>
+                            </mtd>
+                            <mtd columnalign="right" class="align-label"/>
+                        </mtr>
+                    </mtable>
+                </math>
+            </p>
+            <p class="p">as being simply ridiculous. </p>
+        </div>
+        <div class="related-links">
+            <div class="familylinks">
+                <div class="parentlink">
+                    <strong>Parent topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li68.html">Appendix P  Preliminaries</a>
+                </div>
+                <div class="previouslink">
+                    <strong>Previous topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li69.html">Section CNO  Complex Number Operations</a>
+                </div>
+                <div class="nextlink">
+                    <strong>Next topic:</strong>
+                    <a class="link" href="fcla-xml-2.30li71.html">Section PT  Proof Techniques</a>
+                </div>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e875">
+            <h2 class="title topictitle2">Subsection SC: Set Cardinality</h2>
+            <div class="body">
+                <p class="p"> On occasion, we will be interested in the number of elements in a finite set. Here’s the definition and the associated notation. </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> C</span>
+                    <br/>
+                    <span class="ph cmbx-12">Cardinality</span>
+                    <br/> Suppose 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> is a finite set. Then the number of elements in 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> is called the 
+                    <span class="ph cmbx-12">cardinality </span>or 
+                    <span class="ph cmbx-12">size </span>of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span>, and is denoted 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mfenced separators="" open="|" close="|">
+                                <mrow>
+                                    <mi>S</mi>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p">(This definition contains Notation C.) 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">△</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Example</span>
+                    <span class="ph cmbx-12"> CS</span>
+                    <br/>
+                    <span class="ph cmbx-12">Cardinality and Size</span>
+                    <br/> If 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">■</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span>, then 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mfenced separators="" open="|" close="|">
+                                <mrow>
+                                    <mi>S</mi>
+                                </mrow>
+                            </mfenced>
+                            <mo class="MathClass-rel">=</mo>
+                            <mn>3</mn>
+                        </math>
+                    </span>. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">⊠</mo>
+                        </math>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="topic nested1" id="d1e1004">
+            <h2 class="title topictitle2">Subsection SO: Set Operations</h2>
+            <div class="body">
+                <p class="p"> In this subsection we define and illustrate the three most common basic ways to manipulate sets to create other sets. Since much of linear algebra is about sets, we will use these often. </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> SU</span>
+                    <br/>
+                    <span class="ph cmbx-12">Set Union</span>
+                    <br/> Suppose 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                        </math>
+                    </span> are sets. Then the 
+                    <span class="ph cmbx-12">union </span>of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                        </math>
+                    </span>, denoted 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-bin">∪</mo>
+                            <mi>T</mi>
+                        </math>
+                    </span>, is the set whose elements are those that are elements of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> or of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                        </math>
+                    </span>, or both. More formally, 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∈</mo>
+                                    <mi>S</mi>
+                                    <mo class="MathClass-bin">∪</mo>
+                                    <mi>T</mi>
+                                    <mtext>  if and only if </mtext>
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∈</mo>
+                                    <mi>S</mi>
+                                    <mtext>  or </mtext>
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∈</mo>
+                                    <mi>T</mi>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">(This definition contains Notation SU.) 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">△</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p"> Notice that the use of the word “or” in this definition is meant to be non-exclusive. That is, it allows for 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>x</mi>
+                        </math>
+                    </span> to be an element of both 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                        </math>
+                    </span> and still qualify for membership in 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-bin">∪</mo>
+                            <mi>T</mi>
+                        </math>
+                    </span>. 
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Example</span>
+                    <span class="ph cmbx-12"> SU</span>
+                    <br/>
+                    <span class="ph cmbx-12">Set union</span>
+                    <br/> If 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">■</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">▴</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span> then 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-bin">∪</mo>
+                            <mi>T</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">■</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">▴</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span>. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">⊠</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> SI</span>
+                    <br/>
+                    <span class="ph cmbx-12">Set Intersection</span>
+                    <br/> Suppose 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                        </math>
+                    </span> are sets. Then the 
+                    <span class="ph cmbx-12">intersection </span>of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                        </math>
+                    </span>, denoted 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-bin">∩</mo>
+                            <mi>T</mi>
+                        </math>
+                    </span>, is the set whose elements are only those that are elements of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> and of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                        </math>
+                    </span>. More formally, 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∈</mo>
+                                    <mi>S</mi>
+                                    <mo class="MathClass-bin">∩</mo>
+                                    <mi>T</mi>
+                                    <mtext>  if and only if </mtext>
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∈</mo>
+                                    <mi>S</mi>
+                                    <mtext>  and </mtext>
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∈</mo>
+                                    <mi>T</mi>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">(This definition contains Notation SI.) 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">△</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Example</span>
+                    <span class="ph cmbx-12"> SI</span>
+                    <br/>
+                    <span class="ph cmbx-12">Set intersection</span>
+                    <br/> If 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">■</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>T</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">▴</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span> then 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-bin">∩</mo>
+                            <mi>T</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span>. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">⊠</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p"> The union and intersection of sets are operations that begin with two sets and produce a third, new, set. Our final operation is the set complement, which we usually think of as an operation that takes a single set and creates a second, new, set. However, if you study the definition carefully, you will see that it needs to be computed 
+                    <span class="ph cmti-12">relative </span>to some “universal” set. 
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Definition</span>
+                    <span class="ph cmbx-12"> SC</span>
+                    <br/>
+                    <span class="ph cmbx-12">Set Complement</span>
+                    <br/> Suppose 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span> is a set that is a subset of a universal set 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>U</mi>
+                        </math>
+                    </span>. Then the 
+                    <span class="ph cmbx-12">complement </span>of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span>, denoted 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>S</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                        </math>
+                    </span>, is the set whose elements are those that are elements of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>U</mi>
+                        </math>
+                    </span> and not elements of 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                        </math>
+                    </span>. More formally, 
+                </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∈</mo>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>S</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mtext>  if and only if </mtext>
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∈</mo>
+                                    <mi>U</mi>
+                                    <mtext>  and </mtext>
+                                    <mi>x</mi>
+                                    <mo class="MathClass-rel">∉</mo>
+                                    <mi>S</mi>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">(This definition contains Notation SC.) 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">△</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p"> Notice that there is nothing at all special about the universal set. This is simply a term that suggests that 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>U</mi>
+                        </math>
+                    </span> contains all of the possible objects we are considering. Often this set will be clear from the context, and we won’t think much about it, nor reference it in our notation. In other cases (rarely in our work in this course) the exact nature of the universal set must be made explicit, and reference to it will possibly be carried through in our choice of notation. 
+                </p>
+                <p class="p">
+                    <span class="ph cmbx-12">Example</span>
+                    <span class="ph cmbx-12"> SC</span>
+                    <br/>
+                    <span class="ph cmbx-12">Set complement</span>
+                    <br/> If 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>U</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">■</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">▴</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span> and 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>S</mi>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">♦</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">⋆</mo>
+                                    <mo class="MathClass-punc">,</mo>
+                                    <mspace width="0.3em" class="thinspace"/>
+                                    <mo class="MathClass-ord">■</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span> then 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mover accent="false" class="mml-overline">
+                                <mrow>
+                                    <mi>S</mi>
+                                </mrow>
+                                <mo accent="true">¯</mo>
+                            </mover>
+                            <mo class="MathClass-rel">=</mo>
+                            <mfenced separators="" open="{" close="}">
+                                <mrow>
+                                    <mo class="MathClass-ord">▴</mo>
+                                </mrow>
+                            </mfenced>
+                        </math>
+                    </span>. 
+                    <span class="ph d4p_eqn_inline">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo class="MathClass-bin">⊠</mo>
+                        </math>
+                    </span>
+                </p>
+                <p class="p"> There are many more natural operations that can be performed on sets, such as an exclusive-or and the symmetric difference. Many of these can be defined in terms of the union, intersection and complement. We will not have much need of them in this course, and so we will not give precise descriptions here in this preliminary section. </p>
+                <p class="p"> There is also an interesting variety of basic results that describe the interplay of these operations with each other. We mention just two as an example, these are known as DeMorgan’s Laws. </p>
+                <p class="p d4p_eqn_block">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mtable columnalign="left" class="align-star">
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mfenced separators="" open="(" close=")">
+                                                <mrow>
+                                                    <mi>S</mi>
+                                                    <mo class="MathClass-bin">∪</mo>
+                                                    <mi>T</mi>
+                                                </mrow>
+                                            </mfenced>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>S</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mo class="MathClass-bin">∩</mo>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>T</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd">
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mfenced separators="" open="(" close=")">
+                                                <mrow>
+                                                    <mi>S</mi>
+                                                    <mo class="MathClass-bin">∩</mo>
+                                                    <mi>T</mi>
+                                                </mrow>
+                                            </mfenced>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                </mtd>
+                                <mtd class="align-even">
+                                    <mo class="MathClass-rel">=</mo>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>S</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mo class="MathClass-bin">∪</mo>
+                                    <mover accent="false" class="mml-overline">
+                                        <mrow>
+                                            <mi>T</mi>
+                                        </mrow>
+                                        <mo accent="true">¯</mo>
+                                    </mover>
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                                <mtd class="align-label">
+                                    <mspace width="2em"/>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd columnalign="right" class="align-odd"/>
+                                <mtd class="align-even">
+                                    <mspace width="2em"/>
+                                </mtd>
+                                <mtd columnalign="right" class="align-label"/>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </p>
+                <p class="p">Besides having an appealing symmetry, we mention these two facts, since constructing the proofs of each is a useful exercise that will require a solid understanding of all but one of the definitions presented in this section. Give it a try. </p>
+            </div>
+        </div>
+    </body>
+</html>
