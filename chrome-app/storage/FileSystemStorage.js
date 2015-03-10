@@ -27,7 +27,7 @@ define(['workers/Messages'], function(Messages){
 						// strange piece of the FileWriter api. Writing to an 
 						// existing file just overwrites content in place. Still need to truncate
 						// which triggers onwritend event...again. o_O
-						if (writer.position < writer.length){
+						if (!writer.error && writer.position < writer.length){
 							writer.truncate(writer.position);	
 						}
 						else if (callback) {
