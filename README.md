@@ -8,6 +8,7 @@ Welcome to the ReadiumJS viewer project. This project encapsulates several appli
 The viewer is the default viewer for Readium.js, a JS library for rendering EPUB files on any modern browser, via any web server. If you'd like to learn more, check out the ReadiumJS website](http://readium.org/projects/readiumjs), and/or [source on Github](https://github.com/readium/readium-js). ReadiumJS is in early development and it is not yet recommended that you use it for production deployment of EPUB files.
 
 ## Getting started
+  * [An online instance of the ReadiumJS viewer (CloudReader)](http://readium-cloudreader.divshot.io)
   * [Basic EPUB viewer](#basic-epub-viewer)
   * [Embeddable EPUB Viewer](#embeddable-epub-viewer)
   * [Chrome packaged app](#chrome-packaged-app)
