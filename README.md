@@ -34,7 +34,10 @@ ReadiumJS uses git submodules to embed other repositories and it uses [Node.js](
 ### Basic EPUB Viewer
 
 #### Visit online demo
-~~You can visit the hosted [version](http://readium.github.io/readium-js-viewer).~~ Currently running an older version
+
+There easiest way to see the Readium Cloud Reader in action is to navigate to the CloudReader instance [here](http://readium-cloudreader.divshot.io).  The content hosted there isn't that interesting since it is aimd primarily at providing a frequently updated instance of the CloudReader that can be crowd-tested.
+We are working on a more interesting instance and will post the link here soon.
+
 
 #### Clone into your own web server
 
