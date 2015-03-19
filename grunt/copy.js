@@ -100,6 +100,11 @@ module.exports = function(grunt) {
                 cwd: 'lib/thirdparty/',
                 src: 'deflate.js',
                 dest: 'build/cloud-reader/scripts/zip'
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'z-worker.js',
+                dest: 'build/cloud-reader/scripts/zip'
             } ]
         },
         cloudReaderEpubContent: {
@@ -162,7 +167,12 @@ module.exports = function(grunt) {
                 cwd: 'lib/thirdparty/',
                 src: 'deflate.js',
                 dest: 'build/cloud-reader-lite/scripts/zip'
-            }  ]
+            }, {
+                expand: true,
+                cwd: 'lib/thirdparty/',
+                src: 'z-worker.js',
+                dest: 'build/cloud-reader-lite/scripts/zip'
+            } ]
         }
         // prepareChromeAppTests: {
         //     files: [{
