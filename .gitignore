@@ -3,3 +3,5 @@
 node_modules
 build
 local_test_data
+readium-js-viewer.sublime-project
+readium-js-viewer.sublime-workspace
