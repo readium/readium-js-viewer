@@ -13,7 +13,8 @@
 
 module.exports = function(grunt) {
     return {
-        "default": 'concurrent:serverwatch',
+        // Note: the "cloudReaderDev" tasks create the 'build' folder in preparation for the "versioning" task, but the HTTP files are actually served from the current directory, not 'build' (only 'build/version.json' is necessary, imported by RequireJS)
+        "default": ['copy:cloudReaderDev', 'clean:cloudReaderDev', 'versioning', 'concurrent:serverwatch'],
 
         "runserver": ['express:dev', 'express-keepalive'],
 
@@ -23,7 +24,13 @@ module.exports = function(grunt) {
         //"chromeAppDevBuild": ['chromeApp', 'copy:chromeAppDevBuild', 'chromeAppDevBuildManifest'],
 
         "cloudReader": ['clean:cloudReader', 'copy:cloudReader', 'cssmin:cloudReader', 'versioning', 'requirejs:cloudReader'],
+
+        "cloudReaderLite": ['clean:cloudReaderLite', 'copy:cloudReaderLite', 'cssmin:cloudReaderLite', 'versioning', 'requirejs:cloudReaderLite'],
+        
         "cloudReaderWithEpub": ['clean:cloudReader', 'copy:cloudReader', 'copy:cloudReaderEpubContent', 'cssmin:cloudReader', 'versioning', 'requirejs:cloudReader'],
+
+        "cloudReaderWithFullEpub" : ['cloudReaderWithEpub', 'createTestLibrary'],
+
 
         //"test": ['selenium_start', 'chromeApp', 'copy:prepareChromeAppTests', 'nodeunit:chromeApp'],
         "test_chromeApp" : ['chromeApp', 'env:chromeApp', 'simplemocha'],
@@ -34,8 +41,6 @@ module.exports = function(grunt) {
 
         "test_sauce" : ['env:sauce', 'chromeApp', 'crx', 'env:chromeApp', 'simplemocha'],
 
-        "test_travis" : ['cloudReaderWithEpub', 'chromeApp', 'crx', 'express:test', 'simplemocha'],
-
-        "epubReadingSystem": ['epubReadingSystem_readJSON', 'epubReadingSystem_processModules', 'epubReadingSystem_writeJSON']
+        "test_travis" : ['cloudReaderWithFullEpub', 'chromeApp', 'crx', 'express:test', 'simplemocha']
     };
 };

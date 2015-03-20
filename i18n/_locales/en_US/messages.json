@@ -27,6 +27,12 @@
   "settings" : {
     "message" : "Settings"
   },
+  "layout" : {
+    "message" : "Layout"
+  },
+  "style" : {
+    "message" : "Style"
+  },
   "enter_fullscreen" : {
     "message" : "Enter Fullscreen"
   },
