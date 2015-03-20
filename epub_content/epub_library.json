@@ -25,5 +25,11 @@
         "author" : "Robert A. Beezer",
         "packagePath" : "EPUB/package.opf",
         "rootUrl" : "epub_content/linear-algebra"
+    },
+    {
+        "title" : "navigator.epubReadingSystem",
+        "author" : "Readium",
+        "packagePath" : "package.opf",
+        "rootUrl" : "epub_content/epubReadingSystem"
     }
 ]

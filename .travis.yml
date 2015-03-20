@@ -3,27 +3,40 @@ branches:
   - develop
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
 before_install:
-    - npm install -g grunt-cli
-install: 
-    - npm install
-    - cd readium-js
-    - pwd
-    - npm install
-    - cd ..
+- npm install -g grunt-cli
+install:
+- npm install
+- cd readium-js
+- pwd
+- npm install
+- cd ..
 before_script:
-    - grunt clean
+- grunt clean
 script:
-    - grunt test_travis
+- grunt test_travis
 after_failure: cat ./sauce_connect.log
+after_success:
+- node deployCrx.js
 env:
-    global:
-        - USE_SAUCE=true
-    matrix:
-        - MODE=chromeApp
-        - MODE=firefox
+  global:
+  - USE_SAUCE=true
+  - secure: onYFok5CBcV1116+kOEZJsyDB1kRHF+8deU1cll3vhxBEM/woSRvpso32oxjuza+or2uXuBT1SiZn0oTmuKD/TRaKw1e8wTtX6kQzCUhyeGoAyJH8SeGIwkt8+x232rFUe2bNLr6e0JAGZMtTjk1Q1zqfONNWAQzsUWDeUqvwt8=
+  matrix:
+  - MODE=chromeApp
+  - MODE=firefox
 addons:
   sauce_connect:
-    username: "readium"
-    access_key: "b0dd7376-7731-47db-bed0-850912b75f2b" 
+    username: readium
+    access_key: a36ebc10-e514-4da6-924c-307aec513550
+deploy:
+  provider: divshot
+  skip_cleanup: true
+  api_key:
+    secure: Y/evg7Yp4WsFjDOJBkQcrJ4/XTQbKYQjdX5iSaHu/JLo/GAJEIqxnEHavprBqHE/KvLjvCStn/bZ15oAMhq+EiJ+VNpZRWmTaZh6SA2CmtJeMtRqUwhpclvbCzSm0Z/8RFHhTmsNh7P5ICuFFWXv/pJ644trfh3Rg8abOIDqvww=
+  environment: production
+  on:
+    repo: readium/readium-js-viewer
+    branch: develop
+    condition: $MODE = firefox

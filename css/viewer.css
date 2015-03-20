@@ -19,6 +19,10 @@
   display:none;
 }
 
+html#simpleViewer .icon-library{
+  display:none;
+}
+
 .about-message{
   margin: 20px 0px;
 }
@@ -28,7 +32,7 @@
   font-weight: bold;
 }
 
-#about-dialog .version-details{
+#about-dialog .version-details, #about-dialog .build-date{
   font-size: 0.8em;
 }
 
@@ -107,6 +111,10 @@ direction: rtl;
 
 .navbar-right
 {
+    overflow: visible;
+    height: 0.4em;
+    margin-right: 0 !important;
+    
     min-height: 36px;
     background-color: #4d4d4d;
 }
@@ -157,14 +165,7 @@ html[data-theme=night-theme] .modal
 .navbar .icon-logo, .navbar .icon-logo:active{
   background-image: url('../images/readium_logo.png');
   width: 130px; 
-  background-size: auto 28px;
-}
-
-
-.navbar-right
-{
-    overflow: visible;
-    height: 0.4em;
+  background-size: auto 28px !important;
 }
 
 .icon-scale-down{
@@ -264,7 +265,10 @@ html[data-theme=night-theme] #right-page-btn:hover
   background-color: rgba(255,255,255,0.2);
 }
 
-/* epub container */
+#app-container {
+	overflow: hidden;
+}
+
 #reading-area {
     text-align: center;
     position: absolute;
@@ -273,6 +277,7 @@ html[data-theme=night-theme] #right-page-btn:hover
     bottom: 0px;
     top: 38px;
 
+	overflow: hidden;
 }
 
 #epub-reader-container {
@@ -283,7 +288,8 @@ html[data-theme=night-theme] #right-page-btn:hover
     right: 0;
     bottom: 0;
     top: 0;
-
+	
+	overflow: hidden;
 }
 
 /* embedded mode styles */
@@ -492,6 +498,7 @@ body.keyboard #app-navbar input[type="text"]:focus
 
 input[type="range"]
 {
+    display: inline-block;
     padding: 0;
 }
 
