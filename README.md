@@ -1,118 +1,206 @@
-# ReadiumJS Viewer
-Welcome to the ReadiumJS viewer project. This project encapsulates several applications.
+# readium-js-viewer
 
-  * A basic EPUB viewer
-  * A Chrome packaged app for managing an EPUB library and reading EPUBs.
-  * A generic EPUB library management and viewer application that requires you to implement your own backend
+**EPUB reader written in HTML, CSS and Javascript.**
 
-The viewer is the default viewer for Readium.js, a JS library for rendering EPUB files on any modern browser, via any web server. If you'd like to learn more, check out the ReadiumJS website](http://readium.org/projects/readiumjs), and/or [source on Github](https://github.com/readium/readium-js). ReadiumJS is in early development and it is not yet recommended that you use it for production deployment of EPUB files.
+This Readium software component implements the Readium Chrome extension / app for offline reading ( https://chrome.google.com/webstore/detail/readium/fepbnnnkkadjhjahcafoaglimekefifl ),
+and the "cloud reader" for online e-books ( http://readium-cloudreader.divshot.io ).
 
-## Getting started
-  * [An online instance of the ReadiumJS viewer (CloudReader)](http://readium-cloudreader.divshot.io)
-  * [Basic EPUB viewer](#basic-epub-viewer)
-  * [Embeddable EPUB Viewer](#embeddable-epub-viewer)
-  * [Chrome packaged app](#chrome-packaged-app)
-  * [Custom EPUB management system](#custom-epub-management-and-viewer-application)
-  * [Running the Tests](#running-the-tests)
+Please see https://github.com/readium/readium-shared-js for more information about the underlying rendering engine.
 
-### Initialize your repository
+## License
 
-ReadiumJS uses git submodules to embed other repositories and it uses [Node.js](http://nodejs.org/) and associated tools and libraries. Do the following steps to be up and running:
+**BSD-3-Clause** ( http://opensource.org/licenses/BSD-3-Clause )
 
-  * Install [Node.js](http://nodejs.org) (details depend on your operating system)
-  * Install the Grunt build tool using the command line: `npm install -g grunt-cli` (requires at least version 0.4.4)
-  * From the command line run `git clone https://github.com/readium/readium-js-viewer.git`
-  * From the command line run `cd readium-js-viewer`
-  * From the command line run `git submodule update --init --recursive`
-  * install Node.JS
-  * From the command line run `npm install -g grunt-cli`
-  * From the command line run `npm install` (in the readium-js-viewer directory)
-  * From the command line run `cd readium-js`
-  * From the command line run `npm install` (a second time in the readium-js directory)
-  * From the command line run `cd ..`
-  * You should now be able to run the grunt commands specified below.
-
-### Basic EPUB Viewer
-
-#### Visit online demo
-
-There easiest way to see the Readium Cloud Reader in action is to navigate to the CloudReader instance [here](http://readium-cloudreader.divshot.io).  The content hosted there isn't that interesting since it is aimd primarily at providing a frequently updated instance of the CloudReader that can be crowd-tested.
-We are working on a more interesting instance and will post the link here soon.
+See license.txt ( https://github.com/readium/readium-js-viewer/blob/develop/license.txt )
 
 
-#### Clone into your own web server
+## Prerequisites
 
-To test the ReadiumJS viewer on any static web server: 
+* A decent terminal. On Windows, GitShell works great ( http://git-scm.com ), GitBash works too ( https://msysgit.github.io ), and Cygwin adds useful commands ( https://www.cygwin.com ).
+* NodeJS ( https://nodejs.org )
 
-   * Perform the above steps and clone https://github.com/readium/readium-js-viewer.git into a content directory in your web server (e.g. into a "www/readium-js-viewer" folder)
-   * For zipped EPUB files support, configure your web server for [HTTP Byte Serving](http://en.wikipedia.org/wiki/Byte_serving) so that Readium.js library can fetch only the necessary portions of a zipped EPUB file that contain content for the displayed page
-   * Visit yourdomain/readium-js-viewer/simpleviewer.html?epub=epub_content/moby_dick and enjoy! 
-   * There is no step three! (but it is not recommended to deploy the build-related files onto a publicly-accessible server)
 
-#### Clone and run an embedded Node.JS web server
+## Development
 
-You can also use the Grunt build configuration contained in cloned sources to run an embedded Node.JS + Express web server that serves the demo application:
+**Initial setup:**
 
-  * Initialize your repository as described above
-  * Run the embedded webserver by running `grunt` (this is the default task)
-  * Visit [http://localhost:8080/simpleviewer.html?epub=epub_content/moby_dick](http://localhost:8080/simpleviewer.html?epub=epub_content/moby_dick) in your browser
-   * Quit the webserver by pressing Ctrl-C on the console
+* `git submodule update --init --recursive` to ensure that the readium-js-viewer chain of dependencies is initialised (readium-js, readium-shared-js and readium-cfi-js)
+* `npm run prepare` (to perform required preliminary tasks, like patching code before building)
 
-One of advantages of the embedded Node.JS + Express web server is that it supports HTTP Byte Serving out of the box, without additional configuration, required for efficient handling of zipped EPUB files.
-   
-#### Add additional EPUBs
+Note that the above command executes the following:
 
-The viewer uses the `epub` url query parameter to find the ebook to display. The project comes with several epubs already (look under the epub_content directory).  To add a new EPUB simply unzip an epub to be anywhere on the same server as the viewer. Example steps: 
+* `npm install -g grunt-cli` (to enable Grunt globally) Note that some of the build tasks are Grunt-free, entirely driven from NPM scripts defined in `package.cson` (Why CSON? Read below)
+* `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
+* `npm update` (to make sure that the dependency tree is up to date)
 
-   * unzip any <strong>`(*)`</strong> valid <strong>`(**)`</strong> .epub file (EPUB 2 or EPUB 3 version) in the "epub_content" directory
-   * navigate to http://localhost:8080/simpleviewer.html?epub=epub_content/new_book_directory
+**Typical workflow:**
 
-<strong>`(*)`</strong> NOTE1: This is somewhat aspirational; as Readium.js is still in early development not all EPUB 3 features are yet supported in  - see issues trackers for the consituent sub-projects for more info
+* Hack away! (mostly the source code in the `js` folder)
+* `npm run build` (to update the RequireJS bundles in the build output folder)
+* `npm run example:dev` (to launch an http server with live-reload, automatically opens a web browser instance to the HTML files in the `build-output-usage-example` folder)
+* `npm run example` (same as above, but without watching for file changes (no automatic rebuild))
+* `npm run build:chromeApp` (to build the Chrome extension CRX)
+* `npm run build:cloudReader` (to build the cloud reader)
 
-<strong>`(**)`</strong> NOTE2: "valid" means EPUBCHeck 3.0 reports zero errors. At this time Readium.js does not have robust error handling
-   
-#### Use the latest Readium.js library version
+## NPM (Node Package Manager)
 
-The Grunt build configuration also contains an optional task that builds the latest versions of Readium.js library files and places them in the `lib/` directory.
+All packages "owned" and maintained by the Readium Foundation are listed here: https://www.npmjs.com/~readium
 
-Assuming that you have Grunt and project's dependencies already installed (see above), in order to run this task, execute the following command:
+Note that although Node and NPM natively use the CommonJS format, Readium modules are currently only defined as AMD (RequireJS).
+This explains why Browserify ( http://browserify.org ) is not used by this Readium project.
+More information at http://requirejs.org/docs/commonjs.html and http://requirejs.org/docs/node.html
 
-    grunt update-readium
+* Make sure `npm install readium-js-viewer` completes successfully ( https://www.npmjs.com/package/readium-js-viewer )
+* Execute `npm run example`, which opens a web browser to a basic RequireJS bootstrapper located in the `build-output-usage-example` folder (this is *not* a production-ready minified application)
 
-### Embeddable EPUB Viewer
+Note: the `--dev` option after `npm install readium-js-viewer` can be used to force the download of development dependencies,
+but this is kind of pointless as the code source and RequireJS build configuration files are missing.
+See below if you need to hack the code.
 
-You can host an embeddable epub viewer using the same instructions as the [Basic EPUB viewer](#basic-epub-viewer). For example, if you wanted to add epub content to a blog or similar.
 
-Follow the same instructions as setting up the [Basic EPUB viewer](#basic-epub-viewer) then embed the epub reader using an iframe like so
+## How to use (RequireJS bundles / AMD modules)
+
+The `build-output` directory contains common CSS styles, as well as two distinct folders:
+
+### Single bundle
+
+The `_single-bundle` folder contains `readium-js-viewer_all.js` (and its associated source-map file, as well as a RequireJS bundle index file (which isn't actually needed at runtime, so here just as a reference)),
+which aggregates all the required code (external library dependencies included, such as Underscore, jQuery, etc.),
+as well as the "Almond" lightweight AMD loader ( https://github.com/jrburke/almond ).
+
+This means that the full RequireJS library ( http://requirejs.org ) is not actually needed to bootstrap the AMD modules at runtime,
+as demonstrated by the HTML file in the `build-output-usage-example` folder (trimmed for brevity):
 
 ```html
-<iframe width="600" height="400" src="http://localhost:8080/simpleviewer.html?epub=epub_content/moby_dick&amp;embedded=true" style="border:1px #ddd solid;" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
+<html>
+<head>
+
+<!-- main code bundle, which includes its own Almond AMD loader (no need for the full RequireJS library) -->
+<script type="text/javascript" src="../build-output/_single-bundle/readium-js-viewer_all.js"> </script>
+
+<!-- index.js calls into the above library -->
+<script type="text/javascript" src="./index.js"> </script>
+
+</head>
+<body>
+<div id="viewport"> </div>
+</body>
+</html>
 ```
 
-Note the `embedded=true` query parameter. This adds a special UI and handling for a smaller screen. See the `embed.html` file in the root of the source tree for a complete example that works with the [Basic EPUB viewer](#basic-epub-viewer) setup.
+### Multiple bundles
 
-### Chrome Packaged App
-To run the chrome packaged app, you will need to initialize your repository and then:
 
-  * Build the application with `grunt chromeApp`
-  * Load the app as an unpacked extension from `(project-root)/build/chrome-app`. [Directions here](http://developer.chrome.com/extensions/getstarted.html#unpacked)
-  * Open the App in Chrome under chrome://apps
+The `_multiple-bundles` folder contains several Javascript bundles (and their respective source-map files, as well as RequireJS bundle index files):
 
-### Custom EPUB management and viewer application
-The code that runs the chrome packaged app can also be run on a web server. However, it requires a backend to store and retrieve EPUB files. You would have to implement this yourself. You can see this in action by following the directions to [run a node web server](#clone-and-run-an-embedded-nodejs-web-server) and then navigating to http://localhost:8080/index.html. The backend the example uses is just static files so it doesn't support updating. 
 
-Alternatively you can build a package using either of the following two commands:
+* `readium-external-libs.js`: aggregated library dependencies (e.g. Underscore, jQuery, etc.)
+* `readium-shared-js.js`: shared Readium code (basically, equivalent to the `js` folder of the "readium-shared-js" submodule)
+* `readium-js.js`: the core Readium code (basically, equivalent to the `js` folder of the "readium-js" submodule)
+* `readium-js-viewer.js`: this Readium code (mainly, the contents of the `js` folder)
+* `readium-plugin-example.js`: simple plugin demo
+* `readium-plugin-annotations.js`: the annotation plugin (DOM selection + highlight), which bundle actually contains the "Backbone" library, as this dependency is not already included in the "external libs" bundle.
+)
 
-	grunt cloudReader
-	grunt cloudReaderWithEpub; # Comes with ePubs bundled
+In addition, the folder contains the full `RequireJS.js` library ( http://requirejs.org ), as the above bundles do no include the lightweight "Almond" AMD loader ( https://github.com/jrburke/almond ).
 
-### Running the Tests
-The viewer project contains some basic regression tests. These are run using [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/home), [Selenium WebdriverJS](https://code.google.com/p/selenium/wiki/WebDriverJs), and [nodeunit](https://github.com/caolan/nodeunit/). The tests target the chrome packaged app. **Assuming you have already followed the steps above to run the packaged app**, these are the additional steps if you want to run the tests
-  
-   * Install [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/home) for your platform and ensure it's on your system path somewhere.
-   * Install the Google Chrome browser or have it already installed in the default install location for your platform.
-   * run `grunt test`
+Usage is demonstrated by the HTML file in the `build-output-usage-example` folder (trimmed for brevity):
 
-Licensing info
-----------------
-Licensing information can be found in the file license.txt in the root of the repo, as well as in the source code itself.
+```html
+<html>
+<head>
+
+<!-- full RequireJS library -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/RequireJS.js"> </script>
+
+
+
+<!-- individual bundles: -->
+
+<!-- readium CFI library -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-cfi-js.js"> </script>
+
+<!-- external libraries -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-external-libs.js"> </script>
+
+<!-- readium itself -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-shared-js.js"> </script>
+
+<!-- simple example plugin -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-plugin-example.js"> </script>
+
+<!-- annotations plugin -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-plugin-annotations.js"> </script>
+
+<!-- readium js -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-js.js"> </script>
+
+<!-- readium js viewer -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-js-viewer.js"> </script>
+
+
+<!-- index.js calls into the above libraries -->
+<script type="text/javascript" src="./index.js"> </script>
+
+</head>
+<body>
+<div id="viewport"> </div>
+</body>
+</html>
+```
+
+
+Note how the "external libs" set of AMD modules can be explicitly described using the `bundles` RequireJS configuration directive
+(this eliminates the apparent opacity of such as large container of library dependencies):
+
+
+```html
+
+<script type="text/javascript">
+requirejs.config({
+    baseUrl: '../build-output/_multiple-bundles'
+});
+</script>
+
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-cfi-js.js.bundles.js"> </script>
+
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-external-libs.js.bundles.js"> </script>
+
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-shared-js.js.bundles.js"> </script>
+
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-plugin-example.js.bundles.js"> </script>
+
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-plugin-annotations.js.bundles.js"> </script>
+
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-js.js.bundles.js"> </script>
+
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-js-viewer.js.bundles.js"> </script>
+
+```
+
+
+
+
+## CSON vs. JSON (package.json)
+
+CSON = CoffeeScript-Object-Notation ( https://github.com/bevry/cson )
+
+Running the command `npm run cson2json` will re-generate the `package.json` JSON file.
+For more information, see comments in the master `package.cson` CSON file.
+
+Why CSON? Because it is a lot more readable than JSON, and therefore easier to maintain.
+The syntax is not only less verbose (separators, etc.), more importantly it allows *comments* and *line breaking*!
+
+Although these benefits are not so critical for basic "package" definitions,
+here `package.cson/json` declares relatively intricate `script` tasks that are used in the development workflow.
+`npm run SCRIPT_NAME` offers a lightweight technique to handle most build tasks,
+as NPM CLI utilities are available to perform cross-platform operations (agnostic to the actual command line interface / shell).
+For more complex build processes, Grunt / Gulp can be used, but these build systems do not necessarily offer the most readable / maintainable options.
+
+Downside: DO NOT invoke `npm init` or `npm install --save` `--save-dev` `--save-optional`,
+as this would overwrite / update the JSON, not the master CSON!
+
+
+
+
+
