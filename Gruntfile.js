@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 
     var path = require('path');
     var configs = require('load-grunt-config')(grunt, {
-        configPath: path.join(process.cwd(), 'grunt'),
+        configPath: path.join(process.cwd(), 'build-config/grunt'),
         init: false
         //loadGruntTasks: false
     });
