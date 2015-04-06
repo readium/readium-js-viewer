@@ -33,7 +33,7 @@
 
 name: "readium-js-viewer-viewer"
 
-version: "0.17.0"
+version: "0.19.0-alpha"
 
 description: "Readium web app - online cloud reader, offline Chrome extension/app, etc."
 
@@ -249,6 +249,12 @@ scripts:
     'prebuild': '
     
         npm run clean
+        &&
+        mkdirp build-output/_multiple-bundles
+        &&
+        mkdirp build-output/_single-bundle
+        &&
+        mkdirp build-output/_SOURCES
     '
     
 #=====================
@@ -278,12 +284,6 @@ scripts:
 
 #=====================
     'versioning': '
-        mkdirp build-output/_multiple-bundles
-        &&
-        mkdirp build-output/_single-bundle
-        &&
-        mkdirp build-output/_SOURCES
-        &&
         node build-config/versioning.js build-output/_SOURCES/version.json
     '
     
@@ -294,16 +294,47 @@ scripts:
     '
 
 #=====================
+    'postbuild:scripts:multiple': '
+    
+        rimraf build-output/_multiple-bundles/version.json
+        &&
+        rimraf build-output/_multiple-bundles/templates
+        &&
+        rimraf build-output/_multiple-bundles/i18n
+        &&
+        rimraf build-output/_multiple-bundles/migration
+        &&
+        rimraf build-output/_multiple-bundles/storage
+        &&
+        rimraf build-output/_multiple-bundles/versioning
+        &&
+        rimraf build-output/_multiple-bundles/workers
+    '
+    
+#=====================
     'build:scripts': '
         
         npm run
             versioning
         &&
+        cp -r src/templates build-output/_SOURCES
+        &&
+        cp -r src/i18n build-output/_SOURCES
+        &&
         npm run
             build:scripts:multiple
         &&
         npm run
+            build:scripts:multiple:copy
+        &&
+        npm run
             build:scripts:single
+        &&
+        npm run
+            build:scripts:single:LITE
+        &&
+        npm run
+            build:scripts:single:copy
     '
 
 #=====================
@@ -314,9 +345,6 @@ scripts:
              --rjs_bundle=multiple
              \"--rjs_mainConfigFile=RequireJS_config_multiple-bundles.js,RequireJS_config_common.js,../../build-config/RequireJS_config_multiple-bundles.js,../../build-config/RequireJS_config_common.js,../../../build-config/RequireJS_config_multiple-bundles.js,../../../build-config/RequireJS_config_common.js,../../../../build-config/RequireJS_config_multiple-bundles.js,../../../../build-config/RequireJS_config_common.js\"
              \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
-        &&
-        npm run
-            build:scripts:multiple:copy
     '
     
 #=====================
@@ -328,20 +356,6 @@ scripts:
         &&
         cp readium-js/node_modules/zip-js/WebContent/inflate.js build-output/_multiple-bundles/
     '
-#    cp build-output/version.json build-output/_multiple-bundles/
-        
-#=====================
-    'build:scripts:single': '
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/bin/r.js
-             -o
-             readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
-             --rjs_bundle=single
-             \"--rjs_mainConfigFile=RequireJS_config_single-bundle.js,RequireJS_config_common.js,../../build-config/RequireJS_config_single-bundle.js,../../build-config/RequireJS_config_common.js,../../../build-config/RequireJS_config_single-bundle.js,../../../build-config/RequireJS_config_common.js,../../../../build-config/RequireJS_config_multiple-bundles.js,../../../../build-config/RequireJS_config_common.js\"
-             \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
-        &&
-        npm run
-            build:scripts:single:copy
-    '
 
 #=====================
     'build:scripts:single:copy': '
@@ -352,6 +366,26 @@ scripts:
         cp readium-js/node_modules/zip-js/WebContent/inflate.js build-output/_single-bundle/
     '
     
+#=====================
+    'build:scripts:single': '
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/bin/r.js
+             -o
+             readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
+             --rjs_bundle=single
+             \"--rjs_mainConfigFile=RequireJS_config_single-bundle.js,RequireJS_config_common.js,../../build-config/RequireJS_config_single-bundle.js,../../build-config/RequireJS_config_common.js,../../../build-config/RequireJS_config_single-bundle.js,../../../build-config/RequireJS_config_common.js,../../../../build-config/RequireJS_config_single-bundle.js,../../../../build-config/RequireJS_config_common.js\"
+             \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
+    '
+
+#=====================
+    'build:scripts:single:LITE': '
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/bin/r.js
+             -o
+             readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
+             --rjs_bundle=single
+             \"--rjs_mainConfigFile=RequireJS_config_single-bundle.js,RequireJS_config_common.js,../../build-config/RequireJS_config_single-bundle.js,../../build-config/RequireJS_config_common.js,../../../build-config/RequireJS_config_single-bundle.js,../../../build-config/RequireJS_config_common.js,../../../../build-config/RequireJS_config_single-bundle_LITE.js,../../../../build-config/RequireJS_config_common.js\"
+             \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
+    '
+
 #=====================
 #    'prebuild:styles': '
 #        mkdirp build-output/css/

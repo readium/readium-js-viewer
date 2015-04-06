@@ -20,6 +20,9 @@ require.config({
         "readium-js-viewer":
             process._RJS_rootDir(3) + '/build-config/readium-js-viewer',
         
+        "readium-js-viewer_LITE":
+            process._RJS_rootDir(3) + '/build-config/readium-js-viewer_LITE',
+        
         // ------ NPM MODULEs
         
         'keymaster':
@@ -32,7 +35,7 @@ require.config({
             process._RJS_rootDir(3) + '/node_modules/requirejs-hogan-plugin/hgn',
         
         'hogan':
-            process._RJS_rootDir(3) + '/node_modules/hogan.js/dist/hogan-3.0.2',// version number in file name! :(
+            process._RJS_rootDir(3) + '/node_modules/hogan.js/dist/hogan-3.0.2.amd',// version number in file name! :(
             
         'jath':
             process._RJS_rootDir(3) + '/node_modules/jath/jath',
@@ -46,27 +49,25 @@ require.config({
         'bootstrapA11y':
             process._RJS_rootDir(3) + '/node_modules/bootstrap-accessibility-plugin/plugins/js/bootstrap-accessibility',
         
-        'remotestorage':
-            process._RJS_rootDir(3) + '/node_modules/remotestoragejs/release/head/remotestorage',
-            
         'jquery_hammer':
             process._RJS_rootDir(3) + '/node_modules/jquery-hammerjs/jquery.hammer',
             
         'hammerjs':
             process._RJS_rootDir(3) + '/node_modules/hammerjs/hammer',
-            
-            
-        'i18n':
-            process._RJS_rootDir(3) + '/src/i18n',
-            
-        'templates':
-            process._RJS_rootDir(3) + '/src/templates',
-        
-        'storage/StorageManager': 'storage/StaticStorageManager',
-        'versioning/Versioning': 'versioning/UnpackagedVersioning',
         
         'encryptionHandler': 
             process._RJS_rootDir(3) + '/readium-js/js/epub-fetch/encryption_handler',
+            
+        
+        'storage/StorageManager': 'storage/StaticStorageManager',
+        
+        //'versioning/Versioning': 'versioning/UnpackagedVersioning',
+        'versioning/Versioning' : 'versioning/PackagedVersioning',
+        
+        
+        // 'remotestorage':
+        //     process._RJS_rootDir(3) + '/node_modules/remotestoragejs/release/head/remotestorage',
+            
     },
     
     shim:

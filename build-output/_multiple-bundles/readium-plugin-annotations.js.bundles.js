@@ -1,0 +1,1 @@
+require.config({bundles: {"readium-plugin-annotations":["backbone","plugin-annotations/annotations_module","plugin-annotations/annotations_manager","plugin-annotations/main"]}});

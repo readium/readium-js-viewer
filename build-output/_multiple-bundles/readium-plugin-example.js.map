@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "file": "readium-plugin-example.js",
+  "sources": [
+    "../../readium-js/readium-shared-js/plugins/example.js",
+    "readium-plugin-example.js"
+  ],
+  "names": [],
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA,AC3BA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA",
+  "sourcesContent": [
+    "define('plugin-example/example',['plugins-controller', 'jquery'], function (Plugins, $) {\r\n    var config = {\r\n        backgroundColor: \"yellow\",\r\n        borderColor: \"red\"\r\n    };\r\n\r\n    Plugins.register(\"example\", function (api) {\r\n        var self = this;\r\n\r\n        api.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem) {\r\n            var div = '<div id=\"\" style=\"position: absolute; left: 0; top: 0; border: 1px solid '\r\n                + config.borderColor + '; background-color: ' + config.backgroundColor + ';\">'\r\n                + 'spineItemIdref: ' + spineItem.idref + '</div>';\r\n            $(div).appendTo($iframe[0].contentDocument.documentElement).on('click', function () {\r\n                self.emit(\"exampleEvent\", api.reader.bookmarkCurrentPage());\r\n            });\r\n        });\r\n        \r\n        $(\"body\").css({border: '10px solid ' + config.borderColor});\r\n\r\n        api.extendReader(self);\r\n    });\r\n\r\n    return config;\r\n});\ndefine('plugin-example', ['plugin-example/example'], function (main) { return main; });\n\n",
+    "//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.\r\n//  \r\n//  Redistribution and use in source and binary forms, with or without modification, \r\n//  are permitted provided that the following conditions are met:\r\n//  1. Redistributions of source code must retain the above copyright notice, this \r\n//  list of conditions and the following disclaimer.\r\n//  2. Redistributions in binary form must reproduce the above copyright notice, \r\n//  this list of conditions and the following disclaimer in the documentation and/or \r\n//  other materials provided with the distribution.\r\n//  3. Neither the name of the organization nor the names of its contributors may be \r\n//  used to endorse or promote products derived from this software without specific \r\n//  prior written permission.\r\n\r\ndefine('readium-plugin-example',['plugin-example'], function (pluginExampleConfig) {\r\nreturn pluginExampleConfig;\r\n});\r\n\n"
+  ]
+}

@@ -16,20 +16,20 @@ require.config({
     
     baseUrl: process._RJS_baseUrl(3),
     
-    name: "readium-js-viewer_all",
+    name: "readium-js-viewer_all_LITE",
     
     // relative to this config file (not baseUrl)
-    out: "../build-output/_single-bundle/readium-js-viewer_all.js",
+    out: "../build-output/_single-bundle/readium-js-viewer_all_LITE.js",
     
     include: [
-        "readium-js-viewer"
+        "readium-js-viewer_LITE"
     ],
     
     stubModules: ['hgn', 'i18n'],
     
     paths:
     {
-        "readium-js-viewer_all":
+        "readium-js-viewer_all_LITE":
             process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond'
     }
 });

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://localhost:9091"> </script> 
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="images/readium_favicon.png" rel="shortcut icon"/>
+    <link href="images/readium-touch-icon.png" rel="apple-touch-icon"/>
+        
+    <style>    
+        .library-item{
+            height: 100px;
+
+        }
+        
+        body:not(.list-view) .library-item .no-cover{
+            width: 300px;
+            height: 400px;
+            font-size: 40px;
+        }
+    </style>
+    <!-- link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' -->
+
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css">
+    
+    <link rel="stylesheet" type="text/css" href="../build-output/css/sourcesanspro.css">
+    <link rel="stylesheet" type="text/css" href="../build-output/css/readium_js.css">
+    <link rel="stylesheet" type="text/css" href="../build-output/css/viewer.css">
+    <link rel="stylesheet" type="text/css" href="../build-output/css/viewer_audio.css">
+    <link rel="stylesheet" type="text/css" href="../build-output/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="../build-output/css/library.css">
+
+    <script type="text/javascript" src="../build-output/_single-bundle/readium-js-viewer_all.js"> </script>
+
+    </head>
+
+    <!-- This is all application-specific HTML -->
+    <body>
+        <nav id="app-navbar" class="navbar" role="banner" aria-label="{{Strings.i18n_toolbar}}">
+        </nav>
+        <div id="app-container">
+        </div>
+    </body>
+
+</html>

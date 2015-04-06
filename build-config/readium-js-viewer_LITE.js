@@ -11,25 +11,6 @@
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-
-require.config({
-    
-    baseUrl: process._RJS_baseUrl(3),
-    
-    name: "readium-js-viewer_all",
-    
-    // relative to this config file (not baseUrl)
-    out: "../build-output/_single-bundle/readium-js-viewer_all.js",
-    
-    include: [
-        "readium-js-viewer"
-    ],
-    
-    stubModules: ['hgn', 'i18n'],
-    
-    paths:
-    {
-        "readium-js-viewer_all":
-            process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond'
-    }
+define(['ReadiumViewerLite'], function (ReadiumViewerLite) {
+//noop
 });

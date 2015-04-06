@@ -1,0 +1,1 @@
+require.config({bundles: {"readium-external-libs":["jquery","underscore","punycode","IPv6","SecondLevelDomains","URIjs","jquerySizes","domReady","eventEmitter","console_shim","rangy-core","rangy-highlighter","rangy-cssclassapplier","rangy-textrange","rangy-position","rangy"]}});

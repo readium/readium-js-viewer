@@ -1,4 +1,4 @@
-define(['text!viewer-version', 'Readium'], function(versionTxt, Readium){
+define(['text!version.json', 'Readium'], function(versionTxt, Readium){
 	var version = JSON.parse(versionTxt);
 
 	var PackagedVersioning = {
