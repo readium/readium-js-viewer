@@ -25,6 +25,10 @@ require.config({
         "readium-js-viewer"
     ],
     
+    insertRequire: [
+        "readium-js-viewer"
+    ],
+    
     stubModules: ['hgn', 'i18n'],
     
     paths:

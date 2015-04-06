@@ -51,15 +51,17 @@
 
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-plugin-annotations.js"> </script>
 
-<script type="text/javascript" src="../build-output/_multiple-bundles/readium-js-viewer.js"> </script>
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-js.js"> </script>
 
-<script type="text/javascript" src="../build-output/_multiple-bundles/readium-js.js"> </script -->
+<script type="text/javascript" src="../build-output/_multiple-bundles/readium-js-viewer.js"> </script -->
 
 <script type="text/javascript">
-requirejs.config({
+require.config({
     baseUrl: '../build-output/_multiple-bundles'
 });
 </script>
+
+<script type="text/javascript" src="./RequireJS_config.js"> </script>
 
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-external-libs.js.bundles.js"> </script>
 
@@ -75,7 +77,15 @@ requirejs.config({
 
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-js-viewer.js.bundles.js"> </script>
 
-<script type="text/javascript" src="./RequireJS_config.js"> </script>
+<script type="text/javascript">
+require(["readium-cfi-js", "globalsSetup", "readium-plugin-annotations"], function(){
+require(["jquery"], function(){
+require(["readium-js-viewer"], function(){});
+});
+});
+</script>
+
+
 
     </head>
 

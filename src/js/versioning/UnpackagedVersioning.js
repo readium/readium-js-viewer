@@ -10,9 +10,12 @@ define(['jquery', 'Readium'], function($, Readium){
 			var readiumVersion = Readium.version,
 				versionInfo = {};
             versionInfo.viewer = obj;
+            versionInfo.viewer.version = readiumVersion.readiumJsViewer.version;
+            versionInfo.viewer.chromeVersion = readiumVersion.readiumJsViewer.chromeVersion;
             versionInfo.viewer.dateTimeString = new Date().toString();
             versionInfo.readiumJs = readiumVersion.readiumJs;
             versionInfo.readiumSharedJs = readiumVersion.readiumSharedJs;
+            versionInfo.readiumCfiJs = readiumVersion.readiumCfiJs;
 
 
 			$.getJSON('package.json', function(data){

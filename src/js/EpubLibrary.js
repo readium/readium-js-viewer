@@ -304,7 +304,7 @@ Versioning){
             strings: Strings
 		}));
 		Versioning.getVersioningInfo(function(version){
-			$appContainer.append(AboutDialog({strings: Strings, viewer: version.viewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs}));
+			$appContainer.append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 		});
 		
         

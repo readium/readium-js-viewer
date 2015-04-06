@@ -309,13 +309,14 @@ scripts:
         rimraf build-output/_multiple-bundles/versioning
         &&
         rimraf build-output/_multiple-bundles/workers
+        &&
+        rimraf build-output/_multiple-bundles/mathjax
     '
     
 #=====================
     'build:scripts': '
         
-        npm run
-            versioning
+        npm run versioning
         &&
         cp -r src/templates build-output/_SOURCES
         &&
@@ -325,16 +326,18 @@ scripts:
             build:scripts:multiple
         &&
         npm run
-            build:scripts:multiple:copy
-        &&
-        npm run
             build:scripts:single
         &&
         npm run
             build:scripts:single:LITE
         &&
-        npm run
-            build:scripts:single:copy
+        cp readium-js/node_modules/zip-js/WebContent/z-worker.js build-output
+        &&
+        cp readium-js/node_modules/zip-js/WebContent/deflate.js build-output
+        &&
+        cp readium-js/node_modules/zip-js/WebContent/inflate.js build-output
+        &&
+        cp -r src/js/mathjax build-output
     '
 
 #=====================
@@ -345,25 +348,6 @@ scripts:
              --rjs_bundle=multiple
              \"--rjs_mainConfigFile=RequireJS_config_multiple-bundles.js,RequireJS_config_common.js,../../build-config/RequireJS_config_multiple-bundles.js,../../build-config/RequireJS_config_common.js,../../../build-config/RequireJS_config_multiple-bundles.js,../../../build-config/RequireJS_config_common.js,../../../../build-config/RequireJS_config_multiple-bundles.js,../../../../build-config/RequireJS_config_common.js\"
              \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
-    '
-    
-#=====================
-    'build:scripts:multiple:copy': '
-        
-        cp readium-js/node_modules/zip-js/WebContent/z-worker.js build-output/_multiple-bundles/
-        &&
-        cp readium-js/node_modules/zip-js/WebContent/deflate.js build-output/_multiple-bundles/
-        &&
-        cp readium-js/node_modules/zip-js/WebContent/inflate.js build-output/_multiple-bundles/
-    '
-
-#=====================
-    'build:scripts:single:copy': '
-        cp readium-js/node_modules/zip-js/WebContent/z-worker.js build-output/_single-bundle/
-        &&
-        cp readium-js/node_modules/zip-js/WebContent/deflate.js build-output/_single-bundle/
-        &&
-        cp readium-js/node_modules/zip-js/WebContent/inflate.js build-output/_single-bundle/
     '
     
 #=====================
@@ -396,7 +380,10 @@ scripts:
     'build:styles': '
     
         cp -r src/css build-output
+        &&
+        cp -r src/images build-output
     '
+#        cp -r node_modules/bootstrap/fonts build-output
 
 #=====================
 #### BLOCKING! (CTRL-C) [watch][live-reload][http]
@@ -415,6 +402,10 @@ scripts:
 #=====================
 #### BLOCKING! (CTRL-C) [http]
     'example': '
+        cp -r epub_content build-output
+        &&
+        cp -r build-output-usage-example/* build-output
+        &&
         parallelshell
             \"npm run http\"
             \"npm run webbrowser\"

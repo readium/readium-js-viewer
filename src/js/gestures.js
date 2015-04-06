@@ -14,6 +14,9 @@
 define(['jquery','jquery_hammer','hammerjs'], function($,jqueryHammer,Hammer) {
 
     var gesturesHandler = function(reader, viewport){
+        
+this.initialize= function(){};
+return; // TODO upgrade to Hammer API v2
 
         var onSwipeLeft = function(){
             reader.openPageRight();

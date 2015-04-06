@@ -14,8 +14,8 @@ define(['spin'], function(Spinner){
       hwaccel: false, // Whether to use hardware acceleration
       className: 'spinner', // The CSS class to assign to the spinner
       zIndex: 2e9, // The z-index (defaults to 2000000000)
-      top: 'auto', // Top position relative to parent in px
-      left: 'auto' // Left position relative to parent in px
+      top: '50%', // Top position relative to parent in px
+      left: '50%' // Left position relative to parent in px
     };
     return new Spinner(opts);
 });

@@ -1,4 +1,4 @@
-require(['jquery', 'EpubReader'], function($, EpubReader){
+define(['jquery', 'EpubReader'], function($, EpubReader){
 
 	var getQueryParamData = function(){
         var query = window.location.search;
@@ -22,8 +22,9 @@ require(['jquery', 'EpubReader'], function($, EpubReader){
     }
 
     $(function(){
-    	var epubUrl = getQueryParamData();
-    	EpubReader.loadUI(data);
+        
+	    var epubUrl = getQueryParamData();
+        EpubReader.loadUI(epubUrl);
 
 		$(document.body).on('click', function()
         {

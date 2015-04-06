@@ -12,5 +12,4 @@
 //  prior written permission.
 
 define(['ReadiumViewer'], function (ReadiumViewer) {
-//noop
 });

@@ -4496,7 +4496,7 @@ define("hgn!templates/library-item.html", ["hogan"], function(hogan){  var tmpl 
 define("hgn!templates/details-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div id=\"details-dialog\" class=\"modal fade details-dialog\" tabindex=\"-1\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("        <p>Loading Details...</p>\r");t.b("\n" + i);t.b("        <progress></progress>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/about-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"about-dialog\" tabindex=\"-1\" role=\"dialog\" aria-label=\"");t.b(t.t(t.d("strings.about",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("      	<div class=\"splash-logo\">\r");t.b("\n" + i);t.b("      		<img src=\"images/about_readium_logo.png\" alt=\"\">\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("      	<div class=\"about-message\">\r");t.b("\n" + i);t.b("	      	<span>");t.b(t.t(t.d("strings.i18n_html_readium_tm_a_project",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("      	<div>\r");t.b("\n" + i);t.b("			     <img src=\"images/partner_logos.png\">\r");t.b("\n" + i);t.b("		    </div>\r");t.b("\n" + i);t.b("        <h4 style=\"color:#111155\">");t.b(t.t(t.d("strings.gethelp",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class=\"version\">");t.b(t.v(t.d("viewer.chromeVersion",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"build-date\">");t.b(t.v(t.d("viewer.dateTimeString",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"version-details\">\r");t.b("\n" + i);t.b("        <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js-viewer/tree/");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("\">readium-js-viewer@");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("viewer.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js/tree/");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("\">readium-js@");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("readium.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-shared-js/tree/");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("\">readium-shared-js@");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("sharedJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!templates/about-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"about-dialog\" tabindex=\"-1\" role=\"dialog\" aria-label=\"");t.b(t.t(t.d("strings.about",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("      	<div class=\"splash-logo\">\r");t.b("\n" + i);t.b("      		<img src=\"images/about_readium_logo.png\" alt=\"\">\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("      	<div class=\"about-message\">\r");t.b("\n" + i);t.b("	      	<span>");t.b(t.t(t.d("strings.i18n_html_readium_tm_a_project",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("      	<div>\r");t.b("\n" + i);t.b("			     <img src=\"images/partner_logos.png\">\r");t.b("\n" + i);t.b("		    </div>\r");t.b("\n" + i);t.b("        <h4 style=\"color:#111155\">");t.b(t.t(t.d("strings.gethelp",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class=\"version\">");t.b(t.v(t.d("viewer.chromeVersion",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"build-date\">");t.b(t.v(t.d("viewer.dateTimeString",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"version-details\">\r");t.b("\n" + i);t.b("        <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js-viewer/tree/");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("\">readium-js-viewer@");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("viewer.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js/tree/");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("\">readium-js@");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("readium.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-shared-js/tree/");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("\">readium-shared-js@");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("sharedJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-cfi-js/tree/");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("\">readium-cfi-js@");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("cfiJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
 define("hgn!templates/details-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"details-body\">\r");t.b("\n" + i);t.b("    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"  tabindex=\"1000\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("    <div class=\"offscreenText\">Details Start</div>\r");t.b("\n" + i);t.b("    <div class=\"modal-cover-wrap\">\r");t.b("\n" + i);if(t.s(t.d("data.coverHref",c,p,1),c,p,0,388,500,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <img class=\"details-cover-image img-responsive\" src=\"");t.b(t.v(t.d("data.coverHref",c,p,0)));t.b("\" alt=\"ePUB cover\">\r");t.b("\n" + i);});c.pop();}if(!t.s(t.d("data.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.d("data.noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("data.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("            <button tabindex=\"1000\" class=\"btn btn-default read\" data-dismiss=\"modal\" data-book=\"");t.b(t.v(t.d("data.rootUrl",c,p,0)));t.b("\" type=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            <button tabindex=\"1000\" class=\"btn btn-danger delete\" data-dismiss=\"modal\" type=\"button\">");t.b(t.v(t.d("strings.i18n_delete",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <div class='modal-book-info'>\r");t.b("\n" + i);t.b("        <h3 class='modal-title'>");t.b(t.v(t.d("data.title",c,p,0)));t.b("</h3>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_author",c,p,0)));t.b(t.v(t.d("data.author",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_publisher",c,p,0)));t.b(t.v(t.d("data.publisher",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_pub_date",c,p,0)));t.b(t.v(t.d("data.pubdate",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_modified_date",c,p,0)));t.b(t.v(t.d("data.modified_date",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_id",c,p,0)));t.b(t.v(t.d("data.id",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_epub_version",c,p,0)));t.b(t.v(t.d("data.epub_version",c,p,0)));t.b("</div>        \r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <div class=\"offscreenText\">Details End</div>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
@@ -6155,20 +6155,17 @@ define('analytics/Analytics',[],function(){
 		sendEvent : function(){}
 	}
 });
-define('versioning/Versioning',['text!version.json', 'Readium'], function(versionTxt, Readium){
-	var version = JSON.parse(versionTxt);
-
+define('versioning/Versioning',['Readium'], function(Readium){
+	
 	var PackagedVersioning = {
 		getVersioningInfo : function(callback){
 			var versionInfo = {};
-			var readiumVersion = Readium.version;
-            versionInfo.viewer = version;
-            versionInfo.viewer.dateTimeString = new Date(version.timestamp).toString();
-            versionInfo.readiumJs = readiumVersion.readiumJs;
-            versionInfo.readiumSharedJs = readiumVersion.readiumSharedJs;
+            
+            versionInfo = Readium.version;
+            versionInfo.dateTimeString = new Date(Readium.version.readiumJsViewer.timestamp).toString();
+
 			callback(versionInfo);
 		}
-
 	}
 	return PackagedVersioning;
 });
@@ -6478,7 +6475,7 @@ Versioning){
             strings: Strings
 		}));
 		Versioning.getVersioningInfo(function(version){
-			$appContainer.append(AboutDialog({strings: Strings, viewer: version.viewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs}));
+			$appContainer.append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 		});
 		
         
@@ -6947,8 +6944,8 @@ define('Spinner',['spin'], function(Spinner){
       hwaccel: false, // Whether to use hardware acceleration
       className: 'spinner', // The CSS class to assign to the spinner
       zIndex: 2e9, // The z-index (defaults to 2000000000)
-      top: 'auto', // Top position relative to parent in px
-      left: 'auto' // Left position relative to parent in px
+      top: '50%', // Top position relative to parent in px
+      left: '50%' // Left position relative to parent in px
     };
     return new Spinner(opts);
 });
@@ -10706,6 +10703,9 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
 define('gestures',['jquery','jquery_hammer','hammerjs'], function($,jqueryHammer,Hammer) {
 
     var gesturesHandler = function(reader, viewport){
+        
+this.initialize= function(){};
+return; // TODO upgrade to Hammer API v2
 
         var onSwipeLeft = function(){
             reader.openPageRight();
@@ -10777,6 +10777,7 @@ define('gestures',['jquery','jquery_hammer','hammerjs'], function($,jqueryHammer
     return gesturesHandler;
 });
 define('EpubReader',[
+"globalsSetup", "readium-plugin-example",
 'module',
 'jquery',
 'bootstrap',
@@ -10801,6 +10802,7 @@ define('EpubReader',[
 'Readium'],
 
 function (
+globalSetup, examplePluginConfig,
 module,
 $,
 bootstrap,
@@ -10823,7 +10825,10 @@ EpubReaderBackgroundAudioTrack,
 GesturesHandler,
 Versioning,
 Readium){
-
+        
+        examplePluginConfig.borderColor = "blue";
+        examplePluginConfig.backgroundColor = "cyan";
+        
     var readium, 
         embedded,
         url,
@@ -11439,6 +11444,10 @@ Readium){
             readium.reader.off();
         }
         
+        if (window.ReadiumSDK) {
+            ReadiumSDK.off(ReadiumSDK.Events.PLUGINS_LOADED);
+        }
+        
         setTimeout(function()
         {
             initReadium(); //async
@@ -11489,26 +11498,30 @@ Readium){
 
             Versioning.getVersioningInfo(function(version){
 
-                $('#app-container').append(AboutDialog({strings: Strings, viewer: version.viewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs}));
+                $('#app-container').append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
                 
                 window.navigator.epubReadingSystem.name = "readium-js-viewer";
-                window.navigator.epubReadingSystem.version = version.viewer.version;
+                window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;
                 
                 window.navigator.epubReadingSystem.readium = {};
                 
                 window.navigator.epubReadingSystem.readium.buildInfo = {};
                 
-                window.navigator.epubReadingSystem.readium.buildInfo.dateTime = version.viewer.dateTimeString; //new Date(timestamp).toString();
-                window.navigator.epubReadingSystem.readium.buildInfo.version = version.viewer.version;
-                window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion = version.viewer.chromeVersion;
+                window.navigator.epubReadingSystem.readium.buildInfo.dateTime = version.dateTimeString; //new Date(timestamp).toString();
+                window.navigator.epubReadingSystem.readium.buildInfo.version = version.readiumJsViewer.version;
+                window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion = version.readiumJsViewer.chromeVersion;
                 
                 window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories = [];
                 
                 var repo1 = {};
                 repo1.name = "readium-js-viewer";
-                repo1.sha = version.viewer.sha;
-                repo1.tag = version.viewer.tag;
-                repo1.clean = version.viewer.clean;
+                repo1.sha = version.readiumJsViewer.sha;
+                repo1.tag = version.readiumJsViewer.tag;
+                repo1.version = version.readiumJsViewer.version;
+                repo1.clean = version.readiumJsViewer.clean;
+                repo1.branch = version.readiumJsViewer.branch;
+                repo1.release = version.readiumJsViewer.release;
+                repo1.timestamp = version.readiumJsViewer.timestamp;
                 repo1.url = "https://github.com/readium/" + repo1.name + "/tree/" + repo1.sha;
                 window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo1);
                 
@@ -11516,7 +11529,11 @@ Readium){
                 repo2.name = "readium-js";
                 repo2.sha = version.readiumJs.sha;
                 repo2.tag = version.readiumJs.tag;
+                repo2.version = version.readiumJs.version;
                 repo2.clean = version.readiumJs.clean;
+                repo2.branch = version.readiumJs.branch;
+                repo2.release = version.readiumJs.release;
+                repo2.timestamp = version.readiumJs.timestamp;
                 repo2.url = "https://github.com/readium/" + repo2.name + "/tree/" + repo2.sha;
                 window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo2);
                 
@@ -11524,9 +11541,25 @@ Readium){
                 repo3.name = "readium-shared-js";
                 repo3.sha = version.readiumSharedJs.sha;
                 repo3.tag = version.readiumSharedJs.tag;
+                repo3.version = version.readiumSharedJs.version;
                 repo3.clean = version.readiumSharedJs.clean;
+                repo3.branch = version.readiumSharedJs.branch;
+                repo3.release = version.readiumSharedJs.release;
+                repo3.timestamp = version.readiumSharedJs.timestamp;
                 repo3.url = "https://github.com/readium/" + repo3.name + "/tree/" + repo3.sha;
                 window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo3);
+
+                var repo4 = {};
+                repo4.name = "readium-cfi-js";
+                repo4.sha = version.readiumCfiJs.sha;
+                repo4.tag = version.readiumCfiJs.tag;
+                repo4.version = version.readiumCfiJs.version;
+                repo4.clean = version.readiumCfiJs.clean;
+                repo4.branch = version.readiumCfiJs.branch;
+                repo4.release = version.readiumCfiJs.release;
+                repo4.timestamp = version.readiumCfiJs.timestamp;
+                repo4.url = "https://github.com/readium/" + repo4.name + "/tree/" + repo4.sha;
+                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo4);
 
                 // Debug check:
                 //console.debug(JSON.stringify(window.navigator.epubReadingSystem, undefined, 2));
@@ -11642,9 +11675,11 @@ console.debug("ANNOTATION CLICK: " + id);
                 readium.reader.plugins.annotations.removeHighlight(id);
             });
 
-            readium.reader.plugins.example.on("exampleEvent", function(message) {
-                alert(message);
-            });
+            if (readium.reader.plugins.example) {
+                readium.reader.plugins.example.on("exampleEvent", function(message) {
+                    alert(message);
+                });
+            }
 
         });
     }
@@ -11708,7 +11743,7 @@ console.debug("ANNOTATION CLICK: " + id);
     
 });
 
-require(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubReader){
+define('ReadiumViewer',['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubReader){
 	
 	var getEpubQueryParam = function(){
         var query = window.location.search;
@@ -11730,9 +11765,10 @@ require(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubRe
     }
 
 	var initialLoad = function(){
+    
 		var epubUrl = getEpubQueryParam();
 		if (epubUrl){
-			EpubReader.loadUI({epub: decodeURIComponent(epubUrl)});
+                EpubReader.loadUI({epub: decodeURIComponent(epubUrl)});
 		}
 		else{
 			EpubLibrary.loadUI();
@@ -11801,8 +11837,6 @@ require(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubRe
 	});
 
 });
-define("ReadiumViewer", function(){});
-
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
 //  Redistribution and use in source and binary forms, with or without modification, 
@@ -11817,8 +11851,9 @@ define("ReadiumViewer", function(){});
 //  prior written permission.
 
 define('readium-js-viewer',['ReadiumViewer'], function (ReadiumViewer) {
-//noop
 });
 
+
+require(["readium-js-viewer"]);
 
 //# sourceMappingURL=readium-js-viewer.js.map

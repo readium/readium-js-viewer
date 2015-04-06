@@ -62,7 +62,8 @@ require.config({
         'storage/StorageManager': 'storage/StaticStorageManager',
         
         //'versioning/Versioning': 'versioning/UnpackagedVersioning',
-        'versioning/Versioning' : 'versioning/PackagedVersioning',
+        //'versioning/Versioning' : 'versioning/PackagedVersioning',
+        'versioning/Versioning' : 'versioning/ReadiumVersioning',
         
         
         // 'remotestorage':

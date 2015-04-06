@@ -1,4 +1,4 @@
-require(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubReader){
+define(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubReader){
 	
 	var getEpubQueryParam = function(){
         var query = window.location.search;
@@ -20,9 +20,10 @@ require(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubRe
     }
 
 	var initialLoad = function(){
+    
 		var epubUrl = getEpubQueryParam();
 		if (epubUrl){
-			EpubReader.loadUI({epub: decodeURIComponent(epubUrl)});
+                EpubReader.loadUI({epub: decodeURIComponent(epubUrl)});
 		}
 		else{
 			EpubLibrary.loadUI();

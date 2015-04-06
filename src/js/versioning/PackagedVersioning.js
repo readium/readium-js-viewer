@@ -1,17 +1,15 @@
-define(['text!version.json', 'Readium'], function(versionTxt, Readium){
-	var version = JSON.parse(versionTxt);
+define(['text!version.json'], function(versionTxt, Readium){
+    var version = JSON.parse(versionTxt);
 
 	var PackagedVersioning = {
-		getVersioningInfo : function(callback){
-			var versionInfo = {};
-			var readiumVersion = Readium.version;
-            versionInfo.viewer = version;
-            versionInfo.viewer.dateTimeString = new Date(version.timestamp).toString();
-            versionInfo.readiumJs = readiumVersion.readiumJs;
-            versionInfo.readiumSharedJs = readiumVersion.readiumSharedJs;
-			callback(versionInfo);
-		}
+        getVersioningInfo : function(callback){
+            var versionInfo = {};
+            
+            versionInfo = version;
+            versionInfo.dateTimeString = new Date(version.readiumJsViewer.timestamp).toString();
 
+            callback(versionInfo);
+        }
 	}
 	return PackagedVersioning;
 });

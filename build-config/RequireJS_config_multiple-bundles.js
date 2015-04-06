@@ -22,11 +22,17 @@ require.config({
     [
         {
             name: "readium-js-viewer",
-            exclude: ["readium-js", "readium-external-libs", "readium-shared-js", "readium-plugin-example", "readium-plugin-annotations"]
+            exclude: ["readium-js", "readium-external-libs", "readium-shared-js", "readium-plugin-example", "readium-plugin-annotations"],
+            insertRequire: [
+                "readium-js-viewer"
+            ]
         },
         {
             name: "readium-js-viewer_LITE",
-            exclude: ["readium-js", "readium-external-libs", "readium-shared-js", "readium-plugin-example", "readium-plugin-annotations"]
+            exclude: ["readium-js", "readium-external-libs", "readium-shared-js", "readium-plugin-example", "readium-plugin-annotations"],
+            insertRequire: [
+                "readium-js-viewer_LITE"
+            ]
         }
     ]
 });
