@@ -345,9 +345,7 @@ scripts:
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/bin/r.js
              -o
              readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
-             --rjs_bundle=multiple
-             \"--rjs_mainConfigFile=RequireJS_config_multiple-bundles.js,RequireJS_config_common.js,../../build-config/RequireJS_config_multiple-bundles.js,../../build-config/RequireJS_config_common.js,../../../build-config/RequireJS_config_multiple-bundles.js,../../../build-config/RequireJS_config_common.js,../../../../build-config/RequireJS_config_multiple-bundles.js,../../../../build-config/RequireJS_config_common.js\"
-             \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
+             --rjs_bundle=multiple \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
     '
     
 #=====================
@@ -355,9 +353,7 @@ scripts:
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/bin/r.js
              -o
              readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
-             --rjs_bundle=single
-             \"--rjs_mainConfigFile=RequireJS_config_single-bundle.js,RequireJS_config_common.js,../../build-config/RequireJS_config_single-bundle.js,../../build-config/RequireJS_config_common.js,../../../build-config/RequireJS_config_single-bundle.js,../../../build-config/RequireJS_config_common.js,../../../../build-config/RequireJS_config_single-bundle.js,../../../../build-config/RequireJS_config_common.js\"
-             \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
+             --rjs_bundle=single \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
     '
 
 #=====================
@@ -366,8 +362,7 @@ scripts:
              -o
              readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
              --rjs_bundle=single
-             \"--rjs_mainConfigFile=RequireJS_config_single-bundle.js,RequireJS_config_common.js,../../build-config/RequireJS_config_single-bundle.js,../../build-config/RequireJS_config_common.js,../../../build-config/RequireJS_config_single-bundle.js,../../../build-config/RequireJS_config_common.js,../../../../build-config/RequireJS_config_single-bundle_LITE.js,../../../../build-config/RequireJS_config_common.js\"
-             \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
+             --rjs_configCustomTarget=_LITE \"--rjs_sources=/src/js,/readium-js/readium-shared-js/js,/readium-js/readium-shared-js/readium-cfi-js/js,/readium-js/readium-shared-js/readium-cfi-js/gen\"
     '
 
 #=====================
