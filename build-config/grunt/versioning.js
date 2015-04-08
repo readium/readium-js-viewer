@@ -15,74 +15,27 @@
 
 module.exports = function(grunt) {
 
-    grunt.registerTask("versioning", function() {
-        var git = require('gift'),
-            fs = require('fs');
+    grunt.registerTask("versioning", function() {                
+        var exec = require('child_process').exec;
+        exec("npm run versioning",
+            { cwd: process.cwd() },
+            function(err, stdout, stderr) {
+                if (err) {
+                    grunt.log.writeln(err);
+                }
+                if (stderr) {
+                    grunt.log.writeln(stderr);
+                }
+                if (stdout) {
+                    grunt.log.writeln(stdout);
+            
+                    obj["tag"] = stdout.trim();
+                }
 
-        var done = this.async();
-        
-        var myRepo = git('.');
-
-        var buildVersion = function(branchName, sha){
-
-            var pkgJson = fs.readFileSync('package.json', 'utf-8');
-            var pkg = JSON.parse(pkgJson);
-
-            //var version = pkg.version + '.' + sha;
-            myRepo.status(function(err, status){
-                var obj = {
-                    version: pkg.version,
-                    chromeVersion: '2.' + pkg.version.substring(2),
-                    sha: sha,
-                    tag: "",
-                    clean: status.clean,
-                    release: branchName.indexOf('release/') == 0,
-                    timestamp: Date.now() 
-                };
-                
-                var path = require('path');
-                //var cmd = "git --git-dir='" + process.cwd() + "/.git' name-rev --tags --name-only " + sha;
-                var cmd = "git --git-dir=\"" + path.join(process.cwd(), ".git") + "\" describe --tags --long " + sha;
-                grunt.log.writeln(cmd);
-                
-                var exec = require('child_process').exec;
-                exec(cmd,
-                    { cwd: process.cwd() },
-                    function(err, stdout, stderr) {
-                        if (err) {
-                            grunt.log.writeln(err);
-                        }
-                        if (stderr) {
-                            grunt.log.writeln(stderr);
-                        }
-                        if (stdout) {
-                            grunt.log.writeln(stdout);
-                    
-                            obj["tag"] = stdout.trim();
-                        }
-
-                        fs.writeFileSync('build/version.json', JSON.stringify(obj));
-                        done();
-                    }
-                );
-            });
-        }
-
-        // work around a bug in gift that blows it up on a detached head
-        var ref = fs.readFileSync('.git/HEAD', 'utf-8');
-        if (ref.indexOf('ref: ') == 0){
-            myRepo.branch(function(err, head){
-                //console.log(head.name);
-                var sha = head.commit.id;
-                var branchName = head.name;
-
-                buildVersion(branchName, sha);
-            });
-        }
-        else{
-            buildVersion('', ref.substring(0, ref.length - 1));
-        }
-        
+                fs.writeFileSync('build/version.json', JSON.stringify(obj));
+                done();
+            }
+        );
     });
 
     grunt.registerTask('updateChromeManifest', function(){

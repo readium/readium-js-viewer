@@ -390,7 +390,7 @@ define('text',['module'], function (module) {
 });
 
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"b0bd446f3fbcfe99fc2678cbcc7f5808ba26f13e","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-50-gb0bd446","branch":"feature/pluginsX","release":false,"timestamp":1428403579082},"readiumJs":{"sha":"9ccfcc2afa6bef00fbbc1e59f8bc970b5ea5f1de","clean":false,"version":"0.19.0-alpha","tag":"0.15-130-g9ccfcc2","branch":"feature/pluginsX","release":false,"timestamp":1428403579451},"readiumSharedJs":{"sha":"67cdda3448048bbffac8de0f9ff82520fc3a60d4","clean":false,"version":"0.19.0-alpha","tag":"0.16-116-g67cdda3","branch":"feature/pluginsX","release":false,"timestamp":1428403579713},"readiumCfiJs":{"sha":"df0fa5de5b0496c603a0da98958b2803595dd773","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-77-gdf0fa5d","branch":"feature/plugins","release":false,"timestamp":1428403579937}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"b9009d7138a0e6e934f6ce68e8bcc36d779ce265","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-51-gb9009d7","branch":"feature/pluginsX","release":false,"timestamp":1428527277719},"readiumJs":{"sha":"da87e37d79535ce704a47f7d6497c5ad6e15e510","clean":false,"version":"0.19.0-alpha","tag":"0.15-132-gda87e37","branch":"feature/pluginsX","release":false,"timestamp":1428527278031},"readiumSharedJs":{"sha":"62638f3b138c04da1c0d4d1746e34fc4aa77533b","clean":false,"version":"0.19.0-alpha","tag":"0.16-118-g62638f3","branch":"feature/pluginsX","release":false,"timestamp":1428527278319},"readiumCfiJs":{"sha":"27e1cc47e00427ec83f58e0f1b3da8d8ba31bea6","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-78-g27e1cc4","branch":"feature/plugins","release":false,"timestamp":1428527278553}}';});
 
 EPUBcfiParser = (function() {
   /*
@@ -9561,6 +9561,16 @@ define('epub-fetch/iframe_zip_loader',['URIjs', 'views/iframe_loader', 'undersco
         };
         
         this.loadIframe = function(iframe, src, callback, caller, attachedData) {
+
+            if (!iframe.baseURI) {
+                if (typeof location !== 'undefined') {
+                    iframe.baseURI = location.href + "";
+                }
+                console.log("!iframe.baseURI => " + iframe.baseURI);
+            }
+                
+            iframe.setAttribute("data-baseUri", iframe.baseURI);
+            iframe.setAttribute("data-src", src);
 
             var loadedDocumentUri = new URI(src).absoluteTo(iframe.baseURI).search('').hash('').toString();
 

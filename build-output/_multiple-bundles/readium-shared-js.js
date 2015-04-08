@@ -4290,10 +4290,17 @@ var IFrameLoader = function() {
 
     this.loadIframe = function (iframe, src, callback, context, attachedData) {
 
+        if (!iframe.baseURI) {
+            if (typeof location !== 'undefined') {
+                iframe.baseURI = location.href + "";
+            }
+            console.log("!iframe.baseURI => " + iframe.baseURI);
+        }
+    
         iframe.setAttribute("data-baseUri", iframe.baseURI);
         iframe.setAttribute("data-src", src);
 
-        var loadedDocumentUri = new URI(src).absoluteTo(iframe.baseURI).toString();
+        var loadedDocumentUri = new URI(src).absoluteTo(iframe.baseURI).search('').hash('').toString();
 
         self._loadIframeWithUri(iframe, attachedData, loadedDocumentUri, function () {
             var doc = iframe.contentDocument || iframe.contentWindow.document;
