@@ -5,18 +5,14 @@
   "version": "2.18.0",
   "default_locale" : "en_US",
   "app": {
-      "launch": {
-         "local_path": "index.html"
-      }
+      "background": {
+        "scripts": ["background.js"]
+    }
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "icons": {
       "16": "icons/small.png",
       "48": "icons/medium.png",
       "128": "icons/large.png"
   }, 
-  "background": {
-    "scripts": ["background.js"]
-  },
   "permissions" : ["storage", "unlimitedStorage"]
 }
