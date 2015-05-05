@@ -2446,6 +2446,8 @@ var obj = {
 
         var docRange;
         var commonAncestor;
+        var $rangeStartParent;
+        var $rangeEndParent;
         var range1OffsetStep;
         var range1CFI;
         var range2OffsetStep;
@@ -2472,11 +2474,23 @@ var obj = {
 
             // Generate terminating offset and range 1
             range1OffsetStep = this.createCFITextNodeStep($(rangeStartElement), startOffset, classBlacklist, elementBlacklist, idBlacklist);
-            range1CFI = this.createCFIElementSteps($(rangeStartElement).parent(), commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range1OffsetStep;
+            $rangeStartParent = $(rangeStartElement).parent();
+            if ($rangeStartParent[0] === commonAncestor) {
+              // rangeStartElement is a text child node of the commonAncestor, so it's CFI sub-path is only the text node step:
+              range1CFI = range1OffsetStep;
+            } else {
+              range1CFI = this.createCFIElementSteps($rangeStartParent, commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range1OffsetStep;
+            }
 
             // Generate terminating offset and range 2
             range2OffsetStep = this.createCFITextNodeStep($(rangeEndElement), endOffset, classBlacklist, elementBlacklist, idBlacklist);
-            range2CFI = this.createCFIElementSteps($(rangeEndElement).parent(), commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range2OffsetStep;
+            $rangeEndParent = $(rangeEndElement).parent();
+            if ($rangeEndParent[0] === commonAncestor) {
+              // rangeEndElement is a text child node of the commonAncestor, so it's CFI sub-path is only the text node step:
+              range2CFI = range2OffsetStep;
+            } else {
+              range2CFI = this.createCFIElementSteps($rangeEndParent, commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range2OffsetStep;
+            }
 
             // Generate shared component
             commonCFIComponent = this.createCFIElementSteps($(commonAncestor), "html", classBlacklist, elementBlacklist, idBlacklist);
@@ -2808,6 +2822,15 @@ var obj = {
         var CFIPosition;
         var idAssertion;
         var elementStep; 
+
+
+
+        // per https://github.com/readium/readium-cfi-js/issues/28
+        // if the currentNode is the same as top level element, we're looking at a text node 
+        // that's a direct child of "topLevelElement" so we don't need to include it in the element step.
+        if ($currNode[0] === topLevelElement) {
+            return "";
+        }
 
         // Find position of current node in parent list
         $blacklistExcluded = cfiInstructions.applyBlacklist($currNode.parent().children(), classBlacklist, elementBlacklist, idBlacklist);

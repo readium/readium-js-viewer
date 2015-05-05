@@ -1898,7 +1898,7 @@ return cfi_parser_gen;
 });
 
 /*!
- * jQuery JavaScript Library v2.1.3
+ * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -1908,7 +1908,7 @@ return cfi_parser_gen;
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-12-18T15:11Z
+ * Date: 2015-04-28T16:01Z
  */
 
 (function( global, factory ) {
@@ -1966,7 +1966,7 @@ var
 	// Use the correct document accordingly with window argument (sandbox)
 	document = window.document,
 
-	version = "2.1.3",
+	version = "2.1.4",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -2430,7 +2430,12 @@ jQuery.each("Boolean Number String Function Array Date RegExp Object Error".spli
 });
 
 function isArraylike( obj ) {
-	var length = obj.length,
+
+	// Support: iOS 8.2 (not reproducible in simulator)
+	// `in` check used to prevent JIT error (gh-2145)
+	// hasOwn isn't used here due to false negatives
+	// regarding Nodelist length in IE
+	var length = "length" in obj && obj.length,
 		type = jQuery.type( obj );
 
 	if ( type === "function" || jQuery.isWindow( obj ) ) {
@@ -12085,6 +12090,8 @@ var obj = {
 
         var docRange;
         var commonAncestor;
+        var $rangeStartParent;
+        var $rangeEndParent;
         var range1OffsetStep;
         var range1CFI;
         var range2OffsetStep;
@@ -12111,11 +12118,23 @@ var obj = {
 
             // Generate terminating offset and range 1
             range1OffsetStep = this.createCFITextNodeStep($(rangeStartElement), startOffset, classBlacklist, elementBlacklist, idBlacklist);
-            range1CFI = this.createCFIElementSteps($(rangeStartElement).parent(), commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range1OffsetStep;
+            $rangeStartParent = $(rangeStartElement).parent();
+            if ($rangeStartParent[0] === commonAncestor) {
+              // rangeStartElement is a text child node of the commonAncestor, so it's CFI sub-path is only the text node step:
+              range1CFI = range1OffsetStep;
+            } else {
+              range1CFI = this.createCFIElementSteps($rangeStartParent, commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range1OffsetStep;
+            }
 
             // Generate terminating offset and range 2
             range2OffsetStep = this.createCFITextNodeStep($(rangeEndElement), endOffset, classBlacklist, elementBlacklist, idBlacklist);
-            range2CFI = this.createCFIElementSteps($(rangeEndElement).parent(), commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range2OffsetStep;
+            $rangeEndParent = $(rangeEndElement).parent();
+            if ($rangeEndParent[0] === commonAncestor) {
+              // rangeEndElement is a text child node of the commonAncestor, so it's CFI sub-path is only the text node step:
+              range2CFI = range2OffsetStep;
+            } else {
+              range2CFI = this.createCFIElementSteps($rangeEndParent, commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range2OffsetStep;
+            }
 
             // Generate shared component
             commonCFIComponent = this.createCFIElementSteps($(commonAncestor), "html", classBlacklist, elementBlacklist, idBlacklist);
@@ -12448,6 +12467,15 @@ var obj = {
         var idAssertion;
         var elementStep; 
 
+
+
+        // per https://github.com/readium/readium-cfi-js/issues/28
+        // if the currentNode is the same as top level element, we're looking at a text node 
+        // that's a direct child of "topLevelElement" so we don't need to include it in the element step.
+        if ($currNode[0] === topLevelElement) {
+            return "";
+        }
+
         // Find position of current node in parent list
         $blacklistExcluded = cfiInstructions.applyBlacklist($currNode.parent().children(), classBlacklist, elementBlacklist, idBlacklist);
         $.each($blacklistExcluded, 
@@ -12765,15 +12793,20 @@ EventEmitter.prototype._events = undefined;
  * Return a list of assigned event listeners.
  *
  * @param {String} event The events that should be listed.
- * @returns {Array}
+ * @param {Boolean} exists We only need to know if there are listeners.
+ * @returns {Array|Boolean}
  * @api public
  */
-EventEmitter.prototype.listeners = function listeners(event) {
-  if (!this._events || !this._events[event]) return [];
-  if (this._events[event].fn) return [this._events[event].fn];
+EventEmitter.prototype.listeners = function listeners(event, exists) {
+  var prefix = '~'+ event
+    , available = this._events && this._events[prefix];
 
-  for (var i = 0, l = this._events[event].length, ee = new Array(l); i < l; i++) {
-    ee[i] = this._events[event][i].fn;
+  if (exists) return !!available;
+  if (!available) return [];
+  if (this._events[prefix].fn) return [this._events[prefix].fn];
+
+  for (var i = 0, l = this._events[prefix].length, ee = new Array(l); i < l; i++) {
+    ee[i] = this._events[prefix][i].fn;
   }
 
   return ee;
@@ -12787,15 +12820,17 @@ EventEmitter.prototype.listeners = function listeners(event) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  if (!this._events || !this._events[event]) return false;
+  var prefix = '~'+ event;
 
-  var listeners = this._events[event]
+  if (!this._events || !this._events[prefix]) return false;
+
+  var listeners = this._events[prefix]
     , len = arguments.length
     , args
     , i;
 
   if ('function' === typeof listeners.fn) {
-    if (listeners.once) this.removeListener(event, listeners.fn, true);
+    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
       case 1: return listeners.fn.call(listeners.context), true;
@@ -12816,7 +12851,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       , j;
 
     for (i = 0; i < length; i++) {
-      if (listeners[i].once) this.removeListener(event, listeners[i].fn, true);
+      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
         case 1: listeners[i].fn.call(listeners[i].context); break;
@@ -12844,14 +12879,15 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  * @api public
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
-  var listener = new EE(fn, context || this);
+  var listener = new EE(fn, context || this)
+    , prefix = '~'+ event;
 
   if (!this._events) this._events = {};
-  if (!this._events[event]) this._events[event] = listener;
+  if (!this._events[prefix]) this._events[prefix] = listener;
   else {
-    if (!this._events[event].fn) this._events[event].push(listener);
-    else this._events[event] = [
-      this._events[event], listener
+    if (!this._events[prefix].fn) this._events[prefix].push(listener);
+    else this._events[prefix] = [
+      this._events[prefix], listener
     ];
   }
 
@@ -12867,14 +12903,15 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
-  var listener = new EE(fn, context || this, true);
+  var listener = new EE(fn, context || this, true)
+    , prefix = '~'+ event;
 
   if (!this._events) this._events = {};
-  if (!this._events[event]) this._events[event] = listener;
+  if (!this._events[prefix]) this._events[prefix] = listener;
   else {
-    if (!this._events[event].fn) this._events[event].push(listener);
-    else this._events[event] = [
-      this._events[event], listener
+    if (!this._events[prefix].fn) this._events[prefix].push(listener);
+    else this._events[prefix] = [
+      this._events[prefix], listener
     ];
   }
 
@@ -12886,22 +12923,36 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  *
  * @param {String} event The event we want to remove.
  * @param {Function} fn The listener that we need to find.
+ * @param {Mixed} context Only remove listeners matching this context.
  * @param {Boolean} once Only remove once listeners.
  * @api public
  */
-EventEmitter.prototype.removeListener = function removeListener(event, fn, once) {
-  if (!this._events || !this._events[event]) return this;
+EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
+  var prefix = '~'+ event;
 
-  var listeners = this._events[event]
+  if (!this._events || !this._events[prefix]) return this;
+
+  var listeners = this._events[prefix]
     , events = [];
 
   if (fn) {
-    if (listeners.fn && (listeners.fn !== fn || (once && !listeners.once))) {
-      events.push(listeners);
-    }
-    if (!listeners.fn) for (var i = 0, length = listeners.length; i < length; i++) {
-      if (listeners[i].fn !== fn || (once && !listeners[i].once)) {
-        events.push(listeners[i]);
+    if (listeners.fn) {
+      if (
+           listeners.fn !== fn
+        || (once && !listeners.once)
+        || (context && listeners.context !== context)
+      ) {
+        events.push(listeners);
+      }
+    } else {
+      for (var i = 0, length = listeners.length; i < length; i++) {
+        if (
+             listeners[i].fn !== fn
+          || (once && !listeners[i].once)
+          || (context && listeners[i].context !== context)
+        ) {
+          events.push(listeners[i]);
+        }
       }
     }
   }
@@ -12910,9 +12961,9 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, once)
   // Reset the array, or remove it completely if we have no more listeners.
   //
   if (events.length) {
-    this._events[event] = events.length === 1 ? events[0] : events;
+    this._events[prefix] = events.length === 1 ? events[0] : events;
   } else {
-    delete this._events[event];
+    delete this._events[prefix];
   }
 
   return this;
@@ -12927,7 +12978,7 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, once)
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   if (!this._events) return this;
 
-  if (event) delete this._events[event];
+  if (event) delete this._events['~'+ event];
   else this._events = {};
 
   return this;
@@ -12945,13 +12996,6 @@ EventEmitter.prototype.addListener = EventEmitter.prototype.on;
 EventEmitter.prototype.setMaxListeners = function setMaxListeners() {
   return this;
 };
-
-//
-// Expose the module.
-//
-EventEmitter.EventEmitter = EventEmitter;
-EventEmitter.EventEmitter2 = EventEmitter;
-EventEmitter.EventEmitter3 = EventEmitter;
 
 //
 // Expose the module.
@@ -43481,7 +43525,7 @@ return pluginAnnotationsConfig;
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"b9009d7138a0e6e934f6ce68e8bcc36d779ce265","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-51-gb9009d7","branch":"feature/pluginsX","release":false,"timestamp":1428527277719},"readiumJs":{"sha":"da87e37d79535ce704a47f7d6497c5ad6e15e510","clean":false,"version":"0.19.0-alpha","tag":"0.15-132-gda87e37","branch":"feature/pluginsX","release":false,"timestamp":1428527278031},"readiumSharedJs":{"sha":"62638f3b138c04da1c0d4d1746e34fc4aa77533b","clean":false,"version":"0.19.0-alpha","tag":"0.16-118-g62638f3","branch":"feature/pluginsX","release":false,"timestamp":1428527278319},"readiumCfiJs":{"sha":"27e1cc47e00427ec83f58e0f1b3da8d8ba31bea6","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-78-g27e1cc4","branch":"feature/plugins","release":false,"timestamp":1428527278553}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"702a0ea584f04525b1eaee6e93f6358e67373454","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-56-g702a0ea","branch":"feature/pluginsX","release":false,"timestamp":1430830560064},"readiumJs":{"sha":"42f9cce30bb6741164c78468482a056a937a93fe","clean":false,"version":"0.19.0-alpha","tag":"0.15-135-g42f9cce","branch":"feature/pluginsX","release":false,"timestamp":1430830560370},"readiumSharedJs":{"sha":"257b1238d20da742c39066701d19171a1eec7526","clean":false,"version":"0.19.0-alpha","tag":"0.16-120-g257b123","branch":"feature/pluginsX","release":false,"timestamp":1430830560660},"readiumCfiJs":{"sha":"0698ab8b5b206bf08c8a8b79be51a60fa7f35647","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-90-g0698ab8","branch":"feature/plugins","release":false,"timestamp":1430830560884}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -49771,8 +49815,10 @@ define('Readium',['text!version.json', 'jquery', 'underscore', 'views/reader_vie
         else{
             readerOptions.iframeLoader = new IframeLoader();
         }
+       
+        // is false by default, but just making this initialisation setting more explicit here.
+        readerOptions.needsFixedLayoutScalerWorkAround = false;
         
-
         this.reader = new ReaderView(readerOptions);
         ReadiumSDK.reader = this.reader;
 
@@ -56375,6 +56421,7 @@ Versioning){
   var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
     , animations = {} /* Animation rules keyed by their name */
     , useCssAnimations /* Whether to use CSS animations or setTimeout */
+    , sheet /* A stylesheet to hold the @keyframe or VML rules. */
 
   /**
    * Utility function to create elements. If no tag name is given,
@@ -56397,15 +56444,6 @@ Versioning){
 
     return parent
   }
-
-  /**
-   * Insert a new stylesheet to hold the @keyframe or VML rules.
-   */
-  var sheet = (function() {
-    var el = createEl('style', {type : 'text/css'})
-    ins(document.getElementsByTagName('head')[0], el)
-    return el.sheet || el.styleSheet
-  }())
 
   /**
    * Creates an opacity keyframe animation rule and returns its name.
@@ -56487,6 +56525,7 @@ Versioning){
     length: 7,            // The length of each line
     width: 5,             // The line thickness
     radius: 10,           // The radius of the inner circle
+    scale: 1.0,           // Scales overall size of the spinner
     rotate: 0,            // Rotation offset
     corners: 1,           // Roundness (0..1)
     color: '#000',        // #rgb or #rrggbb
@@ -56584,20 +56623,20 @@ Versioning){
       function fill(color, shadow) {
         return css(createEl(), {
           position: 'absolute',
-          width: (o.length+o.width) + 'px',
-          height: o.width + 'px',
+          width: o.scale*(o.length+o.width) + 'px',
+          height: o.scale*o.width + 'px',
           background: color,
           boxShadow: shadow,
           transformOrigin: 'left',
-          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
-          borderRadius: (o.corners * o.width>>1) + 'px'
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.scale*o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.scale*o.width>>1) + 'px'
         })
       }
 
       for (; i < o.lines; i++) {
         seg = css(createEl(), {
           position: 'absolute',
-          top: 1+~(o.width/2) + 'px',
+          top: 1+~(o.scale*o.width/2) + 'px',
           transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
           opacity: o.opacity,
           animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
@@ -56631,8 +56670,8 @@ Versioning){
     sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
 
     Spinner.prototype.lines = function(el, o) {
-      var r = o.length+o.width
-        , s = 2*r
+      var r = o.scale*(o.length+o.width)
+        , s = o.scale*2*r
 
       function grp() {
         return css(
@@ -56644,7 +56683,7 @@ Versioning){
         )
       }
 
-      var margin = -(o.width+o.length)*2 + 'px'
+      var margin = -(o.width+o.length)*o.scale*2 + 'px'
         , g = css(grp(), {position: 'absolute', top: margin, left: margin})
         , i
 
@@ -56653,9 +56692,9 @@ Versioning){
           ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
             ins(css(vml('roundrect', {arcsize: o.corners}), {
                 width: r,
-                height: o.width,
-                left: o.radius,
-                top: -o.width>>1,
+                height: o.scale*o.width,
+                left: o.scale*o.radius,
+                top: -o.scale*o.width>>1,
                 filter: filter
               }),
               vml('fill', {color: getColor(o.color, i), opacity: o.opacity}),
@@ -56683,10 +56722,18 @@ Versioning){
     }
   }
 
-  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+  if (typeof document !== 'undefined') {
+    sheet = (function() {
+      var el = createEl('style', {type : 'text/css'})
+      ins(document.getElementsByTagName('head')[0], el)
+      return el.sheet || el.styleSheet
+    }())
 
-  if (!vendor(probe, 'transform') && probe.adj) initVML()
-  else useCssAnimations = vendor(probe, 'animation')
+    var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+    if (!vendor(probe, 'transform') && probe.adj) initVML()
+    else useCssAnimations = vendor(probe, 'animation')
+  }
 
   return Spinner
 

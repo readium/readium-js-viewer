@@ -390,7 +390,7 @@ define('text',['module'], function (module) {
 });
 
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"b9009d7138a0e6e934f6ce68e8bcc36d779ce265","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-51-gb9009d7","branch":"feature/pluginsX","release":false,"timestamp":1428527277719},"readiumJs":{"sha":"da87e37d79535ce704a47f7d6497c5ad6e15e510","clean":false,"version":"0.19.0-alpha","tag":"0.15-132-gda87e37","branch":"feature/pluginsX","release":false,"timestamp":1428527278031},"readiumSharedJs":{"sha":"62638f3b138c04da1c0d4d1746e34fc4aa77533b","clean":false,"version":"0.19.0-alpha","tag":"0.16-118-g62638f3","branch":"feature/pluginsX","release":false,"timestamp":1428527278319},"readiumCfiJs":{"sha":"27e1cc47e00427ec83f58e0f1b3da8d8ba31bea6","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-78-g27e1cc4","branch":"feature/plugins","release":false,"timestamp":1428527278553}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"702a0ea584f04525b1eaee6e93f6358e67373454","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-56-g702a0ea","branch":"feature/pluginsX","release":false,"timestamp":1430830560064},"readiumJs":{"sha":"42f9cce30bb6741164c78468482a056a937a93fe","clean":false,"version":"0.19.0-alpha","tag":"0.15-135-g42f9cce","branch":"feature/pluginsX","release":false,"timestamp":1430830560370},"readiumSharedJs":{"sha":"257b1238d20da742c39066701d19171a1eec7526","clean":false,"version":"0.19.0-alpha","tag":"0.16-120-g257b123","branch":"feature/pluginsX","release":false,"timestamp":1430830560660},"readiumCfiJs":{"sha":"0698ab8b5b206bf08c8a8b79be51a60fa7f35647","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-90-g0698ab8","branch":"feature/plugins","release":false,"timestamp":1430830560884}}';});
 
 EPUBcfiParser = (function() {
   /*
@@ -2840,6 +2840,8 @@ var obj = {
 
         var docRange;
         var commonAncestor;
+        var $rangeStartParent;
+        var $rangeEndParent;
         var range1OffsetStep;
         var range1CFI;
         var range2OffsetStep;
@@ -2866,11 +2868,23 @@ var obj = {
 
             // Generate terminating offset and range 1
             range1OffsetStep = this.createCFITextNodeStep($(rangeStartElement), startOffset, classBlacklist, elementBlacklist, idBlacklist);
-            range1CFI = this.createCFIElementSteps($(rangeStartElement).parent(), commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range1OffsetStep;
+            $rangeStartParent = $(rangeStartElement).parent();
+            if ($rangeStartParent[0] === commonAncestor) {
+              // rangeStartElement is a text child node of the commonAncestor, so it's CFI sub-path is only the text node step:
+              range1CFI = range1OffsetStep;
+            } else {
+              range1CFI = this.createCFIElementSteps($rangeStartParent, commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range1OffsetStep;
+            }
 
             // Generate terminating offset and range 2
             range2OffsetStep = this.createCFITextNodeStep($(rangeEndElement), endOffset, classBlacklist, elementBlacklist, idBlacklist);
-            range2CFI = this.createCFIElementSteps($(rangeEndElement).parent(), commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range2OffsetStep;
+            $rangeEndParent = $(rangeEndElement).parent();
+            if ($rangeEndParent[0] === commonAncestor) {
+              // rangeEndElement is a text child node of the commonAncestor, so it's CFI sub-path is only the text node step:
+              range2CFI = range2OffsetStep;
+            } else {
+              range2CFI = this.createCFIElementSteps($rangeEndParent, commonAncestor, classBlacklist, elementBlacklist, idBlacklist) + range2OffsetStep;
+            }
 
             // Generate shared component
             commonCFIComponent = this.createCFIElementSteps($(commonAncestor), "html", classBlacklist, elementBlacklist, idBlacklist);
@@ -3202,6 +3216,15 @@ var obj = {
         var CFIPosition;
         var idAssertion;
         var elementStep; 
+
+
+
+        // per https://github.com/readium/readium-cfi-js/issues/28
+        // if the currentNode is the same as top level element, we're looking at a text node 
+        // that's a direct child of "topLevelElement" so we don't need to include it in the element step.
+        if ($currNode[0] === topLevelElement) {
+            return "";
+        }
 
         // Find position of current node in parent list
         $blacklistExcluded = cfiInstructions.applyBlacklist($currNode.parent().children(), classBlacklist, elementBlacklist, idBlacklist);
@@ -9759,8 +9782,10 @@ define('Readium',['text!version.json', 'jquery', 'underscore', 'views/reader_vie
         else{
             readerOptions.iframeLoader = new IframeLoader();
         }
+       
+        // is false by default, but just making this initialisation setting more explicit here.
+        readerOptions.needsFixedLayoutScalerWorkAround = false;
         
-
         this.reader = new ReaderView(readerOptions);
         ReadiumSDK.reader = this.reader;
 
