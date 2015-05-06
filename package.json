@@ -54,7 +54,7 @@
     "hogan": "latest",
     "requirejs-hogan-plugin": "latest",
     "remotestoragejs": "latest",
-    "jath": "latest",
+    "jath": "danielweck/jath",
     "spin.js": "latest",
     "gift": "latest",
     "cson": "latest",

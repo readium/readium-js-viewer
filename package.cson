@@ -130,7 +130,8 @@ devDependencies:
     
     remotestoragejs: "latest"
     
-    jath: "latest"
+    #jath: "latest"
+    jath: "danielweck/jath"
     # libxmljs node-gyp python < v3 :(
     #'jquery-xpath': "latest"
     
