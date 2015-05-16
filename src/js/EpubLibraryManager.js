@@ -1,10 +1,10 @@
-define(['jquery', 'module', 'PackageParser', 'workers/WorkerProxy', 'storage/StorageManager', 'i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
+define(['jquery', 'module', 'readium_js/epub-model/package_document_parser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
 
 	var config = module.config();
 
-	
 
-	var LibraryManager = function(){ 
+
+	var LibraryManager = function(){
 	};
 
 	LibraryManager.prototype = {
@@ -15,12 +15,12 @@ define(['jquery', 'module', 'PackageParser', 'workers/WorkerProxy', 'storage/Sto
 
             var parts = packageUrl.split('/');
             parts.pop();
-            
+
             var root = parts.join('/');
 
             return root + (relativeUrl.charAt(0) == '/' ? '' : '/') + relativeUrl
         },
-        
+
         retrieveAvailableEpubs : function(success, error){
             var indexUrl = StorageManager.getPathUrl('/epub_library.json');
             if (this.libraryData){
@@ -36,7 +36,7 @@ define(['jquery', 'module', 'PackageParser', 'workers/WorkerProxy', 'storage/Sto
                 success([]);
             });
 		},
-        
+
         deleteEpubWithId : function(id, success, error){
             WorkerProxy.deleteEpub(id, this.libraryData, {
                 success: this._refreshLibraryFromWorker.bind(this, success),
@@ -46,7 +46,7 @@ define(['jquery', 'module', 'PackageParser', 'workers/WorkerProxy', 'storage/Sto
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
 			$.get(packageUrl, function(data){
-                
+
                 if(typeof(data) === "string" ) {
                     var parser = new window.DOMParser;
                     data = parser.parseFromString(data, 'text/xml');
@@ -58,7 +58,7 @@ define(['jquery', 'module', 'PackageParser', 'workers/WorkerProxy', 'storage/Sto
                 jsonObj.rootUrl = rootUrl;
                 jsonObj.noCoverBackground = noCoverBackground;
                 success(jsonObj);
-				
+
 			}).fail(error);
 		},
         _refreshLibraryFromWorker : function(callback, newLibraryData){
@@ -77,12 +77,12 @@ define(['jquery', 'module', 'PackageParser', 'workers/WorkerProxy', 'storage/Sto
         },
         handleDirectoryImport : function(options){
 
-            var rawFiles = options.files, 
+            var rawFiles = options.files,
                 files = {};
             for (var i = 0; i < rawFiles.length; i++){
                  var path = rawFiles[i].webkitRelativePath
-                // don't capture paths that contain . at the beginning of a file or dir. 
-                // These are hidden files. I don't think chrome will ever reference 
+                // don't capture paths that contain . at the beginning of a file or dir.
+                // These are hidden files. I don't think chrome will ever reference
                 // a file using double dot "/.." so this should be safe
                 if (path.indexOf('/.') != -1){
                     continue;

@@ -1873,29 +1873,12 @@ EPUBcfiParser = (function() {
   };
 })();
 
-define("cfi_parser_gen", (function (global) {
+define("readium_cfi_js/cfi_parser", (function (global) {
     return function () {
         var ret, fn;
         return ret || global.EPUBcfiParser;
     };
 }(this)));
-
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('cfi_parser',["./cfi_parser_gen"], function (cfi_parser_gen) {
-return cfi_parser_gen;
-});
 
 /*!
  * jQuery JavaScript Library v2.1.4
@@ -11206,7 +11189,7 @@ CFIAssertionError: function (expectedAssertion, targetElementAssertion, message)
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_errors");
     
-    define('cfi_runtime_errors',[],
+    define('readium_cfi_js/cfi_runtime_errors',[],
     function () {
         return obj;
     });
@@ -11593,7 +11576,7 @@ return obj;
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_instructions");
     
-    define('cfi_instructions',['jquery', './cfi_runtime_errors'],
+    define('readium_cfi_js/cfi_instructions',['jquery', './cfi_runtime_errors'],
     function ($, cfiRuntimeErrors) {
         return init($, cfiRuntimeErrors);
     });
@@ -11616,34 +11599,34 @@ if (typeof define == 'function' && typeof define.amd == 'object') {
 })(typeof window !== "undefined" ? window : this);
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 (function(global) {
 
 var init = function($, cfiParser, cfiInstructions, cfiRuntimeErrors) {
-    
+
     if (typeof cfiParser === "undefined") {
         throw new Error("UNDEFINED?! cfiParser");
     }
-    
+
     if (typeof cfiInstructions === "undefined") {
         throw new Error("UNDEFINED?! cfiInstructions");
     }
-    
+
     if (typeof cfiRuntimeErrors === "undefined") {
         throw new Error("UNDEFINED?! cfiRuntimeErrors");
     }
-    
+
 var obj = {
 
 // Description: This is an interpreter that inteprets an Abstract Syntax Tree (AST) for a CFI. The result of executing the interpreter
@@ -11651,32 +11634,32 @@ var obj = {
 //   represent the position or area in the EPUB referenced by a CFI.
 // Rationale: The AST is a clean and readable expression of the step-terminus structure of a CFI. Although building an interpreter adds to the
 //   CFI infrastructure, it provides a number of benefits. First, it emphasizes a clear separation of concerns between lexing/parsing a
-//   CFI, which involves some complexity related to escaped and special characters, and the execution of the underlying set of steps 
+//   CFI, which involves some complexity related to escaped and special characters, and the execution of the underlying set of steps
 //   represented by the CFI. Second, it will be easier to extend the interpreter to account for new/altered CFI steps (say for references
-//   to vector objects or multiple CFIs) than if lexing, parsing and interpretation were all handled in a single step. Finally, Readium's objective is 
-//   to demonstrate implementation of the EPUB 3.0 spec. An implementation with a strong separation of concerns that conforms to 
-//   well-understood patterns for DSL processing should be easier to communicate, analyze and understand. 
-// REFACTORING CANDIDATE: node type errors shouldn't really be possible if the CFI syntax is correct and the parser is error free. 
-//   Might want to make the script die in those instances, once the grammar and interpreter are more stable. 
-// REFACTORING CANDIDATE: The use of the 'nodeType' property is confusing as this is a DOM node property and the two are unrelated. 
-//   Whoops. There shouldn't be any interference, however, I think this should be changed. 
+//   to vector objects or multiple CFIs) than if lexing, parsing and interpretation were all handled in a single step. Finally, Readium's objective is
+//   to demonstrate implementation of the EPUB 3.0 spec. An implementation with a strong separation of concerns that conforms to
+//   well-understood patterns for DSL processing should be easier to communicate, analyze and understand.
+// REFACTORING CANDIDATE: node type errors shouldn't really be possible if the CFI syntax is correct and the parser is error free.
+//   Might want to make the script die in those instances, once the grammar and interpreter are more stable.
+// REFACTORING CANDIDATE: The use of the 'nodeType' property is confusing as this is a DOM node property and the two are unrelated.
+//   Whoops. There shouldn't be any interference, however, I think this should be changed.
 
     // ------------------------------------------------------------------------------------ //
     //  "PUBLIC" METHODS (THE API)                                                          //
     // ------------------------------------------------------------------------------------ //
 
-    // Description: Find the content document referenced by the spine item. This should be the spine item 
+    // Description: Find the content document referenced by the spine item. This should be the spine item
     //   referenced by the first indirection step in the CFI.
-    // Rationale: This method is a part of the API so that the reading system can "interact" the content document 
-    //   pointed to by a CFI. If this is not a separate step, the processing of the CFI must be tightly coupled with 
-    //   the reading system, as it stands now. 
+    // Rationale: This method is a part of the API so that the reading system can "interact" the content document
+    //   pointed to by a CFI. If this is not a separate step, the processing of the CFI must be tightly coupled with
+    //   the reading system, as it stands now.
     getContentDocHref : function (CFI, packageDocument, classBlacklist, elementBlacklist, idBlacklist) {
 
         var $packageDocument = $(packageDocument);
         var decodedCFI = decodeURI(CFI);
         var CFIAST = cfiParser.parse(decodedCFI);
 
-        if (!CFIAST || CFIAST.type !== "CFIAST") { 
+        if (!CFIAST || CFIAST.type !== "CFIAST") {
             throw cfiRuntimeErrors.NodeTypeError(CFIAST, "expected CFI AST root node");
         }
 
@@ -11702,7 +11685,7 @@ var obj = {
         var indirectionStepNum;
         var $currElement;
 
-        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning 
+        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning
         //   of the indirection step that referenced the content document.
         // Note: This assumes that indirection steps and index steps conform to an interface: an object with stepLength, idAssertion
         indirectionStepNum = this.getFirstIndirectionStepNum(CFIAST);
@@ -11730,7 +11713,7 @@ var obj = {
         var $range1TargetElement;
         var $range2TargetElement;
 
-        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning 
+        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning
         //   of the indirection step that referenced the content document.
         // Note: This assumes that indirection steps and index steps conform to an interface: an object with stepLength, idAssertion
         indirectionStepNum = this.getFirstIndirectionStepNum(CFIAST);
@@ -11755,7 +11738,7 @@ var obj = {
         };
     },
 
-    // Description: This method will return the element or node (say, a text node) that is the final target of the 
+    // Description: This method will return the element or node (say, a text node) that is the final target of the
     //   the CFI.
     getTargetElement : function (CFI, contentDocument, classBlacklist, elementBlacklist, idBlacklist) {
 
@@ -11764,8 +11747,8 @@ var obj = {
         var indirectionNode;
         var indirectionStepNum;
         var $currElement;
-        
-        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning 
+
+        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning
         //   of the indirection step that referenced the content document.
         // Note: This assumes that indirection steps and index steps conform to an interface: an object with stepLength, idAssertion
         indirectionStepNum = this.getFirstIndirectionStepNum(CFIAST);
@@ -11789,8 +11772,8 @@ var obj = {
         var $currElement;
         var $range1TargetElement;
         var $range2TargetElement;
-        
-        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning 
+
+        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning
         //   of the indirection step that referenced the content document.
         // Note: This assumes that indirection steps and index steps conform to an interface: an object with stepLength, idAssertion
         indirectionStepNum = this.getFirstIndirectionStepNum(CFIAST);
@@ -11819,13 +11802,13 @@ var obj = {
         };
     },
 
-    // Description: This method allows a "partial" CFI to be used to reference a target in a content document, without a 
-    //   package document CFI component. 
+    // Description: This method allows a "partial" CFI to be used to reference a target in a content document, without a
+    //   package document CFI component.
     // Arguments: {
-    //     contentDocumentCFI : This is a partial CFI that represents a path in a content document only. This partial must be 
+    //     contentDocumentCFI : This is a partial CFI that represents a path in a content document only. This partial must be
     //        syntactically valid, even though it references a path starting at the top of a content document (which is a CFI that
     //        that has no defined meaning in the spec.)
-    //     contentDocument : A DOM representation of the content document to which the partial CFI refers. 
+    //     contentDocument : A DOM representation of the content document to which the partial CFI refers.
     // }
     // Rationale: This method exists to meet the requirements of the Readium-SDK and should be used with care
     getTargetElementWithPartialCFI : function (contentDocumentCFI, contentDocument, classBlacklist, elementBlacklist, idBlacklist) {
@@ -11833,24 +11816,24 @@ var obj = {
         var decodedCFI = decodeURI(contentDocumentCFI);
         var CFIAST = cfiParser.parse(decodedCFI);
         var indirectionNode;
-        
-        // Interpret the path node 
+
+        // Interpret the path node
         var $currElement = this.interpretIndexStepNode(CFIAST.cfiString.path, $("html", contentDocument), classBlacklist, elementBlacklist, idBlacklist);
 
         // Interpret the rest of the steps
         $currElement = this.interpretLocalPath(CFIAST.cfiString.localPath, 0, $currElement, classBlacklist, elementBlacklist, idBlacklist);
 
         // Return the element at the end of the CFI
-        return $currElement;        
+        return $currElement;
     },
 
-    // Description: This method allows a "partial" CFI to be used, with a content document, to return the text node and offset 
+    // Description: This method allows a "partial" CFI to be used, with a content document, to return the text node and offset
     //    referenced by the partial CFI.
     // Arguments: {
-    //     contentDocumentCFI : This is a partial CFI that represents a path in a content document only. This partial must be 
+    //     contentDocumentCFI : This is a partial CFI that represents a path in a content document only. This partial must be
     //        syntactically valid, even though it references a path starting at the top of a content document (which is a CFI that
     //        that has no defined meaning in the spec.)
-    //     contentDocument : A DOM representation of the content document to which the partial CFI refers. 
+    //     contentDocument : A DOM representation of the content document to which the partial CFI refers.
     // }
     // Rationale: This method exists to meet the requirements of the Readium-SDK and should be used with care
     getTextTerminusInfoWithPartialCFI : function (contentDocumentCFI, contentDocument, classBlacklist, elementBlacklist, idBlacklist) {
@@ -11859,8 +11842,8 @@ var obj = {
         var CFIAST = cfiParser.parse(decodedCFI);
         var indirectionNode;
         var textOffset;
-        
-        // Interpret the path node 
+
+        // Interpret the path node
         var $currElement = this.interpretIndexStepNode(CFIAST.cfiString.path, $("html", contentDocument), classBlacklist, elementBlacklist, idBlacklist);
 
         // Interpret the rest of the steps
@@ -11884,11 +11867,11 @@ var obj = {
 
     getFirstIndirectionStepNum : function (CFIAST) {
 
-        // Find the first indirection step in the local path; follow it like a regular step, as the step in the content document it 
+        // Find the first indirection step in the local path; follow it like a regular step, as the step in the content document it
         //   references is already loaded and has been passed to this method
         var stepNum = 0;
         for (stepNum; stepNum <= CFIAST.cfiString.localPath.steps.length - 1 ; stepNum++) {
-        
+
             nextStepNode = CFIAST.cfiString.localPath.steps[stepNum];
             if (nextStepNode.type === "indirectionStep") {
                 return stepNum;
@@ -11896,14 +11879,14 @@ var obj = {
         }
     },
 
-    // REFACTORING CANDIDATE: cfiString node and start step num could be merged into one argument, by simply passing the 
+    // REFACTORING CANDIDATE: cfiString node and start step num could be merged into one argument, by simply passing the
     //   starting step... probably a good idea, this would make the meaning of this method clearer.
     interpretLocalPath : function (localPathNode, startStepNum, $currElement, classBlacklist, elementBlacklist, idBlacklist) {
 
         var stepNum = startStepNum;
         var nextStepNode;
         for (stepNum; stepNum <= localPathNode.steps.length - 1 ; stepNum++) {
-        
+
             nextStepNode = localPathNode.steps[stepNum];
             if (nextStepNode.type === "indexStep") {
 
@@ -11951,9 +11934,9 @@ var obj = {
 
         // Indirection step
         var $stepTarget = cfiInstructions.followIndirectionStep(
-            indirectionStepNode.stepLength, 
-            $currElement, 
-            classBlacklist, 
+            indirectionStepNode.stepLength,
+            $currElement,
+            classBlacklist,
             elementBlacklist);
 
         // Check the id assertion, if it exists
@@ -11970,7 +11953,7 @@ var obj = {
 
     // REFACTORING CANDIDATE: The logic here assumes that a user will always want to use this terminus
     //   to inject content into the found node. This will not always be the case, and different types of interpretation
-    //   are probably desired. 
+    //   are probably desired.
     interpretTextTerminusNode : function (terminusNode, $currElement, elementToInject) {
 
         if (terminusNode === undefined || terminusNode.type !== "textTerminus") {
@@ -11979,8 +11962,8 @@ var obj = {
         }
 
         var $injectedElement = cfiInstructions.textTermination(
-            $currElement, 
-            terminusNode.offsetValue, 
+            $currElement,
+            terminusNode.offsetValue,
             elementToInject
             );
 
@@ -11993,10 +11976,10 @@ var obj = {
         var stepNum = 0;
         var nextStepNode;
         for (stepNum = 0 ; stepNum <= localPathNode.steps.length - 1 ; stepNum++) {
-        
+
             nextStepNode = localPathNode.steps[stepNum];
             if (nextStepNode.type === "indexStep") {
-                
+
                 $currElement = this.interpretIndexStepNode(nextStepNode, $currElement, classBlacklist, elementBlacklist, idBlacklist);
             }
             else if (nextStepNode.type === "indirectionStep") {
@@ -12004,7 +11987,7 @@ var obj = {
                 $currElement = this.interpretIndirectionStepNode(nextStepNode, $currElement, classBlacklist, elementBlacklist, idBlacklist);
             }
 
-            // Found the content document href referenced by the spine item 
+            // Found the content document href referenced by the spine item
             if ($currElement.is("itemref")) {
 
                 return cfiInstructions.retrieveItemRefHref($currElement, $packageDocument);
@@ -12029,18 +12012,18 @@ return obj;
 
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_interpreter");
-    
-    define('cfi_interpreter',['jquery', './cfi_parser', './cfi_instructions', './cfi_runtime_errors'],
+
+    define('readium_cfi_js/cfi_interpreter',['jquery', 'readium_cfi_js/cfi_parser', './cfi_instructions', './cfi_runtime_errors'],
     function ($, cfiParser, cfiInstructions, cfiRuntimeErrors) {
         return init($, cfiParser, cfiInstructions, cfiRuntimeErrors);
     });
 } else {
     console.log("!RequireJS ... cfi_interpreter");
-    
+
     if (!global["EPUBcfi"]) {
         throw new Error("EPUBcfi not initialised on global object?! (window or this context)");
     }
-    global.EPUBcfi.Interpreter = 
+    global.EPUBcfi.Interpreter =
     init($,
         global.EPUBcfi.Parser,
         global.EPUBcfi.CFIInstructions,
@@ -12536,7 +12519,7 @@ return obj;
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_generator");
     
-    define('cfi_generator',['jquery', './cfi_instructions', './cfi_runtime_errors'],
+    define('readium_cfi_js/cfi_generator',['jquery', './cfi_instructions', './cfi_runtime_errors'],
     function ($, cfiInstructions, cfiRuntimeErrors) {
         return init($, cfiInstructions, cfiRuntimeErrors);
     });
@@ -12560,44 +12543,44 @@ if (typeof define == 'function' && typeof define.amd == 'object') {
 })(typeof window !== "undefined" ? window : this);
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 (function(global) {
 
 var init = function(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors, cfiGenerator) {
-    
+
     if (typeof cfiParser === "undefined") {
         throw new Error("UNDEFINED?! cfiParser");
     }
-    
+
     if (typeof cfiInterpreter === "undefined") {
         throw new Error("UNDEFINED?! cfiInterpreter");
     }
-    
+
     if (typeof cfiInstructions === "undefined") {
         throw new Error("UNDEFINED?! cfiInstructions");
     }
-    
+
     if (typeof cfiRuntimeErrors === "undefined") {
         throw new Error("UNDEFINED?! cfiRuntimeErrors");
     }
-    
+
     if (typeof cfiGenerator === "undefined") {
         throw new Error("UNDEFINED?! cfiGenerator");
     }
-    
+
     var obj = {
-    
+
         getContentDocHref : function (CFI, packageDocument) {
             return cfiInterpreter.getContentDocHref(CFI, packageDocument);
         },
@@ -12650,8 +12633,8 @@ var init = function(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors
             return cfiInstructions.injectCFIMarkerIntoText($textNodeList, textOffset, elementToInject);
         }
     };
-    
-    
+
+
     // TODO: remove global (should not be necessary in properly-configured RequireJS build!)
     // ...but we leave it here as a "legacy" mechanism to access the CFI lib functionality
     // -----
@@ -12659,19 +12642,19 @@ var init = function(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors
     obj.Parser = cfiParser;
     obj.Interpreter = cfiInterpreter;
     obj.Generator = cfiGenerator;
-    
+
     obj.NodeTypeError= cfiRuntimeErrors.NodeTypeError;
     obj.OutOfRangeError = cfiRuntimeErrors.OutOfRangeError;
     obj.TerminusError = cfiRuntimeErrors.TerminusError;
     obj.CFIAssertionError = cfiRuntimeErrors.CFIAssertionError;
-    
+
     global.EPUBcfi = obj;
     // -----
-    
+
     console.log("#######################################");
     // console.log(global.EPUBcfi);
     // console.log("#######################################");
-    
+
     return obj;
 }
 
@@ -12682,19 +12665,19 @@ var init = function(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors
 
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_API");
-    
-    define('cfi_API',['./cfi_parser', './cfi_interpreter', './cfi_instructions', './cfi_runtime_errors', './cfi_generator'],
+
+    define('readium_cfi_js/cfi_API',['readium_cfi_js/cfi_parser', './cfi_interpreter', './cfi_instructions', './cfi_runtime_errors', './cfi_generator'],
     function (cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors, cfiGenerator) {
-        
+
         return init(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors, cfiGenerator);
     });
 } else {
     console.log("!RequireJS ... cfi_API");
-    
+
     if (!global["EPUBcfi"]) {
         throw new Error("EPUBcfi not initialised on global object?! (window or this context)");
     }
-    
+
     init(global.EPUBcfi.Parser,
         global.EPUBcfi.Interpreter,
         global.EPUBcfi.CFIInstructions,
@@ -12709,40 +12692,7 @@ if (typeof define == 'function' && typeof define.amd == 'object') {
 
 })(typeof window !== "undefined" ? window : this);
 
-
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('readium-cfi-js',['cfi_API'], function (cfi) {
-return cfi;
-});
-
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('epubCfi',['readium-cfi-js'], function (cfi) {
-return cfi;
-});
+define('readium_cfi_js', ['readium_cfi_js/cfi_API'], function (main) { return main; });
 
 /*
 This code is required to IE for console shim
@@ -12757,6 +12707,16 @@ This code is required to IE for console shim
 define("console_shim", function(){});
 
 define('eventEmitter',['require','exports','module'],function (require, exports, module) {'use strict';
+
+//
+// We store our EE objects in a plain object whose properties are event names.
+// If `Object.create(null)` is not supported we prefix the event names with a
+// `~` to make sure that the built-in object properties are not overridden or
+// used as an attack vector.
+// We also assume that `Object.create(null)` is available when the event name
+// is an ES6 Symbol.
+//
+var prefix = typeof Object.create !== 'function' ? '~' : false;
 
 /**
  * Representation of a single EventEmitter function.
@@ -12798,15 +12758,15 @@ EventEmitter.prototype._events = undefined;
  * @api public
  */
 EventEmitter.prototype.listeners = function listeners(event, exists) {
-  var prefix = '~'+ event
-    , available = this._events && this._events[prefix];
+  var evt = prefix ? prefix + event : event
+    , available = this._events && this._events[evt];
 
   if (exists) return !!available;
   if (!available) return [];
-  if (this._events[prefix].fn) return [this._events[prefix].fn];
+  if (this._events[evt].fn) return [this._events[evt].fn];
 
-  for (var i = 0, l = this._events[prefix].length, ee = new Array(l); i < l; i++) {
-    ee[i] = this._events[prefix][i].fn;
+  for (var i = 0, l = this._events[evt].length, ee = new Array(l); i < l; i++) {
+    ee[i] = this._events[evt][i].fn;
   }
 
   return ee;
@@ -12820,11 +12780,11 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  var prefix = '~'+ event;
+  var evt = prefix ? prefix + event : event;
 
-  if (!this._events || !this._events[prefix]) return false;
+  if (!this._events || !this._events[evt]) return false;
 
-  var listeners = this._events[prefix]
+  var listeners = this._events[evt]
     , len = arguments.length
     , args
     , i;
@@ -12880,14 +12840,14 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
   var listener = new EE(fn, context || this)
-    , prefix = '~'+ event;
+    , evt = prefix ? prefix + event : event;
 
-  if (!this._events) this._events = {};
-  if (!this._events[prefix]) this._events[prefix] = listener;
+  if (!this._events) this._events = prefix ? {} : Object.create(null);
+  if (!this._events[evt]) this._events[evt] = listener;
   else {
-    if (!this._events[prefix].fn) this._events[prefix].push(listener);
-    else this._events[prefix] = [
-      this._events[prefix], listener
+    if (!this._events[evt].fn) this._events[evt].push(listener);
+    else this._events[evt] = [
+      this._events[evt], listener
     ];
   }
 
@@ -12904,14 +12864,14 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
   var listener = new EE(fn, context || this, true)
-    , prefix = '~'+ event;
+    , evt = prefix ? prefix + event : event;
 
-  if (!this._events) this._events = {};
-  if (!this._events[prefix]) this._events[prefix] = listener;
+  if (!this._events) this._events = prefix ? {} : Object.create(null);
+  if (!this._events[evt]) this._events[evt] = listener;
   else {
-    if (!this._events[prefix].fn) this._events[prefix].push(listener);
-    else this._events[prefix] = [
-      this._events[prefix], listener
+    if (!this._events[evt].fn) this._events[evt].push(listener);
+    else this._events[evt] = [
+      this._events[evt], listener
     ];
   }
 
@@ -12928,11 +12888,11 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var prefix = '~'+ event;
+  var evt = prefix ? prefix + event : event;
 
-  if (!this._events || !this._events[prefix]) return this;
+  if (!this._events || !this._events[evt]) return this;
 
-  var listeners = this._events[prefix]
+  var listeners = this._events[evt]
     , events = [];
 
   if (fn) {
@@ -12961,9 +12921,9 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
   // Reset the array, or remove it completely if we have no more listeners.
   //
   if (events.length) {
-    this._events[prefix] = events.length === 1 ? events[0] : events;
+    this._events[evt] = events.length === 1 ? events[0] : events;
   } else {
-    delete this._events[prefix];
+    delete this._events[evt];
   }
 
   return this;
@@ -12978,8 +12938,8 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   if (!this._events) return this;
 
-  if (event) delete this._events['~'+ event];
-  else this._events = {};
+  if (event) delete this._events[prefix ? prefix + event : event];
+  else this._events = prefix ? {} : Object.create(null);
 
   return this;
 };
@@ -12996,6 +12956,11 @@ EventEmitter.prototype.addListener = EventEmitter.prototype.on;
 EventEmitter.prototype.setMaxListeners = function setMaxListeners() {
   return this;
 };
+
+//
+// Expose the prefix.
+//
+EventEmitter.prefixed = prefix;
 
 //
 // Expose the module.
@@ -13517,7 +13482,7 @@ module.exports = EventEmitter;
  * URI.js - Mutating URLs
  * IPv6 Support
  *
- * Version: 1.15.0
+ * Version: 1.15.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -13706,7 +13671,7 @@ module.exports = EventEmitter;
  * URI.js - Mutating URLs
  * Second Level Domain (SLD) Support
  *
- * Version: 1.15.0
+ * Version: 1.15.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -13947,7 +13912,7 @@ module.exports = EventEmitter;
 /*!
  * URI.js - Mutating URLs
  *
- * Version: 1.15.0
+ * Version: 1.15.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -13980,13 +13945,24 @@ module.exports = EventEmitter;
   var _URI = root && root.URI;
 
   function URI(url, base) {
+    var _urlSupplied = arguments.length >= 1;
+    var _baseSupplied = arguments.length >= 2;
+
     // Allow instantiation without the 'new' keyword
     if (!(this instanceof URI)) {
-      return new URI(url, base);
+      if (_urlSupplied) {
+        if (_baseSupplied) {
+          return new URI(url, base);
+        }
+
+        return new URI(url);
+      }
+
+      return new URI();
     }
 
     if (url === undefined) {
-      if (arguments.length) {
+      if (_urlSupplied) {
         throw new TypeError('undefined is not a valid argument for URI');
       }
 
@@ -14007,7 +13983,7 @@ module.exports = EventEmitter;
     return this;
   }
 
-  URI.version = '1.15.0';
+  URI.version = '1.15.1';
 
   var p = URI.prototype;
   var hasOwn = Object.prototype.hasOwnProperty;
@@ -14034,7 +14010,9 @@ module.exports = EventEmitter;
     var lookup = {};
     var i, length;
 
-    if (isArray(value)) {
+    if (getType(value) === 'RegExp') {
+      lookup = null;
+    } else if (isArray(value)) {
       for (i = 0, length = value.length; i < length; i++) {
         lookup[value[i]] = true;
       }
@@ -14043,7 +14021,11 @@ module.exports = EventEmitter;
     }
 
     for (i = 0, length = data.length; i < length; i++) {
-      if (lookup[data[i]] !== undefined) {
+      /*jshint laxbreak: true */
+      var _match = lookup && lookup[data[i]] !== undefined
+        || !lookup && value.test(data[i]);
+      /*jshint laxbreak: false */
+      if (_match) {
         data.splice(i, 1);
         length--;
         i--;
@@ -14679,6 +14661,12 @@ module.exports = EventEmitter;
       for (i = 0, length = name.length; i < length; i++) {
         data[name[i]] = undefined;
       }
+    } else if (getType(name) === 'RegExp') {
+      for (key in data) {
+        if (name.test(key)) {
+          data[key] = undefined;
+        }
+      }
     } else if (typeof name === 'object') {
       for (key in name) {
         if (hasOwn.call(name, key)) {
@@ -14687,7 +14675,13 @@ module.exports = EventEmitter;
       }
     } else if (typeof name === 'string') {
       if (value !== undefined) {
-        if (data[name] === value) {
+        if (getType(value) === 'RegExp') {
+          if (!isArray(data[name]) && value.test(data[name])) {
+            data[name] = undefined;
+          } else {
+            data[name] = filterArrayValues(data[name], value);
+          }
+        } else if (data[name] === value) {
           data[name] = undefined;
         } else if (isArray(data[name])) {
           data[name] = filterArrayValues(data[name], value);
@@ -14696,7 +14690,7 @@ module.exports = EventEmitter;
         data[name] = undefined;
       }
     } else {
-      throw new TypeError('URI.removeQuery() accepts an object, string as the first parameter');
+      throw new TypeError('URI.removeQuery() accepts an object, string, RegExp as the first parameter');
     }
   };
   URI.hasQuery = function(data, name, value, withinArray) {
@@ -17602,7 +17596,7 @@ module.exports = EventEmitter;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('globals',['underscore','eventEmitter'], function(_, EventEmitter) {
+define('readium_shared_js/globals',['underscore','eventEmitter'], function(_, EventEmitter) {
 /**
  * Top level ReadiumSDK namespace
  * @namespace
@@ -17748,20 +17742,20 @@ navigator.epubReadingSystem = {
     }
 };
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 //'text!empty:'
-define('globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'epubCfi', 'globals'], function (console_shim, EventEmitter, URI, epubCfi, Globals) {
+define('readium_shared_js/globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'readium_cfi_js', './globals'], function (console_shim, EventEmitter, URI, epubCfi, Globals) {
 
     console.log("Globals...");
 
@@ -17772,8 +17766,8 @@ define('globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'epubCfi', 'glob
         console.log("ReadiumSDK set.");
         window.ReadiumSDK = Globals;
     }
-    
-    
+
+
     // TODO: refactor client code to use emit instead of trigger?
     EventEmitter.prototype.trigger = EventEmitter.prototype.emit;
 
@@ -17792,6 +17786,8 @@ define('globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'epubCfi', 'glob
         window.URL = window.webkitURL;
     }
 });
+
+define('readium_shared_js', ['readium_shared_js/globalsSetup'], function (main) { return main; });
 
 //
 //  Created by Juan Corona
@@ -17822,8 +17818,8 @@ define('globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'epubCfi', 'glob
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('plugins-controller',["jquery", "underscore", "eventEmitter", "globals"], function ($, _, EventEmitter, Globals) {
-    
+define('readium_shared_js/plugins_controller',["jquery", "underscore", "eventEmitter", "readium_shared_js/globals"], function ($, _, EventEmitter, Globals) {
+
     /**
      * A  plugins controller used to easily add plugins from the host app, eg.
      * ReadiumSDK.Plugins.register("footnotes", function(api){ ... });
@@ -18021,7 +18017,7 @@ define('plugins-controller',["jquery", "underscore", "eventEmitter", "globals"],
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/bookmark_data',[],function() {
+define('readium_shared_js/models/bookmark_data',[],function() {
 /**
  * @class Models.BookmarkData
  */
@@ -18073,7 +18069,7 @@ return BookmarkData;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/current_pages_info',[],function() {
+define('readium_shared_js/models/current_pages_info',[],function() {
 
 /**
  * Used to report pagination state back to the host application
@@ -18186,7 +18182,7 @@ return CurrentPagesInfo;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/fixed_page_spread',[],function() {
+define('readium_shared_js/models/fixed_page_spread',[],function() {
 /**
  *
  * @param {Models.Spine} spine
@@ -18477,7 +18473,7 @@ define("jquerySizes", ["jquery"], (function (global) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/spine_item',[], function() {
+define('readium_shared_js/models/spine_item',[], function() {
 
 /**
  * Wrapper of the SpineItem object received from the host application
@@ -18722,7 +18718,7 @@ SpineItem.alternateSpread = function(spread) {
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define('helpers',['underscore', "jquery", "jquerySizes", "./models/spine_item", "./globals"], function(_, $, JQuerySizes, SpineItem, Globals) {
+define('readium_shared_js/helpers',['underscore', "jquery", "jquerySizes", "./models/spine_item", "./globals"], function(_, $, JQuerySizes, SpineItem, Globals) {
 
 var Helpers = {};
 
@@ -19348,7 +19344,7 @@ return Helpers;
  *      - paginationInfo    Layout details, used by clientRect-based geometry
  * @constructor
  */
-define('views/cfi_navigation_logic',["jquery", "underscore", "../helpers", 'epubCfi'], function($, _, Helpers, epubCfi) {
+define('readium_shared_js/views/cfi_navigation_logic',["jquery", "underscore", "../helpers", 'readium_cfi_js'], function($, _, Helpers, epubCfi) {
 
 var CfiNavigationLogic = function($viewport, $iframe, options){
 
@@ -20116,7 +20112,7 @@ return CfiNavigationLogic;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/viewer_settings',[], function() {
+define('readium_shared_js/models/viewer_settings',[], function() {
 /**
  *
  * @param settingsData
@@ -20234,7 +20230,7 @@ var ViewerSettings = function(settingsData) {
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-define('views/one_page_view',["jquery", "underscore", "eventEmitter", "./cfi_navigation_logic", "../helpers", "../models/viewer_settings"],
+define('readium_shared_js/views/one_page_view',["jquery", "underscore", "eventEmitter", "./cfi_navigation_logic", "../helpers", "../models/viewer_settings"],
     function ($, _, EventEmitter, CfiNavigationLogic, Helpers, ViewerSettings) {
 
 /**
@@ -21149,7 +21145,7 @@ return OnePageView;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/page_open_request',[],function() {
+define('readium_shared_js/models/page_open_request',[],function() {
 /**
  * Representation of opening page request
  * Provides the spine item to be opened and one of the following properties:
@@ -21238,7 +21234,7 @@ return PageOpenRequest;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define ('views/fixed_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "../models/current_pages_info",
+define ('readium_shared_js/views/fixed_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "../models/current_pages_info",
     "../models/fixed_page_spread", "./one_page_view", "../models/page_open_request", "../helpers", "../globals"],
     function($, _, EventEmitter, BookmarkData, CurrentPagesInfo,
              Spread, OnePageView, PageOpenRequest, Helpers, Globals) {
@@ -21919,7 +21915,7 @@ var FixedView = function(options, reader){
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/iframe_loader',["jquery", "underscore"], function($, _) {
+define('readium_shared_js/views/iframe_loader',["jquery", "underscore"], function($, _) {
 /**
  *
  * @constructor
@@ -22027,7 +22023,7 @@ return IFrameLoader;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/internal_links_support',['jquery', '../helpers', 'epubCfi'], function($, Helpers, epubCfi) {
+define('readium_shared_js/views/internal_links_support',['jquery', '../helpers', 'readium_cfi_js'], function($, Helpers, epubCfi) {
 /**
  *
  * @param reader
@@ -22257,7 +22253,7 @@ return InternalLinksSupport;
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define ('models/smil_iterator',["jquery", "../helpers"], function($, Helpers) {
+define ('readium_shared_js/models/smil_iterator',["jquery", "../helpers"], function($, Helpers) {
 /**
  *
  * @param smil
@@ -30322,7 +30318,7 @@ return core;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define ('views/media_overlay_data_injector',["jquery", "underscore", "../helpers", "../models/smil_iterator", "rangy", 'epubCfi'], function($, _, Helpers, SmilIterator, rangy, epubCfi) {
+define ('readium_shared_js/views/media_overlay_data_injector',["jquery", "underscore", "../helpers", "../models/smil_iterator", "rangy", 'readium_cfi_js'], function($, _, Helpers, SmilIterator, rangy, epubCfi) {
 /**
  *
  * @param mediaOverlay
@@ -30891,7 +30887,7 @@ return MediaOverlayDataInjector;
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-define('views/audio_player',['jquery'],function($) {
+define('readium_shared_js/views/audio_player',['jquery'],function($) {
 
     var _iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
     var _Android = navigator.userAgent.toLowerCase().indexOf('android') > -1;
@@ -31625,7 +31621,7 @@ define('views/audio_player',['jquery'],function($) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/media_overlay_element_highlighter',['jquery', 'rangy', 'epubCfi'], function($, rangy, epubCfi) {
+define('readium_shared_js/views/media_overlay_element_highlighter',['jquery', 'rangy', 'readium_cfi_js'], function($, rangy, epubCfi) {
 /**
  *
  * @param reader
@@ -32145,7 +32141,7 @@ var MediaOverlayElementHighlighter = function(reader) {
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define('views/scroll_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "../models/current_pages_info", "../helpers",
+define('readium_shared_js/views/scroll_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "../models/current_pages_info", "../helpers",
         "./one_page_view", "../models/page_open_request", "../globals", "../models/viewer_settings"],
     function ($, _, EventEmitter, BookmarkData, CurrentPagesInfo, Helpers,
               OnePageView, PageOpenRequest, Globals, ViewerSettings) {
@@ -33529,7 +33525,7 @@ return ScrollView;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/media_overlay_player',["jquery", "../helpers", "./audio_player", "./media_overlay_element_highlighter", "../globals", "../models/smil_iterator", "rangy", 'epubCfi', './scroll_view'],
+define('readium_shared_js/views/media_overlay_player',["jquery", "../helpers", "./audio_player", "./media_overlay_element_highlighter", "../globals", "../models/smil_iterator", "rangy", 'readium_cfi_js', './scroll_view'],
     function($, Helpers, AudioPlayer, MediaOverlayElementHighlighter, Globals, SmilIterator, rangy, epubCfi, ScrollView) {
 /**
  *
@@ -35658,7 +35654,7 @@ console.debug("textAbsoluteRef: " + textAbsoluteRef);
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/spine',["./spine_item"], function(SpineItem) {
+define('readium_shared_js/models/spine',["./spine_item"], function(SpineItem) {
 /**
  *  Wrapper of the spine object received from hosting application
  *
@@ -35893,7 +35889,7 @@ var Spine = function(epubPackage, spineDTO) {
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define ('models/smil_model',["../helpers"], function(Helpers) {
+define ('readium_shared_js/models/smil_model',["../helpers"], function(Helpers) {
 
 /**
  *
@@ -36653,7 +36649,7 @@ return SmilModel;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/media_overlay',["./smil_model"], function(SmilModel) {
+define('readium_shared_js/models/media_overlay',["./smil_model"], function(SmilModel) {
 /**
  *
  * @param package
@@ -36965,7 +36961,7 @@ return MediaOverlay;
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-define('models/package_data',[],function() {
+define('readium_shared_js/models/package_data',[],function() {
 /**
  * This object is not instantiated directly but provided by the host application to the DOMAccess layer in the
  * Views.ReaderView.openBook function
@@ -37035,7 +37031,7 @@ return PackageData;
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define('models/package',['../helpers','./spine_item','./spine','./media_overlay', './package_data'], function (Helpers, SpineItem, Spine, MediaOverlay, PackageData) {
+define('readium_shared_js/models/package',['../helpers','./spine_item','./spine','./media_overlay', './package_data'], function (Helpers, SpineItem, Spine, MediaOverlay, PackageData) {
 /**
  *
  * @class Package
@@ -37154,7 +37150,7 @@ return Package;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/reflowable_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "./cfi_navigation_logic",
+define('readium_shared_js/views/reflowable_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "./cfi_navigation_logic",
     "../models/current_pages_info", "../helpers", "../models/page_open_request", "../globals",
     "../models/viewer_settings"],
     function($, _, EventEmitter, BookmarkData, CfiNavigationLogic,
@@ -38046,7 +38042,7 @@ var ReflowableView = function(options, reader){
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/style',[], function() {
+define('readium_shared_js/models/style',[], function() {
 /**
  *
  * @param selector
@@ -38096,7 +38092,7 @@ var Style = function(selector, declarations) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/style_collection',["./style"], function(Style) {
+define('readium_shared_js/models/style_collection',["./style"], function(Style) {
 /**
  *
  * @constructor
@@ -38201,7 +38197,7 @@ var StyleCollection = function() {
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define('models/switches',["jquery", "underscore"], function($, _) {
+define('readium_shared_js/models/switches',["jquery", "underscore"], function($, _) {
 /**
  *
  * @constructor
@@ -38285,7 +38281,7 @@ Switches.apply = function(dom) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/trigger',["jquery", "../helpers"], function($, Helpers) {
+define('readium_shared_js/models/trigger',["jquery", "../helpers"], function($, Helpers) {
 /**
  * Setter fot epub Triggers
  *
@@ -38376,7 +38372,7 @@ Trigger.prototype.execute = function(dom) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/reader_view',["jquery", "underscore", "eventEmitter", "./fixed_view", "../helpers", "./iframe_loader", "./internal_links_support",
+define('readium_shared_js/views/reader_view',["jquery", "underscore", "eventEmitter", "./fixed_view", "../helpers", "./iframe_loader", "./internal_links_support",
         "./media_overlay_data_injector", "./media_overlay_player", "../models/package", "../models/page_open_request",
         "./reflowable_view", "./scroll_view", "../models/style_collection", "../models/switches", "../models/trigger",
         "../models/viewer_settings", "../globals"],
@@ -39795,24 +39791,7 @@ ReaderView.VIEW_TYPE_SCROLLED_DOC = 3;
 ReaderView.VIEW_TYPE_SCROLLED_CONTINUOUS = 4;
 return ReaderView;
 });
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('readium-shared-js',['globalsSetup', 'plugins-controller', 'views/reader_view'], function (globalsSetup, PluginsController, ReaderView) {
-//noop
-});
-
-define('plugin-example/example',['plugins-controller', 'jquery'], function (Plugins, $) {
+define('readium_plugin_example/example',['readium_shared_js/plugins_controller', 'jquery'], function (Plugins, $) {
     var config = {
         backgroundColor: "yellow",
         borderColor: "red"
@@ -39829,7 +39808,7 @@ define('plugin-example/example',['plugins-controller', 'jquery'], function (Plug
                 self.emit("exampleEvent", api.reader.bookmarkCurrentPage());
             });
         });
-        
+
         $("body").css({border: '10px solid ' + config.borderColor});
 
         api.extendReader(self);
@@ -39837,33 +39816,22 @@ define('plugin-example/example',['plugins-controller', 'jquery'], function (Plug
 
     return config;
 });
-define('plugin-example', ['plugin-example/example'], function (main) { return main; });
 
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
+define('readium_plugin_example', ['readium_plugin_example/example'], function (main) { return main; });
 
-define('readium-plugin-example',['plugin-example'], function (pluginExampleConfig) {
-return pluginExampleConfig;
-});
+//     Backbone.js 1.2.0
 
-//     Backbone.js 1.1.2
-
-//     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+//     (c) 2010-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Backbone may be freely distributed under the MIT license.
 //     For all details and documentation:
 //     http://backbonejs.org
 
-(function(root, factory) {
+(function(factory) {
+
+  // Establish the root object, `window` (`self`) in the browser, or `global` on the server.
+  // We use `self` instead of `window` for `WebWorker` support.
+  var root = (typeof self == 'object' && self.self == self && self) ||
+            (typeof global == 'object' && global.global == global && global);
 
   // Set up Backbone appropriately for the environment. Start with AMD.
   if (typeof define === 'function' && define.amd) {
@@ -39875,15 +39843,16 @@ return pluginExampleConfig;
 
   // Next for Node.js or CommonJS. jQuery may not be needed as a module.
   } else if (typeof exports !== 'undefined') {
-    var _ = require('underscore');
-    factory(root, exports, _);
+    var _ = require('underscore'), $;
+    try { $ = require('jquery'); } catch(e) {}
+    factory(root, exports, _, $);
 
   // Finally, as a browser global.
   } else {
     root.Backbone = factory(root, {}, root._, (root.jQuery || root.Zepto || root.ender || root.$));
   }
 
-}(this, function(root, Backbone, _, $) {
+}(function(root, Backbone, _, $) {
 
   // Initial Setup
   // -------------
@@ -39894,12 +39863,10 @@ return pluginExampleConfig;
 
   // Create local references to array methods we'll want to use later.
   var array = [];
-  var push = array.push;
   var slice = array.slice;
-  var splice = array.splice;
 
   // Current version of the library. Keep in sync with `package.json`.
-  Backbone.VERSION = '1.1.2';
+  Backbone.VERSION = '1.2.0';
 
   // For Backbone's purposes, jQuery, Zepto, Ender, or My Library (kidding) owns
   // the `$` variable.
@@ -39918,7 +39885,7 @@ return pluginExampleConfig;
   Backbone.emulateHTTP = false;
 
   // Turn on `emulateJSON` to support legacy servers that can't deal with direct
-  // `application/json` requests ... will encode the body as
+  // `application/json` requests ... this will encode the body as
   // `application/x-www-form-urlencoded` instead and will send the model in a
   // form param named `model`.
   Backbone.emulateJSON = false;
@@ -39936,123 +39903,235 @@ return pluginExampleConfig;
   //     object.on('expand', function(){ alert('expanded'); });
   //     object.trigger('expand');
   //
-  var Events = Backbone.Events = {
-
-    // Bind an event to a `callback` function. Passing `"all"` will bind
-    // the callback to all events fired.
-    on: function(name, callback, context) {
-      if (!eventsApi(this, 'on', name, [callback, context]) || !callback) return this;
-      this._events || (this._events = {});
-      var events = this._events[name] || (this._events[name] = []);
-      events.push({callback: callback, context: context, ctx: context || this});
-      return this;
-    },
-
-    // Bind an event to only be triggered a single time. After the first time
-    // the callback is invoked, it will be removed.
-    once: function(name, callback, context) {
-      if (!eventsApi(this, 'once', name, [callback, context]) || !callback) return this;
-      var self = this;
-      var once = _.once(function() {
-        self.off(name, once);
-        callback.apply(this, arguments);
-      });
-      once._callback = callback;
-      return this.on(name, once, context);
-    },
-
-    // Remove one or many callbacks. If `context` is null, removes all
-    // callbacks with that function. If `callback` is null, removes all
-    // callbacks for the event. If `name` is null, removes all bound
-    // callbacks for all events.
-    off: function(name, callback, context) {
-      var retain, ev, events, names, i, l, j, k;
-      if (!this._events || !eventsApi(this, 'off', name, [callback, context])) return this;
-      if (!name && !callback && !context) {
-        this._events = void 0;
-        return this;
-      }
-      names = name ? [name] : _.keys(this._events);
-      for (i = 0, l = names.length; i < l; i++) {
-        name = names[i];
-        if (events = this._events[name]) {
-          this._events[name] = retain = [];
-          if (callback || context) {
-            for (j = 0, k = events.length; j < k; j++) {
-              ev = events[j];
-              if ((callback && callback !== ev.callback && callback !== ev.callback._callback) ||
-                  (context && context !== ev.context)) {
-                retain.push(ev);
-              }
-            }
-          }
-          if (!retain.length) delete this._events[name];
-        }
-      }
-
-      return this;
-    },
-
-    // Trigger one or many events, firing all bound callbacks. Callbacks are
-    // passed the same arguments as `trigger` is, apart from the event name
-    // (unless you're listening on `"all"`, which will cause your callback to
-    // receive the true name of the event as the first argument).
-    trigger: function(name) {
-      if (!this._events) return this;
-      var args = slice.call(arguments, 1);
-      if (!eventsApi(this, 'trigger', name, args)) return this;
-      var events = this._events[name];
-      var allEvents = this._events.all;
-      if (events) triggerEvents(events, args);
-      if (allEvents) triggerEvents(allEvents, arguments);
-      return this;
-    },
-
-    // Tell this object to stop listening to either specific events ... or
-    // to every object it's currently listening to.
-    stopListening: function(obj, name, callback) {
-      var listeningTo = this._listeningTo;
-      if (!listeningTo) return this;
-      var remove = !name && !callback;
-      if (!callback && typeof name === 'object') callback = this;
-      if (obj) (listeningTo = {})[obj._listenId] = obj;
-      for (var id in listeningTo) {
-        obj = listeningTo[id];
-        obj.off(name, callback, this);
-        if (remove || _.isEmpty(obj._events)) delete this._listeningTo[id];
-      }
-      return this;
-    }
-
-  };
+  var Events = Backbone.Events = {};
 
   // Regular expression used to split event strings.
   var eventSplitter = /\s+/;
 
-  // Implement fancy features of the Events API such as multiple event
-  // names `"change blur"` and jQuery-style event maps `{change: action}`
-  // in terms of the existing API.
-  var eventsApi = function(obj, action, name, rest) {
-    if (!name) return true;
-
-    // Handle event maps.
-    if (typeof name === 'object') {
-      for (var key in name) {
-        obj[action].apply(obj, [key, name[key]].concat(rest));
+  // Iterates over the standard `event, callback` (as well as the fancy multiple
+  // space-separated events `"change blur", callback` and jQuery-style event
+  // maps `{event: callback}`), reducing them by manipulating `memo`.
+  // Passes a normalized single event name and callback, as well as any
+  // optional `opts`.
+  var eventsApi = function(iteratee, memo, name, callback, opts) {
+    var i = 0, names;
+    if (name && typeof name === 'object') {
+      // Handle event maps.
+      for (names = _.keys(name); i < names.length ; i++) {
+        memo = iteratee(memo, names[i], name[names[i]], opts);
       }
-      return false;
+    } else if (name && eventSplitter.test(name)) {
+      // Handle space separated event names.
+      for (names = name.split(eventSplitter); i < names.length; i++) {
+        memo = iteratee(memo, names[i], callback, opts);
+      }
+    } else {
+      memo = iteratee(memo, name, callback, opts);
+    }
+    return memo;
+  };
+
+  // Bind an event to a `callback` function. Passing `"all"` will bind
+  // the callback to all events fired.
+  Events.on = function(name, callback, context) {
+    return internalOn(this, name, callback, context);
+  };
+
+  // An internal use `on` function, used to guard the `listening` argument from
+  // the public API.
+  var internalOn = function(obj, name, callback, context, listening) {
+    obj._events = eventsApi(onApi, obj._events || {}, name, callback, {
+        context: context,
+        ctx: obj,
+        listening: listening
+    });
+
+    if (listening) {
+      var listeners = obj._listeners || (obj._listeners = {});
+      listeners[listening.id] = listening;
     }
 
-    // Handle space separated event names.
-    if (eventSplitter.test(name)) {
-      var names = name.split(eventSplitter);
-      for (var i = 0, l = names.length; i < l; i++) {
-        obj[action].apply(obj, [names[i]].concat(rest));
-      }
-      return false;
+    return obj;
+  };
+
+  // Inversion-of-control versions of `on`. Tell *this* object to listen to
+  // an event in another object... keeping track of what it's listening to.
+  Events.listenTo =  function(obj, name, callback) {
+    if (!obj) return this;
+    var id = obj._listenId || (obj._listenId = _.uniqueId('l'));
+    var listeningTo = this._listeningTo || (this._listeningTo = {});
+    var listening = listeningTo[id];
+
+    // This object is not listening to any other events on `obj` yet.
+    // Setup the necessary references to track the listening callbacks.
+    if (!listening) {
+      var thisId = this._listenId || (this._listenId = _.uniqueId('l'));
+      listening = listeningTo[id] = {obj: obj, objId: id, id: thisId, listeningTo: listeningTo, count: 0};
     }
 
-    return true;
+    // Bind callbacks on obj, and keep track of them on listening.
+    internalOn(obj, name, callback, this, listening);
+    return this;
+  };
+
+  // The reducing API that adds a callback to the `events` object.
+  var onApi = function(events, name, callback, options) {
+    if (callback) {
+      var handlers = events[name] || (events[name] = []);
+      var context = options.context, ctx = options.ctx, listening = options.listening;
+      if (listening) listening.count++;
+
+      handlers.push({ callback: callback, context: context, ctx: context || ctx, listening: listening });
+    }
+    return events;
+  };
+
+  // Remove one or many callbacks. If `context` is null, removes all
+  // callbacks with that function. If `callback` is null, removes all
+  // callbacks for the event. If `name` is null, removes all bound
+  // callbacks for all events.
+  Events.off =  function(name, callback, context) {
+    if (!this._events) return this;
+    this._events = eventsApi(offApi, this._events, name, callback, {
+        context: context,
+        listeners: this._listeners
+    });
+    return this;
+  };
+
+  // Tell this object to stop listening to either specific events ... or
+  // to every object it's currently listening to.
+  Events.stopListening =  function(obj, name, callback) {
+    var listeningTo = this._listeningTo;
+    if (!listeningTo) return this;
+
+    var ids = obj ? [obj._listenId] : _.keys(listeningTo);
+
+    for (var i = 0; i < ids.length; i++) {
+      var listening = listeningTo[ids[i]];
+
+      // If listening doesn't exist, this object is not currently
+      // listening to obj. Break out early.
+      if (!listening) break;
+
+      listening.obj.off(name, callback, this);
+    }
+    if (_.isEmpty(listeningTo)) this._listeningTo = void 0;
+
+    return this;
+  };
+
+  // The reducing API that removes a callback from the `events` object.
+  var offApi = function(events, name, callback, options) {
+    // No events to consider.
+    if (!events) return;
+
+    var i = 0, length, listening;
+    var context = options.context, listeners = options.listeners;
+
+    // Delete all events listeners and "drop" events.
+    if (!name && !callback && !context) {
+      var ids = _.keys(listeners);
+      for (; i < ids.length; i++) {
+        listening = listeners[ids[i]];
+        delete listeners[listening.id];
+        delete listening.listeningTo[listening.objId];
+      }
+      return;
+    }
+
+    var names = name ? [name] : _.keys(events);
+    for (; i < names.length; i++) {
+      name = names[i];
+      var handlers = events[name];
+
+      // Bail out if there are no events stored.
+      if (!handlers) break;
+
+      // Replace events if there are any remaining.  Otherwise, clean up.
+      var remaining = [];
+      for (var j = 0; j < handlers.length; j++) {
+        var handler = handlers[j];
+        if (
+          callback && callback !== handler.callback &&
+            callback !== handler.callback._callback ||
+              context && context !== handler.context
+        ) {
+          remaining.push(handler);
+        } else {
+          listening = handler.listening;
+          if (listening && --listening.count === 0) {
+            delete listeners[listening.id];
+            delete listening.listeningTo[listening.objId];
+          }
+        }
+      }
+
+      // Update tail event if the list has any events.  Otherwise, clean up.
+      if (remaining.length) {
+        events[name] = remaining;
+      } else {
+        delete events[name];
+      }
+    }
+    if (_.size(events)) return events;
+  };
+
+  // Bind an event to only be triggered a single time. After the first time
+  // the callback is invoked, it will be removed. When multiple events are
+  // passed in using the space-separated syntax, the event will fire once for every
+  // event you passed in, not once for a combination of all events
+  Events.once =  function(name, callback, context) {
+    // Map the event into a `{event: once}` object.
+    var events = eventsApi(onceMap, {}, name, callback, _.bind(this.off, this));
+    return this.on(events, void 0, context);
+  };
+
+  // Inversion-of-control versions of `once`.
+  Events.listenToOnce =  function(obj, name, callback) {
+    // Map the event into a `{event: once}` object.
+    var events = eventsApi(onceMap, {}, name, callback, _.bind(this.stopListening, this, obj));
+    return this.listenTo(obj, events);
+  };
+
+  // Reduces the event callbacks into a map of `{event: onceWrapper}`.
+  // `offer` unbinds the `onceWrapper` after it as been called.
+  var onceMap = function(map, name, callback, offer) {
+    if (callback) {
+      var once = map[name] = _.once(function() {
+        offer(name, once);
+        callback.apply(this, arguments);
+      });
+      once._callback = callback;
+    }
+    return map;
+  };
+
+  // Trigger one or many events, firing all bound callbacks. Callbacks are
+  // passed the same arguments as `trigger` is, apart from the event name
+  // (unless you're listening on `"all"`, which will cause your callback to
+  // receive the true name of the event as the first argument).
+  Events.trigger =  function(name) {
+    if (!this._events) return this;
+
+    var length = Math.max(0, arguments.length - 1);
+    var args = Array(length);
+    for (var i = 0; i < length; i++) args[i] = arguments[i + 1];
+
+    eventsApi(triggerApi, this._events, name, void 0, args);
+    return this;
+  };
+
+  // Handles triggering the appropriate event callbacks.
+  var triggerApi = function(objEvents, name, cb, args) {
+    if (objEvents) {
+      var events = objEvents[name];
+      var allEvents = objEvents.all;
+      if (events && allEvents) allEvents = allEvents.slice();
+      if (events) triggerEvents(events, args);
+      if (allEvents) triggerEvents(allEvents, [name].concat(args));
+    }
+    return objEvents;
   };
 
   // A difficult-to-believe, but optimized internal dispatch function for
@@ -40069,21 +40148,34 @@ return pluginExampleConfig;
     }
   };
 
-  var listenMethods = {listenTo: 'on', listenToOnce: 'once'};
-
-  // Inversion-of-control versions of `on` and `once`. Tell *this* object to
-  // listen to an event in another object ... keeping track of what it's
-  // listening to.
-  _.each(listenMethods, function(implementation, method) {
-    Events[method] = function(obj, name, callback) {
-      var listeningTo = this._listeningTo || (this._listeningTo = {});
-      var id = obj._listenId || (obj._listenId = _.uniqueId('l'));
-      listeningTo[id] = obj;
-      if (!callback && typeof name === 'object') callback = this;
-      obj[implementation](name, callback, this);
-      return this;
-    };
-  });
+  // Proxy Underscore methods to a Backbone class' prototype using a
+  // particular attribute as the data argument
+  var addMethod = function(length, method, attribute) {
+    switch (length) {
+      case 1: return function() {
+        return _[method](this[attribute]);
+      };
+      case 2: return function(value) {
+        return _[method](this[attribute], value);
+      };
+      case 3: return function(iteratee, context) {
+        return _[method](this[attribute], iteratee, context);
+      };
+      case 4: return function(iteratee, defaultVal, context) {
+        return _[method](this[attribute], iteratee, defaultVal, context);
+      };
+      default: return function() {
+        var args = slice.call(arguments);
+        args.unshift(this[attribute]);
+        return _[method].apply(_, args);
+      };
+    }
+  };
+  var addUnderscoreMethods = function(Class, methods, attribute) {
+    _.each(methods, function(length, method) {
+      if (_[method]) Class.prototype[method] = addMethod(length, method, attribute);
+    });
+  };
 
   // Aliases for backwards compatibility.
   Events.bind   = Events.on;
@@ -40106,7 +40198,7 @@ return pluginExampleConfig;
   var Model = Backbone.Model = function(attributes, options) {
     var attrs = attributes || {};
     options || (options = {});
-    this.cid = _.uniqueId('c');
+    this.cid = _.uniqueId(this.cidPrefix);
     this.attributes = {};
     if (options.collection) this.collection = options.collection;
     if (options.parse) attrs = this.parse(attrs, options) || {};
@@ -40128,6 +40220,10 @@ return pluginExampleConfig;
     // The default name for the JSON `id` attribute is `"id"`. MongoDB and
     // CouchDB users may want to set this to `"_id"`.
     idAttribute: 'id',
+
+    // The prefix is used to create the client id which is used to identify models locally.
+    // You may want to override this if you're experiencing name clashes with model ids.
+    cidPrefix: 'c',
 
     // Initialize is an empty function by default. Override it with your own
     // initialization logic.
@@ -40158,6 +40254,11 @@ return pluginExampleConfig;
     // or undefined.
     has: function(attr) {
       return this.get(attr) != null;
+    },
+
+    // Special-cased proxy to underscore's `_.matches` method.
+    matches: function(attrs) {
+      return !!_.iteratee(attrs, this)(this.attributes);
     },
 
     // Set a hash of model attributes on the object, firing `"change"`. This is
@@ -40211,7 +40312,7 @@ return pluginExampleConfig;
       // Trigger all relevant attribute changes.
       if (!silent) {
         if (changes.length) this._pending = options;
-        for (var i = 0, l = changes.length; i < l; i++) {
+        for (var i = 0; i < changes.length; i++) {
           this.trigger('change:' + changes[i], this, current[changes[i]], options);
         }
       }
@@ -40281,9 +40382,8 @@ return pluginExampleConfig;
       return _.clone(this._previousAttributes);
     },
 
-    // Fetch the model from the server. If the server's representation of the
-    // model differs from its current attributes, they will be overridden,
-    // triggering a `"change"` event.
+    // Fetch the model from the server, merging the response with the model's
+    // local attributes. Any changed attributes will trigger a "change" event.
     fetch: function(options) {
       options = options ? _.clone(options) : {};
       if (options.parse === void 0) options.parse = true;
@@ -40291,7 +40391,7 @@ return pluginExampleConfig;
       var success = options.success;
       options.success = function(resp) {
         if (!model.set(model.parse(resp, options), options)) return false;
-        if (success) success(model, resp, options);
+        if (success) success.call(options.context, model, resp, options);
         model.trigger('sync', model, resp, options);
       };
       wrapError(this, options);
@@ -40302,7 +40402,7 @@ return pluginExampleConfig;
     // If the server returns an attributes hash that differs, the model's
     // state will be `set` again.
     save: function(key, val, options) {
-      var attrs, method, xhr, attributes = this.attributes;
+      var attrs, method, xhr, attributes = this.attributes, wait;
 
       // Handle both `"key", value` and `{key: value}` -style arguments.
       if (key == null || typeof key === 'object') {
@@ -40313,18 +40413,19 @@ return pluginExampleConfig;
       }
 
       options = _.extend({validate: true}, options);
+      wait = options.wait;
 
       // If we're not waiting and attributes exist, save acts as
       // `set(attr).save(null, opts)` with validation. Otherwise, check if
       // the model will be valid when the attributes, if any, are set.
-      if (attrs && !options.wait) {
+      if (attrs && !wait) {
         if (!this.set(attrs, options)) return false;
       } else {
         if (!this._validate(attrs, options)) return false;
       }
 
       // Set temporary attributes if `{wait: true}`.
-      if (attrs && options.wait) {
+      if (attrs && wait) {
         this.attributes = _.extend({}, attributes, attrs);
       }
 
@@ -40336,22 +40437,22 @@ return pluginExampleConfig;
       options.success = function(resp) {
         // Ensure attributes are restored during synchronous saves.
         model.attributes = attributes;
-        var serverAttrs = model.parse(resp, options);
-        if (options.wait) serverAttrs = _.extend(attrs || {}, serverAttrs);
+        var serverAttrs = options.parse ? model.parse(resp, options) : resp;
+        if (wait) serverAttrs = _.extend(attrs || {}, serverAttrs);
         if (_.isObject(serverAttrs) && !model.set(serverAttrs, options)) {
           return false;
         }
-        if (success) success(model, resp, options);
+        if (success) success.call(options.context, model, resp, options);
         model.trigger('sync', model, resp, options);
       };
       wrapError(this, options);
 
       method = this.isNew() ? 'create' : (options.patch ? 'patch' : 'update');
-      if (method === 'patch') options.attrs = attrs;
+      if (method === 'patch' && !options.attrs) options.attrs = attrs;
       xhr = this.sync(method, this, options);
 
       // Restore attributes.
-      if (attrs && options.wait) this.attributes = attributes;
+      if (attrs && wait) this.attributes = attributes;
 
       return xhr;
     },
@@ -40363,25 +40464,27 @@ return pluginExampleConfig;
       options = options ? _.clone(options) : {};
       var model = this;
       var success = options.success;
+      var wait = options.wait;
 
       var destroy = function() {
+        model.stopListening();
         model.trigger('destroy', model, model.collection, options);
       };
 
       options.success = function(resp) {
-        if (options.wait || model.isNew()) destroy();
-        if (success) success(model, resp, options);
+        if (wait) destroy();
+        if (success) success.call(options.context, model, resp, options);
         if (!model.isNew()) model.trigger('sync', model, resp, options);
       };
 
+      var xhr = false;
       if (this.isNew()) {
-        options.success();
-        return false;
+        _.defer(options.success);
+      } else {
+        wrapError(this, options);
+        xhr = this.sync('delete', this, options);
       }
-      wrapError(this, options);
-
-      var xhr = this.sync('delete', this, options);
-      if (!options.wait) destroy();
+      if (!wait) destroy();
       return xhr;
     },
 
@@ -40394,7 +40497,8 @@ return pluginExampleConfig;
         _.result(this.collection, 'url') ||
         urlError();
       if (this.isNew()) return base;
-      return base.replace(/([^\/])$/, '$1/') + encodeURIComponent(this.id);
+      var id = this.id || this.attributes[this.idAttribute];
+      return base.replace(/([^\/])$/, '$1/') + encodeURIComponent(id);
     },
 
     // **parse** converts a response into the hash of attributes to be `set` on
@@ -40432,22 +40536,17 @@ return pluginExampleConfig;
   });
 
   // Underscore methods that we want to implement on the Model.
-  var modelMethods = ['keys', 'values', 'pairs', 'invert', 'pick', 'omit'];
+  var modelMethods = { keys: 1, values: 1, pairs: 1, invert: 1, pick: 0,
+      omit: 0, chain: 1, isEmpty: 1 };
 
   // Mix in each Underscore method as a proxy to `Model#attributes`.
-  _.each(modelMethods, function(method) {
-    Model.prototype[method] = function() {
-      var args = slice.call(arguments);
-      args.unshift(this.attributes);
-      return _[method].apply(_, args);
-    };
-  });
+  addUnderscoreMethods(Model, modelMethods, 'attributes');
 
   // Backbone.Collection
   // -------------------
 
   // If models tend to represent a single row of data, a Backbone Collection is
-  // more analagous to a table full of data ... or a small slice or page of that
+  // more analogous to a table full of data ... or a small slice or page of that
   // table, or a collection of rows that belong together for a particular reason
   // -- all of the messages in this particular folder, all of the documents
   // belonging to this particular author, and so on. Collections maintain
@@ -40498,24 +40597,11 @@ return pluginExampleConfig;
 
     // Remove a model, or a list of models from the set.
     remove: function(models, options) {
-      var singular = !_.isArray(models);
+      var singular = !_.isArray(models), removed;
       models = singular ? [models] : _.clone(models);
       options || (options = {});
-      var i, l, index, model;
-      for (i = 0, l = models.length; i < l; i++) {
-        model = models[i] = this.get(models[i]);
-        if (!model) continue;
-        delete this._byId[model.id];
-        delete this._byId[model.cid];
-        index = this.indexOf(model);
-        this.models.splice(index, 1);
-        this.length--;
-        if (!options.silent) {
-          options.index = index;
-          model.trigger('remove', model, this, options);
-        }
-        this._removeReference(model, options);
-      }
+      removed = this._removeModels(models, options);
+      if (!options.silent && removed) this.trigger('update', this, options);
       return singular ? models[0] : models;
     },
 
@@ -40527,32 +40613,29 @@ return pluginExampleConfig;
       options = _.defaults({}, options, setOptions);
       if (options.parse) models = this.parse(models, options);
       var singular = !_.isArray(models);
-      models = singular ? (models ? [models] : []) : _.clone(models);
-      var i, l, id, model, attrs, existing, sort;
+      models = singular ? (models ? [models] : []) : models.slice();
+      var id, model, attrs, existing, sort;
       var at = options.at;
-      var targetModel = this.model;
+      if (at != null) at = +at;
+      if (at < 0) at += this.length + 1;
       var sortable = this.comparator && (at == null) && options.sort !== false;
       var sortAttr = _.isString(this.comparator) ? this.comparator : null;
       var toAdd = [], toRemove = [], modelMap = {};
       var add = options.add, merge = options.merge, remove = options.remove;
       var order = !sortable && add && remove ? [] : false;
+      var orderChanged = false;
 
       // Turn bare objects into model references, and prevent invalid models
       // from being added.
-      for (i = 0, l = models.length; i < l; i++) {
-        attrs = models[i] || {};
-        if (attrs instanceof Model) {
-          id = model = attrs;
-        } else {
-          id = attrs[targetModel.prototype.idAttribute || 'id'];
-        }
+      for (var i = 0; i < models.length; i++) {
+        attrs = models[i];
 
         // If a duplicate is found, prevent it from being added and
         // optionally merge it into the existing model.
-        if (existing = this.get(id)) {
+        if (existing = this.get(attrs)) {
           if (remove) modelMap[existing.cid] = true;
-          if (merge) {
-            attrs = attrs === model ? model.attributes : attrs;
+          if (merge && attrs !== existing) {
+            attrs = this._isModel(attrs) ? attrs.attributes : attrs;
             if (options.parse) attrs = existing.parse(attrs, options);
             existing.set(attrs, options);
             if (sortable && !sort && existing.hasChanged(sortAttr)) sort = true;
@@ -40569,30 +40652,38 @@ return pluginExampleConfig;
 
         // Do not add multiple models with the same `id`.
         model = existing || model;
-        if (order && (model.isNew() || !modelMap[model.id])) order.push(model);
-        modelMap[model.id] = true;
+        if (!model) continue;
+        id = this.modelId(model.attributes);
+        if (order && (model.isNew() || !modelMap[id])) {
+          order.push(model);
+
+          // Check to see if this is actually a new model at this index.
+          orderChanged = orderChanged || !this.models[i] || model.cid !== this.models[i].cid;
+        }
+
+        modelMap[id] = true;
       }
 
       // Remove nonexistent models if appropriate.
       if (remove) {
-        for (i = 0, l = this.length; i < l; ++i) {
+        for (var i = 0; i < this.length; i++) {
           if (!modelMap[(model = this.models[i]).cid]) toRemove.push(model);
         }
-        if (toRemove.length) this.remove(toRemove, options);
+        if (toRemove.length) this._removeModels(toRemove, options);
       }
 
       // See if sorting is needed, update `length` and splice in new models.
-      if (toAdd.length || (order && order.length)) {
+      if (toAdd.length || orderChanged) {
         if (sortable) sort = true;
         this.length += toAdd.length;
         if (at != null) {
-          for (i = 0, l = toAdd.length; i < l; i++) {
+          for (var i = 0; i < toAdd.length; i++) {
             this.models.splice(at + i, 0, toAdd[i]);
           }
         } else {
           if (order) this.models.length = 0;
           var orderedModels = order || toAdd;
-          for (i = 0, l = orderedModels.length; i < l; i++) {
+          for (var i = 0; i < orderedModels.length; i++) {
             this.models.push(orderedModels[i]);
           }
         }
@@ -40603,10 +40694,13 @@ return pluginExampleConfig;
 
       // Unless silenced, it's time to fire all appropriate add/sort events.
       if (!options.silent) {
-        for (i = 0, l = toAdd.length; i < l; i++) {
-          (model = toAdd[i]).trigger('add', model, this, options);
+        var addOpts = at != null ? _.clone(options) : options;
+        for (var i = 0; i < toAdd.length; i++) {
+          if (at != null) addOpts.index = at + i;
+          (model = toAdd[i]).trigger('add', model, this, addOpts);
         }
-        if (sort || (order && order.length)) this.trigger('sort', this, options);
+        if (sort || orderChanged) this.trigger('sort', this, options);
+        if (toAdd.length || toRemove.length) this.trigger('update', this, options);
       }
 
       // Return the added (or merged) model (or models).
@@ -40618,8 +40712,8 @@ return pluginExampleConfig;
     // any granular `add` or `remove` events. Fires `reset` when finished.
     // Useful for bulk operations and optimizations.
     reset: function(models, options) {
-      options || (options = {});
-      for (var i = 0, l = this.models.length; i < l; i++) {
+      options = options ? _.clone(options) : {};
+      for (var i = 0; i < this.models.length; i++) {
         this._removeReference(this.models[i], options);
       }
       options.previousModels = this.models;
@@ -40661,23 +40755,22 @@ return pluginExampleConfig;
     // Get a model from the set by id.
     get: function(obj) {
       if (obj == null) return void 0;
-      return this._byId[obj] || this._byId[obj.id] || this._byId[obj.cid];
+      var id = this.modelId(this._isModel(obj) ? obj.attributes : obj);
+      return this._byId[obj] || this._byId[id] || this._byId[obj.cid];
     },
 
     // Get the model at the given index.
     at: function(index) {
+      if (index < 0) index += this.length;
       return this.models[index];
     },
 
     // Return models with matching attributes. Useful for simple cases of
     // `filter`.
     where: function(attrs, first) {
-      if (_.isEmpty(attrs)) return first ? void 0 : [];
+      var matches = _.matches(attrs);
       return this[first ? 'find' : 'filter'](function(model) {
-        for (var key in attrs) {
-          if (attrs[key] !== model.get(key)) return false;
-        }
-        return true;
+        return matches(model.attributes);
       });
     },
 
@@ -40721,7 +40814,7 @@ return pluginExampleConfig;
       options.success = function(resp) {
         var method = options.reset ? 'reset' : 'set';
         collection[method](resp, options);
-        if (success) success(collection, resp, options);
+        if (success) success.call(options.context, collection, resp, options);
         collection.trigger('sync', collection, resp, options);
       };
       wrapError(this, options);
@@ -40733,13 +40826,14 @@ return pluginExampleConfig;
     // wait for the server to agree.
     create: function(model, options) {
       options = options ? _.clone(options) : {};
+      var wait = options.wait;
       if (!(model = this._prepareModel(model, options))) return false;
-      if (!options.wait) this.add(model, options);
+      if (!wait) this.add(model, options);
       var collection = this;
       var success = options.success;
-      options.success = function(model, resp) {
-        if (options.wait) collection.add(model, options);
-        if (success) success(model, resp, options);
+      options.success = function(model, resp, callbackOpts) {
+        if (wait) collection.add(model, callbackOpts);
+        if (success) success.call(callbackOpts.context, model, resp, callbackOpts);
       };
       model.save(null, options);
       return model;
@@ -40753,7 +40847,15 @@ return pluginExampleConfig;
 
     // Create a new collection with an identical list of models as this one.
     clone: function() {
-      return new this.constructor(this.models);
+      return new this.constructor(this.models, {
+        model: this.model,
+        comparator: this.comparator
+      });
+    },
+
+    // Define how to uniquely identify models in the collection.
+    modelId: function (attrs) {
+      return attrs[this.model.prototype.idAttribute || 'id'];
     },
 
     // Private method to reset all internal state. Called when the collection
@@ -40767,7 +40869,10 @@ return pluginExampleConfig;
     // Prepare a hash of attributes (or other model) to be added to this
     // collection.
     _prepareModel: function(attrs, options) {
-      if (attrs instanceof Model) return attrs;
+      if (this._isModel(attrs)) {
+        if (!attrs.collection) attrs.collection = this;
+        return attrs;
+      }
       options = options ? _.clone(options) : {};
       options.collection = this;
       var model = new this.model(attrs, options);
@@ -40776,11 +40881,44 @@ return pluginExampleConfig;
       return false;
     },
 
+    // Internal method called by both remove and set. Does not trigger any
+    // additional events. Returns true if anything was actually removed.
+    _removeModels: function(models, options) {
+      var i, l, index, model, removed = false;
+      for (var i = 0, j = 0; i < models.length; i++) {
+        var model = models[i] = this.get(models[i]);
+        if (!model) continue;
+        var id = this.modelId(model.attributes);
+        if (id != null) delete this._byId[id];
+        delete this._byId[model.cid];
+        var index = this.indexOf(model);
+        this.models.splice(index, 1);
+        this.length--;
+        if (!options.silent) {
+          options.index = index;
+          model.trigger('remove', model, this, options);
+        }
+        models[j++] = model;
+        this._removeReference(model, options);
+        removed = true;
+      }
+      // We only need to slice if models array should be smaller, which is
+      // caused by some models not actually getting removed.
+      if (models.length !== j) models = models.slice(0, j);
+      return removed;
+    },
+
+    // Method for checking whether an object should be considered a model for
+    // the purposes of adding to the collection.
+    _isModel: function (model) {
+      return model instanceof Model;
+    },
+
     // Internal method to create a model's ties to a collection.
     _addReference: function(model, options) {
       this._byId[model.cid] = model;
-      if (model.id != null) this._byId[model.id] = model;
-      if (!model.collection) model.collection = this;
+      var id = this.modelId(model.attributes);
+      if (id != null) this._byId[id] = model;
       model.on('all', this._onModelEvent, this);
     },
 
@@ -40797,9 +40935,13 @@ return pluginExampleConfig;
     _onModelEvent: function(event, model, collection, options) {
       if ((event === 'add' || event === 'remove') && collection !== this) return;
       if (event === 'destroy') this.remove(model, options);
-      if (model && event === 'change:' + model.idAttribute) {
-        delete this._byId[model.previous(model.idAttribute)];
-        if (model.id != null) this._byId[model.id] = model;
+      if (event === 'change') {
+        var prevId = this.modelId(model.previousAttributes());
+        var id = this.modelId(model.attributes);
+        if (prevId !== id) {
+          if (prevId != null) delete this._byId[prevId];
+          if (id != null) this._byId[id] = model;
+        }
       }
       this.trigger.apply(this, arguments);
     }
@@ -40809,27 +40951,23 @@ return pluginExampleConfig;
   // Underscore methods that we want to implement on the Collection.
   // 90% of the core usefulness of Backbone Collections is actually implemented
   // right here:
-  var methods = ['forEach', 'each', 'map', 'collect', 'reduce', 'foldl',
-    'inject', 'reduceRight', 'foldr', 'find', 'detect', 'filter', 'select',
-    'reject', 'every', 'all', 'some', 'any', 'include', 'contains', 'invoke',
-    'max', 'min', 'toArray', 'size', 'first', 'head', 'take', 'initial', 'rest',
-    'tail', 'drop', 'last', 'without', 'difference', 'indexOf', 'shuffle',
-    'lastIndexOf', 'isEmpty', 'chain', 'sample'];
+  var collectionMethods = { forEach: 3, each: 3, map: 3, collect: 3, reduce: 4,
+      foldl: 4, inject: 4, reduceRight: 4, foldr: 4, find: 3, detect: 3, filter: 3,
+      select: 3, reject: 3, every: 3, all: 3, some: 3, any: 3, include: 2,
+      contains: 2, invoke: 2, max: 3, min: 3, toArray: 1, size: 1, first: 3,
+      head: 3, take: 3, initial: 3, rest: 3, tail: 3, drop: 3, last: 3,
+      without: 0, difference: 0, indexOf: 3, shuffle: 1, lastIndexOf: 3,
+      isEmpty: 1, chain: 1, sample: 3, partition: 3 };
 
   // Mix in each Underscore method as a proxy to `Collection#models`.
-  _.each(methods, function(method) {
-    Collection.prototype[method] = function() {
-      var args = slice.call(arguments);
-      args.unshift(this.models);
-      return _[method].apply(_, args);
-    };
-  });
+  addUnderscoreMethods(Collection, collectionMethods, 'models');
 
   // Underscore methods that take a property name as an argument.
   var attributeMethods = ['groupBy', 'countBy', 'sortBy', 'indexBy'];
 
   // Use attributes instead of properties.
   _.each(attributeMethods, function(method) {
+    if (!_[method]) return;
     Collection.prototype[method] = function(value, context) {
       var iterator = _.isFunction(value) ? value : function(model) {
         return model.get(value);
@@ -40857,7 +40995,6 @@ return pluginExampleConfig;
     _.extend(this, _.pick(options, viewOptions));
     this._ensureElement();
     this.initialize.apply(this, arguments);
-    this.delegateEvents();
   };
 
   // Cached regex to split keys for `delegate`.
@@ -40892,19 +41029,35 @@ return pluginExampleConfig;
     // Remove this view by taking the element out of the DOM, and removing any
     // applicable Backbone.Events listeners.
     remove: function() {
-      this.$el.remove();
+      this._removeElement();
       this.stopListening();
       return this;
     },
 
-    // Change the view's element (`this.el` property), including event
-    // re-delegation.
-    setElement: function(element, delegate) {
-      if (this.$el) this.undelegateEvents();
-      this.$el = element instanceof Backbone.$ ? element : Backbone.$(element);
-      this.el = this.$el[0];
-      if (delegate !== false) this.delegateEvents();
+    // Remove this view's element from the document and all event listeners
+    // attached to it. Exposed for subclasses using an alternative DOM
+    // manipulation API.
+    _removeElement: function() {
+      this.$el.remove();
+    },
+
+    // Change the view's element (`this.el` property) and re-delegate the
+    // view's events on the new element.
+    setElement: function(element) {
+      this.undelegateEvents();
+      this._setElement(element);
+      this.delegateEvents();
       return this;
+    },
+
+    // Creates the `this.el` and `this.$el` references for this view using the
+    // given `el`. `el` can be a CSS selector or an HTML string, a jQuery
+    // context or an element. Subclasses can override this to utilize an
+    // alternative DOM manipulation API and are only required to set the
+    // `this.el` property.
+    _setElement: function(el) {
+      this.$el = el instanceof Backbone.$ ? el : Backbone.$(el);
+      this.el = this.$el[0];
     },
 
     // Set callbacks, where `this.events` is a hash of
@@ -40920,8 +41073,6 @@ return pluginExampleConfig;
     // pairs. Callbacks will be bound to the view, with `this` set properly.
     // Uses event delegation for efficiency.
     // Omitting the selector binds the event to `this.el`.
-    // This only works for delegate-able events: not `focus`, `blur`, and
-    // not `change`, `submit`, and `reset` in Internet Explorer.
     delegateEvents: function(events) {
       if (!(events || (events = _.result(this, 'events')))) return this;
       this.undelegateEvents();
@@ -40929,26 +41080,37 @@ return pluginExampleConfig;
         var method = events[key];
         if (!_.isFunction(method)) method = this[events[key]];
         if (!method) continue;
-
         var match = key.match(delegateEventSplitter);
-        var eventName = match[1], selector = match[2];
-        method = _.bind(method, this);
-        eventName += '.delegateEvents' + this.cid;
-        if (selector === '') {
-          this.$el.on(eventName, method);
-        } else {
-          this.$el.on(eventName, selector, method);
-        }
+        this.delegate(match[1], match[2], _.bind(method, this));
       }
       return this;
     },
 
-    // Clears all callbacks previously bound to the view with `delegateEvents`.
+    // Add a single event listener to the view's element (or a child element
+    // using `selector`). This only works for delegate-able events: not `focus`,
+    // `blur`, and not `change`, `submit`, and `reset` in Internet Explorer.
+    delegate: function(eventName, selector, listener) {
+      this.$el.on(eventName + '.delegateEvents' + this.cid, selector, listener);
+    },
+
+    // Clears all callbacks previously bound to the view by `delegateEvents`.
     // You usually don't need to use this, but may wish to if you have multiple
     // Backbone views attached to the same DOM element.
     undelegateEvents: function() {
-      this.$el.off('.delegateEvents' + this.cid);
+      if (this.$el) this.$el.off('.delegateEvents' + this.cid);
       return this;
+    },
+
+    // A finer-grained `undelegateEvents` for removing a single delegated event.
+    // `selector` and `listener` are both optional.
+    undelegate: function(eventName, selector, listener) {
+      this.$el.off(eventName + '.delegateEvents' + this.cid, selector, listener);
+    },
+
+    // Produces a DOM element to be assigned to your view. Exposed for
+    // subclasses using an alternative DOM manipulation API.
+    _createElement: function(tagName) {
+      return document.createElement(tagName);
     },
 
     // Ensure that the View has a DOM element to render into.
@@ -40960,11 +41122,17 @@ return pluginExampleConfig;
         var attrs = _.extend({}, _.result(this, 'attributes'));
         if (this.id) attrs.id = _.result(this, 'id');
         if (this.className) attrs['class'] = _.result(this, 'className');
-        var $el = Backbone.$('<' + _.result(this, 'tagName') + '>').attr(attrs);
-        this.setElement($el, false);
+        this.setElement(this._createElement(_.result(this, 'tagName')));
+        this._setAttributes(attrs);
       } else {
-        this.setElement(_.result(this, 'el'), false);
+        this.setElement(_.result(this, 'el'));
       }
+    },
+
+    // Set attributes from a hash on this view's element.  Exposed for
+    // subclasses using an alternative DOM manipulation API.
+    _setAttributes: function(attributes) {
+      this.$el.attr(attributes);
     }
 
   });
@@ -41033,24 +41201,19 @@ return pluginExampleConfig;
       params.processData = false;
     }
 
-    // If we're sending a `PATCH` request, and we're in an old Internet Explorer
-    // that still has ActiveX enabled by default, override jQuery to use that
-    // for XHR instead. Remove this line when jQuery supports `PATCH` on IE8.
-    if (params.type === 'PATCH' && noXhrPatch) {
-      params.xhr = function() {
-        return new ActiveXObject("Microsoft.XMLHTTP");
-      };
-    }
+    // Pass along `textStatus` and `errorThrown` from jQuery.
+    var error = options.error;
+    options.error = function(xhr, textStatus, errorThrown) {
+      options.textStatus = textStatus;
+      options.errorThrown = errorThrown;
+      if (error) error.call(options.context, xhr, textStatus, errorThrown);
+    };
 
     // Make the request, allowing the user to override any Ajax options.
     var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
     model.trigger('request', model, xhr, options);
     return xhr;
   };
-
-  var noXhrPatch =
-    typeof window !== 'undefined' && !!window.ActiveXObject &&
-      !(window.XMLHttpRequest && (new XMLHttpRequest).dispatchEvent);
 
   // Map from CRUD to HTTP for our default `Backbone.sync` implementation.
   var methodMap = {
@@ -41109,17 +41272,18 @@ return pluginExampleConfig;
       var router = this;
       Backbone.history.route(route, function(fragment) {
         var args = router._extractParameters(route, fragment);
-        router.execute(callback, args);
-        router.trigger.apply(router, ['route:' + name].concat(args));
-        router.trigger('route', name, args);
-        Backbone.history.trigger('route', router, name, args);
+        if (router.execute(callback, args, name) !== false) {
+          router.trigger.apply(router, ['route:' + name].concat(args));
+          router.trigger('route', name, args);
+          Backbone.history.trigger('route', router, name, args);
+        }
       });
       return this;
     },
 
     // Execute a route handler with the provided parameters.  This is an
     // excellent place to do pre-route setup or post-route cleanup.
-    execute: function(callback, args) {
+    execute: function(callback, args, name) {
       if (callback) callback.apply(this, args);
     },
 
@@ -41192,12 +41356,6 @@ return pluginExampleConfig;
   // Cached regex for stripping leading and trailing slashes.
   var rootStripper = /^\/+|\/+$/g;
 
-  // Cached regex for detecting MSIE.
-  var isExplorer = /msie [\w.]+/;
-
-  // Cached regex for removing a trailing slash.
-  var trailingSlash = /\/$/;
-
   // Cached regex for stripping urls of hash.
   var pathStripper = /#.*$/;
 
@@ -41213,7 +41371,29 @@ return pluginExampleConfig;
 
     // Are we at the app root?
     atRoot: function() {
-      return this.location.pathname.replace(/[^\/]$/, '$&/') === this.root;
+      var path = this.location.pathname.replace(/[^\/]$/, '$&/');
+      return path === this.root && !this.getSearch();
+    },
+
+    // Does the pathname match the root?
+    matchRoot: function() {
+      var path = this.decodeFragment(this.location.pathname);
+      var root = path.slice(0, this.root.length - 1) + '/';
+      return root === this.root;
+    },
+
+    // Unicode characters in `location.pathname` are percent encoded so they're
+    // decoded for comparison. `%25` should not be decoded since it may be part
+    // of an encoded parameter.
+    decodeFragment: function(fragment) {
+      return decodeURI(fragment.replace(/%25/g, '%2525'));
+    },
+
+    // In IE6, the hash fragment and search params are incorrect if the
+    // fragment contains `?`.
+    getSearch: function() {
+      var match = this.location.href.replace(/#.*/, '').match(/\?.+/);
+      return match ? match[0] : '';
     },
 
     // Gets the true hash value. Cannot use location.hash directly due to bug
@@ -41223,14 +41403,19 @@ return pluginExampleConfig;
       return match ? match[1] : '';
     },
 
-    // Get the cross-browser normalized URL fragment, either from the URL,
-    // the hash, or the override.
-    getFragment: function(fragment, forcePushState) {
+    // Get the pathname and search params, without the root.
+    getPath: function() {
+      var path = this.decodeFragment(
+        this.location.pathname + this.getSearch()
+      ).slice(this.root.length - 1);
+      return path.charAt(0) === '/' ? path.slice(1) : path;
+    },
+
+    // Get the cross-browser normalized URL fragment from the path or hash.
+    getFragment: function(fragment) {
       if (fragment == null) {
-        if (this._hasPushState || !this._wantsHashChange || forcePushState) {
-          fragment = decodeURI(this.location.pathname + this.location.search);
-          var root = this.root.replace(trailingSlash, '');
-          if (!fragment.indexOf(root)) fragment = fragment.slice(root.length);
+        if (this._usePushState || !this._wantsHashChange) {
+          fragment = this.getPath();
         } else {
           fragment = this.getHash();
         }
@@ -41241,7 +41426,7 @@ return pluginExampleConfig;
     // Start the hash change handling, returning `true` if the current URL matches
     // an existing route, and `false` otherwise.
     start: function(options) {
-      if (History.started) throw new Error("Backbone.history has already been started");
+      if (History.started) throw new Error('Backbone.history has already been started');
       History.started = true;
 
       // Figure out the initial configuration. Do we need an iframe?
@@ -41249,35 +41434,15 @@ return pluginExampleConfig;
       this.options          = _.extend({root: '/'}, this.options, options);
       this.root             = this.options.root;
       this._wantsHashChange = this.options.hashChange !== false;
+      this._hasHashChange   = 'onhashchange' in window;
+      this._useHashChange   = this._wantsHashChange && this._hasHashChange;
       this._wantsPushState  = !!this.options.pushState;
-      this._hasPushState    = !!(this.options.pushState && this.history && this.history.pushState);
-      var fragment          = this.getFragment();
-      var docMode           = document.documentMode;
-      var oldIE             = (isExplorer.exec(navigator.userAgent.toLowerCase()) && (!docMode || docMode <= 7));
+      this._hasPushState    = !!(this.history && this.history.pushState);
+      this._usePushState    = this._wantsPushState && this._hasPushState;
+      this.fragment         = this.getFragment();
 
       // Normalize root to always include a leading and trailing slash.
       this.root = ('/' + this.root + '/').replace(rootStripper, '/');
-
-      if (oldIE && this._wantsHashChange) {
-        var frame = Backbone.$('<iframe src="javascript:0" tabindex="-1">');
-        this.iframe = frame.hide().appendTo('body')[0].contentWindow;
-        this.navigate(fragment);
-      }
-
-      // Depending on whether we're using pushState or hashes, and whether
-      // 'onhashchange' is supported, determine how we check the URL state.
-      if (this._hasPushState) {
-        Backbone.$(window).on('popstate', this.checkUrl);
-      } else if (this._wantsHashChange && ('onhashchange' in window) && !oldIE) {
-        Backbone.$(window).on('hashchange', this.checkUrl);
-      } else if (this._wantsHashChange) {
-        this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
-      }
-
-      // Determine if we need to change the base url, for a pushState link
-      // opened by a non-pushState browser.
-      this.fragment = fragment;
-      var loc = this.location;
 
       // Transition from hashChange to pushState or vice versa if both are
       // requested.
@@ -41286,18 +41451,47 @@ return pluginExampleConfig;
         // If we've started off with a route from a `pushState`-enabled
         // browser, but we're currently in a browser that doesn't support it...
         if (!this._hasPushState && !this.atRoot()) {
-          this.fragment = this.getFragment(null, true);
-          this.location.replace(this.root + '#' + this.fragment);
+          var root = this.root.slice(0, -1) || '/';
+          this.location.replace(root + '#' + this.getPath());
           // Return immediately as browser will do redirect to new url
           return true;
 
         // Or if we've started out with a hash-based route, but we're currently
         // in a browser where it could be `pushState`-based instead...
-        } else if (this._hasPushState && this.atRoot() && loc.hash) {
-          this.fragment = this.getHash().replace(routeStripper, '');
-          this.history.replaceState({}, document.title, this.root + this.fragment);
+        } else if (this._hasPushState && this.atRoot()) {
+          this.navigate(this.getHash(), {replace: true});
         }
 
+      }
+
+      // Proxy an iframe to handle location events if the browser doesn't
+      // support the `hashchange` event, HTML5 history, or the user wants
+      // `hashChange` but not `pushState`.
+      if (!this._hasHashChange && this._wantsHashChange && !this._usePushState) {
+        var iframe = document.createElement('iframe');
+        iframe.src = 'javascript:0';
+        iframe.style.display = 'none';
+        iframe.tabIndex = -1;
+        var body = document.body;
+        // Using `appendChild` will throw on IE < 9 if the document is not ready.
+        this.iframe = body.insertBefore(iframe, body.firstChild).contentWindow;
+        this.iframe.document.open().close();
+        this.iframe.location.hash = '#' + this.fragment;
+      }
+
+      // Add a cross-platform `addEventListener` shim for older browsers.
+      var addEventListener = window.addEventListener || function (eventName, listener) {
+        return attachEvent('on' + eventName, listener);
+      };
+
+      // Depending on whether we're using pushState or hashes, and whether
+      // 'onhashchange' is supported, determine how we check the URL state.
+      if (this._usePushState) {
+        addEventListener('popstate', this.checkUrl, false);
+      } else if (this._useHashChange && !this.iframe) {
+        addEventListener('hashchange', this.checkUrl, false);
+      } else if (this._wantsHashChange) {
+        this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
       }
 
       if (!this.options.silent) return this.loadUrl();
@@ -41306,7 +41500,25 @@ return pluginExampleConfig;
     // Disable Backbone.history, perhaps temporarily. Not useful in a real app,
     // but possibly useful for unit testing Routers.
     stop: function() {
-      Backbone.$(window).off('popstate', this.checkUrl).off('hashchange', this.checkUrl);
+      // Add a cross-platform `removeEventListener` shim for older browsers.
+      var removeEventListener = window.removeEventListener || function (eventName, listener) {
+        return detachEvent('on' + eventName, listener);
+      };
+
+      // Remove window listeners.
+      if (this._usePushState) {
+        removeEventListener('popstate', this.checkUrl, false);
+      } else if (this._useHashChange && !this.iframe) {
+        removeEventListener('hashchange', this.checkUrl, false);
+      }
+
+      // Clean up the iframe if necessary.
+      if (this.iframe) {
+        document.body.removeChild(this.iframe.frameElement);
+        this.iframe = null;
+      }
+
+      // Some environments will throw when clearing an undefined interval.
       if (this._checkUrlInterval) clearInterval(this._checkUrlInterval);
       History.started = false;
     },
@@ -41321,9 +41533,13 @@ return pluginExampleConfig;
     // calls `loadUrl`, normalizing across the hidden iframe.
     checkUrl: function(e) {
       var current = this.getFragment();
+
+      // If the user pressed the back button, the iframe's hash will have
+      // changed and we should use that for comparison.
       if (current === this.fragment && this.iframe) {
-        current = this.getFragment(this.getHash(this.iframe));
+        current = this.getHash(this.iframe);
       }
+
       if (current === this.fragment) return false;
       if (this.iframe) this.navigate(current);
       this.loadUrl();
@@ -41333,6 +41549,8 @@ return pluginExampleConfig;
     // match, returns `true`. If no defined routes matches the fragment,
     // returns `false`.
     loadUrl: function(fragment) {
+      // If the root doesn't match, no routes can match either.
+      if (!this.matchRoot()) return false;
       fragment = this.fragment = this.getFragment(fragment);
       return _.any(this.handlers, function(handler) {
         if (handler.route.test(fragment)) {
@@ -41353,30 +41571,35 @@ return pluginExampleConfig;
       if (!History.started) return false;
       if (!options || options === true) options = {trigger: !!options};
 
-      var url = this.root + (fragment = this.getFragment(fragment || ''));
+      // Normalize the fragment.
+      fragment = this.getFragment(fragment || '');
 
-      // Strip the hash for matching.
-      fragment = fragment.replace(pathStripper, '');
+      // Don't include a trailing slash on the root.
+      var root = this.root;
+      if (fragment === '' || fragment.charAt(0) === '?') {
+        root = root.slice(0, -1) || '/';
+      }
+      var url = root + fragment;
+
+      // Strip the hash and decode for matching.
+      fragment = this.decodeFragment(fragment.replace(pathStripper, ''));
 
       if (this.fragment === fragment) return;
       this.fragment = fragment;
 
-      // Don't include a trailing slash on the root.
-      if (fragment === '' && url !== '/') url = url.slice(0, -1);
-
       // If pushState is available, we use it to set the fragment as a real URL.
-      if (this._hasPushState) {
+      if (this._usePushState) {
         this.history[options.replace ? 'replaceState' : 'pushState']({}, document.title, url);
 
       // If hash changes haven't been explicitly disabled, update the hash
       // fragment to store history.
       } else if (this._wantsHashChange) {
         this._updateHash(this.location, fragment, options.replace);
-        if (this.iframe && (fragment !== this.getFragment(this.getHash(this.iframe)))) {
+        if (this.iframe && (fragment !== this.getHash(this.iframe))) {
           // Opening and closing the iframe tricks IE7 and earlier to push a
           // history entry on hash-tag change.  When replace is true, we don't
           // want this.
-          if(!options.replace) this.iframe.document.open().close();
+          if (!options.replace) this.iframe.document.open().close();
           this._updateHash(this.iframe.location, fragment, options.replace);
         }
 
@@ -41408,7 +41631,7 @@ return pluginExampleConfig;
   // Helpers
   // -------
 
-  // Helper function to correctly set up the prototype chain, for subclasses.
+  // Helper function to correctly set up the prototype chain for subclasses.
   // Similar to `goog.inherits`, but uses a hash of prototype properties and
   // class properties to be extended.
   var extend = function(protoProps, staticProps) {
@@ -41417,7 +41640,7 @@ return pluginExampleConfig;
 
     // The constructor function for the new subclass is either defined by you
     // (the "constructor" property in your `extend` definition), or defaulted
-    // by us to simply call the parent's constructor.
+    // by us to simply call the parent constructor.
     if (protoProps && _.has(protoProps, 'constructor')) {
       child = protoProps.constructor;
     } else {
@@ -41428,7 +41651,7 @@ return pluginExampleConfig;
     _.extend(child, parent, staticProps);
 
     // Set the prototype chain to inherit from `parent`, without calling
-    // `parent`'s constructor function.
+    // `parent` constructor function.
     var Surrogate = function(){ this.constructor = child; };
     Surrogate.prototype = parent.prototype;
     child.prototype = new Surrogate;
@@ -41456,7 +41679,7 @@ return pluginExampleConfig;
   var wrapError = function(model, options) {
     var error = options.error;
     options.error = function(resp) {
-      if (error) error(model, resp, options);
+      if (error) error.call(options.context, model, resp, options);
       model.trigger('error', model, resp, options);
     };
   };
@@ -41465,7 +41688,7 @@ return pluginExampleConfig;
 
 }));
 
-define('plugin-annotations/annotations_module',['backbone'], function(Backbone) {
+define('readium_plugin_annotations/annotations_module',['backbone'], function(Backbone) {
 var EpubAnnotationsModule = function (contentDocumentDOM, bbPageSetView, annotationCSSUrl) {
     
     var EpubAnnotations = {};
@@ -43246,7 +43469,7 @@ Then when the user clicks on the highlight the following will show up in the con
 	
 
 */
-define('plugin-annotations/annotations_manager',['jquery', 'underscore', 'eventEmitter', './annotations_module'], function($, _, EventEmitter, EpubAnnotationsModule) {
+define('readium_plugin_annotations/annotations_manager',['jquery', 'underscore', 'eventEmitter', './annotations_module'], function($, _, EventEmitter, EpubAnnotationsModule) {
 /**
  *
  * @param proxyObj
@@ -43384,7 +43607,7 @@ console.debug(args);
 
 return AnnotationsManager;
 });
-define('plugin-annotations/main',['plugins-controller', './annotations_manager'], function (Plugins, AnnotationsManager) {
+define('readium_plugin_annotations/main',['readium_shared_js/plugins_controller', './annotations_manager'], function (Plugins, AnnotationsManager) {
     var config = {};
 
     Plugins.register("annotations", function (api) {
@@ -43504,28 +43727,12 @@ define('plugin-annotations/main',['plugins-controller', './annotations_manager']
 
     return config;
 });
-define('plugin-annotations', ['plugin-annotations/main'], function (main) { return main; });
 
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('readium-plugin-annotations',['plugin-annotations'], function (pluginAnnotationsConfig) {
-return pluginAnnotationsConfig;
-});
+define('readium_plugin_annotations', ['readium_plugin_annotations/main'], function (main) { return main; });
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"702a0ea584f04525b1eaee6e93f6358e67373454","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-56-g702a0ea","branch":"feature/pluginsX","release":false,"timestamp":1430830560064},"readiumJs":{"sha":"42f9cce30bb6741164c78468482a056a937a93fe","clean":false,"version":"0.19.0-alpha","tag":"0.15-135-g42f9cce","branch":"feature/pluginsX","release":false,"timestamp":1430830560370},"readiumSharedJs":{"sha":"257b1238d20da742c39066701d19171a1eec7526","clean":false,"version":"0.19.0-alpha","tag":"0.16-120-g257b123","branch":"feature/pluginsX","release":false,"timestamp":1430830560660},"readiumCfiJs":{"sha":"0698ab8b5b206bf08c8a8b79be51a60fa7f35647","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-90-g0698ab8","branch":"feature/plugins","release":false,"timestamp":1430830560884}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"b091e8d8a9e7b4a894f273ccc17be1aa8fbe48d7","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-58-gb091e8d","branch":"feature/pluginsX","release":false,"timestamp":1431774621486},"readiumJs":{"sha":"179ce95a17bb5b5c8b22421468006f613b4992f9","clean":false,"version":"0.19.0-alpha","tag":"0.15-141-g179ce95","branch":"feature/pluginsX","release":false,"timestamp":1431774621799},"readiumSharedJs":{"sha":"6c8e4aa18ed0fbd6f603536c38efa67211df00a1","clean":false,"version":"0.19.0-alpha","tag":"0.16-127-g6c8e4aa","branch":"feature/pluginsX","release":false,"timestamp":1431774622087},"readiumCfiJs":{"sha":"67ffd3d612ae1b3008aa469ee5ac0ea018503257","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-100-g67ffd3d","branch":"feature/plugins","release":false,"timestamp":1431774622327}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -43540,7 +43747,7 @@ define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"7
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-fetch/markup_parser',[],
+define('readium_js/epub-fetch/markup_parser',[],
     function () {
 
         var MarkupParser = function (){
@@ -43574,7 +43781,7 @@ define('epub-fetch/markup_parser',[],
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-fetch/discover_content_type',['jquery', 'URIjs'], function ($, URI) {
+define('readium_js/epub-fetch/discover_content_type',['jquery', 'URIjs'], function ($, URI) {
 
     var _instance = undefined;
 
@@ -43647,7 +43854,7 @@ define('epub-fetch/discover_content_type',['jquery', 'URIjs'], function ($, URI)
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-fetch/plain_resource_fetcher',['jquery', 'URIjs', './discover_content_type'], function ($, URI, ContentTypeDiscovery) {
+define('readium_js/epub-fetch/plain_resource_fetcher',['jquery', 'URIjs', './discover_content_type'], function ($, URI, ContentTypeDiscovery) {
 
     var PlainResourceFetcher = function(parentFetcher, baseUrl){
 
@@ -46561,7 +46768,7 @@ define("zip-ext", ["zip-fs"], (function (global) {
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-fetch/zip_resource_fetcher',['jquery', 'URIjs', './discover_content_type', 'zip-ext'], function ($, URI, ContentTypeDiscovery, zip) {
+define('readium_js/epub-fetch/zip_resource_fetcher',['jquery', 'URIjs', './discover_content_type', 'zip-ext'], function ($, URI, ContentTypeDiscovery, zip) {
 
     var ZipResourceFetcher = function(parentFetcher, baseUrl, libDir) {
 
@@ -46681,7 +46888,7 @@ define('epub-fetch/zip_resource_fetcher',['jquery', 'URIjs', './discover_content
 //  prior written permission.
 
 define(
-    'epub-fetch/content_document_fetcher',['jquery', 'underscore', 'URIjs', './discover_content_type'],
+    'readium_js/epub-fetch/content_document_fetcher',['jquery', 'underscore', 'URIjs', './discover_content_type'],
     function ($, _, URI, ContentTypeDiscovery) {
 
 
@@ -47019,7 +47226,7 @@ define(
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-fetch/resource_cache',['underscore'], function (_) {
+define('readium_js/epub-fetch/resource_cache',['underscore'], function (_) {
 
         var ResourceCache = function(sourceWindow, configuredCacheSizeEvictThreshold) {
 
@@ -48102,7 +48309,7 @@ define('cryptoJs', ['cryptoJs/core'], function (main) { return main; });
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-fetch/encryption_handler',['cryptoJs/sha1'], function (SHA1) {
+define('readium_js/epub-fetch/encryption_handler',['cryptoJs/sha1'], function (SHA1) {
 
     var EncryptionHandler = function (encryptionData) {
         var self = this;
@@ -48243,7 +48450,7 @@ define('epub-fetch/encryption_handler',['cryptoJs/sha1'], function (SHA1) {
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-fetch/publication_fetcher',['jquery', 'URIjs', './markup_parser', './plain_resource_fetcher', './zip_resource_fetcher',
+define('readium_js/epub-fetch/publication_fetcher',['jquery', 'URIjs', './markup_parser', './plain_resource_fetcher', './zip_resource_fetcher',
     './content_document_fetcher', './resource_cache', './encryption_handler'],
     function ($, URI, MarkupParser, PlainResourceFetcher, ZipResourceFetcher, ContentDocumentFetcher,
               ResourceCache, EncryptionHandler) {
@@ -48523,8 +48730,6 @@ define('epub-fetch/publication_fetcher',['jquery', 'URIjs', './markup_parser', '
 
 });
 
-define('epub-fetch', ['epub-fetch/publication_fetcher'], function (main) { return main; });
-
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
 //  Redistribution and use in source and binary forms, with or without modification, 
@@ -48538,7 +48743,7 @@ define('epub-fetch', ['epub-fetch/publication_fetcher'], function (main) { retur
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-model/package_document',['jquery', 'underscore', 'URIjs'],
+define('readium_js/epub-model/package_document',['jquery', 'underscore', 'URIjs'],
     function ($, _, URI) {
 
     // Description: This model provides an interface for navigating an EPUB's package document
@@ -48742,7 +48947,7 @@ define('epub-model/package_document',['jquery', 'underscore', 'URIjs'],
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-model/smil_document_parser',['jquery', 'underscore'], function ($, _) {
+define('readium_js/epub-model/smil_document_parser',['jquery', 'underscore'], function ($, _) {
 
     // `SmilDocumentParser` is used to parse the xml of an epub package
     // document and build a javascript object. The constructor accepts an
@@ -48991,7 +49196,7 @@ define('epub-model/smil_document_parser',['jquery', 'underscore'], function ($, 
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-model/metadata',['underscore'],
+define('readium_js/epub-model/metadata',['underscore'],
     function (_) {
 
         var Metadata = function () {
@@ -49052,7 +49257,7 @@ define('epub-model/metadata',['underscore'],
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('epub-model/manifest',['underscore'],
+define('readium_js/epub-model/manifest',['underscore'],
     function (_) {
 
         var Manifest = function (manifestJson) {
@@ -49096,19 +49301,19 @@ define('epub-model/manifest',['underscore'],
         return Manifest;
     });
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define('epub-model/package_document_parser',['jquery', 'underscore', 'epub-fetch/markup_parser', 'URIjs', './package_document',
+define('readium_js/epub-model/package_document_parser',['jquery', 'underscore', '../epub-fetch/markup_parser', 'URIjs', './package_document',
         './smil_document_parser', './metadata', './manifest'],
     function($, _, MarkupParser, URI, PackageDocument, SmilDocumentParser, Metadata,
              Manifest) {
@@ -49343,7 +49548,7 @@ define('epub-model/package_document_parser',['jquery', 'underscore', 'epub-fetch
 
 
             //http://www.idpf.org/epub/301/spec/epub-publications.html#fxl-property-viewport
-            
+
             //metadata.rendition_viewport = getMetaElemPropertyText(metadataElem, "rendition:viewport");
             metadata.rendition_viewport = getElemText(metadataElem, "meta", function (element) {
                 return element.getAttribute("property") === "rendition:viewport" && !element.hasAttribute("refines")
@@ -49364,21 +49569,21 @@ define('epub-model/package_document_parser',['jquery', 'underscore', 'epub-fetch
                     }
                     id = id.trim();
                 }
-                
+
                 var vp = {
                   refines: id,
                   viewport: currItem.textContent
                 };
                 viewports.push(vp);
             });
-            
+
             metadata.rendition_viewports = viewports;
 
-            
-            
-            
-            
-            
+
+
+
+
+
             // Media part
             metadata.mediaItems = [];
 
@@ -49436,7 +49641,7 @@ define('epub-model/package_document_parser',['jquery', 'underscore', 'epub-fetch
                     media_type: $currManifestElement.attr("media-type") ? $currManifestElement.attr("media-type") : "",
                     properties: $currManifestElement.attr("properties") ? $currManifestElement.attr("properties") : ""
                 };
-                // console.log('pushing manifest item to JSON manifest. currManifestElementHref: [' + currManifestElementHref + 
+                // console.log('pushing manifest item to JSON manifest. currManifestElementHref: [' + currManifestElementHref +
                 //     '], manifestItem.href: [' + manifestItem.href +
                 //     '], manifestItem:');
                 // console.log(manifestItem);
@@ -49583,29 +49788,27 @@ define('epub-model/package_document_parser',['jquery', 'underscore', 'epub-fetch
     return PackageDocumentParser;
 });
 
-define('epub-model', ['epub-model/package_document_parser'], function (main) { return main; });
-
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define('epub-fetch/iframe_zip_loader',['URIjs', 'views/iframe_loader', 'underscore'], function(URI, IFrameLoader, _){
+define('readium_js/epub-fetch/iframe_zip_loader',['URIjs', 'readium_shared_js/views/iframe_loader', 'underscore'], function(URI, IFrameLoader, _){
 
     var zipIframeLoader = function( getCurrentResourceFetcher, contentDocumentTextPreprocessor) {
 
         var basicIframeLoader = new IFrameLoader();
 
         var self = this;
-        
+
         var _contentDocumentTextPreprocessor = contentDocumentTextPreprocessor;
 
         this.addIFrameEventListener = function (eventName, callback, context) {
@@ -49615,7 +49818,7 @@ define('epub-fetch/iframe_zip_loader',['URIjs', 'views/iframe_loader', 'undersco
         this.updateIframeEvents = function (iframe) {
             basicIframeLoader.updateIframeEvents(iframe);
         };
-        
+
         this.loadIframe = function(iframe, src, callback, caller, attachedData) {
 
             if (!iframe.baseURI) {
@@ -49624,7 +49827,7 @@ define('epub-fetch/iframe_zip_loader',['URIjs', 'views/iframe_loader', 'undersco
                 }
                 console.log("!iframe.baseURI => " + iframe.baseURI);
             }
-                
+
             iframe.setAttribute("data-baseUri", iframe.baseURI);
             iframe.setAttribute("data-src", src);
 
@@ -49676,7 +49879,7 @@ define('epub-fetch/iframe_zip_loader',['URIjs', 'views/iframe_loader', 'undersco
                 // TODO: Currently using the document.write() approach only for IE, as it breaks CSS selectors
                 // with namespaces for some reason (e.g. the childrens-media-query sample EPUB)
                 iframe.contentWindow.document.open();
-                
+
                 // Currently not handled automatically by winstore-jscompat,
                 // so we're doing it manually. See:
                 // https://github.com/MSOpenTech/winstore-jscompat/
@@ -49757,21 +49960,21 @@ define('epub-fetch/iframe_zip_loader',['URIjs', 'views/iframe_loader', 'undersco
 });
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 
-define('Readium',['text!version.json', 'jquery', 'underscore', 'views/reader_view', 'epub-fetch',
-        'epub-model/package_document_parser', 'epub-fetch/iframe_zip_loader', 'views/iframe_loader',
+define('readium_js/Readium',['text!version.json', 'jquery', 'underscore', 'readium_shared_js/views/reader_view', 'readium_js/epub-fetch/publication_fetcher',
+        'readium_js/epub-model/package_document_parser', 'readium_js/epub-fetch/iframe_zip_loader', 'readium_shared_js/views/iframe_loader'
         ],
     function (versionText, $, _, ReaderView, PublicationFetcher,
               PackageParser, IframeZipLoader, IframeLoader) {
@@ -49795,14 +49998,14 @@ define('Readium',['text!version.json', 'jquery', 'underscore', 'views/reader_vie
             var base = "<base href=\"" + sourceParts.join("/") + "/" + "\"/>";
 
             var scripts = "<script type=\"text/javascript\">(" + injectedScript.toString() + ")()<\/script>";
-            
+
             if (_options && _options.mathJaxUrl && contentDocumentHtml.indexOf("<math") >= 0) {
                 scripts += "<script type=\"text/javascript\" src=\"" + _options.mathJaxUrl + "\"><\/script>";
             }
 
             return contentDocumentHtml.replace(/(<head.*?>)/, "$1" + base + scripts);
         };
-        
+
         var self = this;
 
         var _currentPublicationFetcher;
@@ -49815,10 +50018,10 @@ define('Readium',['text!version.json', 'jquery', 'underscore', 'views/reader_vie
         else{
             readerOptions.iframeLoader = new IframeLoader();
         }
-       
+
         // is false by default, but just making this initialisation setting more explicit here.
         readerOptions.needsFixedLayoutScalerWorkAround = false;
-        
+
         this.reader = new ReaderView(readerOptions);
         ReadiumSDK.reader = this.reader;
 
@@ -49868,29 +50071,14 @@ define('Readium',['text!version.json', 'jquery', 'underscore', 'views/reader_vie
 
         ReadiumSDK.emit(ReadiumSDK.Events.READER_INITIALIZED, ReadiumSDK.reader);
     };
-    
+
     Readium.version = JSON.parse(versionText);
 
     return Readium;
 
 });
 
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('readium-js',['Readium'], function (Readium) {
-//noop
-});
+define('readium_js', ['readium_js/Readium'], function (main) { return main; });
 
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
@@ -52631,7 +52819,7 @@ define("bootstrapA11y", ["bootstrap"], (function (global) {
     };
 }(this)));
 
-define('storage/StorageManager',[], function(){
+define('readium_js_viewer/storage/StaticStorageManager',[], function(){
 	var StaticStorageManager = {
 		
 		saveFile : function(path, blob, success, error){
@@ -52657,7 +52845,7 @@ define('storage/StorageManager',[], function(){
 	return StaticStorageManager;
 });
 
-define('storage/Settings',[],function(){
+define('readium_js_viewer/storage/Settings',[],function(){
     
     // localStorage may be disabled due to zero-quota issues (e.g. iPad in private browsing mode)
     var _isLocalStorageEnabled = undefined;
@@ -52725,294 +52913,7 @@ define('storage/Settings',[],function(){
 	}
 	return Settings;
 });
-/**
-* Jath is free software provided under the MIT license.
-*	See LICENSE file for full text of the license.
-*	Copyright 2010 Dan Newcome.
-*/
-(function() {
-
-Jath = {};
-Jath.parse = parse;
-Jath.resolver = null;
-Jath.namespaces = null;
-
-// values prefixed with literal charactar marker will not be
-// treated as xpath expressions and will be output directly
-Jath.literalChar = ":";
-
-/**
-* Rudimentary check for IE
-* Also added support for WSH, uses the same API as IE
-*/
-var m_browser;
-if( typeof WScript != "undefined" ) {
-	m_browser = 'msie';
-}
-// TODO: is there a better way to detect node.js?
-else if( typeof process != "undefined" ) {
-	// running under node.js
-	m_browser = 'node';
-	var xmljs = require( 'libxmljs' );
-	exports.parse = parse;
-}
-else if( navigator.userAgent.toLowerCase().indexOf( 'msie' ) > -1 ) {
-	m_browser = 'msie';
-}
-else {
-	m_browser = 'standards';
-}
-
-/**
-* parse: 
-*	process xml doc according to the given json template
-*	@template - output spec as a json template
-*	@xmldoc - input xml document
-*	@node - the starting node to use in the document. xpath
-*		expressions will be evaluated relative to this node.
-*		If not given, root will be used.
-*/
-function parse( template, xmldoc, node ) {
-	if( node === undefined ) {
-		node = xmldoc;
-	}
-	if( typeOf( template ) === 'array' ) {
-		return parseArray( template, xmldoc, node );
-	}
-	else if( typeOf( template ) === 'object' ) {
-		return parseObject( template, xmldoc, node );
-	}
-	else {
-		return parseItem( template, xmldoc, node );
-	}
-}
-
-function parseArray( template, xmldoc, node ) {
-	var retVal = [];
-	
-	if( template[0] != null ) {
-		if( m_browser == 'msie' ) {
-			xmldoc.setProperty("SelectionLanguage", "XPath");
-			xmldoc.setProperty("SelectionNamespaces", createResolverString() );			
-			var nodeList = node.selectNodes( template[0] );
-			var thisNode;
-			while( thisNode = nodeList.nextNode() ) {
-				retVal.push( parse( template[1], xmldoc, thisNode ) );
-			}
-		}
-		else if( m_browser == 'node' ) {
-			var nodeList = node.find( template[0] );
-			for( var i=0; i < nodeList.length; i++ ) {
-				retVal.push( parse( template[1], xmldoc, nodeList[i] ) );
-			}
-		}
-		else {
-			var xpathResult = xmldoc.evaluate( template[0], node, Jath.resolver, XPathResult.ANY_TYPE, null );
-			var thisNode;
-			while( thisNode = xpathResult.iterateNext() ) {
-				retVal.push( parse( template[1], xmldoc, thisNode ) );
-			}
-		}
-	}
-	// we can have an array output without iterating over the source
-	// data - in this case, current node is static 
-	else {
-		for( var i=1; i < template.length; i++ ) {
-			retVal.push( parse( template[i], xmldoc, node ) );
-		}
-	}
-	
-	return retVal;
-}
-
-function parseObject( template, xmldoc, node ) {
-	var item;
-	var newitem = {};
-	for( item in template ) {
-		newitem[item] = parse( template[item], xmldoc, node );
-	}
-	return newitem;
-}
-
-function parseItem( template, xmldoc, node ) {
-	if( typeOf( template ) == 'string' && template.substring( 0, 1 ) != Jath.literalChar ) {
-		if( m_browser == 'msie' ) {
-			xmldoc.setProperty("SelectionLanguage", "XPath");
-			xmldoc.setProperty("SelectionNamespaces", createResolverString() );
-			if( node.selectSingleNode( template ) != null ) {
-				return node.selectSingleNode( template ).text;
-			}
-			else {
-				return null;
-			}
-		}
-		else if( m_browser == 'node' ) {
-			var itemNode = node.get( template );
-			if( itemNode && itemNode.text ) {
-				return itemNode.text();
-			}
-			else if( itemNode && itemNode.value ) {
-				return itemNode.value();
-			}
-			else {
-				return null;
-			}
-		}
-		else {
-			var itemNode = xmldoc.evaluate( template, node, Jath.resolver, XPathResult.STRING_TYPE, null ); 
-			if( itemNode ) {
-				return itemNode.stringValue;
-			}
-			else {
-				return null;
-			}
-		}
-	}
-	else {
-		return template.substring( 1 );
-	}
-
-}
-
-/**
-* typeOf function published by Douglas Crockford in ECMAScript recommendations
-* http://www.crockford.com/javascript/recommend.html
-*/
-function typeOf(value) {
-	var s = typeof value;
-	if (s === 'object') {
-		if (value) {
-			if (typeof value.length === 'number' &&
-					!(value.propertyIsEnumerable('length')) &&
-					typeof value.splice === 'function') {
-				s = 'array';
-			}
-		} else {
-			s = 'null';
-		}
-	}
-	return s;
-}
-
-/**
-* IE requires namespaces to be in the form that 
-* an xml document would provide. Use underscore
-* for default ns.
-*/
-function createResolverString() {
-	var retval = [];
-	for( var item in Jath.namespaces ) {
-		if( item == "_" ) {
-			retval.push( "xmlns='" + Jath.namespaces[item] + "'" );
-		}
-		else {
-			retval.push( "xmlns:" + item + "='" + Jath.namespaces[item] + "'" );
-		}
-	}
-	return retval.join(" ");
-}
-
-})();
-
-define("jath", (function (global) {
-    return function () {
-        var ret, fn;
-        return ret || global.Jath;
-    };
-}(this)));
-
-define('PackageParser',['jath'], function(Jath){
-	Jath.resolver = function( prefix ) {
-            var mappings = { 
-                def: "http://www.idpf.org/2007/opf",
-                    dc: "http://purl.org/dc/elements/1.1/"
-            };
-            return mappings[ prefix ];
-    }
-
-	var jathTemplate = {
-
-        metadata:  { 
-                id: "//def:metadata/dc:identifier",
-                epub_version: "//def:package/@version",
-                title: "//def:metadata/dc:title",
-                author: "//def:metadata/dc:creator",
-                publisher: "//def:metadata/dc:publisher",
-                description: "//def:metadata/dc:description",
-                rights: "//def:metadata/dc:rights",
-                language: "//def:metadata/dc:language",
-                pubdate: "//def:metadata/dc:date",
-                modified_date: "//def:metadata/def:meta[@property='dcterms:modified']",
-                layout: "//def:metadata/def:meta[@property='rendition:layout']",
-                spread: "//def:metadata/def:meta[@property='rendition:spread']",
-                orientation: "//def:metadata/def:meta[@property='rendition:orientation']",
-                ncx: "//def:spine/@toc",
-                page_prog_dir: "//def:spine/@page-progression-direction",
-                active_class: "//def:metadata/def:meta[@property='media:active-class']"
-         },
-
-        manifest: [ "//def:item", { 
-                id: "@id",
-                href: "@href",
-                media_type: "@media-type",
-                properties: "@properties",
-        media_overlay: "@media-overlay"
-        } ],
-                                                 
-        spine: [ "//def:itemref", { idref: "@idref", properties: "@properties", linear: "@linear" } ],
-
-        bindings: ["//def:bindings/def:mediaType", { 
-                handler: "@handler",
-                media_type: "@media-type"
-        } ]
-        
-	};
-
-	PackageParser = {
-		parsePackageDom : function(data){
-            var jsonObj = Jath.parse(jathTemplate, data);
-            jsonObj = jsonObj.metadata;
-            jsonObj.coverHref = PackageParser.getCoverHref(data);
-            return jsonObj;
-        },
-        getCoverHref : function(dom) {
-            var manifest; var $imageNode;
-            manifest = dom.getElementsByTagName('manifest')[0];
-
-            // epub3 spec for a cover image is like this:
-            /*<item properties="cover-image" id="ci" href="cover.svg" media-type="image/svg+xml" />*/
-            $imageNode = $('item[properties~="cover-image"]', manifest);
-            if($imageNode.length === 1 && $imageNode.attr("href") ) {
-                return $imageNode.attr("href");
-            }
-
-            // some epub2's cover image is like this:
-            /*<meta name="cover" content="cover-image-item-id" />*/
-            // PragProg ebooks have two cover entries in meta, both
-            // referencing the same cover id from items; metaNode.length
-            // does not have to be just 1
-            var metaNode = $('meta[name="cover"]', dom);
-            var contentAttr = metaNode.attr("content");
-            if(metaNode.length >= 1 && contentAttr) {
-                $imageNode = $('item[id="'+contentAttr+'"]', manifest);
-                if($imageNode.length === 1 && $imageNode.attr("href")) {
-                    return $imageNode.attr("href");
-                }
-            }
-
-            // that didn't seem to work so, it think epub2 just uses item with id=cover
-            $imageNode = $('#cover', manifest);
-            if($imageNode.length === 1 && $imageNode.attr("href")) {
-                return $imageNode.attr("href");
-            }
-
-            // seems like there isn't one, thats ok...
-            return null;
-        },
-	}
-	return PackageParser;
-});
-define('workers/Messages',[],function(){
+define('readium_js_viewer/workers/Messages',[],function(){
 	return {
 		// window -> worker messages
 		IMPORT_ZIP : 0,
@@ -53046,149 +52947,8 @@ define('workers/Messages',[],function(){
 
 	}
 });
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
+define('readium_js_viewer/workers/WorkerProxy',['module', './Messages', 'jquery', 'readium_js/epub-model/package_document_parser', 'readium_js/epub-fetch/encryption_handler'], function(module, Messages, $, PackageParser, EncryptionHandler){
 
-define('encryptionHandler',['cryptoJs/sha1'], function (SHA1) {
-
-    var EncryptionHandler = function (encryptionData) {
-        var self = this;
-
-        var ENCRYPTION_METHODS = {
-            'http://www.idpf.org/2008/embedding': embeddedFontDeobfuscateIdpf,
-            'http://ns.adobe.com/pdf/enc#RC': embeddedFontDeobfuscateAdobe
-        };
-
-        // INTERNAL FUNCTIONS
-
-        function blob2BinArray(blob, callback) {
-            var fileReader = new FileReader();
-            fileReader.onload = function () {
-                var arrayBuffer = this.result;
-                callback(new Uint8Array(arrayBuffer));
-            };
-            fileReader.readAsArrayBuffer(blob);
-        }
-
-        function xorObfuscatedBlob(obfuscatedResourceBlob, prefixLength, xorKey, callback) {
-            var obfuscatedPrefixBlob = obfuscatedResourceBlob.slice(0, prefixLength);
-            blob2BinArray(obfuscatedPrefixBlob, function (bytes) {
-                var masklen = xorKey.length;
-                for (var i = 0; i < prefixLength; i++) {
-                    bytes[i] = bytes[i] ^ (xorKey[i % masklen]);
-                }
-                var deobfuscatedPrefixBlob = new Blob([bytes], { type: obfuscatedResourceBlob.type });
-                var remainderBlob = obfuscatedResourceBlob.slice(prefixLength);
-                var deobfuscatedBlob = new Blob([deobfuscatedPrefixBlob, remainderBlob],
-                    { type: obfuscatedResourceBlob.type });
-
-                callback(deobfuscatedBlob);
-            });
-        }
-
-        function embeddedFontDeobfuscateIdpf(obfuscatedResourceBlob, callback) {
-
-            var prefixLength = 1040;
-            // Shamelessly copied from
-            // https://github.com/readium/readium-chrome-extension/blob/26d4b0cafd254cfa93bf7f6225887b83052642e0/scripts/models/path_resolver.js#L102 :
-            xorObfuscatedBlob(obfuscatedResourceBlob, prefixLength, encryptionData.uidHash, callback);
-        }
-
-        function urnUuidToByteArray(id) {
-            var uuidRegexp = /(urn:uuid:)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})/i;
-            var matchResults = uuidRegexp.exec(id);
-            var rawUuid = matchResults[2] + matchResults[3] + matchResults[4] + matchResults[5] + matchResults[6];
-            if (!rawUuid || rawUuid.length != 32) {
-                console.error('Bad UUID format for ID :' + id);
-            }
-            var byteArray = [];
-            for (var i = 0; i < 16; i++) {
-                var byteHex = rawUuid.substr(i * 2, 2);
-                var byteNumber = parseInt(byteHex, 16);
-                byteArray.push(byteNumber);
-            }
-            return byteArray;
-        }
-
-        function embeddedFontDeobfuscateAdobe(obfuscatedResourceBlob, callback) {
-
-            // extract the UUID and convert to big-endian binary form (16 bytes):
-            var uidWordArray = urnUuidToByteArray(encryptionData.uid);
-            var prefixLength = 1024;
-            xorObfuscatedBlob(obfuscatedResourceBlob, prefixLength, uidWordArray, callback)
-        }
-
-
-        // PUBLIC API
-
-        this.isEncryptionSpecified = function () {
-            return encryptionData && encryptionData.encryptions;
-        };
-
-
-        this.getEncryptionMethodForRelativePath = function (pathRelativeToRoot) {
-            if (self.isEncryptionSpecified()) {
-                return encryptionData.encryptions[pathRelativeToRoot];
-            } else {
-                return undefined;
-            }
-        };
-
-        this.getDecryptionFunctionForRelativePath = function (pathRelativeToRoot) {
-            var encryptionMethod = self.getEncryptionMethodForRelativePath(pathRelativeToRoot);
-            if (encryptionMethod && ENCRYPTION_METHODS[encryptionMethod]) {
-                return ENCRYPTION_METHODS[encryptionMethod];
-            } else {
-                return undefined;
-            }
-        };
-
-    };
-
-    EncryptionHandler.CreateEncryptionData =  function(id, encryptionDom) {
-
-        var encryptionData = {
-            uid: id,
-            uidHash: SHA1(unescape(encodeURIComponent(id.trim())), { asBytes: true }),
-            encryptions: undefined
-        };
-
-        var encryptedData = $('EncryptedData', encryptionDom);
-        encryptedData.each(function (index, encryptedData) {
-            var encryptionAlgorithm = $('EncryptionMethod', encryptedData).first().attr('Algorithm');
-
-            // For some reason, jQuery selector "" against XML DOM sometimes doesn't match properly
-            var cipherReference = $('CipherReference', encryptedData);
-            cipherReference.each(function (index, CipherReference) {
-                var cipherReferenceURI = $(CipherReference).attr('URI');
-                console.log('Encryption/obfuscation algorithm ' + encryptionAlgorithm + ' specified for ' +
-                    cipherReferenceURI);
-
-                if(!encryptionData.encryptions) {
-                    encryptionData.encryptions = {};
-                }
-
-                encryptionData.encryptions[cipherReferenceURI] = encryptionAlgorithm;
-            });
-        });
-
-        return encryptionData;
-    };
-
-    return EncryptionHandler;
-});
-define('workers/WorkerProxy',['module', 'workers/Messages', 'jquery', 'PackageParser', 'encryptionHandler'], function(module, Messages, $, PackageParser, EncryptionHandler){
-	
 	var worker;
 	var cleanupWorker = function(){
 		worker.terminate();
@@ -53211,7 +52971,7 @@ define('workers/WorkerProxy',['module', 'workers/Messages', 'jquery', 'PackagePa
 		var cancelOverwrite = function(){
 			cleanupWorker();
 		}
-		
+
 		var innerError = callbacks.error || $.noop;
 		var error = function(error){
 			cleanupWorker();
@@ -53219,7 +52979,7 @@ define('workers/WorkerProxy',['module', 'workers/Messages', 'jquery', 'PackagePa
 		}
 
 
-		
+
 		worker.onmessage = function(evt){
 			var data = evt.data;
 			switch (data.msg){
@@ -53229,7 +52989,7 @@ define('workers/WorkerProxy',['module', 'workers/Messages', 'jquery', 'PackagePa
 					}
 					cleanupWorker();
 					break;
-				case Messages.CONTINUE_IMPORT_ZIP: 
+				case Messages.CONTINUE_IMPORT_ZIP:
 					cleanupWorker();
 					doWork({msg: Messages.CONTINUE_IMPORT_ZIP, buf: data.buf, index: data.index, rootDirName: data.rootDirName, libraryItems: data.libraryItems}, callbacks);
 					break;
@@ -53243,7 +53003,7 @@ define('workers/WorkerProxy',['module', 'workers/Messages', 'jquery', 'PackagePa
 						callbacks.overwrite(data.item, continueOverwrite, keepBoth, cancelOverwrite);
 					}
 					break;
-				case Messages.FIND_PACKAGE: 
+				case Messages.FIND_PACKAGE:
 					var containerDom = (new DOMParser()).parseFromString(data.containerStr, "text/xml");
 					var $rootfile = $('rootfile', containerDom);
 					if (!$rootfile.length){
@@ -53298,62 +53058,63 @@ define('workers/WorkerProxy',['module', 'workers/Messages', 'jquery', 'PackagePa
 	}
 });
 
-define('text!i18n/_locales/de/messages.json',[],function () { return '{ "about": {\r\n    "message": "Über Readium"\r\n    },\r\n    "preview": {\r\n        "message": "Vorschau"\r\n    },\r\n    "list_view": {\r\n        "message": "Listenansicht"\r\n    },\r\n    "thumbnail_view": {\r\n        "message": "Kachelansicht"\r\n    },\r\n    "view_library": {\r\n        "message": "Bibliothek"\r\n    },\r\n    "highlight_selection": {\r\n        "message": "Ausgewählten Text hervorheben"\r\n    },\r\n    "toc": {\r\n        "message": "Inhaltsverzeichnis"\r\n    },\r\n    "settings": {\r\n        "message": "Einstellungen"\r\n    },\r\n    "enter_fullscreen": {\r\n        "message": "Vollbildmodus"\r\n    },\r\n    "exit_fullscreen": {\r\n        "message": "Vollbildmodus verlassen"\r\n    },\r\n    "chrome_extension_name": {\r\n        "message": "Readium"\r\n    },\r\n    "chrome_extension_description": {\r\n        "message": "Ein Leseprogramm für EPUB3 Bücher."\r\n    },\r\n    "ok" : {\r\n        "message" : "Ok"\r\n    },\r\n    "i18n_readium_library": {\r\n        "message": "Readium Bibliothek"\r\n    },\r\n    "i18n_loading": {\r\n        "message": "Bibliothek wird geladen"\r\n    },\r\n    "i18n_readium_options": {\r\n        "message": "Readium Einstellungen:"\r\n    },\r\n    "i18n_save_changes": {\r\n        "message": "Änderungen speichern"\r\n    },\r\n    "i18n_close": {\r\n        "message": "Schließen"\r\n    },\r\n    "i18n_keyboard_shortcuts": {\r\n        "message": "Funktionstasten"\r\n    },\r\n    "i18n_keyboard_reload": {\r\n        "message": "Bitte laden Sie die Seite im Browser neu, damit die Änderungen der Tastaturkürzel wirksam werden."\r\n    },\r\n    "i18n_reset_key": {\r\n        "message": "Taste zurücksetzen"\r\n    },\r\n    "i18n_reset_key_all": {\r\n        "message": "Alle Funktionstasten auf Standard zurücksetzen"\r\n    },\r\n    "i18n_duplicate_keyboard_shortcut": {\r\n        "message": "Doppelbelegung"\r\n    },\r\n    "i18n_invalid_keyboard_shortcut": {\r\n        "message": "Nicht zulässig"\r\n    },\r\n    "i18n_paginate_all": {\r\n        "message": "Fließtext des EPUB Inhalts paginieren"\r\n    },\r\n    "i18n_automatically": {\r\n        "message": "*.epub URLs automatisch in Readium öffnen"\r\n    },\r\n    "i18n_show_warning": {\r\n        "message": "Warnhinweise beim Entpacken von EPUB Dateien anzeigen"\r\n    },\r\n    "i18n_details": {\r\n        "message": "Details"\r\n    },\r\n    "i18n_read": {\r\n        "message": "Lesen"\r\n    },\r\n    "i18n_delete": {\r\n        "message": "Löschen"\r\n    },\r\n    "i18n_are_you_sure": {\r\n        "message": "Möchten Sie diese Datei wirklich unwiderruflich löschen?"\r\n    },\r\n    "delete_dlg_title": {\r\n        "message": "Löschen bestätigen"\r\n    },\r\n\r\n    "i18n_auto_page_turn_enable": {\r\n        "message": "Automatisches Umblättern einschalten"\r\n    },\r\n    "i18n_auto_page_turn_disable": {\r\n        "message": "Automatisches Umblättern ausschalten"\r\n    },\r\n\r\n    "i18n_playback_scroll_enable": {\r\n        "message": "Scrollen während der Wiedergabe"\r\n    },\r\n    "i18n_playback_scroll_disable": {\r\n        "message": "Kein Scrollen während der Wiedergabe"\r\n    },\r\n    "i18n_audio_touch_enable": {\r\n        "message": "Touch-to-play einschalten"\r\n    },\r\n    "i18n_audio_touch_disable": {\r\n        "message": "Touch-to-play ausschalten"\r\n    },\r\n    "i18n_audio_highlight_default": {\r\n        "message": "Standard"\r\n    },\r\n    "i18n_audio_highlight": {\r\n        "message": "Hervorhebungsfarbe"\r\n    },\r\n\r\n    "delete_progress_title": {\r\n        "message": "Löschen wird ausgeführt"\r\n    },\r\n    "delete_progress_message": {\r\n        "message": "Löschen"\r\n    },\r\n    "migrate_dlg_title": {\r\n        "message": "Bücher migrieren"\r\n    },\r\n    "migrate_dlg_message": {\r\n        "message": "Daten werden geladen..."\r\n    },\r\n    "migrating": {\r\n        "message": "Migrieren..."\r\n    },\r\n    "replace_dlg_title": {\r\n        "message": "Konflikt festgestellt"\r\n    },\r\n    "replace_dlg_message": {\r\n        "message": "Soll das bestehende EPUB wirklich ersetzt werden?"\r\n    },\r\n    "import_dlg_title": {\r\n        "message": "EPUB importieren"\r\n    },\r\n    "import_dlg_message": {\r\n        "message": "EPUB Inhalt überprüfen..."\r\n    },\r\n    "storing_file": {\r\n        "message": "Datei speichern"\r\n    },\r\n    "err_unknown": {\r\n        "message": "Unbekannter Fehler. Für Details öffnen Sie die Konsole."\r\n    },\r\n    "err_storage": {\r\n        "message": "Zugriff auf Dateispeicher nicht möglich."\r\n    },\r\n    "err_epub_corrupt": {\r\n        "message": "Ungültiges oder beschädigtes EPUB Paket"\r\n    },\r\n    "err_dlg_title": {\r\n        "message": "Unerwarteter Fehler"\r\n    },\r\n    "replace" : {\r\n        "message": "Ersetzen"\r\n    },\r\n    "i18n_author": {\r\n        "message": "Autor: "\r\n    },\r\n    "i18n_publisher": {\r\n        "message": "Verlag: "\r\n    },\r\n    "i18n_source": {\r\n        "message": "Quelle: "\r\n    },\r\n    "i18n_pub_date": {\r\n        "message": "Veröffentlicht am: "\r\n    },\r\n    "i18n_modified_date": {\r\n        "message": "Zuletzt geändert am: "\r\n    },\r\n    "i18n_id": {\r\n        "message": "ID: "\r\n    },\r\n    "i18n_epub_version": {\r\n        "message": "EPUB Version: "\r\n    },\r\n    "i18n_created_at": {\r\n        "message": "Erstellt am: "\r\n    },\r\n    "i18n_format": {\r\n        "message": "Format: "\r\n    },\r\n    "i18n_added": {\r\n        "message": "Hinzugefügt am: "\r\n    },\r\n    "i18n_unknown": {\r\n        "message": "Unbekannt"\r\n    },\r\n    "i18n_sorry": {\r\n        "message": "Das aktuelle EPUB enthält für diesen Inhalt keine Media Overlays."\r\n    },\r\n    "i18n_add_items": {\r\n        "message": "Füge Werke zur Bibliothek hinzu."\r\n    },\r\n    "i18n_extracting": {\r\n        "message": "Entpacke: "\r\n    },\r\n    "i18n_add_book_to_readium_library": {\r\n        "message": "Buch zur Readium Bibliothek hinzufügen:"\r\n    },\r\n    "i18n_add_book": {\r\n        "message": "Buch hinzufügen"\r\n    },\r\n    "i18n_cancel": {\r\n        "message": "Abbrechen"\r\n    },\r\n    "i18n_from_the_web": {\r\n        "message": "Internet:"\r\n    },\r\n    "i18n_from_local_file": {\r\n        "message": "Lokale Datei:"\r\n    },\r\n    "i18n_enter_a_url": {\r\n        "message": "URL einer .epub Datei eingeben"\r\n    },\r\n    "i18n_unpacked_directory": {\r\n        "message": "Entpacktes Verzeichnis:"\r\n    },\r\n    "i18n_validate": {\r\n        "message": "Prüfe:"\r\n    },\r\n    "i18n_confirm_that_this_book": {\r\n        "message": "Bestätigung, dass dieses Buch mit EPUB Standards übereinstimmt"\r\n    },\r\n    "i18n_single_pages": {\r\n        "message": "Einzelseiten"\r\n    },\r\n    "i18n_double_pages": {\r\n        "message": "Doppelseiten"\r\n    },\r\n    "i18n_save_settings": {\r\n        "message": "Einstellungen speichern"\r\n    },\r\n    "i18n_font_size": {\r\n        "message": "Schriftgröße"\r\n    },\r\n    "i18n_margins": {\r\n        "message": "Rand"\r\n    },\r\n    "i18n_text_and_background_color": {\r\n        "message": "Text- und Hintergrundfarbe"\r\n    },\r\n    "i18n_author_theme": {\r\n        "message": "Vorgabe des Autors"\r\n    },\r\n    "i18n_black_and_white": {\r\n        "message": "Schwarzweiss"\r\n    },\r\n    "i18n_arabian_nights": {\r\n        "message": "Arabian Nights"\r\n    },\r\n    "i18n_sands_of_dune": {\r\n        "message": "Sands of Dune"\r\n    },\r\n    "i18n_ballard_blues": {\r\n        "message": "Ballard Blues"\r\n    },\r\n    "i18n_vancouver_mist": {\r\n        "message": "Vancouver Mist"\r\n    },\r\n    "i18n_display_format": {\r\n        "message": "Anzeigeformat"\r\n    },\r\n    "i18n_spread_auto": {\r\n        "message": "Automatisch"\r\n    },\r\n    "i18n_scroll_mode": {\r\n        "message": "Scroll Modus"\r\n    },\r\n    "i18n_scroll_mode_auto": {\r\n        "message": "Automatisch"\r\n    },\r\n    "i18n_scroll_mode_doc": {\r\n        "message": "Dokument"\r\n    },\r\n    "i18n_scroll_mode_continuous": {\r\n        "message": "Kontinuierlich"\r\n    },\r\n\r\n    "i18n_page_transition": {\r\n        "message": "Umblätter-Effekt"\r\n    },\r\n    "i18n_page_transition_none": {\r\n        "message": "Keiner"\r\n    },\r\n    "i18n_page_transition_fade": {\r\n        "message": "Fade"\r\n    },\r\n    "i18n_page_transition_slide": {\r\n        "message": "Slide"\r\n    },\r\n    "i18n_page_transition_swoosh": {\r\n        "message": "Swoosh"\r\n    },\r\n    "i18n_page_transition_butterfly": {\r\n        "message": "Butterfly"\r\n    },\r\n    "i18n_html_readium_tm_a_project": {\r\n        "message": "Readium für Chrome ist die Chrome Browser Erweiterung basierend auf ReadiumJS, einem Open-Source Lesesystem und einer JavaScript Bibliothek zur Darstellung von EPUB® Veröffentlichungen in Web-Browsern. ReadiumJS ist ein Projekt der Readium Foundation (Readium.org). Wenn Sie mehr darüber erfahren möchten oder das Projekt unterstützen wollen, besuchen Sie bitte die <a href=\\"http://readium.org/\\">Projekt Homepage</a>."\r\n\r\n    },\r\n    "gethelp": {\r\n        "message": "Falls Sie auf Probleme stoßen, Fragen haben oder \\"Hallo\\" sagen möchten, besuchen Sie <a href=\\"http://idpf.org/forums/readium\\">unser Forum</a>."\r\n    },\r\n    "i18n_toolbar": {\r\n        "message": "Werkzeugleiste"\r\n    },\r\n    "i18n_toolbar_show": {\r\n        "message": "Werkzeugleiste anzeigen"\r\n    },\r\n    "i18n_toolbar_hide": {\r\n        "message": "Werkzeugleiste ausblenden"\r\n    },\r\n    "i18n_audio_play": {\r\n        "message": "Audio - Abspielen"\r\n    },\r\n    "i18n_audio_pause": {\r\n        "message": "Audio - Pause"\r\n    },\r\n    "i18n_audio_play_background": {\r\n        "message": "Hintergrundaudio ein"\r\n    },\r\n    "i18n_audio_pause_background": {\r\n        "message": "Hintergrundaudio aus"\r\n    },\r\n    "i18n_audio_previous": {\r\n        "message": "Vorige Audiophrase"\r\n    },\r\n    "i18n_audio_next": {\r\n        "message": "Nächste Audiophrase"\r\n    },\r\n    "i18n_audio_volume": {\r\n        "message": "Lautstärke"\r\n    },\r\n    "i18n_audio_volume_increase": {\r\n        "message": "Lautstärke erhöhen"\r\n    },\r\n    "i18n_audio_volume_decrease": {\r\n        "message": "Lautstärke verringern"\r\n    },\r\n    "i18n_audio_time": {\r\n        "message": "Audio - Zeitmarke"\r\n    },\r\n    "i18n_audio_mute": {\r\n        "message": "Audio ausschalten"\r\n    },\r\n    "i18n_audio_unmute": {\r\n        "message": "Audio einschalten"\r\n    },\r\n    "i18n_audio_expand": {\r\n        "message": "Erweiterte Audio-Steuerung anzeigen"\r\n    },\r\n    "i18n_audio_collapse": {\r\n        "message": "Erweiterte Audio-Steuerung ausblenden"\r\n    },\r\n    "i18n_audio_esc": {\r\n        "message": "Aktuellen Audio-Bereich verlassen"\r\n    },\r\n    "i18n_audio_rate": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit"\r\n    },\r\n    "i18n_audio_rate_increase": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit erhöhen"\r\n    },\r\n    "i18n_audio_rate_decrease": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit verringern"\r\n    },\r\n    "i18n_audio_rate_reset": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit zurücksetzen"\r\n    },\r\n    "i18n_audio_skip_disable": {\r\n        "message": "Audio - Überspringen unterbinden "\r\n    },\r\n    "i18n_audio_skip_enable": {\r\n        "message": "Audio - Überspringen ermöglichen"\r\n    },\r\n    "i18n_audio_sync": {\r\n        "message": "Text-Audio-Synchronisation"\r\n    },\r\n    "i18n_audio_sync_default": {\r\n        "message": "Nach Vorgabe"\r\n    },\r\n    "i18n_audio_sync_word": {\r\n        "message": "Wort"\r\n    },\r\n    "i18n_audio_sync_sentence": {\r\n        "message": "Satz"\r\n    },\r\n    "i18n_audio_sync_paragraph": {\r\n        "message": "Absatz"\r\n    },\r\n    "i18n_page_previous": {\r\n        "message": "Vorige Seite"\r\n    },\r\n    "i18n_page_next": {\r\n        "message": "Nächste Seite"\r\n    },\r\n    "chrome_accept_languages": {\r\n        "message": "$CHROME$ akzeptiert $languages$ Sprachen",\r\n        "placeholders": {\r\n            "chrome": {\r\n                "content": "Chrome",\r\n                "example": "Chrome"\r\n            },\r\n            "languages": {\r\n                "content": "$1",\r\n                "example": "en-US,ja,sr,de,zh_CN"\r\n            }\r\n        }\r\n    }\r\n}';});
+
+define('text!readium_js_viewer_i18n/_locales/de/messages.json',[],function () { return '{ "about": {\r\n    "message": "Über Readium"\r\n    },\r\n    "preview": {\r\n        "message": "Vorschau"\r\n    },\r\n    "list_view": {\r\n        "message": "Listenansicht"\r\n    },\r\n    "thumbnail_view": {\r\n        "message": "Kachelansicht"\r\n    },\r\n    "view_library": {\r\n        "message": "Bibliothek"\r\n    },\r\n    "highlight_selection": {\r\n        "message": "Ausgewählten Text hervorheben"\r\n    },\r\n    "toc": {\r\n        "message": "Inhaltsverzeichnis"\r\n    },\r\n    "settings": {\r\n        "message": "Einstellungen"\r\n    },\r\n    "enter_fullscreen": {\r\n        "message": "Vollbildmodus"\r\n    },\r\n    "exit_fullscreen": {\r\n        "message": "Vollbildmodus verlassen"\r\n    },\r\n    "chrome_extension_name": {\r\n        "message": "Readium"\r\n    },\r\n    "chrome_extension_description": {\r\n        "message": "Ein Leseprogramm für EPUB3 Bücher."\r\n    },\r\n    "ok" : {\r\n        "message" : "Ok"\r\n    },\r\n    "i18n_readium_library": {\r\n        "message": "Readium Bibliothek"\r\n    },\r\n    "i18n_loading": {\r\n        "message": "Bibliothek wird geladen"\r\n    },\r\n    "i18n_readium_options": {\r\n        "message": "Readium Einstellungen:"\r\n    },\r\n    "i18n_save_changes": {\r\n        "message": "Änderungen speichern"\r\n    },\r\n    "i18n_close": {\r\n        "message": "Schließen"\r\n    },\r\n    "i18n_keyboard_shortcuts": {\r\n        "message": "Funktionstasten"\r\n    },\r\n    "i18n_keyboard_reload": {\r\n        "message": "Bitte laden Sie die Seite im Browser neu, damit die Änderungen der Tastaturkürzel wirksam werden."\r\n    },\r\n    "i18n_reset_key": {\r\n        "message": "Taste zurücksetzen"\r\n    },\r\n    "i18n_reset_key_all": {\r\n        "message": "Alle Funktionstasten auf Standard zurücksetzen"\r\n    },\r\n    "i18n_duplicate_keyboard_shortcut": {\r\n        "message": "Doppelbelegung"\r\n    },\r\n    "i18n_invalid_keyboard_shortcut": {\r\n        "message": "Nicht zulässig"\r\n    },\r\n    "i18n_paginate_all": {\r\n        "message": "Fließtext des EPUB Inhalts paginieren"\r\n    },\r\n    "i18n_automatically": {\r\n        "message": "*.epub URLs automatisch in Readium öffnen"\r\n    },\r\n    "i18n_show_warning": {\r\n        "message": "Warnhinweise beim Entpacken von EPUB Dateien anzeigen"\r\n    },\r\n    "i18n_details": {\r\n        "message": "Details"\r\n    },\r\n    "i18n_read": {\r\n        "message": "Lesen"\r\n    },\r\n    "i18n_delete": {\r\n        "message": "Löschen"\r\n    },\r\n    "i18n_are_you_sure": {\r\n        "message": "Möchten Sie diese Datei wirklich unwiderruflich löschen?"\r\n    },\r\n    "delete_dlg_title": {\r\n        "message": "Löschen bestätigen"\r\n    },\r\n\r\n    "i18n_auto_page_turn_enable": {\r\n        "message": "Automatisches Umblättern einschalten"\r\n    },\r\n    "i18n_auto_page_turn_disable": {\r\n        "message": "Automatisches Umblättern ausschalten"\r\n    },\r\n\r\n    "i18n_playback_scroll_enable": {\r\n        "message": "Scrollen während der Wiedergabe"\r\n    },\r\n    "i18n_playback_scroll_disable": {\r\n        "message": "Kein Scrollen während der Wiedergabe"\r\n    },\r\n    "i18n_audio_touch_enable": {\r\n        "message": "Touch-to-play einschalten"\r\n    },\r\n    "i18n_audio_touch_disable": {\r\n        "message": "Touch-to-play ausschalten"\r\n    },\r\n    "i18n_audio_highlight_default": {\r\n        "message": "Standard"\r\n    },\r\n    "i18n_audio_highlight": {\r\n        "message": "Hervorhebungsfarbe"\r\n    },\r\n\r\n    "delete_progress_title": {\r\n        "message": "Löschen wird ausgeführt"\r\n    },\r\n    "delete_progress_message": {\r\n        "message": "Löschen"\r\n    },\r\n    "migrate_dlg_title": {\r\n        "message": "Bücher migrieren"\r\n    },\r\n    "migrate_dlg_message": {\r\n        "message": "Daten werden geladen..."\r\n    },\r\n    "migrating": {\r\n        "message": "Migrieren..."\r\n    },\r\n    "replace_dlg_title": {\r\n        "message": "Konflikt festgestellt"\r\n    },\r\n    "replace_dlg_message": {\r\n        "message": "Soll das bestehende EPUB wirklich ersetzt werden?"\r\n    },\r\n    "import_dlg_title": {\r\n        "message": "EPUB importieren"\r\n    },\r\n    "import_dlg_message": {\r\n        "message": "EPUB Inhalt überprüfen..."\r\n    },\r\n    "storing_file": {\r\n        "message": "Datei speichern"\r\n    },\r\n    "err_unknown": {\r\n        "message": "Unbekannter Fehler. Für Details öffnen Sie die Konsole."\r\n    },\r\n    "err_storage": {\r\n        "message": "Zugriff auf Dateispeicher nicht möglich."\r\n    },\r\n    "err_epub_corrupt": {\r\n        "message": "Ungültiges oder beschädigtes EPUB Paket"\r\n    },\r\n    "err_dlg_title": {\r\n        "message": "Unerwarteter Fehler"\r\n    },\r\n    "replace" : {\r\n        "message": "Ersetzen"\r\n    },\r\n    "i18n_author": {\r\n        "message": "Autor: "\r\n    },\r\n    "i18n_publisher": {\r\n        "message": "Verlag: "\r\n    },\r\n    "i18n_source": {\r\n        "message": "Quelle: "\r\n    },\r\n    "i18n_pub_date": {\r\n        "message": "Veröffentlicht am: "\r\n    },\r\n    "i18n_modified_date": {\r\n        "message": "Zuletzt geändert am: "\r\n    },\r\n    "i18n_id": {\r\n        "message": "ID: "\r\n    },\r\n    "i18n_epub_version": {\r\n        "message": "EPUB Version: "\r\n    },\r\n    "i18n_created_at": {\r\n        "message": "Erstellt am: "\r\n    },\r\n    "i18n_format": {\r\n        "message": "Format: "\r\n    },\r\n    "i18n_added": {\r\n        "message": "Hinzugefügt am: "\r\n    },\r\n    "i18n_unknown": {\r\n        "message": "Unbekannt"\r\n    },\r\n    "i18n_sorry": {\r\n        "message": "Das aktuelle EPUB enthält für diesen Inhalt keine Media Overlays."\r\n    },\r\n    "i18n_add_items": {\r\n        "message": "Füge Werke zur Bibliothek hinzu."\r\n    },\r\n    "i18n_extracting": {\r\n        "message": "Entpacke: "\r\n    },\r\n    "i18n_add_book_to_readium_library": {\r\n        "message": "Buch zur Readium Bibliothek hinzufügen:"\r\n    },\r\n    "i18n_add_book": {\r\n        "message": "Buch hinzufügen"\r\n    },\r\n    "i18n_cancel": {\r\n        "message": "Abbrechen"\r\n    },\r\n    "i18n_from_the_web": {\r\n        "message": "Internet:"\r\n    },\r\n    "i18n_from_local_file": {\r\n        "message": "Lokale Datei:"\r\n    },\r\n    "i18n_enter_a_url": {\r\n        "message": "URL einer .epub Datei eingeben"\r\n    },\r\n    "i18n_unpacked_directory": {\r\n        "message": "Entpacktes Verzeichnis:"\r\n    },\r\n    "i18n_validate": {\r\n        "message": "Prüfe:"\r\n    },\r\n    "i18n_confirm_that_this_book": {\r\n        "message": "Bestätigung, dass dieses Buch mit EPUB Standards übereinstimmt"\r\n    },\r\n    "i18n_single_pages": {\r\n        "message": "Einzelseiten"\r\n    },\r\n    "i18n_double_pages": {\r\n        "message": "Doppelseiten"\r\n    },\r\n    "i18n_save_settings": {\r\n        "message": "Einstellungen speichern"\r\n    },\r\n    "i18n_font_size": {\r\n        "message": "Schriftgröße"\r\n    },\r\n    "i18n_margins": {\r\n        "message": "Rand"\r\n    },\r\n    "i18n_text_and_background_color": {\r\n        "message": "Text- und Hintergrundfarbe"\r\n    },\r\n    "i18n_author_theme": {\r\n        "message": "Vorgabe des Autors"\r\n    },\r\n    "i18n_black_and_white": {\r\n        "message": "Schwarzweiss"\r\n    },\r\n    "i18n_arabian_nights": {\r\n        "message": "Arabian Nights"\r\n    },\r\n    "i18n_sands_of_dune": {\r\n        "message": "Sands of Dune"\r\n    },\r\n    "i18n_ballard_blues": {\r\n        "message": "Ballard Blues"\r\n    },\r\n    "i18n_vancouver_mist": {\r\n        "message": "Vancouver Mist"\r\n    },\r\n    "i18n_display_format": {\r\n        "message": "Anzeigeformat"\r\n    },\r\n    "i18n_spread_auto": {\r\n        "message": "Automatisch"\r\n    },\r\n    "i18n_scroll_mode": {\r\n        "message": "Scroll Modus"\r\n    },\r\n    "i18n_scroll_mode_auto": {\r\n        "message": "Automatisch"\r\n    },\r\n    "i18n_scroll_mode_doc": {\r\n        "message": "Dokument"\r\n    },\r\n    "i18n_scroll_mode_continuous": {\r\n        "message": "Kontinuierlich"\r\n    },\r\n\r\n    "i18n_page_transition": {\r\n        "message": "Umblätter-Effekt"\r\n    },\r\n    "i18n_page_transition_none": {\r\n        "message": "Keiner"\r\n    },\r\n    "i18n_page_transition_fade": {\r\n        "message": "Fade"\r\n    },\r\n    "i18n_page_transition_slide": {\r\n        "message": "Slide"\r\n    },\r\n    "i18n_page_transition_swoosh": {\r\n        "message": "Swoosh"\r\n    },\r\n    "i18n_page_transition_butterfly": {\r\n        "message": "Butterfly"\r\n    },\r\n    "i18n_html_readium_tm_a_project": {\r\n        "message": "Readium für Chrome ist die Chrome Browser Erweiterung basierend auf ReadiumJS, einem Open-Source Lesesystem und einer JavaScript Bibliothek zur Darstellung von EPUB® Veröffentlichungen in Web-Browsern. ReadiumJS ist ein Projekt der Readium Foundation (Readium.org). Wenn Sie mehr darüber erfahren möchten oder das Projekt unterstützen wollen, besuchen Sie bitte die <a href=\\"http://readium.org/\\">Projekt Homepage</a>."\r\n\r\n    },\r\n    "gethelp": {\r\n        "message": "Falls Sie auf Probleme stoßen, Fragen haben oder \\"Hallo\\" sagen möchten, besuchen Sie <a href=\\"http://idpf.org/forums/readium\\">unser Forum</a>."\r\n    },\r\n    "i18n_toolbar": {\r\n        "message": "Werkzeugleiste"\r\n    },\r\n    "i18n_toolbar_show": {\r\n        "message": "Werkzeugleiste anzeigen"\r\n    },\r\n    "i18n_toolbar_hide": {\r\n        "message": "Werkzeugleiste ausblenden"\r\n    },\r\n    "i18n_audio_play": {\r\n        "message": "Audio - Abspielen"\r\n    },\r\n    "i18n_audio_pause": {\r\n        "message": "Audio - Pause"\r\n    },\r\n    "i18n_audio_play_background": {\r\n        "message": "Hintergrundaudio ein"\r\n    },\r\n    "i18n_audio_pause_background": {\r\n        "message": "Hintergrundaudio aus"\r\n    },\r\n    "i18n_audio_previous": {\r\n        "message": "Vorige Audiophrase"\r\n    },\r\n    "i18n_audio_next": {\r\n        "message": "Nächste Audiophrase"\r\n    },\r\n    "i18n_audio_volume": {\r\n        "message": "Lautstärke"\r\n    },\r\n    "i18n_audio_volume_increase": {\r\n        "message": "Lautstärke erhöhen"\r\n    },\r\n    "i18n_audio_volume_decrease": {\r\n        "message": "Lautstärke verringern"\r\n    },\r\n    "i18n_audio_time": {\r\n        "message": "Audio - Zeitmarke"\r\n    },\r\n    "i18n_audio_mute": {\r\n        "message": "Audio ausschalten"\r\n    },\r\n    "i18n_audio_unmute": {\r\n        "message": "Audio einschalten"\r\n    },\r\n    "i18n_audio_expand": {\r\n        "message": "Erweiterte Audio-Steuerung anzeigen"\r\n    },\r\n    "i18n_audio_collapse": {\r\n        "message": "Erweiterte Audio-Steuerung ausblenden"\r\n    },\r\n    "i18n_audio_esc": {\r\n        "message": "Aktuellen Audio-Bereich verlassen"\r\n    },\r\n    "i18n_audio_rate": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit"\r\n    },\r\n    "i18n_audio_rate_increase": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit erhöhen"\r\n    },\r\n    "i18n_audio_rate_decrease": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit verringern"\r\n    },\r\n    "i18n_audio_rate_reset": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit zurücksetzen"\r\n    },\r\n    "i18n_audio_skip_disable": {\r\n        "message": "Audio - Überspringen unterbinden "\r\n    },\r\n    "i18n_audio_skip_enable": {\r\n        "message": "Audio - Überspringen ermöglichen"\r\n    },\r\n    "i18n_audio_sync": {\r\n        "message": "Text-Audio-Synchronisation"\r\n    },\r\n    "i18n_audio_sync_default": {\r\n        "message": "Nach Vorgabe"\r\n    },\r\n    "i18n_audio_sync_word": {\r\n        "message": "Wort"\r\n    },\r\n    "i18n_audio_sync_sentence": {\r\n        "message": "Satz"\r\n    },\r\n    "i18n_audio_sync_paragraph": {\r\n        "message": "Absatz"\r\n    },\r\n    "i18n_page_previous": {\r\n        "message": "Vorige Seite"\r\n    },\r\n    "i18n_page_next": {\r\n        "message": "Nächste Seite"\r\n    },\r\n    "chrome_accept_languages": {\r\n        "message": "$CHROME$ akzeptiert $languages$ Sprachen",\r\n        "placeholders": {\r\n            "chrome": {\r\n                "content": "Chrome",\r\n                "example": "Chrome"\r\n            },\r\n            "languages": {\r\n                "content": "$1",\r\n                "example": "en-US,ja,sr,de,zh_CN"\r\n            }\r\n        }\r\n    }\r\n}';});
 
 
-define('text!i18n/_locales/es/messages.json',[],function () { return '{\r\n\r\n    "chrome_extension_name": {\r\n        "message": "Readium"\r\n    },\r\n    "about" : {\r\n        "message" : "Acerca de"\r\n    },\r\n    "preview" : {\r\n        "message" : "Vista previa"\r\n    },\r\n    "list_view" : {\r\n        "message" : "Vista en lista"\r\n    },\r\n    "thumbnail_view" : {\r\n        "message" : "Vista en miniaturas"\r\n    },\r\n    "view_library": {\r\n        "message" : "Biblioteca"\r\n    },\r\n    "highlight_selection" : {\r\n        "message" : "Subrayar texto seleccionado"\r\n    },\r\n    "toc" : {\r\n        "message" : "Tabla de contenidos"\r\n    },\r\n    "settings" : {\r\n        "message" : "Preferencias"\r\n    },\r\n    "enter_fullscreen" : {\r\n        "message" : "Abrir modo de pantalla completa"\r\n    },\r\n    "exit_fullscreen" : {\r\n        "message" : "Cerrar modo de pantalla completa"\r\n    },\r\n    "chrome_extension_description": {\r\n        "message": "Lector de libros EPUB3."\r\n    },\r\n    "ok" : {\r\n        "message" : "Ok"\r\n    },\r\n    "delete_dlg_title" : {\r\n        "message" : "Confirmar eliminación"\r\n    },\r\n    "delete_progress_title" : {\r\n        "message" : "Eliminación en progreso"\r\n    },\r\n    "delete_progress_message" : {\r\n        "message" : "Eliminando"\r\n    },\r\n    "migrate_dlg_title" : {\r\n        "message" : "Migrando libros"\r\n    },\r\n    "migrate_dlg_message" : {\r\n        "message" : "Cargando datos..."\r\n    },\r\n    "migrating" : {\r\n        "message" : "Migrando"\r\n    },\r\n    "replace_dlg_title" : {\r\n        "message": "Se ha detectado un conflicto"\r\n    },\r\n    "replace_dlg_message": {\r\n        "message": "Si decide continuar, el siguiente epub será reemplazado por el que está siendo importado"\r\n    },\r\n    "import_dlg_title" : {\r\n        "message": "Importando EPUB"\r\n    },\r\n    "import_dlg_message" : {\r\n        "message": "Examinando contenido del EPUB..."\r\n    },\r\n    "storing_file" : {\r\n        "message": "Guardando archivo"\r\n    },\r\n    "err_unknown" : {\r\n        "message": "Error desconocido. Chequear la consola para conocer más detalles."\r\n    },\r\n    "err_storage" : {\r\n        "message": "No es posible acceder al dispositvo"\r\n    },\r\n    "err_epub_corrupt" : {\r\n        "message": "Paquete EPUB inválido o corrupto"\r\n    },\r\n    "err_dlg_title" : {\r\n        "message": "Error inesperado"\r\n    },\r\n    "replace" : {\r\n        "message": "Reemplazar"\r\n    },\r\n    "gethelp" : {\r\n        "message" : "Si encuentra algún problema, tiene preguntas, o le gustaría decir hola, visite <a href=\\"http://idpf.org/forums/readium\\">nuestro foro</a>"\r\n    },\r\n    "i18n_readium_library" : {\r\n        "message" : "Biblioteca Readium"\r\n    },\r\n    "i18n_loading" : {\r\n        "message" : "Cargando biblioteca"\r\n    },\r\n    "i18n_readium_options" : {\r\n        "message" : "Readium Opciones:"\r\n    },\r\n    "i18n_save_changes" : {\r\n        "message" : "Guardar cambios"\r\n    },\r\n    "i18n_close" : {\r\n        "message" : "Cerrar"\r\n    },\r\n    "i18n_keyboard_shortcuts" : {\r\n        "message" : "Teclas de acceso rápido"\r\n    },\r\n    "i18n_keyboard_reload" : {\r\n        "message" : "Por favor, actualiza la página para que las teclas de acceso rápido tengan efecto."\r\n    },\r\n    "i18n_reset_key" : {\r\n        "message" : "Reestablecer tecla"\r\n    },\r\n    "i18n_reset_key_all" : {\r\n        "message" : "Reestablecer todos las teclas de acceso rápido"\r\n    },\r\n    "i18n_duplicate_keyboard_shortcut" : {\r\n        "message" : "DUPLICADO"\r\n    },\r\n    "i18n_invalid_keyboard_shortcut" : {\r\n        "message" : "INVALIDO"\r\n    },\r\n    "i18n_paginate_all" : {\r\n        "message" : "Paginar todo el contenido ePUB repaginable"\r\n    },\r\n    "i18n_automatically" : {\r\n        "message" : "Abrir automáticamente urls *.epub en readium"\r\n    },\r\n    "i18n_show_warning" : {\r\n        "message" : "Mostrar advertencias al desempaquetar archivos EPUB"\r\n    },\r\n    "i18n_details" : {\r\n        "message" : "Detalles"\r\n    },\r\n    "i18n_read" : {\r\n        "message" : "Leer"\r\n    },\r\n    "i18n_delete" : {\r\n        "message" : "Eliminar"\r\n    },\r\n    "i18n_author" : {\r\n        "message" : "Autor: "\r\n    },\r\n    "i18n_publisher" : {\r\n        "message" : "Editor: "\r\n    },\r\n    "i18n_source" : {\r\n        "message" : "Fuente: "\r\n    },\r\n    "i18n_pub_date" : {\r\n        "message" : "Fecha de publicación: "\r\n    },\r\n    "i18n_modified_date" : {\r\n        "message" : "Fecha de modificación: "\r\n    },\r\n    "i18n_id" : {\r\n        "message" : "ID: "\r\n    },\r\n    "i18n_epub_version" : {\r\n        "message" : "Versión EPUB: "\r\n    },\r\n    "i18n_created_at" : {\r\n        "message" : "Creado en: "\r\n    },\r\n    "i18n_format" : {\r\n        "message" : "Formato: "\r\n    },\r\n    "i18n_added" : {\r\n        "message" : "Añadido: "\r\n    },\r\n    "i18n_unknown" : {\r\n        "message" : "Desconocido"\r\n    },\r\n    "i18n_sorry" : {\r\n        "message" : "Disculpa, el EPUB actual no contiene superposición multimedia para este contenido"\r\n    },\r\n    "i18n_add_items" : {\r\n        "message" : "¡Añade aquí elementos a tu biblioteca!"\r\n    },\r\n    "i18n_extracting" : {\r\n        "message" : "extrayendo: "\r\n    },\r\n    "i18n_are_you_sure" : {\r\n        "message" : "¿Está seguro que desea eliminar de forma permanente"\r\n    },\r\n    "i18n_add_book_to_readium_library" : {\r\n        "message" : "Añadir libro a biblioteca Readium:"\r\n    },\r\n    "i18n_add_book" : {\r\n        "message" : "Añadir a la biblioteca"\r\n    },\r\n    "i18n_cancel" : {\r\n        "message" : "Cancelar"\r\n    },\r\n    "i18n_from_the_web" : {\r\n        "message" : "Desde la web:"\r\n    },\r\n    "i18n_from_local_file" : {\r\n        "message" : "Desde un archivo local:"\r\n    },\r\n    "i18n_enter_a_url" : {\r\n        "message" : "Ingresa una URL a un archivo .epub"\r\n    },\r\n    "i18n_unpacked_directory" : {\r\n        "message" : "Carpeta descomprimida:"\r\n    },\r\n    "i18n_validate" : {\r\n        "message" : "Validar:"\r\n    },\r\n    "i18n_confirm_that_this_book" : {\r\n        "message" : "Confirmar que este libro cumple con los estándares ePUB"\r\n    },\r\n    "i18n_single_pages" : {\r\n        "message" : "Páginas simple"\r\n    },\r\n    "i18n_double_pages" : {\r\n        "message" : "Páginas doble"\r\n    },\r\n    "i18n_save_settings" : {\r\n        "message" : "Guardar preferencias"\r\n    },\r\n    "i18n_font_size" : {\r\n        "message" : "TAMAÑO DE FUENTE"\r\n    },\r\n    "i18n_margins" : {\r\n        "message" : "MARGENES"\r\n    },\r\n    "i18n_text_and_background_color" : {\r\n        "message" : "COLOR DE FUENTE Y FONDO"\r\n    },\r\n    "i18n_black_and_white" : {\r\n        "message" : "Blanco y negro"\r\n    },\r\n    "i18n_arabian_nights" : {\r\n        "message" : "Las mil y una noches"\r\n    },\r\n    "i18n_sands_of_dune" : {\r\n        "message" : "Arenas de duna"\r\n    },\r\n    "i18n_ballard_blues" : {\r\n        "message" : "Ballard Blues"\r\n    },\r\n    "i18n_vancouver_mist" : {\r\n        "message" : "Bruma de Vancouver"\r\n    },\r\n    "i18n_display_format" : {\r\n        "message" : "MOSTRAR FORMATO"\r\n    },\r\n    "i18n_scroll_mode" : {\r\n        "message" : "MODO DE DESPLAZAMIENTO"\r\n    },\r\n    "i18n_scroll_mode_default" : {\r\n        "message" : "Por defecto"\r\n    },\r\n    "i18n_scroll_mode_doc" : {\r\n        "message" : "Documento"\r\n    },\r\n    "i18n_scroll_mode_continuous" : {\r\n        "message" : "Continuo"\r\n    },\r\n    "i18n_html_readium_tm_a_project" : {\r\n        "message" : "Readium para Chrome es la extensión para Chrome de ReadiumJS, un sistema de lectura de código abierto y librería JavaScript para renderizar publicaciones EPUB® en navegadores web. ReadiumJS es un proyecto de Readium Foundation (Readium.org). Para saber más o contribuir, visita el <a href=\\"http://readium.org/projects/readiumjs\\">sitio del proyecto</a>"\r\n    },\r\n    "i18n_toolbar_show" : {\r\n        "message" : "Mostrar barra de herramientas"\r\n    },\r\n    "i18n_toolbar_hide" : {\r\n        "message" : "Ocultar barra de herramientas"\r\n    },\r\n    "i18n_audio_play" : {\r\n        "message" : "Reproducir"\r\n    },\r\n    "i18n_audio_pause" : {\r\n        "message" : "Pausa"\r\n    },\r\n    "i18n_audio_previous" : {\r\n        "message" : "Frase de audio anterior"\r\n    },\r\n    "i18n_audio_next" : {\r\n        "message" : "Frase de audio siguiente"\r\n    },\r\n    "i18n_audio_volume" : {\r\n        "message" : "Volumen de audio"\r\n    },\r\n    "i18n_audio_volume_increase" : {\r\n        "message" : "Incrementar volumen de audio"\r\n    },\r\n    "i18n_audio_volume_decrease" : {\r\n        "message" : "Reducir volumen de audio"\r\n    },\r\n    "i18n_audio_time" : {\r\n        "message" : "Cursor de tiempo de audio"\r\n    },\r\n    "i18n_audio_mute" : {\r\n        "message" : "Desactivar audio"\r\n    },\r\n    "i18n_audio_unmute" : {\r\n        "message" : "Activar audio"\r\n    },\r\n    "i18n_audio_expand" : {\r\n        "message" : "Mostrar controles avanzados de audio"\r\n    },\r\n    "i18n_audio_collapse" : {\r\n        "message" : "Cerrar controles avanzados de audio"\r\n    },\r\n    "i18n_audio_esc" : {\r\n        "message" : "Salir de contexto actual de audio"\r\n    },\r\n    "i18n_audio_rate" : {\r\n        "message" : "Velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_increase" : {\r\n        "message" : "Incrementar velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_decrease" : {\r\n        "message" : "Reducir velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_reset" : {\r\n        "message" : "Reestablecer reproducción de audio a velocidad normal"\r\n    },\r\n    "i18n_audio_skip_disable" : {\r\n        "message" : "Desactivar capacidad de omisión"\r\n    },\r\n    "i18n_audio_skip_enable" : {\r\n        "message" : "Activar capacidad de omisión"\r\n    },\r\n    "i18n_audio_touch_enable" : {\r\n        "message" : "Activar touch-to-play"\r\n    },\r\n    "i18n_audio_touch_disable" : {\r\n        "message" : "Desactivar touch-to-play"\r\n    },\r\n    "i18n_audio_highlight_default" : {\r\n        "message" : "por defecto"\r\n    },\r\n    "i18n_audio_highlight" : {\r\n        "message" : "Color de audio"\r\n    },\r\n    "i18n_audio_sync" : {\r\n        "message" : "Granularidad de sincronización texto/audio"\r\n    },\r\n    "i18n_audio_sync_default" : {\r\n        "message" : "Por defecto"\r\n    },\r\n    "i18n_audio_sync_word" : {\r\n        "message" : "Palabra"\r\n    },\r\n    "i18n_audio_sync_sentence" : {\r\n        "message" : "Oración"\r\n    },\r\n    "i18n_audio_sync_paragraph" : {\r\n        "message" : "Párrafo"\r\n    },\r\n    "i18n_page_previous" : {\r\n        "message" : "Página previa"\r\n    },\r\n    "i18n_page_next" : {\r\n        "message" : "Página siguiente"\r\n    },\r\n    "i18n_author_theme" : {\r\n      "message" : "Por defecto (estilos de autor)"\r\n    },\r\n\r\n  "i18n_spread_auto" : {\r\n       "message" : "Automático"\r\n    },\r\n\r\n  "i18n_scroll_mode_auto" : {\r\n      "message" : "Automático"\r\n    },\r\n\r\n   "i18n_page_transition" : {\r\n      "message" : "EFECTOS DE PÁGINA"\r\n    },\r\n    "i18n_page_transition_none" : {\r\n      "message" : "Desactivado"\r\n    },\r\n    "i18n_page_transition_fade" : {\r\n      "message" : "Apagarse"\r\n    },\r\n    "i18n_page_transition_slide" : {\r\n      "message" : "Deslizar"\r\n    },\r\n    "i18n_page_transition_swoosh" : {\r\n      "message" : "Swoosh"\r\n    },\r\n    "i18n_page_transition_butterfly" : {\r\n      "message" : "Mariposa"\r\n    },\r\n\r\n  "i18n_toolbar" : {\r\n      "message" : "Barra de herramientas"\r\n    },\r\n\r\n   "i18n_audio_play_background" : {\r\n      "message" : "Reproducir pista en segundo plano"\r\n    },\r\n    "i18n_audio_pause_background" : {\r\n      "message" : "Pausar pista en segundo plano"\r\n},\r\n\r\n   "i18n_auto_page_turn_enable" : {\r\n      "message" : "Activar vuelta de página automática"\r\n    },\r\n    "i18n_auto_page_turn_disable" : {\r\n      "message" : "Desactivar vuelta de página automática"\r\n    },\r\n\r\n   "i18n_playback_scroll_enable" : {\r\n      "message" : "Activar desplazamiento durante la reproducción"\r\n    },\r\n\r\n    "i18n_playback_scroll_disable" : {\r\n      "message" : "Desactivar desplazamiento durante la reproducción"\r\n    },\r\n\r\n    "chrome_accept_languages": {\r\n        "message": "$CHROME$ acepta idiomas $languages$",\r\n        "placeholders": {\r\n            "chrome": {\r\n                "content": "Chrome",\r\n                "example": "Chrome"\r\n            },\r\n            "languages": {\r\n                "content": "$1",\r\n                "example": "en-US,ja,sr,de,zh_CN"\r\n            }\r\n        }\r\n    }\r\n}';});
+define('text!readium_js_viewer_i18n/_locales/es/messages.json',[],function () { return '{\r\n\r\n    "chrome_extension_name": {\r\n        "message": "Readium"\r\n    },\r\n    "about" : {\r\n        "message" : "Acerca de"\r\n    },\r\n    "preview" : {\r\n        "message" : "Vista previa"\r\n    },\r\n    "list_view" : {\r\n        "message" : "Vista en lista"\r\n    },\r\n    "thumbnail_view" : {\r\n        "message" : "Vista en miniaturas"\r\n    },\r\n    "view_library": {\r\n        "message" : "Biblioteca"\r\n    },\r\n    "highlight_selection" : {\r\n        "message" : "Subrayar texto seleccionado"\r\n    },\r\n    "toc" : {\r\n        "message" : "Tabla de contenidos"\r\n    },\r\n    "settings" : {\r\n        "message" : "Preferencias"\r\n    },\r\n    "enter_fullscreen" : {\r\n        "message" : "Abrir modo de pantalla completa"\r\n    },\r\n    "exit_fullscreen" : {\r\n        "message" : "Cerrar modo de pantalla completa"\r\n    },\r\n    "chrome_extension_description": {\r\n        "message": "Lector de libros EPUB3."\r\n    },\r\n    "ok" : {\r\n        "message" : "Ok"\r\n    },\r\n    "delete_dlg_title" : {\r\n        "message" : "Confirmar eliminación"\r\n    },\r\n    "delete_progress_title" : {\r\n        "message" : "Eliminación en progreso"\r\n    },\r\n    "delete_progress_message" : {\r\n        "message" : "Eliminando"\r\n    },\r\n    "migrate_dlg_title" : {\r\n        "message" : "Migrando libros"\r\n    },\r\n    "migrate_dlg_message" : {\r\n        "message" : "Cargando datos..."\r\n    },\r\n    "migrating" : {\r\n        "message" : "Migrando"\r\n    },\r\n    "replace_dlg_title" : {\r\n        "message": "Se ha detectado un conflicto"\r\n    },\r\n    "replace_dlg_message": {\r\n        "message": "Si decide continuar, el siguiente epub será reemplazado por el que está siendo importado"\r\n    },\r\n    "import_dlg_title" : {\r\n        "message": "Importando EPUB"\r\n    },\r\n    "import_dlg_message" : {\r\n        "message": "Examinando contenido del EPUB..."\r\n    },\r\n    "storing_file" : {\r\n        "message": "Guardando archivo"\r\n    },\r\n    "err_unknown" : {\r\n        "message": "Error desconocido. Chequear la consola para conocer más detalles."\r\n    },\r\n    "err_storage" : {\r\n        "message": "No es posible acceder al dispositvo"\r\n    },\r\n    "err_epub_corrupt" : {\r\n        "message": "Paquete EPUB inválido o corrupto"\r\n    },\r\n    "err_dlg_title" : {\r\n        "message": "Error inesperado"\r\n    },\r\n    "replace" : {\r\n        "message": "Reemplazar"\r\n    },\r\n    "gethelp" : {\r\n        "message" : "Si encuentra algún problema, tiene preguntas, o le gustaría decir hola, visite <a href=\\"http://idpf.org/forums/readium\\">nuestro foro</a>"\r\n    },\r\n    "i18n_readium_library" : {\r\n        "message" : "Biblioteca Readium"\r\n    },\r\n    "i18n_loading" : {\r\n        "message" : "Cargando biblioteca"\r\n    },\r\n    "i18n_readium_options" : {\r\n        "message" : "Readium Opciones:"\r\n    },\r\n    "i18n_save_changes" : {\r\n        "message" : "Guardar cambios"\r\n    },\r\n    "i18n_close" : {\r\n        "message" : "Cerrar"\r\n    },\r\n    "i18n_keyboard_shortcuts" : {\r\n        "message" : "Teclas de acceso rápido"\r\n    },\r\n    "i18n_keyboard_reload" : {\r\n        "message" : "Por favor, actualiza la página para que las teclas de acceso rápido tengan efecto."\r\n    },\r\n    "i18n_reset_key" : {\r\n        "message" : "Reestablecer tecla"\r\n    },\r\n    "i18n_reset_key_all" : {\r\n        "message" : "Reestablecer todos las teclas de acceso rápido"\r\n    },\r\n    "i18n_duplicate_keyboard_shortcut" : {\r\n        "message" : "DUPLICADO"\r\n    },\r\n    "i18n_invalid_keyboard_shortcut" : {\r\n        "message" : "INVALIDO"\r\n    },\r\n    "i18n_paginate_all" : {\r\n        "message" : "Paginar todo el contenido ePUB repaginable"\r\n    },\r\n    "i18n_automatically" : {\r\n        "message" : "Abrir automáticamente urls *.epub en readium"\r\n    },\r\n    "i18n_show_warning" : {\r\n        "message" : "Mostrar advertencias al desempaquetar archivos EPUB"\r\n    },\r\n    "i18n_details" : {\r\n        "message" : "Detalles"\r\n    },\r\n    "i18n_read" : {\r\n        "message" : "Leer"\r\n    },\r\n    "i18n_delete" : {\r\n        "message" : "Eliminar"\r\n    },\r\n    "i18n_author" : {\r\n        "message" : "Autor: "\r\n    },\r\n    "i18n_publisher" : {\r\n        "message" : "Editor: "\r\n    },\r\n    "i18n_source" : {\r\n        "message" : "Fuente: "\r\n    },\r\n    "i18n_pub_date" : {\r\n        "message" : "Fecha de publicación: "\r\n    },\r\n    "i18n_modified_date" : {\r\n        "message" : "Fecha de modificación: "\r\n    },\r\n    "i18n_id" : {\r\n        "message" : "ID: "\r\n    },\r\n    "i18n_epub_version" : {\r\n        "message" : "Versión EPUB: "\r\n    },\r\n    "i18n_created_at" : {\r\n        "message" : "Creado en: "\r\n    },\r\n    "i18n_format" : {\r\n        "message" : "Formato: "\r\n    },\r\n    "i18n_added" : {\r\n        "message" : "Añadido: "\r\n    },\r\n    "i18n_unknown" : {\r\n        "message" : "Desconocido"\r\n    },\r\n    "i18n_sorry" : {\r\n        "message" : "Disculpa, el EPUB actual no contiene superposición multimedia para este contenido"\r\n    },\r\n    "i18n_add_items" : {\r\n        "message" : "¡Añade aquí elementos a tu biblioteca!"\r\n    },\r\n    "i18n_extracting" : {\r\n        "message" : "extrayendo: "\r\n    },\r\n    "i18n_are_you_sure" : {\r\n        "message" : "¿Está seguro que desea eliminar de forma permanente"\r\n    },\r\n    "i18n_add_book_to_readium_library" : {\r\n        "message" : "Añadir libro a biblioteca Readium:"\r\n    },\r\n    "i18n_add_book" : {\r\n        "message" : "Añadir a la biblioteca"\r\n    },\r\n    "i18n_cancel" : {\r\n        "message" : "Cancelar"\r\n    },\r\n    "i18n_from_the_web" : {\r\n        "message" : "Desde la web:"\r\n    },\r\n    "i18n_from_local_file" : {\r\n        "message" : "Desde un archivo local:"\r\n    },\r\n    "i18n_enter_a_url" : {\r\n        "message" : "Ingresa una URL a un archivo .epub"\r\n    },\r\n    "i18n_unpacked_directory" : {\r\n        "message" : "Carpeta descomprimida:"\r\n    },\r\n    "i18n_validate" : {\r\n        "message" : "Validar:"\r\n    },\r\n    "i18n_confirm_that_this_book" : {\r\n        "message" : "Confirmar que este libro cumple con los estándares ePUB"\r\n    },\r\n    "i18n_single_pages" : {\r\n        "message" : "Páginas simple"\r\n    },\r\n    "i18n_double_pages" : {\r\n        "message" : "Páginas doble"\r\n    },\r\n    "i18n_save_settings" : {\r\n        "message" : "Guardar preferencias"\r\n    },\r\n    "i18n_font_size" : {\r\n        "message" : "TAMAÑO DE FUENTE"\r\n    },\r\n    "i18n_margins" : {\r\n        "message" : "MARGENES"\r\n    },\r\n    "i18n_text_and_background_color" : {\r\n        "message" : "COLOR DE FUENTE Y FONDO"\r\n    },\r\n    "i18n_black_and_white" : {\r\n        "message" : "Blanco y negro"\r\n    },\r\n    "i18n_arabian_nights" : {\r\n        "message" : "Las mil y una noches"\r\n    },\r\n    "i18n_sands_of_dune" : {\r\n        "message" : "Arenas de duna"\r\n    },\r\n    "i18n_ballard_blues" : {\r\n        "message" : "Ballard Blues"\r\n    },\r\n    "i18n_vancouver_mist" : {\r\n        "message" : "Bruma de Vancouver"\r\n    },\r\n    "i18n_display_format" : {\r\n        "message" : "MOSTRAR FORMATO"\r\n    },\r\n    "i18n_scroll_mode" : {\r\n        "message" : "MODO DE DESPLAZAMIENTO"\r\n    },\r\n    "i18n_scroll_mode_default" : {\r\n        "message" : "Por defecto"\r\n    },\r\n    "i18n_scroll_mode_doc" : {\r\n        "message" : "Documento"\r\n    },\r\n    "i18n_scroll_mode_continuous" : {\r\n        "message" : "Continuo"\r\n    },\r\n    "i18n_html_readium_tm_a_project" : {\r\n        "message" : "Readium para Chrome es la extensión para Chrome de ReadiumJS, un sistema de lectura de código abierto y librería JavaScript para renderizar publicaciones EPUB® en navegadores web. ReadiumJS es un proyecto de Readium Foundation (Readium.org). Para saber más o contribuir, visita el <a href=\\"http://readium.org/projects/readiumjs\\">sitio del proyecto</a>"\r\n    },\r\n    "i18n_toolbar_show" : {\r\n        "message" : "Mostrar barra de herramientas"\r\n    },\r\n    "i18n_toolbar_hide" : {\r\n        "message" : "Ocultar barra de herramientas"\r\n    },\r\n    "i18n_audio_play" : {\r\n        "message" : "Reproducir"\r\n    },\r\n    "i18n_audio_pause" : {\r\n        "message" : "Pausa"\r\n    },\r\n    "i18n_audio_previous" : {\r\n        "message" : "Frase de audio anterior"\r\n    },\r\n    "i18n_audio_next" : {\r\n        "message" : "Frase de audio siguiente"\r\n    },\r\n    "i18n_audio_volume" : {\r\n        "message" : "Volumen de audio"\r\n    },\r\n    "i18n_audio_volume_increase" : {\r\n        "message" : "Incrementar volumen de audio"\r\n    },\r\n    "i18n_audio_volume_decrease" : {\r\n        "message" : "Reducir volumen de audio"\r\n    },\r\n    "i18n_audio_time" : {\r\n        "message" : "Cursor de tiempo de audio"\r\n    },\r\n    "i18n_audio_mute" : {\r\n        "message" : "Desactivar audio"\r\n    },\r\n    "i18n_audio_unmute" : {\r\n        "message" : "Activar audio"\r\n    },\r\n    "i18n_audio_expand" : {\r\n        "message" : "Mostrar controles avanzados de audio"\r\n    },\r\n    "i18n_audio_collapse" : {\r\n        "message" : "Cerrar controles avanzados de audio"\r\n    },\r\n    "i18n_audio_esc" : {\r\n        "message" : "Salir de contexto actual de audio"\r\n    },\r\n    "i18n_audio_rate" : {\r\n        "message" : "Velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_increase" : {\r\n        "message" : "Incrementar velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_decrease" : {\r\n        "message" : "Reducir velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_reset" : {\r\n        "message" : "Reestablecer reproducción de audio a velocidad normal"\r\n    },\r\n    "i18n_audio_skip_disable" : {\r\n        "message" : "Desactivar capacidad de omisión"\r\n    },\r\n    "i18n_audio_skip_enable" : {\r\n        "message" : "Activar capacidad de omisión"\r\n    },\r\n    "i18n_audio_touch_enable" : {\r\n        "message" : "Activar touch-to-play"\r\n    },\r\n    "i18n_audio_touch_disable" : {\r\n        "message" : "Desactivar touch-to-play"\r\n    },\r\n    "i18n_audio_highlight_default" : {\r\n        "message" : "por defecto"\r\n    },\r\n    "i18n_audio_highlight" : {\r\n        "message" : "Color de audio"\r\n    },\r\n    "i18n_audio_sync" : {\r\n        "message" : "Granularidad de sincronización texto/audio"\r\n    },\r\n    "i18n_audio_sync_default" : {\r\n        "message" : "Por defecto"\r\n    },\r\n    "i18n_audio_sync_word" : {\r\n        "message" : "Palabra"\r\n    },\r\n    "i18n_audio_sync_sentence" : {\r\n        "message" : "Oración"\r\n    },\r\n    "i18n_audio_sync_paragraph" : {\r\n        "message" : "Párrafo"\r\n    },\r\n    "i18n_page_previous" : {\r\n        "message" : "Página previa"\r\n    },\r\n    "i18n_page_next" : {\r\n        "message" : "Página siguiente"\r\n    },\r\n    "i18n_author_theme" : {\r\n      "message" : "Por defecto (estilos de autor)"\r\n    },\r\n\r\n  "i18n_spread_auto" : {\r\n       "message" : "Automático"\r\n    },\r\n\r\n  "i18n_scroll_mode_auto" : {\r\n      "message" : "Automático"\r\n    },\r\n\r\n   "i18n_page_transition" : {\r\n      "message" : "EFECTOS DE PÁGINA"\r\n    },\r\n    "i18n_page_transition_none" : {\r\n      "message" : "Desactivado"\r\n    },\r\n    "i18n_page_transition_fade" : {\r\n      "message" : "Apagarse"\r\n    },\r\n    "i18n_page_transition_slide" : {\r\n      "message" : "Deslizar"\r\n    },\r\n    "i18n_page_transition_swoosh" : {\r\n      "message" : "Swoosh"\r\n    },\r\n    "i18n_page_transition_butterfly" : {\r\n      "message" : "Mariposa"\r\n    },\r\n\r\n  "i18n_toolbar" : {\r\n      "message" : "Barra de herramientas"\r\n    },\r\n\r\n   "i18n_audio_play_background" : {\r\n      "message" : "Reproducir pista en segundo plano"\r\n    },\r\n    "i18n_audio_pause_background" : {\r\n      "message" : "Pausar pista en segundo plano"\r\n},\r\n\r\n   "i18n_auto_page_turn_enable" : {\r\n      "message" : "Activar vuelta de página automática"\r\n    },\r\n    "i18n_auto_page_turn_disable" : {\r\n      "message" : "Desactivar vuelta de página automática"\r\n    },\r\n\r\n   "i18n_playback_scroll_enable" : {\r\n      "message" : "Activar desplazamiento durante la reproducción"\r\n    },\r\n\r\n    "i18n_playback_scroll_disable" : {\r\n      "message" : "Desactivar desplazamiento durante la reproducción"\r\n    },\r\n\r\n    "chrome_accept_languages": {\r\n        "message": "$CHROME$ acepta idiomas $languages$",\r\n        "placeholders": {\r\n            "chrome": {\r\n                "content": "Chrome",\r\n                "example": "Chrome"\r\n            },\r\n            "languages": {\r\n                "content": "$1",\r\n                "example": "en-US,ja,sr,de,zh_CN"\r\n            }\r\n        }\r\n    }\r\n}';});
 
 
-define('text!i18n/_locales/en_US/messages.json',[],function () { return '{\r\n\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "about" : {\r\n    "message" : "About"\r\n  },\r\n  "preview" : {\r\n    "message" : "PREVIEW"\r\n  },\r\n  "list_view" : {\r\n    "message" : "List View"\r\n  },\r\n  "thumbnail_view" : {\r\n    "message" : "Thumbnail View"\r\n  },\r\n  "view_library": {\r\n    "message" : "Library"\r\n  },\r\n  "highlight_selection" : {\r\n    "message" : "Highlight Selected Text"\r\n  },\r\n  "toc" : {\r\n    "message" : "Table of Contents"\r\n  },\r\n  "settings" : {\r\n    "message" : "Settings"\r\n  },\r\n  "layout" : {\r\n    "message" : "Layout"\r\n  },\r\n  "style" : {\r\n    "message" : "Style"\r\n  },\r\n  "enter_fullscreen" : {\r\n    "message" : "Enter Fullscreen"\r\n  },\r\n  "exit_fullscreen" : {\r\n    "message" : "Exit Fullscreen"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "A reader for EPUB3 books."\r\n  },\r\n  "ok" : {\r\n    "message" : "Ok"\r\n  },\r\n  "delete_dlg_title" : {\r\n    "message" : "Confirm Delete"\r\n  },\r\n  "delete_progress_title" : {\r\n    "message" : "Delete in Progress"\r\n  },\r\n  "delete_progress_message" : {\r\n    "message" : "Deleting"\r\n  },\r\n  "migrate_dlg_title" : {\r\n    "message" : "Migrating Books"\r\n  },\r\n  "migrate_dlg_message" : {\r\n    "message" : "Loading data..."\r\n  },\r\n  "migrating" : {\r\n    "message" : "Migrating"\r\n  },\r\n  "replace_dlg_title" : {\r\n    "message": "Conflict Detected"\r\n  },\r\n  "replace_dlg_message": {\r\n    "message": "If you continue, the following epub will be replaced with the one you are importing"\r\n  },\r\n  "import_dlg_title" : {\r\n    "message": "Importing EPUB"\r\n  },\r\n  "import_dlg_message" : {\r\n    "message": "Examining EPUB content..."\r\n  },\r\n  "storing_file" : {\r\n    "message": "Storing file"\r\n  },\r\n  "err_unknown" : {\r\n    "message": "Unknown error. Check console for more details."\r\n  },\r\n  "err_storage" : {\r\n    "message": "Unable to access storage"\r\n  },\r\n  "err_epub_corrupt" : {\r\n    "message": "Invalid or corrupted EPUB package"\r\n  },\r\n  "err_ajax": {\r\n    "message": "Error in ajax request"\r\n  },\r\n  "err_dlg_title" : {\r\n    "message": "Unexpected Error"\r\n  },\r\n  "replace" : {\r\n    "message": "Replace"\r\n  },\r\n  "gethelp" : {\r\n    "message" : "If you encounter any problems, have questions, or would like to say hello, visit <a href=\\"http://idpf.org/forums/readium\\">our forum</a>"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium Library"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium Options:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Save changes"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Close"\r\n  },\r\n  "i18n_keyboard_shortcuts" : {\r\n    "message" : "Keyboard shortcuts"\r\n  },\r\n  "i18n_keyboard_reload" : {\r\n    "message" : "Please reload the page for keyboard shortcuts to take effect."\r\n  },\r\n  "i18n_reset_key" : {\r\n    "message" : "Reset key"\r\n  },\r\n  "i18n_reset_key_all" : {\r\n    "message" : "Reset all keyboard shortcuts"\r\n  },\r\n  "i18n_duplicate_keyboard_shortcut" : {\r\n    "message" : "DUPLICATE"\r\n  },\r\n  "i18n_invalid_keyboard_shortcut" : {\r\n    "message" : "INVALID"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginate all reflowable ePUB content"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Automatically open *.epub urls in readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Show warning messages when unpacking EPUB files"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Details"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Read"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Delete"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Author: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Publisher: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Source: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Pub Date: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Modified Date: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB version: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Created at: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Added: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Unknown"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Sorry, the current EPUB does not contain a media overlay for this content"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Add items to your library here!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extracting: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Are you sure you want to permanently delete "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Add Book To Readium Library:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Add to Library"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Cancel"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "From the web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "From Local File:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Enter a URL to a .epub file"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Unpacked Directory:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validate:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirm that this book complies with ePUB standards"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Single Pages"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Double Pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Save Settings"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "FONT SIZE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "TEXT AND BACKGROUND COLOR"\r\n  },\r\n  "i18n_author_theme" : {\r\n    "message" : "Default (author styles)"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "DISPLAY FORMAT"\r\n  },\r\n  "i18n_spread_auto" : {\r\n     "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode" : {\r\n    "message" : "SCROLL MODE"\r\n  },\r\n  "i18n_scroll_mode_auto" : {\r\n    "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode_doc" : {\r\n    "message" : "Document"\r\n  },\r\n  "i18n_scroll_mode_continuous" : {\r\n    "message" : "Continuous"\r\n  },\r\n  \r\n  "i18n_page_transition" : {\r\n    "message" : "PAGE EFFECTS"\r\n  },\r\n  "i18n_page_transition_none" : {\r\n    "message" : "Disabled"\r\n  },\r\n  "i18n_page_transition_fade" : {\r\n    "message" : "Fade"\r\n  },\r\n  "i18n_page_transition_slide" : {\r\n    "message" : "Slide"\r\n  },\r\n  "i18n_page_transition_swoosh" : {\r\n    "message" : "Swoosh"\r\n  },\r\n  "i18n_page_transition_butterfly" : {\r\n    "message" : "Butterfly"\r\n  },\r\n  \r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium for Chrome is the Chrome browser extension configuration of ReadiumJS, an open source reading system and JavaScript library for displaying EPUB® publications in web browsers. ReadiumJS is a project of the Readium Foundation (Readium.org). To learn more or to contribute, visit the <a href=\\"http://readium.org/projects/readiumjs\\">project homepage</a>"\r\n  },\r\n  "i18n_toolbar" : {\r\n    "message" : "Toolbar"\r\n  },\r\n  "i18n_toolbar_show" : {\r\n    "message" : "Show toolbar"\r\n  },\r\n  "i18n_toolbar_hide" : {\r\n    "message" : "Hide toolbar"\r\n  },\r\n  "i18n_audio_play" : {\r\n    "message" : "Play"\r\n  },\r\n  "i18n_audio_pause" : {\r\n    "message" : "Pause"\r\n  },\r\n  "i18n_audio_play_background" : {\r\n    "message" : "Play background track"\r\n  },\r\n  "i18n_audio_pause_background" : {\r\n    "message" : "Pause background track"\r\n  },\r\n  "i18n_audio_previous" : {\r\n    "message" : "Previous audio phrase"\r\n  },\r\n  "i18n_audio_next" : {\r\n    "message" : "Next audio phrase"\r\n  },\r\n  "i18n_audio_volume" : {\r\n    "message" : "Audio volume"\r\n  },\r\n  "i18n_audio_volume_increase" : {\r\n    "message" : "Increase audio volume"\r\n  },\r\n  "i18n_audio_volume_decrease" : {\r\n    "message" : "Decrease audio volume"\r\n  },\r\n  "i18n_audio_time" : {\r\n    "message" : "Audio time cursor"\r\n  },\r\n  "i18n_audio_mute" : {\r\n    "message" : "Mute audio"\r\n  },\r\n  "i18n_audio_unmute" : {\r\n    "message" : "Unmute audio"\r\n  },\r\n  "i18n_audio_expand" : {\r\n    "message" : "Show advanced audio controls"\r\n  },\r\n  "i18n_audio_collapse" : {\r\n    "message" : "Close advanced audio controls"\r\n  },\r\n  "i18n_audio_esc" : {\r\n    "message" : "Escape current audio context"\r\n  },\r\n  "i18n_audio_rate" : {\r\n    "message" : "Audio playback rate"\r\n  },\r\n  "i18n_audio_rate_increase" : {\r\n    "message" : "Increase audio playback rate"\r\n  },\r\n  "i18n_audio_rate_decrease" : {\r\n    "message" : "Decrease audio playback rate"\r\n  },\r\n  "i18n_audio_rate_reset" : {\r\n    "message" : "Reset audio playback to normal speed"\r\n  },\r\n  "i18n_audio_skip_disable" : {\r\n    "message" : "Disable skippability"\r\n  },\r\n  "i18n_audio_skip_enable" : {\r\n    "message" : "Enable skippability"\r\n  },\r\n\r\n  "i18n_auto_page_turn_enable" : {\r\n    "message" : "Enable automatic page turn"\r\n  },\r\n  "i18n_auto_page_turn_disable" : {\r\n    "message" : "Disable automatic page turn"\r\n  },\r\n\r\n  "i18n_playback_scroll_enable" : {\r\n    "message" : "Enable scroll during playback"\r\n  },\r\n  "i18n_playback_scroll_disable" : {\r\n    "message" : "Disable scroll during playback"\r\n  },\r\n  \r\n  "i18n_audio_touch_enable" : {\r\n    "message" : "Enable touch-to-play"\r\n  },\r\n  "i18n_audio_touch_disable" : {\r\n    "message" : "Disable touch-to-play"\r\n  },\r\n  "i18n_audio_highlight_default" : {\r\n    "message" : "default"\r\n  },\r\n  "i18n_audio_highlight" : {\r\n    "message" : "Audio color"\r\n  },\r\n  "i18n_audio_sync" : {\r\n    "message" : "Text/audio synchronization granularity"\r\n  },\r\n  "i18n_audio_sync_default" : {\r\n    "message" : "Default"\r\n  },\r\n  "i18n_audio_sync_word" : {\r\n    "message" : "Word"\r\n  },\r\n  "i18n_audio_sync_sentence" : {\r\n    "message" : "Sentence"\r\n  },\r\n  "i18n_audio_sync_paragraph" : {\r\n    "message" : "Paragraph"\r\n  },\r\n  "i18n_page_previous" : {\r\n    "message" : "Previous Page"\r\n  },\r\n  "i18n_page_next" : {\r\n    "message" : "Next Page"\r\n  },\r\n  "i18n_page_navigation" : {\r\n    "message" : "Page Navigation"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
+define('text!readium_js_viewer_i18n/_locales/en_US/messages.json',[],function () { return '{\r\n\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "about" : {\r\n    "message" : "About"\r\n  },\r\n  "preview" : {\r\n    "message" : "PREVIEW"\r\n  },\r\n  "list_view" : {\r\n    "message" : "List View"\r\n  },\r\n  "thumbnail_view" : {\r\n    "message" : "Thumbnail View"\r\n  },\r\n  "view_library": {\r\n    "message" : "Library"\r\n  },\r\n  "highlight_selection" : {\r\n    "message" : "Highlight Selected Text"\r\n  },\r\n  "toc" : {\r\n    "message" : "Table of Contents"\r\n  },\r\n  "settings" : {\r\n    "message" : "Settings"\r\n  },\r\n  "layout" : {\r\n    "message" : "Layout"\r\n  },\r\n  "style" : {\r\n    "message" : "Style"\r\n  },\r\n  "enter_fullscreen" : {\r\n    "message" : "Enter Fullscreen"\r\n  },\r\n  "exit_fullscreen" : {\r\n    "message" : "Exit Fullscreen"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "A reader for EPUB3 books."\r\n  },\r\n  "ok" : {\r\n    "message" : "Ok"\r\n  },\r\n  "delete_dlg_title" : {\r\n    "message" : "Confirm Delete"\r\n  },\r\n  "delete_progress_title" : {\r\n    "message" : "Delete in Progress"\r\n  },\r\n  "delete_progress_message" : {\r\n    "message" : "Deleting"\r\n  },\r\n  "migrate_dlg_title" : {\r\n    "message" : "Migrating Books"\r\n  },\r\n  "migrate_dlg_message" : {\r\n    "message" : "Loading data..."\r\n  },\r\n  "migrating" : {\r\n    "message" : "Migrating"\r\n  },\r\n  "replace_dlg_title" : {\r\n    "message": "Conflict Detected"\r\n  },\r\n  "replace_dlg_message": {\r\n    "message": "If you continue, the following epub will be replaced with the one you are importing"\r\n  },\r\n  "import_dlg_title" : {\r\n    "message": "Importing EPUB"\r\n  },\r\n  "import_dlg_message" : {\r\n    "message": "Examining EPUB content..."\r\n  },\r\n  "storing_file" : {\r\n    "message": "Storing file"\r\n  },\r\n  "err_unknown" : {\r\n    "message": "Unknown error. Check console for more details."\r\n  },\r\n  "err_storage" : {\r\n    "message": "Unable to access storage"\r\n  },\r\n  "err_epub_corrupt" : {\r\n    "message": "Invalid or corrupted EPUB package"\r\n  },\r\n  "err_ajax": {\r\n    "message": "Error in ajax request"\r\n  },\r\n  "err_dlg_title" : {\r\n    "message": "Unexpected Error"\r\n  },\r\n  "replace" : {\r\n    "message": "Replace"\r\n  },\r\n  "gethelp" : {\r\n    "message" : "If you encounter any problems, have questions, or would like to say hello, visit <a href=\\"http://idpf.org/forums/readium\\">our forum</a>"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium Library"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium Options:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Save changes"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Close"\r\n  },\r\n  "i18n_keyboard_shortcuts" : {\r\n    "message" : "Keyboard shortcuts"\r\n  },\r\n  "i18n_keyboard_reload" : {\r\n    "message" : "Please reload the page for keyboard shortcuts to take effect."\r\n  },\r\n  "i18n_reset_key" : {\r\n    "message" : "Reset key"\r\n  },\r\n  "i18n_reset_key_all" : {\r\n    "message" : "Reset all keyboard shortcuts"\r\n  },\r\n  "i18n_duplicate_keyboard_shortcut" : {\r\n    "message" : "DUPLICATE"\r\n  },\r\n  "i18n_invalid_keyboard_shortcut" : {\r\n    "message" : "INVALID"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginate all reflowable ePUB content"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Automatically open *.epub urls in readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Show warning messages when unpacking EPUB files"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Details"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Read"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Delete"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Author: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Publisher: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Source: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Pub Date: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Modified Date: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB version: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Created at: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Added: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Unknown"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Sorry, the current EPUB does not contain a media overlay for this content"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Add items to your library here!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extracting: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Are you sure you want to permanently delete "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Add Book To Readium Library:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Add to Library"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Cancel"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "From the web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "From Local File:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Enter a URL to a .epub file"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Unpacked Directory:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validate:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirm that this book complies with ePUB standards"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Single Pages"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Double Pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Save Settings"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "FONT SIZE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "TEXT AND BACKGROUND COLOR"\r\n  },\r\n  "i18n_author_theme" : {\r\n    "message" : "Default (author styles)"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "DISPLAY FORMAT"\r\n  },\r\n  "i18n_spread_auto" : {\r\n     "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode" : {\r\n    "message" : "SCROLL MODE"\r\n  },\r\n  "i18n_scroll_mode_auto" : {\r\n    "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode_doc" : {\r\n    "message" : "Document"\r\n  },\r\n  "i18n_scroll_mode_continuous" : {\r\n    "message" : "Continuous"\r\n  },\r\n  \r\n  "i18n_page_transition" : {\r\n    "message" : "PAGE EFFECTS"\r\n  },\r\n  "i18n_page_transition_none" : {\r\n    "message" : "Disabled"\r\n  },\r\n  "i18n_page_transition_fade" : {\r\n    "message" : "Fade"\r\n  },\r\n  "i18n_page_transition_slide" : {\r\n    "message" : "Slide"\r\n  },\r\n  "i18n_page_transition_swoosh" : {\r\n    "message" : "Swoosh"\r\n  },\r\n  "i18n_page_transition_butterfly" : {\r\n    "message" : "Butterfly"\r\n  },\r\n  \r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium for Chrome is the Chrome browser extension configuration of ReadiumJS, an open source reading system and JavaScript library for displaying EPUB® publications in web browsers. ReadiumJS is a project of the Readium Foundation (Readium.org). To learn more or to contribute, visit the <a href=\\"http://readium.org/projects/readiumjs\\">project homepage</a>"\r\n  },\r\n  "i18n_toolbar" : {\r\n    "message" : "Toolbar"\r\n  },\r\n  "i18n_toolbar_show" : {\r\n    "message" : "Show toolbar"\r\n  },\r\n  "i18n_toolbar_hide" : {\r\n    "message" : "Hide toolbar"\r\n  },\r\n  "i18n_audio_play" : {\r\n    "message" : "Play"\r\n  },\r\n  "i18n_audio_pause" : {\r\n    "message" : "Pause"\r\n  },\r\n  "i18n_audio_play_background" : {\r\n    "message" : "Play background track"\r\n  },\r\n  "i18n_audio_pause_background" : {\r\n    "message" : "Pause background track"\r\n  },\r\n  "i18n_audio_previous" : {\r\n    "message" : "Previous audio phrase"\r\n  },\r\n  "i18n_audio_next" : {\r\n    "message" : "Next audio phrase"\r\n  },\r\n  "i18n_audio_volume" : {\r\n    "message" : "Audio volume"\r\n  },\r\n  "i18n_audio_volume_increase" : {\r\n    "message" : "Increase audio volume"\r\n  },\r\n  "i18n_audio_volume_decrease" : {\r\n    "message" : "Decrease audio volume"\r\n  },\r\n  "i18n_audio_time" : {\r\n    "message" : "Audio time cursor"\r\n  },\r\n  "i18n_audio_mute" : {\r\n    "message" : "Mute audio"\r\n  },\r\n  "i18n_audio_unmute" : {\r\n    "message" : "Unmute audio"\r\n  },\r\n  "i18n_audio_expand" : {\r\n    "message" : "Show advanced audio controls"\r\n  },\r\n  "i18n_audio_collapse" : {\r\n    "message" : "Close advanced audio controls"\r\n  },\r\n  "i18n_audio_esc" : {\r\n    "message" : "Escape current audio context"\r\n  },\r\n  "i18n_audio_rate" : {\r\n    "message" : "Audio playback rate"\r\n  },\r\n  "i18n_audio_rate_increase" : {\r\n    "message" : "Increase audio playback rate"\r\n  },\r\n  "i18n_audio_rate_decrease" : {\r\n    "message" : "Decrease audio playback rate"\r\n  },\r\n  "i18n_audio_rate_reset" : {\r\n    "message" : "Reset audio playback to normal speed"\r\n  },\r\n  "i18n_audio_skip_disable" : {\r\n    "message" : "Disable skippability"\r\n  },\r\n  "i18n_audio_skip_enable" : {\r\n    "message" : "Enable skippability"\r\n  },\r\n\r\n  "i18n_auto_page_turn_enable" : {\r\n    "message" : "Enable automatic page turn"\r\n  },\r\n  "i18n_auto_page_turn_disable" : {\r\n    "message" : "Disable automatic page turn"\r\n  },\r\n\r\n  "i18n_playback_scroll_enable" : {\r\n    "message" : "Enable scroll during playback"\r\n  },\r\n  "i18n_playback_scroll_disable" : {\r\n    "message" : "Disable scroll during playback"\r\n  },\r\n  \r\n  "i18n_audio_touch_enable" : {\r\n    "message" : "Enable touch-to-play"\r\n  },\r\n  "i18n_audio_touch_disable" : {\r\n    "message" : "Disable touch-to-play"\r\n  },\r\n  "i18n_audio_highlight_default" : {\r\n    "message" : "default"\r\n  },\r\n  "i18n_audio_highlight" : {\r\n    "message" : "Audio color"\r\n  },\r\n  "i18n_audio_sync" : {\r\n    "message" : "Text/audio synchronization granularity"\r\n  },\r\n  "i18n_audio_sync_default" : {\r\n    "message" : "Default"\r\n  },\r\n  "i18n_audio_sync_word" : {\r\n    "message" : "Word"\r\n  },\r\n  "i18n_audio_sync_sentence" : {\r\n    "message" : "Sentence"\r\n  },\r\n  "i18n_audio_sync_paragraph" : {\r\n    "message" : "Paragraph"\r\n  },\r\n  "i18n_page_previous" : {\r\n    "message" : "Previous Page"\r\n  },\r\n  "i18n_page_next" : {\r\n    "message" : "Next Page"\r\n  },\r\n  "i18n_page_navigation" : {\r\n    "message" : "Page Navigation"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 
-define('text!i18n/_locales/fr/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "Un lecteur de livres numériques EPUB3."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Bibliothèque Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Chargement de la bibliothèque"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Options de Readium :"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Enregistrer les changements"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Fermer"\r\n  },\r\n  "i18n_keyboard_shortcuts" : {\r\n    "message" : "Raccourcis clavier"\r\n  },\r\n  "i18n_keyboard_reload" : {\r\n    "message" : "Veuillez recharger la page pour que les raccourcis clavier prennent effet."\r\n  },\r\n  "i18n_reset_key" : {\r\n    "message" : "Réinitialiser le raccourci clavier par défaut"\r\n  },\r\n  "i18n_reset_key_all" : {\r\n    "message" : "Réinitialiser tous les raccourcis clavier par défaut"\r\n  },\r\n  "i18n_duplicate_keyboard_shortcut" : {\r\n    "message" : "DUPLIQUE"\r\n  },\r\n  "i18n_invalid_keyboard_shortcut" : {\r\n    "message" : "INVALIDE"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginer tout le contenu des EPUB recomposables"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Ouvrir automatiquement les urls *.epub dans Readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Montrer les messages d\'avertissement pendant la décompression des fichiers EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Détails"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Lire"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Supprimer"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Auteur : "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Éditeur : "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Source : "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Date de publication :  "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Date de modification : "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "version de l\'EPUB : "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Ajouté le : "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format : "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Ajouté le : "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Inconnu"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Désolé, l\'EPUB actuel ne contient pas de média associé (media overlay) pour ce contenu"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Ajoutez des articles à votre bibliothèque ici !"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extraction : "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Voulez-vous vraiment supprimer "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Ajoutez un livre à la bibliothèque de Readium :"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Ajouter un livre"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Annuler"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "À partir du Web :"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "À partir d\'un fichier local :"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Entrez l\'URL d\'un fichier .epub"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Répertoire non-compressé :"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Valider :"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirmer que ce livre est conforme aux standards EPUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Pages simples"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Doubles-pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Enregistrer"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "TAILLE DE LA POLICE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGES"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COULEUR DU TEXTE ET DU FOND"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Noir et Blanc"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Mille et une Nuits"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sables de Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Le Blues de Ballard"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Le Brouillard de Vancouver"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "FORMAT D\'AFFICHAGE"\r\n  },\r\n  "i18n_scroll_mode" : {\r\n    "message" : "MODE DE DÉFILEMENT"\r\n  },\r\n  "i18n_scroll_mode_auto" : {\r\n    "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode_doc" : {\r\n    "message" : "Document"\r\n  },\r\n  "i18n_scroll_mode_continuous" : {\r\n    "message" : "Continu"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium pour Chrome est l\'extension du navigateur Chrome de ReadiumJS, un système de lecture open-source et une librairie JavaScript pour afficher des documents EPUB® dans les navigateurs web. ReadiumJS est un projet de la fondation Readium (Readium.org). Pour en savoir plus ou pour contribuer, visiter la <a href=\\"http://readium.org/projects/readiumjs\\">page d\'accueil du projet</a>."\r\n  },\r\n  "i18n_audio_play" : {\r\n    "message" : "Jouer"\r\n  },\r\n  "i18n_audio_pause" : {\r\n    "message" : "Pauser"\r\n  },\r\n  "i18n_audio_previous" : {\r\n    "message" : "Phrase audio précédente"\r\n  },\r\n  "i18n_audio_next" : {\r\n    "message" : "Phrase audio suivante"\r\n  },\r\n  "i18n_audio_volume" : {\r\n    "message" : "Ajustement du volume audio"\r\n  },\r\n  "i18n_audio_time" : {\r\n    "message" : "Contrôle du curseur temporel audio"\r\n  },\r\n  "i18n_audio_mute" : {\r\n    "message" : "Silence audio"\r\n  },\r\n  "i18n_audio_unmute" : {\r\n    "message" : "Restaurer le volume audio"\r\n  },\r\n  "i18n_audio_expand" : {\r\n    "message" : "Afficher les contrôles audio avancés"\r\n  },\r\n  "i18n_audio_collapse" : {\r\n    "message" : "Fermer les contrôles audio avancés"\r\n  },\r\n  "i18n_audio_esc" : {\r\n    "message" : "Échapper le contexte audio actuel"\r\n  },\r\n  "i18n_audio_rate" : {\r\n    "message" : "Vitesse de lecture audio"\r\n  },\r\n  "i18n_audio_rate_reset" : {\r\n    "message" : "Retour à la vitesse normale de lecture audio"\r\n  },\r\n  "i18n_audio_skip_disable" : {\r\n    "message" : "Désactiver la \'skippabilité\'"\r\n  },\r\n  "i18n_audio_skip_enable" : {\r\n    "message" : "Activer la \'skippabilité\'"\r\n  },\r\n  "i18n_audio_touch_enable" : {\r\n    "message" : "Activer la fonction \'toucher pour jouer\'"\r\n  },\r\n  "i18n_audio_touch_disable" : {\r\n    "message" : "Désactiver la fonction \'toucher pour jouer\'"\r\n  },\r\n  "i18n_audio_highlight_default" : {\r\n    "message" : "défaut"\r\n  },\r\n  "i18n_audio_highlight" : {\r\n    "message" : "Couleur audio"\r\n  },\r\n  "i18n_audio_sync" : {\r\n    "message" : "Granularité de synchronisation texte / audio"\r\n  },\r\n  "i18n_audio_sync_default" : {\r\n    "message" : "Défaut"\r\n  },\r\n  "i18n_audio_sync_word" : {\r\n    "message" : "Mot"\r\n  },\r\n  "i18n_audio_sync_sentence" : {\r\n    "message" : "Phrase"\r\n  },\r\n  "i18n_audio_sync_paragraph" : {\r\n    "message" : "Paragraphe"\r\n  },\r\n  "i18n_page_previous" : {\r\n    "message" : "Page précédente"\r\n  },\r\n  "i18n_page_next" : {\r\n    "message" : "Page suivante"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,fr,ja,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
+define('text!readium_js_viewer_i18n/_locales/fr/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "Un lecteur de livres numériques EPUB3."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Bibliothèque Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Chargement de la bibliothèque"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Options de Readium :"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Enregistrer les changements"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Fermer"\r\n  },\r\n  "i18n_keyboard_shortcuts" : {\r\n    "message" : "Raccourcis clavier"\r\n  },\r\n  "i18n_keyboard_reload" : {\r\n    "message" : "Veuillez recharger la page pour que les raccourcis clavier prennent effet."\r\n  },\r\n  "i18n_reset_key" : {\r\n    "message" : "Réinitialiser le raccourci clavier par défaut"\r\n  },\r\n  "i18n_reset_key_all" : {\r\n    "message" : "Réinitialiser tous les raccourcis clavier par défaut"\r\n  },\r\n  "i18n_duplicate_keyboard_shortcut" : {\r\n    "message" : "DUPLIQUE"\r\n  },\r\n  "i18n_invalid_keyboard_shortcut" : {\r\n    "message" : "INVALIDE"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginer tout le contenu des EPUB recomposables"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Ouvrir automatiquement les urls *.epub dans Readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Montrer les messages d\'avertissement pendant la décompression des fichiers EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Détails"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Lire"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Supprimer"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Auteur : "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Éditeur : "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Source : "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Date de publication :  "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Date de modification : "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "version de l\'EPUB : "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Ajouté le : "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format : "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Ajouté le : "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Inconnu"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Désolé, l\'EPUB actuel ne contient pas de média associé (media overlay) pour ce contenu"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Ajoutez des articles à votre bibliothèque ici !"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extraction : "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Voulez-vous vraiment supprimer "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Ajoutez un livre à la bibliothèque de Readium :"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Ajouter un livre"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Annuler"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "À partir du Web :"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "À partir d\'un fichier local :"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Entrez l\'URL d\'un fichier .epub"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Répertoire non-compressé :"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Valider :"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirmer que ce livre est conforme aux standards EPUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Pages simples"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Doubles-pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Enregistrer"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "TAILLE DE LA POLICE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGES"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COULEUR DU TEXTE ET DU FOND"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Noir et Blanc"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Mille et une Nuits"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sables de Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Le Blues de Ballard"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Le Brouillard de Vancouver"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "FORMAT D\'AFFICHAGE"\r\n  },\r\n  "i18n_scroll_mode" : {\r\n    "message" : "MODE DE DÉFILEMENT"\r\n  },\r\n  "i18n_scroll_mode_auto" : {\r\n    "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode_doc" : {\r\n    "message" : "Document"\r\n  },\r\n  "i18n_scroll_mode_continuous" : {\r\n    "message" : "Continu"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium pour Chrome est l\'extension du navigateur Chrome de ReadiumJS, un système de lecture open-source et une librairie JavaScript pour afficher des documents EPUB® dans les navigateurs web. ReadiumJS est un projet de la fondation Readium (Readium.org). Pour en savoir plus ou pour contribuer, visiter la <a href=\\"http://readium.org/projects/readiumjs\\">page d\'accueil du projet</a>."\r\n  },\r\n  "i18n_audio_play" : {\r\n    "message" : "Jouer"\r\n  },\r\n  "i18n_audio_pause" : {\r\n    "message" : "Pauser"\r\n  },\r\n  "i18n_audio_previous" : {\r\n    "message" : "Phrase audio précédente"\r\n  },\r\n  "i18n_audio_next" : {\r\n    "message" : "Phrase audio suivante"\r\n  },\r\n  "i18n_audio_volume" : {\r\n    "message" : "Ajustement du volume audio"\r\n  },\r\n  "i18n_audio_time" : {\r\n    "message" : "Contrôle du curseur temporel audio"\r\n  },\r\n  "i18n_audio_mute" : {\r\n    "message" : "Silence audio"\r\n  },\r\n  "i18n_audio_unmute" : {\r\n    "message" : "Restaurer le volume audio"\r\n  },\r\n  "i18n_audio_expand" : {\r\n    "message" : "Afficher les contrôles audio avancés"\r\n  },\r\n  "i18n_audio_collapse" : {\r\n    "message" : "Fermer les contrôles audio avancés"\r\n  },\r\n  "i18n_audio_esc" : {\r\n    "message" : "Échapper le contexte audio actuel"\r\n  },\r\n  "i18n_audio_rate" : {\r\n    "message" : "Vitesse de lecture audio"\r\n  },\r\n  "i18n_audio_rate_reset" : {\r\n    "message" : "Retour à la vitesse normale de lecture audio"\r\n  },\r\n  "i18n_audio_skip_disable" : {\r\n    "message" : "Désactiver la \'skippabilité\'"\r\n  },\r\n  "i18n_audio_skip_enable" : {\r\n    "message" : "Activer la \'skippabilité\'"\r\n  },\r\n  "i18n_audio_touch_enable" : {\r\n    "message" : "Activer la fonction \'toucher pour jouer\'"\r\n  },\r\n  "i18n_audio_touch_disable" : {\r\n    "message" : "Désactiver la fonction \'toucher pour jouer\'"\r\n  },\r\n  "i18n_audio_highlight_default" : {\r\n    "message" : "défaut"\r\n  },\r\n  "i18n_audio_highlight" : {\r\n    "message" : "Couleur audio"\r\n  },\r\n  "i18n_audio_sync" : {\r\n    "message" : "Granularité de synchronisation texte / audio"\r\n  },\r\n  "i18n_audio_sync_default" : {\r\n    "message" : "Défaut"\r\n  },\r\n  "i18n_audio_sync_word" : {\r\n    "message" : "Mot"\r\n  },\r\n  "i18n_audio_sync_sentence" : {\r\n    "message" : "Phrase"\r\n  },\r\n  "i18n_audio_sync_paragraph" : {\r\n    "message" : "Paragraphe"\r\n  },\r\n  "i18n_page_previous" : {\r\n    "message" : "Page précédente"\r\n  },\r\n  "i18n_page_next" : {\r\n    "message" : "Page suivante"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,fr,ja,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 
-define('text!i18n/_locales/id/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "reader untuk buku-buku EPUB3 ."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Perpustakaan Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Pilihan Readium :"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Simpan perubahan"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Tutup"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginate all reflowable ePUB content"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Secara otomatis buka *.epub urls di readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Tampilkan pesan peringatan ketika unpacking file EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Detail"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Baca"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Hapus"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Penulis: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Penerbit: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Sumber: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Tgl Terbit: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Tgl Modifikasi: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versi EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Dibuat di: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Menambahkan: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Tidak dikenal"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Maaf, EPUB saat ini tidak berisi overlay media untuk konten ini "\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Masukkan item r Library disini!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extracting: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Apakah and yakin ingin menghapus secara permanen "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Masukkan Buku ke Readium Library:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Add Book"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Batal"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Dari Web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "Dari File local:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Masukkan  URL ke file .epub "\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Unpacked Directory:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validasi:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Konfirmasikan bahwa buku ini sesuai dengan standar EPUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Single Pages"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Double Pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Save Settings"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "FONT SIZE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "TEKS DAN WARNA LATAR"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "DISPLAY FORMAT"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, adalah sistem referensi open source DAN rendering engine untuk EPUB&reg; publikasi.  Untuk mengetahui lebih lanjut, kunjungi <a href=\\"http://readium.org/\\">project homepage</a>. Sampai saat ini, pengembangan project telah dipimpin oleh  <a href=\\"http://evidentpoint.com/\\">Evident Point</a> and <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. Untuk kontribusi, kunjungi <a href=\\"https://github.com/readium/readium-js-viewer\\">github repository</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
+define('text!readium_js_viewer_i18n/_locales/it/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "Un visualizzatore di documenti EPUB3"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Biblioteca di Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Caricamento biblioteca"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Opzioni di Readium"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Applica"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Chiudi"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Impagina anche i file EPUB reflowable"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Apri in Readium gli URL che terminano in .epub"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Mostra errori e avvisi relativi ai file EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Dettagli"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Leggi"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Elimina"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Autore: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Editore: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Origine: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Data pubblicazione: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Data ultima modifica: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versione EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Data importazione: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Formato: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Aggiunto: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Sconosciuto"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Spiacente, non ci sono risorse Media Overlays associate a questo elemento."\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Aggiungi libri alla tua biblioteca!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "Decomprimendo: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Sei sicuro di voler cancellare definitivamente "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Aggiungi libro alla Biblioteca di Readium"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Aggiungi libro"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Annulla"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Scarica dal Web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "Importa file EPUB dal tuo computer:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Indirizzo Web del file EPUB che vuoi aggiungere:"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Importa directory decompressa:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Convalida:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Controlla che i file siano conformi allo standard EPUB prima di aprirli"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Singole"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Affiancate"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Applica"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "DIMENSIONE CARATTERE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINI"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COMBINAZIONE COLORE TESTO/SFONDO"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Bianco su nero"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Notturno"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Deserto"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Mediterraneo"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Nebbia"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "VISUALIZZAZIONE PAGINE"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, progetto dell\'International Digital Publishing Forum (IDPF) e dei suoi sostenitori, è una piattaforma open source di lettura e un motore di rendering per documenti in formato EPUB&reg;. Per saperne di più, visita la <a href=\\"http://readium.org/\\">pagina principale del progetto</a>. Lo sviluppo del progetto è stato guidato da <a href=\\"http://evidentpoint.com/\\">Evident Point</a> e <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. Per contribuire, visita il <a href=\\"https://github.com/readium/readium-js-viewer\\">repository github</a>."\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accetta le seguenti lingue: $languages$",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,it,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 
-define('text!i18n/_locales/it/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "Un visualizzatore di documenti EPUB3"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Biblioteca di Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Caricamento biblioteca"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Opzioni di Readium"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Applica"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Chiudi"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Impagina anche i file EPUB reflowable"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Apri in Readium gli URL che terminano in .epub"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Mostra errori e avvisi relativi ai file EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Dettagli"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Leggi"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Elimina"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Autore: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Editore: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Origine: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Data pubblicazione: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Data ultima modifica: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versione EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Data importazione: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Formato: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Aggiunto: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Sconosciuto"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Spiacente, non ci sono risorse Media Overlays associate a questo elemento."\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Aggiungi libri alla tua biblioteca!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "Decomprimendo: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Sei sicuro di voler cancellare definitivamente "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Aggiungi libro alla Biblioteca di Readium"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Aggiungi libro"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Annulla"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Scarica dal Web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "Importa file EPUB dal tuo computer:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Indirizzo Web del file EPUB che vuoi aggiungere:"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Importa directory decompressa:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Convalida:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Controlla che i file siano conformi allo standard EPUB prima di aprirli"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Singole"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Affiancate"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Applica"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "DIMENSIONE CARATTERE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINI"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COMBINAZIONE COLORE TESTO/SFONDO"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Bianco su nero"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Notturno"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Deserto"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Mediterraneo"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Nebbia"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "VISUALIZZAZIONE PAGINE"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, progetto dell\'International Digital Publishing Forum (IDPF) e dei suoi sostenitori, è una piattaforma open source di lettura e un motore di rendering per documenti in formato EPUB&reg;. Per saperne di più, visita la <a href=\\"http://readium.org/\\">pagina principale del progetto</a>. Lo sviluppo del progetto è stato guidato da <a href=\\"http://evidentpoint.com/\\">Evident Point</a> e <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. Per contribuire, visita il <a href=\\"https://github.com/readium/readium-js-viewer\\">repository github</a>."\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accetta le seguenti lingue: $languages$",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,it,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
+define('text!readium_js_viewer_i18n/_locales/id/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "reader untuk buku-buku EPUB3 ."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Perpustakaan Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Pilihan Readium :"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Simpan perubahan"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Tutup"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginate all reflowable ePUB content"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Secara otomatis buka *.epub urls di readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Tampilkan pesan peringatan ketika unpacking file EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Detail"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Baca"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Hapus"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Penulis: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Penerbit: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Sumber: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Tgl Terbit: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Tgl Modifikasi: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versi EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Dibuat di: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Menambahkan: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Tidak dikenal"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Maaf, EPUB saat ini tidak berisi overlay media untuk konten ini "\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Masukkan item r Library disini!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extracting: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Apakah and yakin ingin menghapus secara permanen "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Masukkan Buku ke Readium Library:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Add Book"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Batal"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Dari Web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "Dari File local:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Masukkan  URL ke file .epub "\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Unpacked Directory:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validasi:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Konfirmasikan bahwa buku ini sesuai dengan standar EPUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Single Pages"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Double Pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Save Settings"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "FONT SIZE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "TEKS DAN WARNA LATAR"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "DISPLAY FORMAT"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, adalah sistem referensi open source DAN rendering engine untuk EPUB&reg; publikasi.  Untuk mengetahui lebih lanjut, kunjungi <a href=\\"http://readium.org/\\">project homepage</a>. Sampai saat ini, pengembangan project telah dipimpin oleh  <a href=\\"http://evidentpoint.com/\\">Evident Point</a> and <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. Untuk kontribusi, kunjungi <a href=\\"https://github.com/readium/readium-js-viewer\\">github repository</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 
-define('text!i18n/_locales/ja/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3ブックリーダ"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readiumライブラリ"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readiumオプション:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "変更を保存"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "閉じる"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "リフロー可能なEPUBコンテンツをすべてページネートする"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "URLが*.epubなら自動でReadiumで開く"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "EPUBファイルを展開する際には警告メッセージを表示する"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "詳細"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "読む"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "削除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "著者: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "ソース: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日時: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日時: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUBバージョン: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "追加日時: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "フォーマット: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "追加日時: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "不明"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "現在のEPUBにはこのコンテンツのメディアオーバーレイが含まれていません"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "ここをクリックして本を登録します!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "展開しています: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "本を削除します: "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Readiumライブラリに本を追加します:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "本の追加"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "キャンセル"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Webから:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "ローカルファイルから:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : ".epubファイルのURLを入力してください"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "パッケージ化されていないフォルダ:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "検証（バリデート）:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "この本がEPUB仕様に準拠していることを確認する"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "単ページ"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "ダブル"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "設定を保存する"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "文字サイズ"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "マージン"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "文字色と背景色"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "白背景に黒文字"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "アラビアンナイト"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "砂丘の砂"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "バラード ブルース"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "バンクーバーの霧"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "表示形式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>とは, International Digital Publishing Forum (IDPF) と支援企業によるプロジェクトで, EPUB&reg; 出版のためのシステムとレンダリングエンジンのオープンソースリファレンスです。詳しくは、<a href=\\"http://readium.org/\\">プロジェクトホームページ</a>をご覧ください。これまでは<a href=\\"http://evidentpoint.com/\\">Evident Point</a>と<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>がプロジェクト開発をリードしてきました。 コントリビュートするには<a href=\\"https://github.com/readium/readium-js-viewer\\">githubレポジトリ</a>をご覧ください。"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
+define('text!readium_js_viewer_i18n/_locales/ja/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3ブックリーダ"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readiumライブラリ"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readiumオプション:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "変更を保存"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "閉じる"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "リフロー可能なEPUBコンテンツをすべてページネートする"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "URLが*.epubなら自動でReadiumで開く"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "EPUBファイルを展開する際には警告メッセージを表示する"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "詳細"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "読む"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "削除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "著者: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "ソース: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日時: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日時: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUBバージョン: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "追加日時: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "フォーマット: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "追加日時: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "不明"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "現在のEPUBにはこのコンテンツのメディアオーバーレイが含まれていません"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "ここをクリックして本を登録します!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "展開しています: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "本を削除します: "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Readiumライブラリに本を追加します:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "本の追加"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "キャンセル"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Webから:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "ローカルファイルから:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : ".epubファイルのURLを入力してください"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "パッケージ化されていないフォルダ:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "検証（バリデート）:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "この本がEPUB仕様に準拠していることを確認する"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "単ページ"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "ダブル"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "設定を保存する"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "文字サイズ"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "マージン"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "文字色と背景色"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "白背景に黒文字"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "アラビアンナイト"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "砂丘の砂"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "バラード ブルース"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "バンクーバーの霧"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "表示形式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>とは, International Digital Publishing Forum (IDPF) と支援企業によるプロジェクトで, EPUB&reg; 出版のためのシステムとレンダリングエンジンのオープンソースリファレンスです。詳しくは、<a href=\\"http://readium.org/\\">プロジェクトホームページ</a>をご覧ください。これまでは<a href=\\"http://evidentpoint.com/\\">Evident Point</a>と<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>がプロジェクト開発をリードしてきました。 コントリビュートするには<a href=\\"https://github.com/readium/readium-js-viewer\\">githubレポジトリ</a>をご覧ください。"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 
-define('text!i18n/_locales/ko/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3책 리더."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium 라이브러리"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium 옵션:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "변경사항 저장"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "닫기"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "모든 리플로우 컨텐츠의 페이지네이션"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "*.epub url들을 radium에서 자동으로 열기"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "EPUB파일들을 열 때 경고메시지 표시"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "세부항목"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "읽기"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "삭제"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "저자: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "출판사: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "소스: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "출판일: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "개정일: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB 버전: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "생성: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "포맷: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "추가일시: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "미상"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "현재 EPUB은 이 컨텐츠를 위한 미디어 오버레이가 포함되어 있지 않습니다."\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "책을 등록하기 위하여 여기를 클릭하세요!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "정보 추출 중: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "영구히 삭제하시길 원하십니까? "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Readium 라이브러리에 책 추가:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "책 추가"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "취소"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "웹에서:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "로컬 파일에서:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : ".epub 파일의 URL을 입력하세요"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "추출된 디렉토리:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "승인:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "이 책이 ePUB표준을 따르는지 확인"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "단일 페이지"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "더블 페이지"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "설정 저장"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "폰트 크기"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "여백"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "글자와 배경 색"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "흑백"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "아라비안 나이트"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "샌즈 오브 듄"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "발라드 블루스"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "밴쿠버 안개"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "디스플레이 포맷"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>는 EPUB&reg;컨텐츠의 출판을 위한 국제디지털출판포럼(IDPF, International Digital Publishing Forum)과 지원 기업들의 오픈소스 시스템 및 렌더링 엔진 프로젝트입니다. 자세한 내용은 <a href=\\"http://readium.org/\\">프로젝트 홈페이지</a>를 참조하세요. 지금까지, 프로젝트 개발은 <a href=\\"http://evidentpoint.com/\\">Evident Point</a>와 <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>에 의해서 주도 되었습니다. 프로젝트에 기여하시기 위해서는 <a href=\\"https://github.com/readium/readium-js-viewer\\">github 저장소</a>를 확인하시기 바랍니다."\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n';});
+define('text!readium_js_viewer_i18n/_locales/ko/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3책 리더."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium 라이브러리"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium 옵션:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "변경사항 저장"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "닫기"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "모든 리플로우 컨텐츠의 페이지네이션"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "*.epub url들을 radium에서 자동으로 열기"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "EPUB파일들을 열 때 경고메시지 표시"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "세부항목"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "읽기"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "삭제"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "저자: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "출판사: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "소스: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "출판일: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "개정일: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB 버전: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "생성: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "포맷: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "추가일시: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "미상"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "현재 EPUB은 이 컨텐츠를 위한 미디어 오버레이가 포함되어 있지 않습니다."\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "책을 등록하기 위하여 여기를 클릭하세요!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "정보 추출 중: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "영구히 삭제하시길 원하십니까? "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Readium 라이브러리에 책 추가:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "책 추가"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "취소"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "웹에서:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "로컬 파일에서:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : ".epub 파일의 URL을 입력하세요"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "추출된 디렉토리:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "승인:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "이 책이 ePUB표준을 따르는지 확인"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "단일 페이지"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "더블 페이지"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "설정 저장"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "폰트 크기"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "여백"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "글자와 배경 색"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "흑백"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "아라비안 나이트"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "샌즈 오브 듄"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "발라드 블루스"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "밴쿠버 안개"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "디스플레이 포맷"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>는 EPUB&reg;컨텐츠의 출판을 위한 국제디지털출판포럼(IDPF, International Digital Publishing Forum)과 지원 기업들의 오픈소스 시스템 및 렌더링 엔진 프로젝트입니다. 자세한 내용은 <a href=\\"http://readium.org/\\">프로젝트 홈페이지</a>를 참조하세요. 지금까지, 프로젝트 개발은 <a href=\\"http://evidentpoint.com/\\">Evident Point</a>와 <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>에 의해서 주도 되었습니다. 프로젝트에 기여하시기 위해서는 <a href=\\"https://github.com/readium/readium-js-viewer\\">github 저장소</a>를 확인하시기 바랍니다."\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n';});
 
 
-define('text!i18n/_locales/pt_BR/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description" : {\r\n    "message": "Um leitor para livros para EPUB3."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Biblioteca Readium"\r\n  },\r\n  "i18n_loading" : {\r\n   "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Opções do Readium:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Salvar mudanças"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Fechar"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginar todo o conteúdo ePUB fluído"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Abrir automaticamente urls *.epub no readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Exibir mensagem de alerta quando extraindo arquivos EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Detalhes"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Ler"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Excluir"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Autor: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Editora: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Origem: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Publicação: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Data de Modificação: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versão do EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Criado aos: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Formato: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Adicionado: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Desconhecido"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Desculpe, o atual EPUB não contém uma mídia de sobreposição para este conteúdo"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Adicione itens para sua biblioteca aqui!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extraindo: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Você tem certeza de que deseja excluir permanentemente "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Adicionar Livro à Biblioteca Readium:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Adicionar Livro"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Cancelar"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Da Rede:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "De Arquivo Local:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Insira uma URL para um arquivo .epub"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Diretório Extraido:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validar:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirmar que este livro obedece aos padrões ePUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Pág. Simples"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Pág. Duplas"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Salvar Configurações"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "TAMANHO DA FONTE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGENS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COR DO TEXTO E PLANO DE FUNDO"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Preto e Branco"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Noites Árabes"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Areias de Duna"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Névoa de Vancouver"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "FORMATO DE EXIBIÇÃO"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, is an open source reference system and rendering engine for EPUB&reg; publications.  To learn more, visit the <a href=\\"http://readium.org/\\">project homepage</a>. To date, the project development has been lead by <a href=\\"http://evidentpoint.com/\\">Evident Point</a> and <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. To contribute visit the <a href=\\"https://github.com/readium/readium-js-viewer\\">github repository</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,pt-BR,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
+define('text!readium_js_viewer_i18n/_locales/pt_BR/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description" : {\r\n    "message": "Um leitor para livros para EPUB3."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Biblioteca Readium"\r\n  },\r\n  "i18n_loading" : {\r\n   "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Opções do Readium:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Salvar mudanças"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Fechar"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginar todo o conteúdo ePUB fluído"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Abrir automaticamente urls *.epub no readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Exibir mensagem de alerta quando extraindo arquivos EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Detalhes"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Ler"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Excluir"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Autor: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Editora: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Origem: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Publicação: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Data de Modificação: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versão do EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Criado aos: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Formato: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Adicionado: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Desconhecido"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Desculpe, o atual EPUB não contém uma mídia de sobreposição para este conteúdo"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Adicione itens para sua biblioteca aqui!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extraindo: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Você tem certeza de que deseja excluir permanentemente "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Adicionar Livro à Biblioteca Readium:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Adicionar Livro"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Cancelar"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Da Rede:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "De Arquivo Local:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Insira uma URL para um arquivo .epub"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Diretório Extraido:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validar:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirmar que este livro obedece aos padrões ePUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Pág. Simples"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Pág. Duplas"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Salvar Configurações"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "TAMANHO DA FONTE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGENS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COR DO TEXTO E PLANO DE FUNDO"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Preto e Branco"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Noites Árabes"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Areias de Duna"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Névoa de Vancouver"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "FORMATO DE EXIBIÇÃO"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, is an open source reference system and rendering engine for EPUB&reg; publications.  To learn more, visit the <a href=\\"http://readium.org/\\">project homepage</a>. To date, the project development has been lead by <a href=\\"http://evidentpoint.com/\\">Evident Point</a> and <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. To contribute visit the <a href=\\"https://github.com/readium/readium-js-viewer\\">github repository</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,pt-BR,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 
-define('text!i18n/_locales/zh_CN/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3电子书阅览器"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium书库"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium选项:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "保存更改"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "关闭"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "分页显示所有可重排版EPUB文件"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "自动用Readium打开*.epub网址"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "解压缩EPUB文件时显示警告消息"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "详细信息"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "阅读"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "删除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "作者: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "源自: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日期: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日期: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB版本: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "创建日期: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "格式: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "添加: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "未知"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "目前EPUB不支持此内容的媒体格式"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "点击这里添加新书"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "解压中: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "确定永久删除 "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "添加新书到Readium书库:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "添加"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "取消"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "从网络:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "从本地文件:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "请输入一个.EPUB文件的URL"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "未打包目录:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "验证:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "确认这本书是否符合EPUB标准"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "单页"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "双页"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "保存设置"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "字体大小"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "页边距"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "字体和背景颜色"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "显示格式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>，是一个International Digital Publishing Forum (IDPF)和技术支持者们共同开发的项目，也是一个开放源代码的EPUB格式出版物的渲染引擎。要了解更多信息，请访问<a href=\\"http://readium.org/\\">项目主页</a>。迄今为止，该项目的开发一直由<a href=\\"http://evidentpoint.com/\\">Evident Point</a>和<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>来领导。要贡献请访问<a href=\\"https://github.com/readium/readium-js-viewer\\">GitHub资料库</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
+define('text!readium_js_viewer_i18n/_locales/zh_CN/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3电子书阅览器"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium书库"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium选项:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "保存更改"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "关闭"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "分页显示所有可重排版EPUB文件"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "自动用Readium打开*.epub网址"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "解压缩EPUB文件时显示警告消息"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "详细信息"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "阅读"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "删除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "作者: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "源自: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日期: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日期: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB版本: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "创建日期: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "格式: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "添加: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "未知"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "目前EPUB不支持此内容的媒体格式"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "点击这里添加新书"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "解压中: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "确定永久删除 "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "添加新书到Readium书库:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "添加"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "取消"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "从网络:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "从本地文件:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "请输入一个.EPUB文件的URL"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "未打包目录:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "验证:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "确认这本书是否符合EPUB标准"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "单页"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "双页"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "保存设置"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "字体大小"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "页边距"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "字体和背景颜色"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "显示格式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>，是一个International Digital Publishing Forum (IDPF)和技术支持者们共同开发的项目，也是一个开放源代码的EPUB格式出版物的渲染引擎。要了解更多信息，请访问<a href=\\"http://readium.org/\\">项目主页</a>。迄今为止，该项目的开发一直由<a href=\\"http://evidentpoint.com/\\">Evident Point</a>和<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>来领导。要贡献请访问<a href=\\"https://github.com/readium/readium-js-viewer\\">GitHub资料库</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 
-define('text!i18n/_locales/zh_TW/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3電子書閱讀器"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium書櫃"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium設定:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "儲存變更"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "關閉"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "分頁呈現所有文字順走型的EPUB內容"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "自動以Readium開啟任何以.epub結尾的網址"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "解壓縮EPUB檔案時顯示警告訊息"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "詳細"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "閱讀"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "刪除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "作者："\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社："\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "來源："\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日期："\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日期："\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID："\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB版本："\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "建立日期："\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "格式："\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "加入日期："\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "未知"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "目前的EPUB內容並不包含朗讀聲音"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "按下這裡加入新書"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "解壓縮中："\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "你確定要永久刪除 "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "將書籍加入Readium書櫃："\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "加入書籍"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "取消"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "從網站加入："\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "從檔案加入："\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "請輸入 .epub 檔案所在網址"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "未壓縮目錄："\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "檢證："\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "確認這本書是否符合EPUB標準"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "單頁呈現"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "跨頁呈現"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "儲存設定"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "文字尺寸"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "頁緣餘白"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "文字與背景色彩"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "黑底與白字"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "阿拉伯之夜"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "砂丘之黃砂"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "抒情曲藍調"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "溫哥華之霧"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "顯示格式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>是由是International Digital Publishing Forum (IDPF)與技術協助者們共同開發的專案，是供EPUB&reg; 出版品使用的開放原始碼參考系統與排版引擎。要了解更多訊息，請前往<a href=\\"http://readium.org/\\">專案網頁</a>。迄今為止，本專案持續由<a href=\\"http://evidentpoint.com/\\">Evident Point</a>和<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>所主導。若想協助開發，請前往<a href=\\"https://github.com/readium/readium-js-viewer\\">GitHub專案</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,zh-TW,zh-HK,ja,sr,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
+define('text!readium_js_viewer_i18n/_locales/zh_TW/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3電子書閱讀器"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium書櫃"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium設定:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "儲存變更"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "關閉"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "分頁呈現所有文字順走型的EPUB內容"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "自動以Readium開啟任何以.epub結尾的網址"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "解壓縮EPUB檔案時顯示警告訊息"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "詳細"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "閱讀"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "刪除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "作者："\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社："\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "來源："\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日期："\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日期："\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID："\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB版本："\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "建立日期："\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "格式："\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "加入日期："\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "未知"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "目前的EPUB內容並不包含朗讀聲音"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "按下這裡加入新書"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "解壓縮中："\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "你確定要永久刪除 "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "將書籍加入Readium書櫃："\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "加入書籍"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "取消"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "從網站加入："\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "從檔案加入："\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "請輸入 .epub 檔案所在網址"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "未壓縮目錄："\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "檢證："\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "確認這本書是否符合EPUB標準"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "單頁呈現"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "跨頁呈現"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "儲存設定"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "文字尺寸"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "頁緣餘白"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "文字與背景色彩"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "黑底與白字"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "阿拉伯之夜"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "砂丘之黃砂"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "抒情曲藍調"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "溫哥華之霧"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "顯示格式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>是由是International Digital Publishing Forum (IDPF)與技術協助者們共同開發的專案，是供EPUB&reg; 出版品使用的開放原始碼參考系統與排版引擎。要了解更多訊息，請前往<a href=\\"http://readium.org/\\">專案網頁</a>。迄今為止，本專案持續由<a href=\\"http://evidentpoint.com/\\">Evident Point</a>和<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>所主導。若想協助開發，請前往<a href=\\"https://github.com/readium/readium-js-viewer\\">GitHub專案</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,zh-TW,zh-HK,ja,sr,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define('i18n/Strings',['text!i18n/_locales/de/messages.json',
-        'text!i18n/_locales/es/messages.json',
-		'text!i18n/_locales/en_US/messages.json', 
-		'text!i18n/_locales/fr/messages.json', 
-		'text!i18n/_locales/id/messages.json', 
-		'text!i18n/_locales/it/messages.json', 
-		'text!i18n/_locales/ja/messages.json',
-		'text!i18n/_locales/ko/messages.json',
-		'text!i18n/_locales/pt_BR/messages.json',
-		'text!i18n/_locales/zh_CN/messages.json',
-		'text!i18n/_locales/zh_TW/messages.json'], 
+define('readium_js_viewer_i18n/Strings',['text!./_locales/de/messages.json',
+        'text!./_locales/es/messages.json',
+		'text!./_locales/en_US/messages.json',
+		'text!./_locales/fr/messages.json',
+		'text!./_locales/it/messages.json',
+		'text!./_locales/id/messages.json',
+		'text!./_locales/ja/messages.json',
+		'text!./_locales/ko/messages.json',
+		'text!./_locales/pt_BR/messages.json',
+		'text!./_locales/zh_CN/messages.json',
+		'text!./_locales/zh_TW/messages.json'], 
 function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 	var Strings = {};
 
@@ -53373,9 +53134,9 @@ function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 //FORCE HERE (for testing)
 //language="es";
     console.log("Language: [" + language + "]");
-    
+
     var allowEnglishFallback = true;
-    
+
 	var i18nStr = Strings[language] || en_US;
 
 	var i18nObj = JSON.parse(i18nStr);
@@ -53384,19 +53145,22 @@ function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 	for(var prop in i18nObj_en){
         var okay = prop in i18nObj;
         if (!okay) console.log("Language [" + language + "], missing string: [" + prop + "]");
-        
+
 		i18nObj[prop] = okay ? i18nObj[prop].message : (allowEnglishFallback ? ("*"+i18nObj_en[prop].message) : "");
 	}
 	return i18nObj;
 
 });
-define('EpubLibraryManager',['jquery', 'module', 'PackageParser', 'workers/WorkerProxy', 'storage/StorageManager', 'i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
+
+define('readium_js_viewer_i18n', ['readium_js_viewer_i18n/Strings'], function (main) { return main; });
+
+define('readium_js_viewer/EpubLibraryManager',['jquery', 'module', 'readium_js/epub-model/package_document_parser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
 
 	var config = module.config();
 
-	
 
-	var LibraryManager = function(){ 
+
+	var LibraryManager = function(){
 	};
 
 	LibraryManager.prototype = {
@@ -53407,12 +53171,12 @@ define('EpubLibraryManager',['jquery', 'module', 'PackageParser', 'workers/Worke
 
             var parts = packageUrl.split('/');
             parts.pop();
-            
+
             var root = parts.join('/');
 
             return root + (relativeUrl.charAt(0) == '/' ? '' : '/') + relativeUrl
         },
-        
+
         retrieveAvailableEpubs : function(success, error){
             var indexUrl = StorageManager.getPathUrl('/epub_library.json');
             if (this.libraryData){
@@ -53428,7 +53192,7 @@ define('EpubLibraryManager',['jquery', 'module', 'PackageParser', 'workers/Worke
                 success([]);
             });
 		},
-        
+
         deleteEpubWithId : function(id, success, error){
             WorkerProxy.deleteEpub(id, this.libraryData, {
                 success: this._refreshLibraryFromWorker.bind(this, success),
@@ -53438,7 +53202,7 @@ define('EpubLibraryManager',['jquery', 'module', 'PackageParser', 'workers/Worke
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
 			$.get(packageUrl, function(data){
-                
+
                 if(typeof(data) === "string" ) {
                     var parser = new window.DOMParser;
                     data = parser.parseFromString(data, 'text/xml');
@@ -53450,7 +53214,7 @@ define('EpubLibraryManager',['jquery', 'module', 'PackageParser', 'workers/Worke
                 jsonObj.rootUrl = rootUrl;
                 jsonObj.noCoverBackground = noCoverBackground;
                 success(jsonObj);
-				
+
 			}).fail(error);
 		},
         _refreshLibraryFromWorker : function(callback, newLibraryData){
@@ -53469,12 +53233,12 @@ define('EpubLibraryManager',['jquery', 'module', 'PackageParser', 'workers/Worke
         },
         handleDirectoryImport : function(options){
 
-            var rawFiles = options.files, 
+            var rawFiles = options.files,
                 files = {};
             for (var i = 0; i < rawFiles.length; i++){
                  var path = rawFiles[i].webkitRelativePath
-                // don't capture paths that contain . at the beginning of a file or dir. 
-                // These are hidden files. I don't think chrome will ever reference 
+                // don't capture paths that contain . at the beginning of a file or dir.
+                // These are hidden files. I don't think chrome will ever reference
                 // a file using double dot "/.." so this should be safe
                 if (path.indexOf('/.') != -1){
                     continue;
@@ -53529,6 +53293,7 @@ define('EpubLibraryManager',['jquery', 'module', 'PackageParser', 'workers/Worke
 	return new LibraryManager();
 
 });
+
 /*!
  *  Copyright 2011 Twitter, Inc.
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -54291,48 +54056,48 @@ if (typeof define === 'function' && define.amd) {
 ;
 define('hgn',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define("hgn!templates/library-navbar.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"btn-group navbar-left\">\r");t.b("\n" + i);t.b("    <button id=\"aboutButt1\" tabindex=\"1\" type=\"button\" class=\"btn icon-logo\" data-toggle=\"modal\" data-target=\"#about-dialog\" title=\"");t.b(t.v(t.d("strings.about",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.about",c,p,0)));t.b("\"></button>\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<div class=\"btn-group navbar-right\">\r");t.b("\n" + i);t.b("	<button tabindex=\"1\" type=\"button\" class=\"btn icon-thumbnails\" title=\"");t.b(t.v(t.d("strings.thumbnail_view",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.thumbnail_view",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("		<span class=\"glyphicon glyphicon-th\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("	</button>\r");t.b("\n" + i);t.b("	<button tabindex=\"1\" type=\"button\" class=\"btn icon-list-view\" title=\"");t.b(t.v(t.d("strings.list_view",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.list_view",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("		<span class=\"glyphicon glyphicon-align-justify\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("	</button>\r");t.b("\n" + i);t.b("    <button id=\"addbutt\" tabindex=\"1\" type=\"button\" class=\"btn icon-add-epub\" title=\"");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#add-epub-dialog\">\r");t.b("\n" + i);t.b("    	<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    <button id=\"settbutt1\" tabindex=\"1\" type=\"button\" class=\"btn icon-settings\" title=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.ShowSettingsModal",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.ShowSettingsModal",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.ShowSettingsModal",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#settings-dialog\">\r");t.b("\n" + i);t.b("    	<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/library-navbar.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"btn-group navbar-left\">\r");t.b("\n" + i);t.b("    <button id=\"aboutButt1\" tabindex=\"1\" type=\"button\" class=\"btn icon-logo\" data-toggle=\"modal\" data-target=\"#about-dialog\" title=\"");t.b(t.v(t.d("strings.about",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.about",c,p,0)));t.b("\"></button>\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<div class=\"btn-group navbar-right\">\r");t.b("\n" + i);t.b("	<button tabindex=\"1\" type=\"button\" class=\"btn icon-thumbnails\" title=\"");t.b(t.v(t.d("strings.thumbnail_view",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.thumbnail_view",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("		<span class=\"glyphicon glyphicon-th\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("	</button>\r");t.b("\n" + i);t.b("	<button tabindex=\"1\" type=\"button\" class=\"btn icon-list-view\" title=\"");t.b(t.v(t.d("strings.list_view",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.list_view",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("		<span class=\"glyphicon glyphicon-align-justify\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("	</button>\r");t.b("\n" + i);t.b("    <button id=\"addbutt\" tabindex=\"1\" type=\"button\" class=\"btn icon-add-epub\" title=\"");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#add-epub-dialog\">\r");t.b("\n" + i);t.b("    	<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    <button id=\"settbutt1\" tabindex=\"1\" type=\"button\" class=\"btn icon-settings\" title=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.ShowSettingsModal",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.ShowSettingsModal",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.ShowSettingsModal",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#settings-dialog\">\r");t.b("\n" + i);t.b("    	<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/library-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"row library-items\" role=\"main\">\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/library-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"row library-items\" role=\"main\">\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/empty-library.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"pull-right\">\r");t.b("\n" + i);t.b("	<div id=\"empty-message\">\r");t.b("\n" + i);t.b("		");t.b(t.v(t.d("strings.i18n_add_items",c,p,0)));t.b("\r");t.b("\n" + i);t.b("	</div>\r");t.b("\n" + i);t.b("	<img id=\"empty-message-arrow\" src=\"images/library_arrow.png\" alt=\"\">\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/empty-library.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"pull-right\">\r");t.b("\n" + i);t.b("	<div id=\"empty-message\">\r");t.b("\n" + i);t.b("		");t.b(t.v(t.d("strings.i18n_add_items",c,p,0)));t.b("\r");t.b("\n" + i);t.b("	</div>\r");t.b("\n" + i);t.b("	<img id=\"empty-message-arrow\" src=\"images/library_arrow.png\" alt=\"\">\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/library-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"col-xs-4 col-sm-3 col-md-2 library-item\">\r");t.b("\n" + i);t.b("    <div class='info-wrap'>\r");t.b("\n" + i);t.b("        <!-- <div class='caption book-info'>\r");t.b("\n" + i);t.b("            <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("        </div> -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button type=\"button\" style=\"background: none; border: none; padding: 0; margin: 0;\" class=\"read\" data-book=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\"  aria-label=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\"  tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);if(t.s(t.d("epub.coverHref",c,p,1),c,p,0,610,760,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <div aria-hidden=\"true\" class=\"no-cover has-cover\" style=\"background-image:url(");t.b(t.v(t.d("epub.coverHref",c,p,0)));t.b(");\"><p>&nbsp;</p></div>\r");t.b("\n" + i);});c.pop();}t.b("            \r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div aria-hidden=\"true\" class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("    </button>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("    <!-- <div class=\"caption buttons\">\r");t.b("\n" + i);t.b("        <a href=\"#\" class=\"btn btn-default read\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" role=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("        <a href=\"#details-modal\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" aria-pressed=\"true\" class=\"btn btn-default details\" data-toggle=\"modal\" role=\"button\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("    </div> -->\r");t.b("\n" + i);t.b("    <div class='caption book-info'>\r");t.b("\n" + i);t.b("        <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("         <button aria-label=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#details-modal\" data-package=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("/");t.b(t.v(t.d("epub.packagePath",c,p,0)));t.b("\" data-root=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\" data-root-dir=\"");t.b(t.v(t.d("epub.rootDir",c,p,0)));t.b("\" ");if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b(" data-no-cover=\"");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("\" ");};t.b(" class=\"btn btn-info details\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</button></div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/library-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"col-xs-4 col-sm-3 col-md-2 library-item\">\r");t.b("\n" + i);t.b("    <div class='info-wrap'>\r");t.b("\n" + i);t.b("        <!-- <div class='caption book-info'>\r");t.b("\n" + i);t.b("            <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("        </div> -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button type=\"button\" style=\"background: none; border: none; padding: 0; margin: 0;\" class=\"read\" data-book=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\"  aria-label=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\"  tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);if(t.s(t.d("epub.coverHref",c,p,1),c,p,0,610,760,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <div aria-hidden=\"true\" class=\"no-cover has-cover\" style=\"background-image:url(");t.b(t.v(t.d("epub.coverHref",c,p,0)));t.b(");\"><p>&nbsp;</p></div>\r");t.b("\n" + i);});c.pop();}t.b("            \r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div aria-hidden=\"true\" class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("    </button>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("    <!-- <div class=\"caption buttons\">\r");t.b("\n" + i);t.b("        <a href=\"#\" class=\"btn btn-default read\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" role=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("        <a href=\"#details-modal\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" aria-pressed=\"true\" class=\"btn btn-default details\" data-toggle=\"modal\" role=\"button\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("    </div> -->\r");t.b("\n" + i);t.b("    <div class='caption book-info'>\r");t.b("\n" + i);t.b("        <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("         <button aria-label=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#details-modal\" data-package=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("/");t.b(t.v(t.d("epub.packagePath",c,p,0)));t.b("\" data-root=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\" data-root-dir=\"");t.b(t.v(t.d("epub.rootDir",c,p,0)));t.b("\" ");if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b(" data-no-cover=\"");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("\" ");};t.b(" class=\"btn btn-info details\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</button></div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/details-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div id=\"details-dialog\" class=\"modal fade details-dialog\" tabindex=\"-1\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("        <p>Loading Details...</p>\r");t.b("\n" + i);t.b("        <progress></progress>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/details-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div id=\"details-dialog\" class=\"modal fade details-dialog\" tabindex=\"-1\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("        <p>Loading Details...</p>\r");t.b("\n" + i);t.b("        <progress></progress>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/about-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"about-dialog\" tabindex=\"-1\" role=\"dialog\" aria-label=\"");t.b(t.t(t.d("strings.about",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("      	<div class=\"splash-logo\">\r");t.b("\n" + i);t.b("      		<img src=\"images/about_readium_logo.png\" alt=\"\">\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("      	<div class=\"about-message\">\r");t.b("\n" + i);t.b("	      	<span>");t.b(t.t(t.d("strings.i18n_html_readium_tm_a_project",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("      	<div>\r");t.b("\n" + i);t.b("			     <img src=\"images/partner_logos.png\">\r");t.b("\n" + i);t.b("		    </div>\r");t.b("\n" + i);t.b("        <h4 style=\"color:#111155\">");t.b(t.t(t.d("strings.gethelp",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class=\"version\">");t.b(t.v(t.d("viewer.chromeVersion",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"build-date\">");t.b(t.v(t.d("viewer.dateTimeString",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"version-details\">\r");t.b("\n" + i);t.b("        <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js-viewer/tree/");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("\">readium-js-viewer@");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("viewer.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js/tree/");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("\">readium-js@");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("readium.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-shared-js/tree/");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("\">readium-shared-js@");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("sharedJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-cfi-js/tree/");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("\">readium-cfi-js@");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("cfiJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/about-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"about-dialog\" tabindex=\"-1\" role=\"dialog\" aria-label=\"");t.b(t.t(t.d("strings.about",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("      	<div class=\"splash-logo\">\r");t.b("\n" + i);t.b("      		<img src=\"images/about_readium_logo.png\" alt=\"\">\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("      	<div class=\"about-message\">\r");t.b("\n" + i);t.b("	      	<span>");t.b(t.t(t.d("strings.i18n_html_readium_tm_a_project",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("      	<div>\r");t.b("\n" + i);t.b("			     <img src=\"images/partner_logos.png\">\r");t.b("\n" + i);t.b("		    </div>\r");t.b("\n" + i);t.b("        <h4 style=\"color:#111155\">");t.b(t.t(t.d("strings.gethelp",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class=\"version\">");t.b(t.v(t.d("viewer.chromeVersion",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"build-date\">");t.b(t.v(t.d("viewer.dateTimeString",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"version-details\">\r");t.b("\n" + i);t.b("        <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js-viewer/tree/");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("\">readium-js-viewer@");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("viewer.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js/tree/");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("\">readium-js@");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("readium.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-shared-js/tree/");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("\">readium-shared-js@");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("sharedJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-cfi-js/tree/");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("\">readium-cfi-js@");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("cfiJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/details-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"details-body\">\r");t.b("\n" + i);t.b("    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"  tabindex=\"1000\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("    <div class=\"offscreenText\">Details Start</div>\r");t.b("\n" + i);t.b("    <div class=\"modal-cover-wrap\">\r");t.b("\n" + i);if(t.s(t.d("data.coverHref",c,p,1),c,p,0,388,500,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <img class=\"details-cover-image img-responsive\" src=\"");t.b(t.v(t.d("data.coverHref",c,p,0)));t.b("\" alt=\"ePUB cover\">\r");t.b("\n" + i);});c.pop();}if(!t.s(t.d("data.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.d("data.noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("data.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("            <button tabindex=\"1000\" class=\"btn btn-default read\" data-dismiss=\"modal\" data-book=\"");t.b(t.v(t.d("data.rootUrl",c,p,0)));t.b("\" type=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            <button tabindex=\"1000\" class=\"btn btn-danger delete\" data-dismiss=\"modal\" type=\"button\">");t.b(t.v(t.d("strings.i18n_delete",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <div class='modal-book-info'>\r");t.b("\n" + i);t.b("        <h3 class='modal-title'>");t.b(t.v(t.d("data.title",c,p,0)));t.b("</h3>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_author",c,p,0)));t.b(t.v(t.d("data.author",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_publisher",c,p,0)));t.b(t.v(t.d("data.publisher",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_pub_date",c,p,0)));t.b(t.v(t.d("data.pubdate",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_modified_date",c,p,0)));t.b(t.v(t.d("data.modified_date",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_id",c,p,0)));t.b(t.v(t.d("data.id",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_epub_version",c,p,0)));t.b(t.v(t.d("data.epub_version",c,p,0)));t.b("</div>        \r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <div class=\"offscreenText\">Details End</div>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/details-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"details-body\">\r");t.b("\n" + i);t.b("    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"  tabindex=\"1000\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("    <div class=\"offscreenText\">Details Start</div>\r");t.b("\n" + i);t.b("    <div class=\"modal-cover-wrap\">\r");t.b("\n" + i);if(t.s(t.d("data.coverHref",c,p,1),c,p,0,388,500,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <img class=\"details-cover-image img-responsive\" src=\"");t.b(t.v(t.d("data.coverHref",c,p,0)));t.b("\" alt=\"ePUB cover\">\r");t.b("\n" + i);});c.pop();}if(!t.s(t.d("data.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.d("data.noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("data.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("            <button tabindex=\"1000\" class=\"btn btn-default read\" data-dismiss=\"modal\" data-book=\"");t.b(t.v(t.d("data.rootUrl",c,p,0)));t.b("\" type=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            <button tabindex=\"1000\" class=\"btn btn-danger delete\" data-dismiss=\"modal\" type=\"button\">");t.b(t.v(t.d("strings.i18n_delete",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <div class='modal-book-info'>\r");t.b("\n" + i);t.b("        <h3 class='modal-title'>");t.b(t.v(t.d("data.title",c,p,0)));t.b("</h3>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_author",c,p,0)));t.b(t.v(t.d("data.author",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_publisher",c,p,0)));t.b(t.v(t.d("data.publisher",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_pub_date",c,p,0)));t.b(t.v(t.d("data.pubdate",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_modified_date",c,p,0)));t.b(t.v(t.d("data.modified_date",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_id",c,p,0)));t.b(t.v(t.d("data.id",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_epub_version",c,p,0)));t.b(t.v(t.d("data.epub_version",c,p,0)));t.b("</div>        \r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <div class=\"offscreenText\">Details End</div>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/add-epub-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"add-epub-dialog\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"add-epub-label\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("            <div class=\"modal-header\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <button id=\"closeAddEpubCross\" type=\"button\" class=\"close\" data-dismiss=\"modal\" tabindex=\"999\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <h4 class=\"modal-title\" id=\"add-epub-label\">");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("                <form class=\"form-horizontal\" role=\"form\">\r");t.b("\n" + i);if(t.s(t.f("canHandleUrl",c,p,1),c,p,0,763,1190,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("                <div class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add1\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_from_the_web",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"text\" id=\"url-upload\" class=\"form-control\" placeholder=\"");t.b(t.v(t.d("strings.i18n_enter_a_url",c,p,0)));t.b("\" aria-labelledby=\"add1\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);});c.pop();}t.b("                <div id=\"epub-upload-div\" class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add2\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_from_local_file",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"file\" id=\"epub-upload\" class=\"form-control\" aria-labelledby=\"add2\" role=\"button\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);if(t.s(t.f("canHandleDirectory",c,p,1),c,p,0,1653,2106,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("                <div class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add3\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_unpacked_directory",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"file\" id=\"dir-upload\" webkitdirectory=\"\" mozdirectory=\"\" directory=\"\" class=\"form-control\" aria-labelledby=\"add3\"  role=\"button\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);});c.pop();}t.b("                </form>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("                <button tabindex=\"1000\" type=\"button\" class=\"btn btn-default add-book\" data-dismiss=\"modal\" disabled=\"disabled\">");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1000\" type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">");t.b(t.v(t.d("strings.i18n_cancel",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content --> \r");t.b("\n" + i);t.b("    </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/add-epub-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"add-epub-dialog\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"add-epub-label\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("            <div class=\"modal-header\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <button id=\"closeAddEpubCross\" type=\"button\" class=\"close\" data-dismiss=\"modal\" tabindex=\"999\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <h4 class=\"modal-title\" id=\"add-epub-label\">");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("                <form class=\"form-horizontal\" role=\"form\">\r");t.b("\n" + i);if(t.s(t.f("canHandleUrl",c,p,1),c,p,0,763,1190,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("                <div class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add1\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_from_the_web",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"text\" id=\"url-upload\" class=\"form-control\" placeholder=\"");t.b(t.v(t.d("strings.i18n_enter_a_url",c,p,0)));t.b("\" aria-labelledby=\"add1\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);});c.pop();}t.b("                <div id=\"epub-upload-div\" class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add2\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_from_local_file",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"file\" id=\"epub-upload\" class=\"form-control\" aria-labelledby=\"add2\" role=\"button\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);if(t.s(t.f("canHandleDirectory",c,p,1),c,p,0,1653,2106,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("                <div class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add3\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_unpacked_directory",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"file\" id=\"dir-upload\" webkitdirectory=\"\" mozdirectory=\"\" directory=\"\" class=\"form-control\" aria-labelledby=\"add3\"  role=\"button\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);});c.pop();}t.b("                </form>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("                <button tabindex=\"1000\" type=\"button\" class=\"btn btn-default add-book\" data-dismiss=\"modal\" disabled=\"disabled\">");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1000\" type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">");t.b(t.v(t.d("strings.i18n_cancel",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content --> \r");t.b("\n" + i);t.b("    </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/settings-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div tabindex=\"-1\" class=\"modal fade\" id=\"settings-dialog\" role=\"dialog\" aria-label=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <!-- div class=\"modal-header\">\r");t.b("\n" + i);t.b("            <h4 class=\"modal-title\" id=\"settings-label\">");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("           </div -->\r");t.b("\n" + i);t.b("               \r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("           <button type=\"button\" class=\"close\" id=\"closeSettingsCross\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <ul class=\"nav nav-tabs\" role=\"tablist\" aria-owns=\"tab-butt-style tab-butt-layout tab-butt-keys\">\r");t.b("\n" + i);t.b("             <li class=\"active\" role=\"presentation\"><button id=\"tab-butt-style\"  title=\"");t.b(t.v(t.d("strings.style",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.style",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-style\" data-toggle=\"tab\" data-target=\"#tab-style\">");t.b(t.v(t.d("strings.style",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("             <li role=\"presentation\"><button id=\"tab-butt-layout\"  title=\"");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-layout\" data-toggle=\"tab\" data-target=\"#tab-layout\">");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("             <li role=\"presentation\"><button id=\"tab-butt-keys\"  title=\"");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-keyboard\" data-toggle=\"tab\" data-target=\"#tab-keyboard\">");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("           </ul>\r");t.b("\n" + i);t.b("           \r");t.b("\n" + i);t.b("           \r");t.b("\n" + i);t.b("           <div class=\"tab-content\">\r");t.b("\n" + i);t.b("                <div id=\"tab-style\" class=\"tab-pane active\" role=\"tabpanel\" aria-expanded=\"true\">\r");t.b("\n" + i);t.b("                     \r");t.b("\n" + i);t.b("                <h5 aria-hidden=\"true\">");t.b(t.v(t.d("strings.preview",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                <div  aria-hidden=\"true\" class=\"row\">\r");t.b("\n" + i);t.b("                    <div data-theme=\"default-theme\" class=\"col-xs-10 col-xs-offset-1 preview-text default-theme\">\r");t.b("\n" + i);t.b("                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Cras in felis sed orci aliquam sagittis. \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("<!-- button  type=\"button\" title=\"TESTING\" aria-label=\"TESTING\">TESTING DANIEL</button -->\r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-font-size\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    <div class=\"row\">\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2 icon-scale-down\">\r");t.b("\n" + i);t.b("                            <img src=\"images/glyphicons_115_text_smaller.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-8\">\r");t.b("\n" + i);t.b("                            <input  type=\"range\" role=\"slider\" aria-labelledby=\"setting-header-font-size\" id=\"font-size-input\" min=\"60\" aria-value-min=\"60\" aria-valuemin=\"60\" step=\"10\" max=\"170\" aria-value-max=\"170\" aria-valuemax=\"170\" value=\"100\" aria-valuenow=\"100\" aria-value-now=\"100\" aria-valuetext=\"1em\" aria-value-text=\"1em\" title=\"");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("\" />\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2\">\r");t.b("\n" + i);t.b("                            <img src=\"images/glyphicons_116_text_bigger.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-color-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_text_and_background_color",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    <div role=\"group\" aria-labelledby=\"setting-header-color-legend\" id=\"theme-radio-group\" class=\"row\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"author-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option author-theme clickable\">");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"default-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option default-theme clickable\">");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"night-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("]\" class=\"col-xs-8 col-xs-offset-2 theme-option night-theme clickable\" >");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b("</button> <!-- accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.NightTheme",c,p,0)));t.b("\" -->\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"parchment-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable\">");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"ballard-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable\">");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"vancouver-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable\">");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("                <div id=\"tab-layout\" class=\"tab-pane\" role=\"tabpanel\">\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-margins-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                     <div class=\"row\">\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2 icon-scale-down\">\r");t.b("\n" + i);t.b("                            <img style=\"height: 32px;\" src=\"images/margin1_off.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-8\">\r");t.b("\n" + i);t.b("                            <input  type=\"range\" role=\"slider\" aria-labelledby=\"setting-header-margins-legend\" id=\"margin-size-input\" min=\"20\" aria-value-min=\"20\" aria-valuemin=\"20\" step=\"20\" max=\"100\" aria-value-max=\"100\" aria-valuemax=\"100\" value=\"20\" aria-valuenow=\"20\" aria-value-now=\"20\" aria-valuetext=\"20\" aria-value-text=\"20\" title=\"");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2\">\r");t.b("\n" + i);t.b("                            <img style=\"height: 32px;\" src=\"images/margin4_off.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-display-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-display-legend\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"spread-default-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"display-format\" value=\"single\" type=\"radio\" id=\"spread-default-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"spread-default-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_spread_auto",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"one-up-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            \r");t.b("\n" + i);t.b("                            <input  name=\"display-format\" value=\"single\" type=\"radio\" id=\"single-page-radio\" />\r");t.b("\n" + i);t.b("                                            <label for=\"single-page-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                            <img src=\"images/ico_singlepage_up.png\" alt=\"");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_single_pages",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("                                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"two-up-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            \r");t.b("\n" + i);t.b("                                <input  name=\"display-format\" value=\"double\" type=\"radio\" id=\"double-page-radio\" />\r");t.b("\n" + i);t.b("                                            <label for=\"double-page-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                            <img src=\"images/ico_doublepage_up.png\" alt=\"");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_double_pages",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("                                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-scroll-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_scroll_mode",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-scroll-legend\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-default-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-default-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-default-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_scroll_mode_auto",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-doc-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-doc-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-doc-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                <span style=\"font-size:150%;color:#888888;\" class=\"glyphicon glyphicon-file\" aria-hidden=\"true\"></span> ");t.b(t.v(t.d("strings.i18n_scroll_mode_doc",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-continuous-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-continuous-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-continuous-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                <span style=\"font-size:150%;color:#888888;\" class=\"glyphicon glyphicon-road\" aria-hidden=\"true\"></span> ");t.b(t.v(t.d("strings.i18n_scroll_mode_continuous",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 hiddenx=\"hidden\" id=\"setting-header-pageTransition-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_page_transition",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div hiddenx=\"hidden\" role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-pageTransition-legend\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-none-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-none-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-none-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_none",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-1-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-1-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-1-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_fade",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-2-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-2-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-2-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_slide",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-3-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-3-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-3-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_swoosh",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-4-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-4-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-4-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_butterfly",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                    <div id=\"tab-keyboard\" class=\"tab-pane\" role=\"tabpanel\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <div class=\"row\" style=\"position:relative;\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div id=\"invalid_keyboard_shortcut_ALERT\"></div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <ul id=\"keyboard-list\">\r");t.b("\n" + i);t.b("                        </ul>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                     </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("                <button id=\"buttClose\"  type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalClose",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalClose",c,p,0)));t.b("]\">");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                <button id=\"buttSave\"  type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalSave",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalSave",c,p,0)));t.b("]\">");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content -->\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/settings-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div tabindex=\"-1\" class=\"modal fade\" id=\"settings-dialog\" role=\"dialog\" aria-label=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <!-- div class=\"modal-header\">\r");t.b("\n" + i);t.b("            <h4 class=\"modal-title\" id=\"settings-label\">");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("           </div -->\r");t.b("\n" + i);t.b("               \r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("           <button type=\"button\" class=\"close\" id=\"closeSettingsCross\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <ul class=\"nav nav-tabs\" role=\"tablist\" aria-owns=\"tab-butt-style tab-butt-layout tab-butt-keys\">\r");t.b("\n" + i);t.b("             <li class=\"active\" role=\"presentation\"><button id=\"tab-butt-style\"  title=\"");t.b(t.v(t.d("strings.style",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.style",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-style\" data-toggle=\"tab\" data-target=\"#tab-style\">");t.b(t.v(t.d("strings.style",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("             <li role=\"presentation\"><button id=\"tab-butt-layout\"  title=\"");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-layout\" data-toggle=\"tab\" data-target=\"#tab-layout\">");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("             <li role=\"presentation\"><button id=\"tab-butt-keys\"  title=\"");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-keyboard\" data-toggle=\"tab\" data-target=\"#tab-keyboard\">");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("           </ul>\r");t.b("\n" + i);t.b("           \r");t.b("\n" + i);t.b("           \r");t.b("\n" + i);t.b("           <div class=\"tab-content\">\r");t.b("\n" + i);t.b("                <div id=\"tab-style\" class=\"tab-pane active\" role=\"tabpanel\" aria-expanded=\"true\">\r");t.b("\n" + i);t.b("                     \r");t.b("\n" + i);t.b("                <h5 aria-hidden=\"true\">");t.b(t.v(t.d("strings.preview",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                <div  aria-hidden=\"true\" class=\"row\">\r");t.b("\n" + i);t.b("                    <div data-theme=\"default-theme\" class=\"col-xs-10 col-xs-offset-1 preview-text default-theme\">\r");t.b("\n" + i);t.b("                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Cras in felis sed orci aliquam sagittis. \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("<!-- button  type=\"button\" title=\"TESTING\" aria-label=\"TESTING\">TESTING DANIEL</button -->\r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-font-size\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    <div class=\"row\">\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2 icon-scale-down\">\r");t.b("\n" + i);t.b("                            <img src=\"images/glyphicons_115_text_smaller.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-8\">\r");t.b("\n" + i);t.b("                            <input  type=\"range\" role=\"slider\" aria-labelledby=\"setting-header-font-size\" id=\"font-size-input\" min=\"60\" aria-value-min=\"60\" aria-valuemin=\"60\" step=\"10\" max=\"170\" aria-value-max=\"170\" aria-valuemax=\"170\" value=\"100\" aria-valuenow=\"100\" aria-value-now=\"100\" aria-valuetext=\"1em\" aria-value-text=\"1em\" title=\"");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("\" />\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2\">\r");t.b("\n" + i);t.b("                            <img src=\"images/glyphicons_116_text_bigger.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-color-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_text_and_background_color",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    <div role=\"group\" aria-labelledby=\"setting-header-color-legend\" id=\"theme-radio-group\" class=\"row\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"author-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option author-theme clickable\">");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"default-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option default-theme clickable\">");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"night-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("]\" class=\"col-xs-8 col-xs-offset-2 theme-option night-theme clickable\" >");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b("</button> <!-- accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.NightTheme",c,p,0)));t.b("\" -->\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"parchment-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable\">");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"ballard-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable\">");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"vancouver-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable\">");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("                <div id=\"tab-layout\" class=\"tab-pane\" role=\"tabpanel\">\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-margins-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                     <div class=\"row\">\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2 icon-scale-down\">\r");t.b("\n" + i);t.b("                            <img style=\"height: 32px;\" src=\"images/margin1_off.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-8\">\r");t.b("\n" + i);t.b("                            <input  type=\"range\" role=\"slider\" aria-labelledby=\"setting-header-margins-legend\" id=\"margin-size-input\" min=\"20\" aria-value-min=\"20\" aria-valuemin=\"20\" step=\"20\" max=\"100\" aria-value-max=\"100\" aria-valuemax=\"100\" value=\"20\" aria-valuenow=\"20\" aria-value-now=\"20\" aria-valuetext=\"20\" aria-value-text=\"20\" title=\"");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2\">\r");t.b("\n" + i);t.b("                            <img style=\"height: 32px;\" src=\"images/margin4_off.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-display-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-display-legend\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"spread-default-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"display-format\" value=\"single\" type=\"radio\" id=\"spread-default-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"spread-default-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_spread_auto",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"one-up-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            \r");t.b("\n" + i);t.b("                            <input  name=\"display-format\" value=\"single\" type=\"radio\" id=\"single-page-radio\" />\r");t.b("\n" + i);t.b("                                            <label for=\"single-page-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                            <img src=\"images/ico_singlepage_up.png\" alt=\"");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_single_pages",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("                                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"two-up-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            \r");t.b("\n" + i);t.b("                                <input  name=\"display-format\" value=\"double\" type=\"radio\" id=\"double-page-radio\" />\r");t.b("\n" + i);t.b("                                            <label for=\"double-page-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                            <img src=\"images/ico_doublepage_up.png\" alt=\"");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_double_pages",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("                                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-scroll-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_scroll_mode",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-scroll-legend\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-default-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-default-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-default-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_scroll_mode_auto",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-doc-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-doc-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-doc-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                <span style=\"font-size:150%;color:#888888;\" class=\"glyphicon glyphicon-file\" aria-hidden=\"true\"></span> ");t.b(t.v(t.d("strings.i18n_scroll_mode_doc",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-continuous-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-continuous-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-continuous-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                <span style=\"font-size:150%;color:#888888;\" class=\"glyphicon glyphicon-road\" aria-hidden=\"true\"></span> ");t.b(t.v(t.d("strings.i18n_scroll_mode_continuous",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 hiddenx=\"hidden\" id=\"setting-header-pageTransition-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_page_transition",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div hiddenx=\"hidden\" role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-pageTransition-legend\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-none-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-none-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-none-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_none",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-1-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-1-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-1-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_fade",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-2-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-2-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-2-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_slide",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-3-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-3-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-3-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_swoosh",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-4-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-4-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-4-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_butterfly",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                    <div id=\"tab-keyboard\" class=\"tab-pane\" role=\"tabpanel\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <div class=\"row\" style=\"position:relative;\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div id=\"invalid_keyboard_shortcut_ALERT\"></div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <ul id=\"keyboard-list\">\r");t.b("\n" + i);t.b("                        </ul>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                     </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("                <button id=\"buttClose\"  type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalClose",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalClose",c,p,0)));t.b("]\">");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                <button id=\"buttSave\"  type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalSave",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalSave",c,p,0)));t.b("]\">");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content -->\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/settings-keyboard-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("name",c,p,1),c,p,0,9,747,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("<li>\r");t.b("\n" + i);t.b("<label id=\"label_");t.b(t.v(t.f("name",c,p,0)));t.b("\">");t.b(t.v(t.f("i18n",c,p,0)));t.b("<br/><span>");t.b(t.v(t.f("name",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("<input id=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\" name=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\" class=\"keyboardInput\" type=\"text\"  placeholder=\"");t.b(t.v(t.f("shortcut",c,p,0)));t.b("\" value=\"");t.b(t.v(t.f("shortcut",c,p,0)));t.b("\" aria-labelledbyxxx=\"label_");t.b(t.v(t.f("name",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.f("i18n",c,p,0)));t.b("\" title=\"");t.b(t.v(t.f("i18n",c,p,0)));t.b("\"></input>\r");t.b("\n" + i);t.b("<button class=\"resetKey captureKeyboardShortcut\" role=\"button\" data-key=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\"  title=\"");t.b(t.v(t.d("strings.i18n_reset_key",c,p,0)));t.b(" (");t.b(t.v(t.f("def",c,p,0)));t.b(")\" aria-label=\"");t.b(t.v(t.d("strings.i18n_reset_key",c,p,0)));t.b(" (");t.b(t.v(t.f("def",c,p,0)));t.b(")\"><span aria-hidden=\"true\">&#8855;</span></button>\r");t.b("\n" + i);t.b("<span id=\"duplicate_keyboard_shortcut\" aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_duplicate_keyboard_shortcut",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("<span id=\"invalid_keyboard_shortcut\" aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_invalid_keyboard_shortcut",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("</li>\r");t.b("\n" + i);});c.pop();}if(!t.s(t.f("name",c,p,1),c,p,1,0,0,"")){t.b("<li id=\"resetAllKeys");t.b(t.v(t.f("id",c,p,0)));t.b("\" class=\"resetAllKeys\">\r");t.b("\n" + i);t.b("<button class=\"resetKey\" role=\"button\"  title=\"");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("  &#8855;</span></button>\r");t.b("\n" + i);t.b("</li>\r");t.b("\n" + i);};return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/settings-keyboard-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("name",c,p,1),c,p,0,9,747,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("<li>\r");t.b("\n" + i);t.b("<label id=\"label_");t.b(t.v(t.f("name",c,p,0)));t.b("\">");t.b(t.v(t.f("i18n",c,p,0)));t.b("<br/><span>");t.b(t.v(t.f("name",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("<input id=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\" name=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\" class=\"keyboardInput\" type=\"text\"  placeholder=\"");t.b(t.v(t.f("shortcut",c,p,0)));t.b("\" value=\"");t.b(t.v(t.f("shortcut",c,p,0)));t.b("\" aria-labelledbyxxx=\"label_");t.b(t.v(t.f("name",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.f("i18n",c,p,0)));t.b("\" title=\"");t.b(t.v(t.f("i18n",c,p,0)));t.b("\"></input>\r");t.b("\n" + i);t.b("<button class=\"resetKey captureKeyboardShortcut\" role=\"button\" data-key=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\"  title=\"");t.b(t.v(t.d("strings.i18n_reset_key",c,p,0)));t.b(" (");t.b(t.v(t.f("def",c,p,0)));t.b(")\" aria-label=\"");t.b(t.v(t.d("strings.i18n_reset_key",c,p,0)));t.b(" (");t.b(t.v(t.f("def",c,p,0)));t.b(")\"><span aria-hidden=\"true\">&#8855;</span></button>\r");t.b("\n" + i);t.b("<span id=\"duplicate_keyboard_shortcut\" aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_duplicate_keyboard_shortcut",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("<span id=\"invalid_keyboard_shortcut\" aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_invalid_keyboard_shortcut",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("</li>\r");t.b("\n" + i);});c.pop();}if(!t.s(t.f("name",c,p,1),c,p,1,0,0,"")){t.b("<li id=\"resetAllKeys");t.b(t.v(t.f("id",c,p,0)));t.b("\" class=\"resetAllKeys\">\r");t.b("\n" + i);t.b("<button class=\"resetKey\" role=\"button\"  title=\"");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("  &#8855;</span></button>\r");t.b("\n" + i);t.b("</li>\r");t.b("\n" + i);};return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/managed-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"managed-dialog\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"managed-label\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("            <div class=\"modal-header\">\r");t.b("\n" + i);t.b("                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"close\" title=\"close\"><span aria-hidden=\"true\">&times;<span></button>\r");t.b("\n" + i);t.b("                <h4 class=\"modal-title\" id=\"managed-label\"></h4>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content --> \r");t.b("\n" + i);t.b("    </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/managed-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"managed-dialog\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"managed-label\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("            <div class=\"modal-header\">\r");t.b("\n" + i);t.b("                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"close\" title=\"close\"><span aria-hidden=\"true\">&times;<span></button>\r");t.b("\n" + i);t.b("                <h4 class=\"modal-title\" id=\"managed-label\"></h4>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content --> \r");t.b("\n" + i);t.b("    </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/progress-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"progress progress-striped active\">\r");t.b("\n" + i);t.b("  <div class=\"progress-bar\"  role=\"progressbar\" aria-valuenow=\"1\" aria-valuemin=\"1\" aria-valuemax=\"100\" style=\"width: 1%\">\r");t.b("\n" + i);t.b("    <!-- <span class=\"progress-message sr-only\">");t.b(t.v(t.f("message",c,p,0)));t.b("</span> -->\r");t.b("\n" + i);t.b("  </div>\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<div class=\"progress-message\">");t.b(t.v(t.f("message",c,p,0)));t.b("</div>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/progress-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"progress progress-striped active\">\r");t.b("\n" + i);t.b("  <div class=\"progress-bar\"  role=\"progressbar\" aria-valuenow=\"1\" aria-valuemin=\"1\" aria-valuemax=\"100\" style=\"width: 1%\">\r");t.b("\n" + i);t.b("    <!-- <span class=\"progress-message sr-only\">");t.b(t.v(t.f("message",c,p,0)));t.b("</span> -->\r");t.b("\n" + i);t.b("  </div>\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<div class=\"progress-message\">");t.b(t.v(t.f("message",c,p,0)));t.b("</div>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/managed-buttons.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("buttons",c,p,1),c,p,0,12,157,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("<button type=\"button\" class=\"btn btn-default ");if(t.s(t.f("classes",c,p,1),c,p,0,71,77,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));t.b(" ");});c.pop();}t.b("\" ");if(t.s(t.f("dismiss",c,p,1),c,p,0,103,125,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(" data-dismiss=\"modal\" ");});c.pop();}t.b(">");t.b(t.v(t.f("text",c,p,0)));t.b("</button>\r");t.b("\n" + i);});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/managed-buttons.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("buttons",c,p,1),c,p,0,12,157,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("<button type=\"button\" class=\"btn btn-default ");if(t.s(t.f("classes",c,p,1),c,p,0,71,77,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));t.b(" ");});c.pop();}t.b("\" ");if(t.s(t.f("dismiss",c,p,1),c,p,0,103,125,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(" data-dismiss=\"modal\" ");});c.pop();}t.b(">");t.b(t.v(t.f("text",c,p,0)));t.b("</button>\r");t.b("\n" + i);});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
-define('Dialogs',['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html', 'hgn!templates/managed-buttons.html', 'i18n/Strings', 'workers/Messages'], function(ManagedDialog, ProgressDialog, ButtonTemplate, Strings, Messages){
+define('readium_js_viewer/Dialogs',['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium_js_viewer_html_templates/progress-dialog.html', 'hgn!readium_js_viewer_html_templates/managed-buttons.html', 'readium_js_viewer_i18n/Strings', './workers/Messages'], function(ManagedDialog, ProgressDialog, ButtonTemplate, Strings, Messages){
 	var $currentModal,
 		lastTitle;
-	
+
 
 	var hideExistingModal = function(){
 		if($currentModal){
@@ -54344,7 +54109,7 @@ define('Dialogs',['hgn!templates/managed-dialog.html', 'hgn!templates/progress-d
 		if (!$currentModal){
 			$currentModal = $(ManagedDialog({}));
 			$('#app-container').append($currentModal);
-			
+
 		}
 
 		$('#managed-label').text(title);
@@ -54357,13 +54122,13 @@ define('Dialogs',['hgn!templates/managed-dialog.html', 'hgn!templates/progress-d
 			$('#managed-dialog .close').hide();
 		}
 
-		if ($currentModal.is(':hidden')){	
+		if ($currentModal.is(':hidden')){
 			$('#managed-dialog').modal('show');
 		}
-		
+
 	};
-            
-	Dialogs = {	
+
+	Dialogs = {
 		showError : function(type, data){
 			var msg = Strings.err_unknown;
 			switch(type){
@@ -54375,8 +54140,8 @@ define('Dialogs',['hgn!templates/managed-dialog.html', 'hgn!templates/progress-d
 					break;
 				case Messages.ERROR_AJAX:
         				msg = Strings.err_ajax;
-                			break;						
-				default: 
+                			break;
+				default:
 					msg = Strings.err_unknown;
 					console.trace();
 					break;
@@ -54414,8 +54179,8 @@ define('Dialogs',['hgn!templates/managed-dialog.html', 'hgn!templates/progress-d
 			// 	$('#managed-dialog .no-button').on('click', onCancel);
 		},
 		showModalPrompt : function(title, message, okLabel, cancelLabel, onOk, onCancel){
-			
-			
+
+
 			var buttons = [
 					{
 						dismiss: true,
@@ -54434,7 +54199,7 @@ define('Dialogs',['hgn!templates/managed-dialog.html', 'hgn!templates/progress-d
 		},
 		showReplaceConfirm : function(title, message, okLabel, cancelLabel, keepBothLabel, onOk, onCancel, onKeepBoth){
 			var buttons = [
-				
+
 					{
 						dismiss: true,
 						text : cancelLabel,
@@ -54450,7 +54215,7 @@ define('Dialogs',['hgn!templates/managed-dialog.html', 'hgn!templates/progress-d
 						text : keepBothLabel,
 						classes : ['keep-both-button', 'btn-primary']
 					}
-				
+
 			];
 			handlers = [onCancel, onOk, onKeepBoth];
 			Dialogs.showModalPromptEx(title, message, buttons, handlers);
@@ -54463,16 +54228,16 @@ define('Dialogs',['hgn!templates/managed-dialog.html', 'hgn!templates/progress-d
 			showModalDialog(false, title, ProgressDialog(data), '');
 		},
 		updateProgress : function(percent, type, data, noForce){
-			
+
 			var msg = '';
 			switch(type){
-				case Messages.PROGRESS_MIGRATING : 
+				case Messages.PROGRESS_MIGRATING :
 					msg = Strings.migrating + ' ' + data;
 					break;
-				case Messages.PROGRESS_EXTRACTING: 
+				case Messages.PROGRESS_EXTRACTING:
 					msg = Strings.i18n_extracting + ' ' + data;
 					break;
-				case Messages.PROGRESS_WRITING: 
+				case Messages.PROGRESS_WRITING:
 					msg = Strings.storing_file + ' ' + data;
 					break;
 				case Messages.PROGRESS_DELETING:
@@ -54812,7 +54577,7 @@ define("keymaster", (function (global) {
     };
 }(this)));
 
-define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key, Settings){
+define('readium_js_viewer/Keyboard',['readium_js_viewer_i18n/Strings', 'keymaster', './storage/Settings'], function(Strings, key, Settings){
 
     var keyBindings = {};
 
@@ -54836,9 +54601,9 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
             				, false // meta
             				, false // altGraphKey
             			);
-		
-		
-		
+
+
+
             			/*
             			// Safari and IE9 throw Error here due keyCode, charCode and which is readonly
             			// Uncomment this code block if you need legacy properties
@@ -54849,7 +54614,7 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
             			delete e.which;
             			_Object_defineProperty(e, {writable: true, configurable: true, value: 9})
             			*/
-		
+
             			return ((e["keyIdentifier"] || e["key"]) == "+" && (e["keyLocation"] || e["location"]) == 3) && (
             				e.ctrlKey ?
             					e.altKey ? // webkit
@@ -54881,7 +54646,7 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
             		"detail": 0,
             		"bubbles": false,
             		"cancelable": false,
-	
+
             		//legacy properties
             		"keyCode": 0,
             		"charCode": 0,
@@ -54913,9 +54678,9 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
                 //             get : function() {
                 //                 return this.keyCodeVal;
                 //             }
-                // });     
+                // });
                 // }catch(){}
-                // 
+                //
                 // try
                 // {
                 // Object.defineProperty(e, 'which', {
@@ -54923,9 +54688,9 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
                 //                 return this.keyCodeVal;
                 //             }
                 // });
-                // }catch(){} 
+                // }catch(){}
 
-            
+
             	var _prop_name
             		, localDict = {};
 
@@ -54964,7 +54729,7 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
             	localDict["which"] || (localDict["which"] = localDict["keyCode"]);
 
                 //e.keyCodeVal = _keyCode;
-            
+
             	if( "initKeyEvent" in e ) {//FF
             		//https://developer.mozilla.org/en/DOM/event.initKeyEvent
             		e.initKeyEvent( type, _bubbles, _cancelable, _view, _ctrlKey, _altKey, _shiftKey, _metaKey, _keyCode, _charCode );
@@ -55008,7 +54773,7 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
 // e[_prop_name] = _keyCode;
 // console.debug("PROP AFTER: " + e[_prop_name]);
             			}
-		
+
             		}
             	}
 
@@ -55019,9 +54784,9 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
             global.crossBrowser_initKeyboardEvent = crossBrowser_initKeyboardEvent;
 
             }.call(window);
-            
-            
-	Keyboard = {	
+
+
+	Keyboard = {
         resetToDefaults: function()
         {
             // reset current scheme to defaultOptions
@@ -55061,18 +54826,18 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
         applySettings: function(json)
         {
             this.resetToDefaults();
-            
+
             if (json && json.keyboard)
             {
                 // override with user options
                 for (prop in Keyboard)
                 {
                     if (!Keyboard.hasOwnProperty(prop)) continue;
-    
+
                     if (typeof Keyboard[prop] !== 'string') continue;
-            
+
                     if (typeof json.keyboard[prop] !== 'string') continue;
-    
+
                     Keyboard[prop] = json.keyboard[prop];
                 }
             }
@@ -55082,25 +54847,25 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
         dispatch: function(target, e)
         {
             //THIS FUNCTION NOT REACHED WHEN e.stopPropagation(); INVOKED IN IFRAME's HTML
-            
+
             if (e.cancelBubble)
             {
                 //WHEN e.cancelBubble = true IN IFRAME's HTML's own event callback
                 return;
             }
-            
+
             if (e.defaultPrevented)
             {
                 //WHEN e.preventDefault() INVOKED IN IFRAME's HTML
                 return;
             }
-            
+
             if (typeof e.returnValue !== "undefined" && !e.returnValue)
             {
                 //WHEN e.returnValue = false IN IFRAME's HTML's own event callback
                 return;
             }
-            
+
             var source = e.srcElement || e.target;
             if (source)
             {
@@ -55112,7 +54877,7 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
                     {
                         return;
                     }
-                    
+
                     if (parent.getAttribute)
                     {
                         var ce = parent.getAttribute("contenteditable");
@@ -55121,42 +54886,42 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
                             return;
                         }
                     }
-                 
+
                     if (parent.classList && parent.classList.contains("keyboard-input"))
                     {
                         return;
                     }
-                    
+
                     parent = parent.parentNode;
                 }
             }
-            
-            
+
+
             // //var newE = jQuery.extend(true, {}, e);// deep copy
             // var newE = $.extend($.Event(e.type), {}, e);
-            // 
+            //
             // newE.preventDefault();
             // newE.stopPropagation();
             // newE.stopImmediatePropagation();
-            // 
+            //
             // newE.originalEvent.bubbles = false;
             // newE.originalEvent.srcElement = document.documentElement;
             // newE.originalEvent.target = document.documentElement;
             // newE.originalEvent.view = window;
-            
+
             var ev = crossBrowser_initKeyboardEvent(e.type, {
                 "bubbles": true,
                 "cancelable": false,
-                
+
                 "keyCode": e.keyCode,
                 "charCode": e.charCode,
                 "which": e.which,
-                
+
                 "ctrlKey": e.ctrlKey,
                 "shiftKey": e.shiftKey,
                 "altKey": e.altKey,
                 "metaKey": e.metaKey,
-                
+
                 //https://developer.mozilla.org/en-US/docs/Web/API/event.which
                 "char": e.char ? e.char : String.fromCharCode(e.charCode), // lower/upper case-sensitive
                 "key": e.key ? e.key : e.keyCode // case-insensitive
@@ -55168,19 +54933,19 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
         scope: function(scope)
         {
             if (!scope) alert("!SCOPE ACTIVATE!");
-            
+
             key.setScope(scope);
         },
         on: function(keys, scope, callback)
         {
             if (!keys) console.error("!KEYS!");
-            
+
             if (!keyBindings.hasOwnProperty(scope))
             {
                 keyBindings[scope] = [];
             }
             keyBindings[scope].push(keys);
-            
+
             key.unbind(keys, scope);
             key(keys, scope, function()
             {
@@ -55191,9 +54956,9 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
         off: function(scope)
         {
             if (!scope) alert("!SCOPE OFF!");
-            
+
             if (!keyBindings.hasOwnProperty(scope)) return;
-            
+
             for (k in keyBindings[scope])
             {
                 key.unbind(k, scope);
@@ -55202,95 +54967,95 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
         i18n:
         {
             ShowSettingsModal: Strings.settings,
-        
+
             SettingsModalSave: Strings.settings + " - " + Strings.i18n_save_changes,
             SettingsModalClose: Strings.settings + " - " + Strings.i18n_close,
-        
+
             PagePrevious: Strings.i18n_page_previous,
             PageNext: Strings.i18n_page_next,
             PagePreviousAlt: Strings.i18n_page_previous + " (access key)",
             PageNextAlt: Strings.i18n_page_next + " (access key)",
-        
+
             ToolbarShow: Strings.i18n_toolbar_show,
             ToolbarHide: Strings.i18n_toolbar_hide,
-        
+
             FullScreenToggle: Strings.enter_fullscreen + " / " + Strings.exit_fullscreen,
-        
+
             SwitchToLibrary: Strings.view_library,
-        
+
             TocShowHideToggle: Strings.toc,
-        
+
             NightTheme: Strings.i18n_arabian_nights,
-        
+
             //MediaOverlaysPlayPauseAlt: Strings.i18n_audio_play + " / " + Strings.i18n_audio_pause,
             MediaOverlaysPlayPause: Strings.i18n_audio_play + " / " + Strings.i18n_audio_pause,
-            
+
             MediaOverlaysPrevious: Strings.i18n_audio_previous,
             MediaOverlaysNext: Strings.i18n_audio_next,
-        
+
             MediaOverlaysEscape: Strings.i18n_audio_esc,
-        
+
             MediaOverlaysRateIncrease: Strings.i18n_audio_rate_increase,
             MediaOverlaysRateDecrease: Strings.i18n_audio_rate_decrease,
             //MediaOverlaysRateIncreaseAlt: "",
             //MediaOverlaysRateDecreaseAlt: "",
             MediaOverlaysRateReset: Strings.i18n_audio_rate_reset,
-        
+
             MediaOverlaysVolumeIncrease: Strings.i18n_audio_volume_increase,
             MediaOverlaysVolumeDecrease: Strings.i18n_audio_volume_decrease,
             //MediaOverlaysVolumeIncreaseAlt: "",
             //MediaOverlaysVolumeDecreaseAlt: "",
             MediaOverlaysVolumeMuteToggle: Strings.i18n_audio_mute + " / " + Strings.i18n_audio_unmute,
-        
+
             MediaOverlaysAdvancedPanelShowHide: Strings.i18n_audio_expand,
-            
+
             BackgroundAudioPlayPause: Strings.i18n_audio_play_background + " / " + Strings.i18n_audio_pause_background
         },
         defaultOptions:  {},
         accesskeys: {}, // single key strokes are dynamically populated, based on the full shortcuts below:
         ShowSettingsModal: 'o', //accesskey'ed
-        
+
         SettingsModalSave: 's', //accesskey'ed
         SettingsModalClose: 'c', //accesskey'ed
-        
+
         PagePrevious: 'left', // ALT BELOW
         PageNext: 'right', // ALT BELOW
         PagePreviousAlt: '1', //accesskey'ed
         PageNextAlt: '2', //accesskey'ed
-        
+
         ToolbarShow: 'v', //accesskey'ed
         ToolbarHide: 'x', //accesskey'ed
-        
+
         FullScreenToggle: 'h', //accesskey'ed
-        
+
         SwitchToLibrary: 'b', //accesskey'ed
-        
+
         TocShowHideToggle: 't', //accesskey'ed
-        
+
         NightTheme: 'n', //accesskey'ed
-        
+
         MediaOverlaysEscape: 'r', //accesskey'ed
-        
+
         //MediaOverlaysPlayPauseAlt: 'p', // ALT BELOW
         MediaOverlaysPlayPause: 'm', //accesskey'ed
-        
+
         MediaOverlaysRateIncrease: 'l', //accesskey'ed
         MediaOverlaysRateDecrease: 'j', //accesskey'ed
         //MediaOverlaysRateIncreaseAlt: 'F8', //??
         //MediaOverlaysRateDecreaseAlt: 'shift+F8', //??
         MediaOverlaysRateReset: 'k', //accesskey'ed
-        
+
         MediaOverlaysVolumeIncrease: 'w', //accesskey'ed
         MediaOverlaysVolumeDecrease: 'q', //accesskey'ed
         //MediaOverlaysVolumeIncreaseAlt: 'F7', //??
         //MediaOverlaysVolumeDecreaseAlt: 'shift+F7', //??
         MediaOverlaysVolumeMuteToggle: 'a', //accesskey'ed
-        
+
         MediaOverlaysPrevious: 'y', //accesskey'ed
         MediaOverlaysNext: 'u', //accesskey'ed
-        
+
         MediaOverlaysAdvancedPanelShowHide: 'g', //accesskey'ed
-        
+
         BackgroundAudioPlayPause: 'd'
 	};
 
@@ -55306,16 +55071,16 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
 
             Keyboard.defaultOptions[prop] = Keyboard[prop];
         }
-        
+
         // too early (async reader.options storage lookup)
         // Settings.get('reader', function(json)
         // {
         //    Keyboard.applySettings(json);
-        // }); 
-        
+        // });
+
         //unnecessary
         //Keyboard.resetToDefaults();
-        
+
         //necessary!
         Keyboard.resetAccessKeys();
     }
@@ -55323,37 +55088,38 @@ define('Keyboard',['i18n/Strings', 'keymaster', 'storage/Settings'], function(St
     {
         console.error(e);
     }
-    
+
 	return Keyboard;
 });
-define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.html', 'i18n/Strings', 'Dialogs', 'storage/Settings', 'Keyboard', 'underscore'], function(KeyboardItem, Strings, Dialogs, Settings, Keyboard, _){
 
-    
+define('readium_js_viewer/ReaderSettingsDialog_Keyboard',['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard', 'underscore'], function(KeyboardItem, Strings, Dialogs, Settings, Keyboard, _){
+
+
     var checkKeyboardShortcuts = function($focusedInput, typing)
     {
         var duplicate = false;
         var invalid = false;
 
         var $keyboardList = $("#keyboard-list");
-    
+
         var wasAlert = $keyboardList.hasClass("atLeastOneInvalidOrDuplicateShortcut");
-    
+
         $keyboardList.removeClass("atLeastOneInvalidOrDuplicateShortcut");
-        
+
         var alertInvalidKeyboard = $("#invalid_keyboard_shortcut_ALERT")[0];
-        
+
         alertInvalidKeyboard.removeAttribute("role");
         alertInvalidKeyboard.removeAttribute("aria-live");
         alertInvalidKeyboard.removeAttribute("aria-atomic");
 
         //alertInvalidKeyboard.style.clip = "rect(0px,0px,0px,0px)";
-        
+
         while (alertInvalidKeyboard.firstChild) {
             alertInvalidKeyboard.removeChild(alertInvalidKeyboard.firstChild);
         }
-        
+
         var focusedInputIsInvalid = false;
-        
+
         var $inputs = $(".keyboardInput");
         $inputs.each(function()
         {
@@ -55361,14 +55127,14 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
 
             $that.parent().removeClass("duplicateShortcut");
             $that[0].removeAttribute("aria-invalid");
-            
+
             checkKeyboardShortcut($that, typing);
-            
+
             if ($that.parent().hasClass("invalidShortcut"))
             {
                 $that[0].setAttribute("aria-invalid", "true");
                 invalid = true;
-                
+
                 if ($focusedInput && $focusedInput.length && $focusedInput[0] === $that[0])
                 {
                     focusedInputIsInvalid = true;
@@ -55384,32 +55150,32 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
             $inputs.each(function()
             {
                 var $that = $(this);
-                
+
                 var thatInvalid = $that.parent().hasClass("invalidShortcut");
                 var thatDuplicate = $that.parent().hasClass("duplicateShortcut");
                 var thatOriginal = $that.attr("placeholder");
-            
+
                 var thatVal = thatInvalid || thatDuplicate ? thatOriginal : $that.attr("data-val");
-                
+
                 if (thatDuplicate) return true; // continue (second pass)
-                
+
                 $inputs.each(function()
                 {
                     var $self = $(this);
                     if ($self[0] === $that[0]) return true; //continue
-            
+
                     var selfOriginal = $self.attr("placeholder");
-                
+
                     var selfInvalid = $self.parent().hasClass("invalidShortcut");
-                
+
                     var selfDuplicate = $self.parent().hasClass("duplicateShortcut");
-                
+
                     var selfVal = selfInvalid || selfDuplicate ? selfOriginal : $self.attr("data-val");
-                
+
                     if (thatVal === selfVal)
                     {
                         duplicate = true;
-                
+
                         if ($focusedInput && $focusedInput.length && ($focusedInput[0] === $that[0] || $focusedInput[0] === $self[0]))
                         {
                             focusedInputIsDuplicate = true;
@@ -55417,14 +55183,14 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
 
                         $that[0].setAttribute("aria-invalid", "true");
                         $self[0].setAttribute("aria-invalid", "true");
-                    
+
                         if (!$self.parent().hasClass("duplicateShortcut")) $self.parent().addClass("duplicateShortcut");
                         if (!$that.parent().hasClass("duplicateShortcut")) $that.parent().addClass("duplicateShortcut");
                     }
                 });
             });
         }
-        
+
         if (duplicate || invalid)
         {
             $keyboardList.addClass("atLeastOneInvalidOrDuplicateShortcut");
@@ -55435,49 +55201,49 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
                     alertInvalidKeyboard.setAttribute("aria-live", "polite");
                 else
                     alertInvalidKeyboard.setAttribute("role", "alert"); //alertInvalidKeyboard.setAttribute("aria-live", "assertive");
-                                
+
                 alertInvalidKeyboard.setAttribute("aria-atomic", "true");
-            
+
                 var txt = document.createTextNode(focusedInputIsInvalid ? Strings.i18n_invalid_keyboard_shortcut : Strings.i18n_duplicate_keyboard_shortcut);
                 alertInvalidKeyboard.appendChild(txt);
-            
+
                 //alertInvalidKeyboard.style.clip = "auto";
-                
+
                 alertInvalidKeyboard.style.visibility = "hidden";
                 alertInvalidKeyboard.style.visibility = "visible";
             }
         }
     };
-    
+
     var checkKeyboardShortcut = function($input, typing)
     {
         $input.parent().removeClass("invalidShortcut");
         $input.attr("data-val", $input.val());
-        
+
         var current = $input.val().toLowerCase().trim();
-        
+
         var shift = false;
         var ctrl = false;
         var alt = false;
-        
+
         if (current.indexOf("shift") >= 0) shift = true;
         if (current.indexOf("ctrl") >= 0) ctrl = true;
         if (current.indexOf("alt") >= 0) alt = true;
-        
+
         var hasPlus = current.lastIndexOf("+") === current.length - 1;
-        
+
         current = current.replace(/shift/g, '');
         current = current.replace(/ctrl/g, '');
         current = current.replace(/alt/g, '');
         current = current.replace(/\+/g, '');
         current = current.replace(/\s/g, '');
         current = current.trim();
-        
+
         if (hasPlus)
         {
             current = current + "+";
         }
-        
+
         if (current.match(/^[0-9A-Za-z]$/) || current.match(/^backspace$/) || current.match(/^space$/) || current.match(/^return$/) || current.match(/^enter$/) || current.match(/^left$/) || current.match(/^right$/) || current.match(/^up$/) || current.match(/^down$/))
         {
             var normalised = (shift?"shift + ":"") + (ctrl?"ctrl + ":"") + (alt?"alt + ":"") + current;
@@ -55489,15 +55255,15 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
             $input.parent().addClass("invalidShortcut");
         }
     };
-    
+
     var initKeyboardList = function()
     {
         var $keyboardList = $("#keyboard-list");
-    
+
         $keyboardList.empty();
-        
+
         $keyboardList.append(KeyboardItem({strings: Strings, id: "TOP" }));
-        
+
         for (prop in Keyboard)
         {
             if (!Keyboard.hasOwnProperty(prop)) continue;
@@ -55508,11 +55274,11 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
         }
 
         $keyboardList.append(KeyboardItem({strings: Strings, id: "BOTTOM" }));
-        
+
         checkKeyboardShortcuts();
-        
+
         var _previousInputVal = undefined;
-        
+
         $(".keyboardInput").on("blur",
         function(e)
         {
@@ -55520,7 +55286,7 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
             _previousInputVal = undefined;
             checkKeyboardShortcuts();
         });
-        
+
         $(".keyboardInput").on("focus",
         function(e)
         {
@@ -55529,7 +55295,7 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
         });
 
         var debouncedKeyboardValidator = _.bind(_.debounce(checkKeyboardShortcuts, 700), this);
-        
+
         $(".keyboardInput").on("keyup", function(){
             var $that = $(this);
             var val = $that.val();
@@ -55539,7 +55305,7 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
             }
             _previousInputVal = val;
         });
-         
+
         // KEYSTROKE CAPTURE DOES NOT WORK, BECAUSE HTML ACCESSKEYS GET IN THE WAY (e.g. CTRL ALT M => play audio)
         // var oldScope = undefined;
         // $(".captureKeyboardShortcut").on("focus",
@@ -55559,24 +55325,24 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
         // {
         //     // var clazz = (e.sourceElement || e.target).getAttribute("class");
         //     // if (!clazz || clazz.indexOf("captureKeyboardShortcut") < 0) return;
-        //     
+        //
         //     //str.charCodeAt(0);
         //     console.log(key.shift);
         //     console.log(key.control);
         //     console.log(key.alt);
         //     console.log(key.command);
         //     console.log(key.getPressedKeyCodes());
-        //     
+        //
         //     var keys = key.getPressedKeyCodes();
         //     if (keys && keys.length) keys = keys[0];
-        // 
+        //
         //     var keystroke = (key.shift ? "shift+" : "") + (key.control ? "ctrl+" : "") + (key.alt ? "alt+" : "") + (key.command ? "command+" : "") + keys;
-        // 
+        //
         //     $that = $(this);
         //     var id = $that.attr("data-key");
         //     $input = $("input#"+id);
         //     $input.val(keystroke);
-        // 
+        //
         //     // e.preventDefault();
         //     // e.stopPropagation();
         //     // return false;
@@ -55589,7 +55355,7 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
             if (id)
             {
                 var $input = $("input#"+id);
-                
+
                 //$input.val($input.attr("placeholder"));
                 $input.val(Keyboard.defaultOptions[id]);
             }
@@ -55603,7 +55369,7 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
                     if (id)
                     {
                         var $input = $("input#"+id);
-                
+
                         //$input.val($input.attr("placeholder"));
                         $input.val(Keyboard.defaultOptions[id]);
                     }
@@ -55613,20 +55379,20 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
             checkKeyboardShortcuts();
         });
     };
-    
+
     var saveKeys = function()
     {
         var atLeastOneChanged = false;
         var keys = {};
-        
+
         checkKeyboardShortcuts();
         $(".keyboardInput").each(function()
         {
             var $that = $(this);
-            
+
             var original = $that.attr("placeholder");
             var id = $that.attr("id");
-            
+
             var val = $that.attr("data-val");
             //var valShown = $that.val();
 
@@ -55635,7 +55401,7 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
                 // if (original === val) return true; // continue (effectively resets to the default valid value)
                 val = original;
             }
-            
+
             if (!val.length) return true; // continue
 
             val = val.toLowerCase();
@@ -55651,10 +55417,10 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
         {
             // TODO: anything more elegant than alert() ?
             //alert(Strings.i18n_keyboard_reload);
-            
+
             Dialogs.showModalMessage("Readium - " + Strings.i18n_keyboard_shortcuts, Strings.i18n_keyboard_reload);
         }
-        
+
         return keys;
     };
 
@@ -55663,14 +55429,15 @@ define('ReaderSettingsDialog_Keyboard',['hgn!templates/settings-keyboard-item.ht
         saveKeys : saveKeys
 	}
 });
-define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', 'i18n/Strings', 'Dialogs', 'storage/Settings', 'Keyboard'], function(SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+
+define('readium_js_viewer/ReaderSettingsDialog',['hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard'], function(SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
 	var defaultSettings = {
         fontSize: 100,
         syntheticSpread: "auto",
         scroll: "auto",
         columnGap: 60
     }
-    
+
     var getBookStyles = function(theme){
         var isAuthorTheme = theme === "author-theme";
     	var $previewText = $('.preview-text');
@@ -55688,28 +55455,28 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
         $previewText.addClass(newTheme);
         $previewText.attr('data-theme', newTheme);
     }
-    
+
     var updateReader = function(reader, readerSettings){
         reader.updateSettings(readerSettings); // triggers on pagination changed
 
         if (readerSettings.theme){
             //$("html").addClass("_" + readerSettings.theme);
             $("html").attr("data-theme", readerSettings.theme);
-            
+
             var bookStyles = getBookStyles(readerSettings.theme);
             reader.setBookStyles(bookStyles);
             $('#reading-area').css(bookStyles[0].declarations);
         }
     }
-    
+
     var updateSliderLabels = function($slider, val, txt, label)
     {
         $slider.attr("aria-valuenow", val+"");
         $slider.attr("aria-value-now", val+"");
-        
+
         $slider.attr("aria-valuetext", txt+"");
         $slider.attr("aria-value-text", txt+"");
-        
+
         $slider.attr("title", label + " " + txt);
         $slider.attr("aria-label", label + " " + txt);
     };
@@ -55722,22 +55489,22 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
             var newTheme = $(this).attr('data-theme');
             setPreviewTheme($previewText, newTheme);
         });
-        
+
         var $marginSlider = $("#margin-size-input");
         $marginSlider.on("change",
         function() {
             var val = $marginSlider.val();
-            
+
             updateSliderLabels($marginSlider, val, val + "px", Strings.i18n_margins);
         }
         );
-        
+
         var $fontSizeSlider = $("#font-size-input");
         $fontSizeSlider.on('change', function(){
             var fontSize = $fontSizeSlider.val();
-            
+
             $previewText.css({fontSize: (fontSize/100) + 'em'});
-            
+
             updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
         });
 
@@ -55761,22 +55528,22 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
               $('#buttSave').focus();
             }
         });
-        
+
         $('#settings-dialog').on('hide.bs.modal', function(){ // IMPORTANT: not "hidden.bs.modal"!! (because .off() in
-        
+
             // Safety: "save" button click
             setTimeout(function(){
                 $("#keyboard-list").empty();
             }, 500);
         });
-        
+
         $('#settings-dialog').on('show.bs.modal', function(){ // IMPORTANT: not "shown.bs.modal"!! (because .off() in library vs. reader context)
 
             $('#tab-butt-main').trigger("click");
             KeyboardSettings.initKeyboardList();
 
             setTimeout(function(){ $('#closeSettingsCross')[0].focus(); }, 1000); //tab-butt-main
-        
+
             Settings.get('reader', function(readerSettings){
                 readerSettings = readerSettings || defaultSettings;
                 for (prop in defaultSettings)
@@ -55789,8 +55556,8 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
 
                 $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
-                
-                
+
+
                 $marginSlider.val(readerSettings.columnGap);
                 updateSliderLabels($marginSlider, readerSettings.columnGap, readerSettings.columnGap + "px", Strings.i18n_margins);
 
@@ -55803,7 +55570,7 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
                 else {
                     $('#spread-default-option input').prop('checked', true);
                 }
-                
+
                 if(readerSettings.scroll == "scroll-doc") {
                     $('#scroll-doc-option input').prop('checked', true);
                 }
@@ -55813,7 +55580,7 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
                 else {
                     $('#scroll-default-option input').prop('checked', true);
                 }
-                
+
                 if (readerSettings.pageTransition === 0)
                 {
                     $('#pageTransition-1-option input').prop('checked', true);
@@ -55834,17 +55601,17 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
                 {
                     $('#pageTransition-none-option input').prop('checked', true);
                 }
-                
+
                 if (readerSettings.theme){
                     setPreviewTheme($previewText, readerSettings.theme);
                 }
-                
+
                 $previewText.css({fontSize: (readerSettings.fontSize/100) + 'em'});
             });
         });
 
         var save = function(){
-            
+
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
                 syntheticSpread: "auto",
@@ -55885,14 +55652,14 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
 
 
             var keys = KeyboardSettings.saveKeys();
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 for (prop in readerSettings)
                 {
                     if (readerSettings.hasOwnProperty(prop))
@@ -55914,14 +55681,14 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
                 // }
 
                 Settings.put('reader', json);
-                
+
                 setTimeout(function()
                 {
                     Keyboard.applySettings(json);
                 }, 100);
             });
         };
-        
+
         Keyboard.on(Keyboard.NightTheme, 'settings', function(){
 
                 Settings.get('reader', function(json)
@@ -55933,13 +55700,13 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
 
                     var isNight = json.theme === "night-theme";
                     json.theme = isNight ? "author-theme" : "night-theme";
-                    
+
                     Settings.put('reader', json);
 
                     if (reader) updateReader(reader, json);
                 });
         });
-        
+
         Keyboard.on(Keyboard.SettingsModalSave, 'settings', function() {
             save();
             $('#settings-dialog').modal('hide');
@@ -55948,7 +55715,7 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
         Keyboard.on(Keyboard.SettingsModalClose, 'settings', function() {
             $('#settings-dialog').modal('hide');
         });
-        
+
         $('#settings-dialog .btn-primary').on('click', save);
 	}
 
@@ -55959,18 +55726,18 @@ define('ReaderSettingsDialog',['hgn!templates/settings-dialog.html', 'ReaderSett
 	}
 });
 
-define('analytics/Analytics',[],function(){
+define('readium_js_viewer/analytics/Analytics',[],function(){
 	return{
 		trackView : function(){},
 		sendEvent : function(){}
 	}
 });
-define('versioning/Versioning',['Readium'], function(Readium){
-	
+define('readium_js_viewer/versioning/ReadiumVersioning',['readium_js/Readium'], function(Readium){
+
 	var PackagedVersioning = {
 		getVersioningInfo : function(callback){
 			var versionInfo = {};
-            
+
             versionInfo = Readium.version;
             versionInfo.dateTimeString = new Date(Readium.version.readiumJsViewer.timestamp).toString();
 
@@ -55979,28 +55746,29 @@ define('versioning/Versioning',['Readium'], function(Readium){
 	}
 	return PackagedVersioning;
 });
-define('EpubLibrary',[
+
+define('readium_js_viewer/EpubLibrary',[
 'jquery',
 'bootstrap',
 'bootstrapA11y',
-'storage/StorageManager',
-'storage/Settings',
-'EpubLibraryManager',
-'i18n/Strings',
-'hgn!templates/library-navbar.html',
-'hgn!templates/library-body.html',
-'hgn!templates/empty-library.html',
-'hgn!templates/library-item.html',
-'hgn!templates/details-dialog.html',
-'hgn!templates/about-dialog.html',
-'hgn!templates/details-body.html', 
-'hgn!templates/add-epub-dialog.html',
-'ReaderSettingsDialog',
-'Dialogs',
-'workers/Messages',
-'analytics/Analytics',
-'Keyboard',
-'versioning/Versioning'], 
+'StorageManager',
+'./storage/Settings',
+'./EpubLibraryManager',
+'readium_js_viewer_i18n/Strings',
+'hgn!readium_js_viewer_html_templates/library-navbar.html',
+'hgn!readium_js_viewer_html_templates/library-body.html',
+'hgn!readium_js_viewer_html_templates/empty-library.html',
+'hgn!readium_js_viewer_html_templates/library-item.html',
+'hgn!readium_js_viewer_html_templates/details-dialog.html',
+'hgn!readium_js_viewer_html_templates/about-dialog.html',
+'hgn!readium_js_viewer_html_templates/details-body.html',
+'hgn!readium_js_viewer_html_templates/add-epub-dialog.html',
+'./ReaderSettingsDialog',
+'./Dialogs',
+'./workers/Messages',
+'./analytics/Analytics',
+'./Keyboard',
+'./versioning/ReadiumVersioning'],
 
 function(
 $,
@@ -56016,7 +55784,7 @@ EmptyLibrary,
 LibraryItem,
 DetailsDialog,
 AboutDialog,
-DetailsBody, 
+DetailsBody,
 AddEpubDialog,
 SettingsDialog,
 Dialogs,
@@ -56032,36 +55800,36 @@ Versioning){
 		//maxHeightRule
 
 	var findHeightRule = function(){
-		
- 		var styleSheet=document.styleSheets[0];          
- 		var ii=0;                                        
- 		var cssRule;                               
-        do {                                             
-            if (styleSheet.cssRules) {                    
-            	cssRule = styleSheet.cssRules[ii];         
-            } else {                                      
-            	cssRule = styleSheet.rules[ii];            
-            }                                             
-            if (cssRule && cssRule.selectorText)  {                               
-            	if (cssRule.selectorText.toLowerCase()=='.library-item') {          
-                    heightRule = cssRule;                    
-                } 
+
+ 		var styleSheet=document.styleSheets[0];
+ 		var ii=0;
+ 		var cssRule;
+        do {
+            if (styleSheet.cssRules) {
+            	cssRule = styleSheet.cssRules[ii];
+            } else {
+            	cssRule = styleSheet.rules[ii];
+            }
+            if (cssRule && cssRule.selectorText)  {
+            	if (cssRule.selectorText.toLowerCase()=='.library-item') {
+                    heightRule = cssRule;
+                }
                 // else if (cssRule.selectorText.toLowerCase()=='.library-item img') {
                 //     maxHeightRule = cssRule;
-                // }                    
+                // }
                 else if (cssRule.selectorText.toLowerCase() == 'body:not(.list-view) .library-item .no-cover'){
                 	noCoverRule = cssRule;
-                }       
-                                                         
-            }                                             
-            ii++;                                         
-        } while (cssRule);                                       
-   	}                                                      
-   
-	
+                }
+
+            }
+            ii++;
+        } while (cssRule);
+   	}
+
+
 	var setItemHeight = function(){
         if (!heightRule || !noCoverRule) return;
-        
+
 		var medWidth = 2,
 			smWidth = 3,
 			xsWidth = 4,
@@ -56073,19 +55841,19 @@ Versioning){
 
 		if (winWidth >= 992){
 			imgWidth = winWidth * (medWidth/12) - 30;
-			rowHeight = 1.33 * imgWidth + 60; 
+			rowHeight = 1.33 * imgWidth + 60;
 		}
 		else if (winWidth >= 768){
 			imgWidth = winWidth * (smWidth/12) - 30;
-			rowHeight = 1.33 * imgWidth + 60; 
+			rowHeight = 1.33 * imgWidth + 60;
 		}
 		else{
 			imgWidth = winWidth * (xsWidth/12) - 30;
-			rowHeight = 1.33 * imgWidth + 20; 
+			rowHeight = 1.33 * imgWidth + 20;
 		}
 		heightRule.style.height  = rowHeight + 'px';
 		scale = imgWidth/300;
-		
+
 		noCoverRule.style.width = imgWidth + 'px';
 		noCoverRule.style.height = 1.33 * imgWidth + 'px';
 		noCoverRule.style.fontSize = 40 * scale + 'px';
@@ -56109,11 +55877,11 @@ Versioning){
 
 			var promptMsg = Strings.i18n_are_you_sure + ' \'' + details.title + '\'';
 
-			Dialogs.showModalPrompt(Strings.delete_dlg_title, promptMsg, 
+			Dialogs.showModalPrompt(Strings.delete_dlg_title, promptMsg,
 									Strings.i18n_delete, Strings.i18n_cancel,
 									function(){
 										Dialogs.showModalProgress(Strings.delete_progress_title, '');
-										Dialogs.updateProgress(100, Messages.PROGRESS_DELETING, details.title, true); 
+										Dialogs.updateProgress(100, Messages.PROGRESS_DELETING, details.title, true);
 										libraryManager.deleteEpubWithId(details.rootDir, success, showError)
 									});
 		});
@@ -56131,12 +55899,12 @@ Versioning){
 			noCoverBg = $this.attr('data-no-cover');
 
 		$('.details-dialog').remove();
-        
+
         $('.details-dialog').off('hidden.bs.modal');
         $('.details-dialog').off('shown.bs.modal');
-        
+
 		$('#app-container').append(detailsDialogStr);
-        
+
         $('#details-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
 
@@ -56145,8 +55913,8 @@ Versioning){
 		$('#details-dialog').on('shown.bs.modal', function(){
             Keyboard.scope('details');
 		});
-        
-        
+
+
 		$('.details-dialog').modal();
 		libraryManager.retrieveFullEpubDetails(url, bookRoot, rootDir, noCoverBg, showDetailsDialog, showError);
 	}
@@ -56158,7 +55926,7 @@ Versioning){
 			$('#app-container .library-items').append(EmptyLibrary({strings: Strings}));
 			return;
 		}
-		
+
 		var count = 0;
 		epubs.forEach(function(epub){
 			var noCoverBackground = 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
@@ -56183,19 +55951,19 @@ Versioning){
 
         Keyboard.off('library');
         Keyboard.off('settings');
-        
+
         $('#settings-dialog').off('hidden.bs.modal');
         $('#settings-dialog').off('shown.bs.modal');
-        
+
         $('#about-dialog').off('hidden.bs.modal');
         $('#about-dialog').off('shown.bs.modal');
-        
+
         $('#add-epub-dialog').off('hidden.bs.modal');
         $('#add-epub-dialog').off('shown.bs.modal');
-        
+
         $('.details-dialog').off('hidden.bs.modal');
         $('.details-dialog').off('shown.bs.modal');
-        
+
 		$(window).off('resize');
 		$(document.body).off('click');
 		$(window).off('storageReady');
@@ -56225,7 +55993,7 @@ Versioning){
 		libraryManager.handleZippedEpub({
 			file: file,
 			overwrite: promptForReplace,
-			success: handleLibraryChange, 
+			success: handleLibraryChange,
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
@@ -56239,7 +56007,7 @@ Versioning){
 		libraryManager.handleDirectoryImport({
 			files: files,
 			overwrite: promptForReplace,
-			success: handleLibraryChange, 
+			success: handleLibraryChange,
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
@@ -56251,7 +56019,7 @@ Versioning){
 		libraryManager.handleUrlImport({
 			url: url,
 			overwrite: promptForReplace,
-			success: handleLibraryChange, 
+			success: handleLibraryChange,
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
@@ -56263,18 +56031,18 @@ Versioning){
 			success: function(){
 				Settings.put('needsMigration', false, $.noop);
 				handleLibraryChange();
-			}, 
+			},
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
 	}
-    
+
 	var loadLibraryUI = function(){
-        
+
 		Dialogs.reset();
-        
+
         Keyboard.scope('library');
-        
+
 		Analytics.trackView('/library');
 		var $appContainer = $('#app-container');
 		$appContainer.empty();
@@ -56287,8 +56055,8 @@ Versioning){
 		Versioning.getVersioningInfo(function(version){
 			$appContainer.append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 		});
-		
-        
+
+
         $('#about-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
 
@@ -56297,7 +56065,7 @@ Versioning){
 		$('#about-dialog').on('shown.bs.modal', function(){
             Keyboard.scope('about');
 		});
-        
+
         $('#add-epub-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
 
@@ -56305,7 +56073,7 @@ Versioning){
         });
 		$('#add-epub-dialog').on('shown.bs.modal', function(){
             Keyboard.scope('add');
-            
+
 			$('#add-epub-dialog input').val('');
 
             setTimeout(function(){ $('#closeAddEpubCross')[0].focus(); }, 1000);
@@ -56361,18 +56129,18 @@ Versioning){
             Keyboard.scope('library');
 
             setTimeout(function(){ $("#settbutt1").focus(); }, 50);
-            
+
             $("#buttSave").removeAttr("accesskey");
             $("#buttClose").removeAttr("accesskey");
         });
         $('#settings-dialog').on('shown.bs.modal', function () {
 
             Keyboard.scope('settings');
-            
+
             $("#buttSave").attr("accesskey", Keyboard.accesskeys.SettingsModalSave);
             $("#buttClose").attr("accesskey", Keyboard.accesskeys.SettingsModalClose);
         });
-        
+
 
         //async in Chrome
 		Settings.get("needsMigration", function(needsMigration){
@@ -56388,7 +56156,7 @@ Versioning){
         Settings.get('reader', function(json)
         {
            Keyboard.applySettings(json);
-           
+
            loadLibraryUI(data);
         });
     };
@@ -56400,6 +56168,7 @@ Versioning){
         unloadUI : unloadLibraryUI
 	};
 });
+
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
@@ -56739,7 +56508,7 @@ Versioning){
 
 }));
 
-define('Spinner',['spin'], function(Spinner){
+define('readium_js_viewer/Spinner',['spin'], function(Spinner){
 	var opts = {
       lines: 17, // The number of lines to draw
       length: 0, // The length of each line
@@ -56761,13 +56530,13 @@ define('Spinner',['spin'], function(Spinner){
     return new Spinner(opts);
 });
 
-define("hgn!templates/reader-navbar.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"btn-group navbar-left\">\r");t.b("\n" + i);t.b("        <!-- <button type=\"button\" class=\"btn btn-default icon icon-show-hide\"></button>  -->\r");t.b("\n" + i);t.b("    <button id=\"aboutButt1\" tabindex=\"1\" type=\"button\" class=\"btn icon-logo\" data-toggle=\"modal\" data-target=\"#about-dialog\" title=\"");t.b(t.v(t.d("strings.about",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.about",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"icon-readium\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <button id=\"buttShowToolBar\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:1px;height=1px;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.ToolbarShow",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.ToolbarShow",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.ToolbarShow",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <button id=\"buttHideToolBar\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.ToolbarHide",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.ToolbarHide",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.ToolbarHide",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <button id=\"buttNightTheme\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.NightTheme",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <button id=\"buttRatePlus\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysRateIncrease",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysRateIncrease",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysRateIncrease",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <button id=\"buttRateMinus\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysRateDecrease",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysRateDecrease",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysRateDecrease",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <button id=\"buttVolumePlus\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeIncrease",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeIncrease",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysVolumeIncrease",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <button id=\"buttVolumeMinus\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeDecrease",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeDecrease",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysVolumeDecrease",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<div class=\"btn-group navbar-right\">\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <div id=\"backgroundAudioTrack-div\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"backgroundAudioTrack-button-play\" type=\"button\" class=\"btn icon-play-audio-background\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_play_background",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.BackgroundAudioPlayPause",c,p,0)));t.b("]\"  aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_play_background",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.BackgroundAudioPlayPause",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.BackgroundAudioPlayPause",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-music\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"backgroundAudioTrack-button-pause\" type=\"button\" class=\"btn icon-pause-audio-background\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_pause_background",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.BackgroundAudioPlayPause",c,p,0)));t.b("]\"  aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_pause_background",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.BackgroundAudioPlayPause",c,p,0)));t.b("]\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-volume-up\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <!--Audioplayer Controls START-->\r");t.b("\n" + i);t.b("    <div id=\"audioplayer\">\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-collapse-audio\" type=\"button\" class=\"btn icon-collapse-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_collapse",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_collapse",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("]\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-open\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-expand-audio\" type=\"button\" class=\"btn icon-expand-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_expand",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_expand",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-previous-audio\" type=\"button\" class=\"btn icon-previous-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPrevious",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPrevious",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysPrevious",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-backward\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-play-audio\" type=\"button\" class=\"btn icon-play-audio\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_play",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPlayPause",c,p,0)));t.b("]\"  aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_play",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPlayPause",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysPlayPause",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-play\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-pause-audio\" type=\"button\" class=\"btn icon-pause-audio\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_pause",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPlayPause",c,p,0)));t.b("]\"  aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_pause",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPlayPause",c,p,0)));t.b("]\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-pause\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-next-audio\" type=\"button\" class=\"btn icon-next-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysNext",c,p,0)));t.b("]\" arial-label=\"");t.b(t.v(t.d("strings.i18n_audio_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysNext",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysNext",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-forward\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div id=\"audioResponsive\">\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-audio-volume-mute\" type=\"button\" class=\"btn icon-audio-volume-mute\" title=\"");t.b(t.v(t.d("strings.i18n_audio_mute",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_mute",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-volume-up\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-audio-volume-unmute\" type=\"button\" class=\"btn icon-audio-volume-unmute\" title=\"");t.b(t.v(t.d("strings.i18n_audio_unmute",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_unmute",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("]\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-volume-off\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <input tabindex=\"1\" id=\"volume-range-slider\" type=\"range\" role=\"slider\" min=\"0\" aria-value-min=\"0\" aria-valuemin=\"0\" max=\"100\" aria-value-max=\"100\" aria-valuemax=\"100\" value=\"100\" aria-valuenow=\"100\" aria-value-now=\"100\" aria-valuetext=\"100%\" aria-value-text=\"100%\" title=\"");t.b(t.v(t.d("strings.i18n_audio_volume",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeDecrease",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeIncrease",c,p,0)));t.b("]\" arial-label=\"");t.b(t.v(t.d("strings.i18n_audio_volume",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeDecrease",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeIncrease",c,p,0)));t.b("]\" />\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" tabindex=\"1\" id=\"btn-touch-audio-enable\" type=\"button\" class=\"btn icon-touch-audio-enable\" title=\"");t.b(t.v(t.d("strings.i18n_audio_touch_enable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_touch_enable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("            <span id=\"icon-touch-off-hand\" class=\"glyphicon glyphicon-hand-up\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <span id=\"icon-touch-off\" class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-touch-audio-disable\" type=\"button\" class=\"btn icon-touch-audio-disable\" title=\"");t.b(t.v(t.d("strings.i18n_audio_touch_disable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_touch_disable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("            <span id=\"icon-touch-on-hand\" class=\"glyphicon glyphicon-hand-up\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <span id=\"icon-touch-on\" class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div id=\"audioExpanded\" role=\"alert\">\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <input tabindex=\"1\" id=\"time-range-slider\" type=\"range\" role=\"slider\" min=\"0\" aria-value-min=\"0\" aria-valuemin=\"0\" max=\"100\" aria-value-max=\"100\" aria-valuemax=\"100\" value=\"0\" aria-valuenow=\"0\" aria-value-now=\"0\" aria-valuetext=\"0%\" aria-value-text=\"0%\" data-value=\"0\" title=\"");t.b(t.v(t.d("strings.i18n_audio_time",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_time",c,p,0)));t.b("\"  />\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-audio-rate\" type=\"button\" class=\"btn icon-rate-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_rate_reset",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysRateReset",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_rate_reset",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysRateReset",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysRateReset",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("                <span class=\"glyphicon glyphicon-play-circle\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <input tabindex=\"1\" id=\"rate-range-slider\" type=\"range\" role=\"slider\" min=\"0\" aria-value-min=\"0\" aria-valuemin=\"0\" max=\"4\" aria-value-max=\"4\" aria-valuemax=\"4\" value=\"1\" aria-valuenow=\"1\" aria-value-now=\"1\" aria-valuetext=\"1x\" aria-value-text=\"1x\" step=\"0.5\" title=\"");t.b(t.v(t.d("strings.i18n_audio_rate",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysRateDecrease",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.MediaOverlaysRateIncrease",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_rate",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysRateDecrease",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.MediaOverlaysRateIncrease",c,p,0)));t.b("]\" />\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <span aria-hidden=\"true\" tabindex=\"-1\" id=\"rate-range-slider-label\">1x</span>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <form action=\"\" id=\"mo-sync-form\">\r");t.b("\n" + i);t.b("                <input tabindex=\"1\" type=\"radio\" name=\"mo-sync\" value=\"default\" id=\"mo-sync-default\" class=\"mo-sync\" checked=\"checked\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_default",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_sync_default",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"> </input>\r");t.b("\n" + i);t.b("                <label tabindex=\"1\" for=\"mo-sync-default\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_default",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"><span aria-hidden=\"true\">&#8855;</span></label>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <input tabindex=\"1\" type=\"radio\" name=\"mo-sync\" value=\"word\" id=\"mo-sync-word\" class=\"mo-sync\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_word",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_sync_word",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"> </input>\r");t.b("\n" + i);t.b("                <label tabindex=\"1\" for=\"mo-sync-word\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_word",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_audio_sync_word",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);t.b("                <input tabindex=\"1\" type=\"radio\" name=\"mo-sync\" value=\"sentence\" id=\"mo-sync-sentence\" class=\"mo-sync\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_sentence",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_sync_sentence",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"> </input>\r");t.b("\n" + i);t.b("                <label tabindex=\"1\" for=\"mo-sync-sentence\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_sentence",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_audio_sync_sentence",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);t.b("                <input tabindex=\"1\" type=\"radio\" name=\"mo-sync\" value=\"paragraph\" id=\"mo-sync-paragraph\" class=\"mo-sync\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_paragraph",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_sync_paragraph",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"> </input>\r");t.b("\n" + i);t.b("                <label tabindex=\"1\" for=\"mo-sync-paragraph\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_paragraph",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_audio_sync_paragraph",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("            </form>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <div id=\"audio-block\">\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <div id=\"mo-highlighters\">\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-0\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": ");t.b(t.v(t.d("strings.i18n_audio_highlight_default",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": ");t.b(t.v(t.d("strings.i18n_audio_highlight_default",c,p,0)));t.b("\" aria-selected=\"true\" data-mohighlight=\"0\" >\r");t.b("\n" + i);t.b("                    ");t.b(t.v(t.d("strings.i18n_audio_highlight_default",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-1\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #1\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #1\" data-mohighlight=\"1\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-2\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #2\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #2\" data-mohighlight=\"2\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-3\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #3\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #3\" data-mohighlight=\"3\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-4\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #4\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #4\" data-mohighlight=\"4\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-5\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #5\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #5\" data-mohighlight=\"5\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-6\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #6\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #6\" data-mohighlight=\"6\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-playback-scroll-enable\" type=\"button\" class=\"btn icon-playback-scroll-enable\" title=\"");t.b(t.v(t.d("strings.i18n_playback_scroll_enable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_playback_scroll_enable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-playback-scroll-off\" class=\"glyphicon glyphicon-sort-by-attributes\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-playback-scroll-disable\" type=\"button\" class=\"btn icon-playback-scroll-disable\" title=\"");t.b(t.v(t.d("strings.i18n_playback_scroll_disable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_playback_scroll_disable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-playback-scroll-on\" class=\"glyphicon glyphicon-sort\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-auto-page-turn-enable\" type=\"button\" class=\"btn icon-auto-page-turn-enable\" title=\"");t.b(t.v(t.d("strings.i18n_auto_page_turn_enable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_auto_page_turn_enable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-auto-page-turn-off\" class=\"glyphicon glyphicon-sound-stereo\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-auto-page-turn-disable\" type=\"button\" class=\"btn icon-auto-page-turn-disable\" title=\"");t.b(t.v(t.d("strings.i18n_auto_page_turn_disable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_auto_page_turn_disable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-auto-page-turn-on\" class=\"glyphicon glyphicon-sound-dolby\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-skip-audio-enable\" type=\"button\" class=\"btn icon-skip-audio-enable\" title=\"");t.b(t.v(t.d("strings.i18n_audio_skip_enable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_skip_enable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-skip-off\" class=\"glyphicon glyphicon-remove-circle\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-skip-audio-disable\" type=\"button\" class=\"btn icon-skip-audio-disable\" title=\"");t.b(t.v(t.d("strings.i18n_audio_skip_disable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_skip_disable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-skip-on\" class=\"glyphicon glyphicon-ok-circle\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-esc-audio\" type=\"button\" class=\"btn icon-esc-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_esc",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysEscape",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_esc",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysEscape",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysEscape",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("                <span class=\"glyphicon glyphicon-eject\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <!-- div class=\"checkbox\">\r");t.b("\n" + i);t.b("              <label>\r");t.b("\n" + i);t.b("                <input type=\"checkbox\" value=\"false\"> Skip\r");t.b("\n" + i);t.b("              </label>\r");t.b("\n" + i);t.b("            </div -->\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("    </div> \r");t.b("\n" + i);t.b("    <!--Audioplayer Controls END-->\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <div class=\"zoom-wrapper dropdown\" style=\"display:none\">\r");t.b("\n" + i);t.b("        <a tabindex=\"1\" href=\"#\" data-toggle=\"dropdown\"><input tabindex=\"1\" type=\"text\" value=\"100%\" disabled/><span class=\"caret\"></span></a>\r");t.b("\n" + i);t.b("        <ul id=\"zoom-menu\" class=\"dropdown-menu\" role=\"menu\">\r");t.b("\n" + i);t.b("            <li id=\"zoom-custom\"><a href=\"#\" tabindex=\"1\">Custom <span class=\"glyphicon glyphicon-ok\"></span></a></li>\r");t.b("\n" + i);t.b("            <li id=\"zoom-fit-width\"><a href=\"#\" tabindex=\"1\">Fit Width <span class=\"glyphicon glyphicon-ok\"></span></a></li>\r");t.b("\n" + i);t.b("            <li id=\"zoom-fit-screen\" class=\"active-zoom\"><a href=\"#\" tabindex=\"1\">Fit Screen <span class=\"glyphicon glyphicon-ok\"></span></a></li>\r");t.b("\n" + i);t.b("        </ul>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <button tabindex=\"1\" type=\"button\" class=\"btn icon-library\" title=\"");t.b(t.v(t.d("strings.view_library",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SwitchToLibrary",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.view_library",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SwitchToLibrary",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.SwitchToLibrary",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-folder-open\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    <button tabindex=\"1\" type=\"button\" class=\"btn icon-annotations\" title=\"");t.b(t.v(t.d("strings.highlight_selection",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.highlight_selection",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    <button id=\"tocButt\" tabindex=\"1\" tabindex=\"1\" type=\"button\" class=\"btn icon-toc\" title=\"");t.b(t.v(t.d("strings.toc",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.TocShowHideToggle",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.toc",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.TocShowHideToggle",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.TocShowHideToggle",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-list\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    <button id=\"settbutt1\" tabindex=\"1\" type=\"button\" class=\"btn icon-settings\" data-toggle=\"modal\" data-target=\"#settings-dialog\" title=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.ShowSettingsModal",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.ShowSettingsModal",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.ShowSettingsModal",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <button tabindex=\"1\" id=\"buttFullScreenToggle\" type=\"button\" class=\"btn icon-full-screen\" title=\"");t.b(t.v(t.d("strings.enter_fullscreen",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.FullScreenToggle",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.enter_fullscreen",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.FullScreenToggle",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.FullScreenToggle",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-resize-full\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <!-- <button type=\"button\" class=\"btn btn-default icon icon-bookmark\"></button>-->\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/reader-navbar.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"btn-group navbar-left\">\r");t.b("\n" + i);t.b("        <!-- <button type=\"button\" class=\"btn btn-default icon icon-show-hide\"></button>  -->\r");t.b("\n" + i);t.b("    <button id=\"aboutButt1\" tabindex=\"1\" type=\"button\" class=\"btn icon-logo\" data-toggle=\"modal\" data-target=\"#about-dialog\" title=\"");t.b(t.v(t.d("strings.about",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.about",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"icon-readium\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <button id=\"buttShowToolBar\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:1px;height=1px;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.ToolbarShow",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.ToolbarShow",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.ToolbarShow",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <button id=\"buttHideToolBar\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.ToolbarHide",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.ToolbarHide",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.ToolbarHide",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <button id=\"buttNightTheme\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.NightTheme",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <button id=\"buttRatePlus\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysRateIncrease",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysRateIncrease",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysRateIncrease",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <button id=\"buttRateMinus\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysRateDecrease",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysRateDecrease",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysRateDecrease",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <button id=\"buttVolumePlus\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeIncrease",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeIncrease",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysVolumeIncrease",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <button id=\"buttVolumeMinus\" style=\"opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;\" tabindex=\"-1\" aria-hidden=\"true\" type=\"button\" title=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeDecrease",c,p,0)));t.b("\" aria-label=\"access key ");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeDecrease",c,p,0)));t.b("\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysVolumeDecrease",c,p,0)));t.b("\"> </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<div class=\"btn-group navbar-right\">\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <div id=\"backgroundAudioTrack-div\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"backgroundAudioTrack-button-play\" type=\"button\" class=\"btn icon-play-audio-background\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_play_background",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.BackgroundAudioPlayPause",c,p,0)));t.b("]\"  aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_play_background",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.BackgroundAudioPlayPause",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.BackgroundAudioPlayPause",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-music\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"backgroundAudioTrack-button-pause\" type=\"button\" class=\"btn icon-pause-audio-background\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_pause_background",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.BackgroundAudioPlayPause",c,p,0)));t.b("]\"  aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_pause_background",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.BackgroundAudioPlayPause",c,p,0)));t.b("]\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-volume-up\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <!--Audioplayer Controls START-->\r");t.b("\n" + i);t.b("    <div id=\"audioplayer\">\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-collapse-audio\" type=\"button\" class=\"btn icon-collapse-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_collapse",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_collapse",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("]\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-open\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-expand-audio\" type=\"button\" class=\"btn icon-expand-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_expand",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_expand",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysAdvancedPanelShowHide",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-previous-audio\" type=\"button\" class=\"btn icon-previous-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPrevious",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPrevious",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysPrevious",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-backward\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-play-audio\" type=\"button\" class=\"btn icon-play-audio\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_play",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPlayPause",c,p,0)));t.b("]\"  aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_play",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPlayPause",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysPlayPause",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-play\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-pause-audio\" type=\"button\" class=\"btn icon-pause-audio\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_pause",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPlayPause",c,p,0)));t.b("]\"  aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_pause",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysPlayPause",c,p,0)));t.b("]\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-pause\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-next-audio\" type=\"button\" class=\"btn icon-next-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysNext",c,p,0)));t.b("]\" arial-label=\"");t.b(t.v(t.d("strings.i18n_audio_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysNext",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysNext",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-forward\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div id=\"audioResponsive\">\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-audio-volume-mute\" type=\"button\" class=\"btn icon-audio-volume-mute\" title=\"");t.b(t.v(t.d("strings.i18n_audio_mute",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_mute",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-volume-up\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-audio-volume-unmute\" type=\"button\" class=\"btn icon-audio-volume-unmute\" title=\"");t.b(t.v(t.d("strings.i18n_audio_unmute",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_unmute",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeMuteToggle",c,p,0)));t.b("]\">\r");t.b("\n" + i);t.b("            <span class=\"glyphicon glyphicon-volume-off\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("        <input tabindex=\"1\" id=\"volume-range-slider\" type=\"range\" role=\"slider\" min=\"0\" aria-value-min=\"0\" aria-valuemin=\"0\" max=\"100\" aria-value-max=\"100\" aria-valuemax=\"100\" value=\"100\" aria-valuenow=\"100\" aria-value-now=\"100\" aria-valuetext=\"100%\" aria-value-text=\"100%\" title=\"");t.b(t.v(t.d("strings.i18n_audio_volume",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeDecrease",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeIncrease",c,p,0)));t.b("]\" arial-label=\"");t.b(t.v(t.d("strings.i18n_audio_volume",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeDecrease",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.MediaOverlaysVolumeIncrease",c,p,0)));t.b("]\" />\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" tabindex=\"1\" id=\"btn-touch-audio-enable\" type=\"button\" class=\"btn icon-touch-audio-enable\" title=\"");t.b(t.v(t.d("strings.i18n_audio_touch_enable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_touch_enable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("            <span id=\"icon-touch-off-hand\" class=\"glyphicon glyphicon-hand-up\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <span id=\"icon-touch-off\" class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <button tabindex=\"1\" id=\"btn-touch-audio-disable\" type=\"button\" class=\"btn icon-touch-audio-disable\" title=\"");t.b(t.v(t.d("strings.i18n_audio_touch_disable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_touch_disable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("            <span id=\"icon-touch-on-hand\" class=\"glyphicon glyphicon-hand-up\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <span id=\"icon-touch-on\" class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("        </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        \r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div id=\"audioExpanded\" role=\"alert\">\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <input tabindex=\"1\" id=\"time-range-slider\" type=\"range\" role=\"slider\" min=\"0\" aria-value-min=\"0\" aria-valuemin=\"0\" max=\"100\" aria-value-max=\"100\" aria-valuemax=\"100\" value=\"0\" aria-valuenow=\"0\" aria-value-now=\"0\" aria-valuetext=\"0%\" aria-value-text=\"0%\" data-value=\"0\" title=\"");t.b(t.v(t.d("strings.i18n_audio_time",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_time",c,p,0)));t.b("\"  />\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-audio-rate\" type=\"button\" class=\"btn icon-rate-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_rate_reset",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysRateReset",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_rate_reset",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysRateReset",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysRateReset",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("                <span class=\"glyphicon glyphicon-play-circle\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <input tabindex=\"1\" id=\"rate-range-slider\" type=\"range\" role=\"slider\" min=\"0\" aria-value-min=\"0\" aria-valuemin=\"0\" max=\"4\" aria-value-max=\"4\" aria-valuemax=\"4\" value=\"1\" aria-valuenow=\"1\" aria-value-now=\"1\" aria-valuetext=\"1x\" aria-value-text=\"1x\" step=\"0.5\" title=\"");t.b(t.v(t.d("strings.i18n_audio_rate",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysRateDecrease",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.MediaOverlaysRateIncrease",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_rate",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysRateDecrease",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.MediaOverlaysRateIncrease",c,p,0)));t.b("]\" />\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <span aria-hidden=\"true\" tabindex=\"-1\" id=\"rate-range-slider-label\">1x</span>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <form action=\"\" id=\"mo-sync-form\">\r");t.b("\n" + i);t.b("                <input tabindex=\"1\" type=\"radio\" name=\"mo-sync\" value=\"default\" id=\"mo-sync-default\" class=\"mo-sync\" checked=\"checked\"  title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_default",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_sync_default",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"> </input>\r");t.b("\n" + i);t.b("                <label tabindex=\"1\" for=\"mo-sync-default\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_default",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"><span aria-hidden=\"true\">&#8855;</span></label>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <input tabindex=\"1\" type=\"radio\" name=\"mo-sync\" value=\"word\" id=\"mo-sync-word\" class=\"mo-sync\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_word",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_sync_word",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"> </input>\r");t.b("\n" + i);t.b("                <label tabindex=\"1\" for=\"mo-sync-word\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_word",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_audio_sync_word",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);t.b("                <input tabindex=\"1\" type=\"radio\" name=\"mo-sync\" value=\"sentence\" id=\"mo-sync-sentence\" class=\"mo-sync\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_sentence",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_sync_sentence",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"> </input>\r");t.b("\n" + i);t.b("                <label tabindex=\"1\" for=\"mo-sync-sentence\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_sentence",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_audio_sync_sentence",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);t.b("                <input tabindex=\"1\" type=\"radio\" name=\"mo-sync\" value=\"paragraph\" id=\"mo-sync-paragraph\" class=\"mo-sync\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_paragraph",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_sync_paragraph",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"> </input>\r");t.b("\n" + i);t.b("                <label tabindex=\"1\" for=\"mo-sync-paragraph\" title=\"");t.b(t.v(t.d("strings.i18n_audio_sync_paragraph",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_audio_sync",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_audio_sync_paragraph",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("            </form>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <div id=\"audio-block\">\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <div id=\"mo-highlighters\">\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-0\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": ");t.b(t.v(t.d("strings.i18n_audio_highlight_default",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": ");t.b(t.v(t.d("strings.i18n_audio_highlight_default",c,p,0)));t.b("\" aria-selected=\"true\" data-mohighlight=\"0\" >\r");t.b("\n" + i);t.b("                    ");t.b(t.v(t.d("strings.i18n_audio_highlight_default",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-1\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #1\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #1\" data-mohighlight=\"1\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-2\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #2\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #2\" data-mohighlight=\"2\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-3\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #3\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #3\" data-mohighlight=\"3\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-4\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #4\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #4\" data-mohighlight=\"4\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-5\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #5\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #5\" data-mohighlight=\"5\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1\" id=\"mo-highlighter-6\" type=\"button\" class=\"btn btn-mo-highlighter\" title=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #6\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_highlight",c,p,0)));t.b(": #6\" data-mohighlight=\"6\" >\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                </button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-playback-scroll-enable\" type=\"button\" class=\"btn icon-playback-scroll-enable\" title=\"");t.b(t.v(t.d("strings.i18n_playback_scroll_enable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_playback_scroll_enable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-playback-scroll-off\" class=\"glyphicon glyphicon-sort-by-attributes\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-playback-scroll-disable\" type=\"button\" class=\"btn icon-playback-scroll-disable\" title=\"");t.b(t.v(t.d("strings.i18n_playback_scroll_disable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_playback_scroll_disable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-playback-scroll-on\" class=\"glyphicon glyphicon-sort\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-auto-page-turn-enable\" type=\"button\" class=\"btn icon-auto-page-turn-enable\" title=\"");t.b(t.v(t.d("strings.i18n_auto_page_turn_enable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_auto_page_turn_enable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-auto-page-turn-off\" class=\"glyphicon glyphicon-sound-stereo\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-auto-page-turn-disable\" type=\"button\" class=\"btn icon-auto-page-turn-disable\" title=\"");t.b(t.v(t.d("strings.i18n_auto_page_turn_disable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_auto_page_turn_disable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-auto-page-turn-on\" class=\"glyphicon glyphicon-sound-dolby\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-skip-audio-enable\" type=\"button\" class=\"btn icon-skip-audio-enable\" title=\"");t.b(t.v(t.d("strings.i18n_audio_skip_enable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_skip_enable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-skip-off\" class=\"glyphicon glyphicon-remove-circle\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-skip-audio-disable\" type=\"button\" class=\"btn icon-skip-audio-disable\" title=\"");t.b(t.v(t.d("strings.i18n_audio_skip_disable",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_skip_disable",c,p,0)));t.b("\" >\r");t.b("\n" + i);t.b("                <span id=\"icon-skip-on\" class=\"glyphicon glyphicon-ok-circle\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button tabindex=\"1\" id=\"btn-esc-audio\" type=\"button\" class=\"btn icon-esc-audio\" title=\"");t.b(t.v(t.d("strings.i18n_audio_esc",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysEscape",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_audio_esc",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.MediaOverlaysEscape",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.MediaOverlaysEscape",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("                <span class=\"glyphicon glyphicon-eject\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("            </button>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("            <!-- div class=\"checkbox\">\r");t.b("\n" + i);t.b("              <label>\r");t.b("\n" + i);t.b("                <input type=\"checkbox\" value=\"false\"> Skip\r");t.b("\n" + i);t.b("              </label>\r");t.b("\n" + i);t.b("            </div -->\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("    </div> \r");t.b("\n" + i);t.b("    <!--Audioplayer Controls END-->\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <div class=\"zoom-wrapper dropdown\" style=\"display:none\">\r");t.b("\n" + i);t.b("        <a tabindex=\"1\" href=\"#\" data-toggle=\"dropdown\"><input tabindex=\"1\" type=\"text\" value=\"100%\" disabled/><span class=\"caret\"></span></a>\r");t.b("\n" + i);t.b("        <ul id=\"zoom-menu\" class=\"dropdown-menu\" role=\"menu\">\r");t.b("\n" + i);t.b("            <li id=\"zoom-custom\"><a href=\"#\" tabindex=\"1\">Custom <span class=\"glyphicon glyphicon-ok\"></span></a></li>\r");t.b("\n" + i);t.b("            <li id=\"zoom-fit-width\"><a href=\"#\" tabindex=\"1\">Fit Width <span class=\"glyphicon glyphicon-ok\"></span></a></li>\r");t.b("\n" + i);t.b("            <li id=\"zoom-fit-screen\" class=\"active-zoom\"><a href=\"#\" tabindex=\"1\">Fit Screen <span class=\"glyphicon glyphicon-ok\"></span></a></li>\r");t.b("\n" + i);t.b("        </ul>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <button tabindex=\"1\" type=\"button\" class=\"btn icon-library\" title=\"");t.b(t.v(t.d("strings.view_library",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SwitchToLibrary",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.view_library",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SwitchToLibrary",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.SwitchToLibrary",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-folder-open\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    <button tabindex=\"1\" type=\"button\" class=\"btn icon-annotations\" title=\"");t.b(t.v(t.d("strings.highlight_selection",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.highlight_selection",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    <button id=\"tocButt\" tabindex=\"1\" tabindex=\"1\" type=\"button\" class=\"btn icon-toc\" title=\"");t.b(t.v(t.d("strings.toc",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.TocShowHideToggle",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.toc",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.TocShowHideToggle",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.TocShowHideToggle",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-list\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    <button id=\"settbutt1\" tabindex=\"1\" type=\"button\" class=\"btn icon-settings\" data-toggle=\"modal\" data-target=\"#settings-dialog\" title=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.ShowSettingsModal",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.ShowSettingsModal",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.ShowSettingsModal",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <button tabindex=\"1\" id=\"buttFullScreenToggle\" type=\"button\" class=\"btn icon-full-screen\" title=\"");t.b(t.v(t.d("strings.enter_fullscreen",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.FullScreenToggle",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.enter_fullscreen",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.FullScreenToggle",c,p,0)));t.b("]\" accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.FullScreenToggle",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <span class=\"glyphicon glyphicon-resize-full\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("    </button>\r");t.b("\n" + i);t.b("    \r");t.b("\n" + i);t.b("    <!-- <button type=\"button\" class=\"btn btn-default icon icon-bookmark\"></button>-->\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/reader-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div id=\"readium-toc-body\"\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.toc",c,p,0)));t.b("\"\r");t.b("\n" + i);t.b("role=\"navigation\"\r");t.b("\n" + i);t.b(">\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("<div id=\"reading-area\" role=\"main\">  \r");t.b("\n" + i);t.b("  <div id=\"epub-reader-container\">\r");t.b("\n" + i);t.b("    <div id=\"epub-reader-frame\">\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("  </div>\r");t.b("\n" + i);t.b("  \r");t.b("\n" + i);t.b("  <div id=\"readium-page-btns\" role=\"region\" aria-label=\"");t.b(t.v(t.d("strings.i18n_page_navigation",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("  <!-- page left/right buttons inserted here when EPUB is loaded (page progression direction) -->\r");t.b("\n" + i);t.b("  </div>\r");t.b("\n" + i);t.b("  \r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/reader-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div id=\"readium-toc-body\"\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.toc",c,p,0)));t.b("\"\r");t.b("\n" + i);t.b("role=\"navigation\"\r");t.b("\n" + i);t.b(">\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("<div id=\"reading-area\" role=\"main\">  \r");t.b("\n" + i);t.b("  <div id=\"epub-reader-container\">\r");t.b("\n" + i);t.b("    <div id=\"epub-reader-frame\">\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("  </div>\r");t.b("\n" + i);t.b("  \r");t.b("\n" + i);t.b("  <div id=\"readium-page-btns\" role=\"region\" aria-label=\"");t.b(t.v(t.d("strings.i18n_page_navigation",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("  <!-- page left/right buttons inserted here when EPUB is loaded (page progression direction) -->\r");t.b("\n" + i);t.b("  </div>\r");t.b("\n" + i);t.b("  \r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!templates/reader-body-page-btns.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<!-- Left page -->\r");t.b("\n" + i);t.b("<button tabindex=\"0\" id=\"left-page-btn\" class=\"page-switch-overlay-icon\" type=\"button\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,0,144,402,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PagePreviousAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);if(!t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,1,0,0,"")){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PagePreviousAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);};t.b("\r");t.b("\n" + i);t.b(">\r");t.b("\n" + i);t.b("<!-- img aria-hidden=\"true\" src=\"images/pagination1.svg\" -->\r");t.b("\n" + i);t.b("<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("</button>\r");t.b("\n" + i);t.b("  \r");t.b("\n" + i);t.b("<!-- Right page -->\r");t.b("\n" + i);t.b("<button tabindex=\"0\" id=\"right-page-btn\" class=\"page-switch-overlay-icon\" type=\"button\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,0,1079,1325,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PageNextAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);if(!t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,1,0,0,"")){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PageNextAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);};t.b("\r");t.b("\n" + i);t.b(">\r");t.b("\n" + i);t.b("<!-- img aria-hidden=\"true\" src=\"images/pagination1.svg\" -->\r");t.b("\n" + i);t.b("<span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("</button>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/reader-body-page-btns.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<!-- Left page -->\r");t.b("\n" + i);t.b("<button tabindex=\"0\" id=\"left-page-btn\" class=\"page-switch-overlay-icon\" type=\"button\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,0,144,402,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PagePreviousAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);if(!t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,1,0,0,"")){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PagePreviousAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);};t.b("\r");t.b("\n" + i);t.b(">\r");t.b("\n" + i);t.b("<!-- img aria-hidden=\"true\" src=\"images/pagination1.svg\" -->\r");t.b("\n" + i);t.b("<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("</button>\r");t.b("\n" + i);t.b("  \r");t.b("\n" + i);t.b("<!-- Right page -->\r");t.b("\n" + i);t.b("<button tabindex=\"0\" id=\"right-page-btn\" class=\"page-switch-overlay-icon\" type=\"button\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,0,1079,1325,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PageNextAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);if(!t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,1,0,0,"")){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PageNextAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);};t.b("\r");t.b("\n" + i);t.b(">\r");t.b("\n" + i);t.b("<!-- img aria-hidden=\"true\" src=\"images/pagination1.svg\" -->\r");t.b("\n" + i);t.b("<span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("</button>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 /*!
 * screenfull
@@ -56923,20 +56692,20 @@ define("screenfull", (function (global) {
 }(this)));
 
 
-define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'storage/Settings', 'i18n/Strings', 'Dialogs', 'Keyboard'], 
+define('readium_js_viewer/EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './Spinner', './storage/Settings', 'readium_js_viewer_i18n/Strings', './Dialogs', './Keyboard'], 
         function (module, $, _, bootstrap, Readium, spinner, Settings, Strings, Dialogs, Keyboard) {
 
     var init = function(readium) {
-        
+
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData) {
             // That's after mediaOverlayPlayer.onPageChanged()
 
             if (readium.reader.isMediaOverlayAvailable()) {
                 $('#audioplayer').show();
             }
-            
+
             if (!pageChangeData.spineItem) return;
-            
+
             var smil = readium.reader.package().media_overlay.getSmilBySpineItem(pageChangeData.spineItem);
 
             var atLeastOneIsEnabled = false;
@@ -56951,7 +56720,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 atLeastOneIsEnabled = true;
                 $moSyncWord.removeAttr('disabled');
             }
-            
+
             var $moSyncSentence = $('#mo-sync-sentence');
             if (!smil || !smil.hasSync("sentence"))
             {
@@ -56973,7 +56742,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 atLeastOneIsEnabled = true;
                 $moSyncParagraph.removeAttr('disabled');
             }
-            
+
             var $moSyncDefault = $('#mo-sync-default');
             if (!atLeastOneIsEnabled)
             {
@@ -56984,7 +56753,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 $moSyncDefault.removeAttr('disabled');
             }
         });
-        
+
         var $audioPlayer = $('#audioplayer');
 
         Settings.get('reader', function(json)
@@ -56992,21 +56761,21 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             if (!json)
             {
                 json = {};
-                
+
                 var settings = readium.reader.viewerSettings();
-                
+
                 json.mediaOverlaysSkipSkippables = settings.mediaOverlaysSkipSkippables;
                 json.mediaOverlaysAutomaticPageTurn = settings.mediaOverlaysAutomaticPageTurn;
                 json.mediaOverlaysEnableClick = settings.mediaOverlaysEnableClick;
                 json.mediaOverlaysPreservePlaybackWhenScroll = settings.mediaOverlaysPreservePlaybackWhenScroll;
-                
+
                 Settings.put('reader', json);
             }
-            
+
             if (json.mediaOverlaysSkipSkippables) // excludes typeof json.mediaOverlaysSkipSkippables === "undefined", so the default is to disable skippability
             {
                 $audioPlayer.addClass('skip');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysSkipSkippables: true
@@ -57015,7 +56784,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             else
             {
                 $audioPlayer.removeClass('skip');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysSkipSkippables: false
@@ -57025,7 +56794,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             if (json.mediaOverlaysPreservePlaybackWhenScroll)
             {
                 $audioPlayer.addClass('playScroll');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysPreservePlaybackWhenScroll: true
@@ -57034,7 +56803,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             else
             {
                 $audioPlayer.removeClass('playScroll');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysPreservePlaybackWhenScroll: false
@@ -57044,7 +56813,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             if (json.mediaOverlaysAutomaticPageTurn)
             {
                 $audioPlayer.addClass('autoPageTurn');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysAutomaticPageTurn: true
@@ -57053,17 +56822,17 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             else
             {
                 $audioPlayer.removeClass('autoPageTurn');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysAutomaticPageTurn: false
                 });
             }
-            
+
             if (json.mediaOverlaysEnableClick)
             {
                 $audioPlayer.removeClass('no-touch');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysEnableClick: true
@@ -57072,14 +56841,14 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             else
             {
                 $audioPlayer.addClass('no-touch');
-                
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysEnableClick: false
                 });
             }
         });
-        
+
         var $moSyncDefault = $('#mo-sync-default');
         $moSyncDefault.on("click", function () {
             var wasPlaying = readium.reader.isPlayingMediaOverlay();
@@ -57092,7 +56861,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 doNotUpdateView: true,
                 mediaOverlaysSynchronizationGranularity: ""
             });
-            
+
             if (wasPlaying)
             {
                 readium.reader.playMediaOverlay();
@@ -57105,12 +56874,12 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             {
                 readium.reader.pauseMediaOverlay();
             }
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysSynchronizationGranularity: "word"
             });
-            
+
             if (wasPlaying)
             {
                 readium.reader.playMediaOverlay();
@@ -57128,7 +56897,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 doNotUpdateView: true,
                 mediaOverlaysSynchronizationGranularity: "sentence"
             });
-            
+
             if (wasPlaying)
             {
                 readium.reader.playMediaOverlay();
@@ -57146,19 +56915,19 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 doNotUpdateView: true,
                 mediaOverlaysSynchronizationGranularity: "paragraph"
             });
-            
+
             if (wasPlaying)
             {
                 readium.reader.playMediaOverlay();
             }
         });
-        
-        
+
+
         var $highlighterButts = $('.btn-mo-highlighter');
         $highlighterButts.on("click", function () {
             $highlighterButts.attr("aria-selected", "false");
             $(this).attr("aria-selected", "true");
-            
+
             var index = $(this).attr("data-mohighlight");
 
             readium.reader.setStyles([
@@ -57167,7 +56936,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                     declarations: undefined
                 }
             ], true);
-            
+
             if (index === "1")
             {
                 readium.reader.setStyles([
@@ -57254,44 +57023,44 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 ], true);
             }
         });
-        
+
         Keyboard.on(Keyboard.MediaOverlaysEscape, 'reader', readium.reader.escapeMediaOverlay);
-        
+
         var $escAudioBtn = $("#btn-esc-audio");
         $escAudioBtn.on("click", readium.reader.escapeMediaOverlay);
-        
+
         var $previousAudioBtn = $("#btn-previous-audio");
         var $nextAudioBtn = $("#btn-next-audio");
-        
+
         Keyboard.on(Keyboard.MediaOverlaysPlayPause, 'reader', readium.reader.toggleMediaOverlay);
         //Keyboard.on(Keyboard.MediaOverlaysPlayPauseAlt, 'reader', readium.reader.toggleMediaOverlay);
-        
+
         var $playAudioBtn = $("#btn-play-audio");
         var $pauseAudioBtn = $("#btn-pause-audio");
-        
+
         $playAudioBtn.on("click", function () {
             //readium.reader[$(this).hasClass('pause-audio') ? 'pauseMediaOverlay' : 'playMediaOverlay']();
             //readium.reader.toggleMediaOverlay();
             var wasFocused = document.activeElement === $playAudioBtn[0];
             readium.reader.playMediaOverlay();
-            
+
             $playAudioBtn.removeAttr("accesskey");
             $pauseAudioBtn.attr("accesskey", Keyboard.MediaOverlaysPlayPause);
-            
+
             if (wasFocused) setTimeout(function(){ $pauseAudioBtn[0].focus(); }, 50);
         });
-        
+
         $pauseAudioBtn.on("click", function () {
             var wasFocused = document.activeElement === $pauseAudioBtn[0];
             readium.reader.pauseMediaOverlay();
-            
+
             $pauseAudioBtn.removeAttr("accesskey");
             $playAudioBtn.attr("accesskey", Keyboard.MediaOverlaysPlayPause);
-            
+
             if (wasFocused) setTimeout(function(){ $playAudioBtn[0].focus(); }, 50);
         });
-        
-        
+
+
         var $expandAudioBtn = $("#btn-expand-audio");
         var $collapseAudioBtn = $("#btn-collapse-audio");
 
@@ -57300,19 +57069,19 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             if (expand)
             {
                 $audioPlayer.addClass('expanded-audio');
-                
+
                 $expandAudioBtn.removeAttr("accesskey");
                 $collapseAudioBtn.attr("accesskey", Keyboard.MediaOverlaysAdvancedPanelShowHide);
             }
             else
             {
                 $audioPlayer.removeClass('expanded-audio');
-                
+
                 $collapseAudioBtn.removeAttr("accesskey");
                 $expandAudioBtn.attr("accesskey", Keyboard.MediaOverlaysAdvancedPanelShowHide);
             }
         };
-        
+
         Keyboard.on(Keyboard.MediaOverlaysAdvancedPanelShowHide, 'reader', function(){
             var toFocus = undefined;
             if ($audioPlayer.hasClass('expanded-audio'))
@@ -57329,13 +57098,13 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             $(document.body).removeClass('hide-ui');
             setTimeout(function(){ toFocus.focus(); }, 50);
         });
-        
+
         $expandAudioBtn.on("click", function() {
             var wasFocused = document.activeElement === $expandAudioBtn[0];
             updateAudioExpand(true);
             if (wasFocused) setTimeout(function(){ $collapseAudioBtn[0].focus(); }, 50);
         });
-        
+
         $collapseAudioBtn.on("click", function() {
             var wasFocused = document.activeElement === $collapseAudioBtn[0];
             updateAudioExpand(false);
@@ -57343,12 +57112,12 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
         });
 
         var $changeTimeControl = $('#time-range-slider');
-        
+
         var debouncedTimeRangeSliderChange = _.debounce(
             function() {
-        
+
                 inDebounce = false;
-                
+
                 var percent = $changeTimeControl.val();
 
                 var package = readium.reader.package();
@@ -57358,40 +57127,40 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 var par = {par: undefined};
                 var smilData = {smilData: undefined};
                 var milliseconds = {milliseconds: undefined};
-        
+
                 package.media_overlay.percentToPosition(percent, smilData, par, milliseconds);
-        
+
                 if (!par.par || !par.par.text || !smilData.smilData)
                 {
                     return;
                 }
-        
+
                 var smilSrc = smilData.smilData.href;
-        
+
                 var offsetS = milliseconds.milliseconds / 1000.0;
-        
+
                 readium.reader.mediaOverlaysOpenContentUrl(par.par.text.src, smilSrc, offsetS);
             }
         , 800);
-        
+
         var updateSliderLabels = function($slider, val, txt)
         {
             $slider.attr("aria-valuenow", val+"");
             $slider.attr("aria-value-now", val+"");
-            
+
             $slider.attr("aria-valuetext", txt+"");
             $slider.attr("aria-value-text", txt+"");
         };
-        
+
         $changeTimeControl.on("change",
         function() {
-            
+
             var percent = $changeTimeControl.val();
             percent = Math.round(percent);
-            
+
             $changeTimeControl.attr("data-value", percent);
             updateSliderLabels($changeTimeControl, percent, percent + "%");
-            
+
             if (readium.reader.isPlayingMediaOverlay())
             {
                 readium.reader.pauseMediaOverlay();
@@ -57399,7 +57168,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             debouncedTimeRangeSliderChange();
         }
         );
-        
+
         readium.reader.on(ReadiumSDK.Events.MEDIA_OVERLAY_STATUS_CHANGED, function (value) {
 
             //var $audioPlayerControls = $('#audioplayer button, #audioplayer input:not(.mo-sync)');
@@ -57426,13 +57195,13 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             $audioPlayer.toggleClass('isPlaying', isPlaying);
 
             if (wasFocused) setTimeout(function(){ (isPlaying ? $pauseAudioBtn[0] : $playAudioBtn[0]).focus(); }, 50);
-            
+
             percent = -1; // to prevent flickering slider position (pause callback is raised between each audio phrase!)
 
             // if (readium.reader.isMediaOverlayAvailable()) {
             //     $audioPlayer.show();
             //     //$audioPlayerControls.attr('disabled', false);
-            //     
+            //
             // } else {
             //     //$audioPlayerControls.attr('disabled', true);
             // }
@@ -57440,7 +57209,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             if ((typeof value.playPosition !== "undefined") && (typeof value.smilIndex !== "undefined") && (typeof value.parIndex !== "undefined"))
             {
                 var package = readium.reader.package();
-                
+
                 var playPositionMS = value.playPosition * 1000;
                 percent = package.media_overlay.positionToPercent(value.smilIndex, value.parIndex, playPositionMS);
 
@@ -57458,16 +57227,16 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 updateSliderLabels($changeTimeControl, percent, percent + "%");
             }
         });
-        
+
         var $buttondPreservePlaybackWhenScrollDisable = $('#btn-playback-scroll-disable');
         var $buttonPreservePlaybackWhenScrollEnable = $('#btn-playback-scroll-enable');
-        
+
         $buttondPreservePlaybackWhenScrollDisable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttondPreservePlaybackWhenScrollDisable[0];
-            
+
             $audioPlayer.removeClass('playScroll');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysPreservePlaybackWhenScroll: false
@@ -57479,48 +57248,48 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysPreservePlaybackWhenScroll = false;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonPreservePlaybackWhenScrollEnable[0].focus(); }, 50);
         });
 
         $buttonPreservePlaybackWhenScrollEnable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonPreservePlaybackWhenScrollEnable[0];
-            
+
             $audioPlayer.addClass('playScroll');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysPreservePlaybackWhenScroll: true
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysPreservePlaybackWhenScroll = true;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttondPreservePlaybackWhenScrollDisable[0].focus(); }, 50);
         });
 
         var $buttonAutoPageTurnDisable = $('#btn-auto-page-turn-disable');
         var $buttonAutoPageTurnEnable = $('#btn-auto-page-turn-enable');
-        
+
         $buttonAutoPageTurnDisable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonAutoPageTurnDisable[0];
-            
+
             $audioPlayer.removeClass('autoPageTurn');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysAutomaticPageTurn: false
@@ -57532,49 +57301,49 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysAutomaticPageTurn = false;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonAutoPageTurnEnable[0].focus(); }, 50);
         });
 
         $buttonAutoPageTurnEnable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonAutoPageTurnEnable[0];
-            
+
             $audioPlayer.addClass('autoPageTurn');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysAutomaticPageTurn: true
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysAutomaticPageTurn = true;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonAutoPageTurnDisable[0].focus(); }, 50);
         });
-        
+
 
         var $buttonSkipDisable = $('#btn-skip-audio-disable');
         var $buttonSkipEnable = $('#btn-skip-audio-enable');
-        
+
         $buttonSkipDisable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonSkipDisable[0];
-            
+
             $audioPlayer.removeClass('skip');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysSkipSkippables: false
@@ -57586,95 +57355,95 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysSkipSkippables = false;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonSkipEnable[0].focus(); }, 50);
         });
 
         $buttonSkipEnable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonSkipEnable[0];
-            
+
             $audioPlayer.addClass('skip');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysSkipSkippables: true
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysSkipSkippables = true;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonSkipDisable[0].focus(); }, 50);
         });
-        
+
         var $buttonTouchEnable = $('#btn-touch-audio-enable');
         var $buttonTouchDisable = $('#btn-touch-audio-disable');
-        
+
         $buttonTouchEnable.on("click", function() {
-            
+
             var wasFocused = document.activeElement === $buttonTouchEnable[0];
-            
+
             $audioPlayer.removeClass('no-touch');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysEnableClick: true
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysEnableClick = true;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonTouchDisable[0].focus(); }, 50);
         });
-        
+
         $buttonTouchDisable.on("click", function() {
-            
+
             var wasFocused = document.activeElement === $buttonTouchDisable[0];
-            
+
             $audioPlayer.addClass('no-touch');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysEnableClick: false
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysEnableClick = false;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonTouchEnable[0].focus(); }, 50);
         });
-        
+
         var $changeRateControl = $('#rate-range-slider');
         var $changeRateControl_label = $('#rate-range-slider-label');
-        
+
         var changeRate = function(minus)
         {
             var rateMin = parseFloat($changeRateControl.attr("min"));
@@ -57686,31 +57455,31 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
 
             if (rateVal > rateMax) rateVal = rateMax;
             if (rateVal < rateMin) rateVal = rateMin;
-            
+
             var txt = ((rateVal === 0 ? "~0" : ""+rateVal) + "x");
-            
+
             updateSliderLabels($changeRateControl, rateVal, txt);
-            
+
             $changeRateControl_label[0].textContent = txt;
-            
+
             //readium.reader.setRateMediaOverlay(rateVal);
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysRate: rateVal
             });
-            
+
             $changeRateControl.val(""+rateVal);
         };
-        
+
         $("#buttRatePlus").on("click", function(){
             changeRate(false);
             //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         });
-        Keyboard.on(Keyboard.MediaOverlaysRateIncrease, 'reader', function(){        
+        Keyboard.on(Keyboard.MediaOverlaysRateIncrease, 'reader', function(){
             changeRate(false);
             //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         });
-        
+
         $("#buttRateMinus").on("click", function(){
             changeRate(true);
             //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
@@ -57719,39 +57488,39 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             changeRate(true);
             //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         });
-        
-        // Keyboard.on(Keyboard.MediaOverlaysRateIncreaseAlt, 'reader', function(){        
+
+        // Keyboard.on(Keyboard.MediaOverlaysRateIncreaseAlt, 'reader', function(){
         //     changeRate(false);
         //     //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         // });
-        // 
+        //
         // Keyboard.on(Keyboard.MediaOverlaysRateDecreaseAlt, 'reader', function(){
         //     changeRate(true);
         //     //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         // });
-        
+
         $changeRateControl.on("change", function() {
             var rateVal = $(this).val();
             var txt = ((rateVal === '0' ? "~0" : rateVal) + "x");
-            
+
             updateSliderLabels($(this), rateVal, txt);
 
             $changeRateControl_label[0].textContent = txt;
-            
+
             //readium.reader.setRateMediaOverlay(rateVal);
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysRate: rateVal
             });
         });
-        
+
         var resetRate = function() {
             $changeRateControl.val(1);
 
             updateSliderLabels($changeRateControl, "1", "1x");
 
             $changeRateControl_label[0].textContent = "1x";
-            
+
             //readium.reader.setRateMediaOverlay(1);
             readium.reader.updateSettings({
                 doNotUpdateView: true,
@@ -57760,12 +57529,12 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
         };
 
         Keyboard.on(Keyboard.MediaOverlaysRateReset, 'reader', resetRate);
-        
+
         var $rateButton = $('#btn-audio-rate');
         $rateButton.on("click", resetRate);
-        
+
         var $changeVolumeControl = $('#volume-range-slider');
-        
+
         var changeVolume = function(minus)
         {
             var volumeVal = parseInt($changeVolumeControl.val());
@@ -57780,18 +57549,18 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 doNotUpdateView: true,
                 mediaOverlaysVolume: volumeVal
             });
-            
+
             $changeVolumeControl.val(""+volumeVal);
 
             updateSliderLabels($changeVolumeControl, volumeVal, volumeVal + "%");
-            
+
             if (volumeVal === 0) {
                 $audioPlayer.addClass('no-volume');
             } else {
                 $audioPlayer.removeClass('no-volume');
             }
         };
-        
+
         $("#buttVolumePlus").on("click", function(){
             changeVolume(false);
             //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
@@ -57800,7 +57569,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             changeVolume(false);
             //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
         });
-        
+
         $("#buttVolumeMinus").on("click", function(){
             changeVolume(true);
             //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
@@ -57809,17 +57578,17 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             changeVolume(true);
             //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
         });
-        
+
         // Keyboard.on(Keyboard.MediaOverlaysVolumeIncreaseAlt, 'reader', function(){
         //     changeVolume(false);
         //     //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
         // });
-        
+
         // Keyboard.on(Keyboard.MediaOverlaysVolumeDecreaseAlt, 'reader', function(){
         //     changeVolume(true);
         //     //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
         // });
-        
+
         $changeVolumeControl.on("change", function() {
             var volumeVal = $(this).val();
 
@@ -57830,19 +57599,19 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
             });
 
             updateSliderLabels($changeVolumeControl, volumeVal, volumeVal + "%");
-            
+
             if (volumeVal === '0') {
                 $audioPlayer.addClass('no-volume');
             } else {
                 $audioPlayer.removeClass('no-volume');
             }
         });
-                
+
         $volumeButtonMute = $('#btn-audio-volume-mute');
         $volumeButtonUnMute = $('#btn-audio-volume-unmute');
-        
+
         var _lastVolumeBeforeMute = '0';
-        
+
         var muteVolume = function(){
 
             _lastVolumeBeforeMute = $changeVolumeControl.val();
@@ -57852,17 +57621,17 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 doNotUpdateView: true,
                 mediaOverlaysVolume: 0
             });
-            
+
             $changeVolumeControl.val(0);
 
             updateSliderLabels($changeVolumeControl, 0, 0 + "%");
-            
+
             $volumeButtonMute.removeAttr("accesskey");
             $volumeButtonUnMute.attr("accesskey", Keyboard.MediaOverlaysVolumeMuteToggle);
-            
+
             $audioPlayer.addClass('no-volume');
         };
-        
+
         var unMuteVolume = function(){
 
             //var currentVolume = $changeVolumeControl.val();
@@ -57873,11 +57642,11 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
                 doNotUpdateView: true,
                 mediaOverlaysVolume: volumeVal
             });
-            
+
             $changeVolumeControl.val(volumeVal);
 
             updateSliderLabels($changeVolumeControl, volumeVal, volumeVal + "%");
-            
+
             $volumeButtonUnMute.removeAttr("accesskey");
             $volumeButtonMute.attr("accesskey", Keyboard.MediaOverlaysVolumeMuteToggle);
 
@@ -57887,31 +57656,31 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
         Keyboard.on(Keyboard.MediaOverlaysVolumeMuteToggle, 'reader', function(){
             ($audioPlayer.hasClass('no-volume') ? unMuteVolume : muteVolume)();
         });
-        
+
         $volumeButtonMute.on("click", function() {
-            
+
             var wasFocused = document.activeElement === $volumeButtonMute[0];
-                
+
             muteVolume();
-                
+
             if (wasFocused) setTimeout(function(){ $volumeButtonUnMute[0].focus(); }, 50);
         });
-        
+
         $volumeButtonUnMute.on("click", function() {
-            
+
             var wasFocused = document.activeElement === $volumeButtonUnMute[0];
-            
+
             unMuteVolume();
-            
+
             if (wasFocused) setTimeout(function(){ $volumeButtonMute[0].focus(); }, 50);
         });
-        
+
         Keyboard.on(Keyboard.MediaOverlaysPrevious, 'reader', readium.reader.previousMediaOverlay);
-        
+
         $previousAudioBtn.on("click", readium.reader.previousMediaOverlay);
-        
+
         Keyboard.on(Keyboard.MediaOverlaysNext, 'reader', readium.reader.nextMediaOverlay);
-        
+
         $nextAudioBtn.on("click", readium.reader.nextMediaOverlay);
     };
 
@@ -57921,7 +57690,7 @@ define('EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 
 });
 
 
-define('EpubReaderBackgroundAudioTrack',['module','jquery', 'bootstrap', 'Readium', 'Spinner', 'storage/Settings', 'i18n/Strings', 'Dialogs', 'Keyboard'], 
+define('readium_js_viewer/EpubReaderBackgroundAudioTrack',['module','jquery', 'bootstrap', 'readium_js/Readium', './Spinner', './storage/Settings', 'readium_js_viewer_i18n/Strings', './Dialogs', './Keyboard'], 
         function (module, $, bootstrap, Readium, spinner, Settings, Strings, Dialogs, Keyboard) {
 
     var init = function(readium) {
@@ -57929,7 +57698,7 @@ define('EpubReaderBackgroundAudioTrack',['module','jquery', 'bootstrap', 'Readiu
         if (!readium.reader.backgroundAudioTrackManager) return; // safety (out-of-date readium-shared-js?)
 
         var $audioTrackDiv = $("#backgroundAudioTrack-div");
-    
+
         var $playAudioTrackBtn = $("#backgroundAudioTrack-button-play");
         var $pauseAudioTrackBtn = $("#backgroundAudioTrack-button-pause");
 
@@ -57959,38 +57728,38 @@ define('EpubReaderBackgroundAudioTrack',['module','jquery', 'bootstrap', 'Readiu
                     $audioTrackDiv.removeClass("none");
                 }
                 else
-                {                
+                {
                     $audioTrackDiv.addClass("none");
                 }
             }
         );
-        
+
 
         Keyboard.on(Keyboard.BackgroundAudioPlayPause, 'reader', function()
         {
             var play = !$audioTrackDiv.hasClass('isPlaying');
-            
+
             readium.reader.backgroundAudioTrackManager.setPlayState(play);
             readium.reader.backgroundAudioTrackManager.playPause(play);
         });
-    
+
         $playAudioTrackBtn.on("click", function ()
         {
             var wasFocused = document.activeElement === $playAudioTrackBtn[0];
-        
+
             readium.reader.backgroundAudioTrackManager.setPlayState(true);
             readium.reader.backgroundAudioTrackManager.playPause(true);
-        
+
             if (wasFocused) setTimeout(function(){ $pauseAudioTrackBtn[0].focus(); }, 50);
         });
-    
+
         $pauseAudioTrackBtn.on("click", function ()
         {
             var wasFocused = document.activeElement === $pauseAudioTrackBtn[0];
-        
+
             readium.reader.backgroundAudioTrackManager.setPlayState(false);
             readium.reader.backgroundAudioTrackManager.playPause(false);
-        
+
             if (wasFocused) setTimeout(function(){ $playAudioTrackBtn[0].focus(); }, 50);
         });
     };
@@ -60511,7 +60280,7 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define('gestures',['jquery','jquery_hammer','hammerjs'], function($,jqueryHammer,Hammer) {
+define('readium_js_viewer/gestures',['jquery','jquery_hammer','hammerjs'], function($,jqueryHammer,Hammer) {
 
     var gesturesHandler = function(reader, viewport){
         
@@ -60587,30 +60356,31 @@ return; // TODO upgrade to Hammer API v2
     };
     return gesturesHandler;
 });
-define('EpubReader',[
-"globalsSetup", "readium-plugin-example",
+define('readium_js_viewer/EpubReader',[
+"readium_shared_js/globalsSetup",
+"readium_plugin_example",
 'module',
 'jquery',
 'bootstrap',
 'bootstrapA11y',
 'URIjs',
-'Spinner',
-'storage/Settings',
-'i18n/Strings',
-'Dialogs',
-'ReaderSettingsDialog',
-'hgn!templates/about-dialog.html',
-'hgn!templates/reader-navbar.html',
-'hgn!templates/reader-body.html',
-'hgn!templates/reader-body-page-btns.html',
-'analytics/Analytics',
+'./Spinner',
+'./storage/Settings',
+'readium_js_viewer_i18n/Strings',
+'./Dialogs',
+'./ReaderSettingsDialog',
+'hgn!readium_js_viewer_html_templates/about-dialog.html',
+'hgn!readium_js_viewer_html_templates/reader-navbar.html',
+'hgn!readium_js_viewer_html_templates/reader-body.html',
+'hgn!readium_js_viewer_html_templates/reader-body-page-btns.html',
+'./analytics/Analytics',
 'screenfull',
-'Keyboard',
-'EpubReaderMediaOverlays',
-'EpubReaderBackgroundAudioTrack',
-'gestures',
-'versioning/Versioning',
-'Readium'],
+'./Keyboard',
+'./EpubReaderMediaOverlays',
+'./EpubReaderBackgroundAudioTrack',
+'./gestures',
+'./versioning/ReadiumVersioning',
+'readium_js/Readium'],
 
 function (
 globalSetup, examplePluginConfig,
@@ -60636,11 +60406,11 @@ EpubReaderBackgroundAudioTrack,
 GesturesHandler,
 Versioning,
 Readium){
-        
+
         examplePluginConfig.borderColor = "blue";
         examplePluginConfig.backgroundColor = "cyan";
-        
-    var readium, 
+
+    var readium,
         embedded,
         url,
         el = document.documentElement,
@@ -60649,7 +60419,7 @@ Readium){
 
     // This function will retrieve a package document and load an EPUB
     var loadEbook = function (packageDocumentURL, readerSettings, openPageRequest) {
-        
+
         readium.openPackageDocument(packageDocumentURL, function(packageDocument, options){
             currentDocument = packageDocument;
             currentDocument.generateTocListDOM(function(dom){
@@ -60661,7 +60431,7 @@ Readium){
 
             $('<h2 class="book-title-header"></h2>').insertAfter('.navbar').text(metadata.title);
 
-        
+
             $("#left-page-btn").unbind("click");
             $("#right-page-btn").unbind("click");
             var $pageBtnsContainer = $('#readium-page-btns');
@@ -60680,9 +60450,9 @@ Readium){
     {
 //console.error("do SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
         if (spinner.willSpin || spinner.isSpinning) return;
-        
+
         spinner.willSpin = true;
-        
+
         setTimeout(function()
         {
             if (spinner.stopRequested)
@@ -60695,16 +60465,16 @@ Readium){
 //console.debug("SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
             spinner.isSpinning = true;
             spinner.spin($('#reading-area')[0]);
-            
+
             spinner.willSpin = false;
-            
+
         }, 100);
     };
 
     var tocShowHideToggle = function(){
-        
+
         $(document.body).removeClass('hide-ui');
-        
+
         var $appContainer = $('#app-container'),
             hide = $appContainer.hasClass('toc-visible');
         var bookmark;
@@ -60728,7 +60498,7 @@ Readium){
         }else if (readium.reader.handleViewportResize){
 
             readium.reader.handleViewportResize();
-            
+
             setTimeout(function()
             {
                 readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
@@ -60749,7 +60519,7 @@ Readium){
     }
 
     var loadToc = function(dom){
-        
+
         if (dom) {
             $('script', dom).remove();
 
@@ -60778,7 +60548,7 @@ Readium){
                 }
                 pparent = pparent.parentNode;
             }
-        
+
             var toc = (tocNav && $(tocNav).html()) || $('body', dom).html() || $(dom).html();
             var tocUrl = currentDocument.getToc();
 
@@ -60803,22 +60573,22 @@ Readium){
                     $toc[0].style.direction = "rtl"; // The CSS stylesheet property does not trigger :(
                 }
             }
-        
+
         } else {
             var tocUrl = currentDocument.getToc();
 
             $('#readium-toc-body').append("?? " + tocUrl);
         }
-    
+
         var _tocLinkActivated = false;
-        
+
         var lastIframe = undefined,
             wasFixed;
 
         readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, setScaleDisplay);
         readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem)
         {
-            
+
             var isFixed = readium.reader.isCurrentViewFixedLayout();
 
             // TODO: fix the pan-zoom feature!
@@ -60832,15 +60602,15 @@ Readium){
             //TODO not picked-up by all screen readers, so for now this short description will suffice
             $iframe.attr("title", "EPUB");
             $iframe.attr("aria-label", "EPUB");
-            
+
             lastIframe = $iframe[0];
         });
-        
+
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData)
         {
             savePlace();
             updateUI(pageChangeData);
-            
+
 
             if (spinner.isSpinning)
             {
@@ -60853,15 +60623,15 @@ Readium){
 //console.debug("!! SPIN REQ: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
                 spinner.stopRequested = true;
             }
-            
+
             if (!_tocLinkActivated) return;
             _tocLinkActivated = false;
-            
+
             try
             {
                 var iframe = undefined;
                 var element = undefined;
-                
+
                 var id = pageChangeData.elementId;
                 if (!id)
                 {
@@ -60875,7 +60645,7 @@ Readium){
                             [],
                             ["MathJax_Message"]);
                         element = element[0];
-                        
+
                         if (element)
                         {
                             iframe = $("#epub-reader-frame iframe")[0];
@@ -60919,7 +60689,7 @@ Readium){
                 {
                     iframe = lastIframe;
                 }
-                
+
                 if (iframe)
                 {
                     //var doc = ( iframe.contentWindow || iframe.contentDocument ).document;
@@ -60936,14 +60706,14 @@ Readium){
         $('#readium-toc-body').on('click', 'a', function(e)
         {
             spin();
-            
+
             var href = $(this).attr('href');
-            href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href; 
+            href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
 
             _tocLinkActivated = true;
 
             readium.reader.openContentUrl(href);
-        
+
             if (embedded){
                 $('.toc-visible').removeClass('toc-visible');
                 $(document.body).removeClass('hide-ui');
@@ -60968,7 +60738,7 @@ Readium){
     }
 
     var toggleFullScreen = function(){
-        
+
         if (!screenfull.enabled) return;
 
         screenfull.toggle();
@@ -60989,7 +60759,7 @@ Readium){
         {
             titleText = Strings.enter_fullscreen + ' [' + Keyboard.FullScreenToggle + ']';
             $('#buttFullScreenToggle span').removeClass('glyphicon-resize-small');
-            $('#buttFullScreenToggle span').addClass('glyphicon-resize-full'); 
+            $('#buttFullScreenToggle span').addClass('glyphicon-resize-full');
             $('#buttFullScreenToggle').attr('aria-label', titleText);
             $('#buttFullScreenToggle').attr('title', titleText);
         }
@@ -61001,18 +60771,18 @@ Readium){
         if (!embedded && $('#app-container').hasClass('toc-visible')){
             return;
         }
-        
+
         var navBar = document.getElementById("app-navbar");
         if (document.activeElement) {
             var within = jQuery.contains(navBar, document.activeElement);
             if (within) return;
         }
-        
+
         var $navBar = $(navBar);
         // BROEKN! $navBar.is(':hover')
         var isMouseOver = $navBar.find(':hover').length > 0;
         if (isMouseOver) return;
-        
+
         if ($('#audioplayer').hasClass('expanded-audio')) return;
 
         $(document.body).addClass('hide-ui');
@@ -61054,7 +60824,7 @@ Readium){
         else
             $("#right-page-btn").hide();
     }
-    
+
     var savePlace = function(){
         Settings.put(url, readium.reader.bookmarkCurrentPage(), $.noop);
     }
@@ -61072,7 +60842,7 @@ Readium){
     };
 
     var installReaderEventHandlers = function(){
-        
+
         // Set handlers for click events
         $(".icon-annotations").on("click", function () {
             readium.reader.plugins.annotations.addSelectionHighlight(Math.floor((Math.random()*1000000)), "highlight");
@@ -61087,7 +60857,7 @@ Readium){
                 || document.activeElement === document.getElementById('rate-range-slider')
                 || jQuery.contains(document.getElementById("mo-sync-form"), document.activeElement)
                 || jQuery.contains(document.getElementById("mo-highlighters"), document.activeElement)
-                
+
                 // jQuery.contains(document.getElementById("app-navbar"), document.activeElement)
                 // || jQuery.contains(document.getElementById("settings-dialog"), document.activeElement)
                 // || jQuery.contains(document.getElementById("about-dialog"), document.activeElement)
@@ -61116,28 +60886,28 @@ Readium){
         Keyboard.on(Keyboard.PagePrevious, 'reader', function(){
             if (!isWithinForbiddenNavKeysArea()) prevPage();
         });
-        
+
         Keyboard.on(Keyboard.PagePreviousAlt, 'reader', prevPage);
-        
+
         Keyboard.on(Keyboard.PageNextAlt, 'reader', nextPage);
-        
+
         Keyboard.on(Keyboard.PageNext, 'reader', function(){
             if (!isWithinForbiddenNavKeysArea()) nextPage();
         });
-        
+
         Keyboard.on(Keyboard.FullScreenToggle, 'reader', toggleFullScreen);
-        
+
         $('#buttFullScreenToggle').on('click', toggleFullScreen);
 
         var loadlibrary = function()
         {
             $("html").attr("data-theme", "library");
-            
+
             $(window).trigger('loadlibrary');
         };
 
         Keyboard.on(Keyboard.SwitchToLibrary, 'reader', loadlibrary /* function(){setTimeout(, 30);} */ );
-        
+
         $('.icon-library').on('click', function(){
             loadlibrary();
             return false;
@@ -61162,7 +60932,7 @@ Readium){
                 setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
             }
         });
-        
+
         $('.icon-toc').on('click', tocShowHideToggle);
 
         var setTocSize = function(){
@@ -61236,29 +61006,29 @@ Readium){
         $('#zoom-fit-screen a').on('click', setFitScreen);
         $('#zoom-custom a').on('click', enableCustom);
         $('.zoom-wrapper input').on('change', setCustom);
-        
+
         spin();
     }
-    
+
     var loadReaderUI = function (data) {
-        
+
         Keyboard.scope('reader');
-        
+
         url = data.epub;
         Analytics.trackView('/reader');
         embedded = data.embedded;
 
         loadReaderUIPrivate();
-        
+
         //because we reinitialize the reader we have to unsubscribe to all events for the previews reader instance
         if(readium && readium.reader) {
             readium.reader.off();
         }
-        
+
         if (window.ReadiumSDK) {
             ReadiumSDK.off(ReadiumSDK.Events.PLUGINS_LOADED);
         }
-        
+
         setTimeout(function()
         {
             initReadium(); //async
@@ -61271,7 +61041,7 @@ Readium){
 
             var prefix = (self.location && self.location.origin && self.location.pathname) ? (self.location.origin + self.location.pathname + "/..") : "";
             var readerOptions =  {
-                el: "#epub-reader-frame", 
+                el: "#epub-reader-frame",
                 annotationCSSUrl: module.config().annotationCssUrl || (prefix + "/css/annotations.css"),
                 mathJaxUrl : module.config().mathJaxUrl ? (prefix + module.config().mathJaxUrl) : (prefix + "/scripts/mathjax/MathJax.js")
             };
@@ -61310,20 +61080,20 @@ Readium){
             Versioning.getVersioningInfo(function(version){
 
                 $('#app-container').append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
-                
+
                 window.navigator.epubReadingSystem.name = "readium-js-viewer";
                 window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;
-                
+
                 window.navigator.epubReadingSystem.readium = {};
-                
+
                 window.navigator.epubReadingSystem.readium.buildInfo = {};
-                
+
                 window.navigator.epubReadingSystem.readium.buildInfo.dateTime = version.dateTimeString; //new Date(timestamp).toString();
                 window.navigator.epubReadingSystem.readium.buildInfo.version = version.readiumJsViewer.version;
                 window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion = version.readiumJsViewer.chromeVersion;
-                
+
                 window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories = [];
-                
+
                 var repo1 = {};
                 repo1.name = "readium-js-viewer";
                 repo1.sha = version.readiumJsViewer.sha;
@@ -61335,7 +61105,7 @@ Readium){
                 repo1.timestamp = version.readiumJsViewer.timestamp;
                 repo1.url = "https://github.com/readium/" + repo1.name + "/tree/" + repo1.sha;
                 window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo1);
-                
+
                 var repo2 = {};
                 repo2.name = "readium-js";
                 repo2.sha = version.readiumJs.sha;
@@ -61347,7 +61117,7 @@ Readium){
                 repo2.timestamp = version.readiumJs.timestamp;
                 repo2.url = "https://github.com/readium/" + repo2.name + "/tree/" + repo2.sha;
                 window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo2);
-                
+
                 var repo3 = {};
                 repo3.name = "readium-shared-js";
                 repo3.sha = version.readiumSharedJs.sha;
@@ -61375,7 +61145,7 @@ Readium){
                 // Debug check:
                 //console.debug(JSON.stringify(window.navigator.epubReadingSystem, undefined, 2));
             });
-            
+
 
             $(window).on('keyup', function(e)
             {
@@ -61388,15 +61158,15 @@ Readium){
             readium.reader.addIFrameEventListener('mousemove', function() {
                 hideLoop();
             });
-            
+
             readium.reader.addIFrameEventListener('keydown', function(e) {
                 Keyboard.dispatch(document.documentElement, e.originalEvent);
             });
-            
+
             readium.reader.addIFrameEventListener('keyup', function(e) {
                 Keyboard.dispatch(document.documentElement, e.originalEvent);
             });
-            
+
             readium.reader.addIFrameEventListener('focus', function(e) {
                 $(window).trigger("focus");
             });
@@ -61409,14 +61179,14 @@ Readium){
 
                 $(document.body).removeClass('hide-ui');
                 setTimeout(function(){ $("#settbutt1").focus(); }, 50);
-    
+
                 $("#buttSave").removeAttr("accesskey");
                 $("#buttClose").removeAttr("accesskey");
             });
             $('#settings-dialog').on('shown.bs.modal', function () {
 
                 Keyboard.scope('settings');
-    
+
                 $("#buttSave").attr("accesskey", Keyboard.accesskeys.SettingsModalSave);
                 $("#buttClose").attr("accesskey", Keyboard.accesskeys.SettingsModalClose);
             });
@@ -61431,7 +61201,7 @@ Readium){
             $('#about-dialog').on('shown.bs.modal', function(){
                 Keyboard.scope('about');
             });
-    
+
             var readerSettings;
             if (settings.reader){
                 readerSettings = JSON.parse(settings.reader);
@@ -61446,12 +61216,12 @@ Readium){
                     scroll: "auto"
                 });
             }
-            
+
 
             var toggleNightTheme = function(){
 
                 if (!embedded){
-            
+
                     Settings.get('reader', function(json)
                     {
                         if (!json)
@@ -61461,7 +61231,7 @@ Readium){
 
                         var isNight = json.theme === "night-theme";
                         json.theme = isNight ? "author-theme" : "night-theme";
-                        
+
                         Settings.put('reader', json);
 
                         SettingsDialog.updateReader(readium.reader, json);
@@ -61474,11 +61244,11 @@ Readium){
             readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function($iframe, spineItem) {
                 spin();
             });
-            
+
             EpubReaderMediaOverlays.init(readium);
-            
+
             EpubReaderBackgroundAudioTrack.init(readium);
-            
+
             loadEbook(url, readerSettings, openPageRequest);
 
             readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
@@ -61500,7 +61270,7 @@ console.debug("ANNOTATION CLICK: " + id);
         if (readium) {
             readium.closePackageDocument();
         }
-        
+
         // needed only if access keys can potentially be used to open a book while a dialog is opened, because keyboard.scope() is not accounted for with HTML access keys :(
         // for example: settings dialogs is open => SHIFT CTRL [B] access key => library view opens with transparent black overlay!
         Dialogs.closeModal();
@@ -61508,8 +61278,8 @@ console.debug("ANNOTATION CLICK: " + id);
         $('#settings-dialog').modal('hide');
         $('#about-dialog').modal('hide');
         $('.modal-backdrop').remove();
-        
-        
+
+
         Keyboard.off('reader');
         Keyboard.off('settings');
 
@@ -61523,7 +61293,7 @@ console.debug("ANNOTATION CLICK: " + id);
         //if (readium.reader.isMediaOverlayAvailable())
         if (readium && readium.reader) // window.push/popstate
             readium.reader.pauseMediaOverlay();
-        
+
         $(window).off('resize');
         $(window).off('mousemove');
         $(window).off('keyup');
@@ -61535,27 +61305,27 @@ console.debug("ANNOTATION CLICK: " + id);
 
         $(document.body).removeClass('hide-ui');
     }
-    
+
     var applyKeyboardSettingsAndLoadUi = function(data)
     {
         // override current scheme with user options
         Settings.get('reader', function(json)
         {
            Keyboard.applySettings(json);
-           
+
            loadReaderUI(data);
         });
     };
-    
+
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
         unloadUI : unloadReaderUI
     };
-    
+
 });
 
-define('ReadiumViewer',['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubReader){
-	
+define('readium_js_viewer/ReadiumViewer',['jquery', './EpubLibrary', './EpubReader'], function($, EpubLibrary, EpubReader){
+
 	var getEpubQueryParam = function(){
         var query = window.location.search;
         if (query && query.length){
@@ -61576,7 +61346,7 @@ define('ReadiumViewer',['jquery', 'EpubLibrary', 'EpubReader'], function($, Epub
     }
 
 	var initialLoad = function(){
-    
+
 		var epubUrl = getEpubQueryParam();
 		if (epubUrl){
                 EpubReader.loadUI({epub: decodeURIComponent(epubUrl)});
@@ -61597,7 +61367,7 @@ define('ReadiumViewer',['jquery', 'EpubLibrary', 'EpubReader'], function($, Epub
 	}
 
 	$(initialLoad);
-	
+
 	var pushState = $.noop;
 	if (window.history && window.history.pushState){
 		$(window).on('popstate', function(){
@@ -61616,7 +61386,7 @@ define('ReadiumViewer',['jquery', 'EpubLibrary', 'EpubReader'], function($, Epub
 
 
 	var tooltipSelector = 'nav *[title]';
-    
+
 	var libraryView = function(){
 		$(tooltipSelector).tooltip('destroy');
 		EpubReader.unloadUI();
@@ -61642,29 +61412,16 @@ define('ReadiumViewer',['jquery', 'EpubLibrary', 'EpubReader'], function($, Epub
 	$(document.body).tooltip({
 		selector : tooltipSelector,
 		placement: 'auto',
-		container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted 
+		container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted
 	}).on('show.bs.tooltip', function(e){
 		$(tooltipSelector).not(e.target).tooltip('destroy');
 	});
 
 });
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
 
-define('readium-js-viewer',['ReadiumViewer'], function (ReadiumViewer) {
-});
+define('readium_js_viewer', ['readium_js_viewer/ReadiumViewer'], function (main) { return main; });
 
 
-require(["readium-cfi-js", "globalsSetup", "readium-plugin-annotations", "readium-js-viewer"]);
+require(["readium_cfi_js/cfi_API", "readium_shared_js/globalsSetup", "readium_plugin_annotations", "readium_js_viewer/ReadiumViewer"]);
 
 //# sourceMappingURL=readium-js-viewer_all.js.map

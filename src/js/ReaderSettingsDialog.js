@@ -1,11 +1,11 @@
-define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', 'i18n/Strings', 'Dialogs', 'storage/Settings', 'Keyboard'], function(SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+define(['hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard'], function(SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
 	var defaultSettings = {
         fontSize: 100,
         syntheticSpread: "auto",
         scroll: "auto",
         columnGap: 60
     }
-    
+
     var getBookStyles = function(theme){
         var isAuthorTheme = theme === "author-theme";
     	var $previewText = $('.preview-text');
@@ -23,28 +23,28 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
         $previewText.addClass(newTheme);
         $previewText.attr('data-theme', newTheme);
     }
-    
+
     var updateReader = function(reader, readerSettings){
         reader.updateSettings(readerSettings); // triggers on pagination changed
 
         if (readerSettings.theme){
             //$("html").addClass("_" + readerSettings.theme);
             $("html").attr("data-theme", readerSettings.theme);
-            
+
             var bookStyles = getBookStyles(readerSettings.theme);
             reader.setBookStyles(bookStyles);
             $('#reading-area').css(bookStyles[0].declarations);
         }
     }
-    
+
     var updateSliderLabels = function($slider, val, txt, label)
     {
         $slider.attr("aria-valuenow", val+"");
         $slider.attr("aria-value-now", val+"");
-        
+
         $slider.attr("aria-valuetext", txt+"");
         $slider.attr("aria-value-text", txt+"");
-        
+
         $slider.attr("title", label + " " + txt);
         $slider.attr("aria-label", label + " " + txt);
     };
@@ -57,22 +57,22 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
             var newTheme = $(this).attr('data-theme');
             setPreviewTheme($previewText, newTheme);
         });
-        
+
         var $marginSlider = $("#margin-size-input");
         $marginSlider.on("change",
         function() {
             var val = $marginSlider.val();
-            
+
             updateSliderLabels($marginSlider, val, val + "px", Strings.i18n_margins);
         }
         );
-        
+
         var $fontSizeSlider = $("#font-size-input");
         $fontSizeSlider.on('change', function(){
             var fontSize = $fontSizeSlider.val();
-            
+
             $previewText.css({fontSize: (fontSize/100) + 'em'});
-            
+
             updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
         });
 
@@ -96,22 +96,22 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
               $('#buttSave').focus();
             }
         });
-        
+
         $('#settings-dialog').on('hide.bs.modal', function(){ // IMPORTANT: not "hidden.bs.modal"!! (because .off() in
-        
+
             // Safety: "save" button click
             setTimeout(function(){
                 $("#keyboard-list").empty();
             }, 500);
         });
-        
+
         $('#settings-dialog').on('show.bs.modal', function(){ // IMPORTANT: not "shown.bs.modal"!! (because .off() in library vs. reader context)
 
             $('#tab-butt-main').trigger("click");
             KeyboardSettings.initKeyboardList();
 
             setTimeout(function(){ $('#closeSettingsCross')[0].focus(); }, 1000); //tab-butt-main
-        
+
             Settings.get('reader', function(readerSettings){
                 readerSettings = readerSettings || defaultSettings;
                 for (prop in defaultSettings)
@@ -124,8 +124,8 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
 
                 $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
-                
-                
+
+
                 $marginSlider.val(readerSettings.columnGap);
                 updateSliderLabels($marginSlider, readerSettings.columnGap, readerSettings.columnGap + "px", Strings.i18n_margins);
 
@@ -138,7 +138,7 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
                 else {
                     $('#spread-default-option input').prop('checked', true);
                 }
-                
+
                 if(readerSettings.scroll == "scroll-doc") {
                     $('#scroll-doc-option input').prop('checked', true);
                 }
@@ -148,7 +148,7 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
                 else {
                     $('#scroll-default-option input').prop('checked', true);
                 }
-                
+
                 if (readerSettings.pageTransition === 0)
                 {
                     $('#pageTransition-1-option input').prop('checked', true);
@@ -169,17 +169,17 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
                 {
                     $('#pageTransition-none-option input').prop('checked', true);
                 }
-                
+
                 if (readerSettings.theme){
                     setPreviewTheme($previewText, readerSettings.theme);
                 }
-                
+
                 $previewText.css({fontSize: (readerSettings.fontSize/100) + 'em'});
             });
         });
 
         var save = function(){
-            
+
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
                 syntheticSpread: "auto",
@@ -220,14 +220,14 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
 
 
             var keys = KeyboardSettings.saveKeys();
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 for (prop in readerSettings)
                 {
                     if (readerSettings.hasOwnProperty(prop))
@@ -249,14 +249,14 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
                 // }
 
                 Settings.put('reader', json);
-                
+
                 setTimeout(function()
                 {
                     Keyboard.applySettings(json);
                 }, 100);
             });
         };
-        
+
         Keyboard.on(Keyboard.NightTheme, 'settings', function(){
 
                 Settings.get('reader', function(json)
@@ -268,13 +268,13 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
 
                     var isNight = json.theme === "night-theme";
                     json.theme = isNight ? "author-theme" : "night-theme";
-                    
+
                     Settings.put('reader', json);
 
                     if (reader) updateReader(reader, json);
                 });
         });
-        
+
         Keyboard.on(Keyboard.SettingsModalSave, 'settings', function() {
             save();
             $('#settings-dialog').modal('hide');
@@ -283,7 +283,7 @@ define(['hgn!templates/settings-dialog.html', 'ReaderSettingsDialog_Keyboard', '
         Keyboard.on(Keyboard.SettingsModalClose, 'settings', function() {
             $('#settings-dialog').modal('hide');
         });
-        
+
         $('#settings-dialog .btn-primary').on('click', save);
 	}
 

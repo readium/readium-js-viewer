@@ -1,3 +1,199 @@
+/**
+* Jath is free software provided under the MIT license.
+*	See LICENSE file for full text of the license.
+*	Copyright 2010 Dan Newcome.
+*/
+(function() {
+
+Jath = {};
+Jath.parse = parse;
+Jath.resolver = null;
+Jath.namespaces = null;
+
+// values prefixed with literal charactar marker will not be
+// treated as xpath expressions and will be output directly
+Jath.literalChar = ":";
+
+/**
+* Rudimentary check for IE
+* Also added support for WSH, uses the same API as IE
+*/
+var m_browser;
+if( typeof WScript != "undefined" ) {
+	m_browser = 'msie';
+}
+// TODO: is there a better way to detect node.js?
+else if( typeof process != "undefined" ) {
+	// running under node.js
+	m_browser = 'node';
+	var xmljs = require( 'libxmljs' );
+	exports.parse = parse;
+}
+else if( navigator.userAgent.toLowerCase().indexOf( 'msie' ) > -1 ) {
+	m_browser = 'msie';
+}
+else {
+	m_browser = 'standards';
+}
+
+/**
+* parse: 
+*	process xml doc according to the given json template
+*	@template - output spec as a json template
+*	@xmldoc - input xml document
+*	@node - the starting node to use in the document. xpath
+*		expressions will be evaluated relative to this node.
+*		If not given, root will be used.
+*/
+function parse( template, xmldoc, node ) {
+	if( node === undefined ) {
+		node = xmldoc;
+	}
+	if( typeOf( template ) === 'array' ) {
+		return parseArray( template, xmldoc, node );
+	}
+	else if( typeOf( template ) === 'object' ) {
+		return parseObject( template, xmldoc, node );
+	}
+	else {
+		return parseItem( template, xmldoc, node );
+	}
+}
+
+function parseArray( template, xmldoc, node ) {
+	var retVal = [];
+	
+	if( template[0] != null ) {
+		if( m_browser == 'msie' ) {
+			xmldoc.setProperty("SelectionLanguage", "XPath");
+			xmldoc.setProperty("SelectionNamespaces", createResolverString() );			
+			var nodeList = node.selectNodes( template[0] );
+			var thisNode;
+			while( thisNode = nodeList.nextNode() ) {
+				retVal.push( parse( template[1], xmldoc, thisNode ) );
+			}
+		}
+		else if( m_browser == 'node' ) {
+			var nodeList = node.find( template[0] );
+			for( var i=0; i < nodeList.length; i++ ) {
+				retVal.push( parse( template[1], xmldoc, nodeList[i] ) );
+			}
+		}
+		else {
+			var xpathResult = xmldoc.evaluate( template[0], node, Jath.resolver, XPathResult.ANY_TYPE, null );
+			var thisNode;
+			while( thisNode = xpathResult.iterateNext() ) {
+				retVal.push( parse( template[1], xmldoc, thisNode ) );
+			}
+		}
+	}
+	// we can have an array output without iterating over the source
+	// data - in this case, current node is static 
+	else {
+		for( var i=1; i < template.length; i++ ) {
+			retVal.push( parse( template[i], xmldoc, node ) );
+		}
+	}
+	
+	return retVal;
+}
+
+function parseObject( template, xmldoc, node ) {
+	var item;
+	var newitem = {};
+	for( item in template ) {
+		newitem[item] = parse( template[item], xmldoc, node );
+	}
+	return newitem;
+}
+
+function parseItem( template, xmldoc, node ) {
+	if( typeOf( template ) == 'string' && template.substring( 0, 1 ) != Jath.literalChar ) {
+		if( m_browser == 'msie' ) {
+			xmldoc.setProperty("SelectionLanguage", "XPath");
+			xmldoc.setProperty("SelectionNamespaces", createResolverString() );
+			if( node.selectSingleNode( template ) != null ) {
+				return node.selectSingleNode( template ).text;
+			}
+			else {
+				return null;
+			}
+		}
+		else if( m_browser == 'node' ) {
+			var itemNode = node.get( template );
+			if( itemNode && itemNode.text ) {
+				return itemNode.text();
+			}
+			else if( itemNode && itemNode.value ) {
+				return itemNode.value();
+			}
+			else {
+				return null;
+			}
+		}
+		else {
+			var itemNode = xmldoc.evaluate( template, node, Jath.resolver, XPathResult.STRING_TYPE, null ); 
+			if( itemNode ) {
+				return itemNode.stringValue;
+			}
+			else {
+				return null;
+			}
+		}
+	}
+	else {
+		return template.substring( 1 );
+	}
+
+}
+
+/**
+* typeOf function published by Douglas Crockford in ECMAScript recommendations
+* http://www.crockford.com/javascript/recommend.html
+*/
+function typeOf(value) {
+	var s = typeof value;
+	if (s === 'object') {
+		if (value) {
+			if (typeof value.length === 'number' &&
+					!(value.propertyIsEnumerable('length')) &&
+					typeof value.splice === 'function') {
+				s = 'array';
+			}
+		} else {
+			s = 'null';
+		}
+	}
+	return s;
+}
+
+/**
+* IE requires namespaces to be in the form that 
+* an xml document would provide. Use underscore
+* for default ns.
+*/
+function createResolverString() {
+	var retval = [];
+	for( var item in Jath.namespaces ) {
+		if( item == "_" ) {
+			retval.push( "xmlns='" + Jath.namespaces[item] + "'" );
+		}
+		else {
+			retval.push( "xmlns:" + item + "='" + Jath.namespaces[item] + "'" );
+		}
+	}
+	return retval.join(" ");
+}
+
+})();
+
+define("jath", (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.Jath;
+    };
+}(this)));
+
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -9209,6 +9405,10476 @@ return jQuery;
 
 }));
 
+/*!
+ * Bootstrap v3.3.4 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+if (typeof jQuery === 'undefined') {
+  throw new Error('Bootstrap\'s JavaScript requires jQuery')
+}
+
++function ($) {
+  'use strict';
+  var version = $.fn.jquery.split(' ')[0].split('.')
+  if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1)) {
+    throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher')
+  }
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: transition.js v3.3.4
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement('bootstrap')
+
+    var transEndEventNames = {
+      WebkitTransition : 'webkitTransitionEnd',
+      MozTransition    : 'transitionend',
+      OTransition      : 'oTransitionEnd otransitionend',
+      transition       : 'transitionend'
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false
+    var $el = this
+    $(this).one('bsTransitionEnd', function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+
+    if (!$.support.transition) return
+
+    $.event.special.bsTransitionEnd = {
+      bindType: $.support.transition.end,
+      delegateType: $.support.transition.end,
+      handle: function (e) {
+        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+      }
+    }
+  })
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: alert.js v3.3.4
+ * http://getbootstrap.com/javascript/#alerts
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // ALERT CLASS DEFINITION
+  // ======================
+
+  var dismiss = '[data-dismiss="alert"]'
+  var Alert   = function (el) {
+    $(el).on('click', dismiss, this.close)
+  }
+
+  Alert.VERSION = '3.3.4'
+
+  Alert.TRANSITION_DURATION = 150
+
+  Alert.prototype.close = function (e) {
+    var $this    = $(this)
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = $(selector)
+
+    if (e) e.preventDefault()
+
+    if (!$parent.length) {
+      $parent = $this.closest('.alert')
+    }
+
+    $parent.trigger(e = $.Event('close.bs.alert'))
+
+    if (e.isDefaultPrevented()) return
+
+    $parent.removeClass('in')
+
+    function removeElement() {
+      // detach from parent, fire event then clean up data
+      $parent.detach().trigger('closed.bs.alert').remove()
+    }
+
+    $.support.transition && $parent.hasClass('fade') ?
+      $parent
+        .one('bsTransitionEnd', removeElement)
+        .emulateTransitionEnd(Alert.TRANSITION_DURATION) :
+      removeElement()
+  }
+
+
+  // ALERT PLUGIN DEFINITION
+  // =======================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.alert')
+
+      if (!data) $this.data('bs.alert', (data = new Alert(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  var old = $.fn.alert
+
+  $.fn.alert             = Plugin
+  $.fn.alert.Constructor = Alert
+
+
+  // ALERT NO CONFLICT
+  // =================
+
+  $.fn.alert.noConflict = function () {
+    $.fn.alert = old
+    return this
+  }
+
+
+  // ALERT DATA-API
+  // ==============
+
+  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: button.js v3.3.4
+ * http://getbootstrap.com/javascript/#buttons
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // BUTTON PUBLIC CLASS DEFINITION
+  // ==============================
+
+  var Button = function (element, options) {
+    this.$element  = $(element)
+    this.options   = $.extend({}, Button.DEFAULTS, options)
+    this.isLoading = false
+  }
+
+  Button.VERSION  = '3.3.4'
+
+  Button.DEFAULTS = {
+    loadingText: 'loading...'
+  }
+
+  Button.prototype.setState = function (state) {
+    var d    = 'disabled'
+    var $el  = this.$element
+    var val  = $el.is('input') ? 'val' : 'html'
+    var data = $el.data()
+
+    state = state + 'Text'
+
+    if (data.resetText == null) $el.data('resetText', $el[val]())
+
+    // push to event loop to allow forms to submit
+    setTimeout($.proxy(function () {
+      $el[val](data[state] == null ? this.options[state] : data[state])
+
+      if (state == 'loadingText') {
+        this.isLoading = true
+        $el.addClass(d).attr(d, d)
+      } else if (this.isLoading) {
+        this.isLoading = false
+        $el.removeClass(d).removeAttr(d)
+      }
+    }, this), 0)
+  }
+
+  Button.prototype.toggle = function () {
+    var changed = true
+    var $parent = this.$element.closest('[data-toggle="buttons"]')
+
+    if ($parent.length) {
+      var $input = this.$element.find('input')
+      if ($input.prop('type') == 'radio') {
+        if ($input.prop('checked') && this.$element.hasClass('active')) changed = false
+        else $parent.find('.active').removeClass('active')
+      }
+      if (changed) $input.prop('checked', !this.$element.hasClass('active')).trigger('change')
+    } else {
+      this.$element.attr('aria-pressed', !this.$element.hasClass('active'))
+    }
+
+    if (changed) this.$element.toggleClass('active')
+  }
+
+
+  // BUTTON PLUGIN DEFINITION
+  // ========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.button')
+      var options = typeof option == 'object' && option
+
+      if (!data) $this.data('bs.button', (data = new Button(this, options)))
+
+      if (option == 'toggle') data.toggle()
+      else if (option) data.setState(option)
+    })
+  }
+
+  var old = $.fn.button
+
+  $.fn.button             = Plugin
+  $.fn.button.Constructor = Button
+
+
+  // BUTTON NO CONFLICT
+  // ==================
+
+  $.fn.button.noConflict = function () {
+    $.fn.button = old
+    return this
+  }
+
+
+  // BUTTON DATA-API
+  // ===============
+
+  $(document)
+    .on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
+      var $btn = $(e.target)
+      if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
+      Plugin.call($btn, 'toggle')
+      e.preventDefault()
+    })
+    .on('focus.bs.button.data-api blur.bs.button.data-api', '[data-toggle^="button"]', function (e) {
+      $(e.target).closest('.btn').toggleClass('focus', /^focus(in)?$/.test(e.type))
+    })
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: carousel.js v3.3.4
+ * http://getbootstrap.com/javascript/#carousel
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // CAROUSEL CLASS DEFINITION
+  // =========================
+
+  var Carousel = function (element, options) {
+    this.$element    = $(element)
+    this.$indicators = this.$element.find('.carousel-indicators')
+    this.options     = options
+    this.paused      = null
+    this.sliding     = null
+    this.interval    = null
+    this.$active     = null
+    this.$items      = null
+
+    this.options.keyboard && this.$element.on('keydown.bs.carousel', $.proxy(this.keydown, this))
+
+    this.options.pause == 'hover' && !('ontouchstart' in document.documentElement) && this.$element
+      .on('mouseenter.bs.carousel', $.proxy(this.pause, this))
+      .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
+  }
+
+  Carousel.VERSION  = '3.3.4'
+
+  Carousel.TRANSITION_DURATION = 600
+
+  Carousel.DEFAULTS = {
+    interval: 5000,
+    pause: 'hover',
+    wrap: true,
+    keyboard: true
+  }
+
+  Carousel.prototype.keydown = function (e) {
+    if (/input|textarea/i.test(e.target.tagName)) return
+    switch (e.which) {
+      case 37: this.prev(); break
+      case 39: this.next(); break
+      default: return
+    }
+
+    e.preventDefault()
+  }
+
+  Carousel.prototype.cycle = function (e) {
+    e || (this.paused = false)
+
+    this.interval && clearInterval(this.interval)
+
+    this.options.interval
+      && !this.paused
+      && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
+
+    return this
+  }
+
+  Carousel.prototype.getItemIndex = function (item) {
+    this.$items = item.parent().children('.item')
+    return this.$items.index(item || this.$active)
+  }
+
+  Carousel.prototype.getItemForDirection = function (direction, active) {
+    var activeIndex = this.getItemIndex(active)
+    var willWrap = (direction == 'prev' && activeIndex === 0)
+                || (direction == 'next' && activeIndex == (this.$items.length - 1))
+    if (willWrap && !this.options.wrap) return active
+    var delta = direction == 'prev' ? -1 : 1
+    var itemIndex = (activeIndex + delta) % this.$items.length
+    return this.$items.eq(itemIndex)
+  }
+
+  Carousel.prototype.to = function (pos) {
+    var that        = this
+    var activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'))
+
+    if (pos > (this.$items.length - 1) || pos < 0) return
+
+    if (this.sliding)       return this.$element.one('slid.bs.carousel', function () { that.to(pos) }) // yes, "slid"
+    if (activeIndex == pos) return this.pause().cycle()
+
+    return this.slide(pos > activeIndex ? 'next' : 'prev', this.$items.eq(pos))
+  }
+
+  Carousel.prototype.pause = function (e) {
+    e || (this.paused = true)
+
+    if (this.$element.find('.next, .prev').length && $.support.transition) {
+      this.$element.trigger($.support.transition.end)
+      this.cycle(true)
+    }
+
+    this.interval = clearInterval(this.interval)
+
+    return this
+  }
+
+  Carousel.prototype.next = function () {
+    if (this.sliding) return
+    return this.slide('next')
+  }
+
+  Carousel.prototype.prev = function () {
+    if (this.sliding) return
+    return this.slide('prev')
+  }
+
+  Carousel.prototype.slide = function (type, next) {
+    var $active   = this.$element.find('.item.active')
+    var $next     = next || this.getItemForDirection(type, $active)
+    var isCycling = this.interval
+    var direction = type == 'next' ? 'left' : 'right'
+    var that      = this
+
+    if ($next.hasClass('active')) return (this.sliding = false)
+
+    var relatedTarget = $next[0]
+    var slideEvent = $.Event('slide.bs.carousel', {
+      relatedTarget: relatedTarget,
+      direction: direction
+    })
+    this.$element.trigger(slideEvent)
+    if (slideEvent.isDefaultPrevented()) return
+
+    this.sliding = true
+
+    isCycling && this.pause()
+
+    if (this.$indicators.length) {
+      this.$indicators.find('.active').removeClass('active')
+      var $nextIndicator = $(this.$indicators.children()[this.getItemIndex($next)])
+      $nextIndicator && $nextIndicator.addClass('active')
+    }
+
+    var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
+    if ($.support.transition && this.$element.hasClass('slide')) {
+      $next.addClass(type)
+      $next[0].offsetWidth // force reflow
+      $active.addClass(direction)
+      $next.addClass(direction)
+      $active
+        .one('bsTransitionEnd', function () {
+          $next.removeClass([type, direction].join(' ')).addClass('active')
+          $active.removeClass(['active', direction].join(' '))
+          that.sliding = false
+          setTimeout(function () {
+            that.$element.trigger(slidEvent)
+          }, 0)
+        })
+        .emulateTransitionEnd(Carousel.TRANSITION_DURATION)
+    } else {
+      $active.removeClass('active')
+      $next.addClass('active')
+      this.sliding = false
+      this.$element.trigger(slidEvent)
+    }
+
+    isCycling && this.cycle()
+
+    return this
+  }
+
+
+  // CAROUSEL PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.carousel')
+      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option)
+      var action  = typeof option == 'string' ? option : options.slide
+
+      if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
+      if (typeof option == 'number') data.to(option)
+      else if (action) data[action]()
+      else if (options.interval) data.pause().cycle()
+    })
+  }
+
+  var old = $.fn.carousel
+
+  $.fn.carousel             = Plugin
+  $.fn.carousel.Constructor = Carousel
+
+
+  // CAROUSEL NO CONFLICT
+  // ====================
+
+  $.fn.carousel.noConflict = function () {
+    $.fn.carousel = old
+    return this
+  }
+
+
+  // CAROUSEL DATA-API
+  // =================
+
+  var clickHandler = function (e) {
+    var href
+    var $this   = $(this)
+    var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) // strip for ie7
+    if (!$target.hasClass('carousel')) return
+    var options = $.extend({}, $target.data(), $this.data())
+    var slideIndex = $this.attr('data-slide-to')
+    if (slideIndex) options.interval = false
+
+    Plugin.call($target, options)
+
+    if (slideIndex) {
+      $target.data('bs.carousel').to(slideIndex)
+    }
+
+    e.preventDefault()
+  }
+
+  $(document)
+    .on('click.bs.carousel.data-api', '[data-slide]', clickHandler)
+    .on('click.bs.carousel.data-api', '[data-slide-to]', clickHandler)
+
+  $(window).on('load', function () {
+    $('[data-ride="carousel"]').each(function () {
+      var $carousel = $(this)
+      Plugin.call($carousel, $carousel.data())
+    })
+  })
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: collapse.js v3.3.4
+ * http://getbootstrap.com/javascript/#collapse
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // COLLAPSE PUBLIC CLASS DEFINITION
+  // ================================
+
+  var Collapse = function (element, options) {
+    this.$element      = $(element)
+    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
+                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
+    this.transitioning = null
+
+    if (this.options.parent) {
+      this.$parent = this.getParent()
+    } else {
+      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
+    }
+
+    if (this.options.toggle) this.toggle()
+  }
+
+  Collapse.VERSION  = '3.3.4'
+
+  Collapse.TRANSITION_DURATION = 350
+
+  Collapse.DEFAULTS = {
+    toggle: true
+  }
+
+  Collapse.prototype.dimension = function () {
+    var hasWidth = this.$element.hasClass('width')
+    return hasWidth ? 'width' : 'height'
+  }
+
+  Collapse.prototype.show = function () {
+    if (this.transitioning || this.$element.hasClass('in')) return
+
+    var activesData
+    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
+
+    if (actives && actives.length) {
+      activesData = actives.data('bs.collapse')
+      if (activesData && activesData.transitioning) return
+    }
+
+    var startEvent = $.Event('show.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    if (actives && actives.length) {
+      Plugin.call(actives, 'hide')
+      activesData || actives.data('bs.collapse', null)
+    }
+
+    var dimension = this.dimension()
+
+    this.$element
+      .removeClass('collapse')
+      .addClass('collapsing')[dimension](0)
+      .attr('aria-expanded', true)
+
+    this.$trigger
+      .removeClass('collapsed')
+      .attr('aria-expanded', true)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse in')[dimension]('')
+      this.transitioning = 0
+      this.$element
+        .trigger('shown.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+
+    this.$element
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+  }
+
+  Collapse.prototype.hide = function () {
+    if (this.transitioning || !this.$element.hasClass('in')) return
+
+    var startEvent = $.Event('hide.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var dimension = this.dimension()
+
+    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+    this.$element
+      .addClass('collapsing')
+      .removeClass('collapse in')
+      .attr('aria-expanded', false)
+
+    this.$trigger
+      .addClass('collapsed')
+      .attr('aria-expanded', false)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.transitioning = 0
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse')
+        .trigger('hidden.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    this.$element
+      [dimension](0)
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+  }
+
+  Collapse.prototype.toggle = function () {
+    this[this.$element.hasClass('in') ? 'hide' : 'show']()
+  }
+
+  Collapse.prototype.getParent = function () {
+    return $(this.options.parent)
+      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
+      .each($.proxy(function (i, element) {
+        var $element = $(element)
+        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
+      }, this))
+      .end()
+  }
+
+  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
+    var isOpen = $element.hasClass('in')
+
+    $element.attr('aria-expanded', isOpen)
+    $trigger
+      .toggleClass('collapsed', !isOpen)
+      .attr('aria-expanded', isOpen)
+  }
+
+  function getTargetFromTrigger($trigger) {
+    var href
+    var target = $trigger.attr('data-target')
+      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+
+    return $(target)
+  }
+
+
+  // COLLAPSE PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.collapse')
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
+      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.collapse
+
+  $.fn.collapse             = Plugin
+  $.fn.collapse.Constructor = Collapse
+
+
+  // COLLAPSE NO CONFLICT
+  // ====================
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+  // COLLAPSE DATA-API
+  // =================
+
+  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+    var $this   = $(this)
+
+    if (!$this.attr('data-target')) e.preventDefault()
+
+    var $target = getTargetFromTrigger($this)
+    var data    = $target.data('bs.collapse')
+    var option  = data ? 'toggle' : $this.data()
+
+    Plugin.call($target, option)
+  })
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: dropdown.js v3.3.4
+ * http://getbootstrap.com/javascript/#dropdowns
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // DROPDOWN CLASS DEFINITION
+  // =========================
+
+  var backdrop = '.dropdown-backdrop'
+  var toggle   = '[data-toggle="dropdown"]'
+  var Dropdown = function (element) {
+    $(element).on('click.bs.dropdown', this.toggle)
+  }
+
+  Dropdown.VERSION = '3.3.4'
+
+  Dropdown.prototype.toggle = function (e) {
+    var $this = $(this)
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    clearMenus()
+
+    if (!isActive) {
+      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
+        // if mobile we use a backdrop because click events don't delegate
+        $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus)
+      }
+
+      var relatedTarget = { relatedTarget: this }
+      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this
+        .trigger('focus')
+        .attr('aria-expanded', 'true')
+
+      $parent
+        .toggleClass('open')
+        .trigger('shown.bs.dropdown', relatedTarget)
+    }
+
+    return false
+  }
+
+  Dropdown.prototype.keydown = function (e) {
+    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
+
+    var $this = $(this)
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    if ((!isActive && e.which != 27) || (isActive && e.which == 27)) {
+      if (e.which == 27) $parent.find(toggle).trigger('focus')
+      return $this.trigger('click')
+    }
+
+    var desc = ' li:not(.disabled):visible a'
+    var $items = $parent.find('[role="menu"]' + desc + ', [role="listbox"]' + desc)
+
+    if (!$items.length) return
+
+    var index = $items.index(e.target)
+
+    if (e.which == 38 && index > 0)                 index--                        // up
+    if (e.which == 40 && index < $items.length - 1) index++                        // down
+    if (!~index)                                      index = 0
+
+    $items.eq(index).trigger('focus')
+  }
+
+  function clearMenus(e) {
+    if (e && e.which === 3) return
+    $(backdrop).remove()
+    $(toggle).each(function () {
+      var $this         = $(this)
+      var $parent       = getParent($this)
+      var relatedTarget = { relatedTarget: this }
+
+      if (!$parent.hasClass('open')) return
+
+      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this.attr('aria-expanded', 'false')
+      $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
+    })
+  }
+
+  function getParent($this) {
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = selector && $(selector)
+
+    return $parent && $parent.length ? $parent : $this.parent()
+  }
+
+
+  // DROPDOWN PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.dropdown')
+
+      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  var old = $.fn.dropdown
+
+  $.fn.dropdown             = Plugin
+  $.fn.dropdown.Constructor = Dropdown
+
+
+  // DROPDOWN NO CONFLICT
+  // ====================
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
+  // APPLY TO STANDARD DROPDOWN ELEMENTS
+  // ===================================
+
+  $(document)
+    .on('click.bs.dropdown.data-api', clearMenus)
+    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+    .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
+    .on('keydown.bs.dropdown.data-api', '[role="menu"]', Dropdown.prototype.keydown)
+    .on('keydown.bs.dropdown.data-api', '[role="listbox"]', Dropdown.prototype.keydown)
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: modal.js v3.3.4
+ * http://getbootstrap.com/javascript/#modals
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // MODAL CLASS DEFINITION
+  // ======================
+
+  var Modal = function (element, options) {
+    this.options             = options
+    this.$body               = $(document.body)
+    this.$element            = $(element)
+    this.$dialog             = this.$element.find('.modal-dialog')
+    this.$backdrop           = null
+    this.isShown             = null
+    this.originalBodyPad     = null
+    this.scrollbarWidth      = 0
+    this.ignoreBackdropClick = false
+
+    if (this.options.remote) {
+      this.$element
+        .find('.modal-content')
+        .load(this.options.remote, $.proxy(function () {
+          this.$element.trigger('loaded.bs.modal')
+        }, this))
+    }
+  }
+
+  Modal.VERSION  = '3.3.4'
+
+  Modal.TRANSITION_DURATION = 300
+  Modal.BACKDROP_TRANSITION_DURATION = 150
+
+  Modal.DEFAULTS = {
+    backdrop: true,
+    keyboard: true,
+    show: true
+  }
+
+  Modal.prototype.toggle = function (_relatedTarget) {
+    return this.isShown ? this.hide() : this.show(_relatedTarget)
+  }
+
+  Modal.prototype.show = function (_relatedTarget) {
+    var that = this
+    var e    = $.Event('show.bs.modal', { relatedTarget: _relatedTarget })
+
+    this.$element.trigger(e)
+
+    if (this.isShown || e.isDefaultPrevented()) return
+
+    this.isShown = true
+
+    this.checkScrollbar()
+    this.setScrollbar()
+    this.$body.addClass('modal-open')
+
+    this.escape()
+    this.resize()
+
+    this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
+
+    this.$dialog.on('mousedown.dismiss.bs.modal', function () {
+      that.$element.one('mouseup.dismiss.bs.modal', function (e) {
+        if ($(e.target).is(that.$element)) that.ignoreBackdropClick = true
+      })
+    })
+
+    this.backdrop(function () {
+      var transition = $.support.transition && that.$element.hasClass('fade')
+
+      if (!that.$element.parent().length) {
+        that.$element.appendTo(that.$body) // don't move modals dom position
+      }
+
+      that.$element
+        .show()
+        .scrollTop(0)
+
+      that.adjustDialog()
+
+      if (transition) {
+        that.$element[0].offsetWidth // force reflow
+      }
+
+      that.$element
+        .addClass('in')
+        .attr('aria-hidden', false)
+
+      that.enforceFocus()
+
+      var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget })
+
+      transition ?
+        that.$dialog // wait for modal to slide in
+          .one('bsTransitionEnd', function () {
+            that.$element.trigger('focus').trigger(e)
+          })
+          .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
+        that.$element.trigger('focus').trigger(e)
+    })
+  }
+
+  Modal.prototype.hide = function (e) {
+    if (e) e.preventDefault()
+
+    e = $.Event('hide.bs.modal')
+
+    this.$element.trigger(e)
+
+    if (!this.isShown || e.isDefaultPrevented()) return
+
+    this.isShown = false
+
+    this.escape()
+    this.resize()
+
+    $(document).off('focusin.bs.modal')
+
+    this.$element
+      .removeClass('in')
+      .attr('aria-hidden', true)
+      .off('click.dismiss.bs.modal')
+      .off('mouseup.dismiss.bs.modal')
+
+    this.$dialog.off('mousedown.dismiss.bs.modal')
+
+    $.support.transition && this.$element.hasClass('fade') ?
+      this.$element
+        .one('bsTransitionEnd', $.proxy(this.hideModal, this))
+        .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
+      this.hideModal()
+  }
+
+  Modal.prototype.enforceFocus = function () {
+    $(document)
+      .off('focusin.bs.modal') // guard against infinite focus loop
+      .on('focusin.bs.modal', $.proxy(function (e) {
+        if (this.$element[0] !== e.target && !this.$element.has(e.target).length) {
+          this.$element.trigger('focus')
+        }
+      }, this))
+  }
+
+  Modal.prototype.escape = function () {
+    if (this.isShown && this.options.keyboard) {
+      this.$element.on('keydown.dismiss.bs.modal', $.proxy(function (e) {
+        e.which == 27 && this.hide()
+      }, this))
+    } else if (!this.isShown) {
+      this.$element.off('keydown.dismiss.bs.modal')
+    }
+  }
+
+  Modal.prototype.resize = function () {
+    if (this.isShown) {
+      $(window).on('resize.bs.modal', $.proxy(this.handleUpdate, this))
+    } else {
+      $(window).off('resize.bs.modal')
+    }
+  }
+
+  Modal.prototype.hideModal = function () {
+    var that = this
+    this.$element.hide()
+    this.backdrop(function () {
+      that.$body.removeClass('modal-open')
+      that.resetAdjustments()
+      that.resetScrollbar()
+      that.$element.trigger('hidden.bs.modal')
+    })
+  }
+
+  Modal.prototype.removeBackdrop = function () {
+    this.$backdrop && this.$backdrop.remove()
+    this.$backdrop = null
+  }
+
+  Modal.prototype.backdrop = function (callback) {
+    var that = this
+    var animate = this.$element.hasClass('fade') ? 'fade' : ''
+
+    if (this.isShown && this.options.backdrop) {
+      var doAnimate = $.support.transition && animate
+
+      this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
+        .appendTo(this.$body)
+
+      this.$element.on('click.dismiss.bs.modal', $.proxy(function (e) {
+        if (this.ignoreBackdropClick) {
+          this.ignoreBackdropClick = false
+          return
+        }
+        if (e.target !== e.currentTarget) return
+        this.options.backdrop == 'static'
+          ? this.$element[0].focus()
+          : this.hide()
+      }, this))
+
+      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
+
+      this.$backdrop.addClass('in')
+
+      if (!callback) return
+
+      doAnimate ?
+        this.$backdrop
+          .one('bsTransitionEnd', callback)
+          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
+        callback()
+
+    } else if (!this.isShown && this.$backdrop) {
+      this.$backdrop.removeClass('in')
+
+      var callbackRemove = function () {
+        that.removeBackdrop()
+        callback && callback()
+      }
+      $.support.transition && this.$element.hasClass('fade') ?
+        this.$backdrop
+          .one('bsTransitionEnd', callbackRemove)
+          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
+        callbackRemove()
+
+    } else if (callback) {
+      callback()
+    }
+  }
+
+  // these following methods are used to handle overflowing modals
+
+  Modal.prototype.handleUpdate = function () {
+    this.adjustDialog()
+  }
+
+  Modal.prototype.adjustDialog = function () {
+    var modalIsOverflowing = this.$element[0].scrollHeight > document.documentElement.clientHeight
+
+    this.$element.css({
+      paddingLeft:  !this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWidth : '',
+      paddingRight: this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : ''
+    })
+  }
+
+  Modal.prototype.resetAdjustments = function () {
+    this.$element.css({
+      paddingLeft: '',
+      paddingRight: ''
+    })
+  }
+
+  Modal.prototype.checkScrollbar = function () {
+    var fullWindowWidth = window.innerWidth
+    if (!fullWindowWidth) { // workaround for missing window.innerWidth in IE8
+      var documentElementRect = document.documentElement.getBoundingClientRect()
+      fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
+    }
+    this.bodyIsOverflowing = document.body.clientWidth < fullWindowWidth
+    this.scrollbarWidth = this.measureScrollbar()
+  }
+
+  Modal.prototype.setScrollbar = function () {
+    var bodyPad = parseInt((this.$body.css('padding-right') || 0), 10)
+    this.originalBodyPad = document.body.style.paddingRight || ''
+    if (this.bodyIsOverflowing) this.$body.css('padding-right', bodyPad + this.scrollbarWidth)
+  }
+
+  Modal.prototype.resetScrollbar = function () {
+    this.$body.css('padding-right', this.originalBodyPad)
+  }
+
+  Modal.prototype.measureScrollbar = function () { // thx walsh
+    var scrollDiv = document.createElement('div')
+    scrollDiv.className = 'modal-scrollbar-measure'
+    this.$body.append(scrollDiv)
+    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
+    this.$body[0].removeChild(scrollDiv)
+    return scrollbarWidth
+  }
+
+
+  // MODAL PLUGIN DEFINITION
+  // =======================
+
+  function Plugin(option, _relatedTarget) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.modal')
+      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      if (!data) $this.data('bs.modal', (data = new Modal(this, options)))
+      if (typeof option == 'string') data[option](_relatedTarget)
+      else if (options.show) data.show(_relatedTarget)
+    })
+  }
+
+  var old = $.fn.modal
+
+  $.fn.modal             = Plugin
+  $.fn.modal.Constructor = Modal
+
+
+  // MODAL NO CONFLICT
+  // =================
+
+  $.fn.modal.noConflict = function () {
+    $.fn.modal = old
+    return this
+  }
+
+
+  // MODAL DATA-API
+  // ==============
+
+  $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+    var $this   = $(this)
+    var href    = $this.attr('href')
+    var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) // strip for ie7
+    var option  = $target.data('bs.modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data())
+
+    if ($this.is('a')) e.preventDefault()
+
+    $target.one('show.bs.modal', function (showEvent) {
+      if (showEvent.isDefaultPrevented()) return // only register focus restorer if modal will actually get shown
+      $target.one('hidden.bs.modal', function () {
+        $this.is(':visible') && $this.trigger('focus')
+      })
+    })
+    Plugin.call($target, option, this)
+  })
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: tooltip.js v3.3.4
+ * http://getbootstrap.com/javascript/#tooltip
+ * Inspired by the original jQuery.tipsy by Jason Frame
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // TOOLTIP PUBLIC CLASS DEFINITION
+  // ===============================
+
+  var Tooltip = function (element, options) {
+    this.type       = null
+    this.options    = null
+    this.enabled    = null
+    this.timeout    = null
+    this.hoverState = null
+    this.$element   = null
+
+    this.init('tooltip', element, options)
+  }
+
+  Tooltip.VERSION  = '3.3.4'
+
+  Tooltip.TRANSITION_DURATION = 150
+
+  Tooltip.DEFAULTS = {
+    animation: true,
+    placement: 'top',
+    selector: false,
+    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+    trigger: 'hover focus',
+    title: '',
+    delay: 0,
+    html: false,
+    container: false,
+    viewport: {
+      selector: 'body',
+      padding: 0
+    }
+  }
+
+  Tooltip.prototype.init = function (type, element, options) {
+    this.enabled   = true
+    this.type      = type
+    this.$element  = $(element)
+    this.options   = this.getOptions(options)
+    this.$viewport = this.options.viewport && $(this.options.viewport.selector || this.options.viewport)
+
+    if (this.$element[0] instanceof document.constructor && !this.options.selector) {
+      throw new Error('`selector` option must be specified when initializing ' + this.type + ' on the window.document object!')
+    }
+
+    var triggers = this.options.trigger.split(' ')
+
+    for (var i = triggers.length; i--;) {
+      var trigger = triggers[i]
+
+      if (trigger == 'click') {
+        this.$element.on('click.' + this.type, this.options.selector, $.proxy(this.toggle, this))
+      } else if (trigger != 'manual') {
+        var eventIn  = trigger == 'hover' ? 'mouseenter' : 'focusin'
+        var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout'
+
+        this.$element.on(eventIn  + '.' + this.type, this.options.selector, $.proxy(this.enter, this))
+        this.$element.on(eventOut + '.' + this.type, this.options.selector, $.proxy(this.leave, this))
+      }
+    }
+
+    this.options.selector ?
+      (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
+      this.fixTitle()
+  }
+
+  Tooltip.prototype.getDefaults = function () {
+    return Tooltip.DEFAULTS
+  }
+
+  Tooltip.prototype.getOptions = function (options) {
+    options = $.extend({}, this.getDefaults(), this.$element.data(), options)
+
+    if (options.delay && typeof options.delay == 'number') {
+      options.delay = {
+        show: options.delay,
+        hide: options.delay
+      }
+    }
+
+    return options
+  }
+
+  Tooltip.prototype.getDelegateOptions = function () {
+    var options  = {}
+    var defaults = this.getDefaults()
+
+    this._options && $.each(this._options, function (key, value) {
+      if (defaults[key] != value) options[key] = value
+    })
+
+    return options
+  }
+
+  Tooltip.prototype.enter = function (obj) {
+    var self = obj instanceof this.constructor ?
+      obj : $(obj.currentTarget).data('bs.' + this.type)
+
+    if (self && self.$tip && self.$tip.is(':visible')) {
+      self.hoverState = 'in'
+      return
+    }
+
+    if (!self) {
+      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
+      $(obj.currentTarget).data('bs.' + this.type, self)
+    }
+
+    clearTimeout(self.timeout)
+
+    self.hoverState = 'in'
+
+    if (!self.options.delay || !self.options.delay.show) return self.show()
+
+    self.timeout = setTimeout(function () {
+      if (self.hoverState == 'in') self.show()
+    }, self.options.delay.show)
+  }
+
+  Tooltip.prototype.leave = function (obj) {
+    var self = obj instanceof this.constructor ?
+      obj : $(obj.currentTarget).data('bs.' + this.type)
+
+    if (!self) {
+      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
+      $(obj.currentTarget).data('bs.' + this.type, self)
+    }
+
+    clearTimeout(self.timeout)
+
+    self.hoverState = 'out'
+
+    if (!self.options.delay || !self.options.delay.hide) return self.hide()
+
+    self.timeout = setTimeout(function () {
+      if (self.hoverState == 'out') self.hide()
+    }, self.options.delay.hide)
+  }
+
+  Tooltip.prototype.show = function () {
+    var e = $.Event('show.bs.' + this.type)
+
+    if (this.hasContent() && this.enabled) {
+      this.$element.trigger(e)
+
+      var inDom = $.contains(this.$element[0].ownerDocument.documentElement, this.$element[0])
+      if (e.isDefaultPrevented() || !inDom) return
+      var that = this
+
+      var $tip = this.tip()
+
+      var tipId = this.getUID(this.type)
+
+      this.setContent()
+      $tip.attr('id', tipId)
+      this.$element.attr('aria-describedby', tipId)
+
+      if (this.options.animation) $tip.addClass('fade')
+
+      var placement = typeof this.options.placement == 'function' ?
+        this.options.placement.call(this, $tip[0], this.$element[0]) :
+        this.options.placement
+
+      var autoToken = /\s?auto?\s?/i
+      var autoPlace = autoToken.test(placement)
+      if (autoPlace) placement = placement.replace(autoToken, '') || 'top'
+
+      $tip
+        .detach()
+        .css({ top: 0, left: 0, display: 'block' })
+        .addClass(placement)
+        .data('bs.' + this.type, this)
+
+      this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
+
+      var pos          = this.getPosition()
+      var actualWidth  = $tip[0].offsetWidth
+      var actualHeight = $tip[0].offsetHeight
+
+      if (autoPlace) {
+        var orgPlacement = placement
+        var $container   = this.options.container ? $(this.options.container) : this.$element.parent()
+        var containerDim = this.getPosition($container)
+
+        placement = placement == 'bottom' && pos.bottom + actualHeight > containerDim.bottom ? 'top'    :
+                    placement == 'top'    && pos.top    - actualHeight < containerDim.top    ? 'bottom' :
+                    placement == 'right'  && pos.right  + actualWidth  > containerDim.width  ? 'left'   :
+                    placement == 'left'   && pos.left   - actualWidth  < containerDim.left   ? 'right'  :
+                    placement
+
+        $tip
+          .removeClass(orgPlacement)
+          .addClass(placement)
+      }
+
+      var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
+
+      this.applyPlacement(calculatedOffset, placement)
+
+      var complete = function () {
+        var prevHoverState = that.hoverState
+        that.$element.trigger('shown.bs.' + that.type)
+        that.hoverState = null
+
+        if (prevHoverState == 'out') that.leave(that)
+      }
+
+      $.support.transition && this.$tip.hasClass('fade') ?
+        $tip
+          .one('bsTransitionEnd', complete)
+          .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
+        complete()
+    }
+  }
+
+  Tooltip.prototype.applyPlacement = function (offset, placement) {
+    var $tip   = this.tip()
+    var width  = $tip[0].offsetWidth
+    var height = $tip[0].offsetHeight
+
+    // manually read margins because getBoundingClientRect includes difference
+    var marginTop = parseInt($tip.css('margin-top'), 10)
+    var marginLeft = parseInt($tip.css('margin-left'), 10)
+
+    // we must check for NaN for ie 8/9
+    if (isNaN(marginTop))  marginTop  = 0
+    if (isNaN(marginLeft)) marginLeft = 0
+
+    offset.top  = offset.top  + marginTop
+    offset.left = offset.left + marginLeft
+
+    // $.fn.offset doesn't round pixel values
+    // so we use setOffset directly with our own function B-0
+    $.offset.setOffset($tip[0], $.extend({
+      using: function (props) {
+        $tip.css({
+          top: Math.round(props.top),
+          left: Math.round(props.left)
+        })
+      }
+    }, offset), 0)
+
+    $tip.addClass('in')
+
+    // check to see if placing tip in new offset caused the tip to resize itself
+    var actualWidth  = $tip[0].offsetWidth
+    var actualHeight = $tip[0].offsetHeight
+
+    if (placement == 'top' && actualHeight != height) {
+      offset.top = offset.top + height - actualHeight
+    }
+
+    var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight)
+
+    if (delta.left) offset.left += delta.left
+    else offset.top += delta.top
+
+    var isVertical          = /top|bottom/.test(placement)
+    var arrowDelta          = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight
+    var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight'
+
+    $tip.offset(offset)
+    this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical)
+  }
+
+  Tooltip.prototype.replaceArrow = function (delta, dimension, isVertical) {
+    this.arrow()
+      .css(isVertical ? 'left' : 'top', 50 * (1 - delta / dimension) + '%')
+      .css(isVertical ? 'top' : 'left', '')
+  }
+
+  Tooltip.prototype.setContent = function () {
+    var $tip  = this.tip()
+    var title = this.getTitle()
+
+    $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
+    $tip.removeClass('fade in top bottom left right')
+  }
+
+  Tooltip.prototype.hide = function (callback) {
+    var that = this
+    var $tip = $(this.$tip)
+    var e    = $.Event('hide.bs.' + this.type)
+
+    function complete() {
+      if (that.hoverState != 'in') $tip.detach()
+      that.$element
+        .removeAttr('aria-describedby')
+        .trigger('hidden.bs.' + that.type)
+      callback && callback()
+    }
+
+    this.$element.trigger(e)
+
+    if (e.isDefaultPrevented()) return
+
+    $tip.removeClass('in')
+
+    $.support.transition && $tip.hasClass('fade') ?
+      $tip
+        .one('bsTransitionEnd', complete)
+        .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
+      complete()
+
+    this.hoverState = null
+
+    return this
+  }
+
+  Tooltip.prototype.fixTitle = function () {
+    var $e = this.$element
+    if ($e.attr('title') || typeof ($e.attr('data-original-title')) != 'string') {
+      $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
+    }
+  }
+
+  Tooltip.prototype.hasContent = function () {
+    return this.getTitle()
+  }
+
+  Tooltip.prototype.getPosition = function ($element) {
+    $element   = $element || this.$element
+
+    var el     = $element[0]
+    var isBody = el.tagName == 'BODY'
+
+    var elRect    = el.getBoundingClientRect()
+    if (elRect.width == null) {
+      // width and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
+      elRect = $.extend({}, elRect, { width: elRect.right - elRect.left, height: elRect.bottom - elRect.top })
+    }
+    var elOffset  = isBody ? { top: 0, left: 0 } : $element.offset()
+    var scroll    = { scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : $element.scrollTop() }
+    var outerDims = isBody ? { width: $(window).width(), height: $(window).height() } : null
+
+    return $.extend({}, elRect, scroll, outerDims, elOffset)
+  }
+
+  Tooltip.prototype.getCalculatedOffset = function (placement, pos, actualWidth, actualHeight) {
+    return placement == 'bottom' ? { top: pos.top + pos.height,   left: pos.left + pos.width / 2 - actualWidth / 2 } :
+           placement == 'top'    ? { top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2 } :
+           placement == 'left'   ? { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth } :
+        /* placement == 'right' */ { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width }
+
+  }
+
+  Tooltip.prototype.getViewportAdjustedDelta = function (placement, pos, actualWidth, actualHeight) {
+    var delta = { top: 0, left: 0 }
+    if (!this.$viewport) return delta
+
+    var viewportPadding = this.options.viewport && this.options.viewport.padding || 0
+    var viewportDimensions = this.getPosition(this.$viewport)
+
+    if (/right|left/.test(placement)) {
+      var topEdgeOffset    = pos.top - viewportPadding - viewportDimensions.scroll
+      var bottomEdgeOffset = pos.top + viewportPadding - viewportDimensions.scroll + actualHeight
+      if (topEdgeOffset < viewportDimensions.top) { // top overflow
+        delta.top = viewportDimensions.top - topEdgeOffset
+      } else if (bottomEdgeOffset > viewportDimensions.top + viewportDimensions.height) { // bottom overflow
+        delta.top = viewportDimensions.top + viewportDimensions.height - bottomEdgeOffset
+      }
+    } else {
+      var leftEdgeOffset  = pos.left - viewportPadding
+      var rightEdgeOffset = pos.left + viewportPadding + actualWidth
+      if (leftEdgeOffset < viewportDimensions.left) { // left overflow
+        delta.left = viewportDimensions.left - leftEdgeOffset
+      } else if (rightEdgeOffset > viewportDimensions.width) { // right overflow
+        delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset
+      }
+    }
+
+    return delta
+  }
+
+  Tooltip.prototype.getTitle = function () {
+    var title
+    var $e = this.$element
+    var o  = this.options
+
+    title = $e.attr('data-original-title')
+      || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
+
+    return title
+  }
+
+  Tooltip.prototype.getUID = function (prefix) {
+    do prefix += ~~(Math.random() * 1000000)
+    while (document.getElementById(prefix))
+    return prefix
+  }
+
+  Tooltip.prototype.tip = function () {
+    return (this.$tip = this.$tip || $(this.options.template))
+  }
+
+  Tooltip.prototype.arrow = function () {
+    return (this.$arrow = this.$arrow || this.tip().find('.tooltip-arrow'))
+  }
+
+  Tooltip.prototype.enable = function () {
+    this.enabled = true
+  }
+
+  Tooltip.prototype.disable = function () {
+    this.enabled = false
+  }
+
+  Tooltip.prototype.toggleEnabled = function () {
+    this.enabled = !this.enabled
+  }
+
+  Tooltip.prototype.toggle = function (e) {
+    var self = this
+    if (e) {
+      self = $(e.currentTarget).data('bs.' + this.type)
+      if (!self) {
+        self = new this.constructor(e.currentTarget, this.getDelegateOptions())
+        $(e.currentTarget).data('bs.' + this.type, self)
+      }
+    }
+
+    self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
+  }
+
+  Tooltip.prototype.destroy = function () {
+    var that = this
+    clearTimeout(this.timeout)
+    this.hide(function () {
+      that.$element.off('.' + that.type).removeData('bs.' + that.type)
+    })
+  }
+
+
+  // TOOLTIP PLUGIN DEFINITION
+  // =========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.tooltip')
+      var options = typeof option == 'object' && option
+
+      if (!data && /destroy|hide/.test(option)) return
+      if (!data) $this.data('bs.tooltip', (data = new Tooltip(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.tooltip
+
+  $.fn.tooltip             = Plugin
+  $.fn.tooltip.Constructor = Tooltip
+
+
+  // TOOLTIP NO CONFLICT
+  // ===================
+
+  $.fn.tooltip.noConflict = function () {
+    $.fn.tooltip = old
+    return this
+  }
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: popover.js v3.3.4
+ * http://getbootstrap.com/javascript/#popovers
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // POPOVER PUBLIC CLASS DEFINITION
+  // ===============================
+
+  var Popover = function (element, options) {
+    this.init('popover', element, options)
+  }
+
+  if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
+
+  Popover.VERSION  = '3.3.4'
+
+  Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
+    placement: 'right',
+    trigger: 'click',
+    content: '',
+    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+  })
+
+
+  // NOTE: POPOVER EXTENDS tooltip.js
+  // ================================
+
+  Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)
+
+  Popover.prototype.constructor = Popover
+
+  Popover.prototype.getDefaults = function () {
+    return Popover.DEFAULTS
+  }
+
+  Popover.prototype.setContent = function () {
+    var $tip    = this.tip()
+    var title   = this.getTitle()
+    var content = this.getContent()
+
+    $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
+    $tip.find('.popover-content').children().detach().end()[ // we use append for html objects to maintain js events
+      this.options.html ? (typeof content == 'string' ? 'html' : 'append') : 'text'
+    ](content)
+
+    $tip.removeClass('fade top bottom left right in')
+
+    // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
+    // this manually by checking the contents.
+    if (!$tip.find('.popover-title').html()) $tip.find('.popover-title').hide()
+  }
+
+  Popover.prototype.hasContent = function () {
+    return this.getTitle() || this.getContent()
+  }
+
+  Popover.prototype.getContent = function () {
+    var $e = this.$element
+    var o  = this.options
+
+    return $e.attr('data-content')
+      || (typeof o.content == 'function' ?
+            o.content.call($e[0]) :
+            o.content)
+  }
+
+  Popover.prototype.arrow = function () {
+    return (this.$arrow = this.$arrow || this.tip().find('.arrow'))
+  }
+
+
+  // POPOVER PLUGIN DEFINITION
+  // =========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.popover')
+      var options = typeof option == 'object' && option
+
+      if (!data && /destroy|hide/.test(option)) return
+      if (!data) $this.data('bs.popover', (data = new Popover(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.popover
+
+  $.fn.popover             = Plugin
+  $.fn.popover.Constructor = Popover
+
+
+  // POPOVER NO CONFLICT
+  // ===================
+
+  $.fn.popover.noConflict = function () {
+    $.fn.popover = old
+    return this
+  }
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: scrollspy.js v3.3.4
+ * http://getbootstrap.com/javascript/#scrollspy
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // SCROLLSPY CLASS DEFINITION
+  // ==========================
+
+  function ScrollSpy(element, options) {
+    this.$body          = $(document.body)
+    this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+    this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+    this.selector       = (this.options.target || '') + ' .nav li > a'
+    this.offsets        = []
+    this.targets        = []
+    this.activeTarget   = null
+    this.scrollHeight   = 0
+
+    this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+    this.refresh()
+    this.process()
+  }
+
+  ScrollSpy.VERSION  = '3.3.4'
+
+  ScrollSpy.DEFAULTS = {
+    offset: 10
+  }
+
+  ScrollSpy.prototype.getScrollHeight = function () {
+    return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+  }
+
+  ScrollSpy.prototype.refresh = function () {
+    var that          = this
+    var offsetMethod  = 'offset'
+    var offsetBase    = 0
+
+    this.offsets      = []
+    this.targets      = []
+    this.scrollHeight = this.getScrollHeight()
+
+    if (!$.isWindow(this.$scrollElement[0])) {
+      offsetMethod = 'position'
+      offsetBase   = this.$scrollElement.scrollTop()
+    }
+
+    this.$body
+      .find(this.selector)
+      .map(function () {
+        var $el   = $(this)
+        var href  = $el.data('target') || $el.attr('href')
+        var $href = /^#./.test(href) && $(href)
+
+        return ($href
+          && $href.length
+          && $href.is(':visible')
+          && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+      })
+      .sort(function (a, b) { return a[0] - b[0] })
+      .each(function () {
+        that.offsets.push(this[0])
+        that.targets.push(this[1])
+      })
+  }
+
+  ScrollSpy.prototype.process = function () {
+    var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+    var scrollHeight = this.getScrollHeight()
+    var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+    var offsets      = this.offsets
+    var targets      = this.targets
+    var activeTarget = this.activeTarget
+    var i
+
+    if (this.scrollHeight != scrollHeight) {
+      this.refresh()
+    }
+
+    if (scrollTop >= maxScroll) {
+      return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+    }
+
+    if (activeTarget && scrollTop < offsets[0]) {
+      this.activeTarget = null
+      return this.clear()
+    }
+
+    for (i = offsets.length; i--;) {
+      activeTarget != targets[i]
+        && scrollTop >= offsets[i]
+        && (offsets[i + 1] === undefined || scrollTop < offsets[i + 1])
+        && this.activate(targets[i])
+    }
+  }
+
+  ScrollSpy.prototype.activate = function (target) {
+    this.activeTarget = target
+
+    this.clear()
+
+    var selector = this.selector +
+      '[data-target="' + target + '"],' +
+      this.selector + '[href="' + target + '"]'
+
+    var active = $(selector)
+      .parents('li')
+      .addClass('active')
+
+    if (active.parent('.dropdown-menu').length) {
+      active = active
+        .closest('li.dropdown')
+        .addClass('active')
+    }
+
+    active.trigger('activate.bs.scrollspy')
+  }
+
+  ScrollSpy.prototype.clear = function () {
+    $(this.selector)
+      .parentsUntil(this.options.target, '.active')
+      .removeClass('active')
+  }
+
+
+  // SCROLLSPY PLUGIN DEFINITION
+  // ===========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.scrollspy')
+      var options = typeof option == 'object' && option
+
+      if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.scrollspy
+
+  $.fn.scrollspy             = Plugin
+  $.fn.scrollspy.Constructor = ScrollSpy
+
+
+  // SCROLLSPY NO CONFLICT
+  // =====================
+
+  $.fn.scrollspy.noConflict = function () {
+    $.fn.scrollspy = old
+    return this
+  }
+
+
+  // SCROLLSPY DATA-API
+  // ==================
+
+  $(window).on('load.bs.scrollspy.data-api', function () {
+    $('[data-spy="scroll"]').each(function () {
+      var $spy = $(this)
+      Plugin.call($spy, $spy.data())
+    })
+  })
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: tab.js v3.3.4
+ * http://getbootstrap.com/javascript/#tabs
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // TAB CLASS DEFINITION
+  // ====================
+
+  var Tab = function (element) {
+    this.element = $(element)
+  }
+
+  Tab.VERSION = '3.3.4'
+
+  Tab.TRANSITION_DURATION = 150
+
+  Tab.prototype.show = function () {
+    var $this    = this.element
+    var $ul      = $this.closest('ul:not(.dropdown-menu)')
+    var selector = $this.data('target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    if ($this.parent('li').hasClass('active')) return
+
+    var $previous = $ul.find('.active:last a')
+    var hideEvent = $.Event('hide.bs.tab', {
+      relatedTarget: $this[0]
+    })
+    var showEvent = $.Event('show.bs.tab', {
+      relatedTarget: $previous[0]
+    })
+
+    $previous.trigger(hideEvent)
+    $this.trigger(showEvent)
+
+    if (showEvent.isDefaultPrevented() || hideEvent.isDefaultPrevented()) return
+
+    var $target = $(selector)
+
+    this.activate($this.closest('li'), $ul)
+    this.activate($target, $target.parent(), function () {
+      $previous.trigger({
+        type: 'hidden.bs.tab',
+        relatedTarget: $this[0]
+      })
+      $this.trigger({
+        type: 'shown.bs.tab',
+        relatedTarget: $previous[0]
+      })
+    })
+  }
+
+  Tab.prototype.activate = function (element, container, callback) {
+    var $active    = container.find('> .active')
+    var transition = callback
+      && $.support.transition
+      && (($active.length && $active.hasClass('fade')) || !!container.find('> .fade').length)
+
+    function next() {
+      $active
+        .removeClass('active')
+        .find('> .dropdown-menu > .active')
+          .removeClass('active')
+        .end()
+        .find('[data-toggle="tab"]')
+          .attr('aria-expanded', false)
+
+      element
+        .addClass('active')
+        .find('[data-toggle="tab"]')
+          .attr('aria-expanded', true)
+
+      if (transition) {
+        element[0].offsetWidth // reflow for transition
+        element.addClass('in')
+      } else {
+        element.removeClass('fade')
+      }
+
+      if (element.parent('.dropdown-menu').length) {
+        element
+          .closest('li.dropdown')
+            .addClass('active')
+          .end()
+          .find('[data-toggle="tab"]')
+            .attr('aria-expanded', true)
+      }
+
+      callback && callback()
+    }
+
+    $active.length && transition ?
+      $active
+        .one('bsTransitionEnd', next)
+        .emulateTransitionEnd(Tab.TRANSITION_DURATION) :
+      next()
+
+    $active.removeClass('in')
+  }
+
+
+  // TAB PLUGIN DEFINITION
+  // =====================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.tab')
+
+      if (!data) $this.data('bs.tab', (data = new Tab(this)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.tab
+
+  $.fn.tab             = Plugin
+  $.fn.tab.Constructor = Tab
+
+
+  // TAB NO CONFLICT
+  // ===============
+
+  $.fn.tab.noConflict = function () {
+    $.fn.tab = old
+    return this
+  }
+
+
+  // TAB DATA-API
+  // ============
+
+  var clickHandler = function (e) {
+    e.preventDefault()
+    Plugin.call($(this), 'show')
+  }
+
+  $(document)
+    .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
+    .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)
+
+}(jQuery);
+
+/* ========================================================================
+ * Bootstrap: affix.js v3.3.4
+ * http://getbootstrap.com/javascript/#affix
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // AFFIX CLASS DEFINITION
+  // ======================
+
+  var Affix = function (element, options) {
+    this.options = $.extend({}, Affix.DEFAULTS, options)
+
+    this.$target = $(this.options.target)
+      .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
+      .on('click.bs.affix.data-api',  $.proxy(this.checkPositionWithEventLoop, this))
+
+    this.$element     = $(element)
+    this.affixed      = null
+    this.unpin        = null
+    this.pinnedOffset = null
+
+    this.checkPosition()
+  }
+
+  Affix.VERSION  = '3.3.4'
+
+  Affix.RESET    = 'affix affix-top affix-bottom'
+
+  Affix.DEFAULTS = {
+    offset: 0,
+    target: window
+  }
+
+  Affix.prototype.getState = function (scrollHeight, height, offsetTop, offsetBottom) {
+    var scrollTop    = this.$target.scrollTop()
+    var position     = this.$element.offset()
+    var targetHeight = this.$target.height()
+
+    if (offsetTop != null && this.affixed == 'top') return scrollTop < offsetTop ? 'top' : false
+
+    if (this.affixed == 'bottom') {
+      if (offsetTop != null) return (scrollTop + this.unpin <= position.top) ? false : 'bottom'
+      return (scrollTop + targetHeight <= scrollHeight - offsetBottom) ? false : 'bottom'
+    }
+
+    var initializing   = this.affixed == null
+    var colliderTop    = initializing ? scrollTop : position.top
+    var colliderHeight = initializing ? targetHeight : height
+
+    if (offsetTop != null && scrollTop <= offsetTop) return 'top'
+    if (offsetBottom != null && (colliderTop + colliderHeight >= scrollHeight - offsetBottom)) return 'bottom'
+
+    return false
+  }
+
+  Affix.prototype.getPinnedOffset = function () {
+    if (this.pinnedOffset) return this.pinnedOffset
+    this.$element.removeClass(Affix.RESET).addClass('affix')
+    var scrollTop = this.$target.scrollTop()
+    var position  = this.$element.offset()
+    return (this.pinnedOffset = position.top - scrollTop)
+  }
+
+  Affix.prototype.checkPositionWithEventLoop = function () {
+    setTimeout($.proxy(this.checkPosition, this), 1)
+  }
+
+  Affix.prototype.checkPosition = function () {
+    if (!this.$element.is(':visible')) return
+
+    var height       = this.$element.height()
+    var offset       = this.options.offset
+    var offsetTop    = offset.top
+    var offsetBottom = offset.bottom
+    var scrollHeight = $(document.body).height()
+
+    if (typeof offset != 'object')         offsetBottom = offsetTop = offset
+    if (typeof offsetTop == 'function')    offsetTop    = offset.top(this.$element)
+    if (typeof offsetBottom == 'function') offsetBottom = offset.bottom(this.$element)
+
+    var affix = this.getState(scrollHeight, height, offsetTop, offsetBottom)
+
+    if (this.affixed != affix) {
+      if (this.unpin != null) this.$element.css('top', '')
+
+      var affixType = 'affix' + (affix ? '-' + affix : '')
+      var e         = $.Event(affixType + '.bs.affix')
+
+      this.$element.trigger(e)
+
+      if (e.isDefaultPrevented()) return
+
+      this.affixed = affix
+      this.unpin = affix == 'bottom' ? this.getPinnedOffset() : null
+
+      this.$element
+        .removeClass(Affix.RESET)
+        .addClass(affixType)
+        .trigger(affixType.replace('affix', 'affixed') + '.bs.affix')
+    }
+
+    if (affix == 'bottom') {
+      this.$element.offset({
+        top: scrollHeight - height - offsetBottom
+      })
+    }
+  }
+
+
+  // AFFIX PLUGIN DEFINITION
+  // =======================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.affix')
+      var options = typeof option == 'object' && option
+
+      if (!data) $this.data('bs.affix', (data = new Affix(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.affix
+
+  $.fn.affix             = Plugin
+  $.fn.affix.Constructor = Affix
+
+
+  // AFFIX NO CONFLICT
+  // =================
+
+  $.fn.affix.noConflict = function () {
+    $.fn.affix = old
+    return this
+  }
+
+
+  // AFFIX DATA-API
+  // ==============
+
+  $(window).on('load', function () {
+    $('[data-spy="affix"]').each(function () {
+      var $spy = $(this)
+      var data = $spy.data()
+
+      data.offset = data.offset || {}
+
+      if (data.offsetBottom != null) data.offset.bottom = data.offsetBottom
+      if (data.offsetTop    != null) data.offset.top    = data.offsetTop
+
+      Plugin.call($spy, data)
+    })
+  })
+
+}(jQuery);
+
+define("bootstrap", ["jquery"], (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.bootstrap;
+    };
+}(this)));
+
+/* ========================================================================
+* Extends Bootstrap v3.1.1
+
+* Copyright (c) <2014> eBay Software Foundation
+
+* All rights reserved.
+
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+* Neither the name of eBay or any of its subsidiaries or affiliates nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+* ======================================================================== */
+
+(function($) {
+  "use strict";
+
+  var uniqueId = function(prefix) {
+      return (prefix || 'ui-id') + '-' + Math.floor((Math.random()*1000)+1)
+  }
+
+  // Alert Extension
+  // ===============================
+
+    $('.alert').attr('role', 'alert')
+    $('.close').removeAttr('aria-hidden').wrapInner('<span aria-hidden="true"></span>').append('<span class="sr-only">Close</span>')
+
+  // TOOLTIP Extension
+  // ===============================
+
+    var showTooltip =    $.fn.tooltip.Constructor.prototype.show
+        , hideTooltip =    $.fn.tooltip.Constructor.prototype.hide
+
+    $.fn.tooltip.Constructor.prototype.show = function () {
+        showTooltip.apply(this, arguments)
+        var $tip = this.tip()
+            , tooltipID = $tip.attr('id') || uniqueId('ui-tooltip')
+        $tip.attr({'role':'tooltip','id' : tooltipID})
+        this.$element.attr('aria-describedby', tooltipID)
+    }
+
+    $.fn.tooltip.Constructor.prototype.hide = function () {
+        hideTooltip.apply(this, arguments)
+        removeMultiValAttributes(this.$element, 'aria-describedby', this.tip().attr('id'))
+        return this
+    }
+
+  // Popover Extension
+  // ===============================
+    var showPopover =   $.fn.popover.Constructor.prototype.setContent
+      , hideTPopover =   $.fn.popover.Constructor.prototype.hide
+
+    $.fn.popover.Constructor.prototype.setContent = function(){
+      showPopover.apply(this, arguments)
+      var $tip = this.tip()
+        , tooltipID = $tip.attr('id') || uniqueId('ui-tooltip')
+      $tip.attr({'role':'alert','id' : tooltipID})
+      this.$element.attr('aria-describedby', tooltipID)
+      this.$element.focus()
+    }
+    $.fn.popover.Constructor.prototype.hide =  function(){
+        hideTooltip.apply(this, arguments)
+        removeMultiValAttributes(this.$element, 'aria-describedby', this.tip().attr('id'))
+    }
+
+  //Modal Extension
+    $('.modal-dialog').attr( {'role' : 'document'})
+    var modalhide =   $.fn.modal.Constructor.prototype.hide
+    $.fn.modal.Constructor.prototype.hide = function(){
+       var modalOpener = this.$element.parent().find('[data-target="#' + this.$element.attr('id') + '"]')
+       modalhide.apply(this, arguments)
+       modalOpener.focus()
+    }
+
+  // DROPDOWN Extension
+  // ===============================
+
+    var toggle   = '[data-toggle=dropdown]'
+      , $par
+      , firstItem
+      , focusDelay = 200
+      , menus = $(toggle).parent().find('ul').attr('role','menu')
+      , lis = menus.find('li').attr('role','presentation')
+
+    lis.find('a').attr({'role':'menuitem', 'tabIndex':'-1'})
+    $(toggle).attr({ 'aria-haspopup':'true', 'aria-expanded': 'false'})
+
+    $(toggle).parent().on('shown.bs.dropdown',function(e){
+      $par = $(this)
+      var $toggle = $par.find(toggle)
+      $toggle.attr('aria-expanded','true')
+
+      setTimeout(function(){
+            firstItem = $('.dropdown-menu [role=menuitem]:visible', $par)[0]
+            try{ firstItem.focus()} catch(ex) {}
+      }, focusDelay)
+    })
+
+    $(toggle).parent().on('hidden.bs.dropdown',function(e){
+      $par = $(this)
+      var $toggle = $par.find(toggle)
+      $toggle.attr('aria-expanded','false')
+    })
+
+    //Adding Space Key Behaviour, opens on spacebar
+    $.fn.dropdown.Constructor.prototype.keydown = function (e) {
+      var  $par
+        , firstItem
+      if (!/(32)/.test(e.keyCode)) return
+        $par = $(this).parent()
+        $(this).trigger ("click")
+        e.preventDefault() && e.stopPropagation()
+    }
+
+    $(document)
+      .on('focusout.dropdown.data-api', '.dropdown-menu', function(e){
+        var $this = $(this)
+                    , that = this
+        setTimeout(function() {
+         if(!$.contains(that, document.activeElement)){
+          $this.parent().removeClass('open')
+          $this.parent().find('[data-toggle=dropdown]').attr('aria-expanded','false')
+         }
+        }, 150)
+       })
+      .on('keydown.bs.dropdown.data-api', toggle + ', [role=menu]' , $.fn.dropdown.Constructor.prototype.keydown)
+
+
+  // Tab Extension
+  // ===============================
+
+    var $tablist = $('.nav-tabs')
+        , $lis = $tablist.children('li')
+        , $tabs = $tablist.find('[data-toggle="tab"], [data-toggle="pill"]')
+
+    $tablist.attr('role', 'tablist')
+    $lis.attr('role', 'presentation')
+    $tabs.attr('role', 'tab')
+
+    $tabs.each(function( index ) {
+      var tabpanel = $($(this).attr('href'))
+        , tab = $(this)
+        , tabid = tab.attr('id') || uniqueId('ui-tab')
+
+        tab.attr('id', tabid)
+
+      if(tab.parent().hasClass('active')){
+        tab.attr( { 'tabIndex' : '0', 'aria-expanded' : 'true', 'aria-selected' : 'true', 'aria-controls': tab.attr('href').substr(1) } )
+        tabpanel.attr({ 'role' : 'tabpanel', 'tabIndex' : '0', 'aria-hidden' : 'false', 'aria-labelledby':tabid })
+      }else{
+        tab.attr( { 'tabIndex' : '-1', 'aria-expanded' : 'false', 'aria-selected' : 'false', 'aria-controls': tab.attr('href').substr(1) } )
+        tabpanel.attr( { 'role' : 'tabpanel', 'tabIndex' : '-1', 'aria-hidden' : 'true', 'aria-labelledby':tabid } )
+      }
+    })
+
+    $.fn.tab.Constructor.prototype.keydown = function (e) {
+      var $this = $(this)
+      , $items
+      , $ul = $this.closest('ul[role=tablist] ')
+      , index
+      , k = e.which || e.keyCode
+
+      $this = $(this)
+      if (!/(37|38|39|40)/.test(k)) return
+
+      $items = $ul.find('[role=tab]:visible')
+      index = $items.index($items.filter(':focus'))
+
+      if (k == 38 || k == 37) index--                         // up & left
+      if (k == 39 || k == 40) index++                        // down & right
+
+
+      if(index < 0) index = $items.length -1
+      if(index == $items.length) index = 0
+
+      var nextTab = $items.eq(index)
+      if(nextTab.attr('role') ==='tab'){
+
+        nextTab.tab('show')      //Comment this line for dynamically loaded tabPabels, to save Ajax requests on arrow key navigation
+        .focus()
+      }
+      // nextTab.focus()
+
+      e.preventDefault()
+      e.stopPropagation()
+    }
+
+    $(document).on('keydown.tab.data-api','[data-toggle="tab"], [data-toggle="pill"]' , $.fn.tab.Constructor.prototype.keydown)
+
+   var tabactivate =    $.fn.tab.Constructor.prototype.activate;
+   $.fn.tab.Constructor.prototype.activate = function (element, container, callback) {
+      var $active = container.find('> .active')
+      $active.find('[data-toggle=tab]').attr({ 'tabIndex' : '-1','aria-selected' : false,'aria-expanded' : false })
+      $active.filter('.tab-pane').attr({ 'aria-hidden' : true,'tabIndex' : '-1' })
+
+      tabactivate.apply(this, arguments)
+
+      element.addClass('active')
+      element.find('[data-toggle=tab]').attr({ 'tabIndex' : '0','aria-selected' : true,'aria-expanded' : true })
+      element.filter('.tab-pane').attr({ 'aria-hidden' : false,'tabIndex' : '0' })
+   }
+
+
+  // Collapse Extension
+  // ===============================
+
+      var $colltabs =  $('[data-toggle="collapse"]')
+      $colltabs.attr({ 'role':'tab', 'aria-selected':'false', 'aria-expanded':'false' })
+      $colltabs.each(function( index ) {
+        var colltab = $(this)
+        , collpanel = (colltab.attr('data-target')) ? $(colltab.attr('data-target')) : $(colltab.attr('href'))
+        , parent  = colltab.attr('data-parent')
+        , collparent = parent && $(parent)
+        , collid = colltab.attr('id') || uniqueId('ui-collapse')
+
+        $(collparent).find('div:not(.collapse,.panel-body), h4').attr('role','presentation')
+
+          colltab.attr('id', collid)
+          if(collparent){
+            collparent.attr({ 'role' : 'tablist', 'aria-multiselectable' : 'true' })
+            if(collpanel.hasClass('in')){
+              colltab.attr({ 'aria-controls': colltab.attr('href').substr(1), 'aria-selected':'true', 'aria-expanded':'true', 'tabindex':'0' })
+              collpanel.attr({ 'role':'tabpanel', 'tabindex':'0', 'aria-labelledby':collid, 'aria-hidden':'false' })
+            }else{
+              colltab.attr({'aria-controls' : colltab.attr('href').substr(1), 'tabindex':'-1' })
+              collpanel.attr({ 'role':'tabpanel', 'tabindex':'-1', 'aria-labelledby':collid, 'aria-hidden':'true' })
+            }
+          }
+      })
+
+    var collToggle = $.fn.collapse.Constructor.prototype.toggle
+    $.fn.collapse.Constructor.prototype.toggle = function(){
+        var prevTab = this.$parent && this.$parent.find('[aria-expanded="true"]') , href
+
+        if(prevTab){
+          var prevPanel = prevTab.attr('data-target') || (href = prevTab.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')
+          , $prevPanel = $(prevPanel)
+          , $curPanel = this.$element
+          , par = this.$parent
+          , curTab
+
+        if (this.$parent) curTab = this.$parent.find('[data-toggle=collapse][href="#' + this.$element.attr('id') + '"]')
+
+        collToggle.apply(this, arguments)
+
+        if ($.support.transition) {
+          this.$element.one($.support.transition.end, function(){
+
+              prevTab.attr({ 'aria-selected':'false','aria-expanded':'false', 'tabIndex':'-1' })
+              $prevPanel.attr({ 'aria-hidden' : 'true','tabIndex' : '-1'})
+
+              curTab.attr({ 'aria-selected':'true','aria-expanded':'true', 'tabIndex':'0' })
+
+              if($curPanel.hasClass('in')){
+                $curPanel.attr({ 'aria-hidden' : 'false','tabIndex' : '0' })
+              }else{
+                curTab.attr({ 'aria-selected':'false','aria-expanded':'false'})
+                $curPanel.attr({ 'aria-hidden' : 'true','tabIndex' : '-1' })
+              }
+          })
+        }
+      }else{
+        collToggle.apply(this, arguments)
+      }
+    }
+
+    $.fn.collapse.Constructor.prototype.keydown = function (e) {
+      var $this = $(this)
+      , $items
+      , $tablist = $this.closest('div[role=tablist] ')
+      , index
+      , k = e.which || e.keyCode
+
+      $this = $(this)
+      if (!/(32|37|38|39|40)/.test(k)) return
+      if(k==32) $this.click()
+
+      $items = $tablist.find('[role=tab]')
+      index = $items.index($items.filter(':focus'))
+
+      if (k == 38 || k == 37) index--                                        // up & left
+      if (k == 39 || k == 40) index++                        // down & right
+      if(index < 0) index = $items.length -1
+      if(index == $items.length) index = 0
+
+      $items.eq(index).focus()
+
+      e.preventDefault()
+      e.stopPropagation()
+
+    }
+
+    $(document).on('keydown.collapse.data-api','[data-toggle="collapse"]' ,  $.fn.collapse.Constructor.prototype.keydown)
+
+  // Carousel Extension
+  // ===============================
+
+      $('.carousel').each(function (index) {
+        var $this = $(this)
+          , prev = $this.find('[data-slide="prev"]')
+          , next = $this.find('[data-slide="next"]')
+          , $options = $this.find('.item')
+          , $listbox = $options.parent()
+
+        $this.attr( { 'data-interval' : 'false', 'data-wrap' : 'false' } )
+        $listbox.attr('role', 'listbox')
+        $options.attr('role', 'option')
+
+        var spanPrev = document.createElement('span')
+        spanPrev.setAttribute('class', 'sr-only')
+        spanPrev.innerHTML='Previous'
+
+        var spanNext = document.createElement('span')
+        spanNext.setAttribute('class', 'sr-only')
+        spanNext.innerHTML='Next'
+
+        prev.attr('role', 'button')
+        next.attr('role', 'button')
+
+        prev.append(spanPrev)
+        next.append(spanNext)
+
+        $options.each(function () {
+          var item = $(this)
+          if(item.hasClass('active')){
+            item.attr({ 'aria-selected': 'true', 'tabindex' : '0' })
+          }else{
+            item.attr({ 'aria-selected': 'false', 'tabindex' : '-1' })
+          }
+        })
+      })
+
+      var slideCarousel = $.fn.carousel.Constructor.prototype.slide
+      $.fn.carousel.Constructor.prototype.slide = function (type, next) {
+        var $active = this.$element.find('.item.active')
+          , $next = next || $active[type]()
+
+        slideCarousel.apply(this, arguments)
+
+      $active
+        .one($.support.transition.end, function () {
+        $active.attr({'aria-selected':false, 'tabIndex': '-1'})
+        $next.attr({'aria-selected':true, 'tabIndex': '0'})
+        //.focus()
+       })
+      }
+
+    $.fn.carousel.Constructor.prototype.keydown = function (e) {
+     var $this = $(this)
+      , $ul = $this.closest('div[role=listbox]')
+      , $items = $ul.find('[role=option]')
+      , $parent = $ul.parent()
+      , k = e.which || e.keyCode
+      , index
+      , i
+
+      if (!/(37|38|39|40)/.test(k)) return
+
+      index = $items.index($items.filter('.active'))
+      if (k == 37 || k == 38) {                           //  Up
+        $parent.carousel('prev')
+        index--
+        if(index < 0) index = $items.length -1
+        else  $this.prev().focus()
+
+      }
+      if (k == 39 || k == 40) {                          // Down
+        $parent.carousel('next')
+        index++
+        if(index == $items.length) index = 0
+        else  {
+          $this.one($.support.transition.end, function () {
+            $this.next().focus()
+          })
+        }
+
+      }
+
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    $(document).on('keydown.carousel.data-api', 'div[role=option]', $.fn.carousel.Constructor.prototype.keydown)
+
+  // GENERAL UTILITY FUNCTIONS
+  // ===============================
+
+    var removeMultiValAttributes = function (el, attr, val) {
+     var describedby = (el.attr( attr ) || "").split( /\s+/ )
+        , index = $.inArray(val, describedby)
+     if ( index !== -1 ) {
+       describedby.splice( index, 1 )
+     }
+     describedby = $.trim( describedby.join( " " ) )
+     if (describedby ) {
+       el.attr( attr, describedby )
+     } else {
+      el.removeAttr( attr )
+     }
+    }
+
+
+})(jQuery);
+
+define("bootstrapA11y", ["bootstrap"], (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.bootstrapA11y;
+    };
+}(this)));
+
+/*! Hammer.JS - v2.0.4 - 2014-09-28
+ * http://hammerjs.github.io/
+ *
+ * Copyright (c) 2014 Jorik Tangelder;
+ * Licensed under the MIT license */
+(function(window, document, exportName, undefined) {
+  'use strict';
+
+var VENDOR_PREFIXES = ['', 'webkit', 'moz', 'MS', 'ms', 'o'];
+var TEST_ELEMENT = document.createElement('div');
+
+var TYPE_FUNCTION = 'function';
+
+var round = Math.round;
+var abs = Math.abs;
+var now = Date.now;
+
+/**
+ * set a timeout with a given scope
+ * @param {Function} fn
+ * @param {Number} timeout
+ * @param {Object} context
+ * @returns {number}
+ */
+function setTimeoutContext(fn, timeout, context) {
+    return setTimeout(bindFn(fn, context), timeout);
+}
+
+/**
+ * if the argument is an array, we want to execute the fn on each entry
+ * if it aint an array we don't want to do a thing.
+ * this is used by all the methods that accept a single and array argument.
+ * @param {*|Array} arg
+ * @param {String} fn
+ * @param {Object} [context]
+ * @returns {Boolean}
+ */
+function invokeArrayArg(arg, fn, context) {
+    if (Array.isArray(arg)) {
+        each(arg, context[fn], context);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * walk objects and arrays
+ * @param {Object} obj
+ * @param {Function} iterator
+ * @param {Object} context
+ */
+function each(obj, iterator, context) {
+    var i;
+
+    if (!obj) {
+        return;
+    }
+
+    if (obj.forEach) {
+        obj.forEach(iterator, context);
+    } else if (obj.length !== undefined) {
+        i = 0;
+        while (i < obj.length) {
+            iterator.call(context, obj[i], i, obj);
+            i++;
+        }
+    } else {
+        for (i in obj) {
+            obj.hasOwnProperty(i) && iterator.call(context, obj[i], i, obj);
+        }
+    }
+}
+
+/**
+ * extend object.
+ * means that properties in dest will be overwritten by the ones in src.
+ * @param {Object} dest
+ * @param {Object} src
+ * @param {Boolean} [merge]
+ * @returns {Object} dest
+ */
+function extend(dest, src, merge) {
+    var keys = Object.keys(src);
+    var i = 0;
+    while (i < keys.length) {
+        if (!merge || (merge && dest[keys[i]] === undefined)) {
+            dest[keys[i]] = src[keys[i]];
+        }
+        i++;
+    }
+    return dest;
+}
+
+/**
+ * merge the values from src in the dest.
+ * means that properties that exist in dest will not be overwritten by src
+ * @param {Object} dest
+ * @param {Object} src
+ * @returns {Object} dest
+ */
+function merge(dest, src) {
+    return extend(dest, src, true);
+}
+
+/**
+ * simple class inheritance
+ * @param {Function} child
+ * @param {Function} base
+ * @param {Object} [properties]
+ */
+function inherit(child, base, properties) {
+    var baseP = base.prototype,
+        childP;
+
+    childP = child.prototype = Object.create(baseP);
+    childP.constructor = child;
+    childP._super = baseP;
+
+    if (properties) {
+        extend(childP, properties);
+    }
+}
+
+/**
+ * simple function bind
+ * @param {Function} fn
+ * @param {Object} context
+ * @returns {Function}
+ */
+function bindFn(fn, context) {
+    return function boundFn() {
+        return fn.apply(context, arguments);
+    };
+}
+
+/**
+ * let a boolean value also be a function that must return a boolean
+ * this first item in args will be used as the context
+ * @param {Boolean|Function} val
+ * @param {Array} [args]
+ * @returns {Boolean}
+ */
+function boolOrFn(val, args) {
+    if (typeof val == TYPE_FUNCTION) {
+        return val.apply(args ? args[0] || undefined : undefined, args);
+    }
+    return val;
+}
+
+/**
+ * use the val2 when val1 is undefined
+ * @param {*} val1
+ * @param {*} val2
+ * @returns {*}
+ */
+function ifUndefined(val1, val2) {
+    return (val1 === undefined) ? val2 : val1;
+}
+
+/**
+ * addEventListener with multiple events at once
+ * @param {EventTarget} target
+ * @param {String} types
+ * @param {Function} handler
+ */
+function addEventListeners(target, types, handler) {
+    each(splitStr(types), function(type) {
+        target.addEventListener(type, handler, false);
+    });
+}
+
+/**
+ * removeEventListener with multiple events at once
+ * @param {EventTarget} target
+ * @param {String} types
+ * @param {Function} handler
+ */
+function removeEventListeners(target, types, handler) {
+    each(splitStr(types), function(type) {
+        target.removeEventListener(type, handler, false);
+    });
+}
+
+/**
+ * find if a node is in the given parent
+ * @method hasParent
+ * @param {HTMLElement} node
+ * @param {HTMLElement} parent
+ * @return {Boolean} found
+ */
+function hasParent(node, parent) {
+    while (node) {
+        if (node == parent) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
+}
+
+/**
+ * small indexOf wrapper
+ * @param {String} str
+ * @param {String} find
+ * @returns {Boolean} found
+ */
+function inStr(str, find) {
+    return str.indexOf(find) > -1;
+}
+
+/**
+ * split string on whitespace
+ * @param {String} str
+ * @returns {Array} words
+ */
+function splitStr(str) {
+    return str.trim().split(/\s+/g);
+}
+
+/**
+ * find if a array contains the object using indexOf or a simple polyFill
+ * @param {Array} src
+ * @param {String} find
+ * @param {String} [findByKey]
+ * @return {Boolean|Number} false when not found, or the index
+ */
+function inArray(src, find, findByKey) {
+    if (src.indexOf && !findByKey) {
+        return src.indexOf(find);
+    } else {
+        var i = 0;
+        while (i < src.length) {
+            if ((findByKey && src[i][findByKey] == find) || (!findByKey && src[i] === find)) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+}
+
+/**
+ * convert array-like objects to real arrays
+ * @param {Object} obj
+ * @returns {Array}
+ */
+function toArray(obj) {
+    return Array.prototype.slice.call(obj, 0);
+}
+
+/**
+ * unique array with objects based on a key (like 'id') or just by the array's value
+ * @param {Array} src [{id:1},{id:2},{id:1}]
+ * @param {String} [key]
+ * @param {Boolean} [sort=False]
+ * @returns {Array} [{id:1},{id:2}]
+ */
+function uniqueArray(src, key, sort) {
+    var results = [];
+    var values = [];
+    var i = 0;
+
+    while (i < src.length) {
+        var val = key ? src[i][key] : src[i];
+        if (inArray(values, val) < 0) {
+            results.push(src[i]);
+        }
+        values[i] = val;
+        i++;
+    }
+
+    if (sort) {
+        if (!key) {
+            results = results.sort();
+        } else {
+            results = results.sort(function sortUniqueArray(a, b) {
+                return a[key] > b[key];
+            });
+        }
+    }
+
+    return results;
+}
+
+/**
+ * get the prefixed property
+ * @param {Object} obj
+ * @param {String} property
+ * @returns {String|Undefined} prefixed
+ */
+function prefixed(obj, property) {
+    var prefix, prop;
+    var camelProp = property[0].toUpperCase() + property.slice(1);
+
+    var i = 0;
+    while (i < VENDOR_PREFIXES.length) {
+        prefix = VENDOR_PREFIXES[i];
+        prop = (prefix) ? prefix + camelProp : property;
+
+        if (prop in obj) {
+            return prop;
+        }
+        i++;
+    }
+    return undefined;
+}
+
+/**
+ * get a unique id
+ * @returns {number} uniqueId
+ */
+var _uniqueId = 1;
+function uniqueId() {
+    return _uniqueId++;
+}
+
+/**
+ * get the window object of an element
+ * @param {HTMLElement} element
+ * @returns {DocumentView|Window}
+ */
+function getWindowForElement(element) {
+    var doc = element.ownerDocument;
+    return (doc.defaultView || doc.parentWindow);
+}
+
+var MOBILE_REGEX = /mobile|tablet|ip(ad|hone|od)|android/i;
+
+var SUPPORT_TOUCH = ('ontouchstart' in window);
+var SUPPORT_POINTER_EVENTS = prefixed(window, 'PointerEvent') !== undefined;
+var SUPPORT_ONLY_TOUCH = SUPPORT_TOUCH && MOBILE_REGEX.test(navigator.userAgent);
+
+var INPUT_TYPE_TOUCH = 'touch';
+var INPUT_TYPE_PEN = 'pen';
+var INPUT_TYPE_MOUSE = 'mouse';
+var INPUT_TYPE_KINECT = 'kinect';
+
+var COMPUTE_INTERVAL = 25;
+
+var INPUT_START = 1;
+var INPUT_MOVE = 2;
+var INPUT_END = 4;
+var INPUT_CANCEL = 8;
+
+var DIRECTION_NONE = 1;
+var DIRECTION_LEFT = 2;
+var DIRECTION_RIGHT = 4;
+var DIRECTION_UP = 8;
+var DIRECTION_DOWN = 16;
+
+var DIRECTION_HORIZONTAL = DIRECTION_LEFT | DIRECTION_RIGHT;
+var DIRECTION_VERTICAL = DIRECTION_UP | DIRECTION_DOWN;
+var DIRECTION_ALL = DIRECTION_HORIZONTAL | DIRECTION_VERTICAL;
+
+var PROPS_XY = ['x', 'y'];
+var PROPS_CLIENT_XY = ['clientX', 'clientY'];
+
+/**
+ * create new input type manager
+ * @param {Manager} manager
+ * @param {Function} callback
+ * @returns {Input}
+ * @constructor
+ */
+function Input(manager, callback) {
+    var self = this;
+    this.manager = manager;
+    this.callback = callback;
+    this.element = manager.element;
+    this.target = manager.options.inputTarget;
+
+    // smaller wrapper around the handler, for the scope and the enabled state of the manager,
+    // so when disabled the input events are completely bypassed.
+    this.domHandler = function(ev) {
+        if (boolOrFn(manager.options.enable, [manager])) {
+            self.handler(ev);
+        }
+    };
+
+    this.init();
+
+}
+
+Input.prototype = {
+    /**
+     * should handle the inputEvent data and trigger the callback
+     * @virtual
+     */
+    handler: function() { },
+
+    /**
+     * bind the events
+     */
+    init: function() {
+        this.evEl && addEventListeners(this.element, this.evEl, this.domHandler);
+        this.evTarget && addEventListeners(this.target, this.evTarget, this.domHandler);
+        this.evWin && addEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+    },
+
+    /**
+     * unbind the events
+     */
+    destroy: function() {
+        this.evEl && removeEventListeners(this.element, this.evEl, this.domHandler);
+        this.evTarget && removeEventListeners(this.target, this.evTarget, this.domHandler);
+        this.evWin && removeEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+    }
+};
+
+/**
+ * create new input type manager
+ * called by the Manager constructor
+ * @param {Hammer} manager
+ * @returns {Input}
+ */
+function createInputInstance(manager) {
+    var Type;
+    var inputClass = manager.options.inputClass;
+
+    if (inputClass) {
+        Type = inputClass;
+    } else if (SUPPORT_POINTER_EVENTS) {
+        Type = PointerEventInput;
+    } else if (SUPPORT_ONLY_TOUCH) {
+        Type = TouchInput;
+    } else if (!SUPPORT_TOUCH) {
+        Type = MouseInput;
+    } else {
+        Type = TouchMouseInput;
+    }
+    return new (Type)(manager, inputHandler);
+}
+
+/**
+ * handle input events
+ * @param {Manager} manager
+ * @param {String} eventType
+ * @param {Object} input
+ */
+function inputHandler(manager, eventType, input) {
+    var pointersLen = input.pointers.length;
+    var changedPointersLen = input.changedPointers.length;
+    var isFirst = (eventType & INPUT_START && (pointersLen - changedPointersLen === 0));
+    var isFinal = (eventType & (INPUT_END | INPUT_CANCEL) && (pointersLen - changedPointersLen === 0));
+
+    input.isFirst = !!isFirst;
+    input.isFinal = !!isFinal;
+
+    if (isFirst) {
+        manager.session = {};
+    }
+
+    // source event is the normalized value of the domEvents
+    // like 'touchstart, mouseup, pointerdown'
+    input.eventType = eventType;
+
+    // compute scale, rotation etc
+    computeInputData(manager, input);
+
+    // emit secret event
+    manager.emit('hammer.input', input);
+
+    manager.recognize(input);
+    manager.session.prevInput = input;
+}
+
+/**
+ * extend the data with some usable properties like scale, rotate, velocity etc
+ * @param {Object} manager
+ * @param {Object} input
+ */
+function computeInputData(manager, input) {
+    var session = manager.session;
+    var pointers = input.pointers;
+    var pointersLength = pointers.length;
+
+    // store the first input to calculate the distance and direction
+    if (!session.firstInput) {
+        session.firstInput = simpleCloneInputData(input);
+    }
+
+    // to compute scale and rotation we need to store the multiple touches
+    if (pointersLength > 1 && !session.firstMultiple) {
+        session.firstMultiple = simpleCloneInputData(input);
+    } else if (pointersLength === 1) {
+        session.firstMultiple = false;
+    }
+
+    var firstInput = session.firstInput;
+    var firstMultiple = session.firstMultiple;
+    var offsetCenter = firstMultiple ? firstMultiple.center : firstInput.center;
+
+    var center = input.center = getCenter(pointers);
+    input.timeStamp = now();
+    input.deltaTime = input.timeStamp - firstInput.timeStamp;
+
+    input.angle = getAngle(offsetCenter, center);
+    input.distance = getDistance(offsetCenter, center);
+
+    computeDeltaXY(session, input);
+    input.offsetDirection = getDirection(input.deltaX, input.deltaY);
+
+    input.scale = firstMultiple ? getScale(firstMultiple.pointers, pointers) : 1;
+    input.rotation = firstMultiple ? getRotation(firstMultiple.pointers, pointers) : 0;
+
+    computeIntervalInputData(session, input);
+
+    // find the correct target
+    var target = manager.element;
+    if (hasParent(input.srcEvent.target, target)) {
+        target = input.srcEvent.target;
+    }
+    input.target = target;
+}
+
+function computeDeltaXY(session, input) {
+    var center = input.center;
+    var offset = session.offsetDelta || {};
+    var prevDelta = session.prevDelta || {};
+    var prevInput = session.prevInput || {};
+
+    if (input.eventType === INPUT_START || prevInput.eventType === INPUT_END) {
+        prevDelta = session.prevDelta = {
+            x: prevInput.deltaX || 0,
+            y: prevInput.deltaY || 0
+        };
+
+        offset = session.offsetDelta = {
+            x: center.x,
+            y: center.y
+        };
+    }
+
+    input.deltaX = prevDelta.x + (center.x - offset.x);
+    input.deltaY = prevDelta.y + (center.y - offset.y);
+}
+
+/**
+ * velocity is calculated every x ms
+ * @param {Object} session
+ * @param {Object} input
+ */
+function computeIntervalInputData(session, input) {
+    var last = session.lastInterval || input,
+        deltaTime = input.timeStamp - last.timeStamp,
+        velocity, velocityX, velocityY, direction;
+
+    if (input.eventType != INPUT_CANCEL && (deltaTime > COMPUTE_INTERVAL || last.velocity === undefined)) {
+        var deltaX = last.deltaX - input.deltaX;
+        var deltaY = last.deltaY - input.deltaY;
+
+        var v = getVelocity(deltaTime, deltaX, deltaY);
+        velocityX = v.x;
+        velocityY = v.y;
+        velocity = (abs(v.x) > abs(v.y)) ? v.x : v.y;
+        direction = getDirection(deltaX, deltaY);
+
+        session.lastInterval = input;
+    } else {
+        // use latest velocity info if it doesn't overtake a minimum period
+        velocity = last.velocity;
+        velocityX = last.velocityX;
+        velocityY = last.velocityY;
+        direction = last.direction;
+    }
+
+    input.velocity = velocity;
+    input.velocityX = velocityX;
+    input.velocityY = velocityY;
+    input.direction = direction;
+}
+
+/**
+ * create a simple clone from the input used for storage of firstInput and firstMultiple
+ * @param {Object} input
+ * @returns {Object} clonedInputData
+ */
+function simpleCloneInputData(input) {
+    // make a simple copy of the pointers because we will get a reference if we don't
+    // we only need clientXY for the calculations
+    var pointers = [];
+    var i = 0;
+    while (i < input.pointers.length) {
+        pointers[i] = {
+            clientX: round(input.pointers[i].clientX),
+            clientY: round(input.pointers[i].clientY)
+        };
+        i++;
+    }
+
+    return {
+        timeStamp: now(),
+        pointers: pointers,
+        center: getCenter(pointers),
+        deltaX: input.deltaX,
+        deltaY: input.deltaY
+    };
+}
+
+/**
+ * get the center of all the pointers
+ * @param {Array} pointers
+ * @return {Object} center contains `x` and `y` properties
+ */
+function getCenter(pointers) {
+    var pointersLength = pointers.length;
+
+    // no need to loop when only one touch
+    if (pointersLength === 1) {
+        return {
+            x: round(pointers[0].clientX),
+            y: round(pointers[0].clientY)
+        };
+    }
+
+    var x = 0, y = 0, i = 0;
+    while (i < pointersLength) {
+        x += pointers[i].clientX;
+        y += pointers[i].clientY;
+        i++;
+    }
+
+    return {
+        x: round(x / pointersLength),
+        y: round(y / pointersLength)
+    };
+}
+
+/**
+ * calculate the velocity between two points. unit is in px per ms.
+ * @param {Number} deltaTime
+ * @param {Number} x
+ * @param {Number} y
+ * @return {Object} velocity `x` and `y`
+ */
+function getVelocity(deltaTime, x, y) {
+    return {
+        x: x / deltaTime || 0,
+        y: y / deltaTime || 0
+    };
+}
+
+/**
+ * get the direction between two points
+ * @param {Number} x
+ * @param {Number} y
+ * @return {Number} direction
+ */
+function getDirection(x, y) {
+    if (x === y) {
+        return DIRECTION_NONE;
+    }
+
+    if (abs(x) >= abs(y)) {
+        return x > 0 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+    }
+    return y > 0 ? DIRECTION_UP : DIRECTION_DOWN;
+}
+
+/**
+ * calculate the absolute distance between two points
+ * @param {Object} p1 {x, y}
+ * @param {Object} p2 {x, y}
+ * @param {Array} [props] containing x and y keys
+ * @return {Number} distance
+ */
+function getDistance(p1, p2, props) {
+    if (!props) {
+        props = PROPS_XY;
+    }
+    var x = p2[props[0]] - p1[props[0]],
+        y = p2[props[1]] - p1[props[1]];
+
+    return Math.sqrt((x * x) + (y * y));
+}
+
+/**
+ * calculate the angle between two coordinates
+ * @param {Object} p1
+ * @param {Object} p2
+ * @param {Array} [props] containing x and y keys
+ * @return {Number} angle
+ */
+function getAngle(p1, p2, props) {
+    if (!props) {
+        props = PROPS_XY;
+    }
+    var x = p2[props[0]] - p1[props[0]],
+        y = p2[props[1]] - p1[props[1]];
+    return Math.atan2(y, x) * 180 / Math.PI;
+}
+
+/**
+ * calculate the rotation degrees between two pointersets
+ * @param {Array} start array of pointers
+ * @param {Array} end array of pointers
+ * @return {Number} rotation
+ */
+function getRotation(start, end) {
+    return getAngle(end[1], end[0], PROPS_CLIENT_XY) - getAngle(start[1], start[0], PROPS_CLIENT_XY);
+}
+
+/**
+ * calculate the scale factor between two pointersets
+ * no scale is 1, and goes down to 0 when pinched together, and bigger when pinched out
+ * @param {Array} start array of pointers
+ * @param {Array} end array of pointers
+ * @return {Number} scale
+ */
+function getScale(start, end) {
+    return getDistance(end[0], end[1], PROPS_CLIENT_XY) / getDistance(start[0], start[1], PROPS_CLIENT_XY);
+}
+
+var MOUSE_INPUT_MAP = {
+    mousedown: INPUT_START,
+    mousemove: INPUT_MOVE,
+    mouseup: INPUT_END
+};
+
+var MOUSE_ELEMENT_EVENTS = 'mousedown';
+var MOUSE_WINDOW_EVENTS = 'mousemove mouseup';
+
+/**
+ * Mouse events input
+ * @constructor
+ * @extends Input
+ */
+function MouseInput() {
+    this.evEl = MOUSE_ELEMENT_EVENTS;
+    this.evWin = MOUSE_WINDOW_EVENTS;
+
+    this.allow = true; // used by Input.TouchMouse to disable mouse events
+    this.pressed = false; // mousedown state
+
+    Input.apply(this, arguments);
+}
+
+inherit(MouseInput, Input, {
+    /**
+     * handle mouse events
+     * @param {Object} ev
+     */
+    handler: function MEhandler(ev) {
+        var eventType = MOUSE_INPUT_MAP[ev.type];
+
+        // on start we want to have the left mouse button down
+        if (eventType & INPUT_START && ev.button === 0) {
+            this.pressed = true;
+        }
+
+        if (eventType & INPUT_MOVE && ev.which !== 1) {
+            eventType = INPUT_END;
+        }
+
+        // mouse must be down, and mouse events are allowed (see the TouchMouse input)
+        if (!this.pressed || !this.allow) {
+            return;
+        }
+
+        if (eventType & INPUT_END) {
+            this.pressed = false;
+        }
+
+        this.callback(this.manager, eventType, {
+            pointers: [ev],
+            changedPointers: [ev],
+            pointerType: INPUT_TYPE_MOUSE,
+            srcEvent: ev
+        });
+    }
+});
+
+var POINTER_INPUT_MAP = {
+    pointerdown: INPUT_START,
+    pointermove: INPUT_MOVE,
+    pointerup: INPUT_END,
+    pointercancel: INPUT_CANCEL,
+    pointerout: INPUT_CANCEL
+};
+
+// in IE10 the pointer types is defined as an enum
+var IE10_POINTER_TYPE_ENUM = {
+    2: INPUT_TYPE_TOUCH,
+    3: INPUT_TYPE_PEN,
+    4: INPUT_TYPE_MOUSE,
+    5: INPUT_TYPE_KINECT // see https://twitter.com/jacobrossi/status/480596438489890816
+};
+
+var POINTER_ELEMENT_EVENTS = 'pointerdown';
+var POINTER_WINDOW_EVENTS = 'pointermove pointerup pointercancel';
+
+// IE10 has prefixed support, and case-sensitive
+if (window.MSPointerEvent) {
+    POINTER_ELEMENT_EVENTS = 'MSPointerDown';
+    POINTER_WINDOW_EVENTS = 'MSPointerMove MSPointerUp MSPointerCancel';
+}
+
+/**
+ * Pointer events input
+ * @constructor
+ * @extends Input
+ */
+function PointerEventInput() {
+    this.evEl = POINTER_ELEMENT_EVENTS;
+    this.evWin = POINTER_WINDOW_EVENTS;
+
+    Input.apply(this, arguments);
+
+    this.store = (this.manager.session.pointerEvents = []);
+}
+
+inherit(PointerEventInput, Input, {
+    /**
+     * handle mouse events
+     * @param {Object} ev
+     */
+    handler: function PEhandler(ev) {
+        var store = this.store;
+        var removePointer = false;
+
+        var eventTypeNormalized = ev.type.toLowerCase().replace('ms', '');
+        var eventType = POINTER_INPUT_MAP[eventTypeNormalized];
+        var pointerType = IE10_POINTER_TYPE_ENUM[ev.pointerType] || ev.pointerType;
+
+        var isTouch = (pointerType == INPUT_TYPE_TOUCH);
+
+        // get index of the event in the store
+        var storeIndex = inArray(store, ev.pointerId, 'pointerId');
+
+        // start and mouse must be down
+        if (eventType & INPUT_START && (ev.button === 0 || isTouch)) {
+            if (storeIndex < 0) {
+                store.push(ev);
+                storeIndex = store.length - 1;
+            }
+        } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+            removePointer = true;
+        }
+
+        // it not found, so the pointer hasn't been down (so it's probably a hover)
+        if (storeIndex < 0) {
+            return;
+        }
+
+        // update the event in the store
+        store[storeIndex] = ev;
+
+        this.callback(this.manager, eventType, {
+            pointers: store,
+            changedPointers: [ev],
+            pointerType: pointerType,
+            srcEvent: ev
+        });
+
+        if (removePointer) {
+            // remove from the store
+            store.splice(storeIndex, 1);
+        }
+    }
+});
+
+var SINGLE_TOUCH_INPUT_MAP = {
+    touchstart: INPUT_START,
+    touchmove: INPUT_MOVE,
+    touchend: INPUT_END,
+    touchcancel: INPUT_CANCEL
+};
+
+var SINGLE_TOUCH_TARGET_EVENTS = 'touchstart';
+var SINGLE_TOUCH_WINDOW_EVENTS = 'touchstart touchmove touchend touchcancel';
+
+/**
+ * Touch events input
+ * @constructor
+ * @extends Input
+ */
+function SingleTouchInput() {
+    this.evTarget = SINGLE_TOUCH_TARGET_EVENTS;
+    this.evWin = SINGLE_TOUCH_WINDOW_EVENTS;
+    this.started = false;
+
+    Input.apply(this, arguments);
+}
+
+inherit(SingleTouchInput, Input, {
+    handler: function TEhandler(ev) {
+        var type = SINGLE_TOUCH_INPUT_MAP[ev.type];
+
+        // should we handle the touch events?
+        if (type === INPUT_START) {
+            this.started = true;
+        }
+
+        if (!this.started) {
+            return;
+        }
+
+        var touches = normalizeSingleTouches.call(this, ev, type);
+
+        // when done, reset the started state
+        if (type & (INPUT_END | INPUT_CANCEL) && touches[0].length - touches[1].length === 0) {
+            this.started = false;
+        }
+
+        this.callback(this.manager, type, {
+            pointers: touches[0],
+            changedPointers: touches[1],
+            pointerType: INPUT_TYPE_TOUCH,
+            srcEvent: ev
+        });
+    }
+});
+
+/**
+ * @this {TouchInput}
+ * @param {Object} ev
+ * @param {Number} type flag
+ * @returns {undefined|Array} [all, changed]
+ */
+function normalizeSingleTouches(ev, type) {
+    var all = toArray(ev.touches);
+    var changed = toArray(ev.changedTouches);
+
+    if (type & (INPUT_END | INPUT_CANCEL)) {
+        all = uniqueArray(all.concat(changed), 'identifier', true);
+    }
+
+    return [all, changed];
+}
+
+var TOUCH_INPUT_MAP = {
+    touchstart: INPUT_START,
+    touchmove: INPUT_MOVE,
+    touchend: INPUT_END,
+    touchcancel: INPUT_CANCEL
+};
+
+var TOUCH_TARGET_EVENTS = 'touchstart touchmove touchend touchcancel';
+
+/**
+ * Multi-user touch events input
+ * @constructor
+ * @extends Input
+ */
+function TouchInput() {
+    this.evTarget = TOUCH_TARGET_EVENTS;
+    this.targetIds = {};
+
+    Input.apply(this, arguments);
+}
+
+inherit(TouchInput, Input, {
+    handler: function MTEhandler(ev) {
+        var type = TOUCH_INPUT_MAP[ev.type];
+        var touches = getTouches.call(this, ev, type);
+        if (!touches) {
+            return;
+        }
+
+        this.callback(this.manager, type, {
+            pointers: touches[0],
+            changedPointers: touches[1],
+            pointerType: INPUT_TYPE_TOUCH,
+            srcEvent: ev
+        });
+    }
+});
+
+/**
+ * @this {TouchInput}
+ * @param {Object} ev
+ * @param {Number} type flag
+ * @returns {undefined|Array} [all, changed]
+ */
+function getTouches(ev, type) {
+    var allTouches = toArray(ev.touches);
+    var targetIds = this.targetIds;
+
+    // when there is only one touch, the process can be simplified
+    if (type & (INPUT_START | INPUT_MOVE) && allTouches.length === 1) {
+        targetIds[allTouches[0].identifier] = true;
+        return [allTouches, allTouches];
+    }
+
+    var i,
+        targetTouches,
+        changedTouches = toArray(ev.changedTouches),
+        changedTargetTouches = [],
+        target = this.target;
+
+    // get target touches from touches
+    targetTouches = allTouches.filter(function(touch) {
+        return hasParent(touch.target, target);
+    });
+
+    // collect touches
+    if (type === INPUT_START) {
+        i = 0;
+        while (i < targetTouches.length) {
+            targetIds[targetTouches[i].identifier] = true;
+            i++;
+        }
+    }
+
+    // filter changed touches to only contain touches that exist in the collected target ids
+    i = 0;
+    while (i < changedTouches.length) {
+        if (targetIds[changedTouches[i].identifier]) {
+            changedTargetTouches.push(changedTouches[i]);
+        }
+
+        // cleanup removed touches
+        if (type & (INPUT_END | INPUT_CANCEL)) {
+            delete targetIds[changedTouches[i].identifier];
+        }
+        i++;
+    }
+
+    if (!changedTargetTouches.length) {
+        return;
+    }
+
+    return [
+        // merge targetTouches with changedTargetTouches so it contains ALL touches, including 'end' and 'cancel'
+        uniqueArray(targetTouches.concat(changedTargetTouches), 'identifier', true),
+        changedTargetTouches
+    ];
+}
+
+/**
+ * Combined touch and mouse input
+ *
+ * Touch has a higher priority then mouse, and while touching no mouse events are allowed.
+ * This because touch devices also emit mouse events while doing a touch.
+ *
+ * @constructor
+ * @extends Input
+ */
+function TouchMouseInput() {
+    Input.apply(this, arguments);
+
+    var handler = bindFn(this.handler, this);
+    this.touch = new TouchInput(this.manager, handler);
+    this.mouse = new MouseInput(this.manager, handler);
+}
+
+inherit(TouchMouseInput, Input, {
+    /**
+     * handle mouse and touch events
+     * @param {Hammer} manager
+     * @param {String} inputEvent
+     * @param {Object} inputData
+     */
+    handler: function TMEhandler(manager, inputEvent, inputData) {
+        var isTouch = (inputData.pointerType == INPUT_TYPE_TOUCH),
+            isMouse = (inputData.pointerType == INPUT_TYPE_MOUSE);
+
+        // when we're in a touch event, so  block all upcoming mouse events
+        // most mobile browser also emit mouseevents, right after touchstart
+        if (isTouch) {
+            this.mouse.allow = false;
+        } else if (isMouse && !this.mouse.allow) {
+            return;
+        }
+
+        // reset the allowMouse when we're done
+        if (inputEvent & (INPUT_END | INPUT_CANCEL)) {
+            this.mouse.allow = true;
+        }
+
+        this.callback(manager, inputEvent, inputData);
+    },
+
+    /**
+     * remove the event listeners
+     */
+    destroy: function destroy() {
+        this.touch.destroy();
+        this.mouse.destroy();
+    }
+});
+
+var PREFIXED_TOUCH_ACTION = prefixed(TEST_ELEMENT.style, 'touchAction');
+var NATIVE_TOUCH_ACTION = PREFIXED_TOUCH_ACTION !== undefined;
+
+// magical touchAction value
+var TOUCH_ACTION_COMPUTE = 'compute';
+var TOUCH_ACTION_AUTO = 'auto';
+var TOUCH_ACTION_MANIPULATION = 'manipulation'; // not implemented
+var TOUCH_ACTION_NONE = 'none';
+var TOUCH_ACTION_PAN_X = 'pan-x';
+var TOUCH_ACTION_PAN_Y = 'pan-y';
+
+/**
+ * Touch Action
+ * sets the touchAction property or uses the js alternative
+ * @param {Manager} manager
+ * @param {String} value
+ * @constructor
+ */
+function TouchAction(manager, value) {
+    this.manager = manager;
+    this.set(value);
+}
+
+TouchAction.prototype = {
+    /**
+     * set the touchAction value on the element or enable the polyfill
+     * @param {String} value
+     */
+    set: function(value) {
+        // find out the touch-action by the event handlers
+        if (value == TOUCH_ACTION_COMPUTE) {
+            value = this.compute();
+        }
+
+        if (NATIVE_TOUCH_ACTION) {
+            this.manager.element.style[PREFIXED_TOUCH_ACTION] = value;
+        }
+        this.actions = value.toLowerCase().trim();
+    },
+
+    /**
+     * just re-set the touchAction value
+     */
+    update: function() {
+        this.set(this.manager.options.touchAction);
+    },
+
+    /**
+     * compute the value for the touchAction property based on the recognizer's settings
+     * @returns {String} value
+     */
+    compute: function() {
+        var actions = [];
+        each(this.manager.recognizers, function(recognizer) {
+            if (boolOrFn(recognizer.options.enable, [recognizer])) {
+                actions = actions.concat(recognizer.getTouchAction());
+            }
+        });
+        return cleanTouchActions(actions.join(' '));
+    },
+
+    /**
+     * this method is called on each input cycle and provides the preventing of the browser behavior
+     * @param {Object} input
+     */
+    preventDefaults: function(input) {
+        // not needed with native support for the touchAction property
+        if (NATIVE_TOUCH_ACTION) {
+            return;
+        }
+
+        var srcEvent = input.srcEvent;
+        var direction = input.offsetDirection;
+
+        // if the touch action did prevented once this session
+        if (this.manager.session.prevented) {
+            srcEvent.preventDefault();
+            return;
+        }
+
+        var actions = this.actions;
+        var hasNone = inStr(actions, TOUCH_ACTION_NONE);
+        var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y);
+        var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X);
+
+        if (hasNone ||
+            (hasPanY && direction & DIRECTION_HORIZONTAL) ||
+            (hasPanX && direction & DIRECTION_VERTICAL)) {
+            return this.preventSrc(srcEvent);
+        }
+    },
+
+    /**
+     * call preventDefault to prevent the browser's default behavior (scrolling in most cases)
+     * @param {Object} srcEvent
+     */
+    preventSrc: function(srcEvent) {
+        this.manager.session.prevented = true;
+        srcEvent.preventDefault();
+    }
+};
+
+/**
+ * when the touchActions are collected they are not a valid value, so we need to clean things up. *
+ * @param {String} actions
+ * @returns {*}
+ */
+function cleanTouchActions(actions) {
+    // none
+    if (inStr(actions, TOUCH_ACTION_NONE)) {
+        return TOUCH_ACTION_NONE;
+    }
+
+    var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X);
+    var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y);
+
+    // pan-x and pan-y can be combined
+    if (hasPanX && hasPanY) {
+        return TOUCH_ACTION_PAN_X + ' ' + TOUCH_ACTION_PAN_Y;
+    }
+
+    // pan-x OR pan-y
+    if (hasPanX || hasPanY) {
+        return hasPanX ? TOUCH_ACTION_PAN_X : TOUCH_ACTION_PAN_Y;
+    }
+
+    // manipulation
+    if (inStr(actions, TOUCH_ACTION_MANIPULATION)) {
+        return TOUCH_ACTION_MANIPULATION;
+    }
+
+    return TOUCH_ACTION_AUTO;
+}
+
+/**
+ * Recognizer flow explained; *
+ * All recognizers have the initial state of POSSIBLE when a input session starts.
+ * The definition of a input session is from the first input until the last input, with all it's movement in it. *
+ * Example session for mouse-input: mousedown -> mousemove -> mouseup
+ *
+ * On each recognizing cycle (see Manager.recognize) the .recognize() method is executed
+ * which determines with state it should be.
+ *
+ * If the recognizer has the state FAILED, CANCELLED or RECOGNIZED (equals ENDED), it is reset to
+ * POSSIBLE to give it another change on the next cycle.
+ *
+ *               Possible
+ *                  |
+ *            +-----+---------------+
+ *            |                     |
+ *      +-----+-----+               |
+ *      |           |               |
+ *   Failed      Cancelled          |
+ *                          +-------+------+
+ *                          |              |
+ *                      Recognized       Began
+ *                                         |
+ *                                      Changed
+ *                                         |
+ *                                  Ended/Recognized
+ */
+var STATE_POSSIBLE = 1;
+var STATE_BEGAN = 2;
+var STATE_CHANGED = 4;
+var STATE_ENDED = 8;
+var STATE_RECOGNIZED = STATE_ENDED;
+var STATE_CANCELLED = 16;
+var STATE_FAILED = 32;
+
+/**
+ * Recognizer
+ * Every recognizer needs to extend from this class.
+ * @constructor
+ * @param {Object} options
+ */
+function Recognizer(options) {
+    this.id = uniqueId();
+
+    this.manager = null;
+    this.options = merge(options || {}, this.defaults);
+
+    // default is enable true
+    this.options.enable = ifUndefined(this.options.enable, true);
+
+    this.state = STATE_POSSIBLE;
+
+    this.simultaneous = {};
+    this.requireFail = [];
+}
+
+Recognizer.prototype = {
+    /**
+     * @virtual
+     * @type {Object}
+     */
+    defaults: {},
+
+    /**
+     * set options
+     * @param {Object} options
+     * @return {Recognizer}
+     */
+    set: function(options) {
+        extend(this.options, options);
+
+        // also update the touchAction, in case something changed about the directions/enabled state
+        this.manager && this.manager.touchAction.update();
+        return this;
+    },
+
+    /**
+     * recognize simultaneous with an other recognizer.
+     * @param {Recognizer} otherRecognizer
+     * @returns {Recognizer} this
+     */
+    recognizeWith: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, 'recognizeWith', this)) {
+            return this;
+        }
+
+        var simultaneous = this.simultaneous;
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        if (!simultaneous[otherRecognizer.id]) {
+            simultaneous[otherRecognizer.id] = otherRecognizer;
+            otherRecognizer.recognizeWith(this);
+        }
+        return this;
+    },
+
+    /**
+     * drop the simultaneous link. it doesnt remove the link on the other recognizer.
+     * @param {Recognizer} otherRecognizer
+     * @returns {Recognizer} this
+     */
+    dropRecognizeWith: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, 'dropRecognizeWith', this)) {
+            return this;
+        }
+
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        delete this.simultaneous[otherRecognizer.id];
+        return this;
+    },
+
+    /**
+     * recognizer can only run when an other is failing
+     * @param {Recognizer} otherRecognizer
+     * @returns {Recognizer} this
+     */
+    requireFailure: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, 'requireFailure', this)) {
+            return this;
+        }
+
+        var requireFail = this.requireFail;
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        if (inArray(requireFail, otherRecognizer) === -1) {
+            requireFail.push(otherRecognizer);
+            otherRecognizer.requireFailure(this);
+        }
+        return this;
+    },
+
+    /**
+     * drop the requireFailure link. it does not remove the link on the other recognizer.
+     * @param {Recognizer} otherRecognizer
+     * @returns {Recognizer} this
+     */
+    dropRequireFailure: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, 'dropRequireFailure', this)) {
+            return this;
+        }
+
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        var index = inArray(this.requireFail, otherRecognizer);
+        if (index > -1) {
+            this.requireFail.splice(index, 1);
+        }
+        return this;
+    },
+
+    /**
+     * has require failures boolean
+     * @returns {boolean}
+     */
+    hasRequireFailures: function() {
+        return this.requireFail.length > 0;
+    },
+
+    /**
+     * if the recognizer can recognize simultaneous with an other recognizer
+     * @param {Recognizer} otherRecognizer
+     * @returns {Boolean}
+     */
+    canRecognizeWith: function(otherRecognizer) {
+        return !!this.simultaneous[otherRecognizer.id];
+    },
+
+    /**
+     * You should use `tryEmit` instead of `emit` directly to check
+     * that all the needed recognizers has failed before emitting.
+     * @param {Object} input
+     */
+    emit: function(input) {
+        var self = this;
+        var state = this.state;
+
+        function emit(withState) {
+            self.manager.emit(self.options.event + (withState ? stateStr(state) : ''), input);
+        }
+
+        // 'panstart' and 'panmove'
+        if (state < STATE_ENDED) {
+            emit(true);
+        }
+
+        emit(); // simple 'eventName' events
+
+        // panend and pancancel
+        if (state >= STATE_ENDED) {
+            emit(true);
+        }
+    },
+
+    /**
+     * Check that all the require failure recognizers has failed,
+     * if true, it emits a gesture event,
+     * otherwise, setup the state to FAILED.
+     * @param {Object} input
+     */
+    tryEmit: function(input) {
+        if (this.canEmit()) {
+            return this.emit(input);
+        }
+        // it's failing anyway
+        this.state = STATE_FAILED;
+    },
+
+    /**
+     * can we emit?
+     * @returns {boolean}
+     */
+    canEmit: function() {
+        var i = 0;
+        while (i < this.requireFail.length) {
+            if (!(this.requireFail[i].state & (STATE_FAILED | STATE_POSSIBLE))) {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    },
+
+    /**
+     * update the recognizer
+     * @param {Object} inputData
+     */
+    recognize: function(inputData) {
+        // make a new copy of the inputData
+        // so we can change the inputData without messing up the other recognizers
+        var inputDataClone = extend({}, inputData);
+
+        // is is enabled and allow recognizing?
+        if (!boolOrFn(this.options.enable, [this, inputDataClone])) {
+            this.reset();
+            this.state = STATE_FAILED;
+            return;
+        }
+
+        // reset when we've reached the end
+        if (this.state & (STATE_RECOGNIZED | STATE_CANCELLED | STATE_FAILED)) {
+            this.state = STATE_POSSIBLE;
+        }
+
+        this.state = this.process(inputDataClone);
+
+        // the recognizer has recognized a gesture
+        // so trigger an event
+        if (this.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED | STATE_CANCELLED)) {
+            this.tryEmit(inputDataClone);
+        }
+    },
+
+    /**
+     * return the state of the recognizer
+     * the actual recognizing happens in this method
+     * @virtual
+     * @param {Object} inputData
+     * @returns {Const} STATE
+     */
+    process: function(inputData) { }, // jshint ignore:line
+
+    /**
+     * return the preferred touch-action
+     * @virtual
+     * @returns {Array}
+     */
+    getTouchAction: function() { },
+
+    /**
+     * called when the gesture isn't allowed to recognize
+     * like when another is being recognized or it is disabled
+     * @virtual
+     */
+    reset: function() { }
+};
+
+/**
+ * get a usable string, used as event postfix
+ * @param {Const} state
+ * @returns {String} state
+ */
+function stateStr(state) {
+    if (state & STATE_CANCELLED) {
+        return 'cancel';
+    } else if (state & STATE_ENDED) {
+        return 'end';
+    } else if (state & STATE_CHANGED) {
+        return 'move';
+    } else if (state & STATE_BEGAN) {
+        return 'start';
+    }
+    return '';
+}
+
+/**
+ * direction cons to string
+ * @param {Const} direction
+ * @returns {String}
+ */
+function directionStr(direction) {
+    if (direction == DIRECTION_DOWN) {
+        return 'down';
+    } else if (direction == DIRECTION_UP) {
+        return 'up';
+    } else if (direction == DIRECTION_LEFT) {
+        return 'left';
+    } else if (direction == DIRECTION_RIGHT) {
+        return 'right';
+    }
+    return '';
+}
+
+/**
+ * get a recognizer by name if it is bound to a manager
+ * @param {Recognizer|String} otherRecognizer
+ * @param {Recognizer} recognizer
+ * @returns {Recognizer}
+ */
+function getRecognizerByNameIfManager(otherRecognizer, recognizer) {
+    var manager = recognizer.manager;
+    if (manager) {
+        return manager.get(otherRecognizer);
+    }
+    return otherRecognizer;
+}
+
+/**
+ * This recognizer is just used as a base for the simple attribute recognizers.
+ * @constructor
+ * @extends Recognizer
+ */
+function AttrRecognizer() {
+    Recognizer.apply(this, arguments);
+}
+
+inherit(AttrRecognizer, Recognizer, {
+    /**
+     * @namespace
+     * @memberof AttrRecognizer
+     */
+    defaults: {
+        /**
+         * @type {Number}
+         * @default 1
+         */
+        pointers: 1
+    },
+
+    /**
+     * Used to check if it the recognizer receives valid input, like input.distance > 10.
+     * @memberof AttrRecognizer
+     * @param {Object} input
+     * @returns {Boolean} recognized
+     */
+    attrTest: function(input) {
+        var optionPointers = this.options.pointers;
+        return optionPointers === 0 || input.pointers.length === optionPointers;
+    },
+
+    /**
+     * Process the input and return the state for the recognizer
+     * @memberof AttrRecognizer
+     * @param {Object} input
+     * @returns {*} State
+     */
+    process: function(input) {
+        var state = this.state;
+        var eventType = input.eventType;
+
+        var isRecognized = state & (STATE_BEGAN | STATE_CHANGED);
+        var isValid = this.attrTest(input);
+
+        // on cancel input and we've recognized before, return STATE_CANCELLED
+        if (isRecognized && (eventType & INPUT_CANCEL || !isValid)) {
+            return state | STATE_CANCELLED;
+        } else if (isRecognized || isValid) {
+            if (eventType & INPUT_END) {
+                return state | STATE_ENDED;
+            } else if (!(state & STATE_BEGAN)) {
+                return STATE_BEGAN;
+            }
+            return state | STATE_CHANGED;
+        }
+        return STATE_FAILED;
+    }
+});
+
+/**
+ * Pan
+ * Recognized when the pointer is down and moved in the allowed direction.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+function PanRecognizer() {
+    AttrRecognizer.apply(this, arguments);
+
+    this.pX = null;
+    this.pY = null;
+}
+
+inherit(PanRecognizer, AttrRecognizer, {
+    /**
+     * @namespace
+     * @memberof PanRecognizer
+     */
+    defaults: {
+        event: 'pan',
+        threshold: 10,
+        pointers: 1,
+        direction: DIRECTION_ALL
+    },
+
+    getTouchAction: function() {
+        var direction = this.options.direction;
+        var actions = [];
+        if (direction & DIRECTION_HORIZONTAL) {
+            actions.push(TOUCH_ACTION_PAN_Y);
+        }
+        if (direction & DIRECTION_VERTICAL) {
+            actions.push(TOUCH_ACTION_PAN_X);
+        }
+        return actions;
+    },
+
+    directionTest: function(input) {
+        var options = this.options;
+        var hasMoved = true;
+        var distance = input.distance;
+        var direction = input.direction;
+        var x = input.deltaX;
+        var y = input.deltaY;
+
+        // lock to axis?
+        if (!(direction & options.direction)) {
+            if (options.direction & DIRECTION_HORIZONTAL) {
+                direction = (x === 0) ? DIRECTION_NONE : (x < 0) ? DIRECTION_LEFT : DIRECTION_RIGHT;
+                hasMoved = x != this.pX;
+                distance = Math.abs(input.deltaX);
+            } else {
+                direction = (y === 0) ? DIRECTION_NONE : (y < 0) ? DIRECTION_UP : DIRECTION_DOWN;
+                hasMoved = y != this.pY;
+                distance = Math.abs(input.deltaY);
+            }
+        }
+        input.direction = direction;
+        return hasMoved && distance > options.threshold && direction & options.direction;
+    },
+
+    attrTest: function(input) {
+        return AttrRecognizer.prototype.attrTest.call(this, input) &&
+            (this.state & STATE_BEGAN || (!(this.state & STATE_BEGAN) && this.directionTest(input)));
+    },
+
+    emit: function(input) {
+        this.pX = input.deltaX;
+        this.pY = input.deltaY;
+
+        var direction = directionStr(input.direction);
+        if (direction) {
+            this.manager.emit(this.options.event + direction, input);
+        }
+
+        this._super.emit.call(this, input);
+    }
+});
+
+/**
+ * Pinch
+ * Recognized when two or more pointers are moving toward (zoom-in) or away from each other (zoom-out).
+ * @constructor
+ * @extends AttrRecognizer
+ */
+function PinchRecognizer() {
+    AttrRecognizer.apply(this, arguments);
+}
+
+inherit(PinchRecognizer, AttrRecognizer, {
+    /**
+     * @namespace
+     * @memberof PinchRecognizer
+     */
+    defaults: {
+        event: 'pinch',
+        threshold: 0,
+        pointers: 2
+    },
+
+    getTouchAction: function() {
+        return [TOUCH_ACTION_NONE];
+    },
+
+    attrTest: function(input) {
+        return this._super.attrTest.call(this, input) &&
+            (Math.abs(input.scale - 1) > this.options.threshold || this.state & STATE_BEGAN);
+    },
+
+    emit: function(input) {
+        this._super.emit.call(this, input);
+        if (input.scale !== 1) {
+            var inOut = input.scale < 1 ? 'in' : 'out';
+            this.manager.emit(this.options.event + inOut, input);
+        }
+    }
+});
+
+/**
+ * Press
+ * Recognized when the pointer is down for x ms without any movement.
+ * @constructor
+ * @extends Recognizer
+ */
+function PressRecognizer() {
+    Recognizer.apply(this, arguments);
+
+    this._timer = null;
+    this._input = null;
+}
+
+inherit(PressRecognizer, Recognizer, {
+    /**
+     * @namespace
+     * @memberof PressRecognizer
+     */
+    defaults: {
+        event: 'press',
+        pointers: 1,
+        time: 500, // minimal time of the pointer to be pressed
+        threshold: 5 // a minimal movement is ok, but keep it low
+    },
+
+    getTouchAction: function() {
+        return [TOUCH_ACTION_AUTO];
+    },
+
+    process: function(input) {
+        var options = this.options;
+        var validPointers = input.pointers.length === options.pointers;
+        var validMovement = input.distance < options.threshold;
+        var validTime = input.deltaTime > options.time;
+
+        this._input = input;
+
+        // we only allow little movement
+        // and we've reached an end event, so a tap is possible
+        if (!validMovement || !validPointers || (input.eventType & (INPUT_END | INPUT_CANCEL) && !validTime)) {
+            this.reset();
+        } else if (input.eventType & INPUT_START) {
+            this.reset();
+            this._timer = setTimeoutContext(function() {
+                this.state = STATE_RECOGNIZED;
+                this.tryEmit();
+            }, options.time, this);
+        } else if (input.eventType & INPUT_END) {
+            return STATE_RECOGNIZED;
+        }
+        return STATE_FAILED;
+    },
+
+    reset: function() {
+        clearTimeout(this._timer);
+    },
+
+    emit: function(input) {
+        if (this.state !== STATE_RECOGNIZED) {
+            return;
+        }
+
+        if (input && (input.eventType & INPUT_END)) {
+            this.manager.emit(this.options.event + 'up', input);
+        } else {
+            this._input.timeStamp = now();
+            this.manager.emit(this.options.event, this._input);
+        }
+    }
+});
+
+/**
+ * Rotate
+ * Recognized when two or more pointer are moving in a circular motion.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+function RotateRecognizer() {
+    AttrRecognizer.apply(this, arguments);
+}
+
+inherit(RotateRecognizer, AttrRecognizer, {
+    /**
+     * @namespace
+     * @memberof RotateRecognizer
+     */
+    defaults: {
+        event: 'rotate',
+        threshold: 0,
+        pointers: 2
+    },
+
+    getTouchAction: function() {
+        return [TOUCH_ACTION_NONE];
+    },
+
+    attrTest: function(input) {
+        return this._super.attrTest.call(this, input) &&
+            (Math.abs(input.rotation) > this.options.threshold || this.state & STATE_BEGAN);
+    }
+});
+
+/**
+ * Swipe
+ * Recognized when the pointer is moving fast (velocity), with enough distance in the allowed direction.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+function SwipeRecognizer() {
+    AttrRecognizer.apply(this, arguments);
+}
+
+inherit(SwipeRecognizer, AttrRecognizer, {
+    /**
+     * @namespace
+     * @memberof SwipeRecognizer
+     */
+    defaults: {
+        event: 'swipe',
+        threshold: 10,
+        velocity: 0.65,
+        direction: DIRECTION_HORIZONTAL | DIRECTION_VERTICAL,
+        pointers: 1
+    },
+
+    getTouchAction: function() {
+        return PanRecognizer.prototype.getTouchAction.call(this);
+    },
+
+    attrTest: function(input) {
+        var direction = this.options.direction;
+        var velocity;
+
+        if (direction & (DIRECTION_HORIZONTAL | DIRECTION_VERTICAL)) {
+            velocity = input.velocity;
+        } else if (direction & DIRECTION_HORIZONTAL) {
+            velocity = input.velocityX;
+        } else if (direction & DIRECTION_VERTICAL) {
+            velocity = input.velocityY;
+        }
+
+        return this._super.attrTest.call(this, input) &&
+            direction & input.direction &&
+            input.distance > this.options.threshold &&
+            abs(velocity) > this.options.velocity && input.eventType & INPUT_END;
+    },
+
+    emit: function(input) {
+        var direction = directionStr(input.direction);
+        if (direction) {
+            this.manager.emit(this.options.event + direction, input);
+        }
+
+        this.manager.emit(this.options.event, input);
+    }
+});
+
+/**
+ * A tap is ecognized when the pointer is doing a small tap/click. Multiple taps are recognized if they occur
+ * between the given interval and position. The delay option can be used to recognize multi-taps without firing
+ * a single tap.
+ *
+ * The eventData from the emitted event contains the property `tapCount`, which contains the amount of
+ * multi-taps being recognized.
+ * @constructor
+ * @extends Recognizer
+ */
+function TapRecognizer() {
+    Recognizer.apply(this, arguments);
+
+    // previous time and center,
+    // used for tap counting
+    this.pTime = false;
+    this.pCenter = false;
+
+    this._timer = null;
+    this._input = null;
+    this.count = 0;
+}
+
+inherit(TapRecognizer, Recognizer, {
+    /**
+     * @namespace
+     * @memberof PinchRecognizer
+     */
+    defaults: {
+        event: 'tap',
+        pointers: 1,
+        taps: 1,
+        interval: 300, // max time between the multi-tap taps
+        time: 250, // max time of the pointer to be down (like finger on the screen)
+        threshold: 2, // a minimal movement is ok, but keep it low
+        posThreshold: 10 // a multi-tap can be a bit off the initial position
+    },
+
+    getTouchAction: function() {
+        return [TOUCH_ACTION_MANIPULATION];
+    },
+
+    process: function(input) {
+        var options = this.options;
+
+        var validPointers = input.pointers.length === options.pointers;
+        var validMovement = input.distance < options.threshold;
+        var validTouchTime = input.deltaTime < options.time;
+
+        this.reset();
+
+        if ((input.eventType & INPUT_START) && (this.count === 0)) {
+            return this.failTimeout();
+        }
+
+        // we only allow little movement
+        // and we've reached an end event, so a tap is possible
+        if (validMovement && validTouchTime && validPointers) {
+            if (input.eventType != INPUT_END) {
+                return this.failTimeout();
+            }
+
+            var validInterval = this.pTime ? (input.timeStamp - this.pTime < options.interval) : true;
+            var validMultiTap = !this.pCenter || getDistance(this.pCenter, input.center) < options.posThreshold;
+
+            this.pTime = input.timeStamp;
+            this.pCenter = input.center;
+
+            if (!validMultiTap || !validInterval) {
+                this.count = 1;
+            } else {
+                this.count += 1;
+            }
+
+            this._input = input;
+
+            // if tap count matches we have recognized it,
+            // else it has began recognizing...
+            var tapCount = this.count % options.taps;
+            if (tapCount === 0) {
+                // no failing requirements, immediately trigger the tap event
+                // or wait as long as the multitap interval to trigger
+                if (!this.hasRequireFailures()) {
+                    return STATE_RECOGNIZED;
+                } else {
+                    this._timer = setTimeoutContext(function() {
+                        this.state = STATE_RECOGNIZED;
+                        this.tryEmit();
+                    }, options.interval, this);
+                    return STATE_BEGAN;
+                }
+            }
+        }
+        return STATE_FAILED;
+    },
+
+    failTimeout: function() {
+        this._timer = setTimeoutContext(function() {
+            this.state = STATE_FAILED;
+        }, this.options.interval, this);
+        return STATE_FAILED;
+    },
+
+    reset: function() {
+        clearTimeout(this._timer);
+    },
+
+    emit: function() {
+        if (this.state == STATE_RECOGNIZED ) {
+            this._input.tapCount = this.count;
+            this.manager.emit(this.options.event, this._input);
+        }
+    }
+});
+
+/**
+ * Simple way to create an manager with a default set of recognizers.
+ * @param {HTMLElement} element
+ * @param {Object} [options]
+ * @constructor
+ */
+function Hammer(element, options) {
+    options = options || {};
+    options.recognizers = ifUndefined(options.recognizers, Hammer.defaults.preset);
+    return new Manager(element, options);
+}
+
+/**
+ * @const {string}
+ */
+Hammer.VERSION = '2.0.4';
+
+/**
+ * default settings
+ * @namespace
+ */
+Hammer.defaults = {
+    /**
+     * set if DOM events are being triggered.
+     * But this is slower and unused by simple implementations, so disabled by default.
+     * @type {Boolean}
+     * @default false
+     */
+    domEvents: false,
+
+    /**
+     * The value for the touchAction property/fallback.
+     * When set to `compute` it will magically set the correct value based on the added recognizers.
+     * @type {String}
+     * @default compute
+     */
+    touchAction: TOUCH_ACTION_COMPUTE,
+
+    /**
+     * @type {Boolean}
+     * @default true
+     */
+    enable: true,
+
+    /**
+     * EXPERIMENTAL FEATURE -- can be removed/changed
+     * Change the parent input target element.
+     * If Null, then it is being set the to main element.
+     * @type {Null|EventTarget}
+     * @default null
+     */
+    inputTarget: null,
+
+    /**
+     * force an input class
+     * @type {Null|Function}
+     * @default null
+     */
+    inputClass: null,
+
+    /**
+     * Default recognizer setup when calling `Hammer()`
+     * When creating a new Manager these will be skipped.
+     * @type {Array}
+     */
+    preset: [
+        // RecognizerClass, options, [recognizeWith, ...], [requireFailure, ...]
+        [RotateRecognizer, { enable: false }],
+        [PinchRecognizer, { enable: false }, ['rotate']],
+        [SwipeRecognizer,{ direction: DIRECTION_HORIZONTAL }],
+        [PanRecognizer, { direction: DIRECTION_HORIZONTAL }, ['swipe']],
+        [TapRecognizer],
+        [TapRecognizer, { event: 'doubletap', taps: 2 }, ['tap']],
+        [PressRecognizer]
+    ],
+
+    /**
+     * Some CSS properties can be used to improve the working of Hammer.
+     * Add them to this method and they will be set when creating a new Manager.
+     * @namespace
+     */
+    cssProps: {
+        /**
+         * Disables text selection to improve the dragging gesture. Mainly for desktop browsers.
+         * @type {String}
+         * @default 'none'
+         */
+        userSelect: 'none',
+
+        /**
+         * Disable the Windows Phone grippers when pressing an element.
+         * @type {String}
+         * @default 'none'
+         */
+        touchSelect: 'none',
+
+        /**
+         * Disables the default callout shown when you touch and hold a touch target.
+         * On iOS, when you touch and hold a touch target such as a link, Safari displays
+         * a callout containing information about the link. This property allows you to disable that callout.
+         * @type {String}
+         * @default 'none'
+         */
+        touchCallout: 'none',
+
+        /**
+         * Specifies whether zooming is enabled. Used by IE10>
+         * @type {String}
+         * @default 'none'
+         */
+        contentZooming: 'none',
+
+        /**
+         * Specifies that an entire element should be draggable instead of its contents. Mainly for desktop browsers.
+         * @type {String}
+         * @default 'none'
+         */
+        userDrag: 'none',
+
+        /**
+         * Overrides the highlight color shown when the user taps a link or a JavaScript
+         * clickable element in iOS. This property obeys the alpha value, if specified.
+         * @type {String}
+         * @default 'rgba(0,0,0,0)'
+         */
+        tapHighlightColor: 'rgba(0,0,0,0)'
+    }
+};
+
+var STOP = 1;
+var FORCED_STOP = 2;
+
+/**
+ * Manager
+ * @param {HTMLElement} element
+ * @param {Object} [options]
+ * @constructor
+ */
+function Manager(element, options) {
+    options = options || {};
+
+    this.options = merge(options, Hammer.defaults);
+    this.options.inputTarget = this.options.inputTarget || element;
+
+    this.handlers = {};
+    this.session = {};
+    this.recognizers = [];
+
+    this.element = element;
+    this.input = createInputInstance(this);
+    this.touchAction = new TouchAction(this, this.options.touchAction);
+
+    toggleCssProps(this, true);
+
+    each(options.recognizers, function(item) {
+        var recognizer = this.add(new (item[0])(item[1]));
+        item[2] && recognizer.recognizeWith(item[2]);
+        item[3] && recognizer.requireFailure(item[3]);
+    }, this);
+}
+
+Manager.prototype = {
+    /**
+     * set options
+     * @param {Object} options
+     * @returns {Manager}
+     */
+    set: function(options) {
+        extend(this.options, options);
+
+        // Options that need a little more setup
+        if (options.touchAction) {
+            this.touchAction.update();
+        }
+        if (options.inputTarget) {
+            // Clean up existing event listeners and reinitialize
+            this.input.destroy();
+            this.input.target = options.inputTarget;
+            this.input.init();
+        }
+        return this;
+    },
+
+    /**
+     * stop recognizing for this session.
+     * This session will be discarded, when a new [input]start event is fired.
+     * When forced, the recognizer cycle is stopped immediately.
+     * @param {Boolean} [force]
+     */
+    stop: function(force) {
+        this.session.stopped = force ? FORCED_STOP : STOP;
+    },
+
+    /**
+     * run the recognizers!
+     * called by the inputHandler function on every movement of the pointers (touches)
+     * it walks through all the recognizers and tries to detect the gesture that is being made
+     * @param {Object} inputData
+     */
+    recognize: function(inputData) {
+        var session = this.session;
+        if (session.stopped) {
+            return;
+        }
+
+        // run the touch-action polyfill
+        this.touchAction.preventDefaults(inputData);
+
+        var recognizer;
+        var recognizers = this.recognizers;
+
+        // this holds the recognizer that is being recognized.
+        // so the recognizer's state needs to be BEGAN, CHANGED, ENDED or RECOGNIZED
+        // if no recognizer is detecting a thing, it is set to `null`
+        var curRecognizer = session.curRecognizer;
+
+        // reset when the last recognizer is recognized
+        // or when we're in a new session
+        if (!curRecognizer || (curRecognizer && curRecognizer.state & STATE_RECOGNIZED)) {
+            curRecognizer = session.curRecognizer = null;
+        }
+
+        var i = 0;
+        while (i < recognizers.length) {
+            recognizer = recognizers[i];
+
+            // find out if we are allowed try to recognize the input for this one.
+            // 1.   allow if the session is NOT forced stopped (see the .stop() method)
+            // 2.   allow if we still haven't recognized a gesture in this session, or the this recognizer is the one
+            //      that is being recognized.
+            // 3.   allow if the recognizer is allowed to run simultaneous with the current recognized recognizer.
+            //      this can be setup with the `recognizeWith()` method on the recognizer.
+            if (session.stopped !== FORCED_STOP && ( // 1
+                    !curRecognizer || recognizer == curRecognizer || // 2
+                    recognizer.canRecognizeWith(curRecognizer))) { // 3
+                recognizer.recognize(inputData);
+            } else {
+                recognizer.reset();
+            }
+
+            // if the recognizer has been recognizing the input as a valid gesture, we want to store this one as the
+            // current active recognizer. but only if we don't already have an active recognizer
+            if (!curRecognizer && recognizer.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED)) {
+                curRecognizer = session.curRecognizer = recognizer;
+            }
+            i++;
+        }
+    },
+
+    /**
+     * get a recognizer by its event name.
+     * @param {Recognizer|String} recognizer
+     * @returns {Recognizer|Null}
+     */
+    get: function(recognizer) {
+        if (recognizer instanceof Recognizer) {
+            return recognizer;
+        }
+
+        var recognizers = this.recognizers;
+        for (var i = 0; i < recognizers.length; i++) {
+            if (recognizers[i].options.event == recognizer) {
+                return recognizers[i];
+            }
+        }
+        return null;
+    },
+
+    /**
+     * add a recognizer to the manager
+     * existing recognizers with the same event name will be removed
+     * @param {Recognizer} recognizer
+     * @returns {Recognizer|Manager}
+     */
+    add: function(recognizer) {
+        if (invokeArrayArg(recognizer, 'add', this)) {
+            return this;
+        }
+
+        // remove existing
+        var existing = this.get(recognizer.options.event);
+        if (existing) {
+            this.remove(existing);
+        }
+
+        this.recognizers.push(recognizer);
+        recognizer.manager = this;
+
+        this.touchAction.update();
+        return recognizer;
+    },
+
+    /**
+     * remove a recognizer by name or instance
+     * @param {Recognizer|String} recognizer
+     * @returns {Manager}
+     */
+    remove: function(recognizer) {
+        if (invokeArrayArg(recognizer, 'remove', this)) {
+            return this;
+        }
+
+        var recognizers = this.recognizers;
+        recognizer = this.get(recognizer);
+        recognizers.splice(inArray(recognizers, recognizer), 1);
+
+        this.touchAction.update();
+        return this;
+    },
+
+    /**
+     * bind event
+     * @param {String} events
+     * @param {Function} handler
+     * @returns {EventEmitter} this
+     */
+    on: function(events, handler) {
+        var handlers = this.handlers;
+        each(splitStr(events), function(event) {
+            handlers[event] = handlers[event] || [];
+            handlers[event].push(handler);
+        });
+        return this;
+    },
+
+    /**
+     * unbind event, leave emit blank to remove all handlers
+     * @param {String} events
+     * @param {Function} [handler]
+     * @returns {EventEmitter} this
+     */
+    off: function(events, handler) {
+        var handlers = this.handlers;
+        each(splitStr(events), function(event) {
+            if (!handler) {
+                delete handlers[event];
+            } else {
+                handlers[event].splice(inArray(handlers[event], handler), 1);
+            }
+        });
+        return this;
+    },
+
+    /**
+     * emit event to the listeners
+     * @param {String} event
+     * @param {Object} data
+     */
+    emit: function(event, data) {
+        // we also want to trigger dom events
+        if (this.options.domEvents) {
+            triggerDomEvent(event, data);
+        }
+
+        // no handlers, so skip it all
+        var handlers = this.handlers[event] && this.handlers[event].slice();
+        if (!handlers || !handlers.length) {
+            return;
+        }
+
+        data.type = event;
+        data.preventDefault = function() {
+            data.srcEvent.preventDefault();
+        };
+
+        var i = 0;
+        while (i < handlers.length) {
+            handlers[i](data);
+            i++;
+        }
+    },
+
+    /**
+     * destroy the manager and unbinds all events
+     * it doesn't unbind dom events, that is the user own responsibility
+     */
+    destroy: function() {
+        this.element && toggleCssProps(this, false);
+
+        this.handlers = {};
+        this.session = {};
+        this.input.destroy();
+        this.element = null;
+    }
+};
+
+/**
+ * add/remove the css properties as defined in manager.options.cssProps
+ * @param {Manager} manager
+ * @param {Boolean} add
+ */
+function toggleCssProps(manager, add) {
+    var element = manager.element;
+    each(manager.options.cssProps, function(value, name) {
+        element.style[prefixed(element.style, name)] = add ? value : '';
+    });
+}
+
+/**
+ * trigger dom event
+ * @param {String} event
+ * @param {Object} data
+ */
+function triggerDomEvent(event, data) {
+    var gestureEvent = document.createEvent('Event');
+    gestureEvent.initEvent(event, true, true);
+    gestureEvent.gesture = data;
+    data.target.dispatchEvent(gestureEvent);
+}
+
+extend(Hammer, {
+    INPUT_START: INPUT_START,
+    INPUT_MOVE: INPUT_MOVE,
+    INPUT_END: INPUT_END,
+    INPUT_CANCEL: INPUT_CANCEL,
+
+    STATE_POSSIBLE: STATE_POSSIBLE,
+    STATE_BEGAN: STATE_BEGAN,
+    STATE_CHANGED: STATE_CHANGED,
+    STATE_ENDED: STATE_ENDED,
+    STATE_RECOGNIZED: STATE_RECOGNIZED,
+    STATE_CANCELLED: STATE_CANCELLED,
+    STATE_FAILED: STATE_FAILED,
+
+    DIRECTION_NONE: DIRECTION_NONE,
+    DIRECTION_LEFT: DIRECTION_LEFT,
+    DIRECTION_RIGHT: DIRECTION_RIGHT,
+    DIRECTION_UP: DIRECTION_UP,
+    DIRECTION_DOWN: DIRECTION_DOWN,
+    DIRECTION_HORIZONTAL: DIRECTION_HORIZONTAL,
+    DIRECTION_VERTICAL: DIRECTION_VERTICAL,
+    DIRECTION_ALL: DIRECTION_ALL,
+
+    Manager: Manager,
+    Input: Input,
+    TouchAction: TouchAction,
+
+    TouchInput: TouchInput,
+    MouseInput: MouseInput,
+    PointerEventInput: PointerEventInput,
+    TouchMouseInput: TouchMouseInput,
+    SingleTouchInput: SingleTouchInput,
+
+    Recognizer: Recognizer,
+    AttrRecognizer: AttrRecognizer,
+    Tap: TapRecognizer,
+    Pan: PanRecognizer,
+    Swipe: SwipeRecognizer,
+    Pinch: PinchRecognizer,
+    Rotate: RotateRecognizer,
+    Press: PressRecognizer,
+
+    on: addEventListeners,
+    off: removeEventListeners,
+    each: each,
+    merge: merge,
+    extend: extend,
+    inherit: inherit,
+    bindFn: bindFn,
+    prefixed: prefixed
+});
+
+if (typeof define == TYPE_FUNCTION && define.amd) {
+    define('hammerjs',[],function() {
+        return Hammer;
+    });
+} else if (typeof module != 'undefined' && module.exports) {
+    module.exports = Hammer;
+} else {
+    window[exportName] = Hammer;
+}
+
+})(window, document, 'Hammer');
+
+/*!
+ *  Copyright 2011 Twitter, Inc.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+
+
+var Hogan = {};
+
+(function (Hogan) {
+  Hogan.Template = function (codeObj, text, compiler, options) {
+    codeObj = codeObj || {};
+    this.r = codeObj.code || this.r;
+    this.c = compiler;
+    this.options = options || {};
+    this.text = text || '';
+    this.partials = codeObj.partials || {};
+    this.subs = codeObj.subs || {};
+    this.buf = '';
+  }
+
+  Hogan.Template.prototype = {
+    // render: replaced by generated code.
+    r: function (context, partials, indent) { return ''; },
+
+    // variable escaping
+    v: hoganEscape,
+
+    // triple stache
+    t: coerceToString,
+
+    render: function render(context, partials, indent) {
+      return this.ri([context], partials || {}, indent);
+    },
+
+    // render internal -- a hook for overrides that catches partials too
+    ri: function (context, partials, indent) {
+      return this.r(context, partials, indent);
+    },
+
+    // ensurePartial
+    ep: function(symbol, partials) {
+      var partial = this.partials[symbol];
+
+      // check to see that if we've instantiated this partial before
+      var template = partials[partial.name];
+      if (partial.instance && partial.base == template) {
+        return partial.instance;
+      }
+
+      if (typeof template == 'string') {
+        if (!this.c) {
+          throw new Error("No compiler available.");
+        }
+        template = this.c.compile(template, this.options);
+      }
+
+      if (!template) {
+        return null;
+      }
+
+      // We use this to check whether the partials dictionary has changed
+      this.partials[symbol].base = template;
+
+      if (partial.subs) {
+        // Make sure we consider parent template now
+        if (!partials.stackText) partials.stackText = {};
+        for (key in partial.subs) {
+          if (!partials.stackText[key]) {
+            partials.stackText[key] = (this.activeSub !== undefined && partials.stackText[this.activeSub]) ? partials.stackText[this.activeSub] : this.text;
+          }
+        }
+        template = createSpecializedPartial(template, partial.subs, partial.partials,
+          this.stackSubs, this.stackPartials, partials.stackText);
+      }
+      this.partials[symbol].instance = template;
+
+      return template;
+    },
+
+    // tries to find a partial in the current scope and render it
+    rp: function(symbol, context, partials, indent) {
+      var partial = this.ep(symbol, partials);
+      if (!partial) {
+        return '';
+      }
+
+      return partial.ri(context, partials, indent);
+    },
+
+    // render a section
+    rs: function(context, partials, section) {
+      var tail = context[context.length - 1];
+
+      if (!isArray(tail)) {
+        section(context, partials, this);
+        return;
+      }
+
+      for (var i = 0; i < tail.length; i++) {
+        context.push(tail[i]);
+        section(context, partials, this);
+        context.pop();
+      }
+    },
+
+    // maybe start a section
+    s: function(val, ctx, partials, inverted, start, end, tags) {
+      var pass;
+
+      if (isArray(val) && val.length === 0) {
+        return false;
+      }
+
+      if (typeof val == 'function') {
+        val = this.ms(val, ctx, partials, inverted, start, end, tags);
+      }
+
+      pass = !!val;
+
+      if (!inverted && pass && ctx) {
+        ctx.push((typeof val == 'object') ? val : ctx[ctx.length - 1]);
+      }
+
+      return pass;
+    },
+
+    // find values with dotted names
+    d: function(key, ctx, partials, returnFound) {
+      var found,
+          names = key.split('.'),
+          val = this.f(names[0], ctx, partials, returnFound),
+          doModelGet = this.options.modelGet,
+          cx = null;
+
+      if (key === '.' && isArray(ctx[ctx.length - 2])) {
+        val = ctx[ctx.length - 1];
+      } else {
+        for (var i = 1; i < names.length; i++) {
+          found = findInScope(names[i], val, doModelGet);
+          if (found !== undefined) {
+            cx = val;
+            val = found;
+          } else {
+            val = '';
+          }
+        }
+      }
+
+      if (returnFound && !val) {
+        return false;
+      }
+
+      if (!returnFound && typeof val == 'function') {
+        ctx.push(cx);
+        val = this.mv(val, ctx, partials);
+        ctx.pop();
+      }
+
+      return val;
+    },
+
+    // find values with normal names
+    f: function(key, ctx, partials, returnFound) {
+      var val = false,
+          v = null,
+          found = false,
+          doModelGet = this.options.modelGet;
+
+      for (var i = ctx.length - 1; i >= 0; i--) {
+        v = ctx[i];
+        val = findInScope(key, v, doModelGet);
+        if (val !== undefined) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        return (returnFound) ? false : "";
+      }
+
+      if (!returnFound && typeof val == 'function') {
+        val = this.mv(val, ctx, partials);
+      }
+
+      return val;
+    },
+
+    // higher order templates
+    ls: function(func, cx, partials, text, tags) {
+      var oldTags = this.options.delimiters;
+
+      this.options.delimiters = tags;
+      this.b(this.ct(coerceToString(func.call(cx, text)), cx, partials));
+      this.options.delimiters = oldTags;
+
+      return false;
+    },
+
+    // compile text
+    ct: function(text, cx, partials) {
+      if (this.options.disableLambda) {
+        throw new Error('Lambda features disabled.');
+      }
+      return this.c.compile(text, this.options).render(cx, partials);
+    },
+
+    // template result buffering
+    b: function(s) { this.buf += s; },
+
+    fl: function() { var r = this.buf; this.buf = ''; return r; },
+
+    // method replace section
+    ms: function(func, ctx, partials, inverted, start, end, tags) {
+      var textSource,
+          cx = ctx[ctx.length - 1],
+          result = func.call(cx);
+
+      if (typeof result == 'function') {
+        if (inverted) {
+          return true;
+        } else {
+          textSource = (this.activeSub && this.subsText && this.subsText[this.activeSub]) ? this.subsText[this.activeSub] : this.text;
+          return this.ls(result, cx, partials, textSource.substring(start, end), tags);
+        }
+      }
+
+      return result;
+    },
+
+    // method replace variable
+    mv: function(func, ctx, partials) {
+      var cx = ctx[ctx.length - 1];
+      var result = func.call(cx);
+
+      if (typeof result == 'function') {
+        return this.ct(coerceToString(result.call(cx)), cx, partials);
+      }
+
+      return result;
+    },
+
+    sub: function(name, context, partials, indent) {
+      var f = this.subs[name];
+      if (f) {
+        this.activeSub = name;
+        f(context, partials, this, indent);
+        this.activeSub = false;
+      }
+    }
+
+  };
+
+  //Find a key in an object
+  function findInScope(key, scope, doModelGet) {
+    var val;
+
+    if (scope && typeof scope == 'object') {
+
+      if (scope[key] !== undefined) {
+        val = scope[key];
+
+      // try lookup with get for backbone or similar model data
+      } else if (doModelGet && scope.get && typeof scope.get == 'function') {
+        val = scope.get(key);
+      }
+    }
+
+    return val;
+  }
+
+  function createSpecializedPartial(instance, subs, partials, stackSubs, stackPartials, stackText) {
+    function PartialTemplate() {};
+    PartialTemplate.prototype = instance;
+    function Substitutions() {};
+    Substitutions.prototype = instance.subs;
+    var key;
+    var partial = new PartialTemplate();
+    partial.subs = new Substitutions();
+    partial.subsText = {};  //hehe. substext.
+    partial.buf = '';
+
+    stackSubs = stackSubs || {};
+    partial.stackSubs = stackSubs;
+    partial.subsText = stackText;
+    for (key in subs) {
+      if (!stackSubs[key]) stackSubs[key] = subs[key];
+    }
+    for (key in stackSubs) {
+      partial.subs[key] = stackSubs[key];
+    }
+
+    stackPartials = stackPartials || {};
+    partial.stackPartials = stackPartials;
+    for (key in partials) {
+      if (!stackPartials[key]) stackPartials[key] = partials[key];
+    }
+    for (key in stackPartials) {
+      partial.partials[key] = stackPartials[key];
+    }
+
+    return partial;
+  }
+
+  var rAmp = /&/g,
+      rLt = /</g,
+      rGt = />/g,
+      rApos = /\'/g,
+      rQuot = /\"/g,
+      hChars = /[&<>\"\']/;
+
+  function coerceToString(val) {
+    return String((val === null || val === undefined) ? '' : val);
+  }
+
+  function hoganEscape(str) {
+    str = coerceToString(str);
+    return hChars.test(str) ?
+      str
+        .replace(rAmp, '&amp;')
+        .replace(rLt, '&lt;')
+        .replace(rGt, '&gt;')
+        .replace(rApos, '&#39;')
+        .replace(rQuot, '&quot;') :
+      str;
+  }
+
+  var isArray = Array.isArray || function(a) {
+    return Object.prototype.toString.call(a) === '[object Array]';
+  };
+
+})(typeof exports !== 'undefined' ? exports : Hogan);
+
+
+
+(function (Hogan) {
+  // Setup regex  assignments
+  // remove whitespace according to Mustache spec
+  var rIsWhitespace = /\S/,
+      rQuot = /\"/g,
+      rNewline =  /\n/g,
+      rCr = /\r/g,
+      rSlash = /\\/g,
+      rLineSep = /\u2028/,
+      rParagraphSep = /\u2029/;
+
+  Hogan.tags = {
+    '#': 1, '^': 2, '<': 3, '$': 4,
+    '/': 5, '!': 6, '>': 7, '=': 8, '_v': 9,
+    '{': 10, '&': 11, '_t': 12
+  };
+
+  Hogan.scan = function scan(text, delimiters) {
+    var len = text.length,
+        IN_TEXT = 0,
+        IN_TAG_TYPE = 1,
+        IN_TAG = 2,
+        state = IN_TEXT,
+        tagType = null,
+        tag = null,
+        buf = '',
+        tokens = [],
+        seenTag = false,
+        i = 0,
+        lineStart = 0,
+        otag = '{{',
+        ctag = '}}';
+
+    function addBuf() {
+      if (buf.length > 0) {
+        tokens.push({tag: '_t', text: new String(buf)});
+        buf = '';
+      }
+    }
+
+    function lineIsWhitespace() {
+      var isAllWhitespace = true;
+      for (var j = lineStart; j < tokens.length; j++) {
+        isAllWhitespace =
+          (Hogan.tags[tokens[j].tag] < Hogan.tags['_v']) ||
+          (tokens[j].tag == '_t' && tokens[j].text.match(rIsWhitespace) === null);
+        if (!isAllWhitespace) {
+          return false;
+        }
+      }
+
+      return isAllWhitespace;
+    }
+
+    function filterLine(haveSeenTag, noNewLine) {
+      addBuf();
+
+      if (haveSeenTag && lineIsWhitespace()) {
+        for (var j = lineStart, next; j < tokens.length; j++) {
+          if (tokens[j].text) {
+            if ((next = tokens[j+1]) && next.tag == '>') {
+              // set indent to token value
+              next.indent = tokens[j].text.toString()
+            }
+            tokens.splice(j, 1);
+          }
+        }
+      } else if (!noNewLine) {
+        tokens.push({tag:'\n'});
+      }
+
+      seenTag = false;
+      lineStart = tokens.length;
+    }
+
+    function changeDelimiters(text, index) {
+      var close = '=' + ctag,
+          closeIndex = text.indexOf(close, index),
+          delimiters = trim(
+            text.substring(text.indexOf('=', index) + 1, closeIndex)
+          ).split(' ');
+
+      otag = delimiters[0];
+      ctag = delimiters[delimiters.length - 1];
+
+      return closeIndex + close.length - 1;
+    }
+
+    if (delimiters) {
+      delimiters = delimiters.split(' ');
+      otag = delimiters[0];
+      ctag = delimiters[1];
+    }
+
+    for (i = 0; i < len; i++) {
+      if (state == IN_TEXT) {
+        if (tagChange(otag, text, i)) {
+          --i;
+          addBuf();
+          state = IN_TAG_TYPE;
+        } else {
+          if (text.charAt(i) == '\n') {
+            filterLine(seenTag);
+          } else {
+            buf += text.charAt(i);
+          }
+        }
+      } else if (state == IN_TAG_TYPE) {
+        i += otag.length - 1;
+        tag = Hogan.tags[text.charAt(i + 1)];
+        tagType = tag ? text.charAt(i + 1) : '_v';
+        if (tagType == '=') {
+          i = changeDelimiters(text, i);
+          state = IN_TEXT;
+        } else {
+          if (tag) {
+            i++;
+          }
+          state = IN_TAG;
+        }
+        seenTag = i;
+      } else {
+        if (tagChange(ctag, text, i)) {
+          tokens.push({tag: tagType, n: trim(buf), otag: otag, ctag: ctag,
+                       i: (tagType == '/') ? seenTag - otag.length : i + ctag.length});
+          buf = '';
+          i += ctag.length - 1;
+          state = IN_TEXT;
+          if (tagType == '{') {
+            if (ctag == '}}') {
+              i++;
+            } else {
+              cleanTripleStache(tokens[tokens.length - 1]);
+            }
+          }
+        } else {
+          buf += text.charAt(i);
+        }
+      }
+    }
+
+    filterLine(seenTag, true);
+
+    return tokens;
+  }
+
+  function cleanTripleStache(token) {
+    if (token.n.substr(token.n.length - 1) === '}') {
+      token.n = token.n.substring(0, token.n.length - 1);
+    }
+  }
+
+  function trim(s) {
+    if (s.trim) {
+      return s.trim();
+    }
+
+    return s.replace(/^\s*|\s*$/g, '');
+  }
+
+  function tagChange(tag, text, index) {
+    if (text.charAt(index) != tag.charAt(0)) {
+      return false;
+    }
+
+    for (var i = 1, l = tag.length; i < l; i++) {
+      if (text.charAt(index + i) != tag.charAt(i)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // the tags allowed inside super templates
+  var allowedInSuper = {'_t': true, '\n': true, '$': true, '/': true};
+
+  function buildTree(tokens, kind, stack, customTags) {
+    var instructions = [],
+        opener = null,
+        tail = null,
+        token = null;
+
+    tail = stack[stack.length - 1];
+
+    while (tokens.length > 0) {
+      token = tokens.shift();
+
+      if (tail && tail.tag == '<' && !(token.tag in allowedInSuper)) {
+        throw new Error('Illegal content in < super tag.');
+      }
+
+      if (Hogan.tags[token.tag] <= Hogan.tags['$'] || isOpener(token, customTags)) {
+        stack.push(token);
+        token.nodes = buildTree(tokens, token.tag, stack, customTags);
+      } else if (token.tag == '/') {
+        if (stack.length === 0) {
+          throw new Error('Closing tag without opener: /' + token.n);
+        }
+        opener = stack.pop();
+        if (token.n != opener.n && !isCloser(token.n, opener.n, customTags)) {
+          throw new Error('Nesting error: ' + opener.n + ' vs. ' + token.n);
+        }
+        opener.end = token.i;
+        return instructions;
+      } else if (token.tag == '\n') {
+        token.last = (tokens.length == 0) || (tokens[0].tag == '\n');
+      }
+
+      instructions.push(token);
+    }
+
+    if (stack.length > 0) {
+      throw new Error('missing closing tag: ' + stack.pop().n);
+    }
+
+    return instructions;
+  }
+
+  function isOpener(token, tags) {
+    for (var i = 0, l = tags.length; i < l; i++) {
+      if (tags[i].o == token.n) {
+        token.tag = '#';
+        return true;
+      }
+    }
+  }
+
+  function isCloser(close, open, tags) {
+    for (var i = 0, l = tags.length; i < l; i++) {
+      if (tags[i].c == close && tags[i].o == open) {
+        return true;
+      }
+    }
+  }
+
+  function stringifySubstitutions(obj) {
+    var items = [];
+    for (var key in obj) {
+      items.push('"' + esc(key) + '": function(c,p,t,i) {' + obj[key] + '}');
+    }
+    return "{ " + items.join(",") + " }";
+  }
+
+  function stringifyPartials(codeObj) {
+    var partials = [];
+    for (var key in codeObj.partials) {
+      partials.push('"' + esc(key) + '":{name:"' + esc(codeObj.partials[key].name) + '", ' + stringifyPartials(codeObj.partials[key]) + "}");
+    }
+    return "partials: {" + partials.join(",") + "}, subs: " + stringifySubstitutions(codeObj.subs);
+  }
+
+  Hogan.stringify = function(codeObj, text, options) {
+    return "{code: function (c,p,i) { " + Hogan.wrapMain(codeObj.code) + " }," + stringifyPartials(codeObj) +  "}";
+  }
+
+  var serialNo = 0;
+  Hogan.generate = function(tree, text, options) {
+    serialNo = 0;
+    var context = { code: '', subs: {}, partials: {} };
+    Hogan.walk(tree, context);
+
+    if (options.asString) {
+      return this.stringify(context, text, options);
+    }
+
+    return this.makeTemplate(context, text, options);
+  }
+
+  Hogan.wrapMain = function(code) {
+    return 'var t=this;t.b(i=i||"");' + code + 'return t.fl();';
+  }
+
+  Hogan.template = Hogan.Template;
+
+  Hogan.makeTemplate = function(codeObj, text, options) {
+    var template = this.makePartials(codeObj);
+    template.code = new Function('c', 'p', 'i', this.wrapMain(codeObj.code));
+    return new this.template(template, text, this, options);
+  }
+
+  Hogan.makePartials = function(codeObj) {
+    var key, template = {subs: {}, partials: codeObj.partials, name: codeObj.name};
+    for (key in template.partials) {
+      template.partials[key] = this.makePartials(template.partials[key]);
+    }
+    for (key in codeObj.subs) {
+      template.subs[key] = new Function('c', 'p', 't', 'i', codeObj.subs[key]);
+    }
+    return template;
+  }
+
+  function esc(s) {
+    return s.replace(rSlash, '\\\\')
+            .replace(rQuot, '\\\"')
+            .replace(rNewline, '\\n')
+            .replace(rCr, '\\r')
+            .replace(rLineSep, '\\u2028')
+            .replace(rParagraphSep, '\\u2029');
+  }
+
+  function chooseMethod(s) {
+    return (~s.indexOf('.')) ? 'd' : 'f';
+  }
+
+  function createPartial(node, context) {
+    var prefix = "<" + (context.prefix || "");
+    var sym = prefix + node.n + serialNo++;
+    context.partials[sym] = {name: node.n, partials: {}};
+    context.code += 't.b(t.rp("' +  esc(sym) + '",c,p,"' + (node.indent || '') + '"));';
+    return sym;
+  }
+
+  Hogan.codegen = {
+    '#': function(node, context) {
+      context.code += 'if(t.s(t.' + chooseMethod(node.n) + '("' + esc(node.n) + '",c,p,1),' +
+                      'c,p,0,' + node.i + ',' + node.end + ',"' + node.otag + " " + node.ctag + '")){' +
+                      't.rs(c,p,' + 'function(c,p,t){';
+      Hogan.walk(node.nodes, context);
+      context.code += '});c.pop();}';
+    },
+
+    '^': function(node, context) {
+      context.code += 'if(!t.s(t.' + chooseMethod(node.n) + '("' + esc(node.n) + '",c,p,1),c,p,1,0,0,"")){';
+      Hogan.walk(node.nodes, context);
+      context.code += '};';
+    },
+
+    '>': createPartial,
+    '<': function(node, context) {
+      var ctx = {partials: {}, code: '', subs: {}, inPartial: true};
+      Hogan.walk(node.nodes, ctx);
+      var template = context.partials[createPartial(node, context)];
+      template.subs = ctx.subs;
+      template.partials = ctx.partials;
+    },
+
+    '$': function(node, context) {
+      var ctx = {subs: {}, code: '', partials: context.partials, prefix: node.n};
+      Hogan.walk(node.nodes, ctx);
+      context.subs[node.n] = ctx.code;
+      if (!context.inPartial) {
+        context.code += 't.sub("' + esc(node.n) + '",c,p,i);';
+      }
+    },
+
+    '\n': function(node, context) {
+      context.code += write('"\\n"' + (node.last ? '' : ' + i'));
+    },
+
+    '_v': function(node, context) {
+      context.code += 't.b(t.v(t.' + chooseMethod(node.n) + '("' + esc(node.n) + '",c,p,0)));';
+    },
+
+    '_t': function(node, context) {
+      context.code += write('"' + esc(node.text) + '"');
+    },
+
+    '{': tripleStache,
+
+    '&': tripleStache
+  }
+
+  function tripleStache(node, context) {
+    context.code += 't.b(t.t(t.' + chooseMethod(node.n) + '("' + esc(node.n) + '",c,p,0)));';
+  }
+
+  function write(s) {
+    return 't.b(' + s + ');';
+  }
+
+  Hogan.walk = function(nodelist, context) {
+    var func;
+    for (var i = 0, l = nodelist.length; i < l; i++) {
+      func = Hogan.codegen[nodelist[i].tag];
+      func && func(nodelist[i], context);
+    }
+    return context;
+  }
+
+  Hogan.parse = function(tokens, text, options) {
+    options = options || {};
+    return buildTree(tokens, '', [], options.sectionTags || []);
+  }
+
+  Hogan.cache = {};
+
+  Hogan.cacheKey = function(text, options) {
+    return [text, !!options.asString, !!options.disableLambda, options.delimiters, !!options.modelGet].join('||');
+  }
+
+  Hogan.compile = function(text, options) {
+    options = options || {};
+    var key = Hogan.cacheKey(text, options);
+    var template = this.cache[key];
+
+    if (template) {
+      var partials = template.partials;
+      for (var name in partials) {
+        delete partials[name].instance;
+      }
+      return template;
+    }
+
+    template = this.generate(this.parse(this.scan(text, options.delimiters), text, options), text, options);
+    return this.cache[key] = template;
+  }
+})(typeof exports !== 'undefined' ? exports : Hogan);
+
+
+if (typeof define === 'function' && define.amd) {
+  define('hogan',Hogan);
+}
+;
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        define('jquery_hammer',['jquery', 'hammerjs'], factory);
+    } else if (typeof exports === 'object') {
+        factory(require('jquery'), require('hammerjs'));
+    } else {
+        factory(jQuery, Hammer);
+    }
+}(function($, Hammer) {
+    function hammerify(el, options) {
+        var $el = $(el);
+        if(!$el.data("hammer")) {
+            $el.data("hammer", new Hammer($el[0], options));
+        }
+    }
+
+    $.fn.hammer = function(options) {
+        return this.each(function() {
+            hammerify(this, options);
+        });
+    };
+
+    // extend the emit method to also trigger jQuery events
+    Hammer.Manager.prototype.emit = (function(originalEmit) {
+        return function(type, data) {
+            originalEmit.call(this, type, data);
+            $(this.element).trigger({
+                type: type,
+                gesture: data
+            });
+        };
+    })(Hammer.Manager.prototype.emit);
+}));
+
+// FORK:
+// https://github.com/danielweck/keymaster
+
+//     keymaster.js
+//     (c) 2011-2013 Thomas Fuchs
+//     keymaster.js may be freely distributed under the MIT license.
+
+;(function(global){
+  var k,
+    _handlers = {},
+    _mods = { 16: false, 18: false, 17: false, 91: false },
+    _scope = 'all',
+    // modifier keys
+    _MODIFIERS = {
+      '⇧': 16, shift: 16,
+      '⌥': 18, alt: 18, option: 18,
+      '⌃': 17, ctrl: 17, control: 17,
+      '⌘': 91, command: 91
+    },
+    // special keys
+    _MAP = {
+      backspace: 8, tab: 9, clear: 12,
+      enter: 13, 'return': 13,
+      esc: 27, escape: 27, space: 32,
+      left: 37, up: 38,
+      right: 39, down: 40,
+      del: 46, 'delete': 46,
+      home: 36, end: 35,
+      pageup: 33, pagedown: 34,
+      ',': 188, '.': 190, '/': 191,
+      '`': 192, '-': 189, '=': 187,
+      ';': 186, '\'': 222,
+      '[': 219, ']': 221, '\\': 220
+    },
+    code = function(x){
+      return x.toUpperCase ? (_MAP[x] || x.toUpperCase().charCodeAt(0)) : x;
+    },
+    _downKeys = [];
+
+  for(k=1;k<20;k++) _MAP['f'+k] = 111+k;
+
+  // IE doesn't support Array#indexOf, so have a simple replacement
+  function index(array, item){
+    var i = array.length;
+    while(i--) if(array[i]===item) return i;
+    return -1;
+  }
+
+  // for comparing mods before unassignment
+  function compareArray(a1, a2) {
+    if (a1.length != a2.length) return false;
+    for (var i = 0; i < a1.length; i++) {
+        if (a1[i] !== a2[i]) return false;
+    }
+    return true;
+  }
+
+  var modifierMap = {
+      16:'shiftKey',
+      18:'altKey',
+      17:'ctrlKey',
+      91:'metaKey'
+  };
+  function updateModifierKey(event) {
+      for(k in _mods) _mods[k] = event[modifierMap[k]];
+  };
+
+  function getKeyCode(event)
+  {
+      return event.keyCode || event.charCode || event.which || event.key || 0;
+  }
+
+  // handle keydown event
+  function dispatch(event) {
+
+    var key, handler, k, i, modifiersMatch, scope;
+    key = getKeyCode(event);
+
+    if (index(_downKeys, key) == -1) {
+        _downKeys.push(key);
+    }
+
+    // if a modifier key, set the key.<modifierkeyname> property to true and return
+    if(key == 93 || key == 224) key = 91; // right command on webkit, command on Gecko
+    if(key in _mods) {
+      _mods[key] = true;
+      // 'assignKey' from inside this closure is exported to window.key
+      for(k in _MODIFIERS) if(_MODIFIERS[k] == key) assignKey[k] = true;
+      return;
+    }
+    updateModifierKey(event);
+
+    // see if we need to ignore the keypress (filter() can can be overridden)
+    // by default ignore key presses if a select, textarea, or input is focused
+    if(!assignKey.filter.call(this, event)) return;
+
+    // abort if no potentially matching shortcuts found
+    if (!(key in _handlers)) return;
+
+    scope = getScope();
+
+    // for each potential shortcut
+    for (i = 0; i < _handlers[key].length; i++) {
+      handler = _handlers[key][i];
+
+      // see if it's in the current scope
+      if(handler.scope == scope || handler.scope == 'all'){
+        // check if modifiers match if any
+        modifiersMatch = handler.mods.length > 0;
+        for(k in _mods)
+          if((!_mods[k] && index(handler.mods, +k) > -1) ||
+            (_mods[k] && index(handler.mods, +k) == -1)) modifiersMatch = false;
+        // call the handler and stop the event if neccessary
+        if((handler.mods.length == 0 && !_mods[16] && !_mods[18] && !_mods[17] && !_mods[91]) || modifiersMatch){
+          if(handler.method(event, handler)===false){
+            if(event.preventDefault) event.preventDefault();
+              else event.returnValue = false;
+            if(event.stopPropagation) event.stopPropagation();
+            if(event.cancelBubble) event.cancelBubble = true;
+          }
+        }
+      }
+    }
+  };
+
+  // unset modifier keys on keyup
+  function clearModifier(event){
+    var key = getKeyCode(event), k,
+        i = index(_downKeys, key);
+
+    // remove key from _downKeys
+    if (i >= 0) {
+        _downKeys.splice(i, 1);
+    }
+
+    if(key == 93 || key == 224) key = 91;
+    if(key in _mods) {
+      _mods[key] = false;
+      for(k in _MODIFIERS) if(_MODIFIERS[k] == key) assignKey[k] = false;
+    }
+  };
+
+  function resetModifiers() {
+    for(k in _mods) _mods[k] = false;
+    for(k in _MODIFIERS) assignKey[k] = false;
+  };
+
+  // parse and assign shortcut
+  function assignKey(key, scope, method){
+    var keys, mods;
+    keys = getKeys(key);
+    if (method === undefined) {
+      method = scope;
+      scope = 'all';
+    }
+
+    // for each shortcut
+    for (var i = 0; i < keys.length; i++) {
+      // set modifier keys if any
+      mods = [];
+      key = keys[i].split('+');
+      if (key.length > 1){
+        mods = getMods(key);
+        key = [key[key.length-1]];
+      }
+      // convert to keycode and...
+      key = key[0]
+      key = code(key);
+      // ...store handler
+      if (!(key in _handlers)) _handlers[key] = [];
+      _handlers[key].push({ shortcut: keys[i], scope: scope, method: method, key: keys[i], mods: mods });
+    }
+  };
+
+  // unbind all handlers for given key in current scope
+  function unbindKey(key, scope) {
+    var multipleKeys, keys,
+      mods = [],
+      i, j, obj;
+
+    multipleKeys = getKeys(key);
+
+    for (j = 0; j < multipleKeys.length; j++) {
+      keys = multipleKeys[j].split('+');
+
+      if (keys.length > 1) {
+        mods = getMods(keys);
+      }
+
+      key = keys[keys.length - 1];
+      key = code(key);
+
+      if (scope === undefined) {
+        scope = getScope();
+      }
+      if (!_handlers[key]) {
+        return;
+      }
+      for (i = 0; i < _handlers[key].length; i++) {
+        obj = _handlers[key][i];
+        // only clear handlers if correct scope and mods match
+        if (obj.scope === scope && compareArray(obj.mods, mods)) {
+          _handlers[key][i] = {};
+        }
+      }
+    }
+  };
+
+  // Returns true if the key with code 'keyCode' is currently down
+  // Converts strings into key codes.
+  function isPressed(keyCode) {
+      if (typeof(keyCode)=='string') {
+        keyCode = code(keyCode);
+      }
+      return index(_downKeys, keyCode) != -1;
+  }
+
+  function getPressedKeyCodes() {
+      return _downKeys.slice(0);
+  }
+
+  function filter(event){
+    var tagName = (event.target || event.srcElement).tagName;
+    // ignore keypressed in any elements that support keyboard data input
+    return !(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA');
+  }
+
+  // initialize key.<modifier> to false
+  for(k in _MODIFIERS) assignKey[k] = false;
+
+  // set current scope (default 'all')
+  function setScope(scope){ _scope = scope || 'all' };
+  function getScope(){ return _scope || 'all' };
+
+  // delete all handlers for a given scope
+  function deleteScope(scope){
+    var key, handlers, i;
+
+    for (key in _handlers) {
+      handlers = _handlers[key];
+      for (i = 0; i < handlers.length; ) {
+        if (handlers[i].scope === scope) handlers.splice(i, 1);
+        else i++;
+      }
+    }
+  };
+
+  // abstract key logic for assign and unassign
+  function getKeys(key) {
+    var keys;
+    key = key.replace(/\s/g, '');
+    keys = key.split(',');
+    if ((keys[keys.length - 1]) == '') {
+      keys[keys.length - 2] += ',';
+    }
+    return keys;
+  }
+
+  // abstract mods logic for assign and unassign
+  function getMods(key) {
+    var mods = key.slice(0, key.length - 1);
+    for (var mi = 0; mi < mods.length; mi++)
+    mods[mi] = _MODIFIERS[mods[mi]];
+    return mods;
+  }
+
+  // cross-browser events
+  function addEvent(object, event, method) {
+    if (object.addEventListener)
+      object.addEventListener(event, method, false);
+    else if(object.attachEvent)
+      object.attachEvent('on'+event, function(){ method(window.event) });
+  };
+
+  // set the handlers globally on document
+  addEvent(document, 'keydown', function(event) { dispatch(event) }); // Passing _scope to a callback to ensure it remains the same by execution. Fixes #48
+  addEvent(document, 'keyup', clearModifier);
+
+  // reset modifiers to false whenever the window is (re)focused.
+  addEvent(window, 'focus', resetModifiers);
+
+  // store previously defined key
+  var previousKey = global.key;
+
+  // restore previously defined key and return reference to our key object
+  function noConflict() {
+    var k = global.key;
+    global.key = previousKey;
+    return k;
+  }
+
+  // set window.key and window.key.set/get/deleteScope, and the default filter
+  global.key = assignKey;
+  global.key.setScope = setScope;
+  global.key.getScope = getScope;
+  global.key.deleteScope = deleteScope;
+  global.key.filter = filter;
+  global.key.isPressed = isPressed;
+  global.key.getPressedKeyCodes = getPressedKeyCodes;
+  global.key.noConflict = noConflict;
+  global.key.unbind = unbindKey;
+
+  if(typeof module !== 'undefined') module.exports = assignKey;
+
+})(this);
+
+define("keymaster", (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.key;
+    };
+}(this)));
+
+/*!
+* screenfull
+* v2.0.0 - 2014-12-22
+* (c) Sindre Sorhus; MIT License
+*/
+(function () {
+	'use strict';
+
+	var isCommonjs = typeof module !== 'undefined' && module.exports;
+	var keyboardAllowed = typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
+
+	var fn = (function () {
+		var val;
+		var valLength;
+
+		var fnMap = [
+			[
+				'requestFullscreen',
+				'exitFullscreen',
+				'fullscreenElement',
+				'fullscreenEnabled',
+				'fullscreenchange',
+				'fullscreenerror'
+			],
+			// new WebKit
+			[
+				'webkitRequestFullscreen',
+				'webkitExitFullscreen',
+				'webkitFullscreenElement',
+				'webkitFullscreenEnabled',
+				'webkitfullscreenchange',
+				'webkitfullscreenerror'
+
+			],
+			// old WebKit (Safari 5.1)
+			[
+				'webkitRequestFullScreen',
+				'webkitCancelFullScreen',
+				'webkitCurrentFullScreenElement',
+				'webkitCancelFullScreen',
+				'webkitfullscreenchange',
+				'webkitfullscreenerror'
+
+			],
+			[
+				'mozRequestFullScreen',
+				'mozCancelFullScreen',
+				'mozFullScreenElement',
+				'mozFullScreenEnabled',
+				'mozfullscreenchange',
+				'mozfullscreenerror'
+			],
+			[
+				'msRequestFullscreen',
+				'msExitFullscreen',
+				'msFullscreenElement',
+				'msFullscreenEnabled',
+				'MSFullscreenChange',
+				'MSFullscreenError'
+			]
+		];
+
+		var i = 0;
+		var l = fnMap.length;
+		var ret = {};
+
+		for (; i < l; i++) {
+			val = fnMap[i];
+			if (val && val[1] in document) {
+				for (i = 0, valLength = val.length; i < valLength; i++) {
+					ret[fnMap[0][i]] = val[i];
+				}
+				return ret;
+			}
+		}
+
+		return false;
+	})();
+
+	var screenfull = {
+		request: function (elem) {
+			var request = fn.requestFullscreen;
+
+			elem = elem || document.documentElement;
+
+			// Work around Safari 5.1 bug: reports support for
+			// keyboard in fullscreen even though it doesn't.
+			// Browser sniffing, since the alternative with
+			// setTimeout is even worse.
+			if (/5\.1[\.\d]* Safari/.test(navigator.userAgent)) {
+				elem[request]();
+			} else {
+				elem[request](keyboardAllowed && Element.ALLOW_KEYBOARD_INPUT);
+			}
+		},
+		exit: function () {
+			document[fn.exitFullscreen]();
+		},
+		toggle: function (elem) {
+			if (this.isFullscreen) {
+				this.exit();
+			} else {
+				this.request(elem);
+			}
+		},
+		raw: fn
+	};
+
+	if (!fn) {
+		if (isCommonjs) {
+			module.exports = false;
+		} else {
+			window.screenfull = false;
+		}
+
+		return;
+	}
+
+	Object.defineProperties(screenfull, {
+		isFullscreen: {
+			get: function () {
+				return !!document[fn.fullscreenElement];
+			}
+		},
+		element: {
+			enumerable: true,
+			get: function () {
+				return document[fn.fullscreenElement];
+			}
+		},
+		enabled: {
+			enumerable: true,
+			get: function () {
+				// Coerce to boolean in case of old WebKit
+				return !!document[fn.fullscreenEnabled];
+			}
+		}
+	});
+
+	if (isCommonjs) {
+		module.exports = screenfull;
+	} else {
+		window.screenfull = screenfull;
+	}
+})();
+
+define("screenfull", (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.screenfull;
+    };
+}(this)));
+
+/**
+ * Copyright (c) 2011-2014 Felix Gnass
+ * Licensed under the MIT license
+ */
+(function(root, factory) {
+
+  /* CommonJS */
+  if (typeof exports == 'object')  module.exports = factory()
+
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define('spin',factory)
+
+  /* Browser global */
+  else root.Spinner = factory()
+}
+(this, function() {
+  "use strict";
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+    , sheet /* A stylesheet to hold the @keyframe or VML rules. */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+    if(s[prop] !== undefined) return prop
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the line color from the given string or array.
+   */
+  function getColor(color, idx) {
+    return typeof color == 'string' ? color : color[idx % color.length]
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    scale: 1.0,           // Scales overall size of the spinner
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    direction: 1,         // 1: clockwise, -1: counterclockwise
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: '50%',           // center vertically
+    left: '50%',          // center horizontally
+    position: 'absolute'  // element position
+  }
+
+  /** The constructor */
+  function Spinner(o) {
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function(target) {
+      this.stop()
+
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+
+      css(el, {
+        left: o.left,
+        top: o.top
+      })
+        
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+      }
+
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    lines: function(el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: o.scale*(o.length+o.width) + 'px',
+          height: o.scale*o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.scale*o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.scale*o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.scale*o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+    Spinner.prototype.lines = function(el, o) {
+      var r = o.scale*(o.length+o.width)
+        , s = o.scale*2*r
+
+      function grp() {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s,
+            coordorigin: -r + ' ' + -r
+          }),
+          { width: s, height: s }
+        )
+      }
+
+      var margin = -(o.width+o.length)*o.scale*2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+
+      function seg(i, dx, filter) {
+        ins(g,
+          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+            ins(css(vml('roundrect', {arcsize: o.corners}), {
+                width: r,
+                height: o.scale*o.width,
+                left: o.scale*o.radius,
+                top: -o.scale*o.width>>1,
+                filter: filter
+              }),
+              vml('fill', {color: getColor(o.color, i), opacity: o.opacity}),
+              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+            )
+          )
+        )
+      }
+
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++)
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+
+    Spinner.prototype.opacity = function(el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i+o < c.childNodes.length) {
+        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+
+  if (typeof document !== 'undefined') {
+    sheet = (function() {
+      var el = createEl('style', {type : 'text/css'})
+      ins(document.getElementsByTagName('head')[0], el)
+      return el.sheet || el.styleSheet
+    }())
+
+    var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+    if (!vendor(probe, 'transform') && probe.adj) initVML()
+    else useCssAnimations = vendor(probe, 'animation')
+  }
+
+  return Spinner
+
+}));
+
+/*
+ Copyright (c) 2013 Gildas Lormeau. All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in
+ the documentation and/or other materials provided with the distribution.
+
+ 3. The names of the authors may not be used to endorse or promote products
+ derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JCRAFT,
+ INC. OR ANY CONTRIBUTORS TO THIS SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+(function(obj) {
+	"use strict";
+
+	var ERR_BAD_FORMAT = "File format is not recognized.";
+	var ERR_CRC = "CRC failed.";
+	var ERR_ENCRYPTED = "File contains encrypted entry.";
+	var ERR_ZIP64 = "File is using Zip64 (4gb+ file size).";
+	var ERR_READ = "Error while reading zip file.";
+	var ERR_WRITE = "Error while writing zip file.";
+	var ERR_WRITE_DATA = "Error while writing file data.";
+	var ERR_READ_DATA = "Error while reading file data.";
+	var ERR_DUPLICATED_NAME = "File already exists.";
+	var CHUNK_SIZE = 512 * 1024;
+	
+	var TEXT_PLAIN = "text/plain";
+
+	var appendABViewSupported;
+	try {
+		appendABViewSupported = new Blob([ new DataView(new ArrayBuffer(0)) ]).size === 0;
+	} catch (e) {
+	}
+
+	function Crc32() {
+		this.crc = -1;
+	}
+	Crc32.prototype.append = function append(data) {
+		var crc = this.crc | 0, table = this.table;
+		for (var offset = 0, len = data.length | 0; offset < len; offset++)
+			crc = (crc >>> 8) ^ table[(crc ^ data[offset]) & 0xFF];
+		this.crc = crc;
+	};
+	Crc32.prototype.get = function get() {
+		return ~this.crc;
+	};
+	Crc32.prototype.table = (function() {
+		var i, j, t, table = []; // Uint32Array is actually slower than []
+		for (i = 0; i < 256; i++) {
+			t = i;
+			for (j = 0; j < 8; j++)
+				if (t & 1)
+					t = (t >>> 1) ^ 0xEDB88320;
+				else
+					t = t >>> 1;
+			table[i] = t;
+		}
+		return table;
+	})();
+	
+	// "no-op" codec
+	function NOOP() {}
+	NOOP.prototype.append = function append(bytes, onprogress) {
+		return bytes;
+	};
+	NOOP.prototype.flush = function flush() {};
+
+	function blobSlice(blob, index, length) {
+		if (index < 0 || length < 0 || index + length > blob.size)
+			throw new RangeError('offset:' + index + ', length:' + length + ', size:' + blob.size);
+		if (blob.slice)
+			return blob.slice(index, index + length);
+		else if (blob.webkitSlice)
+			return blob.webkitSlice(index, index + length);
+		else if (blob.mozSlice)
+			return blob.mozSlice(index, index + length);
+		else if (blob.msSlice)
+			return blob.msSlice(index, index + length);
+	}
+
+	function getDataHelper(byteLength, bytes) {
+		var dataBuffer, dataArray;
+		dataBuffer = new ArrayBuffer(byteLength);
+		dataArray = new Uint8Array(dataBuffer);
+		if (bytes)
+			dataArray.set(bytes, 0);
+		return {
+			buffer : dataBuffer,
+			array : dataArray,
+			view : new DataView(dataBuffer)
+		};
+	}
+
+	// Readers
+	function Reader() {
+	}
+
+	function TextReader(text) {
+		var that = this, blobReader;
+
+		function init(callback, onerror) {
+			var blob = new Blob([ text ], {
+				type : TEXT_PLAIN
+			});
+			blobReader = new BlobReader(blob);
+			blobReader.init(function() {
+				that.size = blobReader.size;
+				callback();
+			}, onerror);
+		}
+
+		function readUint8Array(index, length, callback, onerror) {
+			blobReader.readUint8Array(index, length, callback, onerror);
+		}
+
+		that.size = 0;
+		that.init = init;
+		that.readUint8Array = readUint8Array;
+	}
+	TextReader.prototype = new Reader();
+	TextReader.prototype.constructor = TextReader;
+
+	function Data64URIReader(dataURI) {
+		var that = this, dataStart;
+
+		function init(callback) {
+			var dataEnd = dataURI.length;
+			while (dataURI.charAt(dataEnd - 1) == "=")
+				dataEnd--;
+			dataStart = dataURI.indexOf(",") + 1;
+			that.size = Math.floor((dataEnd - dataStart) * 0.75);
+			callback();
+		}
+
+		function readUint8Array(index, length, callback) {
+			var i, data = getDataHelper(length);
+			var start = Math.floor(index / 3) * 4;
+			var end = Math.ceil((index + length) / 3) * 4;
+			var bytes = obj.atob(dataURI.substring(start + dataStart, end + dataStart));
+			var delta = index - Math.floor(start / 4) * 3;
+			for (i = delta; i < delta + length; i++)
+				data.array[i - delta] = bytes.charCodeAt(i);
+			callback(data.array);
+		}
+
+		that.size = 0;
+		that.init = init;
+		that.readUint8Array = readUint8Array;
+	}
+	Data64URIReader.prototype = new Reader();
+	Data64URIReader.prototype.constructor = Data64URIReader;
+
+	function BlobReader(blob) {
+		var that = this;
+
+		function init(callback) {
+			that.size = blob.size;
+			callback();
+		}
+
+		function readUint8Array(index, length, callback, onerror) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				callback(new Uint8Array(e.target.result));
+			};
+			reader.onerror = onerror;
+			try {
+				reader.readAsArrayBuffer(blobSlice(blob, index, length));
+			} catch (e) {
+				onerror(e);
+			}
+		}
+
+		that.size = 0;
+		that.init = init;
+		that.readUint8Array = readUint8Array;
+	}
+	BlobReader.prototype = new Reader();
+	BlobReader.prototype.constructor = BlobReader;
+
+	// Writers
+
+	function Writer() {
+	}
+	Writer.prototype.getData = function(callback) {
+		callback(this.data);
+	};
+
+	function TextWriter(encoding) {
+		var that = this, blob;
+
+		function init(callback) {
+			blob = new Blob([], {
+				type : TEXT_PLAIN
+			});
+			callback();
+		}
+
+		function writeUint8Array(array, callback) {
+			blob = new Blob([ blob, appendABViewSupported ? array : array.buffer ], {
+				type : TEXT_PLAIN
+			});
+			callback();
+		}
+
+		function getData(callback, onerror) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				callback(e.target.result);
+			};
+			reader.onerror = onerror;
+			reader.readAsText(blob, encoding);
+		}
+
+		that.init = init;
+		that.writeUint8Array = writeUint8Array;
+		that.getData = getData;
+	}
+	TextWriter.prototype = new Writer();
+	TextWriter.prototype.constructor = TextWriter;
+
+	function Data64URIWriter(contentType) {
+		var that = this, data = "", pending = "";
+
+		function init(callback) {
+			data += "data:" + (contentType || "") + ";base64,";
+			callback();
+		}
+
+		function writeUint8Array(array, callback) {
+			var i, delta = pending.length, dataString = pending;
+			pending = "";
+			for (i = 0; i < (Math.floor((delta + array.length) / 3) * 3) - delta; i++)
+				dataString += String.fromCharCode(array[i]);
+			for (; i < array.length; i++)
+				pending += String.fromCharCode(array[i]);
+			if (dataString.length > 2)
+				data += obj.btoa(dataString);
+			else
+				pending = dataString;
+			callback();
+		}
+
+		function getData(callback) {
+			callback(data + obj.btoa(pending));
+		}
+
+		that.init = init;
+		that.writeUint8Array = writeUint8Array;
+		that.getData = getData;
+	}
+	Data64URIWriter.prototype = new Writer();
+	Data64URIWriter.prototype.constructor = Data64URIWriter;
+
+	function BlobWriter(contentType) {
+		var data = [], that = this;
+
+		function init(callback) {
+			callback();
+		}
+
+		function writeUint8Array(array, callback) {
+			data.push(appendABViewSupported ? array : array.buffer);
+			callback();
+		}
+
+		function getData(callback) {
+			callback(new Blob(data, {type: contentType}));
+		}
+
+		that.init = init;
+		that.writeUint8Array = writeUint8Array;
+		that.getData = getData;
+	}
+	BlobWriter.prototype = new Writer();
+	BlobWriter.prototype.constructor = BlobWriter;
+
+	/** 
+	 * inflate/deflate core functions
+	 * @param worker {Worker} web worker for the task.
+	 * @param initialMessage {Object} initial message to be sent to the worker. should contain
+	 *   sn(serial number for distinguishing multiple tasks sent to the worker), and codecClass.
+	 *   This function may add more properties before sending.
+	 */
+	function launchWorkerProcess(worker, initialMessage, reader, writer, offset, size, onprogress, onend, onreaderror, onwriteerror) {
+		var chunkIndex = 0, index, outputSize, sn = initialMessage.sn, crc;
+
+		function onflush() {
+			worker.removeEventListener('message', onmessage, false);
+			onend(outputSize, crc);
+		}
+
+		function onmessage(event) {
+			var message = event.data, data = message.data, err = message.error;
+			if (err) {
+				err.toString = function () { return 'Error: ' + this.message; };
+				onreaderror(err);
+				return;
+			}
+			if (message.sn !== sn)
+				return;
+			if (typeof message.codecTime === 'number')
+				worker.codecTime += message.codecTime; // should be before onflush()
+			if (typeof message.crcTime === 'number')
+				worker.crcTime += message.crcTime;
+
+			switch (message.type) {
+				case 'append':
+					if (data) {
+						outputSize += data.length;
+						writer.writeUint8Array(data, function() {
+							step();
+						}, onwriteerror);
+					} else
+						step();
+					break;
+				case 'flush':
+					crc = message.crc;
+					if (data) {
+						outputSize += data.length;
+						writer.writeUint8Array(data, function() {
+							onflush();
+						}, onwriteerror);
+					} else
+						onflush();
+					break;
+				case 'progress':
+					if (onprogress)
+						onprogress(index + message.loaded, size);
+					break;
+				case 'importScripts': //no need to handle here
+				case 'newTask':
+				case 'echo':
+					break;
+				default:
+					console.warn('zip.js:launchWorkerProcess: unknown message: ', message);
+			}
+		}
+
+		function step() {
+			index = chunkIndex * CHUNK_SIZE;
+			if (index < size) {
+				reader.readUint8Array(offset + index, Math.min(CHUNK_SIZE, size - index), function(array) {
+					if (onprogress)
+						onprogress(index, size);
+					var msg = index === 0 ? initialMessage : {sn : sn};
+					msg.type = 'append';
+					msg.data = array;
+					worker.postMessage(msg, [array.buffer]);
+					chunkIndex++;
+				}, onreaderror);
+			} else {
+				worker.postMessage({
+					sn: sn,
+					type: 'flush'
+				});
+			}
+		}
+
+		outputSize = 0;
+		worker.addEventListener('message', onmessage, false);
+		step();
+	}
+
+	function launchProcess(process, reader, writer, offset, size, crcType, onprogress, onend, onreaderror, onwriteerror) {
+		var chunkIndex = 0, index, outputSize = 0,
+			crcInput = crcType === 'input',
+			crcOutput = crcType === 'output',
+			crc = new Crc32();
+		function step() {
+			var outputData;
+			index = chunkIndex * CHUNK_SIZE;
+			if (index < size)
+				reader.readUint8Array(offset + index, Math.min(CHUNK_SIZE, size - index), function(inputData) {
+					var outputData;
+					try {
+						outputData = process.append(inputData, function(loaded) {
+							if (onprogress)
+								onprogress(index + loaded, size);
+						});
+					} catch (e) {
+						onreaderror(e);
+						return;
+					}
+					if (outputData) {
+						outputSize += outputData.length;
+						writer.writeUint8Array(outputData, function() {
+							chunkIndex++;
+							setTimeout(step, 1);
+						}, onwriteerror);
+						if (crcOutput)
+							crc.append(outputData);
+					} else {
+						chunkIndex++;
+						setTimeout(step, 1);
+					}
+					if (crcInput)
+						crc.append(inputData);
+					if (onprogress)
+						onprogress(index, size);
+				}, onreaderror);
+			else {
+				try {
+					outputData = process.flush();
+				} catch (e) {
+					onreaderror(e);
+					return;
+				}
+				if (outputData) {
+					if (crcOutput)
+						crc.append(outputData);
+					outputSize += outputData.length;
+					writer.writeUint8Array(outputData, function() {
+						onend(outputSize, crc.get());
+					}, onwriteerror);
+				} else
+					onend(outputSize, crc.get());
+			}
+		}
+
+		step();
+	}
+
+	function inflate(worker, sn, reader, writer, offset, size, computeCrc32, onend, onprogress, onreaderror, onwriteerror) {
+		var crcType = computeCrc32 ? 'output' : 'none';
+		if (obj.zip.useWebWorkers) {
+			var initialMessage = {
+				sn: sn,
+				codecClass: 'Inflater',
+				crcType: crcType,
+			};
+			launchWorkerProcess(worker, initialMessage, reader, writer, offset, size, onprogress, onend, onreaderror, onwriteerror);
+		} else
+			launchProcess(new obj.zip.Inflater(), reader, writer, offset, size, crcType, onprogress, onend, onreaderror, onwriteerror);
+	}
+
+	function deflate(worker, sn, reader, writer, level, onend, onprogress, onreaderror, onwriteerror) {
+		var crcType = 'input';
+		if (obj.zip.useWebWorkers) {
+			var initialMessage = {
+				sn: sn,
+				options: {level: level},
+				codecClass: 'Deflater',
+				crcType: crcType,
+			};
+			launchWorkerProcess(worker, initialMessage, reader, writer, 0, reader.size, onprogress, onend, onreaderror, onwriteerror);
+		} else
+			launchProcess(new obj.zip.Deflater(), reader, writer, 0, reader.size, crcType, onprogress, onend, onreaderror, onwriteerror);
+	}
+
+	function copy(worker, sn, reader, writer, offset, size, computeCrc32, onend, onprogress, onreaderror, onwriteerror) {
+		var crcType = 'input';
+		if (obj.zip.useWebWorkers && computeCrc32) {
+			var initialMessage = {
+				sn: sn,
+				codecClass: 'NOOP',
+				crcType: crcType,
+			};
+			launchWorkerProcess(worker, initialMessage, reader, writer, offset, size, onprogress, onend, onreaderror, onwriteerror);
+		} else
+			launchProcess(new NOOP(), reader, writer, offset, size, crcType, onprogress, onend, onreaderror, onwriteerror);
+	}
+
+	// ZipReader
+
+	function decodeASCII(str) {
+		var i, out = "", charCode, extendedASCII = [ '\u00C7', '\u00FC', '\u00E9', '\u00E2', '\u00E4', '\u00E0', '\u00E5', '\u00E7', '\u00EA', '\u00EB',
+				'\u00E8', '\u00EF', '\u00EE', '\u00EC', '\u00C4', '\u00C5', '\u00C9', '\u00E6', '\u00C6', '\u00F4', '\u00F6', '\u00F2', '\u00FB', '\u00F9',
+				'\u00FF', '\u00D6', '\u00DC', '\u00F8', '\u00A3', '\u00D8', '\u00D7', '\u0192', '\u00E1', '\u00ED', '\u00F3', '\u00FA', '\u00F1', '\u00D1',
+				'\u00AA', '\u00BA', '\u00BF', '\u00AE', '\u00AC', '\u00BD', '\u00BC', '\u00A1', '\u00AB', '\u00BB', '_', '_', '_', '\u00A6', '\u00A6',
+				'\u00C1', '\u00C2', '\u00C0', '\u00A9', '\u00A6', '\u00A6', '+', '+', '\u00A2', '\u00A5', '+', '+', '-', '-', '+', '-', '+', '\u00E3',
+				'\u00C3', '+', '+', '-', '-', '\u00A6', '-', '+', '\u00A4', '\u00F0', '\u00D0', '\u00CA', '\u00CB', '\u00C8', 'i', '\u00CD', '\u00CE',
+				'\u00CF', '+', '+', '_', '_', '\u00A6', '\u00CC', '_', '\u00D3', '\u00DF', '\u00D4', '\u00D2', '\u00F5', '\u00D5', '\u00B5', '\u00FE',
+				'\u00DE', '\u00DA', '\u00DB', '\u00D9', '\u00FD', '\u00DD', '\u00AF', '\u00B4', '\u00AD', '\u00B1', '_', '\u00BE', '\u00B6', '\u00A7',
+				'\u00F7', '\u00B8', '\u00B0', '\u00A8', '\u00B7', '\u00B9', '\u00B3', '\u00B2', '_', ' ' ];
+		for (i = 0; i < str.length; i++) {
+			charCode = str.charCodeAt(i) & 0xFF;
+			if (charCode > 127)
+				out += extendedASCII[charCode - 128];
+			else
+				out += String.fromCharCode(charCode);
+		}
+		return out;
+	}
+
+	function decodeUTF8(string) {
+		return decodeURIComponent(escape(string));
+	}
+
+	function getString(bytes) {
+		var i, str = "";
+		for (i = 0; i < bytes.length; i++)
+			str += String.fromCharCode(bytes[i]);
+		return str;
+	}
+
+	function getDate(timeRaw) {
+		var date = (timeRaw & 0xffff0000) >> 16, time = timeRaw & 0x0000ffff;
+		try {
+			return new Date(1980 + ((date & 0xFE00) >> 9), ((date & 0x01E0) >> 5) - 1, date & 0x001F, (time & 0xF800) >> 11, (time & 0x07E0) >> 5,
+					(time & 0x001F) * 2, 0);
+		} catch (e) {
+		}
+	}
+
+	function readCommonHeader(entry, data, index, centralDirectory, onerror) {
+		entry.version = data.view.getUint16(index, true);
+		entry.bitFlag = data.view.getUint16(index + 2, true);
+		entry.compressionMethod = data.view.getUint16(index + 4, true);
+		entry.lastModDateRaw = data.view.getUint32(index + 6, true);
+		entry.lastModDate = getDate(entry.lastModDateRaw);
+		if ((entry.bitFlag & 0x01) === 0x01) {
+			onerror(ERR_ENCRYPTED);
+			return;
+		}
+		if (centralDirectory || (entry.bitFlag & 0x0008) != 0x0008) {
+			entry.crc32 = data.view.getUint32(index + 10, true);
+			entry.compressedSize = data.view.getUint32(index + 14, true);
+			entry.uncompressedSize = data.view.getUint32(index + 18, true);
+		}
+		if (entry.compressedSize === 0xFFFFFFFF || entry.uncompressedSize === 0xFFFFFFFF) {
+			onerror(ERR_ZIP64);
+			return;
+		}
+		entry.filenameLength = data.view.getUint16(index + 22, true);
+		entry.extraFieldLength = data.view.getUint16(index + 24, true);
+	}
+
+	function createZipReader(reader, callback, onerror) {
+		var inflateSN = 0;
+
+		function Entry() {
+		}
+
+		Entry.prototype.getData = function(writer, onend, onprogress, checkCrc32) {
+			var that = this;
+
+			function testCrc32(crc32) {
+				var dataCrc32 = getDataHelper(4);
+				dataCrc32.view.setUint32(0, crc32);
+				return that.crc32 == dataCrc32.view.getUint32(0);
+			}
+
+			function getWriterData(uncompressedSize, crc32) {
+				if (checkCrc32 && !testCrc32(crc32))
+					onerror(ERR_CRC);
+				else
+					writer.getData(function(data) {
+						onend(data);
+					});
+			}
+
+			function onreaderror(err) {
+				onerror(err || ERR_READ_DATA);
+			}
+
+			function onwriteerror(err) {
+				onerror(err || ERR_WRITE_DATA);
+			}
+
+			reader.readUint8Array(that.offset, 30, function(bytes) {
+				var data = getDataHelper(bytes.length, bytes), dataOffset;
+				if (data.view.getUint32(0) != 0x504b0304) {
+					onerror(ERR_BAD_FORMAT);
+					return;
+				}
+				readCommonHeader(that, data, 4, false, onerror);
+				dataOffset = that.offset + 30 + that.filenameLength + that.extraFieldLength;
+				writer.init(function() {
+					if (that.compressionMethod === 0)
+						copy(that._worker, inflateSN++, reader, writer, dataOffset, that.compressedSize, checkCrc32, getWriterData, onprogress, onreaderror, onwriteerror);
+					else
+						inflate(that._worker, inflateSN++, reader, writer, dataOffset, that.compressedSize, checkCrc32, getWriterData, onprogress, onreaderror, onwriteerror);
+				}, onwriteerror);
+			}, onreaderror);
+		};
+
+		function seekEOCDR(eocdrCallback) {
+			// "End of central directory record" is the last part of a zip archive, and is at least 22 bytes long.
+			// Zip file comment is the last part of EOCDR and has max length of 64KB,
+			// so we only have to search the last 64K + 22 bytes of a archive for EOCDR signature (0x06054b50).
+			var EOCDR_MIN = 22;
+			if (reader.size < EOCDR_MIN) {
+				onerror(ERR_BAD_FORMAT);
+				return;
+			}
+			var ZIP_COMMENT_MAX = 256 * 256, EOCDR_MAX = EOCDR_MIN + ZIP_COMMENT_MAX;
+
+			// In most cases, the EOCDR is EOCDR_MIN bytes long
+			doSeek(EOCDR_MIN, function() {
+				// If not found, try within EOCDR_MAX bytes
+				doSeek(Math.min(EOCDR_MAX, reader.size), function() {
+					onerror(ERR_BAD_FORMAT);
+				});
+			});
+
+			// seek last length bytes of file for EOCDR
+			function doSeek(length, eocdrNotFoundCallback) {
+				reader.readUint8Array(reader.size - length, length, function(bytes) {
+					for (var i = bytes.length - EOCDR_MIN; i >= 0; i--) {
+						if (bytes[i] === 0x50 && bytes[i + 1] === 0x4b && bytes[i + 2] === 0x05 && bytes[i + 3] === 0x06) {
+							eocdrCallback(new DataView(bytes.buffer, i, EOCDR_MIN));
+							return;
+						}
+					}
+					eocdrNotFoundCallback();
+				}, function() {
+					onerror(ERR_READ);
+				});
+			}
+		}
+
+		var zipReader = {
+			getEntries : function(callback) {
+				var worker = this._worker;
+				// look for End of central directory record
+				seekEOCDR(function(dataView) {
+					var datalength, fileslength;
+					datalength = dataView.getUint32(16, true);
+					fileslength = dataView.getUint16(8, true);
+					if (datalength < 0 || datalength >= reader.size) {
+						onerror(ERR_BAD_FORMAT);
+						return;
+					}
+					reader.readUint8Array(datalength, reader.size - datalength, function(bytes) {
+						var i, index = 0, entries = [], entry, filename, comment, data = getDataHelper(bytes.length, bytes);
+						for (i = 0; i < fileslength; i++) {
+							entry = new Entry();
+							entry._worker = worker;
+							if (data.view.getUint32(index) != 0x504b0102) {
+								onerror(ERR_BAD_FORMAT);
+								return;
+							}
+							readCommonHeader(entry, data, index + 6, true, onerror);
+							entry.commentLength = data.view.getUint16(index + 32, true);
+							entry.directory = ((data.view.getUint8(index + 38) & 0x10) == 0x10);
+							entry.offset = data.view.getUint32(index + 42, true);
+							filename = getString(data.array.subarray(index + 46, index + 46 + entry.filenameLength));
+							entry.filename = ((entry.bitFlag & 0x0800) === 0x0800) ? decodeUTF8(filename) : decodeASCII(filename);
+							if (!entry.directory && entry.filename.charAt(entry.filename.length - 1) == "/")
+								entry.directory = true;
+							comment = getString(data.array.subarray(index + 46 + entry.filenameLength + entry.extraFieldLength, index + 46
+									+ entry.filenameLength + entry.extraFieldLength + entry.commentLength));
+							entry.comment = ((entry.bitFlag & 0x0800) === 0x0800) ? decodeUTF8(comment) : decodeASCII(comment);
+							entries.push(entry);
+							index += 46 + entry.filenameLength + entry.extraFieldLength + entry.commentLength;
+						}
+						callback(entries);
+					}, function() {
+						onerror(ERR_READ);
+					});
+				});
+			},
+			close : function(callback) {
+				if (this._worker) {
+					this._worker.terminate();
+					this._worker = null;
+				}
+				if (callback)
+					callback();
+			},
+			_worker: null
+		};
+
+		if (!obj.zip.useWebWorkers)
+			callback(zipReader);
+		else {
+			createWorker('inflater',
+				function(worker) {
+					zipReader._worker = worker;
+					callback(zipReader);
+				},
+				function(err) {
+					onerror(err);
+				}
+			);
+		}
+	}
+
+	// ZipWriter
+
+	function encodeUTF8(string) {
+		return unescape(encodeURIComponent(string));
+	}
+
+	function getBytes(str) {
+		var i, array = [];
+		for (i = 0; i < str.length; i++)
+			array.push(str.charCodeAt(i));
+		return array;
+	}
+
+	function createZipWriter(writer, callback, onerror, dontDeflate) {
+		var files = {}, filenames = [], datalength = 0;
+		var deflateSN = 0;
+
+		function onwriteerror(err) {
+			onerror(err || ERR_WRITE);
+		}
+
+		function onreaderror(err) {
+			onerror(err || ERR_READ_DATA);
+		}
+
+		var zipWriter = {
+			add : function(name, reader, onend, onprogress, options) {
+				var header, filename, date;
+				var worker = this._worker;
+
+				function writeHeader(callback) {
+					var data;
+					date = options.lastModDate || new Date();
+					header = getDataHelper(26);
+					files[name] = {
+						headerArray : header.array,
+						directory : options.directory,
+						filename : filename,
+						offset : datalength,
+						comment : getBytes(encodeUTF8(options.comment || ""))
+					};
+					header.view.setUint32(0, 0x14000808);
+					if (options.version)
+						header.view.setUint8(0, options.version);
+					if (!dontDeflate && options.level !== 0 && !options.directory)
+						header.view.setUint16(4, 0x0800);
+					header.view.setUint16(6, (((date.getHours() << 6) | date.getMinutes()) << 5) | date.getSeconds() / 2, true);
+					header.view.setUint16(8, ((((date.getFullYear() - 1980) << 4) | (date.getMonth() + 1)) << 5) | date.getDate(), true);
+					header.view.setUint16(22, filename.length, true);
+					data = getDataHelper(30 + filename.length);
+					data.view.setUint32(0, 0x504b0304);
+					data.array.set(header.array, 4);
+					data.array.set(filename, 30);
+					datalength += data.array.length;
+					writer.writeUint8Array(data.array, callback, onwriteerror);
+				}
+
+				function writeFooter(compressedLength, crc32) {
+					var footer = getDataHelper(16);
+					datalength += compressedLength || 0;
+					footer.view.setUint32(0, 0x504b0708);
+					if (typeof crc32 != "undefined") {
+						header.view.setUint32(10, crc32, true);
+						footer.view.setUint32(4, crc32, true);
+					}
+					if (reader) {
+						footer.view.setUint32(8, compressedLength, true);
+						header.view.setUint32(14, compressedLength, true);
+						footer.view.setUint32(12, reader.size, true);
+						header.view.setUint32(18, reader.size, true);
+					}
+					writer.writeUint8Array(footer.array, function() {
+						datalength += 16;
+						onend();
+					}, onwriteerror);
+				}
+
+				function writeFile() {
+					options = options || {};
+					name = name.trim();
+					if (options.directory && name.charAt(name.length - 1) != "/")
+						name += "/";
+					if (files.hasOwnProperty(name)) {
+						onerror(ERR_DUPLICATED_NAME);
+						return;
+					}
+					filename = getBytes(encodeUTF8(name));
+					filenames.push(name);
+					writeHeader(function() {
+						if (reader)
+							if (dontDeflate || options.level === 0)
+								copy(worker, deflateSN++, reader, writer, 0, reader.size, true, writeFooter, onprogress, onreaderror, onwriteerror);
+							else
+								deflate(worker, deflateSN++, reader, writer, options.level, writeFooter, onprogress, onreaderror, onwriteerror);
+						else
+							writeFooter();
+					}, onwriteerror);
+				}
+
+				if (reader)
+					reader.init(writeFile, onreaderror);
+				else
+					writeFile();
+			},
+			close : function(callback) {
+				if (this._worker) {
+					this._worker.terminate();
+					this._worker = null;
+				}
+
+				var data, length = 0, index = 0, indexFilename, file;
+				for (indexFilename = 0; indexFilename < filenames.length; indexFilename++) {
+					file = files[filenames[indexFilename]];
+					length += 46 + file.filename.length + file.comment.length;
+				}
+				data = getDataHelper(length + 22);
+				for (indexFilename = 0; indexFilename < filenames.length; indexFilename++) {
+					file = files[filenames[indexFilename]];
+					data.view.setUint32(index, 0x504b0102);
+					data.view.setUint16(index + 4, 0x1400);
+					data.array.set(file.headerArray, index + 6);
+					data.view.setUint16(index + 32, file.comment.length, true);
+					if (file.directory)
+						data.view.setUint8(index + 38, 0x10);
+					data.view.setUint32(index + 42, file.offset, true);
+					data.array.set(file.filename, index + 46);
+					data.array.set(file.comment, index + 46 + file.filename.length);
+					index += 46 + file.filename.length + file.comment.length;
+				}
+				data.view.setUint32(index, 0x504b0506);
+				data.view.setUint16(index + 8, filenames.length, true);
+				data.view.setUint16(index + 10, filenames.length, true);
+				data.view.setUint32(index + 12, length, true);
+				data.view.setUint32(index + 16, datalength, true);
+				writer.writeUint8Array(data.array, function() {
+					writer.getData(callback);
+				}, onwriteerror);
+			},
+			_worker: null
+		};
+
+		if (!obj.zip.useWebWorkers)
+			callback(zipWriter);
+		else {
+			createWorker('deflater',
+				function(worker) {
+					zipWriter._worker = worker;
+					callback(zipWriter);
+				},
+				function(err) {
+					onerror(err);
+				}
+			);
+		}
+	}
+
+	function resolveURLs(urls) {
+		var a = document.createElement('a');
+		return urls.map(function(url) {
+			a.href = url;
+			return a.href;
+		});
+	}
+
+	var DEFAULT_WORKER_SCRIPTS = {
+		deflater: ['z-worker.js', 'deflate.js'],
+		inflater: ['z-worker.js', 'inflate.js']
+	};
+	function createWorker(type, callback, onerror) {
+		if (obj.zip.workerScripts !== null && obj.zip.workerScriptsPath !== null) {
+			onerror(new Error('Either zip.workerScripts or zip.workerScriptsPath may be set, not both.'));
+			return;
+		}
+		var scripts;
+		if (obj.zip.workerScripts) {
+			scripts = obj.zip.workerScripts[type];
+			if (!Array.isArray(scripts)) {
+				onerror(new Error('zip.workerScripts.' + type + ' is not an array!'));
+				return;
+			}
+			scripts = resolveURLs(scripts);
+		} else {
+			scripts = DEFAULT_WORKER_SCRIPTS[type].slice(0);
+			scripts[0] = (obj.zip.workerScriptsPath || '') + scripts[0];
+		}
+		var worker = new Worker(scripts[0]);
+		// record total consumed time by inflater/deflater/crc32 in this worker
+		worker.codecTime = worker.crcTime = 0;
+		worker.postMessage({ type: 'importScripts', scripts: scripts.slice(1) });
+		worker.addEventListener('message', onmessage);
+		function onmessage(ev) {
+			var msg = ev.data;
+			if (msg.error) {
+				worker.terminate(); // should before onerror(), because onerror() may throw.
+				onerror(msg.error);
+				return;
+			}
+			if (msg.type === 'importScripts') {
+				worker.removeEventListener('message', onmessage);
+				worker.removeEventListener('error', errorHandler);
+				callback(worker);
+			}
+		}
+		// catch entry script loading error and other unhandled errors
+		worker.addEventListener('error', errorHandler);
+		function errorHandler(err) {
+			worker.terminate();
+			onerror(err);
+		}
+	}
+
+	function onerror_default(error) {
+		console.error(error);
+	}
+	obj.zip = {
+		Reader : Reader,
+		Writer : Writer,
+		BlobReader : BlobReader,
+		Data64URIReader : Data64URIReader,
+		TextReader : TextReader,
+		BlobWriter : BlobWriter,
+		Data64URIWriter : Data64URIWriter,
+		TextWriter : TextWriter,
+		createReader : function(reader, callback, onerror) {
+			onerror = onerror || onerror_default;
+
+			reader.init(function() {
+				createZipReader(reader, callback, onerror);
+			}, onerror);
+		},
+		createWriter : function(writer, callback, onerror, dontDeflate) {
+			onerror = onerror || onerror_default;
+			dontDeflate = !!dontDeflate;
+
+			writer.init(function() {
+				createZipWriter(writer, callback, onerror, dontDeflate);
+			}, onerror);
+		},
+		useWebWorkers : true,
+		/**
+		 * Directory containing the default worker scripts (z-worker.js, deflate.js, and inflate.js), relative to current base url.
+		 * E.g.: zip.workerScripts = './';
+		 */
+		workerScriptsPath : null,
+		/**
+		 * Advanced option to control which scripts are loaded in the Web worker. If this option is specified, then workerScriptsPath must not be set.
+		 * workerScripts.deflater/workerScripts.inflater should be arrays of urls to scripts for deflater/inflater, respectively.
+		 * Scripts in the array are executed in order, and the first one should be z-worker.js, which is used to start the worker.
+		 * All urls are relative to current base url.
+		 * E.g.:
+		 * zip.workerScripts = {
+		 *   deflater: ['z-worker.js', 'deflate.js'],
+		 *   inflater: ['z-worker.js', 'inflate.js']
+		 * };
+		 */
+		workerScripts : null,
+	};
+
+})(this);
+
+define("zip", (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.zip;
+    };
+}(this)));
+
+/*
+ Copyright (c) 2013 Gildas Lormeau. All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+
+ 2. Redistributions in binary form must reproduce the above copyright 
+ notice, this list of conditions and the following disclaimer in 
+ the documentation and/or other materials provided with the distribution.
+
+ 3. The names of the authors may not be used to endorse or promote products
+ derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JCRAFT,
+ INC. OR ANY CONTRIBUTORS TO THIS SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+(function() {
+	"use strict";
+	var table = {
+		"application" : {
+			"andrew-inset" : "ez",
+			"annodex" : "anx",
+			"atom+xml" : "atom",
+			"atomcat+xml" : "atomcat",
+			"atomserv+xml" : "atomsrv",
+			"bbolin" : "lin",
+			"cap" : [ "cap", "pcap" ],
+			"cu-seeme" : "cu",
+			"davmount+xml" : "davmount",
+			"dsptype" : "tsp",
+			"ecmascript" : [ "es", "ecma" ],
+			"futuresplash" : "spl",
+			"hta" : "hta",
+			"java-archive" : "jar",
+			"java-serialized-object" : "ser",
+			"java-vm" : "class",
+			"javascript" : "js",
+			"m3g" : "m3g",
+			"mac-binhex40" : "hqx",
+			"mathematica" : [ "nb", "ma", "mb" ],
+			"msaccess" : "mdb",
+			"msword" : [ "doc", "dot" ],
+			"mxf" : "mxf",
+			"oda" : "oda",
+			"ogg" : "ogx",
+			"pdf" : "pdf",
+			"pgp-keys" : "key",
+			"pgp-signature" : [ "asc", "sig" ],
+			"pics-rules" : "prf",
+			"postscript" : [ "ps", "ai", "eps", "epsi", "epsf", "eps2", "eps3" ],
+			"rar" : "rar",
+			"rdf+xml" : "rdf",
+			"rss+xml" : "rss",
+			"rtf" : "rtf",
+			"smil" : [ "smi", "smil" ],
+			"xhtml+xml" : [ "xhtml", "xht" ],
+			"xml" : [ "xml", "xsl", "xsd" ],
+			"xspf+xml" : "xspf",
+			"zip" : "zip",
+			"vnd.android.package-archive" : "apk",
+			"vnd.cinderella" : "cdy",
+			"vnd.google-earth.kml+xml" : "kml",
+			"vnd.google-earth.kmz" : "kmz",
+			"vnd.mozilla.xul+xml" : "xul",
+			"vnd.ms-excel" : [ "xls", "xlb", "xlt", "xlm", "xla", "xlc", "xlw" ],
+			"vnd.ms-pki.seccat" : "cat",
+			"vnd.ms-pki.stl" : "stl",
+			"vnd.ms-powerpoint" : [ "ppt", "pps", "pot" ],
+			"vnd.oasis.opendocument.chart" : "odc",
+			"vnd.oasis.opendocument.database" : "odb",
+			"vnd.oasis.opendocument.formula" : "odf",
+			"vnd.oasis.opendocument.graphics" : "odg",
+			"vnd.oasis.opendocument.graphics-template" : "otg",
+			"vnd.oasis.opendocument.image" : "odi",
+			"vnd.oasis.opendocument.presentation" : "odp",
+			"vnd.oasis.opendocument.presentation-template" : "otp",
+			"vnd.oasis.opendocument.spreadsheet" : "ods",
+			"vnd.oasis.opendocument.spreadsheet-template" : "ots",
+			"vnd.oasis.opendocument.text" : "odt",
+			"vnd.oasis.opendocument.text-master" : "odm",
+			"vnd.oasis.opendocument.text-template" : "ott",
+			"vnd.oasis.opendocument.text-web" : "oth",
+			"vnd.openxmlformats-officedocument.spreadsheetml.sheet" : "xlsx",
+			"vnd.openxmlformats-officedocument.spreadsheetml.template" : "xltx",
+			"vnd.openxmlformats-officedocument.presentationml.presentation" : "pptx",
+			"vnd.openxmlformats-officedocument.presentationml.slideshow" : "ppsx",
+			"vnd.openxmlformats-officedocument.presentationml.template" : "potx",
+			"vnd.openxmlformats-officedocument.wordprocessingml.document" : "docx",
+			"vnd.openxmlformats-officedocument.wordprocessingml.template" : "dotx",
+			"vnd.smaf" : "mmf",
+			"vnd.stardivision.calc" : "sdc",
+			"vnd.stardivision.chart" : "sds",
+			"vnd.stardivision.draw" : "sda",
+			"vnd.stardivision.impress" : "sdd",
+			"vnd.stardivision.math" : [ "sdf", "smf" ],
+			"vnd.stardivision.writer" : [ "sdw", "vor" ],
+			"vnd.stardivision.writer-global" : "sgl",
+			"vnd.sun.xml.calc" : "sxc",
+			"vnd.sun.xml.calc.template" : "stc",
+			"vnd.sun.xml.draw" : "sxd",
+			"vnd.sun.xml.draw.template" : "std",
+			"vnd.sun.xml.impress" : "sxi",
+			"vnd.sun.xml.impress.template" : "sti",
+			"vnd.sun.xml.math" : "sxm",
+			"vnd.sun.xml.writer" : "sxw",
+			"vnd.sun.xml.writer.global" : "sxg",
+			"vnd.sun.xml.writer.template" : "stw",
+			"vnd.symbian.install" : [ "sis", "sisx" ],
+			"vnd.visio" : [ "vsd", "vst", "vss", "vsw" ],
+			"vnd.wap.wbxml" : "wbxml",
+			"vnd.wap.wmlc" : "wmlc",
+			"vnd.wap.wmlscriptc" : "wmlsc",
+			"vnd.wordperfect" : "wpd",
+			"vnd.wordperfect5.1" : "wp5",
+			"x-123" : "wk",
+			"x-7z-compressed" : "7z",
+			"x-abiword" : "abw",
+			"x-apple-diskimage" : "dmg",
+			"x-bcpio" : "bcpio",
+			"x-bittorrent" : "torrent",
+			"x-cbr" : [ "cbr", "cba", "cbt", "cb7" ],
+			"x-cbz" : "cbz",
+			"x-cdf" : [ "cdf", "cda" ],
+			"x-cdlink" : "vcd",
+			"x-chess-pgn" : "pgn",
+			"x-cpio" : "cpio",
+			"x-csh" : "csh",
+			"x-debian-package" : [ "deb", "udeb" ],
+			"x-director" : [ "dcr", "dir", "dxr", "cst", "cct", "cxt", "w3d", "fgd", "swa" ],
+			"x-dms" : "dms",
+			"x-doom" : "wad",
+			"x-dvi" : "dvi",
+			"x-httpd-eruby" : "rhtml",
+			"x-font" : "pcf.Z",
+			"x-freemind" : "mm",
+			"x-gnumeric" : "gnumeric",
+			"x-go-sgf" : "sgf",
+			"x-graphing-calculator" : "gcf",
+			"x-gtar" : [ "gtar", "taz" ],
+			"x-hdf" : "hdf",
+			"x-httpd-php" : [ "phtml", "pht", "php" ],
+			"x-httpd-php-source" : "phps",
+			"x-httpd-php3" : "php3",
+			"x-httpd-php3-preprocessed" : "php3p",
+			"x-httpd-php4" : "php4",
+			"x-httpd-php5" : "php5",
+			"x-ica" : "ica",
+			"x-info" : "info",
+			"x-internet-signup" : [ "ins", "isp" ],
+			"x-iphone" : "iii",
+			"x-iso9660-image" : "iso",
+			"x-java-jnlp-file" : "jnlp",
+			"x-jmol" : "jmz",
+			"x-killustrator" : "kil",
+			"x-koan" : [ "skp", "skd", "skt", "skm" ],
+			"x-kpresenter" : [ "kpr", "kpt" ],
+			"x-kword" : [ "kwd", "kwt" ],
+			"x-latex" : "latex",
+			"x-lha" : "lha",
+			"x-lyx" : "lyx",
+			"x-lzh" : "lzh",
+			"x-lzx" : "lzx",
+			"x-maker" : [ "frm", "maker", "frame", "fm", "fb", "book", "fbdoc" ],
+			"x-ms-wmd" : "wmd",
+			"x-ms-wmz" : "wmz",
+			"x-msdos-program" : [ "com", "exe", "bat", "dll" ],
+			"x-msi" : "msi",
+			"x-netcdf" : [ "nc", "cdf" ],
+			"x-ns-proxy-autoconfig" : [ "pac", "dat" ],
+			"x-nwc" : "nwc",
+			"x-object" : "o",
+			"x-oz-application" : "oza",
+			"x-pkcs7-certreqresp" : "p7r",
+			"x-python-code" : [ "pyc", "pyo" ],
+			"x-qgis" : [ "qgs", "shp", "shx" ],
+			"x-quicktimeplayer" : "qtl",
+			"x-redhat-package-manager" : "rpm",
+			"x-ruby" : "rb",
+			"x-sh" : "sh",
+			"x-shar" : "shar",
+			"x-shockwave-flash" : [ "swf", "swfl" ],
+			"x-silverlight" : "scr",
+			"x-stuffit" : "sit",
+			"x-sv4cpio" : "sv4cpio",
+			"x-sv4crc" : "sv4crc",
+			"x-tar" : "tar",
+			"x-tcl" : "tcl",
+			"x-tex-gf" : "gf",
+			"x-tex-pk" : "pk",
+			"x-texinfo" : [ "texinfo", "texi" ],
+			"x-trash" : [ "~", "%", "bak", "old", "sik" ],
+			"x-troff" : [ "t", "tr", "roff" ],
+			"x-troff-man" : "man",
+			"x-troff-me" : "me",
+			"x-troff-ms" : "ms",
+			"x-ustar" : "ustar",
+			"x-wais-source" : "src",
+			"x-wingz" : "wz",
+			"x-x509-ca-cert" : [ "crt", "der", "cer" ],
+			"x-xcf" : "xcf",
+			"x-xfig" : "fig",
+			"x-xpinstall" : "xpi",
+			"applixware" : "aw",
+			"atomsvc+xml" : "atomsvc",
+			"ccxml+xml" : "ccxml",
+			"cdmi-capability" : "cdmia",
+			"cdmi-container" : "cdmic",
+			"cdmi-domain" : "cdmid",
+			"cdmi-object" : "cdmio",
+			"cdmi-queue" : "cdmiq",
+			"docbook+xml" : "dbk",
+			"dssc+der" : "dssc",
+			"dssc+xml" : "xdssc",
+			"emma+xml" : "emma",
+			"epub+zip" : "epub",
+			"exi" : "exi",
+			"font-tdpfr" : "pfr",
+			"gml+xml" : "gml",
+			"gpx+xml" : "gpx",
+			"gxf" : "gxf",
+			"hyperstudio" : "stk",
+			"inkml+xml" : [ "ink", "inkml" ],
+			"ipfix" : "ipfix",
+			"json" : "json",
+			"jsonml+json" : "jsonml",
+			"lost+xml" : "lostxml",
+			"mads+xml" : "mads",
+			"marc" : "mrc",
+			"marcxml+xml" : "mrcx",
+			"mathml+xml" : "mathml",
+			"mbox" : "mbox",
+			"mediaservercontrol+xml" : "mscml",
+			"metalink+xml" : "metalink",
+			"metalink4+xml" : "meta4",
+			"mets+xml" : "mets",
+			"mods+xml" : "mods",
+			"mp21" : [ "m21", "mp21" ],
+			"mp4" : "mp4s",
+			"oebps-package+xml" : "opf",
+			"omdoc+xml" : "omdoc",
+			"onenote" : [ "onetoc", "onetoc2", "onetmp", "onepkg" ],
+			"oxps" : "oxps",
+			"patch-ops-error+xml" : "xer",
+			"pgp-encrypted" : "pgp",
+			"pkcs10" : "p10",
+			"pkcs7-mime" : [ "p7m", "p7c" ],
+			"pkcs7-signature" : "p7s",
+			"pkcs8" : "p8",
+			"pkix-attr-cert" : "ac",
+			"pkix-crl" : "crl",
+			"pkix-pkipath" : "pkipath",
+			"pkixcmp" : "pki",
+			"pls+xml" : "pls",
+			"prs.cww" : "cww",
+			"pskc+xml" : "pskcxml",
+			"reginfo+xml" : "rif",
+			"relax-ng-compact-syntax" : "rnc",
+			"resource-lists+xml" : "rl",
+			"resource-lists-diff+xml" : "rld",
+			"rls-services+xml" : "rs",
+			"rpki-ghostbusters" : "gbr",
+			"rpki-manifest" : "mft",
+			"rpki-roa" : "roa",
+			"rsd+xml" : "rsd",
+			"sbml+xml" : "sbml",
+			"scvp-cv-request" : "scq",
+			"scvp-cv-response" : "scs",
+			"scvp-vp-request" : "spq",
+			"scvp-vp-response" : "spp",
+			"sdp" : "sdp",
+			"set-payment-initiation" : "setpay",
+			"set-registration-initiation" : "setreg",
+			"shf+xml" : "shf",
+			"sparql-query" : "rq",
+			"sparql-results+xml" : "srx",
+			"srgs" : "gram",
+			"srgs+xml" : "grxml",
+			"sru+xml" : "sru",
+			"ssdl+xml" : "ssdl",
+			"ssml+xml" : "ssml",
+			"tei+xml" : [ "tei", "teicorpus" ],
+			"thraud+xml" : "tfi",
+			"timestamped-data" : "tsd",
+			"vnd.3gpp.pic-bw-large" : "plb",
+			"vnd.3gpp.pic-bw-small" : "psb",
+			"vnd.3gpp.pic-bw-var" : "pvb",
+			"vnd.3gpp2.tcap" : "tcap",
+			"vnd.3m.post-it-notes" : "pwn",
+			"vnd.accpac.simply.aso" : "aso",
+			"vnd.accpac.simply.imp" : "imp",
+			"vnd.acucobol" : "acu",
+			"vnd.acucorp" : [ "atc", "acutc" ],
+			"vnd.adobe.air-application-installer-package+zip" : "air",
+			"vnd.adobe.formscentral.fcdt" : "fcdt",
+			"vnd.adobe.fxp" : [ "fxp", "fxpl" ],
+			"vnd.adobe.xdp+xml" : "xdp",
+			"vnd.adobe.xfdf" : "xfdf",
+			"vnd.ahead.space" : "ahead",
+			"vnd.airzip.filesecure.azf" : "azf",
+			"vnd.airzip.filesecure.azs" : "azs",
+			"vnd.amazon.ebook" : "azw",
+			"vnd.americandynamics.acc" : "acc",
+			"vnd.amiga.ami" : "ami",
+			"vnd.anser-web-certificate-issue-initiation" : "cii",
+			"vnd.anser-web-funds-transfer-initiation" : "fti",
+			"vnd.antix.game-component" : "atx",
+			"vnd.apple.installer+xml" : "mpkg",
+			"vnd.apple.mpegurl" : "m3u8",
+			"vnd.aristanetworks.swi" : "swi",
+			"vnd.astraea-software.iota" : "iota",
+			"vnd.audiograph" : "aep",
+			"vnd.blueice.multipass" : "mpm",
+			"vnd.bmi" : "bmi",
+			"vnd.businessobjects" : "rep",
+			"vnd.chemdraw+xml" : "cdxml",
+			"vnd.chipnuts.karaoke-mmd" : "mmd",
+			"vnd.claymore" : "cla",
+			"vnd.cloanto.rp9" : "rp9",
+			"vnd.clonk.c4group" : [ "c4g", "c4d", "c4f", "c4p", "c4u" ],
+			"vnd.cluetrust.cartomobile-config" : "c11amc",
+			"vnd.cluetrust.cartomobile-config-pkg" : "c11amz",
+			"vnd.commonspace" : "csp",
+			"vnd.contact.cmsg" : "cdbcmsg",
+			"vnd.cosmocaller" : "cmc",
+			"vnd.crick.clicker" : "clkx",
+			"vnd.crick.clicker.keyboard" : "clkk",
+			"vnd.crick.clicker.palette" : "clkp",
+			"vnd.crick.clicker.template" : "clkt",
+			"vnd.crick.clicker.wordbank" : "clkw",
+			"vnd.criticaltools.wbs+xml" : "wbs",
+			"vnd.ctc-posml" : "pml",
+			"vnd.cups-ppd" : "ppd",
+			"vnd.curl.car" : "car",
+			"vnd.curl.pcurl" : "pcurl",
+			"vnd.dart" : "dart",
+			"vnd.data-vision.rdz" : "rdz",
+			"vnd.dece.data" : [ "uvf", "uvvf", "uvd", "uvvd" ],
+			"vnd.dece.ttml+xml" : [ "uvt", "uvvt" ],
+			"vnd.dece.unspecified" : [ "uvx", "uvvx" ],
+			"vnd.dece.zip" : [ "uvz", "uvvz" ],
+			"vnd.denovo.fcselayout-link" : "fe_launch",
+			"vnd.dna" : "dna",
+			"vnd.dolby.mlp" : "mlp",
+			"vnd.dpgraph" : "dpg",
+			"vnd.dreamfactory" : "dfac",
+			"vnd.ds-keypoint" : "kpxx",
+			"vnd.dvb.ait" : "ait",
+			"vnd.dvb.service" : "svc",
+			"vnd.dynageo" : "geo",
+			"vnd.ecowin.chart" : "mag",
+			"vnd.enliven" : "nml",
+			"vnd.epson.esf" : "esf",
+			"vnd.epson.msf" : "msf",
+			"vnd.epson.quickanime" : "qam",
+			"vnd.epson.salt" : "slt",
+			"vnd.epson.ssf" : "ssf",
+			"vnd.eszigno3+xml" : [ "es3", "et3" ],
+			"vnd.ezpix-album" : "ez2",
+			"vnd.ezpix-package" : "ez3",
+			"vnd.fdf" : "fdf",
+			"vnd.fdsn.mseed" : "mseed",
+			"vnd.fdsn.seed" : [ "seed", "dataless" ],
+			"vnd.flographit" : "gph",
+			"vnd.fluxtime.clip" : "ftc",
+			"vnd.framemaker" : [ "fm", "frame", "maker", "book" ],
+			"vnd.frogans.fnc" : "fnc",
+			"vnd.frogans.ltf" : "ltf",
+			"vnd.fsc.weblaunch" : "fsc",
+			"vnd.fujitsu.oasys" : "oas",
+			"vnd.fujitsu.oasys2" : "oa2",
+			"vnd.fujitsu.oasys3" : "oa3",
+			"vnd.fujitsu.oasysgp" : "fg5",
+			"vnd.fujitsu.oasysprs" : "bh2",
+			"vnd.fujixerox.ddd" : "ddd",
+			"vnd.fujixerox.docuworks" : "xdw",
+			"vnd.fujixerox.docuworks.binder" : "xbd",
+			"vnd.fuzzysheet" : "fzs",
+			"vnd.genomatix.tuxedo" : "txd",
+			"vnd.geogebra.file" : "ggb",
+			"vnd.geogebra.tool" : "ggt",
+			"vnd.geometry-explorer" : [ "gex", "gre" ],
+			"vnd.geonext" : "gxt",
+			"vnd.geoplan" : "g2w",
+			"vnd.geospace" : "g3w",
+			"vnd.gmx" : "gmx",
+			"vnd.grafeq" : [ "gqf", "gqs" ],
+			"vnd.groove-account" : "gac",
+			"vnd.groove-help" : "ghf",
+			"vnd.groove-identity-message" : "gim",
+			"vnd.groove-injector" : "grv",
+			"vnd.groove-tool-message" : "gtm",
+			"vnd.groove-tool-template" : "tpl",
+			"vnd.groove-vcard" : "vcg",
+			"vnd.hal+xml" : "hal",
+			"vnd.handheld-entertainment+xml" : "zmm",
+			"vnd.hbci" : "hbci",
+			"vnd.hhe.lesson-player" : "les",
+			"vnd.hp-hpgl" : "hpgl",
+			"vnd.hp-hpid" : "hpid",
+			"vnd.hp-hps" : "hps",
+			"vnd.hp-jlyt" : "jlt",
+			"vnd.hp-pcl" : "pcl",
+			"vnd.hp-pclxl" : "pclxl",
+			"vnd.hydrostatix.sof-data" : "sfd-hdstx",
+			"vnd.ibm.minipay" : "mpy",
+			"vnd.ibm.modcap" : [ "afp", "listafp", "list3820" ],
+			"vnd.ibm.rights-management" : "irm",
+			"vnd.ibm.secure-container" : "sc",
+			"vnd.iccprofile" : [ "icc", "icm" ],
+			"vnd.igloader" : "igl",
+			"vnd.immervision-ivp" : "ivp",
+			"vnd.immervision-ivu" : "ivu",
+			"vnd.insors.igm" : "igm",
+			"vnd.intercon.formnet" : [ "xpw", "xpx" ],
+			"vnd.intergeo" : "i2g",
+			"vnd.intu.qbo" : "qbo",
+			"vnd.intu.qfx" : "qfx",
+			"vnd.ipunplugged.rcprofile" : "rcprofile",
+			"vnd.irepository.package+xml" : "irp",
+			"vnd.is-xpr" : "xpr",
+			"vnd.isac.fcs" : "fcs",
+			"vnd.jam" : "jam",
+			"vnd.jcp.javame.midlet-rms" : "rms",
+			"vnd.jisp" : "jisp",
+			"vnd.joost.joda-archive" : "joda",
+			"vnd.kahootz" : [ "ktz", "ktr" ],
+			"vnd.kde.karbon" : "karbon",
+			"vnd.kde.kchart" : "chrt",
+			"vnd.kde.kformula" : "kfo",
+			"vnd.kde.kivio" : "flw",
+			"vnd.kde.kontour" : "kon",
+			"vnd.kde.kpresenter" : [ "kpr", "kpt" ],
+			"vnd.kde.kspread" : "ksp",
+			"vnd.kde.kword" : [ "kwd", "kwt" ],
+			"vnd.kenameaapp" : "htke",
+			"vnd.kidspiration" : "kia",
+			"vnd.kinar" : [ "kne", "knp" ],
+			"vnd.koan" : [ "skp", "skd", "skt", "skm" ],
+			"vnd.kodak-descriptor" : "sse",
+			"vnd.las.las+xml" : "lasxml",
+			"vnd.llamagraphics.life-balance.desktop" : "lbd",
+			"vnd.llamagraphics.life-balance.exchange+xml" : "lbe",
+			"vnd.lotus-1-2-3" : "123",
+			"vnd.lotus-approach" : "apr",
+			"vnd.lotus-freelance" : "pre",
+			"vnd.lotus-notes" : "nsf",
+			"vnd.lotus-organizer" : "org",
+			"vnd.lotus-screencam" : "scm",
+			"vnd.lotus-wordpro" : "lwp",
+			"vnd.macports.portpkg" : "portpkg",
+			"vnd.mcd" : "mcd",
+			"vnd.medcalcdata" : "mc1",
+			"vnd.mediastation.cdkey" : "cdkey",
+			"vnd.mfer" : "mwf",
+			"vnd.mfmp" : "mfm",
+			"vnd.micrografx.flo" : "flo",
+			"vnd.micrografx.igx" : "igx",
+			"vnd.mif" : "mif",
+			"vnd.mobius.daf" : "daf",
+			"vnd.mobius.dis" : "dis",
+			"vnd.mobius.mbk" : "mbk",
+			"vnd.mobius.mqy" : "mqy",
+			"vnd.mobius.msl" : "msl",
+			"vnd.mobius.plc" : "plc",
+			"vnd.mobius.txf" : "txf",
+			"vnd.mophun.application" : "mpn",
+			"vnd.mophun.certificate" : "mpc",
+			"vnd.ms-artgalry" : "cil",
+			"vnd.ms-cab-compressed" : "cab",
+			"vnd.ms-excel.addin.macroenabled.12" : "xlam",
+			"vnd.ms-excel.sheet.binary.macroenabled.12" : "xlsb",
+			"vnd.ms-excel.sheet.macroenabled.12" : "xlsm",
+			"vnd.ms-excel.template.macroenabled.12" : "xltm",
+			"vnd.ms-fontobject" : "eot",
+			"vnd.ms-htmlhelp" : "chm",
+			"vnd.ms-ims" : "ims",
+			"vnd.ms-lrm" : "lrm",
+			"vnd.ms-officetheme" : "thmx",
+			"vnd.ms-powerpoint.addin.macroenabled.12" : "ppam",
+			"vnd.ms-powerpoint.presentation.macroenabled.12" : "pptm",
+			"vnd.ms-powerpoint.slide.macroenabled.12" : "sldm",
+			"vnd.ms-powerpoint.slideshow.macroenabled.12" : "ppsm",
+			"vnd.ms-powerpoint.template.macroenabled.12" : "potm",
+			"vnd.ms-project" : [ "mpp", "mpt" ],
+			"vnd.ms-word.document.macroenabled.12" : "docm",
+			"vnd.ms-word.template.macroenabled.12" : "dotm",
+			"vnd.ms-works" : [ "wps", "wks", "wcm", "wdb" ],
+			"vnd.ms-wpl" : "wpl",
+			"vnd.ms-xpsdocument" : "xps",
+			"vnd.mseq" : "mseq",
+			"vnd.musician" : "mus",
+			"vnd.muvee.style" : "msty",
+			"vnd.mynfc" : "taglet",
+			"vnd.neurolanguage.nlu" : "nlu",
+			"vnd.nitf" : [ "ntf", "nitf" ],
+			"vnd.noblenet-directory" : "nnd",
+			"vnd.noblenet-sealer" : "nns",
+			"vnd.noblenet-web" : "nnw",
+			"vnd.nokia.n-gage.data" : "ngdat",
+			"vnd.nokia.n-gage.symbian.install" : "n-gage",
+			"vnd.nokia.radio-preset" : "rpst",
+			"vnd.nokia.radio-presets" : "rpss",
+			"vnd.novadigm.edm" : "edm",
+			"vnd.novadigm.edx" : "edx",
+			"vnd.novadigm.ext" : "ext",
+			"vnd.oasis.opendocument.chart-template" : "otc",
+			"vnd.oasis.opendocument.formula-template" : "odft",
+			"vnd.oasis.opendocument.image-template" : "oti",
+			"vnd.olpc-sugar" : "xo",
+			"vnd.oma.dd2+xml" : "dd2",
+			"vnd.openofficeorg.extension" : "oxt",
+			"vnd.openxmlformats-officedocument.presentationml.slide" : "sldx",
+			"vnd.osgeo.mapguide.package" : "mgp",
+			"vnd.osgi.dp" : "dp",
+			"vnd.osgi.subsystem" : "esa",
+			"vnd.palm" : [ "pdb", "pqa", "oprc" ],
+			"vnd.pawaafile" : "paw",
+			"vnd.pg.format" : "str",
+			"vnd.pg.osasli" : "ei6",
+			"vnd.picsel" : "efif",
+			"vnd.pmi.widget" : "wg",
+			"vnd.pocketlearn" : "plf",
+			"vnd.powerbuilder6" : "pbd",
+			"vnd.previewsystems.box" : "box",
+			"vnd.proteus.magazine" : "mgz",
+			"vnd.publishare-delta-tree" : "qps",
+			"vnd.pvi.ptid1" : "ptid",
+			"vnd.quark.quarkxpress" : [ "qxd", "qxt", "qwd", "qwt", "qxl", "qxb" ],
+			"vnd.realvnc.bed" : "bed",
+			"vnd.recordare.musicxml" : "mxl",
+			"vnd.recordare.musicxml+xml" : "musicxml",
+			"vnd.rig.cryptonote" : "cryptonote",
+			"vnd.rn-realmedia" : "rm",
+			"vnd.rn-realmedia-vbr" : "rmvb",
+			"vnd.route66.link66+xml" : "link66",
+			"vnd.sailingtracker.track" : "st",
+			"vnd.seemail" : "see",
+			"vnd.sema" : "sema",
+			"vnd.semd" : "semd",
+			"vnd.semf" : "semf",
+			"vnd.shana.informed.formdata" : "ifm",
+			"vnd.shana.informed.formtemplate" : "itp",
+			"vnd.shana.informed.interchange" : "iif",
+			"vnd.shana.informed.package" : "ipk",
+			"vnd.simtech-mindmapper" : [ "twd", "twds" ],
+			"vnd.smart.teacher" : "teacher",
+			"vnd.solent.sdkm+xml" : [ "sdkm", "sdkd" ],
+			"vnd.spotfire.dxp" : "dxp",
+			"vnd.spotfire.sfs" : "sfs",
+			"vnd.stepmania.package" : "smzip",
+			"vnd.stepmania.stepchart" : "sm",
+			"vnd.sus-calendar" : [ "sus", "susp" ],
+			"vnd.svd" : "svd",
+			"vnd.syncml+xml" : "xsm",
+			"vnd.syncml.dm+wbxml" : "bdm",
+			"vnd.syncml.dm+xml" : "xdm",
+			"vnd.tao.intent-module-archive" : "tao",
+			"vnd.tcpdump.pcap" : [ "pcap", "cap", "dmp" ],
+			"vnd.tmobile-livetv" : "tmo",
+			"vnd.trid.tpt" : "tpt",
+			"vnd.triscape.mxs" : "mxs",
+			"vnd.trueapp" : "tra",
+			"vnd.ufdl" : [ "ufd", "ufdl" ],
+			"vnd.uiq.theme" : "utz",
+			"vnd.umajin" : "umj",
+			"vnd.unity" : "unityweb",
+			"vnd.uoml+xml" : "uoml",
+			"vnd.vcx" : "vcx",
+			"vnd.visionary" : "vis",
+			"vnd.vsf" : "vsf",
+			"vnd.webturbo" : "wtb",
+			"vnd.wolfram.player" : "nbp",
+			"vnd.wqd" : "wqd",
+			"vnd.wt.stf" : "stf",
+			"vnd.xara" : "xar",
+			"vnd.xfdl" : "xfdl",
+			"vnd.yamaha.hv-dic" : "hvd",
+			"vnd.yamaha.hv-script" : "hvs",
+			"vnd.yamaha.hv-voice" : "hvp",
+			"vnd.yamaha.openscoreformat" : "osf",
+			"vnd.yamaha.openscoreformat.osfpvg+xml" : "osfpvg",
+			"vnd.yamaha.smaf-audio" : "saf",
+			"vnd.yamaha.smaf-phrase" : "spf",
+			"vnd.yellowriver-custom-menu" : "cmp",
+			"vnd.zul" : [ "zir", "zirz" ],
+			"vnd.zzazz.deck+xml" : "zaz",
+			"voicexml+xml" : "vxml",
+			"widget" : "wgt",
+			"winhlp" : "hlp",
+			"wsdl+xml" : "wsdl",
+			"wspolicy+xml" : "wspolicy",
+			"x-ace-compressed" : "ace",
+			"x-authorware-bin" : [ "aab", "x32", "u32", "vox" ],
+			"x-authorware-map" : "aam",
+			"x-authorware-seg" : "aas",
+			"x-blorb" : [ "blb", "blorb" ],
+			"x-bzip" : "bz",
+			"x-bzip2" : [ "bz2", "boz" ],
+			"x-cfs-compressed" : "cfs",
+			"x-chat" : "chat",
+			"x-conference" : "nsc",
+			"x-dgc-compressed" : "dgc",
+			"x-dtbncx+xml" : "ncx",
+			"x-dtbook+xml" : "dtb",
+			"x-dtbresource+xml" : "res",
+			"x-eva" : "eva",
+			"x-font-bdf" : "bdf",
+			"x-font-ghostscript" : "gsf",
+			"x-font-linux-psf" : "psf",
+			"x-font-otf" : "otf",
+			"x-font-pcf" : "pcf",
+			"x-font-snf" : "snf",
+			"x-font-ttf" : [ "ttf", "ttc" ],
+			"x-font-type1" : [ "pfa", "pfb", "pfm", "afm" ],
+			"x-font-woff" : "woff",
+			"x-freearc" : "arc",
+			"x-gca-compressed" : "gca",
+			"x-glulx" : "ulx",
+			"x-gramps-xml" : "gramps",
+			"x-install-instructions" : "install",
+			"x-lzh-compressed" : [ "lzh", "lha" ],
+			"x-mie" : "mie",
+			"x-mobipocket-ebook" : [ "prc", "mobi" ],
+			"x-ms-application" : "application",
+			"x-ms-shortcut" : "lnk",
+			"x-ms-xbap" : "xbap",
+			"x-msbinder" : "obd",
+			"x-mscardfile" : "crd",
+			"x-msclip" : "clp",
+			"x-msdownload" : [ "exe", "dll", "com", "bat", "msi" ],
+			"x-msmediaview" : [ "mvb", "m13", "m14" ],
+			"x-msmetafile" : [ "wmf", "wmz", "emf", "emz" ],
+			"x-msmoney" : "mny",
+			"x-mspublisher" : "pub",
+			"x-msschedule" : "scd",
+			"x-msterminal" : "trm",
+			"x-mswrite" : "wri",
+			"x-nzb" : "nzb",
+			"x-pkcs12" : [ "p12", "pfx" ],
+			"x-pkcs7-certificates" : [ "p7b", "spc" ],
+			"x-research-info-systems" : "ris",
+			"x-silverlight-app" : "xap",
+			"x-sql" : "sql",
+			"x-stuffitx" : "sitx",
+			"x-subrip" : "srt",
+			"x-t3vm-image" : "t3",
+			"x-tads" : "gam",
+			"x-tex" : "tex",
+			"x-tex-tfm" : "tfm",
+			"x-tgif" : "obj",
+			"x-xliff+xml" : "xlf",
+			"x-xz" : "xz",
+			"x-zmachine" : [ "z1", "z2", "z3", "z4", "z5", "z6", "z7", "z8" ],
+			"xaml+xml" : "xaml",
+			"xcap-diff+xml" : "xdf",
+			"xenc+xml" : "xenc",
+			"xml-dtd" : "dtd",
+			"xop+xml" : "xop",
+			"xproc+xml" : "xpl",
+			"xslt+xml" : "xslt",
+			"xv+xml" : [ "mxml", "xhvml", "xvml", "xvm" ],
+			"yang" : "yang",
+			"yin+xml" : "yin",
+			"envoy" : "evy",
+			"fractals" : "fif",
+			"internet-property-stream" : "acx",
+			"olescript" : "axs",
+			"vnd.ms-outlook" : "msg",
+			"vnd.ms-pkicertstore" : "sst",
+			"x-compress" : "z",
+			"x-compressed" : "tgz",
+			"x-gzip" : "gz",
+			"x-perfmon" : [ "pma", "pmc", "pml", "pmr", "pmw" ],
+			"x-pkcs7-mime" : [ "p7c", "p7m" ],
+			"ynd.ms-pkipko" : "pko"
+		},
+		"audio" : {
+			"amr" : "amr",
+			"amr-wb" : "awb",
+			"annodex" : "axa",
+			"basic" : [ "au", "snd" ],
+			"flac" : "flac",
+			"midi" : [ "mid", "midi", "kar", "rmi" ],
+			"mpeg" : [ "mpga", "mpega", "mp2", "mp3", "m4a", "mp2a", "m2a", "m3a" ],
+			"mpegurl" : "m3u",
+			"ogg" : [ "oga", "ogg", "spx" ],
+			"prs.sid" : "sid",
+			"x-aiff" : [ "aif", "aiff", "aifc" ],
+			"x-gsm" : "gsm",
+			"x-ms-wma" : "wma",
+			"x-ms-wax" : "wax",
+			"x-pn-realaudio" : "ram",
+			"x-realaudio" : "ra",
+			"x-sd2" : "sd2",
+			"x-wav" : "wav",
+			"adpcm" : "adp",
+			"mp4" : "mp4a",
+			"s3m" : "s3m",
+			"silk" : "sil",
+			"vnd.dece.audio" : [ "uva", "uvva" ],
+			"vnd.digital-winds" : "eol",
+			"vnd.dra" : "dra",
+			"vnd.dts" : "dts",
+			"vnd.dts.hd" : "dtshd",
+			"vnd.lucent.voice" : "lvp",
+			"vnd.ms-playready.media.pya" : "pya",
+			"vnd.nuera.ecelp4800" : "ecelp4800",
+			"vnd.nuera.ecelp7470" : "ecelp7470",
+			"vnd.nuera.ecelp9600" : "ecelp9600",
+			"vnd.rip" : "rip",
+			"webm" : "weba",
+			"x-aac" : "aac",
+			"x-caf" : "caf",
+			"x-matroska" : "mka",
+			"x-pn-realaudio-plugin" : "rmp",
+			"xm" : "xm",
+			"mid" : [ "mid", "rmi" ]
+		},
+		"chemical" : {
+			"x-alchemy" : "alc",
+			"x-cache" : [ "cac", "cache" ],
+			"x-cache-csf" : "csf",
+			"x-cactvs-binary" : [ "cbin", "cascii", "ctab" ],
+			"x-cdx" : "cdx",
+			"x-chem3d" : "c3d",
+			"x-cif" : "cif",
+			"x-cmdf" : "cmdf",
+			"x-cml" : "cml",
+			"x-compass" : "cpa",
+			"x-crossfire" : "bsd",
+			"x-csml" : [ "csml", "csm" ],
+			"x-ctx" : "ctx",
+			"x-cxf" : [ "cxf", "cef" ],
+			"x-embl-dl-nucleotide" : [ "emb", "embl" ],
+			"x-gamess-input" : [ "inp", "gam", "gamin" ],
+			"x-gaussian-checkpoint" : [ "fch", "fchk" ],
+			"x-gaussian-cube" : "cub",
+			"x-gaussian-input" : [ "gau", "gjc", "gjf" ],
+			"x-gaussian-log" : "gal",
+			"x-gcg8-sequence" : "gcg",
+			"x-genbank" : "gen",
+			"x-hin" : "hin",
+			"x-isostar" : [ "istr", "ist" ],
+			"x-jcamp-dx" : [ "jdx", "dx" ],
+			"x-kinemage" : "kin",
+			"x-macmolecule" : "mcm",
+			"x-macromodel-input" : [ "mmd", "mmod" ],
+			"x-mdl-molfile" : "mol",
+			"x-mdl-rdfile" : "rd",
+			"x-mdl-rxnfile" : "rxn",
+			"x-mdl-sdfile" : [ "sd", "sdf" ],
+			"x-mdl-tgf" : "tgf",
+			"x-mmcif" : "mcif",
+			"x-mol2" : "mol2",
+			"x-molconn-Z" : "b",
+			"x-mopac-graph" : "gpt",
+			"x-mopac-input" : [ "mop", "mopcrt", "mpc", "zmt" ],
+			"x-mopac-out" : "moo",
+			"x-ncbi-asn1" : "asn",
+			"x-ncbi-asn1-ascii" : [ "prt", "ent" ],
+			"x-ncbi-asn1-binary" : [ "val", "aso" ],
+			"x-pdb" : [ "pdb", "ent" ],
+			"x-rosdal" : "ros",
+			"x-swissprot" : "sw",
+			"x-vamas-iso14976" : "vms",
+			"x-vmd" : "vmd",
+			"x-xtel" : "xtel",
+			"x-xyz" : "xyz"
+		},
+		"image" : {
+			"gif" : "gif",
+			"ief" : "ief",
+			"jpeg" : [ "jpeg", "jpg", "jpe" ],
+			"pcx" : "pcx",
+			"png" : "png",
+			"svg+xml" : [ "svg", "svgz" ],
+			"tiff" : [ "tiff", "tif" ],
+			"vnd.djvu" : [ "djvu", "djv" ],
+			"vnd.wap.wbmp" : "wbmp",
+			"x-canon-cr2" : "cr2",
+			"x-canon-crw" : "crw",
+			"x-cmu-raster" : "ras",
+			"x-coreldraw" : "cdr",
+			"x-coreldrawpattern" : "pat",
+			"x-coreldrawtemplate" : "cdt",
+			"x-corelphotopaint" : "cpt",
+			"x-epson-erf" : "erf",
+			"x-icon" : "ico",
+			"x-jg" : "art",
+			"x-jng" : "jng",
+			"x-nikon-nef" : "nef",
+			"x-olympus-orf" : "orf",
+			"x-photoshop" : "psd",
+			"x-portable-anymap" : "pnm",
+			"x-portable-bitmap" : "pbm",
+			"x-portable-graymap" : "pgm",
+			"x-portable-pixmap" : "ppm",
+			"x-rgb" : "rgb",
+			"x-xbitmap" : "xbm",
+			"x-xpixmap" : "xpm",
+			"x-xwindowdump" : "xwd",
+			"bmp" : "bmp",
+			"cgm" : "cgm",
+			"g3fax" : "g3",
+			"ktx" : "ktx",
+			"prs.btif" : "btif",
+			"sgi" : "sgi",
+			"vnd.dece.graphic" : [ "uvi", "uvvi", "uvg", "uvvg" ],
+			"vnd.dwg" : "dwg",
+			"vnd.dxf" : "dxf",
+			"vnd.fastbidsheet" : "fbs",
+			"vnd.fpx" : "fpx",
+			"vnd.fst" : "fst",
+			"vnd.fujixerox.edmics-mmr" : "mmr",
+			"vnd.fujixerox.edmics-rlc" : "rlc",
+			"vnd.ms-modi" : "mdi",
+			"vnd.ms-photo" : "wdp",
+			"vnd.net-fpx" : "npx",
+			"vnd.xiff" : "xif",
+			"webp" : "webp",
+			"x-3ds" : "3ds",
+			"x-cmx" : "cmx",
+			"x-freehand" : [ "fh", "fhc", "fh4", "fh5", "fh7" ],
+			"x-pict" : [ "pic", "pct" ],
+			"x-tga" : "tga",
+			"cis-cod" : "cod",
+			"pipeg" : "jfif"
+		},
+		"message" : {
+			"rfc822" : [ "eml", "mime", "mht", "mhtml", "nws" ]
+		},
+		"model" : {
+			"iges" : [ "igs", "iges" ],
+			"mesh" : [ "msh", "mesh", "silo" ],
+			"vrml" : [ "wrl", "vrml" ],
+			"x3d+vrml" : [ "x3dv", "x3dvz" ],
+			"x3d+xml" : [ "x3d", "x3dz" ],
+			"x3d+binary" : [ "x3db", "x3dbz" ],
+			"vnd.collada+xml" : "dae",
+			"vnd.dwf" : "dwf",
+			"vnd.gdl" : "gdl",
+			"vnd.gtw" : "gtw",
+			"vnd.mts" : "mts",
+			"vnd.vtu" : "vtu"
+		},
+		"text" : {
+			"cache-manifest" : [ "manifest", "appcache" ],
+			"calendar" : [ "ics", "icz", "ifb" ],
+			"css" : "css",
+			"csv" : "csv",
+			"h323" : "323",
+			"html" : [ "html", "htm", "shtml", "stm" ],
+			"iuls" : "uls",
+			"mathml" : "mml",
+			"plain" : [ "txt", "text", "brf", "conf", "def", "list", "log", "in", "bas" ],
+			"richtext" : "rtx",
+			"scriptlet" : [ "sct", "wsc" ],
+			"texmacs" : [ "tm", "ts" ],
+			"tab-separated-values" : "tsv",
+			"vnd.sun.j2me.app-descriptor" : "jad",
+			"vnd.wap.wml" : "wml",
+			"vnd.wap.wmlscript" : "wmls",
+			"x-bibtex" : "bib",
+			"x-boo" : "boo",
+			"x-c++hdr" : [ "h++", "hpp", "hxx", "hh" ],
+			"x-c++src" : [ "c++", "cpp", "cxx", "cc" ],
+			"x-component" : "htc",
+			"x-dsrc" : "d",
+			"x-diff" : [ "diff", "patch" ],
+			"x-haskell" : "hs",
+			"x-java" : "java",
+			"x-literate-haskell" : "lhs",
+			"x-moc" : "moc",
+			"x-pascal" : [ "p", "pas" ],
+			"x-pcs-gcd" : "gcd",
+			"x-perl" : [ "pl", "pm" ],
+			"x-python" : "py",
+			"x-scala" : "scala",
+			"x-setext" : "etx",
+			"x-tcl" : [ "tcl", "tk" ],
+			"x-tex" : [ "tex", "ltx", "sty", "cls" ],
+			"x-vcalendar" : "vcs",
+			"x-vcard" : "vcf",
+			"n3" : "n3",
+			"prs.lines.tag" : "dsc",
+			"sgml" : [ "sgml", "sgm" ],
+			"troff" : [ "t", "tr", "roff", "man", "me", "ms" ],
+			"turtle" : "ttl",
+			"uri-list" : [ "uri", "uris", "urls" ],
+			"vcard" : "vcard",
+			"vnd.curl" : "curl",
+			"vnd.curl.dcurl" : "dcurl",
+			"vnd.curl.scurl" : "scurl",
+			"vnd.curl.mcurl" : "mcurl",
+			"vnd.dvb.subtitle" : "sub",
+			"vnd.fly" : "fly",
+			"vnd.fmi.flexstor" : "flx",
+			"vnd.graphviz" : "gv",
+			"vnd.in3d.3dml" : "3dml",
+			"vnd.in3d.spot" : "spot",
+			"x-asm" : [ "s", "asm" ],
+			"x-c" : [ "c", "cc", "cxx", "cpp", "h", "hh", "dic" ],
+			"x-fortran" : [ "f", "for", "f77", "f90" ],
+			"x-opml" : "opml",
+			"x-nfo" : "nfo",
+			"x-sfv" : "sfv",
+			"x-uuencode" : "uu",
+			"webviewhtml" : "htt"
+		},
+		"video" : {
+			"3gpp" : "3gp",
+			"annodex" : "axv",
+			"dl" : "dl",
+			"dv" : [ "dif", "dv" ],
+			"fli" : "fli",
+			"gl" : "gl",
+			"mpeg" : [ "mpeg", "mpg", "mpe", "m1v", "m2v", "mp2", "mpa", "mpv2" ],
+			"mp4" : [ "mp4", "mp4v", "mpg4" ],
+			"quicktime" : [ "qt", "mov" ],
+			"ogg" : "ogv",
+			"vnd.mpegurl" : [ "mxu", "m4u" ],
+			"x-flv" : "flv",
+			"x-la-asf" : [ "lsf", "lsx" ],
+			"x-mng" : "mng",
+			"x-ms-asf" : [ "asf", "asx", "asr" ],
+			"x-ms-wm" : "wm",
+			"x-ms-wmv" : "wmv",
+			"x-ms-wmx" : "wmx",
+			"x-ms-wvx" : "wvx",
+			"x-msvideo" : "avi",
+			"x-sgi-movie" : "movie",
+			"x-matroska" : [ "mpv", "mkv", "mk3d", "mks" ],
+			"3gpp2" : "3g2",
+			"h261" : "h261",
+			"h263" : "h263",
+			"h264" : "h264",
+			"jpeg" : "jpgv",
+			"jpm" : [ "jpm", "jpgm" ],
+			"mj2" : [ "mj2", "mjp2" ],
+			"vnd.dece.hd" : [ "uvh", "uvvh" ],
+			"vnd.dece.mobile" : [ "uvm", "uvvm" ],
+			"vnd.dece.pd" : [ "uvp", "uvvp" ],
+			"vnd.dece.sd" : [ "uvs", "uvvs" ],
+			"vnd.dece.video" : [ "uvv", "uvvv" ],
+			"vnd.dvb.file" : "dvb",
+			"vnd.fvt" : "fvt",
+			"vnd.ms-playready.media.pyv" : "pyv",
+			"vnd.uvvu.mp4" : [ "uvu", "uvvu" ],
+			"vnd.vivo" : "viv",
+			"webm" : "webm",
+			"x-f4v" : "f4v",
+			"x-m4v" : "m4v",
+			"x-ms-vob" : "vob",
+			"x-smv" : "smv"
+		},
+		"x-conference" : {
+			"x-cooltalk" : "ice"
+		},
+		"x-world" : {
+			"x-vrml" : [ "vrm", "vrml", "wrl", "flr", "wrz", "xaf", "xof" ]
+		}
+	};
+
+	var mimeTypes = (function() {
+		var type, subtype, val, index, mimeTypes = {};
+		for (type in table) {
+			if (table.hasOwnProperty(type)) {
+				for (subtype in table[type]) {
+					if (table[type].hasOwnProperty(subtype)) {
+						val = table[type][subtype];
+						if (typeof val == "string") {
+							mimeTypes[val] = type + "/" + subtype;
+						} else {
+							for (index = 0; index < val.length; index++) {
+								mimeTypes[val[index]] = type + "/" + subtype;
+							}
+						}
+					}
+				}
+			}
+		}
+		return mimeTypes;
+	})();
+
+	zip.getMimeType = function(filename) {
+		var defaultValue = "application/octet-stream";
+		return filename && mimeTypes[filename.split(".").pop().toLowerCase()] || defaultValue;
+	};
+
+})();
+
+define("mime-types", ["zip"], (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.zip;
+    };
+}(this)));
+
+/*
+ Copyright (c) 2013 Gildas Lormeau. All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+
+ 2. Redistributions in binary form must reproduce the above copyright 
+ notice, this list of conditions and the following disclaimer in 
+ the documentation and/or other materials provided with the distribution.
+
+ 3. The names of the authors may not be used to endorse or promote products
+ derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JCRAFT,
+ INC. OR ANY CONTRIBUTORS TO THIS SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+(function() {
+	"use strict";
+
+	var CHUNK_SIZE = 512 * 1024;
+
+	var TextWriter = zip.TextWriter, //
+	BlobWriter = zip.BlobWriter, //
+	Data64URIWriter = zip.Data64URIWriter, //
+	Reader = zip.Reader, //
+	TextReader = zip.TextReader, //
+	BlobReader = zip.BlobReader, //
+	Data64URIReader = zip.Data64URIReader, //
+	createReader = zip.createReader, //
+	createWriter = zip.createWriter;
+
+	function ZipBlobReader(entry) {
+		var that = this, blobReader;
+
+		function init(callback) {
+			that.size = entry.uncompressedSize;
+			callback();
+		}
+
+		function getData(callback) {
+			if (that.data)
+				callback();
+			else
+				entry.getData(new BlobWriter(), function(data) {
+					that.data = data;
+					blobReader = new BlobReader(data);
+					callback();
+				}, null, that.checkCrc32);
+		}
+
+		function readUint8Array(index, length, callback, onerror) {
+			getData(function() {
+				blobReader.readUint8Array(index, length, callback, onerror);
+			}, onerror);
+		}
+
+		that.size = 0;
+		that.init = init;
+		that.readUint8Array = readUint8Array;
+	}
+	ZipBlobReader.prototype = new Reader();
+	ZipBlobReader.prototype.constructor = ZipBlobReader;
+	ZipBlobReader.prototype.checkCrc32 = false;
+
+	function getTotalSize(entry) {
+		var size = 0;
+
+		function process(entry) {
+			size += entry.uncompressedSize || 0;
+			entry.children.forEach(process);
+		}
+
+		process(entry);
+		return size;
+	}
+
+	function initReaders(entry, onend, onerror) {
+		var index = 0;
+
+		function next() {
+			index++;
+			if (index < entry.children.length)
+				process(entry.children[index]);
+			else
+				onend();
+		}
+
+		function process(child) {
+			if (child.directory)
+				initReaders(child, next, onerror);
+			else {
+				child.reader = new child.Reader(child.data, onerror);
+				child.reader.init(function() {
+					child.uncompressedSize = child.reader.size;
+					next();
+				});
+			}
+		}
+
+		if (entry.children.length)
+			process(entry.children[index]);
+		else
+			onend();
+	}
+
+	function detach(entry) {
+		var children = entry.parent.children;
+		children.forEach(function(child, index) {
+			if (child.id == entry.id)
+				children.splice(index, 1);
+		});
+	}
+
+	function exportZip(zipWriter, entry, onend, onprogress, totalSize) {
+		var currentIndex = 0;
+
+		function process(zipWriter, entry, onend, onprogress, totalSize) {
+			var childIndex = 0;
+
+			function exportChild() {
+				var child = entry.children[childIndex];
+				if (child)
+					zipWriter.add(child.getFullname(), child.reader, function() {
+						currentIndex += child.uncompressedSize || 0;
+						process(zipWriter, child, function() {
+							childIndex++;
+							exportChild();
+						}, onprogress, totalSize);
+					}, function(index) {
+						if (onprogress)
+							onprogress(currentIndex + index, totalSize);
+					}, {
+						directory : child.directory,
+						version : child.zipVersion
+					});
+				else
+					onend();
+			}
+
+			exportChild();
+		}
+
+		process(zipWriter, entry, onend, onprogress, totalSize);
+	}
+
+	function addFileEntry(zipEntry, fileEntry, onend, onerror) {
+		function getChildren(fileEntry, callback) {
+			if (fileEntry.isDirectory)
+				fileEntry.createReader().readEntries(callback);
+			if (fileEntry.isFile)
+				callback([]);
+		}
+
+		function process(zipEntry, fileEntry, onend) {
+			getChildren(fileEntry, function(children) {
+				var childIndex = 0;
+
+				function addChild(child) {
+					function nextChild(childFileEntry) {
+						process(childFileEntry, child, function() {
+							childIndex++;
+							processChild();
+						});
+					}
+
+					if (child.isDirectory)
+						nextChild(zipEntry.addDirectory(child.name));
+					if (child.isFile)
+						child.file(function(file) {
+							var childZipEntry = zipEntry.addBlob(child.name, file);
+							childZipEntry.uncompressedSize = file.size;
+							nextChild(childZipEntry);
+						}, onerror);
+				}
+
+				function processChild() {
+					var child = children[childIndex];
+					if (child)
+						addChild(child);
+					else
+						onend();
+				}
+
+				processChild();
+			});
+		}
+
+		if (fileEntry.isDirectory)
+			process(zipEntry, fileEntry, onend);
+		else
+			fileEntry.file(function(file) {
+				zipEntry.addBlob(fileEntry.name, file);
+				onend();
+			}, onerror);
+	}
+
+	function getFileEntry(fileEntry, entry, onend, onprogress, onerror, totalSize, checkCrc32) {
+		var currentIndex = 0;
+
+		function process(fileEntry, entry, onend, onprogress, onerror, totalSize) {
+			var childIndex = 0;
+
+			function addChild(child) {
+				function nextChild(childFileEntry) {
+					currentIndex += child.uncompressedSize || 0;
+					process(childFileEntry, child, function() {
+						childIndex++;
+						processChild();
+					}, onprogress, onerror, totalSize);
+				}
+
+				if (child.directory)
+					fileEntry.getDirectory(child.name, {
+						create : true
+					}, nextChild, onerror);
+				else
+					fileEntry.getFile(child.name, {
+						create : true
+					}, function(file) {
+						child.getData(new zip.FileWriter(file, zip.getMimeType(child.name)), nextChild, function(index) {
+							if (onprogress)
+								onprogress(currentIndex + index, totalSize);
+						}, checkCrc32);
+					}, onerror);
+			}
+
+			function processChild() {
+				var child = entry.children[childIndex];
+				if (child)
+					addChild(child);
+				else
+					onend();
+			}
+
+			processChild();
+		}
+
+		if (entry.directory)
+			process(fileEntry, entry, onend, onprogress, onerror, totalSize);
+		else
+			entry.getData(new zip.FileWriter(fileEntry, zip.getMimeType(entry.name)), onend, onprogress, checkCrc32);
+	}
+
+	function resetFS(fs) {
+		fs.entries = [];
+		fs.root = new ZipDirectoryEntry(fs);
+	}
+
+	function bufferedCopy(reader, writer, onend, onprogress, onerror) {
+		var chunkIndex = 0;
+
+		function stepCopy() {
+			var index = chunkIndex * CHUNK_SIZE;
+			if (onprogress)
+				onprogress(index, reader.size);
+			if (index < reader.size)
+				reader.readUint8Array(index, Math.min(CHUNK_SIZE, reader.size - index), function(array) {
+					writer.writeUint8Array(new Uint8Array(array), function() {
+						chunkIndex++;
+						stepCopy();
+					});
+				}, onerror);
+			else
+				writer.getData(onend);
+		}
+
+		stepCopy();
+	}
+
+	function addChild(parent, name, params, directory) {
+		if (parent.directory)
+			return directory ? new ZipDirectoryEntry(parent.fs, name, params, parent) : new ZipFileEntry(parent.fs, name, params, parent);
+		else
+			throw "Parent entry is not a directory.";
+	}
+
+	function ZipEntry() {
+	}
+
+	ZipEntry.prototype = {
+		init : function(fs, name, params, parent) {
+			var that = this;
+			if (fs.root && parent && parent.getChildByName(name))
+				throw "Entry filename already exists.";
+			if (!params)
+				params = {};
+			that.fs = fs;
+			that.name = name;
+			that.id = fs.entries.length;
+			that.parent = parent;
+			that.children = [];
+			that.zipVersion = params.zipVersion || 0x14;
+			that.uncompressedSize = 0;
+			fs.entries.push(that);
+			if (parent)
+				that.parent.children.push(that);
+		},
+		getFileEntry : function(fileEntry, onend, onprogress, onerror, checkCrc32) {
+			var that = this;
+			initReaders(that, function() {
+				getFileEntry(fileEntry, that, onend, onprogress, onerror, getTotalSize(that), checkCrc32);
+			}, onerror);
+		},
+		moveTo : function(target) {
+			var that = this;
+			if (target.directory) {
+				if (!target.isDescendantOf(that)) {
+					if (that != target) {
+						if (target.getChildByName(that.name))
+							throw "Entry filename already exists.";
+						detach(that);
+						that.parent = target;
+						target.children.push(that);
+					}
+				} else
+					throw "Entry is a ancestor of target entry.";
+			} else
+				throw "Target entry is not a directory.";
+		},
+		getFullname : function() {
+			var that = this, fullname = that.name, entry = that.parent;
+			while (entry) {
+				fullname = (entry.name ? entry.name + "/" : "") + fullname;
+				entry = entry.parent;
+			}
+			return fullname;
+		},
+		isDescendantOf : function(ancestor) {
+			var entry = this.parent;
+			while (entry && entry.id != ancestor.id)
+				entry = entry.parent;
+			return !!entry;
+		}
+	};
+	ZipEntry.prototype.constructor = ZipEntry;
+
+	var ZipFileEntryProto;
+
+	function ZipFileEntry(fs, name, params, parent) {
+		var that = this;
+		ZipEntry.prototype.init.call(that, fs, name, params, parent);
+		that.Reader = params.Reader;
+		that.Writer = params.Writer;
+		that.data = params.data;
+		if (params.getData) {
+			that.getData = params.getData;
+		}
+	}
+
+	ZipFileEntry.prototype = ZipFileEntryProto = new ZipEntry();
+	ZipFileEntryProto.constructor = ZipFileEntry;
+	ZipFileEntryProto.getData = function(writer, onend, onprogress, onerror) {
+		var that = this;
+		if (!writer || (writer.constructor == that.Writer && that.data))
+			onend(that.data);
+		else {
+			if (!that.reader)
+				that.reader = new that.Reader(that.data, onerror);
+			that.reader.init(function() {
+				writer.init(function() {
+					bufferedCopy(that.reader, writer, onend, onprogress, onerror);
+				}, onerror);
+			});
+		}
+	};
+
+	ZipFileEntryProto.getText = function(onend, onprogress, checkCrc32, encoding) {
+		this.getData(new TextWriter(encoding), onend, onprogress, checkCrc32);
+	};
+	ZipFileEntryProto.getBlob = function(mimeType, onend, onprogress, checkCrc32) {
+		this.getData(new BlobWriter(mimeType), onend, onprogress, checkCrc32);
+	};
+	ZipFileEntryProto.getData64URI = function(mimeType, onend, onprogress, checkCrc32) {
+		this.getData(new Data64URIWriter(mimeType), onend, onprogress, checkCrc32);
+	};
+
+	var ZipDirectoryEntryProto;
+
+	function ZipDirectoryEntry(fs, name, params, parent) {
+		var that = this;
+		ZipEntry.prototype.init.call(that, fs, name, params, parent);
+		that.directory = true;
+	}
+
+	ZipDirectoryEntry.prototype = ZipDirectoryEntryProto = new ZipEntry();
+	ZipDirectoryEntryProto.constructor = ZipDirectoryEntry;
+	ZipDirectoryEntryProto.addDirectory = function(name) {
+		return addChild(this, name, null, true);
+	};
+	ZipDirectoryEntryProto.addText = function(name, text) {
+		return addChild(this, name, {
+			data : text,
+			Reader : TextReader,
+			Writer : TextWriter
+		});
+	};
+	ZipDirectoryEntryProto.addBlob = function(name, blob) {
+		return addChild(this, name, {
+			data : blob,
+			Reader : BlobReader,
+			Writer : BlobWriter
+		});
+	};
+	ZipDirectoryEntryProto.addData64URI = function(name, dataURI) {
+		return addChild(this, name, {
+			data : dataURI,
+			Reader : Data64URIReader,
+			Writer : Data64URIWriter
+		});
+	};
+	ZipDirectoryEntryProto.addFileEntry = function(fileEntry, onend, onerror) {
+		addFileEntry(this, fileEntry, onend, onerror);
+	};
+	ZipDirectoryEntryProto.addData = function(name, params) {
+		return addChild(this, name, params);
+	};
+	ZipDirectoryEntryProto.importBlob = function(blob, onend, onerror) {
+		this.importZip(new BlobReader(blob), onend, onerror);
+	};
+	ZipDirectoryEntryProto.importText = function(text, onend, onerror) {
+		this.importZip(new TextReader(text), onend, onerror);
+	};
+	ZipDirectoryEntryProto.importData64URI = function(dataURI, onend, onerror) {
+		this.importZip(new Data64URIReader(dataURI), onend, onerror);
+	};
+	ZipDirectoryEntryProto.exportBlob = function(onend, onprogress, onerror) {
+		this.exportZip(new BlobWriter("application/zip"), onend, onprogress, onerror);
+	};
+	ZipDirectoryEntryProto.exportText = function(onend, onprogress, onerror) {
+		this.exportZip(new TextWriter(), onend, onprogress, onerror);
+	};
+	ZipDirectoryEntryProto.exportFileEntry = function(fileEntry, onend, onprogress, onerror) {
+		this.exportZip(new zip.FileWriter(fileEntry, "application/zip"), onend, onprogress, onerror);
+	};
+	ZipDirectoryEntryProto.exportData64URI = function(onend, onprogress, onerror) {
+		this.exportZip(new Data64URIWriter("application/zip"), onend, onprogress, onerror);
+	};
+	ZipDirectoryEntryProto.importZip = function(reader, onend, onerror) {
+		var that = this;
+		createReader(reader, function(zipReader) {
+			zipReader.getEntries(function(entries) {
+				entries.forEach(function(entry) {
+					var parent = that, path = entry.filename.split("/"), name = path.pop();
+					path.forEach(function(pathPart) {
+						parent = parent.getChildByName(pathPart) || new ZipDirectoryEntry(that.fs, pathPart, null, parent);
+					});
+					if (!entry.directory)
+						addChild(parent, name, {
+							data : entry,
+							Reader : ZipBlobReader
+						});
+				});
+				onend();
+			});
+		}, onerror);
+	};
+	ZipDirectoryEntryProto.exportZip = function(writer, onend, onprogress, onerror) {
+		var that = this;
+		initReaders(that, function() {
+			createWriter(writer, function(zipWriter) {
+				exportZip(zipWriter, that, function() {
+					zipWriter.close(onend);
+				}, onprogress, getTotalSize(that));
+			}, onerror);
+		}, onerror);
+	};
+	ZipDirectoryEntryProto.getChildByName = function(name) {
+		var childIndex, child, that = this;
+		for (childIndex = 0; childIndex < that.children.length; childIndex++) {
+			child = that.children[childIndex];
+			if (child.name == name)
+				return child;
+		}
+	};
+
+	function FS() {
+		resetFS(this);
+	}
+	FS.prototype = {
+		remove : function(entry) {
+			detach(entry);
+			this.entries[entry.id] = null;
+		},
+		find : function(fullname) {
+			var index, path = fullname.split("/"), node = this.root;
+			for (index = 0; node && index < path.length; index++)
+				node = node.getChildByName(path[index]);
+			return node;
+		},
+		getById : function(id) {
+			return this.entries[id];
+		},
+		importBlob : function(blob, onend, onerror) {
+			resetFS(this);
+			this.root.importBlob(blob, onend, onerror);
+		},
+		importText : function(text, onend, onerror) {
+			resetFS(this);
+			this.root.importText(text, onend, onerror);
+		},
+		importData64URI : function(dataURI, onend, onerror) {
+			resetFS(this);
+			this.root.importData64URI(dataURI, onend, onerror);
+		},
+		exportBlob : function(onend, onprogress, onerror) {
+			this.root.exportBlob(onend, onprogress, onerror);
+		},
+		exportText : function(onend, onprogress, onerror) {
+			this.root.exportText(onend, onprogress, onerror);
+		},
+		exportFileEntry : function(fileEntry, onend, onprogress, onerror) {
+			this.root.exportFileEntry(fileEntry, onend, onprogress, onerror);
+		},
+		exportData64URI : function(onend, onprogress, onerror) {
+			this.root.exportData64URI(onend, onprogress, onerror);
+		}
+	};
+
+	zip.fs = {
+		FS : FS,
+		ZipDirectoryEntry : ZipDirectoryEntry,
+		ZipFileEntry : ZipFileEntry
+	};
+
+	zip.getMimeType = function() {
+		return "application/octet-stream";
+	};
+
+})();
+
+define("zip-fs", ["mime-types"], (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.zip;
+    };
+}(this)));
+
+/*
+ Copyright (c) 2013 Gildas Lormeau. All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in
+ the documentation and/or other materials provided with the distribution.
+
+ 3. The names of the authors may not be used to endorse or promote products
+ derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JCRAFT,
+ INC. OR ANY CONTRIBUTORS TO THIS SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+(function() {
+	"use strict";
+
+	var ERR_HTTP_RANGE = "HTTP Range not supported.";
+
+	var Reader = zip.Reader;
+	var Writer = zip.Writer;
+	
+	var ZipDirectoryEntry;
+
+	var appendABViewSupported;
+	try {
+		appendABViewSupported = new Blob([ new DataView(new ArrayBuffer(0)) ]).size === 0;
+	} catch (e) {
+	}
+
+	function HttpReader(url) {
+		var that = this;
+
+		function getData(callback, onerror) {
+			var request;
+			if (!that.data) {
+				request = new XMLHttpRequest();
+				request.addEventListener("load", function() {
+					if (!that.size)
+						that.size = Number(request.getResponseHeader("Content-Length"));
+					that.data = new Uint8Array(request.response);
+					callback();
+				}, false);
+				request.addEventListener("error", onerror, false);
+				request.open("GET", url);
+				request.responseType = "arraybuffer";
+				request.send();
+			} else
+				callback();
+		}
+
+		function init(callback, onerror) {
+			var request = new XMLHttpRequest();
+			request.addEventListener("load", function() {
+				that.size = Number(request.getResponseHeader("Content-Length"));
+				callback();
+			}, false);
+			request.addEventListener("error", onerror, false);
+			request.open("HEAD", url);
+			request.send();
+		}
+
+		function readUint8Array(index, length, callback, onerror) {
+			getData(function() {
+				callback(new Uint8Array(that.data.subarray(index, index + length)));
+			}, onerror);
+		}
+
+		that.size = 0;
+		that.init = init;
+		that.readUint8Array = readUint8Array;
+	}
+	HttpReader.prototype = new Reader();
+	HttpReader.prototype.constructor = HttpReader;
+
+	function HttpRangeReader(url) {
+		var that = this;
+
+		function init(callback, onerror) {
+			var request = new XMLHttpRequest();
+			request.addEventListener("load", function() {
+				that.size = Number(request.getResponseHeader("Content-Length"));
+				if (true || request.getResponseHeader("Accept-Ranges") == "bytes")
+					callback();
+				else
+					onerror(ERR_HTTP_RANGE);
+			}, false);
+			request.addEventListener("error", onerror, false);
+			request.open("HEAD", url);
+			request.send();
+		}
+
+		function readArrayBuffer(index, length, callback, onerror) {
+			var request = new XMLHttpRequest();
+			request.open("GET", url);
+			request.responseType = "arraybuffer";
+			request.setRequestHeader("Range", "bytes=" + index + "-" + (index + length - 1));
+			request.addEventListener("load", function() {
+				callback(request.response);
+			}, false);
+			request.addEventListener("error", onerror, false);
+			request.send();
+		}
+
+		function readUint8Array(index, length, callback, onerror) {
+			readArrayBuffer(index, length, function(arraybuffer) {
+				callback(new Uint8Array(arraybuffer));
+			}, onerror);
+		}
+
+		that.size = 0;
+		that.init = init;
+		that.readUint8Array = readUint8Array;
+	}
+	HttpRangeReader.prototype = new Reader();
+	HttpRangeReader.prototype.constructor = HttpRangeReader;
+
+	function ArrayBufferReader(arrayBuffer) {
+		var that = this;
+
+		function init(callback, onerror) {
+			that.size = arrayBuffer.byteLength;
+			callback();
+		}
+
+		function readUint8Array(index, length, callback, onerror) {
+			callback(new Uint8Array(arrayBuffer.slice(index, index + length)));
+		}
+
+		that.size = 0;
+		that.init = init;
+		that.readUint8Array = readUint8Array;
+	}
+	ArrayBufferReader.prototype = new Reader();
+	ArrayBufferReader.prototype.constructor = ArrayBufferReader;
+
+	function ArrayBufferWriter() {
+		var array, that = this;
+
+		function init(callback, onerror) {
+			array = new Uint8Array();
+			callback();
+		}
+
+		function writeUint8Array(arr, callback, onerror) {
+			var tmpArray = new Uint8Array(array.length + arr.length);
+			tmpArray.set(array);
+			tmpArray.set(arr, array.length);
+			array = tmpArray;
+			callback();
+		}
+
+		function getData(callback) {
+			callback(array.buffer);
+		}
+
+		that.init = init;
+		that.writeUint8Array = writeUint8Array;
+		that.getData = getData;
+	}
+	ArrayBufferWriter.prototype = new Writer();
+	ArrayBufferWriter.prototype.constructor = ArrayBufferWriter;
+
+	function FileWriter(fileEntry, contentType) {
+		var writer, that = this;
+
+		function init(callback, onerror) {
+			fileEntry.createWriter(function(fileWriter) {
+				writer = fileWriter;
+				callback();
+			}, onerror);
+		}
+
+		function writeUint8Array(array, callback, onerror) {
+			var blob = new Blob([ appendABViewSupported ? array : array.buffer ], {
+				type : contentType
+			});
+			writer.onwrite = function() {
+				writer.onwrite = null;
+				callback();
+			};
+			writer.onerror = onerror;
+			writer.write(blob);
+		}
+
+		function getData(callback) {
+			fileEntry.file(callback);
+		}
+
+		that.init = init;
+		that.writeUint8Array = writeUint8Array;
+		that.getData = getData;
+	}
+	FileWriter.prototype = new Writer();
+	FileWriter.prototype.constructor = FileWriter;
+
+	zip.FileWriter = FileWriter;
+	zip.HttpReader = HttpReader;
+	zip.HttpRangeReader = HttpRangeReader;
+	zip.ArrayBufferReader = ArrayBufferReader;
+	zip.ArrayBufferWriter = ArrayBufferWriter;
+
+	if (zip.fs) {
+		ZipDirectoryEntry = zip.fs.ZipDirectoryEntry;
+		ZipDirectoryEntry.prototype.addHttpContent = function(name, URL, useRangeHeader) {
+			function addChild(parent, name, params, directory) {
+				if (parent.directory)
+					return directory ? new ZipDirectoryEntry(parent.fs, name, params, parent) : new zip.fs.ZipFileEntry(parent.fs, name, params, parent);
+				else
+					throw "Parent entry is not a directory.";
+			}
+
+			return addChild(this, name, {
+				data : URL,
+				Reader : useRangeHeader ? HttpRangeReader : HttpReader
+			});
+		};
+		ZipDirectoryEntry.prototype.importHttpContent = function(URL, useRangeHeader, onend, onerror) {
+			this.importZip(useRangeHeader ? new HttpRangeReader(URL) : new HttpReader(URL), onend, onerror);
+		};
+		zip.fs.FS.prototype.importHttpContent = function(URL, useRangeHeader, onend, onerror) {
+			this.entries = [];
+			this.root = new ZipDirectoryEntry(this);
+			this.root.importHttpContent(URL, useRangeHeader, onend, onerror);
+		};
+	}
+
+})();
+
+define("zip-ext", ["zip-fs"], (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.zip;
+    };
+}(this)));
+
+;(function (root, factory) {
+	if (typeof exports === "object") {
+		// CommonJS
+		module.exports = exports = factory();
+	}
+	else if (typeof define === "function" && define.amd) {
+		// AMD
+		define('cryptoJs/core',[], factory);
+	}
+	else {
+		// Global (browser)
+		root.CryptoJS = factory();
+	}
+}(this, function () {
+
+	/**
+	 * CryptoJS core components.
+	 */
+	var CryptoJS = CryptoJS || (function (Math, undefined) {
+	    /**
+	     * CryptoJS namespace.
+	     */
+	    var C = {};
+
+	    /**
+	     * Library namespace.
+	     */
+	    var C_lib = C.lib = {};
+
+	    /**
+	     * Base object for prototypal inheritance.
+	     */
+	    var Base = C_lib.Base = (function () {
+	        function F() {}
+
+	        return {
+	            /**
+	             * Creates a new object that inherits from this object.
+	             *
+	             * @param {Object} overrides Properties to copy into the new object.
+	             *
+	             * @return {Object} The new object.
+	             *
+	             * @static
+	             *
+	             * @example
+	             *
+	             *     var MyType = CryptoJS.lib.Base.extend({
+	             *         field: 'value',
+	             *
+	             *         method: function () {
+	             *         }
+	             *     });
+	             */
+	            extend: function (overrides) {
+	                // Spawn
+	                F.prototype = this;
+	                var subtype = new F();
+
+	                // Augment
+	                if (overrides) {
+	                    subtype.mixIn(overrides);
+	                }
+
+	                // Create default initializer
+	                if (!subtype.hasOwnProperty('init')) {
+	                    subtype.init = function () {
+	                        subtype.$super.init.apply(this, arguments);
+	                    };
+	                }
+
+	                // Initializer's prototype is the subtype object
+	                subtype.init.prototype = subtype;
+
+	                // Reference supertype
+	                subtype.$super = this;
+
+	                return subtype;
+	            },
+
+	            /**
+	             * Extends this object and runs the init method.
+	             * Arguments to create() will be passed to init().
+	             *
+	             * @return {Object} The new object.
+	             *
+	             * @static
+	             *
+	             * @example
+	             *
+	             *     var instance = MyType.create();
+	             */
+	            create: function () {
+	                var instance = this.extend();
+	                instance.init.apply(instance, arguments);
+
+	                return instance;
+	            },
+
+	            /**
+	             * Initializes a newly created object.
+	             * Override this method to add some logic when your objects are created.
+	             *
+	             * @example
+	             *
+	             *     var MyType = CryptoJS.lib.Base.extend({
+	             *         init: function () {
+	             *             // ...
+	             *         }
+	             *     });
+	             */
+	            init: function () {
+	            },
+
+	            /**
+	             * Copies properties into this object.
+	             *
+	             * @param {Object} properties The properties to mix in.
+	             *
+	             * @example
+	             *
+	             *     MyType.mixIn({
+	             *         field: 'value'
+	             *     });
+	             */
+	            mixIn: function (properties) {
+	                for (var propertyName in properties) {
+	                    if (properties.hasOwnProperty(propertyName)) {
+	                        this[propertyName] = properties[propertyName];
+	                    }
+	                }
+
+	                // IE won't copy toString using the loop above
+	                if (properties.hasOwnProperty('toString')) {
+	                    this.toString = properties.toString;
+	                }
+	            },
+
+	            /**
+	             * Creates a copy of this object.
+	             *
+	             * @return {Object} The clone.
+	             *
+	             * @example
+	             *
+	             *     var clone = instance.clone();
+	             */
+	            clone: function () {
+	                return this.init.prototype.extend(this);
+	            }
+	        };
+	    }());
+
+	    /**
+	     * An array of 32-bit words.
+	     *
+	     * @property {Array} words The array of 32-bit words.
+	     * @property {number} sigBytes The number of significant bytes in this word array.
+	     */
+	    var WordArray = C_lib.WordArray = Base.extend({
+	        /**
+	         * Initializes a newly created word array.
+	         *
+	         * @param {Array} words (Optional) An array of 32-bit words.
+	         * @param {number} sigBytes (Optional) The number of significant bytes in the words.
+	         *
+	         * @example
+	         *
+	         *     var wordArray = CryptoJS.lib.WordArray.create();
+	         *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607]);
+	         *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607], 6);
+	         */
+	        init: function (words, sigBytes) {
+	            words = this.words = words || [];
+
+	            if (sigBytes != undefined) {
+	                this.sigBytes = sigBytes;
+	            } else {
+	                this.sigBytes = words.length * 4;
+	            }
+	        },
+
+	        /**
+	         * Converts this word array to a string.
+	         *
+	         * @param {Encoder} encoder (Optional) The encoding strategy to use. Default: CryptoJS.enc.Hex
+	         *
+	         * @return {string} The stringified word array.
+	         *
+	         * @example
+	         *
+	         *     var string = wordArray + '';
+	         *     var string = wordArray.toString();
+	         *     var string = wordArray.toString(CryptoJS.enc.Utf8);
+	         */
+	        toString: function (encoder) {
+	            return (encoder || Hex).stringify(this);
+	        },
+
+	        /**
+	         * Concatenates a word array to this word array.
+	         *
+	         * @param {WordArray} wordArray The word array to append.
+	         *
+	         * @return {WordArray} This word array.
+	         *
+	         * @example
+	         *
+	         *     wordArray1.concat(wordArray2);
+	         */
+	        concat: function (wordArray) {
+	            // Shortcuts
+	            var thisWords = this.words;
+	            var thatWords = wordArray.words;
+	            var thisSigBytes = this.sigBytes;
+	            var thatSigBytes = wordArray.sigBytes;
+
+	            // Clamp excess bits
+	            this.clamp();
+
+	            // Concat
+	            if (thisSigBytes % 4) {
+	                // Copy one byte at a time
+	                for (var i = 0; i < thatSigBytes; i++) {
+	                    var thatByte = (thatWords[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+	                    thisWords[(thisSigBytes + i) >>> 2] |= thatByte << (24 - ((thisSigBytes + i) % 4) * 8);
+	                }
+	            } else if (thatWords.length > 0xffff) {
+	                // Copy one word at a time
+	                for (var i = 0; i < thatSigBytes; i += 4) {
+	                    thisWords[(thisSigBytes + i) >>> 2] = thatWords[i >>> 2];
+	                }
+	            } else {
+	                // Copy all words at once
+	                thisWords.push.apply(thisWords, thatWords);
+	            }
+	            this.sigBytes += thatSigBytes;
+
+	            // Chainable
+	            return this;
+	        },
+
+	        /**
+	         * Removes insignificant bits.
+	         *
+	         * @example
+	         *
+	         *     wordArray.clamp();
+	         */
+	        clamp: function () {
+	            // Shortcuts
+	            var words = this.words;
+	            var sigBytes = this.sigBytes;
+
+	            // Clamp
+	            words[sigBytes >>> 2] &= 0xffffffff << (32 - (sigBytes % 4) * 8);
+	            words.length = Math.ceil(sigBytes / 4);
+	        },
+
+	        /**
+	         * Creates a copy of this word array.
+	         *
+	         * @return {WordArray} The clone.
+	         *
+	         * @example
+	         *
+	         *     var clone = wordArray.clone();
+	         */
+	        clone: function () {
+	            var clone = Base.clone.call(this);
+	            clone.words = this.words.slice(0);
+
+	            return clone;
+	        },
+
+	        /**
+	         * Creates a word array filled with random bytes.
+	         *
+	         * @param {number} nBytes The number of random bytes to generate.
+	         *
+	         * @return {WordArray} The random word array.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var wordArray = CryptoJS.lib.WordArray.random(16);
+	         */
+	        random: function (nBytes) {
+	            var words = [];
+
+	            var r = (function (m_w) {
+	                var m_w = m_w;
+	                var m_z = 0x3ade68b1;
+	                var mask = 0xffffffff;
+
+	                return function () {
+	                    m_z = (0x9069 * (m_z & 0xFFFF) + (m_z >> 0x10)) & mask;
+	                    m_w = (0x4650 * (m_w & 0xFFFF) + (m_w >> 0x10)) & mask;
+	                    var result = ((m_z << 0x10) + m_w) & mask;
+	                    result /= 0x100000000;
+	                    result += 0.5;
+	                    return result * (Math.random() > .5 ? 1 : -1);
+	                }
+	            });
+
+	            for (var i = 0, rcache; i < nBytes; i += 4) {
+	                var _r = r((rcache || Math.random()) * 0x100000000);
+
+	                rcache = _r() * 0x3ade67b7;
+	                words.push((_r() * 0x100000000) | 0);
+	            }
+
+	            return new WordArray.init(words, nBytes);
+	        }
+	    });
+
+	    /**
+	     * Encoder namespace.
+	     */
+	    var C_enc = C.enc = {};
+
+	    /**
+	     * Hex encoding strategy.
+	     */
+	    var Hex = C_enc.Hex = {
+	        /**
+	         * Converts a word array to a hex string.
+	         *
+	         * @param {WordArray} wordArray The word array.
+	         *
+	         * @return {string} The hex string.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var hexString = CryptoJS.enc.Hex.stringify(wordArray);
+	         */
+	        stringify: function (wordArray) {
+	            // Shortcuts
+	            var words = wordArray.words;
+	            var sigBytes = wordArray.sigBytes;
+
+	            // Convert
+	            var hexChars = [];
+	            for (var i = 0; i < sigBytes; i++) {
+	                var bite = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+	                hexChars.push((bite >>> 4).toString(16));
+	                hexChars.push((bite & 0x0f).toString(16));
+	            }
+
+	            return hexChars.join('');
+	        },
+
+	        /**
+	         * Converts a hex string to a word array.
+	         *
+	         * @param {string} hexStr The hex string.
+	         *
+	         * @return {WordArray} The word array.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var wordArray = CryptoJS.enc.Hex.parse(hexString);
+	         */
+	        parse: function (hexStr) {
+	            // Shortcut
+	            var hexStrLength = hexStr.length;
+
+	            // Convert
+	            var words = [];
+	            for (var i = 0; i < hexStrLength; i += 2) {
+	                words[i >>> 3] |= parseInt(hexStr.substr(i, 2), 16) << (24 - (i % 8) * 4);
+	            }
+
+	            return new WordArray.init(words, hexStrLength / 2);
+	        }
+	    };
+
+	    /**
+	     * Latin1 encoding strategy.
+	     */
+	    var Latin1 = C_enc.Latin1 = {
+	        /**
+	         * Converts a word array to a Latin1 string.
+	         *
+	         * @param {WordArray} wordArray The word array.
+	         *
+	         * @return {string} The Latin1 string.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var latin1String = CryptoJS.enc.Latin1.stringify(wordArray);
+	         */
+	        stringify: function (wordArray) {
+	            // Shortcuts
+	            var words = wordArray.words;
+	            var sigBytes = wordArray.sigBytes;
+
+	            // Convert
+	            var latin1Chars = [];
+	            for (var i = 0; i < sigBytes; i++) {
+	                var bite = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+	                latin1Chars.push(String.fromCharCode(bite));
+	            }
+
+	            return latin1Chars.join('');
+	        },
+
+	        /**
+	         * Converts a Latin1 string to a word array.
+	         *
+	         * @param {string} latin1Str The Latin1 string.
+	         *
+	         * @return {WordArray} The word array.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var wordArray = CryptoJS.enc.Latin1.parse(latin1String);
+	         */
+	        parse: function (latin1Str) {
+	            // Shortcut
+	            var latin1StrLength = latin1Str.length;
+
+	            // Convert
+	            var words = [];
+	            for (var i = 0; i < latin1StrLength; i++) {
+	                words[i >>> 2] |= (latin1Str.charCodeAt(i) & 0xff) << (24 - (i % 4) * 8);
+	            }
+
+	            return new WordArray.init(words, latin1StrLength);
+	        }
+	    };
+
+	    /**
+	     * UTF-8 encoding strategy.
+	     */
+	    var Utf8 = C_enc.Utf8 = {
+	        /**
+	         * Converts a word array to a UTF-8 string.
+	         *
+	         * @param {WordArray} wordArray The word array.
+	         *
+	         * @return {string} The UTF-8 string.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var utf8String = CryptoJS.enc.Utf8.stringify(wordArray);
+	         */
+	        stringify: function (wordArray) {
+	            try {
+	                return decodeURIComponent(escape(Latin1.stringify(wordArray)));
+	            } catch (e) {
+	                throw new Error('Malformed UTF-8 data');
+	            }
+	        },
+
+	        /**
+	         * Converts a UTF-8 string to a word array.
+	         *
+	         * @param {string} utf8Str The UTF-8 string.
+	         *
+	         * @return {WordArray} The word array.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var wordArray = CryptoJS.enc.Utf8.parse(utf8String);
+	         */
+	        parse: function (utf8Str) {
+	            return Latin1.parse(unescape(encodeURIComponent(utf8Str)));
+	        }
+	    };
+
+	    /**
+	     * Abstract buffered block algorithm template.
+	     *
+	     * The property blockSize must be implemented in a concrete subtype.
+	     *
+	     * @property {number} _minBufferSize The number of blocks that should be kept unprocessed in the buffer. Default: 0
+	     */
+	    var BufferedBlockAlgorithm = C_lib.BufferedBlockAlgorithm = Base.extend({
+	        /**
+	         * Resets this block algorithm's data buffer to its initial state.
+	         *
+	         * @example
+	         *
+	         *     bufferedBlockAlgorithm.reset();
+	         */
+	        reset: function () {
+	            // Initial values
+	            this._data = new WordArray.init();
+	            this._nDataBytes = 0;
+	        },
+
+	        /**
+	         * Adds new data to this block algorithm's buffer.
+	         *
+	         * @param {WordArray|string} data The data to append. Strings are converted to a WordArray using UTF-8.
+	         *
+	         * @example
+	         *
+	         *     bufferedBlockAlgorithm._append('data');
+	         *     bufferedBlockAlgorithm._append(wordArray);
+	         */
+	        _append: function (data) {
+	            // Convert string to WordArray, else assume WordArray already
+	            if (typeof data == 'string') {
+	                data = Utf8.parse(data);
+	            }
+
+	            // Append
+	            this._data.concat(data);
+	            this._nDataBytes += data.sigBytes;
+	        },
+
+	        /**
+	         * Processes available data blocks.
+	         *
+	         * This method invokes _doProcessBlock(offset), which must be implemented by a concrete subtype.
+	         *
+	         * @param {boolean} doFlush Whether all blocks and partial blocks should be processed.
+	         *
+	         * @return {WordArray} The processed data.
+	         *
+	         * @example
+	         *
+	         *     var processedData = bufferedBlockAlgorithm._process();
+	         *     var processedData = bufferedBlockAlgorithm._process(!!'flush');
+	         */
+	        _process: function (doFlush) {
+	            // Shortcuts
+	            var data = this._data;
+	            var dataWords = data.words;
+	            var dataSigBytes = data.sigBytes;
+	            var blockSize = this.blockSize;
+	            var blockSizeBytes = blockSize * 4;
+
+	            // Count blocks ready
+	            var nBlocksReady = dataSigBytes / blockSizeBytes;
+	            if (doFlush) {
+	                // Round up to include partial blocks
+	                nBlocksReady = Math.ceil(nBlocksReady);
+	            } else {
+	                // Round down to include only full blocks,
+	                // less the number of blocks that must remain in the buffer
+	                nBlocksReady = Math.max((nBlocksReady | 0) - this._minBufferSize, 0);
+	            }
+
+	            // Count words ready
+	            var nWordsReady = nBlocksReady * blockSize;
+
+	            // Count bytes ready
+	            var nBytesReady = Math.min(nWordsReady * 4, dataSigBytes);
+
+	            // Process blocks
+	            if (nWordsReady) {
+	                for (var offset = 0; offset < nWordsReady; offset += blockSize) {
+	                    // Perform concrete-algorithm logic
+	                    this._doProcessBlock(dataWords, offset);
+	                }
+
+	                // Remove processed words
+	                var processedWords = dataWords.splice(0, nWordsReady);
+	                data.sigBytes -= nBytesReady;
+	            }
+
+	            // Return processed words
+	            return new WordArray.init(processedWords, nBytesReady);
+	        },
+
+	        /**
+	         * Creates a copy of this object.
+	         *
+	         * @return {Object} The clone.
+	         *
+	         * @example
+	         *
+	         *     var clone = bufferedBlockAlgorithm.clone();
+	         */
+	        clone: function () {
+	            var clone = Base.clone.call(this);
+	            clone._data = this._data.clone();
+
+	            return clone;
+	        },
+
+	        _minBufferSize: 0
+	    });
+
+	    /**
+	     * Abstract hasher template.
+	     *
+	     * @property {number} blockSize The number of 32-bit words this hasher operates on. Default: 16 (512 bits)
+	     */
+	    var Hasher = C_lib.Hasher = BufferedBlockAlgorithm.extend({
+	        /**
+	         * Configuration options.
+	         */
+	        cfg: Base.extend(),
+
+	        /**
+	         * Initializes a newly created hasher.
+	         *
+	         * @param {Object} cfg (Optional) The configuration options to use for this hash computation.
+	         *
+	         * @example
+	         *
+	         *     var hasher = CryptoJS.algo.SHA256.create();
+	         */
+	        init: function (cfg) {
+	            // Apply config defaults
+	            this.cfg = this.cfg.extend(cfg);
+
+	            // Set initial values
+	            this.reset();
+	        },
+
+	        /**
+	         * Resets this hasher to its initial state.
+	         *
+	         * @example
+	         *
+	         *     hasher.reset();
+	         */
+	        reset: function () {
+	            // Reset data buffer
+	            BufferedBlockAlgorithm.reset.call(this);
+
+	            // Perform concrete-hasher logic
+	            this._doReset();
+	        },
+
+	        /**
+	         * Updates this hasher with a message.
+	         *
+	         * @param {WordArray|string} messageUpdate The message to append.
+	         *
+	         * @return {Hasher} This hasher.
+	         *
+	         * @example
+	         *
+	         *     hasher.update('message');
+	         *     hasher.update(wordArray);
+	         */
+	        update: function (messageUpdate) {
+	            // Append
+	            this._append(messageUpdate);
+
+	            // Update the hash
+	            this._process();
+
+	            // Chainable
+	            return this;
+	        },
+
+	        /**
+	         * Finalizes the hash computation.
+	         * Note that the finalize operation is effectively a destructive, read-once operation.
+	         *
+	         * @param {WordArray|string} messageUpdate (Optional) A final message update.
+	         *
+	         * @return {WordArray} The hash.
+	         *
+	         * @example
+	         *
+	         *     var hash = hasher.finalize();
+	         *     var hash = hasher.finalize('message');
+	         *     var hash = hasher.finalize(wordArray);
+	         */
+	        finalize: function (messageUpdate) {
+	            // Final message update
+	            if (messageUpdate) {
+	                this._append(messageUpdate);
+	            }
+
+	            // Perform concrete-hasher logic
+	            var hash = this._doFinalize();
+
+	            return hash;
+	        },
+
+	        blockSize: 512/32,
+
+	        /**
+	         * Creates a shortcut function to a hasher's object interface.
+	         *
+	         * @param {Hasher} hasher The hasher to create a helper for.
+	         *
+	         * @return {Function} The shortcut function.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var SHA256 = CryptoJS.lib.Hasher._createHelper(CryptoJS.algo.SHA256);
+	         */
+	        _createHelper: function (hasher) {
+	            return function (message, cfg) {
+	                return new hasher.init(cfg).finalize(message);
+	            };
+	        },
+
+	        /**
+	         * Creates a shortcut function to the HMAC's object interface.
+	         *
+	         * @param {Hasher} hasher The hasher to use in this HMAC helper.
+	         *
+	         * @return {Function} The shortcut function.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var HmacSHA256 = CryptoJS.lib.Hasher._createHmacHelper(CryptoJS.algo.SHA256);
+	         */
+	        _createHmacHelper: function (hasher) {
+	            return function (message, key) {
+	                return new C_algo.HMAC.init(hasher, key).finalize(message);
+	            };
+	        }
+	    });
+
+	    /**
+	     * Algorithm namespace.
+	     */
+	    var C_algo = C.algo = {};
+
+	    return C;
+	}(Math));
+
+
+	return CryptoJS;
+
+}));
+define('cryptoJs', ['cryptoJs/core'], function (main) { return main; });
+
+;(function (root, factory) {
+	if (typeof exports === "object") {
+		// CommonJS
+		module.exports = exports = factory(require("./core"));
+	}
+	else if (typeof define === "function" && define.amd) {
+		// AMD
+		define('cryptoJs/sha1',["./core"], factory);
+	}
+	else {
+		// Global (browser)
+		factory(root.CryptoJS);
+	}
+}(this, function (CryptoJS) {
+
+	(function () {
+	    // Shortcuts
+	    var C = CryptoJS;
+	    var C_lib = C.lib;
+	    var WordArray = C_lib.WordArray;
+	    var Hasher = C_lib.Hasher;
+	    var C_algo = C.algo;
+
+	    // Reusable object
+	    var W = [];
+
+	    /**
+	     * SHA-1 hash algorithm.
+	     */
+	    var SHA1 = C_algo.SHA1 = Hasher.extend({
+	        _doReset: function () {
+	            this._hash = new WordArray.init([
+	                0x67452301, 0xefcdab89,
+	                0x98badcfe, 0x10325476,
+	                0xc3d2e1f0
+	            ]);
+	        },
+
+	        _doProcessBlock: function (M, offset) {
+	            // Shortcut
+	            var H = this._hash.words;
+
+	            // Working variables
+	            var a = H[0];
+	            var b = H[1];
+	            var c = H[2];
+	            var d = H[3];
+	            var e = H[4];
+
+	            // Computation
+	            for (var i = 0; i < 80; i++) {
+	                if (i < 16) {
+	                    W[i] = M[offset + i] | 0;
+	                } else {
+	                    var n = W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16];
+	                    W[i] = (n << 1) | (n >>> 31);
+	                }
+
+	                var t = ((a << 5) | (a >>> 27)) + e + W[i];
+	                if (i < 20) {
+	                    t += ((b & c) | (~b & d)) + 0x5a827999;
+	                } else if (i < 40) {
+	                    t += (b ^ c ^ d) + 0x6ed9eba1;
+	                } else if (i < 60) {
+	                    t += ((b & c) | (b & d) | (c & d)) - 0x70e44324;
+	                } else /* if (i < 80) */ {
+	                    t += (b ^ c ^ d) - 0x359d3e2a;
+	                }
+
+	                e = d;
+	                d = c;
+	                c = (b << 30) | (b >>> 2);
+	                b = a;
+	                a = t;
+	            }
+
+	            // Intermediate hash value
+	            H[0] = (H[0] + a) | 0;
+	            H[1] = (H[1] + b) | 0;
+	            H[2] = (H[2] + c) | 0;
+	            H[3] = (H[3] + d) | 0;
+	            H[4] = (H[4] + e) | 0;
+	        },
+
+	        _doFinalize: function () {
+	            // Shortcuts
+	            var data = this._data;
+	            var dataWords = data.words;
+
+	            var nBitsTotal = this._nDataBytes * 8;
+	            var nBitsLeft = data.sigBytes * 8;
+
+	            // Add padding
+	            dataWords[nBitsLeft >>> 5] |= 0x80 << (24 - nBitsLeft % 32);
+	            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 14] = Math.floor(nBitsTotal / 0x100000000);
+	            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 15] = nBitsTotal;
+	            data.sigBytes = dataWords.length * 4;
+
+	            // Hash final blocks
+	            this._process();
+
+	            // Return final computed hash
+	            return this._hash;
+	        },
+
+	        clone: function () {
+	            var clone = Hasher.clone.call(this);
+	            clone._hash = this._hash.clone();
+
+	            return clone;
+	        }
+	    });
+
+	    /**
+	     * Shortcut function to the hasher's object interface.
+	     *
+	     * @param {WordArray|string} message The message to hash.
+	     *
+	     * @return {WordArray} The hash.
+	     *
+	     * @static
+	     *
+	     * @example
+	     *
+	     *     var hash = CryptoJS.SHA1('message');
+	     *     var hash = CryptoJS.SHA1(wordArray);
+	     */
+	    C.SHA1 = Hasher._createHelper(SHA1);
+
+	    /**
+	     * Shortcut function to the HMAC's object interface.
+	     *
+	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} key The secret key.
+	     *
+	     * @return {WordArray} The HMAC.
+	     *
+	     * @static
+	     *
+	     * @example
+	     *
+	     *     var hmac = CryptoJS.HmacSHA1(message, key);
+	     */
+	    C.HmacSHA1 = Hasher._createHmacHelper(SHA1);
+	}());
+
+
+	return CryptoJS.SHA1;
+
+}));
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -11271,7 +21937,7 @@ return jQuery;
  * URI.js - Mutating URLs
  * IPv6 Support
  *
- * Version: 1.15.0
+ * Version: 1.15.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -11460,7 +22126,7 @@ return jQuery;
  * URI.js - Mutating URLs
  * Second Level Domain (SLD) Support
  *
- * Version: 1.15.0
+ * Version: 1.15.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -11701,7 +22367,7 @@ return jQuery;
 /*!
  * URI.js - Mutating URLs
  *
- * Version: 1.15.0
+ * Version: 1.15.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -11734,13 +22400,24 @@ return jQuery;
   var _URI = root && root.URI;
 
   function URI(url, base) {
+    var _urlSupplied = arguments.length >= 1;
+    var _baseSupplied = arguments.length >= 2;
+
     // Allow instantiation without the 'new' keyword
     if (!(this instanceof URI)) {
-      return new URI(url, base);
+      if (_urlSupplied) {
+        if (_baseSupplied) {
+          return new URI(url, base);
+        }
+
+        return new URI(url);
+      }
+
+      return new URI();
     }
 
     if (url === undefined) {
-      if (arguments.length) {
+      if (_urlSupplied) {
         throw new TypeError('undefined is not a valid argument for URI');
       }
 
@@ -11761,7 +22438,7 @@ return jQuery;
     return this;
   }
 
-  URI.version = '1.15.0';
+  URI.version = '1.15.1';
 
   var p = URI.prototype;
   var hasOwn = Object.prototype.hasOwnProperty;
@@ -11788,7 +22465,9 @@ return jQuery;
     var lookup = {};
     var i, length;
 
-    if (isArray(value)) {
+    if (getType(value) === 'RegExp') {
+      lookup = null;
+    } else if (isArray(value)) {
       for (i = 0, length = value.length; i < length; i++) {
         lookup[value[i]] = true;
       }
@@ -11797,7 +22476,11 @@ return jQuery;
     }
 
     for (i = 0, length = data.length; i < length; i++) {
-      if (lookup[data[i]] !== undefined) {
+      /*jshint laxbreak: true */
+      var _match = lookup && lookup[data[i]] !== undefined
+        || !lookup && value.test(data[i]);
+      /*jshint laxbreak: false */
+      if (_match) {
         data.splice(i, 1);
         length--;
         i--;
@@ -12433,6 +23116,12 @@ return jQuery;
       for (i = 0, length = name.length; i < length; i++) {
         data[name[i]] = undefined;
       }
+    } else if (getType(name) === 'RegExp') {
+      for (key in data) {
+        if (name.test(key)) {
+          data[key] = undefined;
+        }
+      }
     } else if (typeof name === 'object') {
       for (key in name) {
         if (hasOwn.call(name, key)) {
@@ -12441,7 +23130,13 @@ return jQuery;
       }
     } else if (typeof name === 'string') {
       if (value !== undefined) {
-        if (data[name] === value) {
+        if (getType(value) === 'RegExp') {
+          if (!isArray(data[name]) && value.test(data[name])) {
+            data[name] = undefined;
+          } else {
+            data[name] = filterArrayValues(data[name], value);
+          }
+        } else if (data[name] === value) {
           data[name] = undefined;
         } else if (isArray(data[name])) {
           data[name] = filterArrayValues(data[name], value);
@@ -12450,7 +23145,7 @@ return jQuery;
         data[name] = undefined;
       }
     } else {
-      throw new TypeError('URI.removeQuery() accepts an object, string as the first parameter');
+      throw new TypeError('URI.removeQuery() accepts an object, string, RegExp as the first parameter');
     }
   };
   URI.hasQuery = function(data, name, value, withinArray) {
@@ -13996,6 +24691,16 @@ define('domReady',[],function () {
 
 define('eventEmitter',['require','exports','module'],function (require, exports, module) {'use strict';
 
+//
+// We store our EE objects in a plain object whose properties are event names.
+// If `Object.create(null)` is not supported we prefix the event names with a
+// `~` to make sure that the built-in object properties are not overridden or
+// used as an attack vector.
+// We also assume that `Object.create(null)` is available when the event name
+// is an ES6 Symbol.
+//
+var prefix = typeof Object.create !== 'function' ? '~' : false;
+
 /**
  * Representation of a single EventEmitter function.
  *
@@ -14036,15 +24741,15 @@ EventEmitter.prototype._events = undefined;
  * @api public
  */
 EventEmitter.prototype.listeners = function listeners(event, exists) {
-  var prefix = '~'+ event
-    , available = this._events && this._events[prefix];
+  var evt = prefix ? prefix + event : event
+    , available = this._events && this._events[evt];
 
   if (exists) return !!available;
   if (!available) return [];
-  if (this._events[prefix].fn) return [this._events[prefix].fn];
+  if (this._events[evt].fn) return [this._events[evt].fn];
 
-  for (var i = 0, l = this._events[prefix].length, ee = new Array(l); i < l; i++) {
-    ee[i] = this._events[prefix][i].fn;
+  for (var i = 0, l = this._events[evt].length, ee = new Array(l); i < l; i++) {
+    ee[i] = this._events[evt][i].fn;
   }
 
   return ee;
@@ -14058,11 +24763,11 @@ EventEmitter.prototype.listeners = function listeners(event, exists) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  var prefix = '~'+ event;
+  var evt = prefix ? prefix + event : event;
 
-  if (!this._events || !this._events[prefix]) return false;
+  if (!this._events || !this._events[evt]) return false;
 
-  var listeners = this._events[prefix]
+  var listeners = this._events[evt]
     , len = arguments.length
     , args
     , i;
@@ -14118,14 +24823,14 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
   var listener = new EE(fn, context || this)
-    , prefix = '~'+ event;
+    , evt = prefix ? prefix + event : event;
 
-  if (!this._events) this._events = {};
-  if (!this._events[prefix]) this._events[prefix] = listener;
+  if (!this._events) this._events = prefix ? {} : Object.create(null);
+  if (!this._events[evt]) this._events[evt] = listener;
   else {
-    if (!this._events[prefix].fn) this._events[prefix].push(listener);
-    else this._events[prefix] = [
-      this._events[prefix], listener
+    if (!this._events[evt].fn) this._events[evt].push(listener);
+    else this._events[evt] = [
+      this._events[evt], listener
     ];
   }
 
@@ -14142,14 +24847,14 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
   var listener = new EE(fn, context || this, true)
-    , prefix = '~'+ event;
+    , evt = prefix ? prefix + event : event;
 
-  if (!this._events) this._events = {};
-  if (!this._events[prefix]) this._events[prefix] = listener;
+  if (!this._events) this._events = prefix ? {} : Object.create(null);
+  if (!this._events[evt]) this._events[evt] = listener;
   else {
-    if (!this._events[prefix].fn) this._events[prefix].push(listener);
-    else this._events[prefix] = [
-      this._events[prefix], listener
+    if (!this._events[evt].fn) this._events[evt].push(listener);
+    else this._events[evt] = [
+      this._events[evt], listener
     ];
   }
 
@@ -14166,11 +24871,11 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var prefix = '~'+ event;
+  var evt = prefix ? prefix + event : event;
 
-  if (!this._events || !this._events[prefix]) return this;
+  if (!this._events || !this._events[evt]) return this;
 
-  var listeners = this._events[prefix]
+  var listeners = this._events[evt]
     , events = [];
 
   if (fn) {
@@ -14199,9 +24904,9 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
   // Reset the array, or remove it completely if we have no more listeners.
   //
   if (events.length) {
-    this._events[prefix] = events.length === 1 ? events[0] : events;
+    this._events[evt] = events.length === 1 ? events[0] : events;
   } else {
-    delete this._events[prefix];
+    delete this._events[evt];
   }
 
   return this;
@@ -14216,8 +24921,8 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, conte
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   if (!this._events) return this;
 
-  if (event) delete this._events['~'+ event];
-  else this._events = {};
+  if (event) delete this._events[prefix ? prefix + event : event];
+  else this._events = prefix ? {} : Object.create(null);
 
   return this;
 };
@@ -14234,6 +24939,11 @@ EventEmitter.prototype.addListener = EventEmitter.prototype.on;
 EventEmitter.prototype.setMaxListeners = function setMaxListeners() {
   return this;
 };
+
+//
+// Expose the prefix.
+//
+EventEmitter.prefixed = prefix;
 
 //
 // Expose the module.
@@ -22001,26 +32711,7 @@ function (core, textrange, highlighter, cssclassapplier, position
 return core;
 
 });
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
 
-define('readium-external-libs',['jquery', 'underscore',
-'URIjs', 'punycode', 'SecondLevelDomains', 'IPv6',
-'jquerySizes', 'domReady', 'eventEmitter', 'console_shim',
-'rangy', 'rangy-core', 'rangy-textrange', 'rangy-highlighter', 'rangy-cssclassapplier', 'rangy-position'
-], function () {
-//noop
-});
-
+define("readium-external-libs", function(){});
 
 //# sourceMappingURL=readium-external-libs.js.map

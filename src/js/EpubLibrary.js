@@ -2,24 +2,24 @@ define([
 'jquery',
 'bootstrap',
 'bootstrapA11y',
-'storage/StorageManager',
-'storage/Settings',
-'EpubLibraryManager',
-'i18n/Strings',
-'hgn!templates/library-navbar.html',
-'hgn!templates/library-body.html',
-'hgn!templates/empty-library.html',
-'hgn!templates/library-item.html',
-'hgn!templates/details-dialog.html',
-'hgn!templates/about-dialog.html',
-'hgn!templates/details-body.html', 
-'hgn!templates/add-epub-dialog.html',
-'ReaderSettingsDialog',
-'Dialogs',
-'workers/Messages',
-'analytics/Analytics',
-'Keyboard',
-'versioning/Versioning'], 
+'StorageManager',
+'./storage/Settings',
+'./EpubLibraryManager',
+'readium_js_viewer_i18n/Strings',
+'hgn!readium_js_viewer_html_templates/library-navbar.html',
+'hgn!readium_js_viewer_html_templates/library-body.html',
+'hgn!readium_js_viewer_html_templates/empty-library.html',
+'hgn!readium_js_viewer_html_templates/library-item.html',
+'hgn!readium_js_viewer_html_templates/details-dialog.html',
+'hgn!readium_js_viewer_html_templates/about-dialog.html',
+'hgn!readium_js_viewer_html_templates/details-body.html',
+'hgn!readium_js_viewer_html_templates/add-epub-dialog.html',
+'./ReaderSettingsDialog',
+'./Dialogs',
+'./workers/Messages',
+'./analytics/Analytics',
+'./Keyboard',
+'./versioning/ReadiumVersioning'],
 
 function(
 $,
@@ -35,7 +35,7 @@ EmptyLibrary,
 LibraryItem,
 DetailsDialog,
 AboutDialog,
-DetailsBody, 
+DetailsBody,
 AddEpubDialog,
 SettingsDialog,
 Dialogs,
@@ -51,36 +51,36 @@ Versioning){
 		//maxHeightRule
 
 	var findHeightRule = function(){
-		
- 		var styleSheet=document.styleSheets[0];          
- 		var ii=0;                                        
- 		var cssRule;                               
-        do {                                             
-            if (styleSheet.cssRules) {                    
-            	cssRule = styleSheet.cssRules[ii];         
-            } else {                                      
-            	cssRule = styleSheet.rules[ii];            
-            }                                             
-            if (cssRule && cssRule.selectorText)  {                               
-            	if (cssRule.selectorText.toLowerCase()=='.library-item') {          
-                    heightRule = cssRule;                    
-                } 
+
+ 		var styleSheet=document.styleSheets[0];
+ 		var ii=0;
+ 		var cssRule;
+        do {
+            if (styleSheet.cssRules) {
+            	cssRule = styleSheet.cssRules[ii];
+            } else {
+            	cssRule = styleSheet.rules[ii];
+            }
+            if (cssRule && cssRule.selectorText)  {
+            	if (cssRule.selectorText.toLowerCase()=='.library-item') {
+                    heightRule = cssRule;
+                }
                 // else if (cssRule.selectorText.toLowerCase()=='.library-item img') {
                 //     maxHeightRule = cssRule;
-                // }                    
+                // }
                 else if (cssRule.selectorText.toLowerCase() == 'body:not(.list-view) .library-item .no-cover'){
                 	noCoverRule = cssRule;
-                }       
-                                                         
-            }                                             
-            ii++;                                         
-        } while (cssRule);                                       
-   	}                                                      
-   
-	
+                }
+
+            }
+            ii++;
+        } while (cssRule);
+   	}
+
+
 	var setItemHeight = function(){
         if (!heightRule || !noCoverRule) return;
-        
+
 		var medWidth = 2,
 			smWidth = 3,
 			xsWidth = 4,
@@ -92,19 +92,19 @@ Versioning){
 
 		if (winWidth >= 992){
 			imgWidth = winWidth * (medWidth/12) - 30;
-			rowHeight = 1.33 * imgWidth + 60; 
+			rowHeight = 1.33 * imgWidth + 60;
 		}
 		else if (winWidth >= 768){
 			imgWidth = winWidth * (smWidth/12) - 30;
-			rowHeight = 1.33 * imgWidth + 60; 
+			rowHeight = 1.33 * imgWidth + 60;
 		}
 		else{
 			imgWidth = winWidth * (xsWidth/12) - 30;
-			rowHeight = 1.33 * imgWidth + 20; 
+			rowHeight = 1.33 * imgWidth + 20;
 		}
 		heightRule.style.height  = rowHeight + 'px';
 		scale = imgWidth/300;
-		
+
 		noCoverRule.style.width = imgWidth + 'px';
 		noCoverRule.style.height = 1.33 * imgWidth + 'px';
 		noCoverRule.style.fontSize = 40 * scale + 'px';
@@ -128,11 +128,11 @@ Versioning){
 
 			var promptMsg = Strings.i18n_are_you_sure + ' \'' + details.title + '\'';
 
-			Dialogs.showModalPrompt(Strings.delete_dlg_title, promptMsg, 
+			Dialogs.showModalPrompt(Strings.delete_dlg_title, promptMsg,
 									Strings.i18n_delete, Strings.i18n_cancel,
 									function(){
 										Dialogs.showModalProgress(Strings.delete_progress_title, '');
-										Dialogs.updateProgress(100, Messages.PROGRESS_DELETING, details.title, true); 
+										Dialogs.updateProgress(100, Messages.PROGRESS_DELETING, details.title, true);
 										libraryManager.deleteEpubWithId(details.rootDir, success, showError)
 									});
 		});
@@ -150,12 +150,12 @@ Versioning){
 			noCoverBg = $this.attr('data-no-cover');
 
 		$('.details-dialog').remove();
-        
+
         $('.details-dialog').off('hidden.bs.modal');
         $('.details-dialog').off('shown.bs.modal');
-        
+
 		$('#app-container').append(detailsDialogStr);
-        
+
         $('#details-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
 
@@ -164,8 +164,8 @@ Versioning){
 		$('#details-dialog').on('shown.bs.modal', function(){
             Keyboard.scope('details');
 		});
-        
-        
+
+
 		$('.details-dialog').modal();
 		libraryManager.retrieveFullEpubDetails(url, bookRoot, rootDir, noCoverBg, showDetailsDialog, showError);
 	}
@@ -177,7 +177,7 @@ Versioning){
 			$('#app-container .library-items').append(EmptyLibrary({strings: Strings}));
 			return;
 		}
-		
+
 		var count = 0;
 		epubs.forEach(function(epub){
 			var noCoverBackground = 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
@@ -202,19 +202,19 @@ Versioning){
 
         Keyboard.off('library');
         Keyboard.off('settings');
-        
+
         $('#settings-dialog').off('hidden.bs.modal');
         $('#settings-dialog').off('shown.bs.modal');
-        
+
         $('#about-dialog').off('hidden.bs.modal');
         $('#about-dialog').off('shown.bs.modal');
-        
+
         $('#add-epub-dialog').off('hidden.bs.modal');
         $('#add-epub-dialog').off('shown.bs.modal');
-        
+
         $('.details-dialog').off('hidden.bs.modal');
         $('.details-dialog').off('shown.bs.modal');
-        
+
 		$(window).off('resize');
 		$(document.body).off('click');
 		$(window).off('storageReady');
@@ -244,7 +244,7 @@ Versioning){
 		libraryManager.handleZippedEpub({
 			file: file,
 			overwrite: promptForReplace,
-			success: handleLibraryChange, 
+			success: handleLibraryChange,
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
@@ -258,7 +258,7 @@ Versioning){
 		libraryManager.handleDirectoryImport({
 			files: files,
 			overwrite: promptForReplace,
-			success: handleLibraryChange, 
+			success: handleLibraryChange,
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
@@ -270,7 +270,7 @@ Versioning){
 		libraryManager.handleUrlImport({
 			url: url,
 			overwrite: promptForReplace,
-			success: handleLibraryChange, 
+			success: handleLibraryChange,
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
@@ -282,18 +282,18 @@ Versioning){
 			success: function(){
 				Settings.put('needsMigration', false, $.noop);
 				handleLibraryChange();
-			}, 
+			},
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
 	}
-    
+
 	var loadLibraryUI = function(){
-        
+
 		Dialogs.reset();
-        
+
         Keyboard.scope('library');
-        
+
 		Analytics.trackView('/library');
 		var $appContainer = $('#app-container');
 		$appContainer.empty();
@@ -306,8 +306,8 @@ Versioning){
 		Versioning.getVersioningInfo(function(version){
 			$appContainer.append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 		});
-		
-        
+
+
         $('#about-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
 
@@ -316,7 +316,7 @@ Versioning){
 		$('#about-dialog').on('shown.bs.modal', function(){
             Keyboard.scope('about');
 		});
-        
+
         $('#add-epub-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
 
@@ -324,7 +324,7 @@ Versioning){
         });
 		$('#add-epub-dialog').on('shown.bs.modal', function(){
             Keyboard.scope('add');
-            
+
 			$('#add-epub-dialog input').val('');
 
             setTimeout(function(){ $('#closeAddEpubCross')[0].focus(); }, 1000);
@@ -380,18 +380,18 @@ Versioning){
             Keyboard.scope('library');
 
             setTimeout(function(){ $("#settbutt1").focus(); }, 50);
-            
+
             $("#buttSave").removeAttr("accesskey");
             $("#buttClose").removeAttr("accesskey");
         });
         $('#settings-dialog').on('shown.bs.modal', function () {
 
             Keyboard.scope('settings');
-            
+
             $("#buttSave").attr("accesskey", Keyboard.accesskeys.SettingsModalSave);
             $("#buttClose").attr("accesskey", Keyboard.accesskeys.SettingsModalClose);
         });
-        
+
 
         //async in Chrome
 		Settings.get("needsMigration", function(needsMigration){
@@ -407,7 +407,7 @@ Versioning){
         Settings.get('reader', function(json)
         {
            Keyboard.applySettings(json);
-           
+
            loadLibraryUI(data);
         });
     };

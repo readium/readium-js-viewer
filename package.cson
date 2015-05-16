@@ -65,13 +65,11 @@ repository:
 
 #####################################################################
 files: [
-    
+
     "build-output/"
-    
-    "build-output-usage-example/"
-    
+
     "license.txt"
-    
+
     "README.md"
 ]
 
@@ -85,11 +83,11 @@ files: [
 dependencies:
 
     parallelshell: 'latest'
-    
+
     'http-server': 'latest'
 #    'httpserver': 'latest'
 #    'node-http-server': 'latest'
-    
+
     opener: 'latest'
 
 # See remark below about *runtime* dependencies
@@ -98,7 +96,7 @@ dependencies:
 devDependencies:
 
 #    "crypto-js": "latest"
-    
+
 #    "zipjs": "gildas-lormeau/zip.js"
 #    "zipjs": "ryanackley/zip.js"
 #    "zipjs": "danielweck/zip.js"
@@ -106,44 +104,44 @@ devDependencies:
 #    requirejs: "latest"
 
 #    almond: "latest"
-    
+
 #    "requirejs-text": "latest"
 
     bootstrap: "latest"
-    
+
     'bootstrap-accessibility-plugin': "latest"
-    
+
     hammerjs: "latest"
-    
+
     'jquery-hammerjs': "latest"
-    
+
     #keymaster: "latest"
     keymaster: "danielweck/keymaster"
-    
+
     screenfull: "latest"
 
     JSON2: "latest"
-    
+
     hogan: "latest"
-    
+
     'requirejs-hogan-plugin': "latest"
-    
+
     remotestoragejs: "latest"
-    
+
     #jath: "latest"
     jath: "danielweck/jath"
     # libxmljs node-gyp python < v3 :(
     #'jquery-xpath': "latest"
-    
+
     'spin.js': "latest"
 
 # Above items are in fact runtime dependencies,
 # but because they are already bundled in the "build-output" folder that ships with the NPM package,
 # we declare them in "devDependencies" to avoid unnecessary downloads.
 # The download can be forced by using the "--dev" option after "npm install readium-js-viewer".
-    
+
     "gift": "latest"
-    
+
     cson: "latest"
 
     jshint: "latest"
@@ -155,7 +153,7 @@ devDependencies:
     mkdirp: 'latest'
 
     watch: 'latest'
-    
+
     'live-reload': 'latest'
 
     "grunt": 'latest'
@@ -188,19 +186,19 @@ scripts:
 
 #=====================
     env: '
-    
+
         env
     '
-    
+
 #=====================
     echo: '
-    
+
         echo ""
     '
 
 #=====================
     cson2json: '
-    
+
         node node_modules/cson/bin/cson2json package.cson
         &&
         node node_modules/cson/bin/cson2json package.cson > package.json
@@ -208,7 +206,7 @@ scripts:
 
 #=====================
     'prepare': '
-        
+
         npm run
             prepare:submodule
         &&
@@ -218,7 +216,7 @@ scripts:
 
 #=====================
     'prepare:dependencies': '
-        
+
         npm install
         &&
         npm update
@@ -226,7 +224,7 @@ scripts:
 
 #=====================
     'prepare:submodule': '
-        
+
         cd readium-js
         &&
         npm run prepare
@@ -235,7 +233,7 @@ scripts:
         &&
         ls
     '
-    
+
 #=====================
     clean: '
         node --version
@@ -248,55 +246,63 @@ scripts:
 
 #=====================
     'prebuild': '
-    
+
         npm run clean
-        &&
-        mkdirp build-output/_multiple-bundles
-        &&
-        mkdirp build-output/_single-bundle
-        &&
-        mkdirp build-output/_SOURCES
     '
-    
+
 #=====================
     build: '
-    
+
         npm run
             build:styles
         &&
         npm run
             build:scripts
     '
-    
+
 #=====================
     lint: '
-    
+
         node
-            build-tools/jshint_glob.js
+            readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/jshint_glob.js
             js/**.js
     '
 
 #=====================
 #    'prebuild:scripts': '
-#    
+#
 #        npm run
 #            lint
 #    '
 
 #=====================
-    'versioning': '
-        node build-config/versioning.js build-output/_SOURCES/version.json
+    'preversioning': '
+
+        mkdirp build-output/_multiple-bundles
+        &&
+        mkdirp build-output/_single-bundle
+        &&
+        mkdirp build-output/XXX
     '
-    
+
+#=====================
+    'versioning': '
+        node build-config/versioning.js build-output/version.json
+        &&
+        cp build-output/version.json build-output/XXX/
+    '
+
 #=====================
     'postbuild:scripts': '
-    
-        rimraf build-output/_SOURCES
+
+        rimraf build-output/XXX
+        &&
+        rimraf build-output/_multiple-bundles/version.json
     '
 
 #=====================
     'postbuild:scripts:multiple': '
-    
+
         rimraf build-output/_multiple-bundles/version.json
         &&
         rimraf build-output/_multiple-bundles/templates
@@ -313,15 +319,15 @@ scripts:
         &&
         rimraf build-output/_multiple-bundles/mathjax
     '
-    
+
 #=====================
     'build:scripts': '
-        
+
         npm run versioning
         &&
-        cp -r src/templates build-output/_SOURCES
+        cp -r src/templates build-output/XXX
         &&
-        cp -r src/i18n build-output/_SOURCES
+        cp -r src/i18n build-output/XXX
         &&
         npm run
             build:scripts:multiple
@@ -345,15 +351,15 @@ scripts:
     'build:scripts:multiple': '
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/bin/r.js
              -o
-             readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
+             readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/RequireJS_config.js
              --rjs_bundle=multiple
     '
-    
+
 #=====================
     'build:scripts:single': '
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/bin/r.js
              -o
-             readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
+             readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/RequireJS_config.js
              --rjs_bundle=single
     '
 
@@ -361,7 +367,7 @@ scripts:
     'build:scripts:single:LITE': '
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/bin/r.js
              -o
-             readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config.js
+             readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/RequireJS_config.js
              --rjs_bundle=single
              --rjs_configCustomTarget=_LITE
     '
@@ -374,7 +380,7 @@ scripts:
 #=====================
 # TODO use cssminify
     'build:styles': '
-    
+
         cp -r src/css build-output
         &&
         cp -r src/images build-output
@@ -410,7 +416,7 @@ scripts:
 #=====================
 #### BLOCKING! (CTRL-C) [watch:build]
     watch: '
-    
+
         parallelshell
             \"npm run watch:build\"
     '
@@ -427,19 +433,19 @@ scripts:
     'watch:build': '
         watch
             \"npm run build
-                && node build-tools/webbrowser.js
+                && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
                 && npm run webbrowser
                 && rimraf open_webbrowser.js\"
-            build-output-usage-example/
+            build-output/
     '
     #    nodemon -q
-    #    -w build-output-usage-example/
+    #    -w build-output/
     #    --ext \".\"
     #    --exec \"npm run build
-    #            && node build-tools/webbrowser.js 
+    #            && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
     #            && npm run webbrowser
     #            && rimraf open_webbrowser.js\"
-    
+
 #=====================
     'http': '
         http-server -p 9090 ./
@@ -447,16 +453,16 @@ scripts:
 #    node node_modules/httpserver/httpserver.js 9090 127.0.0.1
 #    http-server -p 9090 ./
 #    node  .\node_modules\node-http-server\server\http.js root=. port=9090 launch=now verbose=true
-#    node build-tools/http-server.js
+#    node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
 
 #=====================
     'live-reload': '
-    
+
         live-reload --port 9091 --delay 1000 build-output/
     '
 
 #=====================
     'webbrowser': '
-    
-        opener http://127.0.0.1:9090/build-output-usage-example/
+
+        opener http://127.0.0.1:9090/build-output/
     '

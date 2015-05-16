@@ -1,5 +1,5 @@
-define(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubReader){
-	
+define(['jquery', './EpubLibrary', './EpubReader'], function($, EpubLibrary, EpubReader){
+
 	var getEpubQueryParam = function(){
         var query = window.location.search;
         if (query && query.length){
@@ -20,7 +20,7 @@ define(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubRea
     }
 
 	var initialLoad = function(){
-    
+
 		var epubUrl = getEpubQueryParam();
 		if (epubUrl){
                 EpubReader.loadUI({epub: decodeURIComponent(epubUrl)});
@@ -41,7 +41,7 @@ define(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubRea
 	}
 
 	$(initialLoad);
-	
+
 	var pushState = $.noop;
 	if (window.history && window.history.pushState){
 		$(window).on('popstate', function(){
@@ -60,7 +60,7 @@ define(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubRea
 
 
 	var tooltipSelector = 'nav *[title]';
-    
+
 	var libraryView = function(){
 		$(tooltipSelector).tooltip('destroy');
 		EpubReader.unloadUI();
@@ -86,7 +86,7 @@ define(['jquery', 'EpubLibrary', 'EpubReader'], function($, EpubLibrary, EpubRea
 	$(document.body).tooltip({
 		selector : tooltipSelector,
 		placement: 'auto',
-		container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted 
+		container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted
 	}).on('show.bs.tooltip', function(e){
 		$(tooltipSelector).not(e.target).tooltip('destroy');
 	});

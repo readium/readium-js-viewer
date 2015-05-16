@@ -1,7 +1,7 @@
-define(['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html', 'hgn!templates/managed-buttons.html', 'i18n/Strings', 'workers/Messages'], function(ManagedDialog, ProgressDialog, ButtonTemplate, Strings, Messages){
+define(['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium_js_viewer_html_templates/progress-dialog.html', 'hgn!readium_js_viewer_html_templates/managed-buttons.html', 'readium_js_viewer_i18n/Strings', './workers/Messages'], function(ManagedDialog, ProgressDialog, ButtonTemplate, Strings, Messages){
 	var $currentModal,
 		lastTitle;
-	
+
 
 	var hideExistingModal = function(){
 		if($currentModal){
@@ -13,7 +13,7 @@ define(['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html
 		if (!$currentModal){
 			$currentModal = $(ManagedDialog({}));
 			$('#app-container').append($currentModal);
-			
+
 		}
 
 		$('#managed-label').text(title);
@@ -26,13 +26,13 @@ define(['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html
 			$('#managed-dialog .close').hide();
 		}
 
-		if ($currentModal.is(':hidden')){	
+		if ($currentModal.is(':hidden')){
 			$('#managed-dialog').modal('show');
 		}
-		
+
 	};
-            
-	Dialogs = {	
+
+	Dialogs = {
 		showError : function(type, data){
 			var msg = Strings.err_unknown;
 			switch(type){
@@ -44,8 +44,8 @@ define(['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html
 					break;
 				case Messages.ERROR_AJAX:
         				msg = Strings.err_ajax;
-                			break;						
-				default: 
+                			break;
+				default:
 					msg = Strings.err_unknown;
 					console.trace();
 					break;
@@ -83,8 +83,8 @@ define(['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html
 			// 	$('#managed-dialog .no-button').on('click', onCancel);
 		},
 		showModalPrompt : function(title, message, okLabel, cancelLabel, onOk, onCancel){
-			
-			
+
+
 			var buttons = [
 					{
 						dismiss: true,
@@ -103,7 +103,7 @@ define(['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html
 		},
 		showReplaceConfirm : function(title, message, okLabel, cancelLabel, keepBothLabel, onOk, onCancel, onKeepBoth){
 			var buttons = [
-				
+
 					{
 						dismiss: true,
 						text : cancelLabel,
@@ -119,7 +119,7 @@ define(['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html
 						text : keepBothLabel,
 						classes : ['keep-both-button', 'btn-primary']
 					}
-				
+
 			];
 			handlers = [onCancel, onOk, onKeepBoth];
 			Dialogs.showModalPromptEx(title, message, buttons, handlers);
@@ -132,16 +132,16 @@ define(['hgn!templates/managed-dialog.html', 'hgn!templates/progress-dialog.html
 			showModalDialog(false, title, ProgressDialog(data), '');
 		},
 		updateProgress : function(percent, type, data, noForce){
-			
+
 			var msg = '';
 			switch(type){
-				case Messages.PROGRESS_MIGRATING : 
+				case Messages.PROGRESS_MIGRATING :
 					msg = Strings.migrating + ' ' + data;
 					break;
-				case Messages.PROGRESS_EXTRACTING: 
+				case Messages.PROGRESS_EXTRACTING:
 					msg = Strings.i18n_extracting + ' ' + data;
 					break;
-				case Messages.PROGRESS_WRITING: 
+				case Messages.PROGRESS_WRITING:
 					msg = Strings.storing_file + ' ' + data;
 					break;
 				case Messages.PROGRESS_DELETING:

@@ -1,18 +1,18 @@
 
-define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'storage/Settings', 'i18n/Strings', 'Dialogs', 'Keyboard'], 
+define(['module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './Spinner', './storage/Settings', 'readium_js_viewer_i18n/Strings', './Dialogs', './Keyboard'], 
         function (module, $, _, bootstrap, Readium, spinner, Settings, Strings, Dialogs, Keyboard) {
 
     var init = function(readium) {
-        
+
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData) {
             // That's after mediaOverlayPlayer.onPageChanged()
 
             if (readium.reader.isMediaOverlayAvailable()) {
                 $('#audioplayer').show();
             }
-            
+
             if (!pageChangeData.spineItem) return;
-            
+
             var smil = readium.reader.package().media_overlay.getSmilBySpineItem(pageChangeData.spineItem);
 
             var atLeastOneIsEnabled = false;
@@ -27,7 +27,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 atLeastOneIsEnabled = true;
                 $moSyncWord.removeAttr('disabled');
             }
-            
+
             var $moSyncSentence = $('#mo-sync-sentence');
             if (!smil || !smil.hasSync("sentence"))
             {
@@ -49,7 +49,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 atLeastOneIsEnabled = true;
                 $moSyncParagraph.removeAttr('disabled');
             }
-            
+
             var $moSyncDefault = $('#mo-sync-default');
             if (!atLeastOneIsEnabled)
             {
@@ -60,7 +60,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 $moSyncDefault.removeAttr('disabled');
             }
         });
-        
+
         var $audioPlayer = $('#audioplayer');
 
         Settings.get('reader', function(json)
@@ -68,21 +68,21 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             if (!json)
             {
                 json = {};
-                
+
                 var settings = readium.reader.viewerSettings();
-                
+
                 json.mediaOverlaysSkipSkippables = settings.mediaOverlaysSkipSkippables;
                 json.mediaOverlaysAutomaticPageTurn = settings.mediaOverlaysAutomaticPageTurn;
                 json.mediaOverlaysEnableClick = settings.mediaOverlaysEnableClick;
                 json.mediaOverlaysPreservePlaybackWhenScroll = settings.mediaOverlaysPreservePlaybackWhenScroll;
-                
+
                 Settings.put('reader', json);
             }
-            
+
             if (json.mediaOverlaysSkipSkippables) // excludes typeof json.mediaOverlaysSkipSkippables === "undefined", so the default is to disable skippability
             {
                 $audioPlayer.addClass('skip');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysSkipSkippables: true
@@ -91,7 +91,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             else
             {
                 $audioPlayer.removeClass('skip');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysSkipSkippables: false
@@ -101,7 +101,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             if (json.mediaOverlaysPreservePlaybackWhenScroll)
             {
                 $audioPlayer.addClass('playScroll');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysPreservePlaybackWhenScroll: true
@@ -110,7 +110,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             else
             {
                 $audioPlayer.removeClass('playScroll');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysPreservePlaybackWhenScroll: false
@@ -120,7 +120,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             if (json.mediaOverlaysAutomaticPageTurn)
             {
                 $audioPlayer.addClass('autoPageTurn');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysAutomaticPageTurn: true
@@ -129,17 +129,17 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             else
             {
                 $audioPlayer.removeClass('autoPageTurn');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysAutomaticPageTurn: false
                 });
             }
-            
+
             if (json.mediaOverlaysEnableClick)
             {
                 $audioPlayer.removeClass('no-touch');
-        
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysEnableClick: true
@@ -148,14 +148,14 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             else
             {
                 $audioPlayer.addClass('no-touch');
-                
+
                 readium.reader.updateSettings({
                     doNotUpdateView: true,
                     mediaOverlaysEnableClick: false
                 });
             }
         });
-        
+
         var $moSyncDefault = $('#mo-sync-default');
         $moSyncDefault.on("click", function () {
             var wasPlaying = readium.reader.isPlayingMediaOverlay();
@@ -168,7 +168,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 doNotUpdateView: true,
                 mediaOverlaysSynchronizationGranularity: ""
             });
-            
+
             if (wasPlaying)
             {
                 readium.reader.playMediaOverlay();
@@ -181,12 +181,12 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             {
                 readium.reader.pauseMediaOverlay();
             }
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysSynchronizationGranularity: "word"
             });
-            
+
             if (wasPlaying)
             {
                 readium.reader.playMediaOverlay();
@@ -204,7 +204,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 doNotUpdateView: true,
                 mediaOverlaysSynchronizationGranularity: "sentence"
             });
-            
+
             if (wasPlaying)
             {
                 readium.reader.playMediaOverlay();
@@ -222,19 +222,19 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 doNotUpdateView: true,
                 mediaOverlaysSynchronizationGranularity: "paragraph"
             });
-            
+
             if (wasPlaying)
             {
                 readium.reader.playMediaOverlay();
             }
         });
-        
-        
+
+
         var $highlighterButts = $('.btn-mo-highlighter');
         $highlighterButts.on("click", function () {
             $highlighterButts.attr("aria-selected", "false");
             $(this).attr("aria-selected", "true");
-            
+
             var index = $(this).attr("data-mohighlight");
 
             readium.reader.setStyles([
@@ -243,7 +243,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                     declarations: undefined
                 }
             ], true);
-            
+
             if (index === "1")
             {
                 readium.reader.setStyles([
@@ -330,44 +330,44 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 ], true);
             }
         });
-        
+
         Keyboard.on(Keyboard.MediaOverlaysEscape, 'reader', readium.reader.escapeMediaOverlay);
-        
+
         var $escAudioBtn = $("#btn-esc-audio");
         $escAudioBtn.on("click", readium.reader.escapeMediaOverlay);
-        
+
         var $previousAudioBtn = $("#btn-previous-audio");
         var $nextAudioBtn = $("#btn-next-audio");
-        
+
         Keyboard.on(Keyboard.MediaOverlaysPlayPause, 'reader', readium.reader.toggleMediaOverlay);
         //Keyboard.on(Keyboard.MediaOverlaysPlayPauseAlt, 'reader', readium.reader.toggleMediaOverlay);
-        
+
         var $playAudioBtn = $("#btn-play-audio");
         var $pauseAudioBtn = $("#btn-pause-audio");
-        
+
         $playAudioBtn.on("click", function () {
             //readium.reader[$(this).hasClass('pause-audio') ? 'pauseMediaOverlay' : 'playMediaOverlay']();
             //readium.reader.toggleMediaOverlay();
             var wasFocused = document.activeElement === $playAudioBtn[0];
             readium.reader.playMediaOverlay();
-            
+
             $playAudioBtn.removeAttr("accesskey");
             $pauseAudioBtn.attr("accesskey", Keyboard.MediaOverlaysPlayPause);
-            
+
             if (wasFocused) setTimeout(function(){ $pauseAudioBtn[0].focus(); }, 50);
         });
-        
+
         $pauseAudioBtn.on("click", function () {
             var wasFocused = document.activeElement === $pauseAudioBtn[0];
             readium.reader.pauseMediaOverlay();
-            
+
             $pauseAudioBtn.removeAttr("accesskey");
             $playAudioBtn.attr("accesskey", Keyboard.MediaOverlaysPlayPause);
-            
+
             if (wasFocused) setTimeout(function(){ $playAudioBtn[0].focus(); }, 50);
         });
-        
-        
+
+
         var $expandAudioBtn = $("#btn-expand-audio");
         var $collapseAudioBtn = $("#btn-collapse-audio");
 
@@ -376,19 +376,19 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             if (expand)
             {
                 $audioPlayer.addClass('expanded-audio');
-                
+
                 $expandAudioBtn.removeAttr("accesskey");
                 $collapseAudioBtn.attr("accesskey", Keyboard.MediaOverlaysAdvancedPanelShowHide);
             }
             else
             {
                 $audioPlayer.removeClass('expanded-audio');
-                
+
                 $collapseAudioBtn.removeAttr("accesskey");
                 $expandAudioBtn.attr("accesskey", Keyboard.MediaOverlaysAdvancedPanelShowHide);
             }
         };
-        
+
         Keyboard.on(Keyboard.MediaOverlaysAdvancedPanelShowHide, 'reader', function(){
             var toFocus = undefined;
             if ($audioPlayer.hasClass('expanded-audio'))
@@ -405,13 +405,13 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             $(document.body).removeClass('hide-ui');
             setTimeout(function(){ toFocus.focus(); }, 50);
         });
-        
+
         $expandAudioBtn.on("click", function() {
             var wasFocused = document.activeElement === $expandAudioBtn[0];
             updateAudioExpand(true);
             if (wasFocused) setTimeout(function(){ $collapseAudioBtn[0].focus(); }, 50);
         });
-        
+
         $collapseAudioBtn.on("click", function() {
             var wasFocused = document.activeElement === $collapseAudioBtn[0];
             updateAudioExpand(false);
@@ -419,12 +419,12 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
         });
 
         var $changeTimeControl = $('#time-range-slider');
-        
+
         var debouncedTimeRangeSliderChange = _.debounce(
             function() {
-        
+
                 inDebounce = false;
-                
+
                 var percent = $changeTimeControl.val();
 
                 var package = readium.reader.package();
@@ -434,40 +434,40 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 var par = {par: undefined};
                 var smilData = {smilData: undefined};
                 var milliseconds = {milliseconds: undefined};
-        
+
                 package.media_overlay.percentToPosition(percent, smilData, par, milliseconds);
-        
+
                 if (!par.par || !par.par.text || !smilData.smilData)
                 {
                     return;
                 }
-        
+
                 var smilSrc = smilData.smilData.href;
-        
+
                 var offsetS = milliseconds.milliseconds / 1000.0;
-        
+
                 readium.reader.mediaOverlaysOpenContentUrl(par.par.text.src, smilSrc, offsetS);
             }
         , 800);
-        
+
         var updateSliderLabels = function($slider, val, txt)
         {
             $slider.attr("aria-valuenow", val+"");
             $slider.attr("aria-value-now", val+"");
-            
+
             $slider.attr("aria-valuetext", txt+"");
             $slider.attr("aria-value-text", txt+"");
         };
-        
+
         $changeTimeControl.on("change",
         function() {
-            
+
             var percent = $changeTimeControl.val();
             percent = Math.round(percent);
-            
+
             $changeTimeControl.attr("data-value", percent);
             updateSliderLabels($changeTimeControl, percent, percent + "%");
-            
+
             if (readium.reader.isPlayingMediaOverlay())
             {
                 readium.reader.pauseMediaOverlay();
@@ -475,7 +475,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             debouncedTimeRangeSliderChange();
         }
         );
-        
+
         readium.reader.on(ReadiumSDK.Events.MEDIA_OVERLAY_STATUS_CHANGED, function (value) {
 
             //var $audioPlayerControls = $('#audioplayer button, #audioplayer input:not(.mo-sync)');
@@ -502,13 +502,13 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             $audioPlayer.toggleClass('isPlaying', isPlaying);
 
             if (wasFocused) setTimeout(function(){ (isPlaying ? $pauseAudioBtn[0] : $playAudioBtn[0]).focus(); }, 50);
-            
+
             percent = -1; // to prevent flickering slider position (pause callback is raised between each audio phrase!)
 
             // if (readium.reader.isMediaOverlayAvailable()) {
             //     $audioPlayer.show();
             //     //$audioPlayerControls.attr('disabled', false);
-            //     
+            //
             // } else {
             //     //$audioPlayerControls.attr('disabled', true);
             // }
@@ -516,7 +516,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             if ((typeof value.playPosition !== "undefined") && (typeof value.smilIndex !== "undefined") && (typeof value.parIndex !== "undefined"))
             {
                 var package = readium.reader.package();
-                
+
                 var playPositionMS = value.playPosition * 1000;
                 percent = package.media_overlay.positionToPercent(value.smilIndex, value.parIndex, playPositionMS);
 
@@ -534,16 +534,16 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 updateSliderLabels($changeTimeControl, percent, percent + "%");
             }
         });
-        
+
         var $buttondPreservePlaybackWhenScrollDisable = $('#btn-playback-scroll-disable');
         var $buttonPreservePlaybackWhenScrollEnable = $('#btn-playback-scroll-enable');
-        
+
         $buttondPreservePlaybackWhenScrollDisable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttondPreservePlaybackWhenScrollDisable[0];
-            
+
             $audioPlayer.removeClass('playScroll');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysPreservePlaybackWhenScroll: false
@@ -555,48 +555,48 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysPreservePlaybackWhenScroll = false;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonPreservePlaybackWhenScrollEnable[0].focus(); }, 50);
         });
 
         $buttonPreservePlaybackWhenScrollEnable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonPreservePlaybackWhenScrollEnable[0];
-            
+
             $audioPlayer.addClass('playScroll');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysPreservePlaybackWhenScroll: true
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysPreservePlaybackWhenScroll = true;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttondPreservePlaybackWhenScrollDisable[0].focus(); }, 50);
         });
 
         var $buttonAutoPageTurnDisable = $('#btn-auto-page-turn-disable');
         var $buttonAutoPageTurnEnable = $('#btn-auto-page-turn-enable');
-        
+
         $buttonAutoPageTurnDisable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonAutoPageTurnDisable[0];
-            
+
             $audioPlayer.removeClass('autoPageTurn');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysAutomaticPageTurn: false
@@ -608,49 +608,49 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysAutomaticPageTurn = false;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonAutoPageTurnEnable[0].focus(); }, 50);
         });
 
         $buttonAutoPageTurnEnable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonAutoPageTurnEnable[0];
-            
+
             $audioPlayer.addClass('autoPageTurn');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysAutomaticPageTurn: true
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysAutomaticPageTurn = true;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonAutoPageTurnDisable[0].focus(); }, 50);
         });
-        
+
 
         var $buttonSkipDisable = $('#btn-skip-audio-disable');
         var $buttonSkipEnable = $('#btn-skip-audio-enable');
-        
+
         $buttonSkipDisable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonSkipDisable[0];
-            
+
             $audioPlayer.removeClass('skip');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysSkipSkippables: false
@@ -662,95 +662,95 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysSkipSkippables = false;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonSkipEnable[0].focus(); }, 50);
         });
 
         $buttonSkipEnable.on("click", function() {
 
             var wasFocused = document.activeElement === $buttonSkipEnable[0];
-            
+
             $audioPlayer.addClass('skip');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysSkipSkippables: true
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysSkipSkippables = true;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonSkipDisable[0].focus(); }, 50);
         });
-        
+
         var $buttonTouchEnable = $('#btn-touch-audio-enable');
         var $buttonTouchDisable = $('#btn-touch-audio-disable');
-        
+
         $buttonTouchEnable.on("click", function() {
-            
+
             var wasFocused = document.activeElement === $buttonTouchEnable[0];
-            
+
             $audioPlayer.removeClass('no-touch');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysEnableClick: true
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysEnableClick = true;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonTouchDisable[0].focus(); }, 50);
         });
-        
+
         $buttonTouchDisable.on("click", function() {
-            
+
             var wasFocused = document.activeElement === $buttonTouchDisable[0];
-            
+
             $audioPlayer.addClass('no-touch');
-            
+
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysEnableClick: false
             });
-            
+
             Settings.get('reader', function(json)
             {
                 if (!json)
                 {
                     json = {};
                 }
-                
+
                 json.mediaOverlaysEnableClick = false;
                 Settings.put('reader', json);
             });
-            
+
             if (wasFocused) setTimeout(function(){ $buttonTouchEnable[0].focus(); }, 50);
         });
-        
+
         var $changeRateControl = $('#rate-range-slider');
         var $changeRateControl_label = $('#rate-range-slider-label');
-        
+
         var changeRate = function(minus)
         {
             var rateMin = parseFloat($changeRateControl.attr("min"));
@@ -762,31 +762,31 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
 
             if (rateVal > rateMax) rateVal = rateMax;
             if (rateVal < rateMin) rateVal = rateMin;
-            
+
             var txt = ((rateVal === 0 ? "~0" : ""+rateVal) + "x");
-            
+
             updateSliderLabels($changeRateControl, rateVal, txt);
-            
+
             $changeRateControl_label[0].textContent = txt;
-            
+
             //readium.reader.setRateMediaOverlay(rateVal);
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysRate: rateVal
             });
-            
+
             $changeRateControl.val(""+rateVal);
         };
-        
+
         $("#buttRatePlus").on("click", function(){
             changeRate(false);
             //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         });
-        Keyboard.on(Keyboard.MediaOverlaysRateIncrease, 'reader', function(){        
+        Keyboard.on(Keyboard.MediaOverlaysRateIncrease, 'reader', function(){
             changeRate(false);
             //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         });
-        
+
         $("#buttRateMinus").on("click", function(){
             changeRate(true);
             //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
@@ -795,39 +795,39 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             changeRate(true);
             //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         });
-        
-        // Keyboard.on(Keyboard.MediaOverlaysRateIncreaseAlt, 'reader', function(){        
+
+        // Keyboard.on(Keyboard.MediaOverlaysRateIncreaseAlt, 'reader', function(){
         //     changeRate(false);
         //     //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         // });
-        // 
+        //
         // Keyboard.on(Keyboard.MediaOverlaysRateDecreaseAlt, 'reader', function(){
         //     changeRate(true);
         //     //setTimeout(function(){ $changeRateControl[0].focus(); }, 50);
         // });
-        
+
         $changeRateControl.on("change", function() {
             var rateVal = $(this).val();
             var txt = ((rateVal === '0' ? "~0" : rateVal) + "x");
-            
+
             updateSliderLabels($(this), rateVal, txt);
 
             $changeRateControl_label[0].textContent = txt;
-            
+
             //readium.reader.setRateMediaOverlay(rateVal);
             readium.reader.updateSettings({
                 doNotUpdateView: true,
                 mediaOverlaysRate: rateVal
             });
         });
-        
+
         var resetRate = function() {
             $changeRateControl.val(1);
 
             updateSliderLabels($changeRateControl, "1", "1x");
 
             $changeRateControl_label[0].textContent = "1x";
-            
+
             //readium.reader.setRateMediaOverlay(1);
             readium.reader.updateSettings({
                 doNotUpdateView: true,
@@ -836,12 +836,12 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
         };
 
         Keyboard.on(Keyboard.MediaOverlaysRateReset, 'reader', resetRate);
-        
+
         var $rateButton = $('#btn-audio-rate');
         $rateButton.on("click", resetRate);
-        
+
         var $changeVolumeControl = $('#volume-range-slider');
-        
+
         var changeVolume = function(minus)
         {
             var volumeVal = parseInt($changeVolumeControl.val());
@@ -856,18 +856,18 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 doNotUpdateView: true,
                 mediaOverlaysVolume: volumeVal
             });
-            
+
             $changeVolumeControl.val(""+volumeVal);
 
             updateSliderLabels($changeVolumeControl, volumeVal, volumeVal + "%");
-            
+
             if (volumeVal === 0) {
                 $audioPlayer.addClass('no-volume');
             } else {
                 $audioPlayer.removeClass('no-volume');
             }
         };
-        
+
         $("#buttVolumePlus").on("click", function(){
             changeVolume(false);
             //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
@@ -876,7 +876,7 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             changeVolume(false);
             //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
         });
-        
+
         $("#buttVolumeMinus").on("click", function(){
             changeVolume(true);
             //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
@@ -885,17 +885,17 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             changeVolume(true);
             //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
         });
-        
+
         // Keyboard.on(Keyboard.MediaOverlaysVolumeIncreaseAlt, 'reader', function(){
         //     changeVolume(false);
         //     //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
         // });
-        
+
         // Keyboard.on(Keyboard.MediaOverlaysVolumeDecreaseAlt, 'reader', function(){
         //     changeVolume(true);
         //     //setTimeout(function(){ $changeVolumeControl[0].focus(); }, 50);
         // });
-        
+
         $changeVolumeControl.on("change", function() {
             var volumeVal = $(this).val();
 
@@ -906,19 +906,19 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
             });
 
             updateSliderLabels($changeVolumeControl, volumeVal, volumeVal + "%");
-            
+
             if (volumeVal === '0') {
                 $audioPlayer.addClass('no-volume');
             } else {
                 $audioPlayer.removeClass('no-volume');
             }
         });
-                
+
         $volumeButtonMute = $('#btn-audio-volume-mute');
         $volumeButtonUnMute = $('#btn-audio-volume-unmute');
-        
+
         var _lastVolumeBeforeMute = '0';
-        
+
         var muteVolume = function(){
 
             _lastVolumeBeforeMute = $changeVolumeControl.val();
@@ -928,17 +928,17 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 doNotUpdateView: true,
                 mediaOverlaysVolume: 0
             });
-            
+
             $changeVolumeControl.val(0);
 
             updateSliderLabels($changeVolumeControl, 0, 0 + "%");
-            
+
             $volumeButtonMute.removeAttr("accesskey");
             $volumeButtonUnMute.attr("accesskey", Keyboard.MediaOverlaysVolumeMuteToggle);
-            
+
             $audioPlayer.addClass('no-volume');
         };
-        
+
         var unMuteVolume = function(){
 
             //var currentVolume = $changeVolumeControl.val();
@@ -949,11 +949,11 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
                 doNotUpdateView: true,
                 mediaOverlaysVolume: volumeVal
             });
-            
+
             $changeVolumeControl.val(volumeVal);
 
             updateSliderLabels($changeVolumeControl, volumeVal, volumeVal + "%");
-            
+
             $volumeButtonUnMute.removeAttr("accesskey");
             $volumeButtonMute.attr("accesskey", Keyboard.MediaOverlaysVolumeMuteToggle);
 
@@ -963,31 +963,31 @@ define(['module','jquery', 'underscore', 'bootstrap', 'Readium', 'Spinner', 'sto
         Keyboard.on(Keyboard.MediaOverlaysVolumeMuteToggle, 'reader', function(){
             ($audioPlayer.hasClass('no-volume') ? unMuteVolume : muteVolume)();
         });
-        
+
         $volumeButtonMute.on("click", function() {
-            
+
             var wasFocused = document.activeElement === $volumeButtonMute[0];
-                
+
             muteVolume();
-                
+
             if (wasFocused) setTimeout(function(){ $volumeButtonUnMute[0].focus(); }, 50);
         });
-        
+
         $volumeButtonUnMute.on("click", function() {
-            
+
             var wasFocused = document.activeElement === $volumeButtonUnMute[0];
-            
+
             unMuteVolume();
-            
+
             if (wasFocused) setTimeout(function(){ $volumeButtonMute[0].focus(); }, 50);
         });
-        
+
         Keyboard.on(Keyboard.MediaOverlaysPrevious, 'reader', readium.reader.previousMediaOverlay);
-        
+
         $previousAudioBtn.on("click", readium.reader.previousMediaOverlay);
-        
+
         Keyboard.on(Keyboard.MediaOverlaysNext, 'reader', readium.reader.nextMediaOverlay);
-        
+
         $nextAudioBtn.on("click", readium.reader.nextMediaOverlay);
     };
 

@@ -1,4 +1,4 @@
-define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key, Settings){
+define(['readium_js_viewer_i18n/Strings', 'keymaster', './storage/Settings'], function(Strings, key, Settings){
 
     var keyBindings = {};
 
@@ -22,9 +22,9 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
             				, false // meta
             				, false // altGraphKey
             			);
-		
-		
-		
+
+
+
             			/*
             			// Safari and IE9 throw Error here due keyCode, charCode and which is readonly
             			// Uncomment this code block if you need legacy properties
@@ -35,7 +35,7 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
             			delete e.which;
             			_Object_defineProperty(e, {writable: true, configurable: true, value: 9})
             			*/
-		
+
             			return ((e["keyIdentifier"] || e["key"]) == "+" && (e["keyLocation"] || e["location"]) == 3) && (
             				e.ctrlKey ?
             					e.altKey ? // webkit
@@ -67,7 +67,7 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
             		"detail": 0,
             		"bubbles": false,
             		"cancelable": false,
-	
+
             		//legacy properties
             		"keyCode": 0,
             		"charCode": 0,
@@ -99,9 +99,9 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
                 //             get : function() {
                 //                 return this.keyCodeVal;
                 //             }
-                // });     
+                // });
                 // }catch(){}
-                // 
+                //
                 // try
                 // {
                 // Object.defineProperty(e, 'which', {
@@ -109,9 +109,9 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
                 //                 return this.keyCodeVal;
                 //             }
                 // });
-                // }catch(){} 
+                // }catch(){}
 
-            
+
             	var _prop_name
             		, localDict = {};
 
@@ -150,7 +150,7 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
             	localDict["which"] || (localDict["which"] = localDict["keyCode"]);
 
                 //e.keyCodeVal = _keyCode;
-            
+
             	if( "initKeyEvent" in e ) {//FF
             		//https://developer.mozilla.org/en/DOM/event.initKeyEvent
             		e.initKeyEvent( type, _bubbles, _cancelable, _view, _ctrlKey, _altKey, _shiftKey, _metaKey, _keyCode, _charCode );
@@ -194,7 +194,7 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
 // e[_prop_name] = _keyCode;
 // console.debug("PROP AFTER: " + e[_prop_name]);
             			}
-		
+
             		}
             	}
 
@@ -205,9 +205,9 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
             global.crossBrowser_initKeyboardEvent = crossBrowser_initKeyboardEvent;
 
             }.call(window);
-            
-            
-	Keyboard = {	
+
+
+	Keyboard = {
         resetToDefaults: function()
         {
             // reset current scheme to defaultOptions
@@ -247,18 +247,18 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
         applySettings: function(json)
         {
             this.resetToDefaults();
-            
+
             if (json && json.keyboard)
             {
                 // override with user options
                 for (prop in Keyboard)
                 {
                     if (!Keyboard.hasOwnProperty(prop)) continue;
-    
+
                     if (typeof Keyboard[prop] !== 'string') continue;
-            
+
                     if (typeof json.keyboard[prop] !== 'string') continue;
-    
+
                     Keyboard[prop] = json.keyboard[prop];
                 }
             }
@@ -268,25 +268,25 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
         dispatch: function(target, e)
         {
             //THIS FUNCTION NOT REACHED WHEN e.stopPropagation(); INVOKED IN IFRAME's HTML
-            
+
             if (e.cancelBubble)
             {
                 //WHEN e.cancelBubble = true IN IFRAME's HTML's own event callback
                 return;
             }
-            
+
             if (e.defaultPrevented)
             {
                 //WHEN e.preventDefault() INVOKED IN IFRAME's HTML
                 return;
             }
-            
+
             if (typeof e.returnValue !== "undefined" && !e.returnValue)
             {
                 //WHEN e.returnValue = false IN IFRAME's HTML's own event callback
                 return;
             }
-            
+
             var source = e.srcElement || e.target;
             if (source)
             {
@@ -298,7 +298,7 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
                     {
                         return;
                     }
-                    
+
                     if (parent.getAttribute)
                     {
                         var ce = parent.getAttribute("contenteditable");
@@ -307,42 +307,42 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
                             return;
                         }
                     }
-                 
+
                     if (parent.classList && parent.classList.contains("keyboard-input"))
                     {
                         return;
                     }
-                    
+
                     parent = parent.parentNode;
                 }
             }
-            
-            
+
+
             // //var newE = jQuery.extend(true, {}, e);// deep copy
             // var newE = $.extend($.Event(e.type), {}, e);
-            // 
+            //
             // newE.preventDefault();
             // newE.stopPropagation();
             // newE.stopImmediatePropagation();
-            // 
+            //
             // newE.originalEvent.bubbles = false;
             // newE.originalEvent.srcElement = document.documentElement;
             // newE.originalEvent.target = document.documentElement;
             // newE.originalEvent.view = window;
-            
+
             var ev = crossBrowser_initKeyboardEvent(e.type, {
                 "bubbles": true,
                 "cancelable": false,
-                
+
                 "keyCode": e.keyCode,
                 "charCode": e.charCode,
                 "which": e.which,
-                
+
                 "ctrlKey": e.ctrlKey,
                 "shiftKey": e.shiftKey,
                 "altKey": e.altKey,
                 "metaKey": e.metaKey,
-                
+
                 //https://developer.mozilla.org/en-US/docs/Web/API/event.which
                 "char": e.char ? e.char : String.fromCharCode(e.charCode), // lower/upper case-sensitive
                 "key": e.key ? e.key : e.keyCode // case-insensitive
@@ -354,19 +354,19 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
         scope: function(scope)
         {
             if (!scope) alert("!SCOPE ACTIVATE!");
-            
+
             key.setScope(scope);
         },
         on: function(keys, scope, callback)
         {
             if (!keys) console.error("!KEYS!");
-            
+
             if (!keyBindings.hasOwnProperty(scope))
             {
                 keyBindings[scope] = [];
             }
             keyBindings[scope].push(keys);
-            
+
             key.unbind(keys, scope);
             key(keys, scope, function()
             {
@@ -377,9 +377,9 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
         off: function(scope)
         {
             if (!scope) alert("!SCOPE OFF!");
-            
+
             if (!keyBindings.hasOwnProperty(scope)) return;
-            
+
             for (k in keyBindings[scope])
             {
                 key.unbind(k, scope);
@@ -388,95 +388,95 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
         i18n:
         {
             ShowSettingsModal: Strings.settings,
-        
+
             SettingsModalSave: Strings.settings + " - " + Strings.i18n_save_changes,
             SettingsModalClose: Strings.settings + " - " + Strings.i18n_close,
-        
+
             PagePrevious: Strings.i18n_page_previous,
             PageNext: Strings.i18n_page_next,
             PagePreviousAlt: Strings.i18n_page_previous + " (access key)",
             PageNextAlt: Strings.i18n_page_next + " (access key)",
-        
+
             ToolbarShow: Strings.i18n_toolbar_show,
             ToolbarHide: Strings.i18n_toolbar_hide,
-        
+
             FullScreenToggle: Strings.enter_fullscreen + " / " + Strings.exit_fullscreen,
-        
+
             SwitchToLibrary: Strings.view_library,
-        
+
             TocShowHideToggle: Strings.toc,
-        
+
             NightTheme: Strings.i18n_arabian_nights,
-        
+
             //MediaOverlaysPlayPauseAlt: Strings.i18n_audio_play + " / " + Strings.i18n_audio_pause,
             MediaOverlaysPlayPause: Strings.i18n_audio_play + " / " + Strings.i18n_audio_pause,
-            
+
             MediaOverlaysPrevious: Strings.i18n_audio_previous,
             MediaOverlaysNext: Strings.i18n_audio_next,
-        
+
             MediaOverlaysEscape: Strings.i18n_audio_esc,
-        
+
             MediaOverlaysRateIncrease: Strings.i18n_audio_rate_increase,
             MediaOverlaysRateDecrease: Strings.i18n_audio_rate_decrease,
             //MediaOverlaysRateIncreaseAlt: "",
             //MediaOverlaysRateDecreaseAlt: "",
             MediaOverlaysRateReset: Strings.i18n_audio_rate_reset,
-        
+
             MediaOverlaysVolumeIncrease: Strings.i18n_audio_volume_increase,
             MediaOverlaysVolumeDecrease: Strings.i18n_audio_volume_decrease,
             //MediaOverlaysVolumeIncreaseAlt: "",
             //MediaOverlaysVolumeDecreaseAlt: "",
             MediaOverlaysVolumeMuteToggle: Strings.i18n_audio_mute + " / " + Strings.i18n_audio_unmute,
-        
+
             MediaOverlaysAdvancedPanelShowHide: Strings.i18n_audio_expand,
-            
+
             BackgroundAudioPlayPause: Strings.i18n_audio_play_background + " / " + Strings.i18n_audio_pause_background
         },
         defaultOptions:  {},
         accesskeys: {}, // single key strokes are dynamically populated, based on the full shortcuts below:
         ShowSettingsModal: 'o', //accesskey'ed
-        
+
         SettingsModalSave: 's', //accesskey'ed
         SettingsModalClose: 'c', //accesskey'ed
-        
+
         PagePrevious: 'left', // ALT BELOW
         PageNext: 'right', // ALT BELOW
         PagePreviousAlt: '1', //accesskey'ed
         PageNextAlt: '2', //accesskey'ed
-        
+
         ToolbarShow: 'v', //accesskey'ed
         ToolbarHide: 'x', //accesskey'ed
-        
+
         FullScreenToggle: 'h', //accesskey'ed
-        
+
         SwitchToLibrary: 'b', //accesskey'ed
-        
+
         TocShowHideToggle: 't', //accesskey'ed
-        
+
         NightTheme: 'n', //accesskey'ed
-        
+
         MediaOverlaysEscape: 'r', //accesskey'ed
-        
+
         //MediaOverlaysPlayPauseAlt: 'p', // ALT BELOW
         MediaOverlaysPlayPause: 'm', //accesskey'ed
-        
+
         MediaOverlaysRateIncrease: 'l', //accesskey'ed
         MediaOverlaysRateDecrease: 'j', //accesskey'ed
         //MediaOverlaysRateIncreaseAlt: 'F8', //??
         //MediaOverlaysRateDecreaseAlt: 'shift+F8', //??
         MediaOverlaysRateReset: 'k', //accesskey'ed
-        
+
         MediaOverlaysVolumeIncrease: 'w', //accesskey'ed
         MediaOverlaysVolumeDecrease: 'q', //accesskey'ed
         //MediaOverlaysVolumeIncreaseAlt: 'F7', //??
         //MediaOverlaysVolumeDecreaseAlt: 'shift+F7', //??
         MediaOverlaysVolumeMuteToggle: 'a', //accesskey'ed
-        
+
         MediaOverlaysPrevious: 'y', //accesskey'ed
         MediaOverlaysNext: 'u', //accesskey'ed
-        
+
         MediaOverlaysAdvancedPanelShowHide: 'g', //accesskey'ed
-        
+
         BackgroundAudioPlayPause: 'd'
 	};
 
@@ -492,16 +492,16 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
 
             Keyboard.defaultOptions[prop] = Keyboard[prop];
         }
-        
+
         // too early (async reader.options storage lookup)
         // Settings.get('reader', function(json)
         // {
         //    Keyboard.applySettings(json);
-        // }); 
-        
+        // });
+
         //unnecessary
         //Keyboard.resetToDefaults();
-        
+
         //necessary!
         Keyboard.resetAccessKeys();
     }
@@ -509,6 +509,6 @@ define(['i18n/Strings', 'keymaster', 'storage/Settings'], function(Strings, key,
     {
         console.error(e);
     }
-    
+
 	return Keyboard;
 });

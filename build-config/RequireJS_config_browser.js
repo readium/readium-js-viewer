@@ -11,32 +11,28 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
+window.process = {};
+
+window.process._RJS_baseUrl = function(n)
+{
+    return "..";
+};
+
+window.process._RJS_rootDir = function(n)
+{
+    if (n == 3) return ".";
+    if (n == 2) return "readium-js";
+    if (n == 1) return "readium-js/readium-shared-js";
+    if (n == 0) return "readium-js/readium-shared-js/readium-cfi-js";
+};
 
 require.config({
 
-    baseUrl: process._RJS_baseUrl(3),
-
-    name: "readium-js-viewer_all",
-
-    // relative to this config file (not baseUrl)
-    out: "../build-output/_single-bundle/readium-js-viewer_all.js",
-
-    include: [
-        "readium_js_viewer/ReadiumViewer"
-    ],
-
-    insertRequire: [
-        "readium_js_viewer/ReadiumViewer"
-    ],
-
-    stubModules: ['hgn', 'i18n'],
+    /* http://requirejs.org/docs/api.html#config-waitSeconds */
+    waitSeconds: 1,
 
     paths:
     {
-        "version":
-            process._RJS_rootDir(3) + '/build-output/version',
-
-        "readium-js-viewer_all":
-            process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond'
+        "version": './build-output/version'
     }
 });

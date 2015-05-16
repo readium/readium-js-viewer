@@ -1,5 +1,5 @@
-define(['module', 'workers/Messages', 'jquery', 'PackageParser', 'encryptionHandler'], function(module, Messages, $, PackageParser, EncryptionHandler){
-	
+define(['module', './Messages', 'jquery', 'readium_js/epub-model/package_document_parser', 'readium_js/epub-fetch/encryption_handler'], function(module, Messages, $, PackageParser, EncryptionHandler){
+
 	var worker;
 	var cleanupWorker = function(){
 		worker.terminate();
@@ -22,7 +22,7 @@ define(['module', 'workers/Messages', 'jquery', 'PackageParser', 'encryptionHand
 		var cancelOverwrite = function(){
 			cleanupWorker();
 		}
-		
+
 		var innerError = callbacks.error || $.noop;
 		var error = function(error){
 			cleanupWorker();
@@ -30,7 +30,7 @@ define(['module', 'workers/Messages', 'jquery', 'PackageParser', 'encryptionHand
 		}
 
 
-		
+
 		worker.onmessage = function(evt){
 			var data = evt.data;
 			switch (data.msg){
@@ -40,7 +40,7 @@ define(['module', 'workers/Messages', 'jquery', 'PackageParser', 'encryptionHand
 					}
 					cleanupWorker();
 					break;
-				case Messages.CONTINUE_IMPORT_ZIP: 
+				case Messages.CONTINUE_IMPORT_ZIP:
 					cleanupWorker();
 					doWork({msg: Messages.CONTINUE_IMPORT_ZIP, buf: data.buf, index: data.index, rootDirName: data.rootDirName, libraryItems: data.libraryItems}, callbacks);
 					break;
@@ -54,7 +54,7 @@ define(['module', 'workers/Messages', 'jquery', 'PackageParser', 'encryptionHand
 						callbacks.overwrite(data.item, continueOverwrite, keepBoth, cancelOverwrite);
 					}
 					break;
-				case Messages.FIND_PACKAGE: 
+				case Messages.FIND_PACKAGE:
 					var containerDom = (new DOMParser()).parseFromString(data.containerStr, "text/xml");
 					var $rootfile = $('rootfile', containerDom);
 					if (!$rootfile.length){

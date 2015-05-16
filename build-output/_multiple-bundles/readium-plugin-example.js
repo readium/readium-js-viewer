@@ -1,4 +1,4 @@
-define('plugin-example/example',['plugins-controller', 'jquery'], function (Plugins, $) {
+define('readium_plugin_example/example',['readium_shared_js/plugins_controller', 'jquery'], function (Plugins, $) {
     var config = {
         backgroundColor: "yellow",
         borderColor: "red"
@@ -15,7 +15,7 @@ define('plugin-example/example',['plugins-controller', 'jquery'], function (Plug
                 self.emit("exampleEvent", api.reader.bookmarkCurrentPage());
             });
         });
-        
+
         $("body").css({border: '10px solid ' + config.borderColor});
 
         api.extendReader(self);
@@ -23,24 +23,10 @@ define('plugin-example/example',['plugins-controller', 'jquery'], function (Plug
 
     return config;
 });
-define('plugin-example', ['plugin-example/example'], function (main) { return main; });
 
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
+define('readium_plugin_example', ['readium_plugin_example/example'], function (main) { return main; });
 
-define('readium-plugin-example',['plugin-example'], function (pluginExampleConfig) {
-return pluginExampleConfig;
-});
 
+define("readium-plugin-example", function(){});
 
 //# sourceMappingURL=readium-plugin-example.js.map

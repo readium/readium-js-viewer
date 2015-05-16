@@ -1,4 +1,4 @@
-define(['jquery', 'EpubReader'], function($, EpubReader){
+define(['jquery', './EpubReader'], function($, EpubReader){
 
 	var getQueryParamData = function(){
         var query = window.location.search;
@@ -14,7 +14,7 @@ define(['jquery', 'EpubReader'], function($, EpubReader){
                 if(keyVal.length > 1){
                     data[keyVal[0]] = keyVal[1];
                 }
-                
+
             }
 
         }
@@ -22,7 +22,7 @@ define(['jquery', 'EpubReader'], function($, EpubReader){
     }
 
     $(function(){
-        
+
 	    var epubUrl = getQueryParamData();
         EpubReader.loadUI(epubUrl);
 
@@ -38,11 +38,11 @@ define(['jquery', 'EpubReader'], function($, EpubReader){
     });
 
 	var tooltipSelector = 'nav *[title]';
-    
+
 	$(document.body).tooltip({
 		selector : tooltipSelector,
 		placement: 'auto',
-		container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted 
+		container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted
 	}).on('show.bs.tooltip', function(e){
 		$(tooltipSelector).not(e.target).tooltip('destroy');
 	});

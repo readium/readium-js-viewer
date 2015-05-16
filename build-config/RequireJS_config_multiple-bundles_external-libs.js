@@ -11,32 +11,24 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-
 require.config({
 
-    baseUrl: process._RJS_baseUrl(3),
-
-    name: "readium-js-viewer_all",
+    baseUrl: process._RJS_baseUrl(1),
 
     // relative to this config file (not baseUrl)
-    out: "../build-output/_single-bundle/readium-js-viewer_all.js",
+    dir: "../build-output/_multiple-bundles",
 
-    include: [
-        "readium_js_viewer/ReadiumViewer"
-    ],
-
-    insertRequire: [
-        "readium_js_viewer/ReadiumViewer"
-    ],
-
-    stubModules: ['hgn', 'i18n'],
-
-    paths:
-    {
-        "version":
-            process._RJS_rootDir(3) + '/build-output/version',
-
-        "readium-js-viewer_all":
-            process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond'
-    }
+    modules:
+    [
+        {
+            name: "readium-external-libs",
+            create: true,
+            include: ["jath", "bootstrap", "bootstrapA11y", "hammerjs", "hogan", "jquery_hammer", "keymaster", "screenfull", "spin",
+            "mime-types", "zip", "zip-ext", "zip-fs", "cryptoJs/sha1", "cryptoJs/core",
+            'jquery',
+            'underscore', 'URIjs', 'punycode', 'SecondLevelDomains', 'IPv6',
+            'jquerySizes', 'domReady', 'eventEmitter', 'console_shim',
+            'rangy', 'rangy-core', 'rangy-textrange', 'rangy-highlighter', 'rangy-cssclassapplier', 'rangy-position']
+        }
+    ]
 });

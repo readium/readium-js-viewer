@@ -43,14 +43,14 @@ window.onload=function()
 function epubReadingSystem()
 {
     var div = document.getElementById("placeholder");
-    
+
     var logError = function(msg)
     {
         if (console && console.log) console.log(msg);
         if (alert) alert(msg);
         //TODO: append HTML to placeholder div
     };
-    
+
     if (!window.navigator.epubReadingSystem)
     {
         logError("!window.navigator.epubReadingSystem ???");
@@ -60,21 +60,21 @@ function epubReadingSystem()
     var appendNameValuePair = function(name, value, link)
     {
         var p = document.createElementNS("http://www.w3.org/1999/xhtml", 'p');
-    
+
         var span1 = document.createElementNS("http://www.w3.org/1999/xhtml", 'span');
         span1.setAttribute("class", "name");
-    
+
         var span2 = document.createElementNS("http://www.w3.org/1999/xhtml", 'span');
         span2.setAttribute("class", "value");
-    
+
         var txt1 = document.createTextNode(name + ": ");
         span1.appendChild(txt1);
-    
+
         var txt2 = document.createTextNode(value);
         span2.appendChild(txt2);
-    
+
         p.appendChild(span1);
-        
+
         if (link)
         {
             var a = document.createElementNS("http://www.w3.org/1999/xhtml", 'a');
@@ -87,13 +87,13 @@ function epubReadingSystem()
         {
             p.appendChild(span2);
         }
-        
+
         div.appendChild(p);
     };
 
     appendNameValuePair("name", window.navigator.epubReadingSystem.name);
     appendNameValuePair("version", window.navigator.epubReadingSystem.version);
-    
+
     if (!window.navigator.epubReadingSystem.readium)
     {
         logError("!window.navigator.epubReadingSystem.readium");
@@ -114,7 +114,7 @@ function epubReadingSystem()
         logError("!window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories");
         return;
     }
-    
+
     for (var i = 0; i < window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.length; i++)
     {
         var pp = document.createElementNS("http://www.w3.org/1999/xhtml", 'p');
@@ -122,7 +122,7 @@ function epubReadingSystem()
         var txt = document.createTextNode("readium.buildInfo.gitRepositories["+i+"]");
         pp.appendChild(txt);
         div.appendChild(pp);
-    
+
         var repo = window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories[i];
         appendNameValuePair("name", repo.name);
         appendNameValuePair("sha", repo.sha);
@@ -141,7 +141,21 @@ function epubReadingSystem()
 	</head>
 	<body>
 		<h1>window.navigator.epubReadingSystem</h1>
-        
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+
+		<mrow>
+
+				<msup><mi>a</mi><mn>2</mn></msup>
+				<mo>+</mo>
+
+				<msup><mi>b</mi><mn>2</mn></msup>
+				<mo>=</mo>
+
+				<msup><mi>c</mi><mn>2</mn></msup>
+		</mrow>
+
+	</math>
+	
         <div id="placeholder"></div>
 	</body>
 </html>

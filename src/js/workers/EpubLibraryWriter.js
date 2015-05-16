@@ -1,5 +1,5 @@
-define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirLoader', 'workers/Messages', 'workers/ContentTransformer'], function(StorageManager, ZipFileLoader, UnpackedDirLoader, Messages, ContentTransformer){
-	
+define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoader', './Messages', './ContentTransformer'], function(StorageManager, ZipFileLoader, UnpackedDirLoader, Messages, ContentTransformer){
+
 	var LibraryWriter = function(){
 
 	}
@@ -12,7 +12,7 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
 
             var parts = packageUrl.split('/');
             parts.pop();
-            
+
             var root = parts.join('/');
 
             return root + (relativeUrl.charAt(0) == '/' ? '' : '/') + relativeUrl
@@ -30,7 +30,7 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
         },
 
         _addEpub : function(options, packageObj, packagePath, encryptionData){
-            // create a random root folder name 
+            // create a random root folder name
             var rootDirName = this.rootDirName || (new Date().getTime() + '' + Math.floor(Math.random() * 1000)),
                 self = this,
                 fileLoader = this.fileLoader;
@@ -39,9 +39,9 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
                 if (err.original.code == 7)
                 {
                     // This is an InvalidStateError. It indicates that we ran out of memory.
-                    // Chrome has 500MB limit on the blobs you can create. It's also 
+                    // Chrome has 500MB limit on the blobs you can create. It's also
                     // possible that this indicates an actual invalid state. If you made
-                    // changes to the code and are getting this error all the time then 
+                    // changes to the code and are getting this error all the time then
                     // it's possible you screwed something up.
                     if (self.callbacks.continueImport && fileLoader.isZipFile()) {
                         self.callbacks.continueImport(fileLoader.getZipBlob(), count, rootDirName);
@@ -71,7 +71,7 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
             var contentTransformer = new ContentTransformer(encryptionData);
 
             var startAtIndex = this.startAtIndex || 0;
-            var count = startAtIndex; 
+            var count = startAtIndex;
             var max = fileLoader.loadAllFiles(['META-INF/encryption.xml'], startAtIndex, function(continueCallback, name, file){
                 var callback = function(name, transformedContent){
                     var path = rootDirName + '/' + name;
@@ -88,9 +88,9 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
         },
 
         _replaceEpub : function(toReplace, packageObj, packagePath){
-            
+
             var self = this;
-            
+
             var deleteThenCallback = function(newItem){
                 self.deleteEpub(toReplace, function(){
                     self.callbacks.success(newItem);
@@ -148,7 +148,7 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
                     }
                 }
             });
-            
+
         },
         _findPackagePath : function(containerStr, callback){
             findPackageResponse = function(data){
@@ -179,14 +179,14 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
                         }, true);
                     });
                 });
-                
+
                 // var $rootfile = $('rootfile', containerDom);
                 // if (!$rootfile.length){
                 //     this.options.error(Messages.ERROR_EPUB);
                 //     console.error('Epub container.xml missing rootfile element');
                 // }
-                
-               
+
+
             });
             //self.client.storeFile(self._getMimeType(entry.filename),  '/' + entry.filename, this.result);
         },
@@ -200,8 +200,8 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
                 success();
             }
         },
-        // necessary to have this in addition to delete by id because at some point during an overwrite there will be two 
-        // epubs in the index with the same id. 
+        // necessary to have this in addition to delete by id because at some point during an overwrite there will be two
+        // epubs in the index with the same id.
         deleteEpub : function(libraryItem, success, error){
             for (var i = 0; i < this.libraryData.length && this.libraryData[i] != libraryItem; i++);
 
@@ -220,7 +220,7 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
             });
 
         	fileLoader.init(this._addEpubToLibrary.bind(this, fileLoader));
-            
+
         },
         continueImportZip : function(blob, index, rootDirName, callbacks) {
             this.callbacks = callbacks;
@@ -239,7 +239,7 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
             // for (var i = 0; i < rawFiles.length; i++){
             //     var path = rawFiles[i].webkitRelativePath,
             //         shiftPath = path.split('/').shift().join('/');
-                
+
             //     files[shiftPath] = rawFiles[i];
             // }
             this._addEpubToLibrary(new UnpackedDirLoader(files));
@@ -247,7 +247,7 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
         importUrl : function(url, callbacks){
             // I don't want jquery in the worker so go old school
             var xhr = new XMLHttpRequest();
-                self = this, 
+                self = this,
                 error = function(){callbacks.error(Messages.ERROR_AJAX);};
 
             xhr.open('GET', url, true);
@@ -304,14 +304,14 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
 			}
 
             switch(msg){
-    			case Messages.IMPORT_ZIP : 
+    			case Messages.IMPORT_ZIP :
                     writer.libraryData = data.libraryItems;
     				var buf = data.buf;
                     StorageManager.initStorage(function(){
     				    writer.importZip(buf, {success: success, progress: progress, error: error, overwrite: overwrite, continueImport: continueImport});
                     }, error);
     			    break;
-                case Messages.CONTINUE_IMPORT_ZIP : 
+                case Messages.CONTINUE_IMPORT_ZIP :
                     writer.libraryData = data.libraryItems;
                     var buf = data.buf,
                         index = data.index,
@@ -341,7 +341,7 @@ define(['storage/StorageManager', 'storage/ZipFileLoader', 'storage/UnpackedDirL
                         writer.importUrl(url, {success: success, progress: progress, error: error, overwrite: overwrite});
                     }, error);
                     break;
-                case Messages.MIGRATE : 
+                case Messages.MIGRATE :
                     StorageManager.initStorage(function(){
                         var wrapProgress = function(percent, data){
                             progress(percent, Messages.PROGRESS_MIGRATING, data);

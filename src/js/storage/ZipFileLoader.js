@@ -1,6 +1,6 @@
 // inflate is required by zip but won't work if inflate is loaded before zip. Just explicitly adding it here since there is
 // no way to include it in the dependency chain that makes sense.
-define(['zip', 'module', 'workers/Messages', 'inflate'], function(zip, module, Messages){
+define(['zip', 'module', '../workers/Messages', 'inflate'], function(zip, module, Messages){
 	var config = module.config();
 	var largeFileThreshold = 150 * 1024 * 1024; // 150MB
 
@@ -21,7 +21,7 @@ define(['zip', 'module', 'workers/Messages', 'inflate'], function(zip, module, M
 
 			this.entries = {};
 			self = this;
-			
+
 			zip.createReader(new zip.BlobReader(buf), function(reader){
 				reader.getEntries(function(entries){
 					for (var i = 0; i < entries.length; i++){
@@ -31,7 +31,7 @@ define(['zip', 'module', 'workers/Messages', 'inflate'], function(zip, module, M
 					}
 					success();
 				});
-			}, this.options.error);	
+			}, this.options.error);
 		},
 		isZipFile : function() {
 			return true;
@@ -43,7 +43,7 @@ define(['zip', 'module', 'workers/Messages', 'inflate'], function(zip, module, M
 			if (!this.entries){
 				throw "you need to call ZipFileLoader.init first";
 			}
-			
+
 			var entry = this.entries[path];
 			if (entry) {
 				entry.getData(new zip.BlobWriter(), callback);
@@ -71,11 +71,11 @@ define(['zip', 'module', 'workers/Messages', 'inflate'], function(zip, module, M
 				entry.getData(new zip.BlobWriter(), progress.bind(null, continueCallback, entry.filename));
 			}
 
-			var buf = this.options.buf, 
+			var buf = this.options.buf,
 			    count = 0;
-			
+
 			// for large files we want to extract only one file at a time
-		    var concurrent = buf.size > largeFileThreshold ? 1 : 200; 
+		    var concurrent = buf.size > largeFileThreshold ? 1 : 200;
 
 			for (var fn in entries) {
 				var entry = entries[fn];
@@ -93,7 +93,7 @@ define(['zip', 'module', 'workers/Messages', 'inflate'], function(zip, module, M
 			}
 			return count;
 		},
-		
+
 	}
 	return ZipFileLoader;
 })

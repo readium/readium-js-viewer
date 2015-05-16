@@ -1440,29 +1440,12 @@ EPUBcfiParser = (function() {
   };
 })();
 
-define("cfi_parser_gen", (function (global) {
+define("readium_cfi_js/cfi_parser", (function (global) {
     return function () {
         var ret, fn;
         return ret || global.EPUBcfiParser;
     };
 }(this)));
-
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('cfi_parser',["./cfi_parser_gen"], function (cfi_parser_gen) {
-return cfi_parser_gen;
-});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -1562,7 +1545,7 @@ CFIAssertionError: function (expectedAssertion, targetElementAssertion, message)
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_errors");
     
-    define('cfi_runtime_errors',[],
+    define('readium_cfi_js/cfi_runtime_errors',[],
     function () {
         return obj;
     });
@@ -1949,7 +1932,7 @@ return obj;
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_instructions");
     
-    define('cfi_instructions',['jquery', './cfi_runtime_errors'],
+    define('readium_cfi_js/cfi_instructions',['jquery', './cfi_runtime_errors'],
     function ($, cfiRuntimeErrors) {
         return init($, cfiRuntimeErrors);
     });
@@ -1972,34 +1955,34 @@ if (typeof define == 'function' && typeof define.amd == 'object') {
 })(typeof window !== "undefined" ? window : this);
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 (function(global) {
 
 var init = function($, cfiParser, cfiInstructions, cfiRuntimeErrors) {
-    
+
     if (typeof cfiParser === "undefined") {
         throw new Error("UNDEFINED?! cfiParser");
     }
-    
+
     if (typeof cfiInstructions === "undefined") {
         throw new Error("UNDEFINED?! cfiInstructions");
     }
-    
+
     if (typeof cfiRuntimeErrors === "undefined") {
         throw new Error("UNDEFINED?! cfiRuntimeErrors");
     }
-    
+
 var obj = {
 
 // Description: This is an interpreter that inteprets an Abstract Syntax Tree (AST) for a CFI. The result of executing the interpreter
@@ -2007,32 +1990,32 @@ var obj = {
 //   represent the position or area in the EPUB referenced by a CFI.
 // Rationale: The AST is a clean and readable expression of the step-terminus structure of a CFI. Although building an interpreter adds to the
 //   CFI infrastructure, it provides a number of benefits. First, it emphasizes a clear separation of concerns between lexing/parsing a
-//   CFI, which involves some complexity related to escaped and special characters, and the execution of the underlying set of steps 
+//   CFI, which involves some complexity related to escaped and special characters, and the execution of the underlying set of steps
 //   represented by the CFI. Second, it will be easier to extend the interpreter to account for new/altered CFI steps (say for references
-//   to vector objects or multiple CFIs) than if lexing, parsing and interpretation were all handled in a single step. Finally, Readium's objective is 
-//   to demonstrate implementation of the EPUB 3.0 spec. An implementation with a strong separation of concerns that conforms to 
-//   well-understood patterns for DSL processing should be easier to communicate, analyze and understand. 
-// REFACTORING CANDIDATE: node type errors shouldn't really be possible if the CFI syntax is correct and the parser is error free. 
-//   Might want to make the script die in those instances, once the grammar and interpreter are more stable. 
-// REFACTORING CANDIDATE: The use of the 'nodeType' property is confusing as this is a DOM node property and the two are unrelated. 
-//   Whoops. There shouldn't be any interference, however, I think this should be changed. 
+//   to vector objects or multiple CFIs) than if lexing, parsing and interpretation were all handled in a single step. Finally, Readium's objective is
+//   to demonstrate implementation of the EPUB 3.0 spec. An implementation with a strong separation of concerns that conforms to
+//   well-understood patterns for DSL processing should be easier to communicate, analyze and understand.
+// REFACTORING CANDIDATE: node type errors shouldn't really be possible if the CFI syntax is correct and the parser is error free.
+//   Might want to make the script die in those instances, once the grammar and interpreter are more stable.
+// REFACTORING CANDIDATE: The use of the 'nodeType' property is confusing as this is a DOM node property and the two are unrelated.
+//   Whoops. There shouldn't be any interference, however, I think this should be changed.
 
     // ------------------------------------------------------------------------------------ //
     //  "PUBLIC" METHODS (THE API)                                                          //
     // ------------------------------------------------------------------------------------ //
 
-    // Description: Find the content document referenced by the spine item. This should be the spine item 
+    // Description: Find the content document referenced by the spine item. This should be the spine item
     //   referenced by the first indirection step in the CFI.
-    // Rationale: This method is a part of the API so that the reading system can "interact" the content document 
-    //   pointed to by a CFI. If this is not a separate step, the processing of the CFI must be tightly coupled with 
-    //   the reading system, as it stands now. 
+    // Rationale: This method is a part of the API so that the reading system can "interact" the content document
+    //   pointed to by a CFI. If this is not a separate step, the processing of the CFI must be tightly coupled with
+    //   the reading system, as it stands now.
     getContentDocHref : function (CFI, packageDocument, classBlacklist, elementBlacklist, idBlacklist) {
 
         var $packageDocument = $(packageDocument);
         var decodedCFI = decodeURI(CFI);
         var CFIAST = cfiParser.parse(decodedCFI);
 
-        if (!CFIAST || CFIAST.type !== "CFIAST") { 
+        if (!CFIAST || CFIAST.type !== "CFIAST") {
             throw cfiRuntimeErrors.NodeTypeError(CFIAST, "expected CFI AST root node");
         }
 
@@ -2058,7 +2041,7 @@ var obj = {
         var indirectionStepNum;
         var $currElement;
 
-        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning 
+        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning
         //   of the indirection step that referenced the content document.
         // Note: This assumes that indirection steps and index steps conform to an interface: an object with stepLength, idAssertion
         indirectionStepNum = this.getFirstIndirectionStepNum(CFIAST);
@@ -2086,7 +2069,7 @@ var obj = {
         var $range1TargetElement;
         var $range2TargetElement;
 
-        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning 
+        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning
         //   of the indirection step that referenced the content document.
         // Note: This assumes that indirection steps and index steps conform to an interface: an object with stepLength, idAssertion
         indirectionStepNum = this.getFirstIndirectionStepNum(CFIAST);
@@ -2111,7 +2094,7 @@ var obj = {
         };
     },
 
-    // Description: This method will return the element or node (say, a text node) that is the final target of the 
+    // Description: This method will return the element or node (say, a text node) that is the final target of the
     //   the CFI.
     getTargetElement : function (CFI, contentDocument, classBlacklist, elementBlacklist, idBlacklist) {
 
@@ -2120,8 +2103,8 @@ var obj = {
         var indirectionNode;
         var indirectionStepNum;
         var $currElement;
-        
-        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning 
+
+        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning
         //   of the indirection step that referenced the content document.
         // Note: This assumes that indirection steps and index steps conform to an interface: an object with stepLength, idAssertion
         indirectionStepNum = this.getFirstIndirectionStepNum(CFIAST);
@@ -2145,8 +2128,8 @@ var obj = {
         var $currElement;
         var $range1TargetElement;
         var $range2TargetElement;
-        
-        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning 
+
+        // Rationale: Since the correct content document for this CFI is already being passed, we can skip to the beginning
         //   of the indirection step that referenced the content document.
         // Note: This assumes that indirection steps and index steps conform to an interface: an object with stepLength, idAssertion
         indirectionStepNum = this.getFirstIndirectionStepNum(CFIAST);
@@ -2175,13 +2158,13 @@ var obj = {
         };
     },
 
-    // Description: This method allows a "partial" CFI to be used to reference a target in a content document, without a 
-    //   package document CFI component. 
+    // Description: This method allows a "partial" CFI to be used to reference a target in a content document, without a
+    //   package document CFI component.
     // Arguments: {
-    //     contentDocumentCFI : This is a partial CFI that represents a path in a content document only. This partial must be 
+    //     contentDocumentCFI : This is a partial CFI that represents a path in a content document only. This partial must be
     //        syntactically valid, even though it references a path starting at the top of a content document (which is a CFI that
     //        that has no defined meaning in the spec.)
-    //     contentDocument : A DOM representation of the content document to which the partial CFI refers. 
+    //     contentDocument : A DOM representation of the content document to which the partial CFI refers.
     // }
     // Rationale: This method exists to meet the requirements of the Readium-SDK and should be used with care
     getTargetElementWithPartialCFI : function (contentDocumentCFI, contentDocument, classBlacklist, elementBlacklist, idBlacklist) {
@@ -2189,24 +2172,24 @@ var obj = {
         var decodedCFI = decodeURI(contentDocumentCFI);
         var CFIAST = cfiParser.parse(decodedCFI);
         var indirectionNode;
-        
-        // Interpret the path node 
+
+        // Interpret the path node
         var $currElement = this.interpretIndexStepNode(CFIAST.cfiString.path, $("html", contentDocument), classBlacklist, elementBlacklist, idBlacklist);
 
         // Interpret the rest of the steps
         $currElement = this.interpretLocalPath(CFIAST.cfiString.localPath, 0, $currElement, classBlacklist, elementBlacklist, idBlacklist);
 
         // Return the element at the end of the CFI
-        return $currElement;        
+        return $currElement;
     },
 
-    // Description: This method allows a "partial" CFI to be used, with a content document, to return the text node and offset 
+    // Description: This method allows a "partial" CFI to be used, with a content document, to return the text node and offset
     //    referenced by the partial CFI.
     // Arguments: {
-    //     contentDocumentCFI : This is a partial CFI that represents a path in a content document only. This partial must be 
+    //     contentDocumentCFI : This is a partial CFI that represents a path in a content document only. This partial must be
     //        syntactically valid, even though it references a path starting at the top of a content document (which is a CFI that
     //        that has no defined meaning in the spec.)
-    //     contentDocument : A DOM representation of the content document to which the partial CFI refers. 
+    //     contentDocument : A DOM representation of the content document to which the partial CFI refers.
     // }
     // Rationale: This method exists to meet the requirements of the Readium-SDK and should be used with care
     getTextTerminusInfoWithPartialCFI : function (contentDocumentCFI, contentDocument, classBlacklist, elementBlacklist, idBlacklist) {
@@ -2215,8 +2198,8 @@ var obj = {
         var CFIAST = cfiParser.parse(decodedCFI);
         var indirectionNode;
         var textOffset;
-        
-        // Interpret the path node 
+
+        // Interpret the path node
         var $currElement = this.interpretIndexStepNode(CFIAST.cfiString.path, $("html", contentDocument), classBlacklist, elementBlacklist, idBlacklist);
 
         // Interpret the rest of the steps
@@ -2240,11 +2223,11 @@ var obj = {
 
     getFirstIndirectionStepNum : function (CFIAST) {
 
-        // Find the first indirection step in the local path; follow it like a regular step, as the step in the content document it 
+        // Find the first indirection step in the local path; follow it like a regular step, as the step in the content document it
         //   references is already loaded and has been passed to this method
         var stepNum = 0;
         for (stepNum; stepNum <= CFIAST.cfiString.localPath.steps.length - 1 ; stepNum++) {
-        
+
             nextStepNode = CFIAST.cfiString.localPath.steps[stepNum];
             if (nextStepNode.type === "indirectionStep") {
                 return stepNum;
@@ -2252,14 +2235,14 @@ var obj = {
         }
     },
 
-    // REFACTORING CANDIDATE: cfiString node and start step num could be merged into one argument, by simply passing the 
+    // REFACTORING CANDIDATE: cfiString node and start step num could be merged into one argument, by simply passing the
     //   starting step... probably a good idea, this would make the meaning of this method clearer.
     interpretLocalPath : function (localPathNode, startStepNum, $currElement, classBlacklist, elementBlacklist, idBlacklist) {
 
         var stepNum = startStepNum;
         var nextStepNode;
         for (stepNum; stepNum <= localPathNode.steps.length - 1 ; stepNum++) {
-        
+
             nextStepNode = localPathNode.steps[stepNum];
             if (nextStepNode.type === "indexStep") {
 
@@ -2307,9 +2290,9 @@ var obj = {
 
         // Indirection step
         var $stepTarget = cfiInstructions.followIndirectionStep(
-            indirectionStepNode.stepLength, 
-            $currElement, 
-            classBlacklist, 
+            indirectionStepNode.stepLength,
+            $currElement,
+            classBlacklist,
             elementBlacklist);
 
         // Check the id assertion, if it exists
@@ -2326,7 +2309,7 @@ var obj = {
 
     // REFACTORING CANDIDATE: The logic here assumes that a user will always want to use this terminus
     //   to inject content into the found node. This will not always be the case, and different types of interpretation
-    //   are probably desired. 
+    //   are probably desired.
     interpretTextTerminusNode : function (terminusNode, $currElement, elementToInject) {
 
         if (terminusNode === undefined || terminusNode.type !== "textTerminus") {
@@ -2335,8 +2318,8 @@ var obj = {
         }
 
         var $injectedElement = cfiInstructions.textTermination(
-            $currElement, 
-            terminusNode.offsetValue, 
+            $currElement,
+            terminusNode.offsetValue,
             elementToInject
             );
 
@@ -2349,10 +2332,10 @@ var obj = {
         var stepNum = 0;
         var nextStepNode;
         for (stepNum = 0 ; stepNum <= localPathNode.steps.length - 1 ; stepNum++) {
-        
+
             nextStepNode = localPathNode.steps[stepNum];
             if (nextStepNode.type === "indexStep") {
-                
+
                 $currElement = this.interpretIndexStepNode(nextStepNode, $currElement, classBlacklist, elementBlacklist, idBlacklist);
             }
             else if (nextStepNode.type === "indirectionStep") {
@@ -2360,7 +2343,7 @@ var obj = {
                 $currElement = this.interpretIndirectionStepNode(nextStepNode, $currElement, classBlacklist, elementBlacklist, idBlacklist);
             }
 
-            // Found the content document href referenced by the spine item 
+            // Found the content document href referenced by the spine item
             if ($currElement.is("itemref")) {
 
                 return cfiInstructions.retrieveItemRefHref($currElement, $packageDocument);
@@ -2385,18 +2368,18 @@ return obj;
 
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_interpreter");
-    
-    define('cfi_interpreter',['jquery', './cfi_parser', './cfi_instructions', './cfi_runtime_errors'],
+
+    define('readium_cfi_js/cfi_interpreter',['jquery', 'readium_cfi_js/cfi_parser', './cfi_instructions', './cfi_runtime_errors'],
     function ($, cfiParser, cfiInstructions, cfiRuntimeErrors) {
         return init($, cfiParser, cfiInstructions, cfiRuntimeErrors);
     });
 } else {
     console.log("!RequireJS ... cfi_interpreter");
-    
+
     if (!global["EPUBcfi"]) {
         throw new Error("EPUBcfi not initialised on global object?! (window or this context)");
     }
-    global.EPUBcfi.Interpreter = 
+    global.EPUBcfi.Interpreter =
     init($,
         global.EPUBcfi.Parser,
         global.EPUBcfi.CFIInstructions,
@@ -2892,7 +2875,7 @@ return obj;
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_generator");
     
-    define('cfi_generator',['jquery', './cfi_instructions', './cfi_runtime_errors'],
+    define('readium_cfi_js/cfi_generator',['jquery', './cfi_instructions', './cfi_runtime_errors'],
     function ($, cfiInstructions, cfiRuntimeErrors) {
         return init($, cfiInstructions, cfiRuntimeErrors);
     });
@@ -2916,44 +2899,44 @@ if (typeof define == 'function' && typeof define.amd == 'object') {
 })(typeof window !== "undefined" ? window : this);
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 (function(global) {
 
 var init = function(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors, cfiGenerator) {
-    
+
     if (typeof cfiParser === "undefined") {
         throw new Error("UNDEFINED?! cfiParser");
     }
-    
+
     if (typeof cfiInterpreter === "undefined") {
         throw new Error("UNDEFINED?! cfiInterpreter");
     }
-    
+
     if (typeof cfiInstructions === "undefined") {
         throw new Error("UNDEFINED?! cfiInstructions");
     }
-    
+
     if (typeof cfiRuntimeErrors === "undefined") {
         throw new Error("UNDEFINED?! cfiRuntimeErrors");
     }
-    
+
     if (typeof cfiGenerator === "undefined") {
         throw new Error("UNDEFINED?! cfiGenerator");
     }
-    
+
     var obj = {
-    
+
         getContentDocHref : function (CFI, packageDocument) {
             return cfiInterpreter.getContentDocHref(CFI, packageDocument);
         },
@@ -3006,8 +2989,8 @@ var init = function(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors
             return cfiInstructions.injectCFIMarkerIntoText($textNodeList, textOffset, elementToInject);
         }
     };
-    
-    
+
+
     // TODO: remove global (should not be necessary in properly-configured RequireJS build!)
     // ...but we leave it here as a "legacy" mechanism to access the CFI lib functionality
     // -----
@@ -3015,19 +2998,19 @@ var init = function(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors
     obj.Parser = cfiParser;
     obj.Interpreter = cfiInterpreter;
     obj.Generator = cfiGenerator;
-    
+
     obj.NodeTypeError= cfiRuntimeErrors.NodeTypeError;
     obj.OutOfRangeError = cfiRuntimeErrors.OutOfRangeError;
     obj.TerminusError = cfiRuntimeErrors.TerminusError;
     obj.CFIAssertionError = cfiRuntimeErrors.CFIAssertionError;
-    
+
     global.EPUBcfi = obj;
     // -----
-    
+
     console.log("#######################################");
     // console.log(global.EPUBcfi);
     // console.log("#######################################");
-    
+
     return obj;
 }
 
@@ -3038,19 +3021,19 @@ var init = function(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors
 
 if (typeof define == 'function' && typeof define.amd == 'object') {
     console.log("RequireJS ... cfi_API");
-    
-    define('cfi_API',['./cfi_parser', './cfi_interpreter', './cfi_instructions', './cfi_runtime_errors', './cfi_generator'],
+
+    define('readium_cfi_js/cfi_API',['readium_cfi_js/cfi_parser', './cfi_interpreter', './cfi_instructions', './cfi_runtime_errors', './cfi_generator'],
     function (cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors, cfiGenerator) {
-        
+
         return init(cfiParser, cfiInterpreter, cfiInstructions, cfiRuntimeErrors, cfiGenerator);
     });
 } else {
     console.log("!RequireJS ... cfi_API");
-    
+
     if (!global["EPUBcfi"]) {
         throw new Error("EPUBcfi not initialised on global object?! (window or this context)");
     }
-    
+
     init(global.EPUBcfi.Parser,
         global.EPUBcfi.Interpreter,
         global.EPUBcfi.CFIInstructions,
@@ -3065,42 +3048,11 @@ if (typeof define == 'function' && typeof define.amd == 'object') {
 
 })(typeof window !== "undefined" ? window : this);
 
-
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('readium-cfi-js',['cfi_API'], function (cfi) {
-return cfi;
-});
-
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
-
-define('epubCfi',['readium-cfi-js'], function (cfi) {
-return cfi;
-});
+define('readium_cfi_js', ['readium_cfi_js/cfi_API'], function (main) { return main; });
 
 
-require(["readium-cfi-js"]);
+define("readium-cfi-js", function(){});
+
+require(["readium_cfi_js/cfi_API"]);
 
 //# sourceMappingURL=readium-cfi-js.js.map

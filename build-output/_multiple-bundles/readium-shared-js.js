@@ -25,7 +25,7 @@
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('globals',['underscore','eventEmitter'], function(_, EventEmitter) {
+define('readium_shared_js/globals',['underscore','eventEmitter'], function(_, EventEmitter) {
 /**
  * Top level ReadiumSDK namespace
  * @namespace
@@ -171,20 +171,20 @@ navigator.epubReadingSystem = {
     }
 };
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 //'text!empty:'
-define('globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'epubCfi', 'globals'], function (console_shim, EventEmitter, URI, epubCfi, Globals) {
+define('readium_shared_js/globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'readium_cfi_js', './globals'], function (console_shim, EventEmitter, URI, epubCfi, Globals) {
 
     console.log("Globals...");
 
@@ -195,8 +195,8 @@ define('globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'epubCfi', 'glob
         console.log("ReadiumSDK set.");
         window.ReadiumSDK = Globals;
     }
-    
-    
+
+
     // TODO: refactor client code to use emit instead of trigger?
     EventEmitter.prototype.trigger = EventEmitter.prototype.emit;
 
@@ -215,6 +215,8 @@ define('globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'epubCfi', 'glob
         window.URL = window.webkitURL;
     }
 });
+
+define('readium_shared_js', ['readium_shared_js/globalsSetup'], function (main) { return main; });
 
 //
 //  Created by Juan Corona
@@ -245,8 +247,8 @@ define('globalsSetup',['console_shim', 'eventEmitter', 'URIjs', 'epubCfi', 'glob
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('plugins-controller',["jquery", "underscore", "eventEmitter", "globals"], function ($, _, EventEmitter, Globals) {
-    
+define('readium_shared_js/plugins_controller',["jquery", "underscore", "eventEmitter", "readium_shared_js/globals"], function ($, _, EventEmitter, Globals) {
+
     /**
      * A  plugins controller used to easily add plugins from the host app, eg.
      * ReadiumSDK.Plugins.register("footnotes", function(api){ ... });
@@ -444,7 +446,7 @@ define('plugins-controller',["jquery", "underscore", "eventEmitter", "globals"],
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/bookmark_data',[],function() {
+define('readium_shared_js/models/bookmark_data',[],function() {
 /**
  * @class Models.BookmarkData
  */
@@ -496,7 +498,7 @@ return BookmarkData;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/current_pages_info',[],function() {
+define('readium_shared_js/models/current_pages_info',[],function() {
 
 /**
  * Used to report pagination state back to the host application
@@ -609,7 +611,7 @@ return CurrentPagesInfo;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/fixed_page_spread',[],function() {
+define('readium_shared_js/models/fixed_page_spread',[],function() {
 /**
  *
  * @param {Models.Spine} spine
@@ -816,7 +818,7 @@ return Spread;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/spine_item',[], function() {
+define('readium_shared_js/models/spine_item',[], function() {
 
 /**
  * Wrapper of the SpineItem object received from the host application
@@ -1061,7 +1063,7 @@ SpineItem.alternateSpread = function(spread) {
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define('helpers',['underscore', "jquery", "jquerySizes", "./models/spine_item", "./globals"], function(_, $, JQuerySizes, SpineItem, Globals) {
+define('readium_shared_js/helpers',['underscore', "jquery", "jquerySizes", "./models/spine_item", "./globals"], function(_, $, JQuerySizes, SpineItem, Globals) {
 
 var Helpers = {};
 
@@ -1687,7 +1689,7 @@ return Helpers;
  *      - paginationInfo    Layout details, used by clientRect-based geometry
  * @constructor
  */
-define('views/cfi_navigation_logic',["jquery", "underscore", "../helpers", 'epubCfi'], function($, _, Helpers, epubCfi) {
+define('readium_shared_js/views/cfi_navigation_logic',["jquery", "underscore", "../helpers", 'readium_cfi_js'], function($, _, Helpers, epubCfi) {
 
 var CfiNavigationLogic = function($viewport, $iframe, options){
 
@@ -2455,7 +2457,7 @@ return CfiNavigationLogic;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/viewer_settings',[], function() {
+define('readium_shared_js/models/viewer_settings',[], function() {
 /**
  *
  * @param settingsData
@@ -2573,7 +2575,7 @@ var ViewerSettings = function(settingsData) {
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-define('views/one_page_view',["jquery", "underscore", "eventEmitter", "./cfi_navigation_logic", "../helpers", "../models/viewer_settings"],
+define('readium_shared_js/views/one_page_view',["jquery", "underscore", "eventEmitter", "./cfi_navigation_logic", "../helpers", "../models/viewer_settings"],
     function ($, _, EventEmitter, CfiNavigationLogic, Helpers, ViewerSettings) {
 
 /**
@@ -3488,7 +3490,7 @@ return OnePageView;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/page_open_request',[],function() {
+define('readium_shared_js/models/page_open_request',[],function() {
 /**
  * Representation of opening page request
  * Provides the spine item to be opened and one of the following properties:
@@ -3577,7 +3579,7 @@ return PageOpenRequest;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define ('views/fixed_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "../models/current_pages_info",
+define ('readium_shared_js/views/fixed_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "../models/current_pages_info",
     "../models/fixed_page_spread", "./one_page_view", "../models/page_open_request", "../helpers", "../globals"],
     function($, _, EventEmitter, BookmarkData, CurrentPagesInfo,
              Spread, OnePageView, PageOpenRequest, Helpers, Globals) {
@@ -4258,7 +4260,7 @@ var FixedView = function(options, reader){
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/iframe_loader',["jquery", "underscore"], function($, _) {
+define('readium_shared_js/views/iframe_loader',["jquery", "underscore"], function($, _) {
 /**
  *
  * @constructor
@@ -4366,7 +4368,7 @@ return IFrameLoader;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/internal_links_support',['jquery', '../helpers', 'epubCfi'], function($, Helpers, epubCfi) {
+define('readium_shared_js/views/internal_links_support',['jquery', '../helpers', 'readium_cfi_js'], function($, Helpers, epubCfi) {
 /**
  *
  * @param reader
@@ -4596,7 +4598,7 @@ return InternalLinksSupport;
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define ('models/smil_iterator',["jquery", "../helpers"], function($, Helpers) {
+define ('readium_shared_js/models/smil_iterator',["jquery", "../helpers"], function($, Helpers) {
 /**
  *
  * @param smil
@@ -4784,7 +4786,7 @@ return SmilIterator;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define ('views/media_overlay_data_injector',["jquery", "underscore", "../helpers", "../models/smil_iterator", "rangy", 'epubCfi'], function($, _, Helpers, SmilIterator, rangy, epubCfi) {
+define ('readium_shared_js/views/media_overlay_data_injector',["jquery", "underscore", "../helpers", "../models/smil_iterator", "rangy", 'readium_cfi_js'], function($, _, Helpers, SmilIterator, rangy, epubCfi) {
 /**
  *
  * @param mediaOverlay
@@ -5353,7 +5355,7 @@ return MediaOverlayDataInjector;
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-define('views/audio_player',['jquery'],function($) {
+define('readium_shared_js/views/audio_player',['jquery'],function($) {
 
     var _iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
     var _Android = navigator.userAgent.toLowerCase().indexOf('android') > -1;
@@ -6087,7 +6089,7 @@ define('views/audio_player',['jquery'],function($) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/media_overlay_element_highlighter',['jquery', 'rangy', 'epubCfi'], function($, rangy, epubCfi) {
+define('readium_shared_js/views/media_overlay_element_highlighter',['jquery', 'rangy', 'readium_cfi_js'], function($, rangy, epubCfi) {
 /**
  *
  * @param reader
@@ -6607,7 +6609,7 @@ var MediaOverlayElementHighlighter = function(reader) {
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define('views/scroll_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "../models/current_pages_info", "../helpers",
+define('readium_shared_js/views/scroll_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "../models/current_pages_info", "../helpers",
         "./one_page_view", "../models/page_open_request", "../globals", "../models/viewer_settings"],
     function ($, _, EventEmitter, BookmarkData, CurrentPagesInfo, Helpers,
               OnePageView, PageOpenRequest, Globals, ViewerSettings) {
@@ -7991,7 +7993,7 @@ return ScrollView;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/media_overlay_player',["jquery", "../helpers", "./audio_player", "./media_overlay_element_highlighter", "../globals", "../models/smil_iterator", "rangy", 'epubCfi', './scroll_view'],
+define('readium_shared_js/views/media_overlay_player',["jquery", "../helpers", "./audio_player", "./media_overlay_element_highlighter", "../globals", "../models/smil_iterator", "rangy", 'readium_cfi_js', './scroll_view'],
     function($, Helpers, AudioPlayer, MediaOverlayElementHighlighter, Globals, SmilIterator, rangy, epubCfi, ScrollView) {
 /**
  *
@@ -10120,7 +10122,7 @@ console.debug("textAbsoluteRef: " + textAbsoluteRef);
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/spine',["./spine_item"], function(SpineItem) {
+define('readium_shared_js/models/spine',["./spine_item"], function(SpineItem) {
 /**
  *  Wrapper of the spine object received from hosting application
  *
@@ -10355,7 +10357,7 @@ var Spine = function(epubPackage, spineDTO) {
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define ('models/smil_model',["../helpers"], function(Helpers) {
+define ('readium_shared_js/models/smil_model',["../helpers"], function(Helpers) {
 
 /**
  *
@@ -11115,7 +11117,7 @@ return SmilModel;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/media_overlay',["./smil_model"], function(SmilModel) {
+define('readium_shared_js/models/media_overlay',["./smil_model"], function(SmilModel) {
 /**
  *
  * @param package
@@ -11427,7 +11429,7 @@ return MediaOverlay;
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-define('models/package_data',[],function() {
+define('readium_shared_js/models/package_data',[],function() {
 /**
  * This object is not instantiated directly but provided by the host application to the DOMAccess layer in the
  * Views.ReaderView.openBook function
@@ -11497,7 +11499,7 @@ return PackageData;
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define('models/package',['../helpers','./spine_item','./spine','./media_overlay', './package_data'], function (Helpers, SpineItem, Spine, MediaOverlay, PackageData) {
+define('readium_shared_js/models/package',['../helpers','./spine_item','./spine','./media_overlay', './package_data'], function (Helpers, SpineItem, Spine, MediaOverlay, PackageData) {
 /**
  *
  * @class Package
@@ -11616,7 +11618,7 @@ return Package;
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/reflowable_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "./cfi_navigation_logic",
+define('readium_shared_js/views/reflowable_view',["jquery", "underscore", "eventEmitter", "../models/bookmark_data", "./cfi_navigation_logic",
     "../models/current_pages_info", "../helpers", "../models/page_open_request", "../globals",
     "../models/viewer_settings"],
     function($, _, EventEmitter, BookmarkData, CfiNavigationLogic,
@@ -12508,7 +12510,7 @@ var ReflowableView = function(options, reader){
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/style',[], function() {
+define('readium_shared_js/models/style',[], function() {
 /**
  *
  * @param selector
@@ -12558,7 +12560,7 @@ var Style = function(selector, declarations) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/style_collection',["./style"], function(Style) {
+define('readium_shared_js/models/style_collection',["./style"], function(Style) {
 /**
  *
  * @constructor
@@ -12663,7 +12665,7 @@ var StyleCollection = function() {
 //  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
-define('models/switches',["jquery", "underscore"], function($, _) {
+define('readium_shared_js/models/switches',["jquery", "underscore"], function($, _) {
 /**
  *
  * @constructor
@@ -12747,7 +12749,7 @@ Switches.apply = function(dom) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('models/trigger',["jquery", "../helpers"], function($, Helpers) {
+define('readium_shared_js/models/trigger',["jquery", "../helpers"], function($, Helpers) {
 /**
  * Setter fot epub Triggers
  *
@@ -12838,7 +12840,7 @@ Trigger.prototype.execute = function(dom) {
 //  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
-define('views/reader_view',["jquery", "underscore", "eventEmitter", "./fixed_view", "../helpers", "./iframe_loader", "./internal_links_support",
+define('readium_shared_js/views/reader_view',["jquery", "underscore", "eventEmitter", "./fixed_view", "../helpers", "./iframe_loader", "./internal_links_support",
         "./media_overlay_data_injector", "./media_overlay_player", "../models/package", "../models/page_open_request",
         "./reflowable_view", "./scroll_view", "../models/style_collection", "../models/switches", "../models/trigger",
         "../models/viewer_settings", "../globals"],
@@ -14257,24 +14259,9 @@ ReaderView.VIEW_TYPE_SCROLLED_DOC = 3;
 ReaderView.VIEW_TYPE_SCROLLED_CONTINUOUS = 4;
 return ReaderView;
 });
-//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
-//  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
-//  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
-//  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
-//  prior written permission.
 
-define('readium-shared-js',['globalsSetup', 'plugins-controller', 'views/reader_view'], function (globalsSetup, PluginsController, ReaderView) {
-//noop
-});
+define("readium-shared-js", function(){});
 
-
-require(["globalsSetup"]);
+require(["readium_shared_js/globalsSetup"]);
 
 //# sourceMappingURL=readium-shared-js.js.map

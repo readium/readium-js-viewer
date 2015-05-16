@@ -13,7 +13,7 @@ var repoNamePaths = {
     "readiumCfiJs": path_readiumCfiJS
 };
 
-var filePath = path.join(process.cwd(), 'readium-js', 'readium-shared-js', 'readium-cfi-js', 'build-tools', 'versionsMaker.js')
+var filePath = path.join(process.cwd(), 'readium-js', 'readium-shared-js', 'readium-cfi-js', 'readium-build-tools', 'versionsMaker.js')
 
 var fs = require("fs");
 fs.readFile(

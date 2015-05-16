@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html id="simpleViewer">
 <head>
-    <script src="http://localhost:9091"> </script> 
+    <script src="http://localhost:9091"> </script>
 
 
     <meta charset="utf-8">
@@ -9,13 +9,13 @@
 
     <link href="images/readium_favicon.png" rel="shortcut icon"/>
     <link href="images/readium-touch-icon.png" rel="apple-touch-icon"/>
-        
-    <style>    
+
+    <style>
         .library-item{
             height: 100px;
 
         }
-        
+
         body:not(.list-view) .library-item .no-cover{
             width: 300px;
             height: 400px;
@@ -27,7 +27,7 @@
 
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css">
-    
+
     <link rel="stylesheet" type="text/css" href="../build-output/css/sourcesanspro.css">
     <link rel="stylesheet" type="text/css" href="../build-output/css/readium_js.css">
     <link rel="stylesheet" type="text/css" href="../build-output/css/viewer.css">
@@ -78,12 +78,13 @@ require.config({
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-js-viewer_LITE.js.bundles.js"> </script>
 
 <script type="text/javascript">
-require(["readium-cfi-js", "globalsSetup", "readium-plugin-annotations"], function(){
+require(["readium_cfi_js/cfi_API", "readium_shared_js/globalsSetup", "readium_plugin_annotations"], function(){
 require(["jquery"], function(){
-require(["readium-js-viewer_LITE"], function(){});
+require(["readium_js_viewer/ReadiumViewerLite"], function(){});
 });
 });
 </script>
+
 
 
     </head>

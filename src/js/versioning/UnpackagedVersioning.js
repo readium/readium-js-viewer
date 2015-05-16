@@ -1,4 +1,4 @@
-define(['jquery', 'Readium'], function($, Readium){
+define(['jquery', 'readium_js/Readium'], function($, Readium){
 	var UnpackagedVersioning = {
 		getVersioningInfo: function(callback){
 
@@ -21,7 +21,7 @@ define(['jquery', 'Readium'], function($, Readium){
 			$.getJSON('package.json', function(data){
 				obj.version = data.version;
 				obj.chromeVersion = '2.' + data.version.substring(2);
-				
+
 				if (obj.sha){
 					callback(versionInfo);
 				} else {
@@ -38,7 +38,7 @@ define(['jquery', 'Readium'], function($, Readium){
 				}
 			});
 		}
-		
+
 	}
 	return UnpackagedVersioning;
 });
