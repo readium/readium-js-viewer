@@ -39,30 +39,6 @@
 
 <script type="text/javascript" src="./RequireJS_config.js"> </script>
 
-<script type="text/javascript">
-
-require.config({
-    map:
-    {
-          '*':
-          {
-              'StorageManager': 'readium_js_viewer/storage/StaticStorageManager'
-          }
-    }
-});
-
-require.config({
-    config : {
-        'readium_js_viewer/EpubReader' : {
-            'mathJaxUrl' : '/../build-output/mathjax/MathJax.js',
-            annotationCssUrl: '/build-output/css/annotations.css',
-            jsLibRoot: '../build-output/'
-        }
-    }
-});
-
-</script>
-
     </head>
 
     <!-- This is all application-specific HTML -->

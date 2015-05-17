@@ -76,15 +76,6 @@ require.config({
 
         // 'remotestorage':
         //     process._RJS_rootDir(3) + '/node_modules/remotestoragejs/release/head/remotestorage',
-
-    },
-
-    map:
-    {
-          '*':
-          {
-              'StorageManager': 'readium_js_viewer/storage/StaticStorageManager'
-          }
     },
 
     shim:

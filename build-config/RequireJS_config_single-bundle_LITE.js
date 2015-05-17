@@ -33,6 +33,12 @@ require.config({
 
     paths:
     {
+        // multiple-bundle and no-optimize use a "map" config, but Almond needs static compile
+        'StorageManager': process._RJS_rootDir(3) + '/src/js/storage/StaticStorageManager',
+
+        "version":
+            process._RJS_rootDir(3) + '/build-output/version',
+
         "readium-js-viewer_all_LITE":
             process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond'
     }

@@ -39,7 +39,15 @@ require.config({
                 "readium_js_viewer/ReadiumViewerLite"
             ]
         }
-    ]
+    ],
+
+    map:
+    {
+          '*':
+          {
+              'StorageManager': 'readium_js_viewer/storage/StaticStorageManager'
+          }
+    },
 
     //,
     // unlike with single-bundle, this does not work! :(

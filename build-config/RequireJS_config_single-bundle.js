@@ -33,6 +33,9 @@ require.config({
 
     paths:
     {
+        // multiple-bundle and no-optimize use a "map" config, but Almond needs static compile
+        'StorageManager': process._RJS_rootDir(3) + '/src/js/storage/StaticStorageManager',
+
         "version":
             process._RJS_rootDir(3) + '/build-output/version',
 

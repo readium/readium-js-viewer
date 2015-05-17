@@ -14,7 +14,36 @@
 require.config({
     config : {
         'readium_js_viewer/EpubReader' : {
+            'mathJaxUrl' : '/../build-output/mathjax/MathJax.js',
+            annotationCssUrl: '/build-output/css/annotations.css',
+            jsLibRoot: '../build-output/'
+        }
+    }
+});
+
+require.config({
+
+    /* http://requirejs.org/docs/api.html#config-waitSeconds */
+    waitSeconds: 0
+});
+
+require.config({
+    config : {
+        'readium_js_viewer/EpubReader' : {
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
         }
+    }
+});
+
+
+
+// DOES NOT APPLY TO ALMOND (OPTIMIZED SINGLE BUNDLE)
+require.config({
+    map:
+    {
+          '*':
+          {
+              'StorageManager': 'readium_js_viewer/storage/StaticStorageManager'
+          }
     }
 });
