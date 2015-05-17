@@ -212,6 +212,9 @@ scripts:
         &&
         npm run
             prepare:dependencies
+        &&
+        npm run
+            prepare:patch
     '
 
 #=====================
@@ -232,6 +235,12 @@ scripts:
         cd ..
         &&
         ls
+    '
+
+#=====================
+    'prepare:patch': '
+
+        node build-config/patchHTTPServer.js
     '
 
 #=====================
@@ -448,7 +457,7 @@ scripts:
 
 #=====================
     'http': '
-        http-server -p 9090 ./
+        http-server -p 9090 --cors ./
     '
 #    node node_modules/httpserver/httpserver.js 9090 127.0.0.1
 #    http-server -p 9090 ./

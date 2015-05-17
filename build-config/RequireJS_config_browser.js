@@ -29,7 +29,7 @@ window.process._RJS_rootDir = function(n)
 require.config({
 
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
-    waitSeconds: 1,
+    waitSeconds: 0,
 
     paths:
     {

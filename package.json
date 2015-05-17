@@ -91,9 +91,10 @@
     "env": "env",
     "echo": "echo \"\"",
     "cson2json": "node node_modules/cson/bin/cson2json package.cson && node node_modules/cson/bin/cson2json package.cson > package.json",
-    "prepare": "npm run prepare:submodule && npm run prepare:dependencies",
+    "prepare": "npm run prepare:submodule && npm run prepare:dependencies && npm run prepare:patch",
     "prepare:dependencies": "npm install && npm update",
     "prepare:submodule": "cd readium-js && npm run prepare && cd .. && ls",
+    "prepare:patch": "node build-config/patchHTTPServer.js",
     "clean": "node --version && npm --version && rimraf build-output/*",
     "prebuild": "npm run clean",
     "build": "npm run build:styles && npm run build:scripts",
@@ -111,7 +112,7 @@
     "example": "cp -r epub_content build-output && cp -r build-output-usage-example/* build-output && parallelshell \"npm run http\" \"npm run webbrowser\"",
     "watch": "parallelshell \"npm run watch:build\"",
     "watch:build": "watch \"npm run build && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js && npm run webbrowser && rimraf open_webbrowser.js\" build-output/",
-    "http": "http-server -p 9090 ./",
+    "http": "http-server -p 9090 --cors ./",
     "live-reload": "live-reload --port 9091 --delay 1000 build-output/",
     "webbrowser": "opener http://127.0.0.1:9090/build-output/"
   }
