@@ -74,6 +74,9 @@ require.config({
         'hammerjs':
             process._RJS_rootDir(3) + '/node_modules/hammerjs/hammer',
 
+        'StorageManager':
+            process._RJS_rootDir(3) + '/src/js/storage/StaticStorageManager',
+
         // 'remotestorage':
         //     process._RJS_rootDir(3) + '/node_modules/remotestoragejs/release/head/remotestorage',
     },
@@ -105,14 +108,4 @@ require.config({
     hgn : {
         templateExtension : ""
     }
-
-    // config : {
-    //     'storage/EpubUnzipper': {
-    //         'workerScriptsPath': '/build-output/_single-bundle/'
-    //     },
-
-    //     'workers/WorkerProxy': {
-    //         'workerUrl': '/scripts/readium-worker.js'
-    //     }
-    // }
 });

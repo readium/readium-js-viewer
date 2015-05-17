@@ -43732,7 +43732,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"bf70d711f1a6c7cad913085341d9e63fabfdd27f","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-60-gbf70d71","branch":"feature/pluginsX","release":false,"timestamp":1431854819766},"readiumJs":{"sha":"fc78792329a1d2a02d4be79a2179df95f3b83100","clean":false,"version":"0.19.0-alpha","tag":"0.15-142-gfc78792","branch":"feature/pluginsX","release":false,"timestamp":1431854820185},"readiumSharedJs":{"sha":"6c8e4aa18ed0fbd6f603536c38efa67211df00a1","clean":false,"version":"0.19.0-alpha","tag":"0.16-127-g6c8e4aa","branch":"feature/pluginsX","release":false,"timestamp":1431854820566},"readiumCfiJs":{"sha":"67ffd3d612ae1b3008aa469ee5ac0ea018503257","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-100-g67ffd3d","branch":"feature/plugins","release":false,"timestamp":1431854820883}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"d5187b38b050c96b230d60ab64a4774b820ae025","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-61-gd5187b3","branch":"feature/pluginsX","release":false,"timestamp":1431860984384},"readiumJs":{"sha":"fc78792329a1d2a02d4be79a2179df95f3b83100","clean":false,"version":"0.19.0-alpha","tag":"0.15-142-gfc78792","branch":"feature/pluginsX","release":false,"timestamp":1431860984701},"readiumSharedJs":{"sha":"6c8e4aa18ed0fbd6f603536c38efa67211df00a1","clean":false,"version":"0.19.0-alpha","tag":"0.16-127-g6c8e4aa","branch":"feature/pluginsX","release":false,"timestamp":1431860984978},"readiumCfiJs":{"sha":"67ffd3d612ae1b3008aa469ee5ac0ea018503257","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-100-g67ffd3d","branch":"feature/plugins","release":false,"timestamp":1431860985218}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -61037,17 +61037,20 @@ Readium){
 
     var initReadium = function(){
 
+        console.log("MODULE CONFIG " + module.id);
+        console.log(module.config());
+
         Settings.getMultiple(['reader', url], function(settings){
 
             var prefix = (self.location && self.location.origin && self.location.pathname) ? (self.location.origin + self.location.pathname + "/..") : "";
             var readerOptions =  {
                 el: "#epub-reader-frame",
-                annotationCSSUrl: module.config().annotationCssUrl || (prefix + "/css/annotations.css"),
-                mathJaxUrl : module.config().mathJaxUrl ? (prefix + module.config().mathJaxUrl) : (prefix + "/scripts/mathjax/MathJax.js")
+                annotationCSSUrl: module.config().annotationCSSUrl || "?!module.config().annotationCssUrl", //(prefix + "/css/annotations.css"),
+                mathJaxUrl : module.config().mathJaxUrl || "?!module.config().mathJaxUrl" //? (prefix + module.config().mathJaxUrl) : (prefix + "/scripts/mathjax/MathJax.js")
             };
 
             var readiumOptions = {
-                jsLibRoot: module.config().jsLibRoot || './scripts/zip/',
+                jsLibRoot: module.config().jsLibRoot || "?!module.config().jsLibRoot", //'./scripts/zip/',
                 openBookOptions: {}
             };
 

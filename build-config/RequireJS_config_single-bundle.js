@@ -22,7 +22,7 @@ require.config({
     out: "../build-output/_single-bundle/readium-js-viewer_all.js",
 
     include: [
-        "readium_js_viewer/ReadiumViewer"
+      "readium_js_viewer/ReadiumViewer"
     ],
 
     insertRequire: [
@@ -33,9 +33,6 @@ require.config({
 
     paths:
     {
-        // multiple-bundle and no-optimize use a "map" config, but Almond needs static compile
-        'StorageManager': process._RJS_rootDir(3) + '/src/js/storage/StaticStorageManager',
-
         "version":
             process._RJS_rootDir(3) + '/build-output/version',
 

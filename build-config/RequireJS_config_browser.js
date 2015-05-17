@@ -30,6 +30,7 @@ require.config({
 
     paths:
     {
-        "version": './build-output/version'
+        "version":
+            process._RJS_rootDir(3) + '/build-output/version'
     }
 });

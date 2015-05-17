@@ -1,4 +1,4 @@
-define('readium_js_viewer/storage/StaticStorageManager',[], function(){
+define('StorageManager',[], function(){
 	var StaticStorageManager = {
 		
 		saveFile : function(path, blob, success, error){
@@ -4237,17 +4237,20 @@ Readium){
 
     var initReadium = function(){
 
+        console.log("MODULE CONFIG " + module.id);
+        console.log(module.config());
+
         Settings.getMultiple(['reader', url], function(settings){
 
             var prefix = (self.location && self.location.origin && self.location.pathname) ? (self.location.origin + self.location.pathname + "/..") : "";
             var readerOptions =  {
                 el: "#epub-reader-frame",
-                annotationCSSUrl: module.config().annotationCssUrl || (prefix + "/css/annotations.css"),
-                mathJaxUrl : module.config().mathJaxUrl ? (prefix + module.config().mathJaxUrl) : (prefix + "/scripts/mathjax/MathJax.js")
+                annotationCSSUrl: module.config().annotationCSSUrl || "?!module.config().annotationCssUrl", //(prefix + "/css/annotations.css"),
+                mathJaxUrl : module.config().mathJaxUrl || "?!module.config().mathJaxUrl" //? (prefix + module.config().mathJaxUrl) : (prefix + "/scripts/mathjax/MathJax.js")
             };
 
             var readiumOptions = {
-                jsLibRoot: module.config().jsLibRoot || './scripts/zip/',
+                jsLibRoot: module.config().jsLibRoot || "?!module.config().jsLibRoot", //'./scripts/zip/',
                 openBookOptions: {}
             };
 
