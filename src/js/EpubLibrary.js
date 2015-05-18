@@ -1,4 +1,5 @@
 define([
+'module',
 'jquery',
 'bootstrap',
 'bootstrapA11y',
@@ -22,6 +23,7 @@ define([
 './versioning/ReadiumVersioning'],
 
 function(
+module,
 $,
 bootstrap,
 bootstrapA11y,
@@ -43,6 +45,10 @@ Messages,
 Analytics,
 Keyboard,
 Versioning){
+
+  var config = module.config();
+  var image_path_prefix = config.imagePathPrefix || "";
+	var epubs_path_prefix = config.epubLibraryPathPrefix || "";
 
     var detailsDialogStr = DetailsDialog({strings: Strings});
 
@@ -174,14 +180,20 @@ Versioning){
 		$('#app-container .library-items').remove();
 		$('#app-container').append(LibraryBody({}));
 		if (!epubs.length){
-			$('#app-container .library-items').append(EmptyLibrary({strings: Strings}));
+			$('#app-container .library-items').append(EmptyLibrary({image_path_prefix: image_path_prefix, strings: Strings}));
 			return;
 		}
 
 		var count = 0;
 		epubs.forEach(function(epub){
-			var noCoverBackground = 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
-			$('.library-items').append(LibraryItem({count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
+			var noCoverBackground = image_path_prefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
+
+      var epubs_path_prefix_ = "";
+      if (epub.coverHref && epub.coverHref.trim && epub.coverHref.trim().indexOf("http") != 0)
+      {
+          epubs_path_prefix_ = epubs_path_prefix;
+      }
+			$('.library-items').append(LibraryItem({epubs_path_prefix: epubs_path_prefix_, count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
 		});
 		$('.details').on('click', loadDetails);
 	}
@@ -303,8 +315,9 @@ Versioning){
 			canHandleDirectory : libraryManager.canHandleDirectory(),
             strings: Strings
 		}));
+
 		Versioning.getVersioningInfo(function(version){
-			$appContainer.append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+			$appContainer.append(AboutDialog({image_path_prefix: image_path_prefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 		});
 
 

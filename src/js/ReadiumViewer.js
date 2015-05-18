@@ -75,12 +75,17 @@ define(['jquery', './EpubLibrary', './EpubReader'], function($, EpubLibrary, Epu
 
 	$(window).on('readepub', function(e, url){
 		readerView(url);
-		pushState({epub: url}, "Readium Viewer", '?epub=' + encodeURIComponent(url));
+		pushState({epub: url}, "Readium Viewer",
+				((window.location && window.location.origin && window.location.pathname) ? (window.location.origin + window.location.pathname) : '')
+				+ '?epub=' + encodeURIComponent(url)
+		);
 	});
 
 	$(window).on('loadlibrary', function(e){
 		libraryView();
-		pushState(null, "Readium Library", 'index.html');
+		pushState(null, "Readium Library",
+				(window.location && window.location.origin && window.location.pathname) ? (window.location.origin + window.location.pathname) : 'index.html'
+		);
 	});
 
 	$(document.body).tooltip({

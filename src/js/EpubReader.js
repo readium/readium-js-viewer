@@ -49,6 +49,10 @@ GesturesHandler,
 Versioning,
 Readium){
 
+  	var config = module.config();
+var image_path_prefix = config.imagePathPrefix || "";
+var epubs_path_prefix = config.epubLibraryPathPrefix || "";
+
         examplePluginConfig.borderColor = "blue";
         examplePluginConfig.backgroundColor = "cyan";
 
@@ -657,6 +661,11 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
+        if (url && url.trim && url.trim().indexOf("http") != 0)
+        {
+            url = epubs_path_prefix + url;
+        }
+
         Analytics.trackView('/reader');
         embedded = data.embedded;
 
@@ -724,7 +733,7 @@ Readium){
 
             Versioning.getVersioningInfo(function(version){
 
-                $('#app-container').append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+                $('#app-container').append(AboutDialog({image_path_prefix: image_path_prefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 
                 window.navigator.epubReadingSystem.name = "readium-js-viewer";
                 window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;

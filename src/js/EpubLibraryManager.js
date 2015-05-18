@@ -1,7 +1,8 @@
-define(['jquery', 'module', 'readium_js/epub-model/package_document_parser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
+define(['jquery', 'module', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
 
 	var config = module.config();
-
+	var epubs_path_prefix = config.epubLibraryPathPrefix || "";
+	//var image_path_prefix = config.imagePathPrefix || "";
 
 
 	var LibraryManager = function(){
@@ -22,16 +23,23 @@ define(['jquery', 'module', 'readium_js/epub-model/package_document_parser', './
         },
 
         retrieveAvailableEpubs : function(success, error){
-            var indexUrl = StorageManager.getPathUrl('/epub_library.json');
             if (this.libraryData){
                 success(this.libraryData);
                 return;
             }
+
+		        var indexUrl = StorageManager.getPathUrl('/epub_library.json');
+
+			      if (indexUrl && indexUrl.trim && indexUrl.trim().indexOf("http") != 0)
+			      {
+								indexUrl = epubs_path_prefix + indexUrl;
+			      }
+
             var self = this;
-			$.getJSON(indexUrl, function(data){
-                self.libraryData = data;
-				success(data);
-			}).fail(function(){
+						$.getJSON(indexUrl, function(data){
+			          self.libraryData = data;
+								success(data);
+						}).fail(function(){
                 self.libraryData = [];
                 success([]);
             });
@@ -45,6 +53,12 @@ define(['jquery', 'module', 'readium_js/epub-model/package_document_parser', './
         },
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
+
+			      if (packageUrl && packageUrl.trim && packageUrl.trim().indexOf("http") != 0)
+			      {
+								packageUrl = epubs_path_prefix + packageUrl;
+			      }
+
 			$.get(packageUrl, function(data){
 
                 if(typeof(data) === "string" ) {
@@ -52,11 +66,13 @@ define(['jquery', 'module', 'readium_js/epub-model/package_document_parser', './
                     data = parser.parseFromString(data, 'text/xml');
                 }
                 var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
-                jsonObj.coverHref = self._getFullUrl(packageUrl, jsonObj.coverHref);
+
+                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
                 jsonObj.packageUrl = packageUrl;
                 jsonObj.rootDir = rootDir;
                 jsonObj.rootUrl = rootUrl;
                 jsonObj.noCoverBackground = noCoverBackground;
+
                 success(jsonObj);
 
 			}).fail(error);

@@ -227,9 +227,6 @@ scripts:
     build: '
 
         npm run
-            build:styles
-        &&
-        npm run
             build:scripts
     '
 
@@ -315,11 +312,11 @@ scripts:
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
             src/templates/
-            build-output/XXX/templates
+            build-output/XXX/templates/
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
             src/i18n/
-            build-output/XXX/i18n
+            build-output/XXX/i18n/
         &&
         npm run
             build:scripts:multiple
@@ -329,23 +326,23 @@ scripts:
         &&
         npm run
             build:scripts:single:LITE
-        &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/z-worker.js
-            build-output/
-        &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/deflate.js
-            build-output/
-        &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/inflate.js
-            build-output/
-        &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
-            src/js/mathjax/
-            build-output/mathjax
     '
+
+#node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+#readium-js/node_modules/zip-js/WebContent/z-worker.js
+#build-output/
+#&&
+#node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+#readium-js/node_modules/zip-js/WebContent/deflate.js
+#build-output/
+#&&
+#node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+#readium-js/node_modules/zip-js/WebContent/inflate.js
+#build-output/
+#&&
+#node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+#src/js/mathjax/
+#build-output/mathjax/
 
 #=====================
     'build:scripts:multiple': '
@@ -380,19 +377,20 @@ scripts:
 
 #=====================
 # TODO use cssminify
-    'build:styles': '
+#    'build:styles': '
+#
+#    '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
-            src/css/
-            build-output/css
-        &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
-            src/images/
-            build-output/images
-    '
+#        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+#            src/css/
+#            build-output/css/
+#        &&
+#        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+#            src/images/
+#            build-output/images/
 #     node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
 #              node_modules/bootstrap/fonts/
-#              build-output/fonts
+#              build-output/fonts/
 
 #=====================
 #### BLOCKING! (CTRL-C) [watch][live-reload][http]
@@ -408,14 +406,6 @@ scripts:
 #=====================
 #### BLOCKING! (CTRL-C) [http]
     'example': '
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
-            epub_content/
-            build-output/epub_content
-        &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
-            build-output-usage-example/
-            build-output/
-        &&
         parallelshell
             \"npm run http\"
             \"npm run webbrowser\"
@@ -455,5 +445,5 @@ scripts:
 #=====================
     'webbrowser': '
 
-        opener http://127.0.0.1:9090/build-output/
+        opener http://127.0.0.1:9090/build-output-usage-example/
     '

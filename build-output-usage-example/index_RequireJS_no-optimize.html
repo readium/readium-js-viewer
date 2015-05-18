@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="images/readium_favicon.png" rel="shortcut icon"/>
-    <link href="images/readium-touch-icon.png" rel="apple-touch-icon"/>
+        <link href="../src/images/readium_favicon.png" rel="shortcut icon"/>
+        <link href="../src/images/readium-touch-icon.png" rel="apple-touch-icon"/>
 
     <style>
         .library-item{
@@ -28,12 +28,12 @@
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css">
 
-    <link rel="stylesheet" type="text/css" href="../build-output/css/sourcesanspro.css">
-    <link rel="stylesheet" type="text/css" href="../build-output/css/readium_js.css">
-    <link rel="stylesheet" type="text/css" href="../build-output/css/viewer.css">
-    <link rel="stylesheet" type="text/css" href="../build-output/css/viewer_audio.css">
-    <link rel="stylesheet" type="text/css" href="../build-output/css/settings.css">
-    <link rel="stylesheet" type="text/css" href="../build-output/css/library.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/sourcesanspro.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/readium_js.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/viewer.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/viewer_audio.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/library.css">
 
 
 
@@ -49,6 +49,7 @@
 
 
 <script type="text/javascript">
+window.process = undefined;
 require(["readium_cfi_js/cfi_API", "readium_shared_js/globalsSetup", "readium_plugin_annotations"], function(){
 require(["jquery"], function(){
 require(["readium_js_viewer/ReadiumViewer"], function(){});

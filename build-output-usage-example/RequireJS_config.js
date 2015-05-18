@@ -11,20 +11,45 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
+var imagePathPrefix = '/src/';
+var epubLibraryPathPrefix = "/";
+
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
     waitSeconds: 0,
 
     config : {
+
+        'readium_js_viewer/EpubLibraryManager' : {
+
+            'imagePathPrefix': imagePathPrefix,
+            'epubLibraryPathPrefix': epubLibraryPathPrefix
+        },
+
+        'readium_js_viewer/ReaderSettingsDialog' : {
+
+            'imagePathPrefix': imagePathPrefix
+        },
+
+        'readium_js_viewer/EpubLibrary' : {
+
+            'imagePathPrefix': imagePathPrefix,
+            'epubLibraryPathPrefix': epubLibraryPathPrefix
+        },
+
         'readium_js_viewer/EpubReader' : {
 
-            'mathJaxUrl' : '/../build-output/mathjax/MathJax.js',
+            'epubLibraryPathPrefix': epubLibraryPathPrefix,
 
-            annotationCSSUrl: '/build-output/css/annotations.css',
+            'imagePathPrefix': imagePathPrefix,
 
-            jsLibRoot: '/../build-output/',
-            
+            'mathJaxUrl': '/src/js/mathjax/MathJax.js',
+
+            'annotationCSSUrl': '/src/css/annotations.css',
+
+            'jsLibRoot': '/readium-js/node_modules/zip-js/WebContent/',
+
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
 

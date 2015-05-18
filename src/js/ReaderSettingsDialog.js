@@ -1,4 +1,7 @@
-define(['hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard'], function(SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+define(['module', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard'], function(module, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+
+  var image_path_prefix = module.config().imagePathPrefix || "";
+
 	var defaultSettings = {
         fontSize: 100,
         syntheticSpread: "auto",
@@ -50,7 +53,7 @@ define(['hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSe
     };
 
 	var initDialog = function(reader){
-		$('#app-container').append(SettingsDialog({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
+		$('#app-container').append(SettingsDialog({image_path_prefix: image_path_prefix, strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
 
 		$previewText = $('.preview-text');
         $('.theme-option').on('click', function(){

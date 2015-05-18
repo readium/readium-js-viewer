@@ -43732,7 +43732,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"20502168ffcdc16bc2d45952dc2117cf22244993","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.17.0-62-g2050216","branch":"feature/pluginsX","release":false,"timestamp":1431971476264},"readiumJs":{"sha":"05f45cd56423d1a560ff8180487ce1a25ad22536","clean":false,"version":"0.20.0-alpha","tag":"0.15-144-g05f45cd","branch":"feature/pluginsX","release":false,"timestamp":1431971476645},"readiumSharedJs":{"sha":"297454a6ed03a7a1f14e00fcb8f7349340003bb5","clean":false,"version":"0.20.0-alpha","tag":"0.16-130-g297454a","branch":"feature/pluginsX","release":false,"timestamp":1431971476932},"readiumCfiJs":{"sha":"43b33a0d613c954320bfa4281460855d823111d0","clean":false,"version":"0.20.0-alpha","tag":"0.1.4-103-g43b33a0","branch":"feature/plugins","release":false,"timestamp":1431971477166}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"25327d4ef24d1663dbad418a15750bd103ecb401","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.17.0-63-g25327d4","branch":"feature/pluginsX","release":false,"timestamp":1431984368964},"readiumJs":{"sha":"05f45cd56423d1a560ff8180487ce1a25ad22536","clean":false,"version":"0.20.0-alpha","tag":"0.15-144-g05f45cd","branch":"feature/pluginsX","release":false,"timestamp":1431984369326},"readiumSharedJs":{"sha":"297454a6ed03a7a1f14e00fcb8f7349340003bb5","clean":false,"version":"0.20.0-alpha","tag":"0.16-130-g297454a","branch":"feature/pluginsX","release":false,"timestamp":1431984369626},"readiumCfiJs":{"sha":"43b33a0d613c954320bfa4281460855d823111d0","clean":false,"version":"0.20.0-alpha","tag":"0.1.4-103-g43b33a0","branch":"feature/plugins","release":false,"timestamp":1431984369890}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -52828,15 +52828,16 @@ define("bootstrapA11y", ["bootstrap"], (function (global) {
 }(this)));
 
 define('StorageManager',[], function(){
+
 	var StaticStorageManager = {
-		
+
 		saveFile : function(path, blob, success, error){
 			success()
 		},
-		
+
 		deleteFile : function(path, success, error){
 			success();
-			
+
 		},
 
 		getPathUrl : function(path){
@@ -52920,6 +52921,293 @@ define('readium_js_viewer/storage/Settings',[],function(){
 		}
 	}
 	return Settings;
+});
+/**
+* Jath is free software provided under the MIT license.
+*	See LICENSE file for full text of the license.
+*	Copyright 2010 Dan Newcome.
+*/
+(function() {
+
+Jath = {};
+Jath.parse = parse;
+Jath.resolver = null;
+Jath.namespaces = null;
+
+// values prefixed with literal charactar marker will not be
+// treated as xpath expressions and will be output directly
+Jath.literalChar = ":";
+
+/**
+* Rudimentary check for IE
+* Also added support for WSH, uses the same API as IE
+*/
+var m_browser;
+if( typeof WScript != "undefined" ) {
+	m_browser = 'msie';
+}
+// TODO: is there a better way to detect node.js?
+else if( typeof process != "undefined" ) {
+	// running under node.js
+	m_browser = 'node';
+	var xmljs = require( 'libxmljs' );
+	exports.parse = parse;
+}
+else if( navigator.userAgent.toLowerCase().indexOf( 'msie' ) > -1 ) {
+	m_browser = 'msie';
+}
+else {
+	m_browser = 'standards';
+}
+
+/**
+* parse: 
+*	process xml doc according to the given json template
+*	@template - output spec as a json template
+*	@xmldoc - input xml document
+*	@node - the starting node to use in the document. xpath
+*		expressions will be evaluated relative to this node.
+*		If not given, root will be used.
+*/
+function parse( template, xmldoc, node ) {
+	if( node === undefined ) {
+		node = xmldoc;
+	}
+	if( typeOf( template ) === 'array' ) {
+		return parseArray( template, xmldoc, node );
+	}
+	else if( typeOf( template ) === 'object' ) {
+		return parseObject( template, xmldoc, node );
+	}
+	else {
+		return parseItem( template, xmldoc, node );
+	}
+}
+
+function parseArray( template, xmldoc, node ) {
+	var retVal = [];
+	
+	if( template[0] != null ) {
+		if( m_browser == 'msie' ) {
+			xmldoc.setProperty("SelectionLanguage", "XPath");
+			xmldoc.setProperty("SelectionNamespaces", createResolverString() );			
+			var nodeList = node.selectNodes( template[0] );
+			var thisNode;
+			while( thisNode = nodeList.nextNode() ) {
+				retVal.push( parse( template[1], xmldoc, thisNode ) );
+			}
+		}
+		else if( m_browser == 'node' ) {
+			var nodeList = node.find( template[0] );
+			for( var i=0; i < nodeList.length; i++ ) {
+				retVal.push( parse( template[1], xmldoc, nodeList[i] ) );
+			}
+		}
+		else {
+			var xpathResult = xmldoc.evaluate( template[0], node, Jath.resolver, XPathResult.ANY_TYPE, null );
+			var thisNode;
+			while( thisNode = xpathResult.iterateNext() ) {
+				retVal.push( parse( template[1], xmldoc, thisNode ) );
+			}
+		}
+	}
+	// we can have an array output without iterating over the source
+	// data - in this case, current node is static 
+	else {
+		for( var i=1; i < template.length; i++ ) {
+			retVal.push( parse( template[i], xmldoc, node ) );
+		}
+	}
+	
+	return retVal;
+}
+
+function parseObject( template, xmldoc, node ) {
+	var item;
+	var newitem = {};
+	for( item in template ) {
+		newitem[item] = parse( template[item], xmldoc, node );
+	}
+	return newitem;
+}
+
+function parseItem( template, xmldoc, node ) {
+	if( typeOf( template ) == 'string' && template.substring( 0, 1 ) != Jath.literalChar ) {
+		if( m_browser == 'msie' ) {
+			xmldoc.setProperty("SelectionLanguage", "XPath");
+			xmldoc.setProperty("SelectionNamespaces", createResolverString() );
+			if( node.selectSingleNode( template ) != null ) {
+				return node.selectSingleNode( template ).text;
+			}
+			else {
+				return null;
+			}
+		}
+		else if( m_browser == 'node' ) {
+			var itemNode = node.get( template );
+			if( itemNode && itemNode.text ) {
+				return itemNode.text();
+			}
+			else if( itemNode && itemNode.value ) {
+				return itemNode.value();
+			}
+			else {
+				return null;
+			}
+		}
+		else {
+			var itemNode = xmldoc.evaluate( template, node, Jath.resolver, XPathResult.STRING_TYPE, null ); 
+			if( itemNode ) {
+				return itemNode.stringValue;
+			}
+			else {
+				return null;
+			}
+		}
+	}
+	else {
+		return template.substring( 1 );
+	}
+
+}
+
+/**
+* typeOf function published by Douglas Crockford in ECMAScript recommendations
+* http://www.crockford.com/javascript/recommend.html
+*/
+function typeOf(value) {
+	var s = typeof value;
+	if (s === 'object') {
+		if (value) {
+			if (typeof value.length === 'number' &&
+					!(value.propertyIsEnumerable('length')) &&
+					typeof value.splice === 'function') {
+				s = 'array';
+			}
+		} else {
+			s = 'null';
+		}
+	}
+	return s;
+}
+
+/**
+* IE requires namespaces to be in the form that 
+* an xml document would provide. Use underscore
+* for default ns.
+*/
+function createResolverString() {
+	var retval = [];
+	for( var item in Jath.namespaces ) {
+		if( item == "_" ) {
+			retval.push( "xmlns='" + Jath.namespaces[item] + "'" );
+		}
+		else {
+			retval.push( "xmlns:" + item + "='" + Jath.namespaces[item] + "'" );
+		}
+	}
+	return retval.join(" ");
+}
+
+})();
+
+define("jath", (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.Jath;
+    };
+}(this)));
+
+define('readium_js_viewer/PackageParser',['jath'], function(Jath){
+	Jath.resolver = function( prefix ) {
+            var mappings = { 
+                def: "http://www.idpf.org/2007/opf",
+                    dc: "http://purl.org/dc/elements/1.1/"
+            };
+            return mappings[ prefix ];
+    }
+
+	var jathTemplate = {
+
+        metadata:  { 
+                id: "//def:metadata/dc:identifier",
+                epub_version: "//def:package/@version",
+                title: "//def:metadata/dc:title",
+                author: "//def:metadata/dc:creator",
+                publisher: "//def:metadata/dc:publisher",
+                description: "//def:metadata/dc:description",
+                rights: "//def:metadata/dc:rights",
+                language: "//def:metadata/dc:language",
+                pubdate: "//def:metadata/dc:date",
+                modified_date: "//def:metadata/def:meta[@property='dcterms:modified']",
+                layout: "//def:metadata/def:meta[@property='rendition:layout']",
+                spread: "//def:metadata/def:meta[@property='rendition:spread']",
+                orientation: "//def:metadata/def:meta[@property='rendition:orientation']",
+                ncx: "//def:spine/@toc",
+                page_prog_dir: "//def:spine/@page-progression-direction",
+                active_class: "//def:metadata/def:meta[@property='media:active-class']"
+         },
+
+        manifest: [ "//def:item", { 
+                id: "@id",
+                href: "@href",
+                media_type: "@media-type",
+                properties: "@properties",
+        media_overlay: "@media-overlay"
+        } ],
+                                                 
+        spine: [ "//def:itemref", { idref: "@idref", properties: "@properties", linear: "@linear" } ],
+
+        bindings: ["//def:bindings/def:mediaType", { 
+                handler: "@handler",
+                media_type: "@media-type"
+        } ]
+        
+	};
+
+	PackageParser = {
+		parsePackageDom : function(data){
+            var jsonObj = Jath.parse(jathTemplate, data);
+            jsonObj = jsonObj.metadata;
+            jsonObj.coverHref = PackageParser.getCoverHref(data);
+            return jsonObj;
+        },
+        getCoverHref : function(dom) {
+            var manifest; var $imageNode;
+            manifest = dom.getElementsByTagName('manifest')[0];
+
+            // epub3 spec for a cover image is like this:
+            /*<item properties="cover-image" id="ci" href="cover.svg" media-type="image/svg+xml" />*/
+            $imageNode = $('item[properties~="cover-image"]', manifest);
+            if($imageNode.length === 1 && $imageNode.attr("href") ) {
+                return $imageNode.attr("href");
+            }
+
+            // some epub2's cover image is like this:
+            /*<meta name="cover" content="cover-image-item-id" />*/
+            // PragProg ebooks have two cover entries in meta, both
+            // referencing the same cover id from items; metaNode.length
+            // does not have to be just 1
+            var metaNode = $('meta[name="cover"]', dom);
+            var contentAttr = metaNode.attr("content");
+            if(metaNode.length >= 1 && contentAttr) {
+                $imageNode = $('item[id="'+contentAttr+'"]', manifest);
+                if($imageNode.length === 1 && $imageNode.attr("href")) {
+                    return $imageNode.attr("href");
+                }
+            }
+
+            // that didn't seem to work so, it think epub2 just uses item with id=cover
+            $imageNode = $('#cover', manifest);
+            if($imageNode.length === 1 && $imageNode.attr("href")) {
+                return $imageNode.attr("href");
+            }
+
+            // seems like there isn't one, thats ok...
+            return null;
+        },
+	}
+	return PackageParser;
 });
 define('readium_js_viewer/workers/Messages',[],function(){
 	return {
@@ -53162,10 +53450,11 @@ function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 
 define('readium_js_viewer_i18n', ['readium_js_viewer_i18n/Strings'], function (main) { return main; });
 
-define('readium_js_viewer/EpubLibraryManager',['jquery', 'module', 'readium_js/epub-model/package_document_parser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
+define('readium_js_viewer/EpubLibraryManager',['jquery', 'module', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
 
 	var config = module.config();
-
+	var epubs_path_prefix = config.epubLibraryPathPrefix || "";
+	//var image_path_prefix = config.imagePathPrefix || "";
 
 
 	var LibraryManager = function(){
@@ -53186,16 +53475,23 @@ define('readium_js_viewer/EpubLibraryManager',['jquery', 'module', 'readium_js/e
         },
 
         retrieveAvailableEpubs : function(success, error){
-            var indexUrl = StorageManager.getPathUrl('/epub_library.json');
             if (this.libraryData){
                 success(this.libraryData);
                 return;
             }
+
+		        var indexUrl = StorageManager.getPathUrl('/epub_library.json');
+
+			      if (indexUrl && indexUrl.trim && indexUrl.trim().indexOf("http") != 0)
+			      {
+								indexUrl = epubs_path_prefix + indexUrl;
+			      }
+
             var self = this;
-			$.getJSON(indexUrl, function(data){
-                self.libraryData = data;
-				success(data);
-			}).fail(function(){
+						$.getJSON(indexUrl, function(data){
+			          self.libraryData = data;
+								success(data);
+						}).fail(function(){
                 self.libraryData = [];
                 success([]);
             });
@@ -53209,6 +53505,12 @@ define('readium_js_viewer/EpubLibraryManager',['jquery', 'module', 'readium_js/e
         },
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
+
+			      if (packageUrl && packageUrl.trim && packageUrl.trim().indexOf("http") != 0)
+			      {
+								packageUrl = epubs_path_prefix + packageUrl;
+			      }
+
 			$.get(packageUrl, function(data){
 
                 if(typeof(data) === "string" ) {
@@ -53216,11 +53518,13 @@ define('readium_js_viewer/EpubLibraryManager',['jquery', 'module', 'readium_js/e
                     data = parser.parseFromString(data, 'text/xml');
                 }
                 var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
-                jsonObj.coverHref = self._getFullUrl(packageUrl, jsonObj.coverHref);
+
+                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
                 jsonObj.packageUrl = packageUrl;
                 jsonObj.rootDir = rootDir;
                 jsonObj.rootUrl = rootUrl;
                 jsonObj.noCoverBackground = noCoverBackground;
+
                 success(jsonObj);
 
 			}).fail(error);
@@ -54070,16 +54374,16 @@ define("hgn!readium_js_viewer_html_templates/library-navbar.html", ["hogan"], fu
 define("hgn!readium_js_viewer_html_templates/library-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"row library-items\" role=\"main\">\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!readium_js_viewer_html_templates/empty-library.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"pull-right\">\r");t.b("\n" + i);t.b("	<div id=\"empty-message\">\r");t.b("\n" + i);t.b("		");t.b(t.v(t.d("strings.i18n_add_items",c,p,0)));t.b("\r");t.b("\n" + i);t.b("	</div>\r");t.b("\n" + i);t.b("	<img id=\"empty-message-arrow\" src=\"images/library_arrow.png\" alt=\"\">\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/empty-library.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"pull-right\">\r");t.b("\n" + i);t.b("	<div id=\"empty-message\">\r");t.b("\n" + i);t.b("		");t.b(t.v(t.d("strings.i18n_add_items",c,p,0)));t.b("\r");t.b("\n" + i);t.b("	</div>\r");t.b("\n" + i);t.b("	<img id=\"empty-message-arrow\" src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/library_arrow.png\" alt=\"\">\r");t.b("\n" + i);t.b("</div>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!readium_js_viewer_html_templates/library-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"col-xs-4 col-sm-3 col-md-2 library-item\">\r");t.b("\n" + i);t.b("    <div class='info-wrap'>\r");t.b("\n" + i);t.b("        <!-- <div class='caption book-info'>\r");t.b("\n" + i);t.b("            <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("        </div> -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button type=\"button\" style=\"background: none; border: none; padding: 0; margin: 0;\" class=\"read\" data-book=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\"  aria-label=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\"  tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);if(t.s(t.d("epub.coverHref",c,p,1),c,p,0,610,760,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <div aria-hidden=\"true\" class=\"no-cover has-cover\" style=\"background-image:url(");t.b(t.v(t.d("epub.coverHref",c,p,0)));t.b(");\"><p>&nbsp;</p></div>\r");t.b("\n" + i);});c.pop();}t.b("            \r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div aria-hidden=\"true\" class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("    </button>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("            \r");t.b("\n" + i);t.b("    <!-- <div class=\"caption buttons\">\r");t.b("\n" + i);t.b("        <a href=\"#\" class=\"btn btn-default read\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" role=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("        <a href=\"#details-modal\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" aria-pressed=\"true\" class=\"btn btn-default details\" data-toggle=\"modal\" role=\"button\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("    </div> -->\r");t.b("\n" + i);t.b("    <div class='caption book-info'>\r");t.b("\n" + i);t.b("        <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("         <button aria-label=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#details-modal\" data-package=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("/");t.b(t.v(t.d("epub.packagePath",c,p,0)));t.b("\" data-root=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\" data-root-dir=\"");t.b(t.v(t.d("epub.rootDir",c,p,0)));t.b("\" ");if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b(" data-no-cover=\"");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("\" ");};t.b(" class=\"btn btn-info details\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</button></div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/library-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"col-xs-4 col-sm-3 col-md-2 library-item\">\r");t.b("\n" + i);t.b("    <div class='info-wrap'>\r");t.b("\n" + i);t.b("        <!-- <div class='caption book-info'>\r");t.b("\n" + i);t.b("            <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("        </div> -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button type=\"button\" style=\"background: none; border: none; padding: 0; margin: 0;\" class=\"read\" data-book=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\"  aria-label=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\"  tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.d("epub.coverHref",c,p,1),c,p,0,598,769,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <div aria-hidden=\"true\" class=\"no-cover has-cover\" style=\"background-image:url(");t.b(t.v(t.f("epubs_path_prefix",c,p,0)));t.b(t.v(t.d("epub.coverHref",c,p,0)));t.b(");\"><p>&nbsp;</p></div>\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div aria-hidden=\"true\" class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("    </button>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <!-- <div class=\"caption buttons\">\r");t.b("\n" + i);t.b("        <a href=\"#\" class=\"btn btn-default read\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" role=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("        <a href=\"#details-modal\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" aria-pressed=\"true\" class=\"btn btn-default details\" data-toggle=\"modal\" role=\"button\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("    </div> -->\r");t.b("\n" + i);t.b("    <div class='caption book-info'>\r");t.b("\n" + i);t.b("        <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("         <button aria-label=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#details-modal\" data-package=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("/");t.b(t.v(t.d("epub.packagePath",c,p,0)));t.b("\" data-root=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\" data-root-dir=\"");t.b(t.v(t.d("epub.rootDir",c,p,0)));t.b("\" ");if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b(" data-no-cover=\"");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("\" ");};t.b(" class=\"btn btn-info details\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</button></div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("</div>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
 define("hgn!readium_js_viewer_html_templates/details-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div id=\"details-dialog\" class=\"modal fade details-dialog\" tabindex=\"-1\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("        <p>Loading Details...</p>\r");t.b("\n" + i);t.b("        <progress></progress>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!readium_js_viewer_html_templates/about-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"about-dialog\" tabindex=\"-1\" role=\"dialog\" aria-label=\"");t.b(t.t(t.d("strings.about",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("      	<div class=\"splash-logo\">\r");t.b("\n" + i);t.b("      		<img src=\"images/about_readium_logo.png\" alt=\"\">\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("      	<div class=\"about-message\">\r");t.b("\n" + i);t.b("	      	<span>");t.b(t.t(t.d("strings.i18n_html_readium_tm_a_project",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("      	<div>\r");t.b("\n" + i);t.b("			     <img src=\"images/partner_logos.png\">\r");t.b("\n" + i);t.b("		    </div>\r");t.b("\n" + i);t.b("        <h4 style=\"color:#111155\">");t.b(t.t(t.d("strings.gethelp",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class=\"version\">");t.b(t.v(t.d("viewer.chromeVersion",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"build-date\">");t.b(t.v(t.d("viewer.dateTimeString",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"version-details\">\r");t.b("\n" + i);t.b("        <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js-viewer/tree/");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("\">readium-js-viewer@");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("viewer.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js/tree/");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("\">readium-js@");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("readium.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-shared-js/tree/");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("\">readium-shared-js@");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("sharedJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-cfi-js/tree/");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("\">readium-cfi-js@");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("cfiJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/about-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"about-dialog\" tabindex=\"-1\" role=\"dialog\" aria-label=\"");t.b(t.t(t.d("strings.about",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("      	<div class=\"splash-logo\">\r");t.b("\n" + i);t.b("      		<img src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/about_readium_logo.png\" alt=\"\">\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("      	<div class=\"about-message\">\r");t.b("\n" + i);t.b("	      	<span>");t.b(t.t(t.d("strings.i18n_html_readium_tm_a_project",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("      	</div>\r");t.b("\n" + i);t.b("      	<div>\r");t.b("\n" + i);t.b("			     <img src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/partner_logos.png\">\r");t.b("\n" + i);t.b("		    </div>\r");t.b("\n" + i);t.b("        <h4 style=\"color:#111155\">");t.b(t.t(t.d("strings.gethelp",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class=\"version\">");t.b(t.v(t.d("viewer.chromeVersion",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"build-date\">");t.b(t.v(t.d("viewer.dateTimeString",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class=\"version-details\">\r");t.b("\n" + i);t.b("        <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js-viewer/tree/");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("\">readium-js-viewer@");t.b(t.v(t.d("viewer.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("viewer.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-js/tree/");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("\">readium-js@");t.b(t.v(t.d("readium.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("readium.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-shared-js/tree/");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("\">readium-shared-js@");t.b(t.v(t.d("sharedJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("sharedJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("          <div><a target=\"_blank\" href=\"https://github.com/readium/readium-cfi-js/tree/");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("\">readium-cfi-js@");t.b(t.v(t.d("cfiJs.sha",c,p,0)));t.b("</a>");if(!t.s(t.d("cfiJs.clean",c,p,1),c,p,1,0,0,"")){t.b("<span class=\"local-changes-alert\">(with local changes)</span>");};t.b("</div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
 define("hgn!readium_js_viewer_html_templates/details-body.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"details-body\">\r");t.b("\n" + i);t.b("    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"  tabindex=\"1000\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("    <div class=\"offscreenText\">Details Start</div>\r");t.b("\n" + i);t.b("    <div class=\"modal-cover-wrap\">\r");t.b("\n" + i);if(t.s(t.d("data.coverHref",c,p,1),c,p,0,388,500,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <img class=\"details-cover-image img-responsive\" src=\"");t.b(t.v(t.d("data.coverHref",c,p,0)));t.b("\" alt=\"ePUB cover\">\r");t.b("\n" + i);});c.pop();}if(!t.s(t.d("data.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.d("data.noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("data.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("            <button tabindex=\"1000\" class=\"btn btn-default read\" data-dismiss=\"modal\" data-book=\"");t.b(t.v(t.d("data.rootUrl",c,p,0)));t.b("\" type=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            <button tabindex=\"1000\" class=\"btn btn-danger delete\" data-dismiss=\"modal\" type=\"button\">");t.b(t.v(t.d("strings.i18n_delete",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <div class='modal-book-info'>\r");t.b("\n" + i);t.b("        <h3 class='modal-title'>");t.b(t.v(t.d("data.title",c,p,0)));t.b("</h3>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_author",c,p,0)));t.b(t.v(t.d("data.author",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_publisher",c,p,0)));t.b(t.v(t.d("data.publisher",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_pub_date",c,p,0)));t.b(t.v(t.d("data.pubdate",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_modified_date",c,p,0)));t.b(t.v(t.d("data.modified_date",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_id",c,p,0)));t.b(t.v(t.d("data.id",c,p,0)));t.b("</div>\r");t.b("\n" + i);t.b("        <div class='modal-detail'>");t.b(t.v(t.d("strings.i18n_epub_version",c,p,0)));t.b(t.v(t.d("data.epub_version",c,p,0)));t.b("</div>        \r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <div class=\"offscreenText\">Details End</div>\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
@@ -54088,7 +54392,7 @@ define("hgn!readium_js_viewer_html_templates/details-body.html", ["hogan"], func
 define("hgn!readium_js_viewer_html_templates/add-epub-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"modal fade\" id=\"add-epub-dialog\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"add-epub-label\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("            <div class=\"modal-header\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <button id=\"closeAddEpubCross\" type=\"button\" class=\"close\" data-dismiss=\"modal\" tabindex=\"999\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <h4 class=\"modal-title\" id=\"add-epub-label\">");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("                <form class=\"form-horizontal\" role=\"form\">\r");t.b("\n" + i);if(t.s(t.f("canHandleUrl",c,p,1),c,p,0,763,1190,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("                <div class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add1\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_from_the_web",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"text\" id=\"url-upload\" class=\"form-control\" placeholder=\"");t.b(t.v(t.d("strings.i18n_enter_a_url",c,p,0)));t.b("\" aria-labelledby=\"add1\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);});c.pop();}t.b("                <div id=\"epub-upload-div\" class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add2\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_from_local_file",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"file\" id=\"epub-upload\" class=\"form-control\" aria-labelledby=\"add2\" role=\"button\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);if(t.s(t.f("canHandleDirectory",c,p,1),c,p,0,1653,2106,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("                <div class=\"form-group\">\r");t.b("\n" + i);t.b("                    <label id=\"add3\" class=\"control-label col-sm-5\">");t.b(t.v(t.d("strings.i18n_unpacked_directory",c,p,0)));t.b("</label>\r");t.b("\n" + i);t.b("                    <div class=\"col-sm-7\">\r");t.b("\n" + i);t.b("                        <input tabindex=\"1000\" type=\"file\" id=\"dir-upload\" webkitdirectory=\"\" mozdirectory=\"\" directory=\"\" class=\"form-control\" aria-labelledby=\"add3\"  role=\"button\">\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);});c.pop();}t.b("                </form>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("                <button tabindex=\"1000\" type=\"button\" class=\"btn btn-default add-book\" data-dismiss=\"modal\" disabled=\"disabled\">");t.b(t.v(t.d("strings.i18n_add_book",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                <button tabindex=\"1000\" type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">");t.b(t.v(t.d("strings.i18n_cancel",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content --> \r");t.b("\n" + i);t.b("    </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>\r");t.b("\n" + i);t.b("<!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!readium_js_viewer_html_templates/settings-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div tabindex=\"-1\" class=\"modal fade\" id=\"settings-dialog\" role=\"dialog\" aria-label=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <!-- div class=\"modal-header\">\r");t.b("\n" + i);t.b("            <h4 class=\"modal-title\" id=\"settings-label\">");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("           </div -->\r");t.b("\n" + i);t.b("               \r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("           <button type=\"button\" class=\"close\" id=\"closeSettingsCross\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <ul class=\"nav nav-tabs\" role=\"tablist\" aria-owns=\"tab-butt-style tab-butt-layout tab-butt-keys\">\r");t.b("\n" + i);t.b("             <li class=\"active\" role=\"presentation\"><button id=\"tab-butt-style\"  title=\"");t.b(t.v(t.d("strings.style",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.style",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-style\" data-toggle=\"tab\" data-target=\"#tab-style\">");t.b(t.v(t.d("strings.style",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("             <li role=\"presentation\"><button id=\"tab-butt-layout\"  title=\"");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-layout\" data-toggle=\"tab\" data-target=\"#tab-layout\">");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("             <li role=\"presentation\"><button id=\"tab-butt-keys\"  title=\"");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-keyboard\" data-toggle=\"tab\" data-target=\"#tab-keyboard\">");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("           </ul>\r");t.b("\n" + i);t.b("           \r");t.b("\n" + i);t.b("           \r");t.b("\n" + i);t.b("           <div class=\"tab-content\">\r");t.b("\n" + i);t.b("                <div id=\"tab-style\" class=\"tab-pane active\" role=\"tabpanel\" aria-expanded=\"true\">\r");t.b("\n" + i);t.b("                     \r");t.b("\n" + i);t.b("                <h5 aria-hidden=\"true\">");t.b(t.v(t.d("strings.preview",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                <div  aria-hidden=\"true\" class=\"row\">\r");t.b("\n" + i);t.b("                    <div data-theme=\"default-theme\" class=\"col-xs-10 col-xs-offset-1 preview-text default-theme\">\r");t.b("\n" + i);t.b("                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Cras in felis sed orci aliquam sagittis. \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("<!-- button  type=\"button\" title=\"TESTING\" aria-label=\"TESTING\">TESTING DANIEL</button -->\r");t.b("\n" + i);t.b("                \r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-font-size\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    <div class=\"row\">\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2 icon-scale-down\">\r");t.b("\n" + i);t.b("                            <img src=\"images/glyphicons_115_text_smaller.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-8\">\r");t.b("\n" + i);t.b("                            <input  type=\"range\" role=\"slider\" aria-labelledby=\"setting-header-font-size\" id=\"font-size-input\" min=\"60\" aria-value-min=\"60\" aria-valuemin=\"60\" step=\"10\" max=\"170\" aria-value-max=\"170\" aria-valuemax=\"170\" value=\"100\" aria-valuenow=\"100\" aria-value-now=\"100\" aria-valuetext=\"1em\" aria-value-text=\"1em\" title=\"");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("\" />\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2\">\r");t.b("\n" + i);t.b("                            <img src=\"images/glyphicons_116_text_bigger.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-color-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_text_and_background_color",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    <div role=\"group\" aria-labelledby=\"setting-header-color-legend\" id=\"theme-radio-group\" class=\"row\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"author-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option author-theme clickable\">");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"default-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option default-theme clickable\">");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"night-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("]\" class=\"col-xs-8 col-xs-offset-2 theme-option night-theme clickable\" >");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b("</button> <!-- accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.NightTheme",c,p,0)));t.b("\" -->\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"parchment-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable\">");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"ballard-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable\">");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"vancouver-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable\">");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("                <div id=\"tab-layout\" class=\"tab-pane\" role=\"tabpanel\">\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-margins-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                     <div class=\"row\">\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2 icon-scale-down\">\r");t.b("\n" + i);t.b("                            <img style=\"height: 32px;\" src=\"images/margin1_off.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-8\">\r");t.b("\n" + i);t.b("                            <input  type=\"range\" role=\"slider\" aria-labelledby=\"setting-header-margins-legend\" id=\"margin-size-input\" min=\"20\" aria-value-min=\"20\" aria-valuemin=\"20\" step=\"20\" max=\"100\" aria-value-max=\"100\" aria-valuemax=\"100\" value=\"20\" aria-valuenow=\"20\" aria-value-now=\"20\" aria-valuetext=\"20\" aria-value-text=\"20\" title=\"");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2\">\r");t.b("\n" + i);t.b("                            <img style=\"height: 32px;\" src=\"images/margin4_off.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-display-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-display-legend\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"spread-default-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"display-format\" value=\"single\" type=\"radio\" id=\"spread-default-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"spread-default-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_spread_auto",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"one-up-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            \r");t.b("\n" + i);t.b("                            <input  name=\"display-format\" value=\"single\" type=\"radio\" id=\"single-page-radio\" />\r");t.b("\n" + i);t.b("                                            <label for=\"single-page-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                            <img src=\"images/ico_singlepage_up.png\" alt=\"");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_single_pages",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("                                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"two-up-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            \r");t.b("\n" + i);t.b("                                <input  name=\"display-format\" value=\"double\" type=\"radio\" id=\"double-page-radio\" />\r");t.b("\n" + i);t.b("                                            <label for=\"double-page-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                            <img src=\"images/ico_doublepage_up.png\" alt=\"");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_double_pages",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("                                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-scroll-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_scroll_mode",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-scroll-legend\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-default-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-default-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-default-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_scroll_mode_auto",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-doc-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-doc-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-doc-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                <span style=\"font-size:150%;color:#888888;\" class=\"glyphicon glyphicon-file\" aria-hidden=\"true\"></span> ");t.b(t.v(t.d("strings.i18n_scroll_mode_doc",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-continuous-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-continuous-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-continuous-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                <span style=\"font-size:150%;color:#888888;\" class=\"glyphicon glyphicon-road\" aria-hidden=\"true\"></span> ");t.b(t.v(t.d("strings.i18n_scroll_mode_continuous",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 hiddenx=\"hidden\" id=\"setting-header-pageTransition-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_page_transition",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    <div hiddenx=\"hidden\" role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-pageTransition-legend\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-none-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-none-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-none-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_none",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-1-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-1-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-1-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_fade",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-2-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-2-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-2-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_slide",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-3-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-3-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-3-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_swoosh",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-4-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-4-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-4-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_butterfly",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    \r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                    <div id=\"tab-keyboard\" class=\"tab-pane\" role=\"tabpanel\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <div class=\"row\" style=\"position:relative;\">\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <div id=\"invalid_keyboard_shortcut_ALERT\"></div>\r");t.b("\n" + i);t.b("                        \r");t.b("\n" + i);t.b("                        <ul id=\"keyboard-list\">\r");t.b("\n" + i);t.b("                        </ul>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                     </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("                <button id=\"buttClose\"  type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalClose",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalClose",c,p,0)));t.b("]\">");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                <button id=\"buttSave\"  type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalSave",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalSave",c,p,0)));t.b("]\">");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content -->\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/settings-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div tabindex=\"-1\" class=\"modal fade\" id=\"settings-dialog\" role=\"dialog\" aria-label=\"");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("    <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("        <div class=\"modal-content\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <!-- div class=\"modal-header\">\r");t.b("\n" + i);t.b("            <h4 class=\"modal-title\" id=\"settings-label\">");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("           </div -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <div class=\"modal-body\">\r");t.b("\n" + i);t.b("           <button type=\"button\" class=\"close\" id=\"closeSettingsCross\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.settings",c,p,0)));t.b("\"><span aria-hidden=\"true\">&times;</span></button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <ul class=\"nav nav-tabs\" role=\"tablist\" aria-owns=\"tab-butt-style tab-butt-layout tab-butt-keys\">\r");t.b("\n" + i);t.b("             <li class=\"active\" role=\"presentation\"><button id=\"tab-butt-style\"  title=\"");t.b(t.v(t.d("strings.style",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.style",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-style\" data-toggle=\"tab\" data-target=\"#tab-style\">");t.b(t.v(t.d("strings.style",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("             <li role=\"presentation\"><button id=\"tab-butt-layout\"  title=\"");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-layout\" data-toggle=\"tab\" data-target=\"#tab-layout\">");t.b(t.v(t.d("strings.layout",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("             <li role=\"presentation\"><button id=\"tab-butt-keys\"  title=\"");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("\" role='tab' aria-controls=\"tab-keyboard\" data-toggle=\"tab\" data-target=\"#tab-keyboard\">");t.b(t.v(t.d("strings.i18n_keyboard_shortcuts",c,p,0)));t.b("</button></li>\r");t.b("\n" + i);t.b("           </ul>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("           <div class=\"tab-content\">\r");t.b("\n" + i);t.b("                <div id=\"tab-style\" class=\"tab-pane active\" role=\"tabpanel\" aria-expanded=\"true\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                <h5 aria-hidden=\"true\">");t.b(t.v(t.d("strings.preview",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                <div  aria-hidden=\"true\" class=\"row\">\r");t.b("\n" + i);t.b("                    <div data-theme=\"default-theme\" class=\"col-xs-10 col-xs-offset-1 preview-text default-theme\">\r");t.b("\n" + i);t.b("                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Cras in felis sed orci aliquam sagittis.\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("<!-- button  type=\"button\" title=\"TESTING\" aria-label=\"TESTING\">TESTING DANIEL</button -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-font-size\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    <div class=\"row\">\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2 icon-scale-down\">\r");t.b("\n" + i);t.b("                            <img src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/glyphicons_115_text_smaller.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-8\">\r");t.b("\n" + i);t.b("                            <input  type=\"range\" role=\"slider\" aria-labelledby=\"setting-header-font-size\" id=\"font-size-input\" min=\"60\" aria-value-min=\"60\" aria-valuemin=\"60\" step=\"10\" max=\"170\" aria-value-max=\"170\" aria-valuemax=\"170\" value=\"100\" aria-valuenow=\"100\" aria-value-now=\"100\" aria-valuetext=\"1em\" aria-value-text=\"1em\" title=\"");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_font_size",c,p,0)));t.b("\" />\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2\">\r");t.b("\n" + i);t.b("                            <img src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/glyphicons_116_text_bigger.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-color-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_text_and_background_color",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                    <div role=\"group\" aria-labelledby=\"setting-header-color-legend\" id=\"theme-radio-group\" class=\"row\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"author-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option author-theme clickable\">");t.b(t.v(t.d("strings.i18n_author_theme",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"default-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option default-theme clickable\">");t.b(t.v(t.d("strings.i18n_black_and_white",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"night-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.NightTheme",c,p,0)));t.b("]\" class=\"col-xs-8 col-xs-offset-2 theme-option night-theme clickable\" >");t.b(t.v(t.d("strings.i18n_arabian_nights",c,p,0)));t.b("</button> <!-- accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.NightTheme",c,p,0)));t.b("\" -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"parchment-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable\">");t.b(t.v(t.d("strings.i18n_sands_of_dune",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"ballard-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable\">");t.b(t.v(t.d("strings.i18n_ballard_blues",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <button role=\"button\" data-theme=\"vancouver-theme\"  title=\"");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("\" class=\"col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable\">");t.b(t.v(t.d("strings.i18n_vancouver_mist",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("                <div id=\"tab-layout\" class=\"tab-pane\" role=\"tabpanel\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-margins-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("                     <div class=\"row\">\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2 icon-scale-down\">\r");t.b("\n" + i);t.b("                            <img style=\"height: 32px;\" src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/margin1_off.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-8\">\r");t.b("\n" + i);t.b("                            <input  type=\"range\" role=\"slider\" aria-labelledby=\"setting-header-margins-legend\" id=\"margin-size-input\" min=\"20\" aria-value-min=\"20\" aria-valuemin=\"20\" step=\"20\" max=\"100\" aria-value-max=\"100\" aria-valuemax=\"100\" value=\"20\" aria-valuenow=\"20\" aria-value-now=\"20\" aria-valuetext=\"20\" aria-value-text=\"20\" title=\"");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_margins",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div class=\"col-xs-2\">\r");t.b("\n" + i);t.b("                            <img style=\"height: 32px;\" src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/margin4_off.png\" alt=\"\" aria-hidden=\"true\">\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-display-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <div role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-display-legend\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"spread-default-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"display-format\" value=\"single\" type=\"radio\" id=\"spread-default-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"spread-default-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_spread_auto",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"one-up-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                            <input  name=\"display-format\" value=\"single\" type=\"radio\" id=\"single-page-radio\" />\r");t.b("\n" + i);t.b("                                            <label for=\"single-page-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                            <img src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/ico_singlepage_up.png\" alt=\"");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_single_pages",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("                                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"two-up-option\"\r");t.b("\n" + i);t.b("                        style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                                <input  name=\"display-format\" value=\"double\" type=\"radio\" id=\"double-page-radio\" />\r");t.b("\n" + i);t.b("                                            <label for=\"double-page-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                            <img src=\"");t.b(t.t(t.f("image_path_prefix",c,p,0)));t.b("images/ico_doublepage_up.png\" alt=\"");t.b(t.v(t.d("strings.i18n_display_format",c,p,0)));t.b(" ");t.b(t.v(t.d("strings.i18n_double_pages",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("                                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 id=\"setting-header-scroll-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_scroll_mode",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <div role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-scroll-legend\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-default-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-default-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-default-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_scroll_mode_auto",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-doc-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-doc-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-doc-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                <span style=\"font-size:150%;color:#888888;\" class=\"glyphicon glyphicon-file\" aria-hidden=\"true\"></span> ");t.b(t.v(t.d("strings.i18n_scroll_mode_doc",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"scroll-continuous-option\" style=\"vertical-align:middle;width:30%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"scrolling\" value=\"single\" type=\"radio\" id=\"scroll-continuous-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"scroll-continuous-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                <span style=\"font-size:150%;color:#888888;\" class=\"glyphicon glyphicon-road\" aria-hidden=\"true\"></span> ");t.b(t.v(t.d("strings.i18n_scroll_mode_continuous",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <h5 hiddenx=\"hidden\" id=\"setting-header-pageTransition-legend\" class=\"setting-header\">");t.b(t.v(t.d("strings.i18n_page_transition",c,p,0)));t.b("</h5>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <div hiddenx=\"hidden\" role=\"radiogroup\" class=\"row\" style=\"width:100%;text-align:center;\" aria-labelledby=\"setting-header-pageTransition-legend\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-none-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-none-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-none-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_none",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-1-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-1-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-1-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_fade",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-2-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-2-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-2-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_slide",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-3-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-3-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-3-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_swoosh",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div role=\"radio\" id=\"pageTransition-4-option\" style=\"vertical-align:middle;width:15%;display:inline-block;position:relative;\">\r");t.b("\n" + i);t.b("                            <input style=\"\"  name=\"pageTransition\" value=\"single\" type=\"radio\" id=\"pageTransition-4-radio\"/>\r");t.b("\n" + i);t.b("                            <label style=\"\" for=\"pageTransition-4-radio\" class=\"underlinedLabel\">\r");t.b("\n" + i);t.b("                                ");t.b(t.v(t.d("strings.i18n_page_transition_butterfly",c,p,0)));t.b("\r");t.b("\n" + i);t.b("                            </label>\r");t.b("\n" + i);t.b("                        </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                    <div id=\"tab-keyboard\" class=\"tab-pane\" role=\"tabpanel\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                    <div class=\"row\" style=\"position:relative;\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <div id=\"invalid_keyboard_shortcut_ALERT\"></div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("                        <ul id=\"keyboard-list\">\r");t.b("\n" + i);t.b("                        </ul>\r");t.b("\n" + i);t.b("                    </div>\r");t.b("\n" + i);t.b("                     </div>\r");t.b("\n" + i);t.b("                </div>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("            <div class=\"modal-footer\">\r");t.b("\n" + i);t.b("                <button id=\"buttClose\"  type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalClose",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalClose",c,p,0)));t.b("]\">");t.b(t.v(t.d("strings.i18n_close",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("                <button id=\"buttSave\"  type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" title=\"");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalSave",c,p,0)));t.b("]\" aria-label=\"");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.SettingsModalSave",c,p,0)));t.b("]\">");t.b(t.v(t.d("strings.i18n_save_changes",c,p,0)));t.b("</button>\r");t.b("\n" + i);t.b("            </div>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("        <!-- /.modal-content -->\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("    <!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
 define("hgn!readium_js_viewer_html_templates/settings-keyboard-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("name",c,p,1),c,p,0,9,747,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("<li>\r");t.b("\n" + i);t.b("<label id=\"label_");t.b(t.v(t.f("name",c,p,0)));t.b("\">");t.b(t.v(t.f("i18n",c,p,0)));t.b("<br/><span>");t.b(t.v(t.f("name",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("<input id=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\" name=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\" class=\"keyboardInput\" type=\"text\"  placeholder=\"");t.b(t.v(t.f("shortcut",c,p,0)));t.b("\" value=\"");t.b(t.v(t.f("shortcut",c,p,0)));t.b("\" aria-labelledbyxxx=\"label_");t.b(t.v(t.f("name",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.f("i18n",c,p,0)));t.b("\" title=\"");t.b(t.v(t.f("i18n",c,p,0)));t.b("\"></input>\r");t.b("\n" + i);t.b("<button class=\"resetKey captureKeyboardShortcut\" role=\"button\" data-key=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\"  title=\"");t.b(t.v(t.d("strings.i18n_reset_key",c,p,0)));t.b(" (");t.b(t.v(t.f("def",c,p,0)));t.b(")\" aria-label=\"");t.b(t.v(t.d("strings.i18n_reset_key",c,p,0)));t.b(" (");t.b(t.v(t.f("def",c,p,0)));t.b(")\"><span aria-hidden=\"true\">&#8855;</span></button>\r");t.b("\n" + i);t.b("<span id=\"duplicate_keyboard_shortcut\" aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_duplicate_keyboard_shortcut",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("<span id=\"invalid_keyboard_shortcut\" aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_invalid_keyboard_shortcut",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("</li>\r");t.b("\n" + i);});c.pop();}if(!t.s(t.f("name",c,p,1),c,p,1,0,0,"")){t.b("<li id=\"resetAllKeys");t.b(t.v(t.f("id",c,p,0)));t.b("\" class=\"resetAllKeys\">\r");t.b("\n" + i);t.b("<button class=\"resetKey\" role=\"button\"  title=\"");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("  &#8855;</span></button>\r");t.b("\n" + i);t.b("</li>\r");t.b("\n" + i);};return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
@@ -55438,7 +55742,10 @@ define('readium_js_viewer/ReaderSettingsDialog_Keyboard',['hgn!readium_js_viewer
 	}
 });
 
-define('readium_js_viewer/ReaderSettingsDialog',['hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard'], function(SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+define('readium_js_viewer/ReaderSettingsDialog',['module', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard'], function(module, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+
+  var image_path_prefix = module.config().imagePathPrefix || "";
+
 	var defaultSettings = {
         fontSize: 100,
         syntheticSpread: "auto",
@@ -55490,7 +55797,7 @@ define('readium_js_viewer/ReaderSettingsDialog',['hgn!readium_js_viewer_html_tem
     };
 
 	var initDialog = function(reader){
-		$('#app-container').append(SettingsDialog({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
+		$('#app-container').append(SettingsDialog({image_path_prefix: image_path_prefix, strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
 
 		$previewText = $('.preview-text');
         $('.theme-option').on('click', function(){
@@ -55756,6 +56063,7 @@ define('readium_js_viewer/versioning/ReadiumVersioning',['readium_js/Readium'], 
 });
 
 define('readium_js_viewer/EpubLibrary',[
+'module',
 'jquery',
 'bootstrap',
 'bootstrapA11y',
@@ -55779,6 +56087,7 @@ define('readium_js_viewer/EpubLibrary',[
 './versioning/ReadiumVersioning'],
 
 function(
+module,
 $,
 bootstrap,
 bootstrapA11y,
@@ -55800,6 +56109,10 @@ Messages,
 Analytics,
 Keyboard,
 Versioning){
+
+  var config = module.config();
+  var image_path_prefix = config.imagePathPrefix || "";
+	var epubs_path_prefix = config.epubLibraryPathPrefix || "";
 
     var detailsDialogStr = DetailsDialog({strings: Strings});
 
@@ -55931,14 +56244,20 @@ Versioning){
 		$('#app-container .library-items').remove();
 		$('#app-container').append(LibraryBody({}));
 		if (!epubs.length){
-			$('#app-container .library-items').append(EmptyLibrary({strings: Strings}));
+			$('#app-container .library-items').append(EmptyLibrary({image_path_prefix: image_path_prefix, strings: Strings}));
 			return;
 		}
 
 		var count = 0;
 		epubs.forEach(function(epub){
-			var noCoverBackground = 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
-			$('.library-items').append(LibraryItem({count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
+			var noCoverBackground = image_path_prefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
+
+      var epubs_path_prefix_ = "";
+      if (epub.coverHref && epub.coverHref.trim && epub.coverHref.trim().indexOf("http") != 0)
+      {
+          epubs_path_prefix_ = epubs_path_prefix;
+      }
+			$('.library-items').append(LibraryItem({epubs_path_prefix: epubs_path_prefix_, count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
 		});
 		$('.details').on('click', loadDetails);
 	}
@@ -56060,8 +56379,9 @@ Versioning){
 			canHandleDirectory : libraryManager.canHandleDirectory(),
             strings: Strings
 		}));
+
 		Versioning.getVersioningInfo(function(version){
-			$appContainer.append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+			$appContainer.append(AboutDialog({image_path_prefix: image_path_prefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 		});
 
 
@@ -60415,6 +60735,10 @@ GesturesHandler,
 Versioning,
 Readium){
 
+  	var config = module.config();
+var image_path_prefix = config.imagePathPrefix || "";
+var epubs_path_prefix = config.epubLibraryPathPrefix || "";
+
         examplePluginConfig.borderColor = "blue";
         examplePluginConfig.backgroundColor = "cyan";
 
@@ -61023,6 +61347,11 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
+        if (url && url.trim && url.trim().indexOf("http") != 0)
+        {
+            url = epubs_path_prefix + url;
+        }
+
         Analytics.trackView('/reader');
         embedded = data.embedded;
 
@@ -61090,7 +61419,7 @@ Readium){
 
             Versioning.getVersioningInfo(function(version){
 
-                $('#app-container').append(AboutDialog({strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+                $('#app-container').append(AboutDialog({image_path_prefix: image_path_prefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 
                 window.navigator.epubReadingSystem.name = "readium-js-viewer";
                 window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;
@@ -61412,12 +61741,17 @@ define('readium_js_viewer/ReadiumViewer',['jquery', './EpubLibrary', './EpubRead
 
 	$(window).on('readepub', function(e, url){
 		readerView(url);
-		pushState({epub: url}, "Readium Viewer", '?epub=' + encodeURIComponent(url));
+		pushState({epub: url}, "Readium Viewer",
+				((window.location && window.location.origin && window.location.pathname) ? (window.location.origin + window.location.pathname) : '')
+				+ '?epub=' + encodeURIComponent(url)
+		);
 	});
 
 	$(window).on('loadlibrary', function(e){
 		libraryView();
-		pushState(null, "Readium Library", 'index.html');
+		pushState(null, "Readium Library",
+				(window.location && window.location.origin && window.location.pathname) ? (window.location.origin + window.location.pathname) : 'index.html'
+		);
 	});
 
 	$(document.body).tooltip({
