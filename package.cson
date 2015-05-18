@@ -33,7 +33,7 @@
 
 name: "readium-js-viewer-viewer"
 
-version: "0.19.0-alpha"
+version: "0.20.0-alpha"
 
 description: "Readium web app - online cloud reader, offline Chrome extension/app, etc."
 
@@ -82,79 +82,63 @@ files: [
 #####################################################################
 dependencies:
 
-    parallelshell: 'latest'
+    "parallelshell": 'latest'
 
-    'http-server': 'latest'
-#    'httpserver': 'latest'
-#    'node-http-server': 'latest'
+    "opener": 'latest'
 
-    opener: 'latest'
+    #"http-server": 'latest'
+    "http-server": 'danielweck/http-server'
+    # SEE: https://github.com/indexzero/http-server/issues/154
 
-# See remark below about *runtime* dependencies
 
 #####################################################################
+# These dependencies can be fetched by using the "--dev" option
+# in "npm install --dev readium-js-viewer".
 devDependencies:
 
-#    "crypto-js": "latest"
+# see readium-js:
+# "crypto-js", "zipjs", "requirejs-text"
 
-#    "zipjs": "gildas-lormeau/zip.js"
-#    "zipjs": "ryanackley/zip.js"
-#    "zipjs": "danielweck/zip.js"
+# see readium-cfi-js:
+# "requirejs", "almond", "jquery"
 
-#    requirejs: "latest"
+    #"keymaster": 'latest'
+    "keymaster": 'danielweck/keymaster'
 
-#    almond: "latest"
+    #"jath": 'latest'
+    "jath": 'danielweck/jath'
+    # "libxmljs" node-gyp python < v3 :(
+    #"jquery-xpath": 'latest'
 
-#    "requirejs-text": "latest"
 
-    bootstrap: "latest"
+    "bootstrap": 'latest'
 
-    'bootstrap-accessibility-plugin': "latest"
+    "bootstrap-accessibility-plugin": 'latest'
 
-    hammerjs: "latest"
+    "hammerjs": 'latest'
 
-    'jquery-hammerjs': "latest"
+    "jquery-hammerjs": 'latest'
 
-    #keymaster: "latest"
-    keymaster: "danielweck/keymaster"
+    "screenfull": 'latest'
 
-    screenfull: "latest"
+    "JSON2": 'latest'
 
-    JSON2: "latest"
+    "hogan": 'latest'
 
-    hogan: "latest"
+    "requirejs-hogan-plugin": 'latest'
 
-    'requirejs-hogan-plugin': "latest"
+    "remotestoragejs": 'latest'
 
-    remotestoragejs: "latest"
+    "spin.js": 'latest'
 
-    #jath: "latest"
-    jath: "danielweck/jath"
-    # libxmljs node-gyp python < v3 :(
-    #'jquery-xpath': "latest"
+# Below dependencies are only used for building tasks (above are runtime deps):
 
-    'spin.js': "latest"
+# see readium-cfi-js:
+# "cson", "jshint", "glob", "rimraf", "mkdirp", "watch", "live-reload"
 
-# Above items are in fact runtime dependencies,
-# but because they are already bundled in the "build-output" folder that ships with the NPM package,
-# we declare them in "devDependencies" to avoid unnecessary downloads.
-# The download can be forced by using the "--dev" option after "npm install readium-js-viewer".
-
-    "gift": "latest"
-
-    cson: "latest"
-
-    jshint: "latest"
-
-    glob: 'latest'
-
-    rimraf: 'latest'
-
-    mkdirp: 'latest'
-
-    watch: 'latest'
-
-    'live-reload': 'latest'
+    # see readium-build-tools (in readium-cfi-js)
+    # versionsMaker.js
+    "gift": 'latest'
 
     "grunt": 'latest'
     "grunt-concurrent": 'latest'
@@ -184,24 +168,13 @@ devDependencies:
 #####################################################################
 scripts:
 
-#=====================
-    env: '
-
-        env
-    '
-
-#=====================
-    echo: '
-
-        echo ""
-    '
 
 #=====================
     cson2json: '
 
-        node node_modules/cson/bin/cson2json package.cson
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cson/bin/cson2json package.cson
         &&
-        node node_modules/cson/bin/cson2json package.cson > package.json
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cson/bin/cson2json package.cson > package.json
     '
 
 #=====================
@@ -212,9 +185,6 @@ scripts:
         &&
         npm run
             prepare:dependencies
-        &&
-        npm run
-            prepare:patch
     '
 
 #=====================
@@ -238,18 +208,12 @@ scripts:
     '
 
 #=====================
-    'prepare:patch': '
-
-        node build-config/patchHTTPServer.js
-    '
-
-#=====================
     clean: '
         node --version
         &&
         npm --version
         &&
-        rimraf
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
             build-output/*
     '
 
@@ -287,46 +251,61 @@ scripts:
 #=====================
     'preversioning': '
 
-        mkdirp build-output/_multiple-bundles
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+            build-output/_multiple-bundles
         &&
-        mkdirp build-output/_single-bundle
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+            build-output/_single-bundle
         &&
-        mkdirp build-output/XXX
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+            build-output/XXX
     '
 
 #=====================
     'versioning': '
         node build-config/versioning.js build-output/version.json
         &&
-        cp build-output/version.json build-output/XXX/
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/version.json
+            build-output/XXX/
     '
 
 #=====================
     'postbuild:scripts': '
 
-        rimraf build-output/XXX
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/XXX
         &&
-        rimraf build-output/_multiple-bundles/version.json
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/version.json
     '
 
 #=====================
     'postbuild:scripts:multiple': '
 
-        rimraf build-output/_multiple-bundles/version.json
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/version.json
         &&
-        rimraf build-output/_multiple-bundles/templates
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/templates
         &&
-        rimraf build-output/_multiple-bundles/i18n
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/i18n
         &&
-        rimraf build-output/_multiple-bundles/migration
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/migration
         &&
-        rimraf build-output/_multiple-bundles/storage
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/storage
         &&
-        rimraf build-output/_multiple-bundles/versioning
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/versioning
         &&
-        rimraf build-output/_multiple-bundles/workers
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/workers
         &&
-        rimraf build-output/_multiple-bundles/mathjax
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/mathjax
     '
 
 #=====================
@@ -334,9 +313,13 @@ scripts:
 
         npm run versioning
         &&
-        cp -r src/templates build-output/XXX
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            src/templates/
+            build-output/XXX/templates
         &&
-        cp -r src/i18n build-output/XXX
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            src/i18n/
+            build-output/XXX/i18n
         &&
         npm run
             build:scripts:multiple
@@ -347,13 +330,21 @@ scripts:
         npm run
             build:scripts:single:LITE
         &&
-        cp readium-js/node_modules/zip-js/WebContent/z-worker.js build-output
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            readium-js/node_modules/zip-js/WebContent/z-worker.js
+            build-output/
         &&
-        cp readium-js/node_modules/zip-js/WebContent/deflate.js build-output
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            readium-js/node_modules/zip-js/WebContent/deflate.js
+            build-output/
         &&
-        cp readium-js/node_modules/zip-js/WebContent/inflate.js build-output
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            readium-js/node_modules/zip-js/WebContent/inflate.js
+            build-output/
         &&
-        cp -r src/js/mathjax build-output
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            src/js/mathjax/
+            build-output/mathjax
     '
 
 #=====================
@@ -383,39 +374,47 @@ scripts:
 
 #=====================
 #    'prebuild:styles': '
-#        mkdirp build-output/css/
+#        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+#            build-output/css/
 #    '
 
 #=====================
 # TODO use cssminify
     'build:styles': '
 
-        cp -r src/css build-output
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            src/css/
+            build-output/css
         &&
-        cp -r src/images build-output
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            src/images/
+            build-output/images
     '
-#        cp -r node_modules/bootstrap/fonts build-output
+#     node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+#              node_modules/bootstrap/fonts/
+#              build-output/fonts
 
 #=====================
 #### BLOCKING! (CTRL-C) [watch][live-reload][http]
-    'example:dev': '
-        npm run
-            clean
-        &&
+    'example:watch': '
         echo > open_webbrowser.js
         &&
         parallelshell
-            \"npm run live-reload\"
             \"npm run watch\"
             \"npm run http\"
     '
+#    \"npm run live-reload\"
 
 #=====================
 #### BLOCKING! (CTRL-C) [http]
     'example': '
-        cp -r epub_content build-output
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            epub_content/
+            build-output/epub_content
         &&
-        cp -r build-output-usage-example/* build-output
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            build-output-usage-example/
+            build-output/
         &&
         parallelshell
             \"npm run http\"
@@ -423,29 +422,15 @@ scripts:
     '
 
 #=====================
-#### BLOCKING! (CTRL-C) [watch:build]
-    watch: '
-
-        parallelshell
-            \"npm run watch:build\"
-    '
-    #   \"npm run watch:test\
-
-#=====================
-#   'watch:test': 'karma start'
-
-#=====================
-#   test: 'karma start --singleRun'
-
-#=====================
 #### BLOCKING! (CTRL-C) [watch or nodemon]
-    'watch:build': '
-        watch
+    'watch': '
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/watch/cli.js
             \"npm run build
                 && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
                 && npm run webbrowser
-                && rimraf open_webbrowser.js\"
-            build-output/
+                && node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+                    open_webbrowser.js\"
+            build-output-usage-example/ src/ readium-js/js/ readium-shared-js/js/ readium-shared-js/plugins/ readium-shared-js/readium-cfi-js/js/
     '
     #    nodemon -q
     #    -w build-output/
@@ -453,22 +438,19 @@ scripts:
     #    --exec \"npm run build
     #            && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
     #            && npm run webbrowser
-    #            && rimraf open_webbrowser.js\"
+    #            && node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+    #                  open_webbrowser.js\"
 
 #=====================
     'http': '
         http-server -p 9090 --cors ./
     '
-#    node node_modules/httpserver/httpserver.js 9090 127.0.0.1
-#    http-server -p 9090 ./
-#    node  .\node_modules\node-http-server\server\http.js root=. port=9090 launch=now verbose=true
-#    node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
 
 #=====================
-    'live-reload': '
-
-        live-reload --port 9091 --delay 1000 build-output/
-    '
+#    'live-reload': '
+#
+#        live-reload --port 9091 --delay 1000 build-output/
+#    '
 
 #=====================
     'webbrowser': '

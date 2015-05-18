@@ -16571,7 +16571,13 @@ define("screenfull", (function (global) {
 					var msg = index === 0 ? initialMessage : {sn : sn};
 					msg.type = 'append';
 					msg.data = array;
-					worker.postMessage(msg, [array.buffer]);
+					
+					// posting a message with transferables will fail on IE10
+					try {
+						worker.postMessage(msg, [array.buffer]);
+					} catch(ex) {
+						worker.postMessage(msg); // retry without transferables
+					}
 					chunkIndex++;
 				}, onreaderror);
 			} else {
@@ -18824,6 +18830,8 @@ define("zip-fs", ["mime-types"], (function (global) {
 			var request = new XMLHttpRequest();
 			request.addEventListener("load", function() {
 				that.size = Number(request.getResponseHeader("Content-Length"));
+                
+                // Some HTTP servers do not emit the Accept-Ranges header :(
 				if (true || request.getResponseHeader("Accept-Ranges") == "bytes")
 					callback();
 				else

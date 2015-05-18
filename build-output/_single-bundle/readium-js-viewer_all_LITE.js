@@ -43732,7 +43732,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"d5187b38b050c96b230d60ab64a4774b820ae025","clean":false,"version":"0.19.0-alpha","chromeVersion":"2.19.0-alpha","tag":"0.17.0-61-gd5187b3","branch":"feature/pluginsX","release":false,"timestamp":1431860984384},"readiumJs":{"sha":"fc78792329a1d2a02d4be79a2179df95f3b83100","clean":false,"version":"0.19.0-alpha","tag":"0.15-142-gfc78792","branch":"feature/pluginsX","release":false,"timestamp":1431860984701},"readiumSharedJs":{"sha":"6c8e4aa18ed0fbd6f603536c38efa67211df00a1","clean":false,"version":"0.19.0-alpha","tag":"0.16-127-g6c8e4aa","branch":"feature/pluginsX","release":false,"timestamp":1431860984978},"readiumCfiJs":{"sha":"67ffd3d612ae1b3008aa469ee5ac0ea018503257","clean":false,"version":"0.19.0-alpha","tag":"0.1.4-100-g67ffd3d","branch":"feature/plugins","release":false,"timestamp":1431860985218}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"20502168ffcdc16bc2d45952dc2117cf22244993","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.17.0-62-g2050216","branch":"feature/pluginsX","release":false,"timestamp":1431971476264},"readiumJs":{"sha":"05f45cd56423d1a560ff8180487ce1a25ad22536","clean":false,"version":"0.20.0-alpha","tag":"0.15-144-g05f45cd","branch":"feature/pluginsX","release":false,"timestamp":1431971476645},"readiumSharedJs":{"sha":"297454a6ed03a7a1f14e00fcb8f7349340003bb5","clean":false,"version":"0.20.0-alpha","tag":"0.16-130-g297454a","branch":"feature/pluginsX","release":false,"timestamp":1431971476932},"readiumCfiJs":{"sha":"43b33a0d613c954320bfa4281460855d823111d0","clean":false,"version":"0.20.0-alpha","tag":"0.1.4-103-g43b33a0","branch":"feature/plugins","release":false,"timestamp":1431971477166}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -44348,7 +44348,13 @@ define('readium_js/epub-fetch/plain_resource_fetcher',['jquery', 'URIjs', './dis
 					var msg = index === 0 ? initialMessage : {sn : sn};
 					msg.type = 'append';
 					msg.data = array;
-					worker.postMessage(msg, [array.buffer]);
+					
+					// posting a message with transferables will fail on IE10
+					try {
+						worker.postMessage(msg, [array.buffer]);
+					} catch(ex) {
+						worker.postMessage(msg); // retry without transferables
+					}
 					chunkIndex++;
 				}, onreaderror);
 			} else {
@@ -46601,6 +46607,8 @@ define("zip-fs", ["mime-types"], (function (global) {
 			var request = new XMLHttpRequest();
 			request.addEventListener("load", function() {
 				that.size = Number(request.getResponseHeader("Content-Length"));
+                
+                // Some HTTP servers do not emit the Accept-Ranges header :(
 				if (true || request.getResponseHeader("Accept-Ranges") == "bytes")
 					callback();
 				else
