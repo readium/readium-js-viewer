@@ -1,5 +1,5 @@
 define([
-'module',
+'./ModuleConfig',
 'jquery',
 'bootstrap',
 'bootstrapA11y',
@@ -23,7 +23,7 @@ define([
 './versioning/ReadiumVersioning'],
 
 function(
-module,
+moduleConfig,
 $,
 bootstrap,
 bootstrapA11y,
@@ -45,10 +45,6 @@ Messages,
 Analytics,
 Keyboard,
 Versioning){
-
-  var config = module.config();
-  var image_path_prefix = config.imagePathPrefix || "";
-	var epubs_path_prefix = config.epubLibraryPathPrefix || "";
 
     var detailsDialogStr = DetailsDialog({strings: Strings});
 
@@ -180,20 +176,20 @@ Versioning){
 		$('#app-container .library-items').remove();
 		$('#app-container').append(LibraryBody({}));
 		if (!epubs.length){
-			$('#app-container .library-items').append(EmptyLibrary({image_path_prefix: image_path_prefix, strings: Strings}));
+			$('#app-container .library-items').append(EmptyLibrary({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings}));
 			return;
 		}
 
 		var count = 0;
 		epubs.forEach(function(epub){
-			var noCoverBackground = image_path_prefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
+			var noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
 
-      var epubs_path_prefix_ = "";
+      var epubLibraryPathPrefix_ = "";
       if (epub.coverHref && epub.coverHref.trim && epub.coverHref.trim().indexOf("http") != 0)
       {
-          epubs_path_prefix_ = epubs_path_prefix;
+          epubLibraryPathPrefix_ = moduleConfig.epubLibraryPathPrefix;
       }
-			$('.library-items').append(LibraryItem({epubs_path_prefix: epubs_path_prefix_, count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
+			$('.library-items').append(LibraryItem({epubLibraryPathPrefix: epubLibraryPathPrefix_, count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
 		});
 		$('.details').on('click', loadDetails);
 	}
@@ -317,7 +313,7 @@ Versioning){
 		}));
 
 		Versioning.getVersioningInfo(function(version){
-			$appContainer.append(AboutDialog({image_path_prefix: image_path_prefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+			$appContainer.append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 		});
 
 

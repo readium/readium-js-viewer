@@ -1,9 +1,4 @@
-define(['jquery', 'module', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, module, PackageParser, WorkerProxy, StorageManager, Strings) {
-
-	var config = module.config();
-	var epubs_path_prefix = config.epubLibraryPathPrefix || "";
-	//var image_path_prefix = config.imagePathPrefix || "";
-
+define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings) {
 
 	var LibraryManager = function(){
 	};
@@ -32,7 +27,7 @@ define(['jquery', 'module', './PackageParser', './workers/WorkerProxy', 'Storage
 
 			      if (indexUrl && indexUrl.trim && indexUrl.trim().indexOf("http") != 0)
 			      {
-								indexUrl = epubs_path_prefix + indexUrl;
+								indexUrl = moduleConfig.epubLibraryPathPrefix + indexUrl;
 			      }
 
             var self = this;
@@ -56,7 +51,7 @@ define(['jquery', 'module', './PackageParser', './workers/WorkerProxy', 'Storage
 
 			      if (packageUrl && packageUrl.trim && packageUrl.trim().indexOf("http") != 0)
 			      {
-								packageUrl = epubs_path_prefix + packageUrl;
+								packageUrl = moduleConfig.epubLibraryPathPrefix + packageUrl;
 			      }
 
 			$.get(packageUrl, function(data){
@@ -138,10 +133,10 @@ define(['jquery', 'module', './PackageParser', './workers/WorkerProxy', 'Storage
 
         },
         canHandleUrl : function(){
-            return config.canHandleUrl;
+            return moduleConfig.canHandleUrl;
         },
         canHandleDirectory : function(){
-            return config.canHandleDirectory;
+            return moduleConfig.canHandleDirectory;
         }
 	}
 

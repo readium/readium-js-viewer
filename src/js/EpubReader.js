@@ -1,7 +1,7 @@
 define([
 "readium_shared_js/globalsSetup",
 "readium_plugin_example",
-'module',
+'./ModuleConfig',
 'jquery',
 'bootstrap',
 'bootstrapA11y',
@@ -26,7 +26,7 @@ define([
 
 function (
 globalSetup, examplePluginConfig,
-module,
+moduleConfig,
 $,
 bootstrap,
 bootstrapA11y,
@@ -49,9 +49,6 @@ GesturesHandler,
 Versioning,
 Readium){
 
-  	var config = module.config();
-var image_path_prefix = config.imagePathPrefix || "";
-var epubs_path_prefix = config.epubLibraryPathPrefix || "";
 
         examplePluginConfig.borderColor = "blue";
         examplePluginConfig.backgroundColor = "cyan";
@@ -663,7 +660,7 @@ var epubs_path_prefix = config.epubLibraryPathPrefix || "";
         url = data.epub;
         if (url && url.trim && url.trim().indexOf("http") != 0)
         {
-            url = epubs_path_prefix + url;
+            url = moduleConfig.epubLibraryPathPrefix + url;
         }
 
         Analytics.trackView('/reader');
@@ -688,24 +685,24 @@ var epubs_path_prefix = config.epubLibraryPathPrefix || "";
 
     var initReadium = function(){
 
-        console.log("MODULE CONFIG " + module.id);
-        console.log(module.config());
+        console.log("MODULE CONFIG:");
+        console.log(moduleConfig);
 
         Settings.getMultiple(['reader', url], function(settings){
 
             var prefix = (self.location && self.location.origin && self.location.pathname) ? (self.location.origin + self.location.pathname + "/..") : "";
             var readerOptions =  {
                 el: "#epub-reader-frame",
-                annotationCSSUrl: module.config().annotationCSSUrl || "?!module.config().annotationCssUrl", //(prefix + "/css/annotations.css"),
-                mathJaxUrl : module.config().mathJaxUrl || "?!module.config().mathJaxUrl" //? (prefix + module.config().mathJaxUrl) : (prefix + "/scripts/mathjax/MathJax.js")
+                annotationCSSUrl: moduleConfig.annotationCSSUrl,
+                mathJaxUrl : moduleConfig.mathJaxUrl,
             };
 
             var readiumOptions = {
-                jsLibRoot: module.config().jsLibRoot || "?!module.config().jsLibRoot", //'./scripts/zip/',
+                jsLibRoot: moduleConfig.jsLibRoot,
                 openBookOptions: {}
             };
 
-            if (module.config().useSimpleLoader){
+            if (moduleConfig.useSimpleLoader){
                 readiumOptions.useSimpleLoader = true;
             }
 
@@ -733,7 +730,7 @@ var epubs_path_prefix = config.epubLibraryPathPrefix || "";
 
             Versioning.getVersioningInfo(function(version){
 
-                $('#app-container').append(AboutDialog({image_path_prefix: image_path_prefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+                $('#app-container').append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 
                 window.navigator.epubReadingSystem.name = "readium-js-viewer";
                 window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;

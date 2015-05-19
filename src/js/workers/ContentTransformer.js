@@ -11,7 +11,7 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define(['module', 'readium_js/epub-fetch/encryptionHandler'], function(module, EncryptionHandler){
+define(['../ModuleConfig', 'readium_js/epub-fetch/encryptionHandler'], function(moduleConfig, EncryptionHandler){
 
 	var isXhtmlFile = function(name){
 		return name.lastIndexOf('.xhtml') == name.length - ('.xhtml'.length) || name.lastIndexOf('.html') == name.length - ('.html'.length);
@@ -45,8 +45,8 @@ define(['module', 'readium_js/epub-fetch/encryptionHandler'], function(module, E
 
 		_transformXhtml : function(contentDocumentHtml){
 
-			var mathJaxUrl = module.config().mathJaxUrl,
-				ersUrl = module.config().epubReadingSystemUrl;
+			var mathJaxUrl = moduleConfig.mathJaxUrl,
+				ersUrl = moduleConfig.epubReadingSystemUrl;
 
 			if (ersUrl){
             	var scripts = "<script type=\"text/javascript\" src=\"" + ersUrl + "\"><\/script>";

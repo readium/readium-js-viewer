@@ -11,8 +11,6 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-var imagePathPrefix = '/src/';
-var epubLibraryPathPrefix = "/";
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
@@ -21,28 +19,7 @@ require.config({
 
     config : {
 
-        'readium_js_viewer/EpubLibraryManager' : {
-
-            'imagePathPrefix': imagePathPrefix,
-            'epubLibraryPathPrefix': epubLibraryPathPrefix
-        },
-
-        'readium_js_viewer/ReaderSettingsDialog' : {
-
-            'imagePathPrefix': imagePathPrefix
-        },
-
-        'readium_js_viewer/EpubLibrary' : {
-
-            'imagePathPrefix': imagePathPrefix,
-            'epubLibraryPathPrefix': epubLibraryPathPrefix
-        },
-
-        'readium_js_viewer/EpubReader' : {
-
-            'epubLibraryPathPrefix': epubLibraryPathPrefix,
-
-            'imagePathPrefix': imagePathPrefix,
+        'readium_js_viewer/ModuleConfig' : {
 
             'mathJaxUrl': '/src/js/mathjax/MathJax.js',
 
@@ -52,15 +29,17 @@ require.config({
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
+            'epubLibraryPathPrefix': "/",
 
-    //     'storage/EpubUnzipper': {
-    //         'workerScriptsPath': '/build-output/_single-bundle/'
-    //     },
+            'imagePathPrefix': '/src/',
 
-    //     'workers/WorkerProxy': {
-    //         'workerUrl': '/scripts/readium-worker.js'
-    //     }
+            'canHandleUrl' : false,
+            'canHandleDirectory' : false,
 
+
+            'workerUrl': '/src/chrome-app/readium-worker.js',
+
+            'epubReadingSystemUrl': '/src/chrome-app/epubReadingSystem.js'
         }
     }
 });

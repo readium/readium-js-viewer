@@ -1,4 +1,4 @@
-define(['module', './Messages', 'jquery', 'readium_js/epub-model/package_document_parser', 'readium_js/epub-fetch/encryption_handler'], function(module, Messages, $, PackageParser, EncryptionHandler){
+define(['../ModuleConfig', './Messages', 'jquery', 'readium_js/epub-model/package_document_parser', 'readium_js/epub-fetch/encryption_handler'], function(moduleConfig, Messages, $, PackageParser, EncryptionHandler){
 
 	var worker;
 	var cleanupWorker = function(){
@@ -10,7 +10,7 @@ define(['module', './Messages', 'jquery', 'readium_js/epub-model/package_documen
 			console.log('dangling worker');
 		}
 
-		var workerUrl = module.config().workerUrl;
+		var workerUrl = moduleConfig.workerUrl;
 		worker = new Worker(workerUrl);
 
 		var continueOverwrite = function(){

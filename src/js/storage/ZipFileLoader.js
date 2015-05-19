@@ -1,7 +1,7 @@
 // inflate is required by zip but won't work if inflate is loaded before zip. Just explicitly adding it here since there is
 // no way to include it in the dependency chain that makes sense.
-define(['zip', 'module', '../workers/Messages', 'inflate'], function(zip, module, Messages){
-	var config = module.config();
+define(['zip', '../workers/Messages', 'inflate'], function(zip, Messages){
+
 	var largeFileThreshold = 150 * 1024 * 1024; // 150MB
 
 	zip.useWebWorkers = false;
