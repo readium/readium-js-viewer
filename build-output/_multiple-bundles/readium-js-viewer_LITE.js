@@ -3552,8 +3552,7 @@ Readium){
         console.log(moduleConfig);
 
         Settings.getMultiple(['reader', url], function(settings){
-
-            var prefix = (self.location && self.location.origin && self.location.pathname) ? (self.location.origin + self.location.pathname + "/..") : "";
+          
             var readerOptions =  {
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,

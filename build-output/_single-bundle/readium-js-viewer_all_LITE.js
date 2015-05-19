@@ -43732,7 +43732,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"e50c22c91946e9f4f62185289d68c5c0f3bebbd1","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.17.0-65-ge50c22c","branch":"feature/pluginsX","release":false,"timestamp":1432026419303},"readiumJs":{"sha":"983ade9ae383c32cb405fcb83a9807078b1324e8","clean":false,"version":"0.20.0-alpha","tag":"0.15-146-g983ade9","branch":"feature/pluginsX","release":false,"timestamp":1432026419647},"readiumSharedJs":{"sha":"5cedb9f8902499d64ae9de608fb3a5d09c92e0bf","clean":false,"version":"0.20.0-alpha","tag":"0.16-132-g5cedb9f","branch":"feature/pluginsX","release":false,"timestamp":1432026419945},"readiumCfiJs":{"sha":"df9c8d266c6250d087e1f682074e9eb078901149","clean":false,"version":"0.20.0-alpha","tag":"0.1.4-105-gdf9c8d2","branch":"feature/plugins","release":false,"timestamp":1432026420197}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"13514907ea8607f4a264fc5526e12bab1bced2ae","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.17.0-66-g1351490","branch":"feature/pluginsX","release":false,"timestamp":1432037282959},"readiumJs":{"sha":"ec8b508099ff11e06426ac741348fc2bfeba7c4e","clean":true,"version":"0.20.0-alpha","tag":"0.15-148-gec8b508","branch":"feature/pluginsX","release":false,"timestamp":1432037283303},"readiumSharedJs":{"sha":"97274befa78900a2419ad40e7faf52f05d2ce3e6","clean":true,"version":"0.20.0-alpha","tag":"0.16-133-g97274be","branch":"feature/pluginsX","release":false,"timestamp":1432037283622},"readiumCfiJs":{"sha":"2d4a3b8a6905e487413f0a23bedee68e5d913aea","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-106-g2d4a3b8","branch":"feature/plugins","release":false,"timestamp":1432037283863}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -60360,8 +60360,7 @@ Readium){
         console.log(moduleConfig);
 
         Settings.getMultiple(['reader', url], function(settings){
-
-            var prefix = (self.location && self.location.origin && self.location.pathname) ? (self.location.origin + self.location.pathname + "/..") : "";
+          
             var readerOptions =  {
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,

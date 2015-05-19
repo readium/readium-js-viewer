@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link href="images/readium_favicon.png" rel="shortcut icon"/>
-        <!-- link href="images/readium-touch-icon.png" rel="apple-touch-icon"/ -->
+        <link href="images/readium-touch-icon.png" rel="apple-touch-icon"/>
 
     <style>
         .library-item{
@@ -52,18 +52,18 @@ require.config({
 
             'jsLibRoot': HTTPServerRootFolder + '/scripts/zip/',
 
-            'useSimpleLoader' : true,
+            'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
             'epubLibraryPathPrefix': '',
 
             'imagePathPrefix': '',
 
             'canHandleUrl' : false,
-            'canHandleDirectory' : true,
+            'canHandleDirectory' : false,
 
 
-            'workerUrl': HTTPServerRootFolder + '/scripts/readium-worker.js',
-            'epubReadingSystemUrl': HTTPServerRootFolder + '/scripts/epubReadingSystem.js',
+            'workerUrl': undefined,
+            'epubReadingSystemUrl': undefined
         }
     }
 });

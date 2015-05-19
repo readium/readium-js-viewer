@@ -1,28 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html id="simpleViewer">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link href="images/readium_favicon.png" rel="shortcut icon"/>
-        <!-- link href="images/readium-touch-icon.png" rel="apple-touch-icon"/ -->
-
-    <style>
-        .library-item{
-            height: 100px;
-
-        }
-
-        body:not(.list-view) .library-item .no-cover{
-            width: 300px;
-            height: 400px;
-            font-size: 40px;
-        }
-    </style>
+            <link href="images/readium_favicon.png" rel="shortcut icon"/>
+            <link href="images/readium-touch-icon.png" rel="apple-touch-icon"/>
 
     <link rel="stylesheet" type="text/css" href="css/readium-all.css">
 
-    <script type="text/javascript" src="scripts/readium-js-viewer_all.js"> </script>
+    <script type="text/javascript" src="scripts/readium-js-viewer_all_LITE.js"> </script>
 
 <script type="text/javascript">
 
@@ -52,18 +39,18 @@ require.config({
 
             'jsLibRoot': HTTPServerRootFolder + '/scripts/zip/',
 
-            'useSimpleLoader' : true,
+            'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
             'epubLibraryPathPrefix': '',
 
             'imagePathPrefix': '',
 
             'canHandleUrl' : false,
-            'canHandleDirectory' : true,
+            'canHandleDirectory' : false,
 
 
-            'workerUrl': HTTPServerRootFolder + '/scripts/readium-worker.js',
-            'epubReadingSystemUrl': HTTPServerRootFolder + '/scripts/epubReadingSystem.js',
+            'workerUrl': undefined,
+            'epubReadingSystemUrl': undefined
         }
     }
 });

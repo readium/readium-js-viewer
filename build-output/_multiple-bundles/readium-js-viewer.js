@@ -4384,8 +4384,7 @@ Readium){
         console.log(moduleConfig);
 
         Settings.getMultiple(['reader', url], function(settings){
-
-            var prefix = (self.location && self.location.origin && self.location.pathname) ? (self.location.origin + self.location.pathname + "/..") : "";
+          
             var readerOptions =  {
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
@@ -4745,19 +4744,26 @@ define('readium_js_viewer/ReadiumViewer',['jquery', './EpubLibrary', './EpubRead
 		EpubReader.loadUI({epub: url});
 	}
 
+	var URLPATH =
+	window.location ? (
+		window.location.protocol
+		+ "//"
+		+ window.location.hostname
+		+ (window.location.port ? (':' + window.location.port) : '')
+		+ window.location.pathname
+	) : 'index.html'
+	;
+
 	$(window).on('readepub', function(e, url){
 		readerView(url);
 		pushState({epub: url}, "Readium Viewer",
-				((window.location && window.location.origin && window.location.pathname) ? (window.location.origin + window.location.pathname) : '')
-				+ '?epub=' + encodeURIComponent(url)
+				URLPATH + '?epub=' + encodeURIComponent(url)
 		);
 	});
 
 	$(window).on('loadlibrary', function(e){
 		libraryView();
-		pushState(null, "Readium Library",
-				(window.location && window.location.origin && window.location.pathname) ? (window.location.origin + window.location.pathname) : 'index.html'
-		);
+		pushState(null, "Readium Library", URLPATH);
 	});
 
 	$(document.body).tooltip({
