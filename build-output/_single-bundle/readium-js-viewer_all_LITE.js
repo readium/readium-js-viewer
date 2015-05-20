@@ -43732,7 +43732,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"13514907ea8607f4a264fc5526e12bab1bced2ae","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.17.0-66-g1351490","branch":"feature/pluginsX","release":false,"timestamp":1432037282959},"readiumJs":{"sha":"ec8b508099ff11e06426ac741348fc2bfeba7c4e","clean":true,"version":"0.20.0-alpha","tag":"0.15-148-gec8b508","branch":"feature/pluginsX","release":false,"timestamp":1432037283303},"readiumSharedJs":{"sha":"97274befa78900a2419ad40e7faf52f05d2ce3e6","clean":true,"version":"0.20.0-alpha","tag":"0.16-133-g97274be","branch":"feature/pluginsX","release":false,"timestamp":1432037283622},"readiumCfiJs":{"sha":"2d4a3b8a6905e487413f0a23bedee68e5d913aea","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-106-g2d4a3b8","branch":"feature/plugins","release":false,"timestamp":1432037283863}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"eb76f08fc1b1b545d20885bd3a8102a2f4ac89f9","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.17.0-67-geb76f08","branch":"feature/pluginsX","release":false,"timestamp":1432143547502},"readiumJs":{"sha":"9ff90ac9710f0c513c6a978c2e3c35d1d482dd56","clean":true,"version":"0.20.0-alpha","tag":"0.15-149-g9ff90ac","branch":"feature/pluginsX","release":false,"timestamp":1432143547855},"readiumSharedJs":{"sha":"97274befa78900a2419ad40e7faf52f05d2ce3e6","clean":true,"version":"0.20.0-alpha","tag":"0.16-133-g97274be","branch":"feature/pluginsX","release":false,"timestamp":1432143548163},"readiumCfiJs":{"sha":"2d4a3b8a6905e487413f0a23bedee68e5d913aea","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-106-g2d4a3b8","branch":"feature/plugins","release":false,"timestamp":1432143548434}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -46764,16 +46764,16 @@ define("zip-ext", ["zip-fs"], (function (global) {
 }(this)));
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 define('readium_js/epub-fetch/zip_resource_fetcher',['jquery', 'URIjs', './discover_content_type', 'zip-ext'], function ($, URI, ContentTypeDiscovery, zip) {
@@ -46799,7 +46799,7 @@ define('readium_js/epub-fetch/zip_resource_fetcher',['jquery', 'URIjs', './disco
                 // The Web Worker requires standalone z-worker/inflate/deflate.js files in libDir (i.e. cannot be aggregated/minified/optimised in the final generated single-file build)
                 zip.useWebWorkers = true; // (true by default)
                 zip.workerScriptsPath = libDir;
-                
+
                 _zipFs = new zip.fs.FS();
                 _zipFs.importHttpContent(
                     baseUrl,
@@ -46821,7 +46821,7 @@ define('readium_js/epub-fetch/zip_resource_fetcher',['jquery', 'URIjs', './disco
             withZipFsPerform(
                 function (zipFs, onerror) {
                     var entry = zipFs.find(relativePathRelativeToPackageRoot);
-                    
+
                     if (typeof entry === 'undefined' || entry === null) {
                         onerror(new Error('Entry ' + relativePathRelativeToPackageRoot + ' not found in zip ' + baseUrl));
                     } else {
@@ -46883,16 +46883,16 @@ define('readium_js/epub-fetch/zip_resource_fetcher',['jquery', 'URIjs', './disco
 });
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 define(
@@ -46938,9 +46938,13 @@ define(
                     resolveDocumentAudios(resolutionDeferreds, onerror);
                     resolveDocumentVideos(resolutionDeferreds, onerror);
                 }
+
                 // TODO: recursive fetching, parsing and DOM construction of documents in IFRAMEs,
                 // with CSS preprocessing and obfuscated font handling
+                // DANIEL: yep, that's essential for embedded widgets / EPUB scriptable components
+                // See https://github.com/readium/readium-js/issues/105
                 resolveDocumentIframes(resolutionDeferreds, onerror);
+
                 // TODO: resolution (e.g. using DOM mutation events) of scripts loaded dynamically by scripts
                 resolveDocumentScripts(resolutionDeferreds, onerror);
                 resolveDocumentLinkStylesheets(resolutionDeferreds, onerror);
@@ -46981,15 +46985,42 @@ define(
 
             function fetchResourceForElement(resolvedElem, refAttrOrigVal, refAttr, fetchMode, resolutionDeferreds,
                                              onerror, resourceDataPreprocessing) {
-                var resourceUriRelativeToPackageDocument = (new URI(refAttrOrigVal)).absoluteTo(_contentDocumentPathRelativeToPackage).toString();
 
-                var cachedResourceUrl = _publicationResourcesCache.getResourceURL(resourceUriRelativeToPackageDocument);
+                 function replaceRefAttrInElem(newResourceUrl) {
+                     // Store original refAttrVal in a special attribute to provide access to the original href:
+                     $(resolvedElem).data('epubZipOrigHref', refAttrOrigVal);
+                     $(resolvedElem).attr(refAttr, newResourceUrl);
+                 }
 
-                function replaceRefAttrInElem(newResourceUrl) {
-                    // Store original refAttrVal in a special attribute to provide access to the original href:
-                    $(resolvedElem).data('epubZipOrigHref', refAttrOrigVal);
-                    $(resolvedElem).attr(refAttr, newResourceUrl);
+                var refAttrUri = new URI(refAttrOrigVal);
+                if (refAttrUri.scheme() !== '') {
+                    console.log("HTTP / absolute scheme res: " + refAttrOrigVal);
+
+                    return;
+
+                } else if (refAttrOrigVal.indexOf("/") == 0) {
+                    console.log("Absolute path res: " + refAttrOrigVal);
+
+                    var HTTPServerRootFolder =
+                    window.location ? (
+                      window.location.protocol
+                      + "//"
+                      + window.location.hostname
+                      + (window.location.port ? (':' + window.location.port) : '')
+                      ) : ''
+                    ;
+
+                    replaceRefAttrInElem(HTTPServerRootFolder + refAttrOrigVal);
+
+                    return;
                 }
+
+                var contentDocumentPathRelativeToBase = _publicationFetcher.convertPathRelativeToPackageToRelativeToBase(_contentDocumentPathRelativeToPackage);
+
+                var resourceUriRelativeToBase = "/" + (new URI(refAttrOrigVal)).absoluteTo(contentDocumentPathRelativeToBase).toString();
+
+
+                var cachedResourceUrl = _publicationResourcesCache.getResourceURL(resourceUriRelativeToBase);
 
                 if (cachedResourceUrl) {
                     replaceRefAttrInElem(cachedResourceUrl);
@@ -46997,7 +47028,7 @@ define(
                     var resolutionDeferred = $.Deferred();
                     resolutionDeferreds.push(resolutionDeferred);
 
-                    _publicationFetcher.relativeToPackageFetchFileContents(resourceUriRelativeToPackageDocument,
+                    _publicationFetcher.relativeToPackageFetchFileContents(resourceUriRelativeToBase,
                         fetchMode,
                         function (resourceData) {
 
@@ -47007,7 +47038,7 @@ define(
                             var replaceResourceURL = function (finalResourceData) {
                                 // Creating an object URL requires a Blob object, so resource data fetched in text mode needs to be wrapped in a Blob:
                                 if (fetchMode === 'text') {
-                                    var textResourceContentType = ContentTypeDiscovery.identifyContentTypeFromFileName(resourceUriRelativeToPackageDocument);
+                                    var textResourceContentType = ContentTypeDiscovery.identifyContentTypeFromFileName(resourceUriRelativeToBase);
                                     var declaredType = $(resolvedElem).attr('type');
                                     if (declaredType) {
                                         textResourceContentType = declaredType;
@@ -47016,7 +47047,7 @@ define(
                                 }
                                 //noinspection JSUnresolvedVariable,JSUnresolvedFunction
                                 var resourceObjectURL = window.URL.createObjectURL(finalResourceData);
-                                _publicationResourcesCache.putResource(resourceUriRelativeToPackageDocument,
+                                _publicationResourcesCache.putResource(resourceUriRelativeToBase,
                                     resourceObjectURL, finalResourceData);
                                 // TODO: take care of releasing object URLs when no longer needed
                                 replaceRefAttrInElem(resourceObjectURL);
@@ -47024,7 +47055,7 @@ define(
                             };
 
                             if (resourceDataPreprocessing) {
-                                resourceDataPreprocessing(resourceData, resourceUriRelativeToPackageDocument,
+                                resourceDataPreprocessing(resourceData, resourceUriRelativeToBase,
                                     replaceResourceURL);
                             } else {
                                 replaceResourceURL(resourceData);
@@ -47047,9 +47078,19 @@ define(
                     // Absolute URLs don't need programmatic fetching
                     return;
                 }
-                var resourceUriRelativeToPackageDocument = (new URI(extractedUrl)).absoluteTo(styleSheetUriRelativeToPackageDocument).toString();
 
-                var cachedResourceURL = _publicationResourcesCache.getResourceURL(resourceUriRelativeToPackageDocument);
+                var styleSheetUriRelativeToBase = _publicationFetcher.convertPathRelativeToPackageToRelativeToBase(styleSheetUriRelativeToPackageDocument);
+
+                // fetchResourceForCssUrlMatch() is potentially recursive,
+                // so styleSheetUriRelativeToPackageDocument may already be relative to base (i.e. absolute),
+                // See preprocessCssStyleSheetData() below
+                if (styleSheetUriRelativeToBase.charAt(0) === '/') {
+                    styleSheetUriRelativeToBase = styleSheetUriRelativeToBase.substr(1);
+                }
+
+                var resourceUriRelativeToBase = "/" + (new URI(extractedUrl)).absoluteTo(styleSheetUriRelativeToBase).toString();
+
+                var cachedResourceURL = _publicationResourcesCache.getResourceURL(resourceUriRelativeToBase);
 
 
                 if (cachedResourceURL) {
@@ -47068,7 +47109,7 @@ define(
                             isStyleSheetResource: isStyleSheetResource,
                             resourceObjectURL: resourceObjectURL
                         };
-                        _publicationResourcesCache.putResource(resourceUriRelativeToPackageDocument,
+                        _publicationResourcesCache.putResource(resourceUriRelativeToBase,
                             resourceObjectURL, resourceDataBlob);
                         cssUrlFetchDeferred.resolve();
                     };
@@ -47083,7 +47124,7 @@ define(
                         // TODO: test whether recursion works for nested @import rules with arbitrary indirection depth.
                         fetchMode = 'text';
                         fetchCallback = function (styleSheetResourceData) {
-                            preprocessCssStyleSheetData(styleSheetResourceData, resourceUriRelativeToPackageDocument,
+                            preprocessCssStyleSheetData(styleSheetResourceData, resourceUriRelativeToBase,
                                 function (preprocessedStyleSheetData) {
                                     var resourceDataBlob = new Blob([preprocessedStyleSheetData], {type: 'text/css'});
                                     processedBlobCallback(resourceDataBlob);
@@ -47094,7 +47135,7 @@ define(
                         fetchCallback = processedBlobCallback;
                     }
 
-                    _publicationFetcher.relativeToPackageFetchFileContents(resourceUriRelativeToPackageDocument,
+                    _publicationFetcher.relativeToPackageFetchFileContents(resourceUriRelativeToBase,
                         fetchMode,
                         fetchCallback, fetchErrorCallback);
                 }
@@ -47162,14 +47203,9 @@ define(
 
                 resolvedElems.each(function (index, resolvedElem) {
                     var refAttrOrigVal = $(resolvedElem).attr(refAttr);
-                    var refAttrUri = new URI(refAttrOrigVal);
 
-                    if (refAttrUri.scheme() === '') {
-                        // Relative URI, fetch from packed EPUB archive:
-
-                        fetchResourceForElement(resolvedElem, refAttrOrigVal, refAttr, fetchMode, resolutionDeferreds,
-                            onerror, resourceDataPreprocessing);
-                    }
+                    fetchResourceForElement(resolvedElem, refAttrOrigVal, refAttr, fetchMode, resolutionDeferreds,
+                        onerror, resourceDataPreprocessing);
                 });
             }
 
@@ -47192,7 +47228,15 @@ define(
             }
 
             function resolveDocumentIframes(resolutionDeferreds, onerror) {
-                resolveResourceElements('iframe', 'src', 'blob', resolutionDeferreds, onerror);
+
+                resolveResourceElements('iframe', 'src', 'blob', resolutionDeferreds, onerror,
+                function(data, uri, callback) {
+
+                    callback(data);
+                });
+
+                // See https://github.com/readium/readium-js/issues/105
+                // for an experiment with nested Blob URI iframes
             }
 
             function resolveDocumentLinkStylesheets(resolutionDeferreds, onerror) {
@@ -47222,16 +47266,16 @@ define(
 );
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 define('readium_js/epub-fetch/resource_cache',['underscore'], function (_) {
@@ -47291,7 +47335,7 @@ define('readium_js/epub-fetch/resource_cache',['underscore'], function (_) {
                         // Assertion
                         if ((downshiftedEntry.orderingByLastUseTimestampIdx - 1) != i) {
                             console.error('algorithm incorrect: downshiftedEntry.orderingByLastUseTimestampIdx: ' +
-                                downshiftedEntry.orderingByLastUseTimestampIdx + ', i: ' + i);
+                                downshiftedEntry.orderingByLastUseTimestampIdx + ', i: ' + i + " -- " + cacheEntry.absoluteHref);
                         }
                         downshiftedEntry.orderingByLastUseTimestampIdx = i;
                     }
@@ -48446,22 +48490,22 @@ define('readium_js/epub-fetch/encryption_handler',['cryptoJs/sha1'], function (S
     return EncryptionHandler;
 });
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
 define('readium_js/epub-fetch/publication_fetcher',['jquery', 'URIjs', './markup_parser', './plain_resource_fetcher', './zip_resource_fetcher',
-    './content_document_fetcher', './resource_cache', './encryption_handler'],
+    './content_document_fetcher', './resource_cache', './encryption_handler', './discover_content_type'],
     function ($, URI, MarkupParser, PlainResourceFetcher, ZipResourceFetcher, ContentDocumentFetcher,
-              ResourceCache, EncryptionHandler) {
+              ResourceCache, EncryptionHandler, ContentTypeDiscovery) {
 
     var PublicationFetcher = function(bookRoot, jsLibRoot, sourceWindow, cacheSizeEvictThreshold, contentDocumentTextPreprocessor) {
 
@@ -48578,7 +48622,11 @@ define('readium_js/epub-fetch/publication_fetcher',['jquery', 'URIjs', './markup
         this.fetchContentDocument = function (attachedData, loadedDocumentUri, contentDocumentResolvedCallback, errorCallback) {
 
             // Resources loaded for previously fetched document no longer need to be pinned:
+            // DANIEL: what about 2-page synthetic spread of fixed layout documents / spine items?
+            // See https://github.com/readium/readium-js/issues/104
             _publicationResourcesCache.unPinResources();
+
+
             var contentDocumentFetcher = new ContentDocumentFetcher(self, attachedData.spineItem, loadedDocumentUri, _publicationResourcesCache, _contentDocumentTextPreprocessor);
             contentDocumentFetcher.fetchContentDocumentAndResolveDom(contentDocumentResolvedCallback, function (err) {
                 _handleError(err);
@@ -48639,25 +48687,101 @@ define('readium_js/epub-fetch/publication_fetcher',['jquery', 'URIjs', './markup
             }
         };
 
+        // Note that if the relativeToPackagePath parameter is in fact absolute
+        // (starting with "/", already relative to the EPUB archive's base folder)
+        // then the returned value is relativeToPackagePath.
         this.convertPathRelativeToPackageToRelativeToBase = function (relativeToPackagePath) {
+
             return new URI(relativeToPackagePath).absoluteTo(_packageFullPath).toString();
         };
 
+        // Note that the relativeToPackagePath parameter can in fact be absolute
+        // (starting with "/", already relative to the EPUB archive's base folder)
+        // For example: /META-INF/
         this.relativeToPackageFetchFileContents = function(relativeToPackagePath, fetchMode, fetchCallback, onerror) {
 
             if (! onerror) {
                 onerror = _handleError;
             }
 
+            // ZIP resource fetcher does not support absolute URLs outside of the EPUB archive
+            // (e.g. MathJax.js and annotations.css)
+            if (//!isExploded()
+                _shouldConstructDomProgrammatically // includes isExploded() and obfuscated fonts
+                &&
+                new URI(relativeToPackagePath).scheme() !== '') {
+
+                  if (fetchMode === 'blob') {
+
+                      var xhr = new XMLHttpRequest();
+                      xhr.open('GET', relativeToPackagePath, true);
+                      xhr.responseType = 'arraybuffer';
+                      xhr.onerror = onerror;
+
+                      xhr.onload = function (loadEvent) {
+                        var blob = new Blob([xhr.response], {
+                            type: ContentTypeDiscovery.identifyContentTypeFromFileName(relativeToPackagePath)
+                        });
+                        fetchCallback(blob);
+                      };
+
+                      xhr.send();
+
+                  } else if (fetchMode === 'data64uri') {
+                      console.error("data64uri??");
+                  } else {
+
+                      $.ajax({
+                          // encoding: "UTF-8",
+                          // mimeType: "text/plain; charset=UTF-8",
+                          // beforeSend: function( xhr ) {
+                          //     xhr.overrideMimeType("text/plain; charset=UTF-8");
+                          // },
+                          isLocal: false,
+                          url: relativeToPackagePath,
+                          dataType: 'text', //https://api.jquery.com/jQuery.ajax/
+                          async: true,
+                          success: function (result) {
+                              fetchCallback(result);
+                          },
+                          error: function (xhr, status, errorThrown) {
+                              console.error('Error when AJAX fetching ' + relativeToPackagePath);
+                              console.error(status);
+                              console.error(errorThrown);
+
+                              // // isLocal = false with custom URI scheme / protocol results in false fail on Firefox (Chrome okay)
+                              // if (status === "error" && (!errorThrown || !errorThrown.length) && xhr.responseText && xhr.responseText.length)
+                              // {
+                              //     console.error(xhr);
+                              //     if (typeof xhr.getResponseHeader !== "undefined") console.error(xhr.getResponseHeader("Content-Type"));
+                              //     if (typeof xhr.getAllResponseHeaders !== "undefined") console.error(xhr.getAllResponseHeaders());
+                              //     if (typeof xhr.responseText !== "undefined") console.error(xhr.responseText);
+                              //
+                              //     // success
+                              //     fetchCallback(xhr.responseText);
+                              //     return;
+                              // }
+
+                              onerror(errorThrown);
+                          }
+                    });
+                }
+
+                return;
+            }
+
             var pathRelativeToEpubRoot = decodeURIComponent(self.convertPathRelativeToPackageToRelativeToBase(relativeToPackagePath));
+
             // In case we received an absolute path, convert it to relative form or the fetch will fail:
             if (pathRelativeToEpubRoot.charAt(0) === '/') {
                 pathRelativeToEpubRoot = pathRelativeToEpubRoot.substr(1);
             }
+
             var fetchFunction = _resourceFetcher.fetchFileContentsText;
             if (fetchMode === 'blob') {
                 fetchFunction = _resourceFetcher.fetchFileContentsBlob;
             } else if (fetchMode === 'data64uri') {
+                console.error("data64uri??");
                 fetchFunction = _resourceFetcher.fetchFileContentsData64Uri;
             }
             fetchFunction.call(_resourceFetcher, pathRelativeToEpubRoot, fetchCallback, onerror);
@@ -60329,8 +60453,9 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-        if (url && url.trim && url.trim().indexOf("http") != 0)
-        {
+
+        var uri = new URI(url);
+        if (uri.scheme() === '') {
             url = moduleConfig.epubLibraryPathPrefix + url;
         }
 
@@ -60360,7 +60485,7 @@ Readium){
         console.log(moduleConfig);
 
         Settings.getMultiple(['reader', url], function(settings){
-          
+
             var readerOptions =  {
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,

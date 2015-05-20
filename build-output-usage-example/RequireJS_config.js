@@ -11,6 +11,14 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
+var HTTPServerRootFolder =
+window.location ? (
+  window.location.protocol
+  + "//"
+  + window.location.hostname
+  + (window.location.port ? (':' + window.location.port) : '')
+  ) : ''
+;
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
@@ -21,11 +29,11 @@ require.config({
 
         'readium_js_viewer/ModuleConfig' : {
 
-            'mathJaxUrl': '/src/js/mathjax/MathJax.js',
+            'mathJaxUrl': HTTPServerRootFolder + '/src/js/mathjax/MathJax.js',
 
-            'annotationCSSUrl': '/src/css/annotations.css',
+            'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
-            'jsLibRoot': '/readium-js/node_modules/zip-js/WebContent/',
+            'jsLibRoot': HTTPServerRootFolder + '/readium-js/node_modules/zip-js/WebContent/',
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
@@ -37,9 +45,9 @@ require.config({
             'canHandleDirectory' : false,
 
 
-            'workerUrl': '/src/chrome-app/readium-worker.js',
+            'workerUrl': HTTPServerRootFolder + '/src/chrome-app/readium-worker.js',
 
-            'epubReadingSystemUrl': '/src/chrome-app/epubReadingSystem.js'
+            'epubReadingSystemUrl': HTTPServerRootFolder + '/src/chrome-app/epubReadingSystem.js'
         }
     }
 });

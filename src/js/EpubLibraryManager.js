@@ -25,8 +25,8 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 
 		        var indexUrl = StorageManager.getPathUrl('/epub_library.json');
 
-			      if (indexUrl && indexUrl.trim && indexUrl.trim().indexOf("http") != 0)
-			      {
+						var uri = new URI(indexUrl);
+						if (uri.scheme() === '') {
 								indexUrl = moduleConfig.epubLibraryPathPrefix + indexUrl;
 			      }
 
@@ -49,8 +49,8 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
 
-			      if (packageUrl && packageUrl.trim && packageUrl.trim().indexOf("http") != 0)
-			      {
+		        var uri = new URI(packageUrl);
+		        if (uri.scheme() === '') {
 								packageUrl = moduleConfig.epubLibraryPathPrefix + packageUrl;
 			      }
 

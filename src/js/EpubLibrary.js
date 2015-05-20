@@ -185,8 +185,12 @@ Versioning){
 			var noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
 
       var epubLibraryPathPrefix_ = "";
-      if (epub.coverHref && epub.coverHref.trim && epub.coverHref.trim().indexOf("http") != 0)
-      {
+
+      // TODO: test remote library hosted on different domain than main app
+      var uri1 = new URI(epub.rootUrl ? epub.rootUrl : '/');
+      var uri2 = new URI(epub.packageUrl ? epub.packageUrl : '/');
+      var uri3 = new URI(epub.coverHref ? epub.coverHref : '/');
+      if (uri1.scheme() === '' && uri2.scheme() === '' && uri3.scheme() === '') {
           epubLibraryPathPrefix_ = moduleConfig.epubLibraryPathPrefix;
       }
 			$('.library-items').append(LibraryItem({epubLibraryPathPrefix: epubLibraryPathPrefix_, count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));

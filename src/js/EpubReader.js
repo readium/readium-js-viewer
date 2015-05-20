@@ -658,8 +658,9 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-        if (url && url.trim && url.trim().indexOf("http") != 0)
-        {
+
+        var uri = new URI(url);
+        if (uri.scheme() === '') {
             url = moduleConfig.epubLibraryPathPrefix + url;
         }
 
@@ -689,7 +690,7 @@ Readium){
         console.log(moduleConfig);
 
         Settings.getMultiple(['reader', url], function(settings){
-          
+
             var readerOptions =  {
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,

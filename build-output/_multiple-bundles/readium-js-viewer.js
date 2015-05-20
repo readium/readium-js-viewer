@@ -476,8 +476,8 @@ define('readium_js_viewer/EpubLibraryManager',['jquery', './ModuleConfig', './Pa
 
 		        var indexUrl = StorageManager.getPathUrl('/epub_library.json');
 
-			      if (indexUrl && indexUrl.trim && indexUrl.trim().indexOf("http") != 0)
-			      {
+						var uri = new URI(indexUrl);
+						if (uri.scheme() === '') {
 								indexUrl = moduleConfig.epubLibraryPathPrefix + indexUrl;
 			      }
 
@@ -500,8 +500,8 @@ define('readium_js_viewer/EpubLibraryManager',['jquery', './ModuleConfig', './Pa
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
 
-			      if (packageUrl && packageUrl.trim && packageUrl.trim().indexOf("http") != 0)
-			      {
+		        var uri = new URI(packageUrl);
+		        if (uri.scheme() === '') {
 								packageUrl = moduleConfig.epubLibraryPathPrefix + packageUrl;
 			      }
 
@@ -2252,8 +2252,12 @@ Versioning){
 			var noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
 
       var epubLibraryPathPrefix_ = "";
-      if (epub.coverHref && epub.coverHref.trim && epub.coverHref.trim().indexOf("http") != 0)
-      {
+
+      // TODO: test remote library hosted on different domain than main app
+      var uri1 = new URI(epub.rootUrl ? epub.rootUrl : '/');
+      var uri2 = new URI(epub.packageUrl ? epub.packageUrl : '/');
+      var uri3 = new URI(epub.coverHref ? epub.coverHref : '/');
+      if (uri1.scheme() === '' && uri2.scheme() === '' && uri3.scheme() === '') {
           epubLibraryPathPrefix_ = moduleConfig.epubLibraryPathPrefix;
       }
 			$('.library-items').append(LibraryItem({epubLibraryPathPrefix: epubLibraryPathPrefix_, count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
@@ -4353,8 +4357,9 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-        if (url && url.trim && url.trim().indexOf("http") != 0)
-        {
+
+        var uri = new URI(url);
+        if (uri.scheme() === '') {
             url = moduleConfig.epubLibraryPathPrefix + url;
         }
 
@@ -4384,7 +4389,7 @@ Readium){
         console.log(moduleConfig);
 
         Settings.getMultiple(['reader', url], function(settings){
-          
+
             var readerOptions =  {
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
