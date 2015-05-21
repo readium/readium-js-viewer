@@ -637,12 +637,22 @@ scripts:
 
 #=====================
     'httpApp': '
-        node node_modules/http-server/bin/http-server -p 8080 -c-1 -a 127.0.0.1 ./
+        node
+            node_modules/http-server/bin/http-server
+            -p 8080
+            -c-1
+            -a 127.0.0.1
+            ./
     '
 
 #=====================
     'httpEbooks': '
-        node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js -p 9090 --cors -c-1 ./
+        node
+            readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
+            -p 9090
+            -c-1
+            --cors
+            ../EPUBs
     '
 # argv.a
 # -a 192.168.1.93

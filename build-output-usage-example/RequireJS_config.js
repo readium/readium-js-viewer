@@ -38,6 +38,7 @@ require.config({
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
             'epubLibraryPathPrefix': "/",
+            //'epubLibraryPathPrefix': "http://192.168.1.93:9090/",
 
             'imagePathPrefix': '/src/',
 
