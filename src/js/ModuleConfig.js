@@ -3,7 +3,8 @@ define(['module'], function(module) {
 		var config = module.config();
 		return {
 			'imagePathPrefix': config.imagePathPrefix || "",
-			'epubLibraryPathPrefix': config.epubLibraryPathPrefix || "",
+			
+			'epubLibraryPath': config.epubLibraryPath || "",
 
 			'canHandleUrl': config.canHandleUrl || false,
 			'canHandleDirectory': config.canHandleDirectory || false,

@@ -658,12 +658,7 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-
-        var uri = new URI(url);
-        if (uri.scheme() === '') {
-            url = moduleConfig.epubLibraryPathPrefix + url;
-        }
-
+        
         Analytics.trackView('/reader');
         embedded = data.embedded;
 

@@ -20206,27 +20206,27 @@ var ViewerSettings = function(settingsData) {
 
 //  Created by Boris Schneiderman.
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
-//  
-//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
-//  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-//  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-//  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
-//  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
-//  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
-//  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-//  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
-//  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+//
+//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+//  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+//  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+//  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+//  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+//  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+//  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+//  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+//  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 //  OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
@@ -20745,9 +20745,10 @@ var OnePageView = function (options, classes, enableBookStyleOverrides, reader) 
             var css1 = Helpers.CSSTransformString({scale: scale, enable3D: enable3D});
             _$epubHtml.css(css1);
 
-            var css2 = Helpers.CSSTransformString({scale: 1, enable3D: enable3D});
-            css2["width"] = _meta_size.width;
-            css2["height"] = _meta_size.height;
+            var css2 = ReadiumSDK.Helpers.CSSTransformString({scale : 1, enable3D: enable3D});
+            css2["width"] = _meta_size.width * scale;
+            css2["height"] = _meta_size.height * scale;
+
             _$scaler.css(css2);
         }
         else {
@@ -43732,7 +43733,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"eb76f08fc1b1b545d20885bd3a8102a2f4ac89f9","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.17.0-67-geb76f08","branch":"feature/pluginsX","release":false,"timestamp":1432143547502},"readiumJs":{"sha":"9ff90ac9710f0c513c6a978c2e3c35d1d482dd56","clean":true,"version":"0.20.0-alpha","tag":"0.15-149-g9ff90ac","branch":"feature/pluginsX","release":false,"timestamp":1432143547855},"readiumSharedJs":{"sha":"97274befa78900a2419ad40e7faf52f05d2ce3e6","clean":true,"version":"0.20.0-alpha","tag":"0.16-133-g97274be","branch":"feature/pluginsX","release":false,"timestamp":1432143548163},"readiumCfiJs":{"sha":"2d4a3b8a6905e487413f0a23bedee68e5d913aea","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-106-g2d4a3b8","branch":"feature/plugins","release":false,"timestamp":1432143548434}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"4486a37d1c2b75b84100e5aa4fbc06212789ccac","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.20.0-55-g4486a37","branch":"feature/pluginsX","release":false,"timestamp":1432216351529},"readiumJs":{"sha":"c8df493db5dbf053a6559596424eecef547bea2c","clean":true,"version":"0.20.0-alpha","tag":"0.17-112-gc8df493","branch":"feature/pluginsX","release":false,"timestamp":1432216351863},"readiumSharedJs":{"sha":"b2c63ec15da589d0a2e3e9e2a90851ae0f3d67b2","clean":true,"version":"0.20.0-alpha","tag":"0.16-137-gb2c63ec","branch":"feature/pluginsX","release":false,"timestamp":1432216352150},"readiumCfiJs":{"sha":"1a6dc5832ba4a4fddab8ff8141cf903e995482ce","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-108-g1a6dc58","branch":"feature/plugins","release":false,"timestamp":1432216352384}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -50151,12 +50152,15 @@ define('readium_js/Readium',['text!version.json', 'jquery', 'underscore', 'readi
             readerOptions.iframeLoader = new IframeLoader();
         }
 
-        // is false by default, but just making this initialisation setting more explicit here.
-        readerOptions.needsFixedLayoutScalerWorkAround = false;
+        // Chrome extension and cross-browser cloud reader build configuration uses this scaling method across the board (no browser sniffing for Chrome)
+        // See https://github.com/readium/readium-js-viewer/issues/313#issuecomment-101578284
+        // true means: apply CSS scale transform to the root HTML element of spine item documents (fixed layout / pre-paginated)
+        // and to any spine items in scroll view (both continuous and document modes). Scroll view layout includes reflowable spine items, but the zoom level is 1x so there is no impact.
+        readerOptions.needsFixedLayoutScalerWorkAround = true;
 
         this.reader = new ReaderView(readerOptions);
         ReadiumSDK.reader = this.reader;
-
+  
         this.openPackageDocument = function(bookRoot, callback, openPageRequest)  {
             if (_currentPublicationFetcher) {
                 _currentPublicationFetcher.flushCache();
@@ -50217,7 +50221,8 @@ define('readium_js_viewer/ModuleConfig',['module'], function(module) {
 		var config = module.config();
 		return {
 			'imagePathPrefix': config.imagePathPrefix || "",
-			'epubLibraryPathPrefix': config.epubLibraryPathPrefix || "",
+			
+			'epubLibraryPath': config.epubLibraryPath || "",
 
 			'canHandleUrl': config.canHandleUrl || false,
 			'canHandleDirectory': config.canHandleDirectory || false,
@@ -60453,12 +60458,7 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-
-        var uri = new URI(url);
-        if (uri.scheme() === '') {
-            url = moduleConfig.epubLibraryPathPrefix + url;
-        }
-
+        
         Analytics.trackView('/reader');
         embedded = data.embedded;
 

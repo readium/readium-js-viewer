@@ -3,7 +3,25 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 	var LibraryManager = function(){
 	};
 
+	var adjustEpubLibraryPath = function(path) {
+
+				if (!path || !moduleConfig.epubLibraryPath) return path;
+
+				if (path.indexOf("epub_content/") == 0) {
+						path = path.replace("epub_content/", "");
+				}
+
+				var parts = moduleConfig.epubLibraryPath.split('/');
+				parts.pop();
+
+				var root = parts.join('/');
+				path = root + (path.charAt(0) == '/' ? '' : '/') + path;
+
+				return path;
+	};
+
 	LibraryManager.prototype = {
+
 	   _getFullUrl : function(packageUrl, relativeUrl){
             if (!relativeUrl){
                 return null;
@@ -23,15 +41,20 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
                 return;
             }
 
-		        var indexUrl = StorageManager.getPathUrl('/epub_library.json');
-
-						var uri = new URI(indexUrl);
-						if (uri.scheme() === '') {
-								indexUrl = moduleConfig.epubLibraryPathPrefix + indexUrl;
-			      }
+		        var indexUrl = moduleConfig.epubLibraryPath
+														? StorageManager.getPathUrl(moduleConfig.epubLibraryPath)
+														: StorageManager.getPathUrl('/epub_library.json');
 
             var self = this;
 						$.getJSON(indexUrl, function(data){
+
+								if (moduleConfig.epubLibraryPath) {
+										for (var i = 0; i < data.length; i++) {
+												data[i].coverHref = adjustEpubLibraryPath(data[i].coverHref);
+												data[i].rootUrl = adjustEpubLibraryPath(data[i].rootUrl);
+										}
+								}
+
 			          self.libraryData = data;
 								success(data);
 						}).fail(function(){
@@ -49,29 +72,23 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
 
-		        var uri = new URI(packageUrl);
-		        if (uri.scheme() === '') {
-								packageUrl = moduleConfig.epubLibraryPathPrefix + packageUrl;
-			      }
+						$.get(packageUrl, function(data){
 
-			$.get(packageUrl, function(data){
+	                if(typeof(data) === "string" ) {
+	                    var parser = new window.DOMParser;
+	                    data = parser.parseFromString(data, 'text/xml');
+	                }
+	                var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
+	                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
+	                jsonObj.packageUrl = packageUrl;
+	                jsonObj.rootDir = rootDir;
+	                jsonObj.rootUrl = rootUrl;
+	                jsonObj.noCoverBackground = noCoverBackground;
 
-                if(typeof(data) === "string" ) {
-                    var parser = new window.DOMParser;
-                    data = parser.parseFromString(data, 'text/xml');
-                }
-                var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
+	                success(jsonObj);
 
-                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
-                jsonObj.packageUrl = packageUrl;
-                jsonObj.rootDir = rootDir;
-                jsonObj.rootUrl = rootUrl;
-                jsonObj.noCoverBackground = noCoverBackground;
-
-                success(jsonObj);
-
-			}).fail(error);
-		},
+						}).fail(error);
+				},
         _refreshLibraryFromWorker : function(callback, newLibraryData){
             this.libraryData = newLibraryData;
             callback();

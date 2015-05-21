@@ -3,7 +3,8 @@ define('readium_js_viewer/ModuleConfig',['module'], function(module) {
 		var config = module.config();
 		return {
 			'imagePathPrefix': config.imagePathPrefix || "",
-			'epubLibraryPathPrefix': config.epubLibraryPathPrefix || "",
+			
+			'epubLibraryPath': config.epubLibraryPath || "",
 
 			'canHandleUrl': config.canHandleUrl || false,
 			'canHandleDirectory': config.canHandleDirectory || false,
@@ -454,7 +455,25 @@ define('readium_js_viewer/EpubLibraryManager',['jquery', './ModuleConfig', './Pa
 	var LibraryManager = function(){
 	};
 
+	var adjustEpubLibraryPath = function(path) {
+
+				if (!path || !moduleConfig.epubLibraryPath) return path;
+
+				if (path.indexOf("epub_content/") == 0) {
+						path = path.replace("epub_content/", "");
+				}
+
+				var parts = moduleConfig.epubLibraryPath.split('/');
+				parts.pop();
+
+				var root = parts.join('/');
+				path = root + (path.charAt(0) == '/' ? '' : '/') + path;
+
+				return path;
+	};
+
 	LibraryManager.prototype = {
+
 	   _getFullUrl : function(packageUrl, relativeUrl){
             if (!relativeUrl){
                 return null;
@@ -474,15 +493,20 @@ define('readium_js_viewer/EpubLibraryManager',['jquery', './ModuleConfig', './Pa
                 return;
             }
 
-		        var indexUrl = StorageManager.getPathUrl('/epub_library.json');
-
-						var uri = new URI(indexUrl);
-						if (uri.scheme() === '') {
-								indexUrl = moduleConfig.epubLibraryPathPrefix + indexUrl;
-			      }
+		        var indexUrl = moduleConfig.epubLibraryPath
+														? StorageManager.getPathUrl(moduleConfig.epubLibraryPath)
+														: StorageManager.getPathUrl('/epub_library.json');
 
             var self = this;
 						$.getJSON(indexUrl, function(data){
+
+								if (moduleConfig.epubLibraryPath) {
+										for (var i = 0; i < data.length; i++) {
+												data[i].coverHref = adjustEpubLibraryPath(data[i].coverHref);
+												data[i].rootUrl = adjustEpubLibraryPath(data[i].rootUrl);
+										}
+								}
+
 			          self.libraryData = data;
 								success(data);
 						}).fail(function(){
@@ -500,29 +524,23 @@ define('readium_js_viewer/EpubLibraryManager',['jquery', './ModuleConfig', './Pa
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
 
-		        var uri = new URI(packageUrl);
-		        if (uri.scheme() === '') {
-								packageUrl = moduleConfig.epubLibraryPathPrefix + packageUrl;
-			      }
+						$.get(packageUrl, function(data){
 
-			$.get(packageUrl, function(data){
+	                if(typeof(data) === "string" ) {
+	                    var parser = new window.DOMParser;
+	                    data = parser.parseFromString(data, 'text/xml');
+	                }
+	                var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
+	                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
+	                jsonObj.packageUrl = packageUrl;
+	                jsonObj.rootDir = rootDir;
+	                jsonObj.rootUrl = rootUrl;
+	                jsonObj.noCoverBackground = noCoverBackground;
 
-                if(typeof(data) === "string" ) {
-                    var parser = new window.DOMParser;
-                    data = parser.parseFromString(data, 'text/xml');
-                }
-                var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
+	                success(jsonObj);
 
-                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
-                jsonObj.packageUrl = packageUrl;
-                jsonObj.rootDir = rootDir;
-                jsonObj.rootUrl = rootUrl;
-                jsonObj.noCoverBackground = noCoverBackground;
-
-                success(jsonObj);
-
-			}).fail(error);
-		},
+						}).fail(error);
+				},
         _refreshLibraryFromWorker : function(callback, newLibraryData){
             this.libraryData = newLibraryData;
             callback();
@@ -695,7 +713,7 @@ define("hgn!readium_js_viewer_html_templates/library-body.html", ["hogan"], func
 define("hgn!readium_js_viewer_html_templates/empty-library.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"pull-right\">\r");t.b("\n" + i);t.b("	<div id=\"empty-message\">\r");t.b("\n" + i);t.b("		");t.b(t.v(t.d("strings.i18n_add_items",c,p,0)));t.b("\r");t.b("\n" + i);t.b("	</div>\r");t.b("\n" + i);t.b("	<img id=\"empty-message-arrow\" src=\"");t.b(t.t(t.f("imagePathPrefix",c,p,0)));t.b("images/library_arrow.png\" alt=\"\">\r");t.b("\n" + i);t.b("</div>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
-define("hgn!readium_js_viewer_html_templates/library-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"col-xs-4 col-sm-3 col-md-2 library-item\">\r");t.b("\n" + i);t.b("    <div class='info-wrap'>\r");t.b("\n" + i);t.b("        <!-- <div class='caption book-info'>\r");t.b("\n" + i);t.b("            <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("        </div> -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button type=\"button\" style=\"background: none; border: none; padding: 0; margin: 0;\" class=\"read\" data-book=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\"  aria-label=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\"  tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.d("epub.coverHref",c,p,1),c,p,0,598,773,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <div aria-hidden=\"true\" class=\"no-cover has-cover\" style=\"background-image:url(");t.b(t.v(t.f("epubLibraryPathPrefix",c,p,0)));t.b(t.v(t.d("epub.coverHref",c,p,0)));t.b(");\"><p>&nbsp;</p></div>\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div aria-hidden=\"true\" class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("    </button>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <!-- <div class=\"caption buttons\">\r");t.b("\n" + i);t.b("        <a href=\"#\" class=\"btn btn-default read\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" role=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("        <a href=\"#details-modal\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" aria-pressed=\"true\" class=\"btn btn-default details\" data-toggle=\"modal\" role=\"button\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("    </div> -->\r");t.b("\n" + i);t.b("    <div class='caption book-info'>\r");t.b("\n" + i);t.b("        <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("         <button aria-label=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#details-modal\" data-package=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("/");t.b(t.v(t.d("epub.packagePath",c,p,0)));t.b("\" data-root=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\" data-root-dir=\"");t.b(t.v(t.d("epub.rootDir",c,p,0)));t.b("\" ");if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b(" data-no-cover=\"");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("\" ");};t.b(" class=\"btn btn-info details\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</button></div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("</div>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
+define("hgn!readium_js_viewer_html_templates/library-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div class=\"col-xs-4 col-sm-3 col-md-2 library-item\">\r");t.b("\n" + i);t.b("    <div class='info-wrap'>\r");t.b("\n" + i);t.b("        <!-- <div class='caption book-info'>\r");t.b("\n" + i);t.b("            <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("            <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("        </div> -->\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("            <button type=\"button\" style=\"background: none; border: none; padding: 0; margin: 0;\" class=\"read\" data-book=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\"  aria-label=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"(");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\"  tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.d("epub.coverHref",c,p,1),c,p,0,598,748,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("        <div aria-hidden=\"true\" class=\"no-cover has-cover\" style=\"background-image:url(");t.b(t.v(t.d("epub.coverHref",c,p,0)));t.b(");\"><p>&nbsp;</p></div>\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b("        <div aria-hidden=\"true\" class=\"no-cover\" style=\"background-image: url('");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("')\"><p>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</p></div>\r");t.b("\n" + i);};t.b("    </button>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("    <!-- <div class=\"caption buttons\">\r");t.b("\n" + i);t.b("        <a href=\"#\" class=\"btn btn-default read\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" role=\"button\">");t.b(t.v(t.d("strings.i18n_read",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("        <a href=\"#details-modal\" data-book=\"");t.b(t.v(t.d("epub.packageUrl",c,p,0)));t.b("\" aria-pressed=\"true\" class=\"btn btn-default details\" data-toggle=\"modal\" role=\"button\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</a>\r");t.b("\n" + i);t.b("    </div> -->\r");t.b("\n" + i);t.b("    <div class='caption book-info'>\r");t.b("\n" + i);t.b("        <h4 class='title'>");t.b(t.v(t.d("epub.title",c,p,0)));t.b("</h4>\r");t.b("\n" + i);t.b("        <div class='author'>");t.b(t.v(t.d("epub.author",c,p,0)));if(!t.s(t.d("epub.author",c,p,1),c,p,1,0,0,"")){t.b("No Author Listed");};t.b("</div>\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("        <div class=\"buttons\">\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("         <button aria-label=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" title=\"");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b(" (");t.b(t.v(t.d("count.n",c,p,0)));t.b(") ");t.b(t.v(t.d("epub.title",c,p,0)));t.b("\" tabindex=\"");t.b(t.v(t.d("count.tabindex",c,p,0)));t.b("\" data-toggle=\"modal\" data-target=\"#details-modal\" data-package=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("/");t.b(t.v(t.d("epub.packagePath",c,p,0)));t.b("\" data-root=\"");t.b(t.v(t.d("epub.rootUrl",c,p,0)));t.b("\" data-root-dir=\"");t.b(t.v(t.d("epub.rootDir",c,p,0)));t.b("\" ");if(!t.s(t.d("epub.coverHref",c,p,1),c,p,1,0,0,"")){t.b(" data-no-cover=\"");t.b(t.v(t.f("noCoverBackground",c,p,0)));t.b("\" ");};t.b(" class=\"btn btn-info details\">");t.b(t.v(t.d("strings.i18n_details",c,p,0)));t.b("</button></div>\r");t.b("\n" + i);t.b("    </div>\r");t.b("\n" + i);t.b("</div>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
 
 define("hgn!readium_js_viewer_html_templates/details-dialog.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<div id=\"details-dialog\" class=\"modal fade details-dialog\" tabindex=\"-1\">\r");t.b("\n" + i);t.b("  <div class=\"modal-dialog\">\r");t.b("\n" + i);t.b("    <div class=\"modal-content\">\r");t.b("\n" + i);t.b("      <div class=\"modal-body\">\r");t.b("\n" + i);t.b("        <p>Loading Details...</p>\r");t.b("\n" + i);t.b("        <progress></progress>\r");t.b("\n" + i);t.b("      </div>\r");t.b("\n" + i);t.b("    </div><!-- /.modal-content -->\r");t.b("\n" + i);t.b("  </div><!-- /.modal-dialog -->\r");t.b("\n" + i);t.b("</div><!-- /.modal -->");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
@@ -2251,16 +2269,7 @@ Versioning){
 		epubs.forEach(function(epub){
 			var noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
 
-      var epubLibraryPathPrefix_ = "";
-
-      // TODO: test remote library hosted on different domain than main app
-      var uri1 = new URI(epub.rootUrl ? epub.rootUrl : '/');
-      var uri2 = new URI(epub.packageUrl ? epub.packageUrl : '/');
-      var uri3 = new URI(epub.coverHref ? epub.coverHref : '/');
-      if (uri1.scheme() === '' && uri2.scheme() === '' && uri3.scheme() === '') {
-          epubLibraryPathPrefix_ = moduleConfig.epubLibraryPathPrefix;
-      }
-			$('.library-items').append(LibraryItem({epubLibraryPathPrefix: epubLibraryPathPrefix_, count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
+			$('.library-items').append(LibraryItem({count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
 		});
 		$('.details').on('click', loadDetails);
 	}
@@ -4357,12 +4366,7 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-
-        var uri = new URI(url);
-        if (uri.scheme() === '') {
-            url = moduleConfig.epubLibraryPathPrefix + url;
-        }
-
+        
         Analytics.trackView('/reader');
         embedded = data.embedded;
 

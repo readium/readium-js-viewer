@@ -3,7 +3,8 @@ define('readium_js_viewer/ModuleConfig',['module'], function(module) {
 		var config = module.config();
 		return {
 			'imagePathPrefix': config.imagePathPrefix || "",
-			'epubLibraryPathPrefix': config.epubLibraryPathPrefix || "",
+			
+			'epubLibraryPath': config.epubLibraryPath || "",
 
 			'canHandleUrl': config.canHandleUrl || false,
 			'canHandleDirectory': config.canHandleDirectory || false,
@@ -3521,12 +3522,7 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-
-        var uri = new URI(url);
-        if (uri.scheme() === '') {
-            url = moduleConfig.epubLibraryPathPrefix + url;
-        }
-
+        
         Analytics.trackView('/reader');
         embedded = data.embedded;
 
