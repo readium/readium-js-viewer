@@ -26,7 +26,15 @@ define(['../ModuleConfig', 'readium_js/epub-fetch/encryptionHandler'], function(
 
             var decryptionFunction = this.encryptionHandler.getDecryptionFunctionForRelativePath(name);
 			if (decryptionFunction){
-				decryptionFunction(data, callback);
+				try
+				{
+					decryptionFunction(data, callback);
+				}
+				catch(e)
+				{
+					console.error(e);
+					callback(data);
+				}
 			}
 			else if (isXhtmlFile(name)){
 				var fileReader = new FileReader(),
