@@ -35,12 +35,24 @@ Note that the above command executes the following:
 
 **Typical workflow:**
 
-* Hack away! (mostly the source code in the `js` folder)
+No RequireJS optimization:
+
+* `npm run http` (to launch an http server, automatically opens a web browser instance to the HTML files in the `dev` folder)
+* Hack away! (e.g. source code in the `src/js` folder)
+* Press F5 (refresh / reload) in the web browser
+
+Or to use optimized Javascript bundles (single or multiple):
+
 * `npm run build` (to update the RequireJS bundles in the build output folder)
-* `npm run example:dev` (to launch an http server with live-reload, automatically opens a web browser instance to the HTML files in the `build-output-usage-example` folder)
-* `npm run example` (same as above, but without watching for file changes (no automatic rebuild))
-* `npm run build:chromeApp` (to build the Chrome extension CRX)
-* `npm run build:cloudReader` (to build the cloud reader)
+* `npm run http:watch` (to launch an http server, automatically opens a web browser instance to the HTML files in the `dev` folder)
+* `npm run http` (same as above, but without watching for file changes (no automatic rebuild))
+
+And finally to update the distribution packages:
+
+* `npm run dist` (Chrome extension and cloud reader)
+* `npm run dist:all` (same as above, plus the "lite" cloud reader without the ebook library feature)
+
+Note that the `dist` build task only creates the 'single' RequireJS bundle (not the 'single-LITE' version, and not the 'multiple' one). This is to speed-up the build process at development / testing time. The `dist:all` task builds everything (useful to update the NPM package).
 
 ## NPM (Node Package Manager)
 
@@ -51,7 +63,7 @@ This explains why Browserify ( http://browserify.org ) is not used by this Readi
 More information at http://requirejs.org/docs/commonjs.html and http://requirejs.org/docs/node.html
 
 * Make sure `npm install readium-js-viewer` completes successfully ( https://www.npmjs.com/package/readium-js-viewer )
-* Execute `npm run example`, which opens a web browser to a basic RequireJS bootstrapper located in the `build-output-usage-example` folder (this is *not* a production-ready minified application)
+* Execute `npm run http`, which opens a web browser to a basic RequireJS bootstrapper located in the `dev` folder (this is *not* a production-ready minified application)
 
 Note: the `--dev` option after `npm install readium-js-viewer` can be used to force the download of development dependencies,
 but this is kind of pointless as the code source and RequireJS build configuration files are missing.
@@ -69,7 +81,7 @@ which aggregates all the required code (external library dependencies included, 
 as well as the "Almond" lightweight AMD loader ( https://github.com/jrburke/almond ).
 
 This means that the full RequireJS library ( http://requirejs.org ) is not actually needed to bootstrap the AMD modules at runtime,
-as demonstrated by the HTML file in the `build-output-usage-example` folder (trimmed for brevity):
+as demonstrated by the HTML file in the `dev` folder (trimmed for brevity):
 
 ```html
 <html>
@@ -104,7 +116,7 @@ The `_multiple-bundles` folder contains several Javascript bundles (and their re
 
 In addition, the folder contains the full `RequireJS.js` library ( http://requirejs.org ), as the above bundles do no include the lightweight "Almond" AMD loader ( https://github.com/jrburke/almond ).
 
-Usage is demonstrated by the HTML file in the `build-output-usage-example` folder (trimmed for brevity):
+Usage is demonstrated by the HTML file in the `dev` folder (trimmed for brevity):
 
 ```html
 <html>
@@ -199,8 +211,3 @@ For more complex build processes, Grunt / Gulp can be used, but these build syst
 
 Downside: DO NOT invoke `npm init` or `npm install --save` `--save-dev` `--save-optional`,
 as this would overwrite / update the JSON, not the master CSON!
-
-
-
-
-
