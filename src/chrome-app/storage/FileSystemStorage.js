@@ -1,34 +1,34 @@
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
-//  
-//  Redistribution and use in source and binary forms, with or without modification, 
+//
+//  Redistribution and use in source and binary forms, with or without modification,
 //  are permitted provided that the following conditions are met:
-//  1. Redistributions of source code must retain the above copyright notice, this 
+//  1. Redistributions of source code must retain the above copyright notice, this
 //  list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice, 
-//  this list of conditions and the following disclaimer in the documentation and/or 
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
 //  other materials provided with the distribution.
-//  3. Neither the name of the organization nor the names of its contributors may be 
-//  used to endorse or promote products derived from this software without specific 
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define(['workers/Messages'], function(Messages){
-	
+define(['readium_js_viewer/workers/Messages'], function(Messages){
+
 
 	var FileUtils = (function(){
-		
+
 		var toArray = function(list) {
 			return Array.prototype.slice.call(list || [], 0);
 		}
-		
+
 		var makeFile = function(root, filename, contents, callback, error){
 			root.getFile(filename, {create:true}, function(fileEntry){
 				fileEntry.createWriter(function(writer){
 					writer.onwriteend = function(){
-						// strange piece of the FileWriter api. Writing to an 
+						// strange piece of the FileWriter api. Writing to an
 						// existing file just overwrites content in place. Still need to truncate
 						// which triggers onwritend event...again. o_O
 						if (!writer.error && writer.position < writer.length){
-							writer.truncate(writer.position);	
+							writer.truncate(writer.position);
 						}
 						else if (callback) {
 							callback(fileEntry);
@@ -47,11 +47,11 @@ define(['workers/Messages'], function(Messages){
 				}, error);
 			}, error);
 		}
-		
+
 		var makeDir = function(root, dirname, callback, error){
 			root.getDirectory(dirname, {create:true},callback, error);
 		}
-		
+
 		return {
 			mkdirs : function(root, dirname, callback, error){
 				var pathParts;
@@ -61,7 +61,7 @@ define(['workers/Messages'], function(Messages){
 				else{
 					pathParts = dirname.split('/');
 				}
-				
+
 				var makeDirCallback = function(dir){
 					if (pathParts.length){
 						makeDir(dir, pathParts.shift(), makeDirCallback, error);
@@ -100,7 +100,7 @@ define(['workers/Messages'], function(Messages){
 			ls: function(dir, callback, error){
 				var reader = dir.createReader();
 				var entries = [];
-				
+
 				var readEntries = function() {
 					reader.readEntries (function(results) {
 						if (!results.length) {
@@ -112,7 +112,7 @@ define(['workers/Messages'], function(Messages){
 					}, error);
 				}
 				readEntries();
-				
+
 			},
 			readBlob: function(blob, dataType, callback){
 				var reader = new FileReader();
@@ -127,12 +127,12 @@ define(['workers/Messages'], function(Messages){
 				});
 			},
 			readFile : function(root, file, dataType, callback, error) {
-				
+
 				root.getFile(file, {create:false}, function(fileEntry){
 					FileUtils.readFileEntry(fileEntry, dataType, callback, error);
 				}, error);
 			}
-		
+
 		};
 	}
 	)();
@@ -151,7 +151,7 @@ define(['workers/Messages'], function(Messages){
 			var checkFinished = function(){
 				if (++counter == entries.length){
 					success();
-				} 
+				}
 			}
 			entries.forEach(function(entry){
 				if (entry.isFile){
@@ -161,7 +161,7 @@ define(['workers/Messages'], function(Messages){
 				}
 				else{
 					FileUtils.mkdirs(to, entry.name, function(dir){
-						copyDir(entry, dir, checkFinished);	
+						copyDir(entry, dir, checkFinished);
 					}, error);
 
 				}
@@ -196,7 +196,7 @@ define(['workers/Messages'], function(Messages){
 		        // not all records contain books
 		        if (ebookData.id){
 		            ebooks.push(ebookData);
-		        }       	
+		        }
 		    }
 		    var count = 0;
 		    var checkFinished = function(ebook){
@@ -226,22 +226,22 @@ define(['workers/Messages'], function(Messages){
 		    		var blob = new Blob([JSON.stringify(existingBooks)]);
             		StaticStorageManager.saveFile('/epub_library.json', blob, function(){
             			db.transaction(function(t){
-            				t.executeSql('delete from records where id=? or id=?', [ebook.key, ebook.key + '_epubViewProperties'], checkFinished.bind(null, ebook), error);	
+            				t.executeSql('delete from records where id=? or id=?', [ebook.key, ebook.key + '_epubViewProperties'], checkFinished.bind(null, ebook), error);
             			});
             		}, error);
 		    	});
 		    });
-    	}, error);	
+    	}, error);
 	}
 
 	var migrateBooks = function(success, error, progress){
 		var db = openDatabase('records', '1.0.0', 'records', 65536);
 
         if (db){
-            db.transaction(function(t){ t.executeSql("select id, value from records", [], 
+            db.transaction(function(t){ t.executeSql("select id, value from records", [],
                 function(xxx, results){
                     if (results.rows.length) {
-                    	
+
                     	var nextStep = function(data){
                     		var library = [];
                     		if (typeof data == 'string' || data instanceof String){
@@ -261,14 +261,14 @@ define(['workers/Messages'], function(Messages){
 	}
 
 	self.requestFileSystem  = self.requestFileSystem || self.webkitRequestFileSystem;
-	
+
 	var StaticStorageManager = {
-		
-		
+
+
 		saveFile : function(path, blob, success, error){
 			FileUtils.mkfile(rootDir, path, blob, success, wrapErrorHandler('save', path, error));
 		},
-		
+
 		deleteFile : function(path, success, error){
 			var errorHandler = wrapErrorHandler('delete', path, error);
 			if (path == '/'){
@@ -288,15 +288,15 @@ define(['workers/Messages'], function(Messages){
 						}
 					});
 				}, error);
-			}	
+			}
 			else{
 				FileUtils.rmDir(rootDir, path, success, errorHandler);
 			}
-			
+
 		},
 
 		getPathUrl : function(path){
-			if (path.charAt(0) == '/') 
+			if (path.charAt(0) == '/')
 				path = path.substring(1);
 
 			return rootDir.toURL() + path
@@ -311,7 +311,7 @@ define(['workers/Messages'], function(Messages){
 				success();
 			}, wrapErrorHandler('init', '/', error));
 		},
-		
+
 		migrateLegacyBooks : function(success, error, progress){
 			var errorWrap = function(){
 				var data = JSON.stringify(arguments);
@@ -324,8 +324,8 @@ define(['workers/Messages'], function(Messages){
 	}
 
 	//$(window).bind('libraryUIReady', function(){
-	
-		
+
+
 
 	return StaticStorageManager;
 });

@@ -7,15 +7,15 @@ define([
 'bootstrapA11y',
 'URIjs',
 './Spinner',
-'./storage/Settings',
-'readium_js_viewer_i18n/Strings',
+'Settings',
+'i18nStrings',
 './Dialogs',
 './ReaderSettingsDialog',
 'hgn!readium_js_viewer_html_templates/about-dialog.html',
 'hgn!readium_js_viewer_html_templates/reader-navbar.html',
 'hgn!readium_js_viewer_html_templates/reader-body.html',
 'hgn!readium_js_viewer_html_templates/reader-body-page-btns.html',
-'./analytics/Analytics',
+'Analytics',
 'screenfull',
 './Keyboard',
 './EpubReaderMediaOverlays',
@@ -658,7 +658,7 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-        
+
         Analytics.trackView('/reader');
         embedded = data.embedded;
 

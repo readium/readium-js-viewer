@@ -1,4 +1,4 @@
-define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'readium_js_viewer_i18n/Strings'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings) {
+define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings) {
 
 	var LibraryManager = function(){
 	};

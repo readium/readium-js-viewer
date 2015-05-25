@@ -1,4 +1,4 @@
-define(['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium_js_viewer_html_templates/progress-dialog.html', 'hgn!readium_js_viewer_html_templates/managed-buttons.html', 'readium_js_viewer_i18n/Strings', './workers/Messages'], function(ManagedDialog, ProgressDialog, ButtonTemplate, Strings, Messages){
+define(['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium_js_viewer_html_templates/progress-dialog.html', 'hgn!readium_js_viewer_html_templates/managed-buttons.html', 'i18nStrings', './workers/Messages'], function(ManagedDialog, ProgressDialog, ButtonTemplate, Strings, Messages){
 	var $currentModal,
 		lastTitle;
 

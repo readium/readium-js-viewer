@@ -24312,6 +24312,28 @@ define('cryptoJs', ['cryptoJs/core'], function (main) { return main; });
       base = new URI(base);
     }
 
+    // << Readium patch
+    // "filesystem:chrome-extension:"
+    //
+    if (this._parts.protocol == 'filesystem') {
+
+      return resolved;
+    }
+
+    if (base._parts.protocol == 'filesystem') {
+
+      var uri = this.absoluteTo(base._parts.path);
+
+      if (base._parts.path.indexOf("chrome-extension:") !== -1) {
+
+          return new URI('filesystem:' + uri.toString());
+      }
+
+      return uri;
+    }
+    //
+    // Readium patch >>
+
     if (!resolved._parts.protocol) {
       resolved._parts.protocol = base._parts.protocol;
     }

@@ -1,4 +1,4 @@
-define(['readium_js_viewer_i18n/Strings', 'keymaster', './storage/Settings'], function(Strings, key, Settings){
+define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings){
 
     var keyBindings = {};
 

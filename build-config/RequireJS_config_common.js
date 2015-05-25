@@ -74,8 +74,22 @@ require.config({
         'hammerjs':
             process._RJS_rootDir(3) + '/node_modules/hammerjs/hammer',
 
+
+
+        // below paths are overridden by chrome-app build configuration
+
+        'i18nStrings':
+            process._RJS_rootDir(3) + '/src/i18n/Strings',
+
+        'Settings':
+            process._RJS_rootDir(3) + '/src/js/storage/Settings',
+
         'StorageManager':
             process._RJS_rootDir(3) + '/src/js/storage/StaticStorageManager',
+
+        'Analytics':
+            process._RJS_rootDir(3) + '/src/js/analytics/Analytics'
+
 
         // 'remotestorage':
         //     process._RJS_rootDir(3) + '/node_modules/remotestoragejs/release/head/remotestorage',

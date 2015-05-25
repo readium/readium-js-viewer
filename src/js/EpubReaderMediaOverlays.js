@@ -1,5 +1,5 @@
 
-define(['module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './Spinner', './storage/Settings', 'readium_js_viewer_i18n/Strings', './Dialogs', './Keyboard'], 
+define(['module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './Spinner', 'Settings', 'i18nStrings', './Dialogs', './Keyboard'], 
         function (module, $, _, bootstrap, Readium, spinner, Settings, Strings, Dialogs, Keyboard) {
 
     var init = function(readium) {

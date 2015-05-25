@@ -11,17 +11,17 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define(['text!./_locales/de/messages.json',
-        'text!./_locales/es/messages.json',
-		'text!./_locales/en_US/messages.json',
-		'text!./_locales/fr/messages.json',
-		'text!./_locales/it/messages.json',
-		'text!./_locales/id/messages.json',
-		'text!./_locales/ja/messages.json',
-		'text!./_locales/ko/messages.json',
-		'text!./_locales/pt_BR/messages.json',
-		'text!./_locales/zh_CN/messages.json',
-		'text!./_locales/zh_TW/messages.json'], 
+define(['text!readium_js_viewer_i18n/_locales/de/messages.json',
+        'text!readium_js_viewer_i18n/_locales/es/messages.json',
+		'text!readium_js_viewer_i18n/_locales/en_US/messages.json',
+		'text!readium_js_viewer_i18n/_locales/fr/messages.json',
+		'text!readium_js_viewer_i18n/_locales/it/messages.json',
+		'text!readium_js_viewer_i18n/_locales/id/messages.json',
+		'text!readium_js_viewer_i18n/_locales/ja/messages.json',
+		'text!readium_js_viewer_i18n/_locales/ko/messages.json',
+		'text!readium_js_viewer_i18n/_locales/pt_BR/messages.json',
+		'text!readium_js_viewer_i18n/_locales/zh_CN/messages.json',
+		'text!readium_js_viewer_i18n/_locales/zh_TW/messages.json'],
 function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 	var Strings = {};
 

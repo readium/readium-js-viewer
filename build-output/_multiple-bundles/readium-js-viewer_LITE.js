@@ -44,7 +44,7 @@ define('readium_js_viewer/Spinner',['spin'], function(Spinner){
     };
     return new Spinner(opts);
 });
-define('readium_js_viewer/storage/Settings',[],function(){
+define('Settings',[],function(){
     
     // localStorage may be disabled due to zero-quota issues (e.g. iPad in private browsing mode)
     var _isLocalStorageEnabled = undefined;
@@ -158,17 +158,17 @@ define('text!readium_js_viewer_i18n/_locales/zh_TW/messages.json',[],function ()
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define('readium_js_viewer_i18n/Strings',['text!./_locales/de/messages.json',
-        'text!./_locales/es/messages.json',
-		'text!./_locales/en_US/messages.json',
-		'text!./_locales/fr/messages.json',
-		'text!./_locales/it/messages.json',
-		'text!./_locales/id/messages.json',
-		'text!./_locales/ja/messages.json',
-		'text!./_locales/ko/messages.json',
-		'text!./_locales/pt_BR/messages.json',
-		'text!./_locales/zh_CN/messages.json',
-		'text!./_locales/zh_TW/messages.json'], 
+define('i18nStrings',['text!readium_js_viewer_i18n/_locales/de/messages.json',
+        'text!readium_js_viewer_i18n/_locales/es/messages.json',
+		'text!readium_js_viewer_i18n/_locales/en_US/messages.json',
+		'text!readium_js_viewer_i18n/_locales/fr/messages.json',
+		'text!readium_js_viewer_i18n/_locales/it/messages.json',
+		'text!readium_js_viewer_i18n/_locales/id/messages.json',
+		'text!readium_js_viewer_i18n/_locales/ja/messages.json',
+		'text!readium_js_viewer_i18n/_locales/ko/messages.json',
+		'text!readium_js_viewer_i18n/_locales/pt_BR/messages.json',
+		'text!readium_js_viewer_i18n/_locales/zh_CN/messages.json',
+		'text!readium_js_viewer_i18n/_locales/zh_TW/messages.json'],
 function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 	var Strings = {};
 
@@ -205,8 +205,6 @@ function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 	return i18nObj;
 
 });
-
-define('readium_js_viewer_i18n', ['readium_js_viewer_i18n/Strings'], function (main) { return main; });
 
 /**@license
  * RequireJS Hogan Plugin | v0.3.0 (2013/06/11)
@@ -336,7 +334,7 @@ define('readium_js_viewer/workers/Messages',[],function(){
 
 	}
 });
-define('readium_js_viewer/Dialogs',['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium_js_viewer_html_templates/progress-dialog.html', 'hgn!readium_js_viewer_html_templates/managed-buttons.html', 'readium_js_viewer_i18n/Strings', './workers/Messages'], function(ManagedDialog, ProgressDialog, ButtonTemplate, Strings, Messages){
+define('readium_js_viewer/Dialogs',['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium_js_viewer_html_templates/progress-dialog.html', 'hgn!readium_js_viewer_html_templates/managed-buttons.html', 'i18nStrings', './workers/Messages'], function(ManagedDialog, ProgressDialog, ButtonTemplate, Strings, Messages){
 	var $currentModal,
 		lastTitle;
 
@@ -512,7 +510,7 @@ define("hgn!readium_js_viewer_html_templates/settings-dialog.html", ["hogan"], f
 
 define("hgn!readium_js_viewer_html_templates/settings-keyboard-item.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("name",c,p,1),c,p,0,9,747,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("<li>\r");t.b("\n" + i);t.b("<label id=\"label_");t.b(t.v(t.f("name",c,p,0)));t.b("\">");t.b(t.v(t.f("i18n",c,p,0)));t.b("<br/><span>");t.b(t.v(t.f("name",c,p,0)));t.b("</span></label>\r");t.b("\n" + i);t.b("<input id=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\" name=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\" class=\"keyboardInput\" type=\"text\"  placeholder=\"");t.b(t.v(t.f("shortcut",c,p,0)));t.b("\" value=\"");t.b(t.v(t.f("shortcut",c,p,0)));t.b("\" aria-labelledbyxxx=\"label_");t.b(t.v(t.f("name",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.f("i18n",c,p,0)));t.b("\" title=\"");t.b(t.v(t.f("i18n",c,p,0)));t.b("\"></input>\r");t.b("\n" + i);t.b("<button class=\"resetKey captureKeyboardShortcut\" role=\"button\" data-key=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\"  title=\"");t.b(t.v(t.d("strings.i18n_reset_key",c,p,0)));t.b(" (");t.b(t.v(t.f("def",c,p,0)));t.b(")\" aria-label=\"");t.b(t.v(t.d("strings.i18n_reset_key",c,p,0)));t.b(" (");t.b(t.v(t.f("def",c,p,0)));t.b(")\"><span aria-hidden=\"true\">&#8855;</span></button>\r");t.b("\n" + i);t.b("<span id=\"duplicate_keyboard_shortcut\" aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_duplicate_keyboard_shortcut",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("<span id=\"invalid_keyboard_shortcut\" aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_invalid_keyboard_shortcut",c,p,0)));t.b("</span>\r");t.b("\n" + i);t.b("</li>\r");t.b("\n" + i);});c.pop();}if(!t.s(t.f("name",c,p,1),c,p,1,0,0,"")){t.b("<li id=\"resetAllKeys");t.b(t.v(t.f("id",c,p,0)));t.b("\" class=\"resetAllKeys\">\r");t.b("\n" + i);t.b("<button class=\"resetKey\" role=\"button\"  title=\"");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("\" aria-label=\"");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("\"><span aria-hidden=\"true\">");t.b(t.v(t.d("strings.i18n_reset_key_all",c,p,0)));t.b("  &#8855;</span></button>\r");t.b("\n" + i);t.b("</li>\r");t.b("\n" + i);};return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
-define('readium_js_viewer/Keyboard',['readium_js_viewer_i18n/Strings', 'keymaster', './storage/Settings'], function(Strings, key, Settings){
+define('readium_js_viewer/Keyboard',['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings){
 
     var keyBindings = {};
 
@@ -1027,7 +1025,7 @@ define('readium_js_viewer/Keyboard',['readium_js_viewer_i18n/Strings', 'keymaste
 	return Keyboard;
 });
 
-define('readium_js_viewer/ReaderSettingsDialog_Keyboard',['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard', 'underscore'], function(KeyboardItem, Strings, Dialogs, Settings, Keyboard, _){
+define('readium_js_viewer/ReaderSettingsDialog_Keyboard',['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'i18nStrings', './Dialogs', 'Settings', './Keyboard', 'underscore'], function(KeyboardItem, Strings, Dialogs, Settings, Keyboard, _){
 
 
     var checkKeyboardShortcuts = function($focusedInput, typing)
@@ -1365,7 +1363,7 @@ define('readium_js_viewer/ReaderSettingsDialog_Keyboard',['hgn!readium_js_viewer
 	}
 });
 
-define('readium_js_viewer/ReaderSettingsDialog',['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'readium_js_viewer_i18n/Strings', './Dialogs', './storage/Settings', './Keyboard'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+define('readium_js_viewer/ReaderSettingsDialog',['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
 
 	var defaultSettings = {
         fontSize: 100,
@@ -1674,14 +1672,14 @@ define("hgn!readium_js_viewer_html_templates/reader-body.html", ["hogan"], funct
 
 define("hgn!readium_js_viewer_html_templates/reader-body-page-btns.html", ["hogan"], function(hogan){  var tmpl = new hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<!-- Left page -->\r");t.b("\n" + i);t.b("<button tabindex=\"0\" id=\"left-page-btn\" class=\"page-switch-overlay-icon\" type=\"button\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,0,144,402,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PagePreviousAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);if(!t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,1,0,0,"")){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PagePrevious",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PagePreviousAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PagePreviousAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);};t.b("\r");t.b("\n" + i);t.b(">\r");t.b("\n" + i);t.b("<!-- img aria-hidden=\"true\" src=\"images/pagination1.svg\" -->\r");t.b("\n" + i);t.b("<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("</button>\r");t.b("\n" + i);t.b("  \r");t.b("\n" + i);t.b("<!-- Right page -->\r");t.b("\n" + i);t.b("<button tabindex=\"0\" id=\"right-page-btn\" class=\"page-switch-overlay-icon\" type=\"button\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);if(t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,0,1079,1325,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_previous",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PageNextAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);});c.pop();}t.b("\r");t.b("\n" + i);if(!t.s(t.f("pageProgressionDirectionIsRTL",c,p,1),c,p,1,0,0,"")){t.b("title=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("aria-label=\"");t.b(t.v(t.d("strings.i18n_page_next",c,p,0)));t.b(" [");t.b(t.v(t.d("keyboard.PageNext",c,p,0)));t.b("] / [");t.b(t.v(t.d("keyboard.PageNextAlt",c,p,0)));t.b("]\"\r");t.b("\n" + i);t.b("\r");t.b("\n" + i);t.b("accesskey=\"");t.b(t.v(t.d("keyboard.accesskeys.PageNextAlt",c,p,0)));t.b("\"\r");t.b("\n" + i);};t.b("\r");t.b("\n" + i);t.b(">\r");t.b("\n" + i);t.b("<!-- img aria-hidden=\"true\" src=\"images/pagination1.svg\" -->\r");t.b("\n" + i);t.b("<span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\r");t.b("\n" + i);t.b("</button>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "", hogan);  function render(){ return tmpl.render.apply(tmpl, arguments); } render.template = tmpl; return render;});
 
-define('readium_js_viewer/analytics/Analytics',[],function(){
+define('Analytics',[],function(){
 	return{
 		trackView : function(){},
 		sendEvent : function(){}
 	}
 });
 
-define('readium_js_viewer/EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './Spinner', './storage/Settings', 'readium_js_viewer_i18n/Strings', './Dialogs', './Keyboard'], 
+define('readium_js_viewer/EpubReaderMediaOverlays',['module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './Spinner', 'Settings', 'i18nStrings', './Dialogs', './Keyboard'], 
         function (module, $, _, bootstrap, Readium, spinner, Settings, Strings, Dialogs, Keyboard) {
 
     var init = function(readium) {
@@ -2679,7 +2677,7 @@ define('readium_js_viewer/EpubReaderMediaOverlays',['module','jquery', 'undersco
 });
 
 
-define('readium_js_viewer/EpubReaderBackgroundAudioTrack',['module','jquery', 'bootstrap', 'readium_js/Readium', './Spinner', './storage/Settings', 'readium_js_viewer_i18n/Strings', './Dialogs', './Keyboard'], 
+define('readium_js_viewer/EpubReaderBackgroundAudioTrack',['module','jquery', 'bootstrap', 'readium_js/Readium', './Spinner', 'Settings', 'i18nStrings', './Dialogs', './Keyboard'], 
         function (module, $, bootstrap, Readium, spinner, Settings, Strings, Dialogs, Keyboard) {
 
     var init = function(readium) {
@@ -2847,6 +2845,34 @@ return; // TODO upgrade to Hammer API v2
     };
     return gesturesHandler;
 });
+/*
+Note that "unpackaged versioning" (see code snippet below)
+is a less viable option in the refactored RequireJS build process,
+as the relative paths of 'package.json', '.git/HEAD', and other '.git/[SHA1]' files
+are not based upon the root of the repository source tree anymore
+(for example: dist/cloud-reader/index.html vs. dev/index_RequireJS_single-bundle_LITE.html etc.)
+
+			$.getJSON('package.json', function(data){
+				obj.version = data.version;
+				obj.chromeVersion = '2.' + data.version.substring(2);
+
+				if (obj.sha){
+					callback(versionInfo);
+				} else {
+        			$.get('.git/HEAD', function(data){
+        				var ref = data.substring(5, data.length - 1);
+        				$.get('.git/' + ref, function(data){
+        					var sha = data.substring(0, data.length - 1);
+        					obj.sha = sha;
+        					if (obj.version){
+        						callback(versionInfo);
+        					}
+        				})
+        			});
+				}
+			});
+*/
+
 define('readium_js_viewer/versioning/ReadiumVersioning',['readium_js/Readium'], function(Readium){
 
 	var PackagedVersioning = {
@@ -2871,15 +2897,15 @@ define('readium_js_viewer/EpubReader',[
 'bootstrapA11y',
 'URIjs',
 './Spinner',
-'./storage/Settings',
-'readium_js_viewer_i18n/Strings',
+'Settings',
+'i18nStrings',
 './Dialogs',
 './ReaderSettingsDialog',
 'hgn!readium_js_viewer_html_templates/about-dialog.html',
 'hgn!readium_js_viewer_html_templates/reader-navbar.html',
 'hgn!readium_js_viewer_html_templates/reader-body.html',
 'hgn!readium_js_viewer_html_templates/reader-body-page-btns.html',
-'./analytics/Analytics',
+'Analytics',
 'screenfull',
 './Keyboard',
 './EpubReaderMediaOverlays',
@@ -3522,7 +3548,7 @@ Readium){
         Keyboard.scope('reader');
 
         url = data.epub;
-        
+
         Analytics.trackView('/reader');
         embedded = data.embedded;
 
