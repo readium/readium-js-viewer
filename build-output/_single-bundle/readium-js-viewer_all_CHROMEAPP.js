@@ -43767,7 +43767,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"c65373b2f72664d3eb43032e7ec441cb62c11b46","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.20.0-59-gc65373b","branch":"feature/pluginsX","release":false,"timestamp":1432587621795},"readiumJs":{"sha":"4432f6c2701ae066f2af7256bf643fb43f79f966","clean":true,"version":"0.20.0-alpha","tag":"0.17-116-g4432f6c","branch":"feature/pluginsX","release":false,"timestamp":1432587622148},"readiumSharedJs":{"sha":"1a82a9d44e55fd08740a449b116ec0e59a305349","clean":true,"version":"0.20.0-alpha","tag":"0.16-143-g1a82a9d","branch":"feature/pluginsX","release":false,"timestamp":1432587622459},"readiumCfiJs":{"sha":"027b424014bb4a5c986e1529c87fb31859156c97","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-110-g027b424","branch":"feature/plugins","release":false,"timestamp":1432587622709}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"74505a4829684db49aa7621be411ff80d58621b5","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.20.0-60-g74505a4","branch":"feature/pluginsX","release":false,"timestamp":1432591116536},"readiumJs":{"sha":"9627d60385d4df663e638281892efcd82f4eb33b","clean":true,"version":"0.20.0-alpha","tag":"0.17-117-g9627d60","branch":"feature/pluginsX","release":false,"timestamp":1432591116885},"readiumSharedJs":{"sha":"d0fcda4491dfa01cc0ec74905c4b006d0342bf87","clean":true,"version":"0.20.0-alpha","tag":"0.16-144-gd0fcda4","branch":"feature/pluginsX","release":false,"timestamp":1432591117203},"readiumCfiJs":{"sha":"f8142b38004abaf88ac085a6dca9beff6647512b","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-111-gf8142b3","branch":"feature/plugins","release":false,"timestamp":1432591117453}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -53014,101 +53014,412 @@ define("bootstrapA11y", ["bootstrap"], (function (global) {
     };
 }(this)));
 
-define('StorageManager',[], function(){
+define('readium_js_viewer/workers/Messages',[],function(){
+	return {
+		// window -> worker messages
+		IMPORT_ZIP : 0,
+		OVERWRITE_CONTINUE : 1,
+		FIND_PACKAGE_RESPONSE: 2,
+		PARSE_PACKAGE_RESPONSE: 3,
+		DELETE_EPUB : 4,
+		IMPORT_DIR : 5,
+		IMPORT_URL: 6,
+		MIGRATE: 7,
+		OVERWRITE_SIDE_BY_SIDE: 8,
+		CONTINUE_IMPORT_ZIP: 9,
+
+		// worker -> window messages
+		SUCCESS : 100,
+		PROGRESS : 101,
+		ERROR : 102,
+		OVERWRITE : 103,
+		FIND_PACKAGE : 104,
+		PARSE_PACKAGE: 105,
+
+
+		PROGRESS_EXTRACTING : 200,
+		PROGRESS_WRITING: 201,
+		PROGRESS_DELETING: 202,
+		PROGRESS_MIGRATING: 203,
+
+		ERROR_STORAGE : 300,
+		ERROR_EPUB : 301,
+		ERROR_AJAX : 302,
+
+	}
+});
+//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
+//
+//  Redistribution and use in source and binary forms, with or without modification,
+//  are permitted provided that the following conditions are met:
+//  1. Redistributions of source code must retain the above copyright notice, this
+//  list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
+//  other materials provided with the distribution.
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
+//  prior written permission.
+
+define('StorageManager',['readium_js_viewer/workers/Messages'], function(Messages){
+
+
+	var FileUtils = (function(){
+
+		var toArray = function(list) {
+			return Array.prototype.slice.call(list || [], 0);
+		}
+
+		var makeFile = function(root, filename, contents, callback, error){
+			root.getFile(filename, {create:true}, function(fileEntry){
+				fileEntry.createWriter(function(writer){
+					writer.onwriteend = function(){
+						// strange piece of the FileWriter api. Writing to an
+						// existing file just overwrites content in place. Still need to truncate
+						// which triggers onwritend event...again. o_O
+						if (!writer.error && writer.position < writer.length){
+							writer.truncate(writer.position);
+						}
+						else if (callback) {
+							callback(fileEntry);
+						}
+
+					}
+					writer.onerror = function(e){
+						console.error('failed: ' + filename);
+						error(writer.error);
+					}
+					if (contents instanceof ArrayBuffer){
+						contents = new Uint8Array(contents);
+					}
+					var blob = contents instanceof Blob ? contents : new Blob([contents]);
+					writer.write(blob);
+				}, error);
+			}, error);
+		}
+
+		var makeDir = function(root, dirname, callback, error){
+			root.getDirectory(dirname, {create:true},callback, error);
+		}
+
+		return {
+			mkdirs : function(root, dirname, callback, error){
+				var pathParts;
+				if (dirname instanceof Array){
+					pathParts = dirname;
+				}
+				else{
+					pathParts = dirname.split('/');
+				}
+
+				var makeDirCallback = function(dir){
+					if (pathParts.length){
+						makeDir(dir, pathParts.shift(), makeDirCallback, error);
+					}
+					else{
+						if (callback)
+							callback(dir);
+					}
+				}
+				makeDirCallback(root);
+			},
+			rmDir : function (root, dirname, callback, error){
+				root.getDirectory(dirname, {create:true}, function(dirEntry){
+					dirEntry.removeRecursively(callback, error);
+				});
+			},
+			rmFile : function(root, filename, callback, error){
+				root.getFile(filename, {create:true}, function(fileEntry){
+					fileEntry.remove(callback, error);
+				});
+			},
+			mkfile : function(root, filename, contents, callback, error){
+				if (filename.charAt(0) == '/'){
+					filename = filename.substring(1);
+				}
+				var pathParts = filename.split('/');
+				if (pathParts.length > 1){
+					FileUtils.mkdirs(root, pathParts.slice(0, pathParts.length - 1), function(dir){
+						makeFile(dir, pathParts[pathParts.length - 1], contents, callback, error);
+					}, error);
+				}
+				else{
+					makeFile(root, filename, contents, callback, error);
+				}
+			},
+			ls: function(dir, callback, error){
+				var reader = dir.createReader();
+				var entries = [];
+
+				var readEntries = function() {
+					reader.readEntries (function(results) {
+						if (!results.length) {
+							callback(entries);
+						} else {
+							entries = entries.concat(toArray(results));
+							readEntries();
+						}
+					}, error);
+				}
+				readEntries();
+
+			},
+			readBlob: function(blob, dataType, callback){
+				var reader = new FileReader();
+				reader.onloadend = function(e){
+					callback(reader.result);
+				}
+				reader["readAs" + dataType](blob);
+			},
+			readFileEntry : function(fileEntry, dataType, callback){
+				fileEntry.file(function(file){
+					FileUtils.readBlob(file, dataType, callback);
+				});
+			},
+			readFile : function(root, file, dataType, callback, error) {
+
+				root.getFile(file, {create:false}, function(fileEntry){
+					FileUtils.readFileEntry(fileEntry, dataType, callback, error);
+				}, error);
+			}
+
+		};
+	}
+	)();
+	var rootDir;
+
+	var wrapErrorHandler = function(op, path, handler){
+		return function(err){
+			var data = {original: err, path: path, error: err.name, op: op};
+			handler(Messages.ERROR_STORAGE, data);
+			console.error(data);
+		}
+	};
+	var copyDir = function(from, to, success, error){
+		FileUtils.ls(from, function(entries){
+			var counter = 0;
+			var checkFinished = function(){
+				if (++counter == entries.length){
+					success();
+				}
+			}
+			entries.forEach(function(entry){
+				if (entry.isFile){
+					entry.file(function(file){
+						FileUtils.mkfile(to, entry.name, file, checkFinished);
+					});
+				}
+				else{
+					FileUtils.mkdirs(to, entry.name, function(dir){
+						copyDir(entry, dir, checkFinished);
+					}, error);
+
+				}
+			});
+		}, error);
+	}
+	var migrateBook = function(tempRoot, ebookData, success, error){
+		var rootDirName = ebookData.key;
+        tempRoot.getDirectory(rootDirName, {create: false}, function(oldBookRoot){
+
+        	var nextStep = function(){
+        		rootDir.getDirectory(rootDirName, {create: true}, function(newBookRoot){
+        			copyDir(oldBookRoot, newBookRoot, success, error);
+
+        		}, error);
+        	}
+
+        	rootDir.getDirectory(rootDirName, {create: false}, function(newBookRoot){
+        		newBookRoot.removeRecursively(nextStep, error);
+        	}, nextStep);
+        }, error);
+	}
+
+	var migrateBookFiles = function(existingBooks, db, results, success, error, progress){
+		var extensionId = self.location.hostname;
+		requestFileSystem(self.TEMPORARY, 5*1024*1024*1024, function(fs){
+    		var tempRoot = fs.root;
+    		var ebooks = [];
+    		for (var i = 0; i < results.rows.length; i++){
+		        var ebookData = JSON.parse(results.rows.item(i).value);
+
+		        // not all records contain books
+		        if (ebookData.id){
+		            ebooks.push(ebookData);
+		        }
+		    }
+		    var count = 0;
+		    var checkFinished = function(ebook){
+		    	if (++count == ebooks.length){
+		    		success();
+		    	}
+		    	else{
+		    		progress(Math.round(count/ebooks.length * 100), ebook.title);
+		    	}
+		    }
+		    ebooks.forEach(function(ebook){
+		    	migrateBook(tempRoot, ebook, function(){
+		    		var oldRootUrl = "filesystem:chrome-extension://" + extensionId + '/temporary/',
+		    			coverPath = ebook.cover_href ? ebook.cover_href.substring(oldRootUrl.length) : null;
+
+		    		var newObj = {
+		    			id: ebook.id,
+		    			rootDir: ebook.key,
+		    			rootUrl : StaticStorageManager.getPathUrl(ebook.key),
+		    			packagePath: ebook.package_doc_path.substring(ebook.key.length + 1),
+		    			title: ebook.title,
+		    			author: ebook.author,
+		    			coverHref: (coverPath ? StaticStorageManager.getPathUrl(coverPath) : null)
+		    		}
+
+		    		existingBooks.push(newObj);
+		    		var blob = new Blob([JSON.stringify(existingBooks)]);
+            		StaticStorageManager.saveFile('/epub_library.json', blob, function(){
+            			db.transaction(function(t){
+            				t.executeSql('delete from records where id=? or id=?', [ebook.key, ebook.key + '_epubViewProperties'], checkFinished.bind(null, ebook), error);
+            			});
+            		}, error);
+		    	});
+		    });
+    	}, error);
+	}
+
+	var migrateBooks = function(success, error, progress){
+		var db = openDatabase('records', '1.0.0', 'records', 65536);
+
+        if (db){
+            db.transaction(function(t){ t.executeSql("select id, value from records", [],
+                function(xxx, results){
+                    if (results.rows.length) {
+
+                    	var nextStep = function(data){
+                    		var library = [];
+                    		if (typeof data == 'string' || data instanceof String){
+                    			library = JSON.parse(data);
+                    		}
+                    		migrateBookFiles(library, db, results, success, error, progress);
+                    	}
+
+                    	FileUtils.readFile(rootDir, '/epub_library.json', 'Text', nextStep, nextStep)
+					}
+					else{
+						success();
+					}
+				}, error);
+            });
+        }
+	}
+
+	self.requestFileSystem  = self.requestFileSystem || self.webkitRequestFileSystem;
 
 	var StaticStorageManager = {
 
+
 		saveFile : function(path, blob, success, error){
-			success()
+			FileUtils.mkfile(rootDir, path, blob, success, wrapErrorHandler('save', path, error));
 		},
 
 		deleteFile : function(path, success, error){
-			success();
+			var errorHandler = wrapErrorHandler('delete', path, error);
+			if (path == '/'){
+				FileUtils.ls(rootDir, function(entries){
+					var count = entries.length;
+					var checkDone = function(){
+						if (--count == 0){
+							success();
+						}
+					}
+					entries.forEach(function(entry){
+						if (entry.isDirectory){
+							entry.removeRecursively(checkDone, errorHandler)
+						}
+						else{
+							entry.remove(checkDone, errorHandler);
+						}
+					});
+				}, error);
+			}
+			else{
+				FileUtils.rmDir(rootDir, path, success, errorHandler);
+			}
 
 		},
 
 		getPathUrl : function(path){
-			if (path == '/epub_library.json')
-			{
-				return 'epub_content/epub_library.json';
-			}
-			return path;
+			if (path.charAt(0) == '/')
+				path = path.substring(1);
+
+			return rootDir.toURL() + path
 		},
-		initStorage: function(success, error){
-			success();
+		initStorage : function(success, error){
+			if (rootDir){
+				success();
+				return;
+			}
+			requestFileSystem(self.PERSISTENT, 5*1024*1024*1024, function(fs){
+				rootDir = fs.root;
+				success();
+			}, wrapErrorHandler('init', '/', error));
+		},
+
+		migrateLegacyBooks : function(success, error, progress){
+			var errorWrap = function(){
+				var data = JSON.stringify(arguments);
+				var errorMsg = 'Unexpected error while migrating. ' +  data;
+				console.error(errorMsg)
+				error(errorMsg);
+			}
+			migrateBooks(success, errorWrap, progress);
 		}
 	}
+
+	//$(window).bind('libraryUIReady', function(){
+
+
+
 	return StaticStorageManager;
 });
 
+//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
+//
+//  Redistribution and use in source and binary forms, with or without modification,
+//  are permitted provided that the following conditions are met:
+//  1. Redistributions of source code must retain the above copyright notice, this
+//  list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation and/or
+//  other materials provided with the distribution.
+//  3. Neither the name of the organization nor the names of its contributors may be
+//  used to endorse or promote products derived from this software without specific
+//  prior written permission.
+
 define('Settings',[],function(){
-    
-    // localStorage may be disabled due to zero-quota issues (e.g. iPad in private browsing mode)
-    var _isLocalStorageEnabled = undefined;
-    var isLocalStorageEnabled = function() {
-        if (_isLocalStorageEnabled) return true;
-        if (typeof _isLocalStorageEnabled === "undefined") {
-            _isLocalStorageEnabled = false;
-            if (localStorage) {
-                try {
-                    localStorage.setItem("_isLocalStorageEnabled", "?");
-                    localStorage.removeItem("_isLocalStorageEnabled");
-                    _isLocalStorageEnabled = true;
-                } catch(e) {
-                }
-            }
-            return _isLocalStorageEnabled;
-        } else {
-            return false;
-        }
-    };
-    
+
 	Settings = {
 		put : function(key, val, callback){
-            if (!isLocalStorageEnabled()) {
-                if (callback) callback();
-                return;
-            }
-            
-            var val = JSON.stringify(val);
-			localStorage[key] = val;
-            
-			if (callback){
-				callback();
-			}
+			var obj = {};
+			obj[key] = JSON.stringify(val);
+			chrome.storage.local.set(obj, callback);
 		},
 		get : function(key, callback){
-            if (!isLocalStorageEnabled()) {
-                if (callback) callback(null);
-                return;
-            }
-            
-			var val = localStorage[key];
-			if (val){
-				callback(JSON.parse(val));
-			}
-			else{
-				callback(null);
-			}
-			
+			chrome.storage.local.get(key, function(val){
+				if (val[key]){
+					callback(JSON.parse(val[key]));
+				}
+				else{
+					callback(null);
+				}
+			});
 		},
 		getMultiple : function(keys, callback){
-            if (!isLocalStorageEnabled()) {
-                if (callback) callback({});
-                return;
-            }
-            
-			var retVal = {};
-			for (var i = 0; i < keys.length; i++){
-				if (localStorage[keys[i]]){
-					retVal[keys[i]] = localStorage[keys[i]];
-				}
-			}
-			callback(retVal);
+			chrome.storage.local.get(keys, function(val){
+				callback(val);
+			});
 		}
 	}
 	return Settings;
-});
+})
+;
 /**
 * Jath is free software provided under the MIT license.
 *	See LICENSE file for full text of the license.
@@ -53396,40 +53707,6 @@ define('readium_js_viewer/PackageParser',['jath'], function(Jath){
 	}
 	return PackageParser;
 });
-define('readium_js_viewer/workers/Messages',[],function(){
-	return {
-		// window -> worker messages
-		IMPORT_ZIP : 0,
-		OVERWRITE_CONTINUE : 1,
-		FIND_PACKAGE_RESPONSE: 2,
-		PARSE_PACKAGE_RESPONSE: 3,
-		DELETE_EPUB : 4,
-		IMPORT_DIR : 5,
-		IMPORT_URL: 6,
-		MIGRATE: 7,
-		OVERWRITE_SIDE_BY_SIDE: 8,
-		CONTINUE_IMPORT_ZIP: 9,
-
-		// worker -> window messages
-		SUCCESS : 100,
-		PROGRESS : 101,
-		ERROR : 102,
-		OVERWRITE : 103,
-		FIND_PACKAGE : 104,
-		PARSE_PACKAGE: 105,
-
-
-		PROGRESS_EXTRACTING : 200,
-		PROGRESS_WRITING: 201,
-		PROGRESS_DELETING: 202,
-		PROGRESS_MIGRATING: 203,
-
-		ERROR_STORAGE : 300,
-		ERROR_EPUB : 301,
-		ERROR_AJAX : 302,
-
-	}
-});
 define('readium_js_viewer/workers/WorkerProxy',['../ModuleConfig', './Messages', 'jquery', 'readium_js/epub-model/package_document_parser', 'readium_js/epub-fetch/encryption_handler'], function(moduleConfig, Messages, $, PackageParser, EncryptionHandler){
 
 	var worker;
@@ -53542,37 +53819,7 @@ define('readium_js_viewer/workers/WorkerProxy',['../ModuleConfig', './Messages',
 });
 
 
-define('text!readium_js_viewer_i18n/_locales/de/messages.json',[],function () { return '{ "about": {\r\n    "message": "Über Readium"\r\n    },\r\n    "preview": {\r\n        "message": "Vorschau"\r\n    },\r\n    "list_view": {\r\n        "message": "Listenansicht"\r\n    },\r\n    "thumbnail_view": {\r\n        "message": "Kachelansicht"\r\n    },\r\n    "view_library": {\r\n        "message": "Bibliothek"\r\n    },\r\n    "highlight_selection": {\r\n        "message": "Ausgewählten Text hervorheben"\r\n    },\r\n    "toc": {\r\n        "message": "Inhaltsverzeichnis"\r\n    },\r\n    "settings": {\r\n        "message": "Einstellungen"\r\n    },\r\n    "enter_fullscreen": {\r\n        "message": "Vollbildmodus"\r\n    },\r\n    "exit_fullscreen": {\r\n        "message": "Vollbildmodus verlassen"\r\n    },\r\n    "chrome_extension_name": {\r\n        "message": "Readium"\r\n    },\r\n    "chrome_extension_description": {\r\n        "message": "Ein Leseprogramm für EPUB3 Bücher."\r\n    },\r\n    "ok" : {\r\n        "message" : "Ok"\r\n    },\r\n    "i18n_readium_library": {\r\n        "message": "Readium Bibliothek"\r\n    },\r\n    "i18n_loading": {\r\n        "message": "Bibliothek wird geladen"\r\n    },\r\n    "i18n_readium_options": {\r\n        "message": "Readium Einstellungen:"\r\n    },\r\n    "i18n_save_changes": {\r\n        "message": "Änderungen speichern"\r\n    },\r\n    "i18n_close": {\r\n        "message": "Schließen"\r\n    },\r\n    "i18n_keyboard_shortcuts": {\r\n        "message": "Funktionstasten"\r\n    },\r\n    "i18n_keyboard_reload": {\r\n        "message": "Bitte laden Sie die Seite im Browser neu, damit die Änderungen der Tastaturkürzel wirksam werden."\r\n    },\r\n    "i18n_reset_key": {\r\n        "message": "Taste zurücksetzen"\r\n    },\r\n    "i18n_reset_key_all": {\r\n        "message": "Alle Funktionstasten auf Standard zurücksetzen"\r\n    },\r\n    "i18n_duplicate_keyboard_shortcut": {\r\n        "message": "Doppelbelegung"\r\n    },\r\n    "i18n_invalid_keyboard_shortcut": {\r\n        "message": "Nicht zulässig"\r\n    },\r\n    "i18n_paginate_all": {\r\n        "message": "Fließtext des EPUB Inhalts paginieren"\r\n    },\r\n    "i18n_automatically": {\r\n        "message": "*.epub URLs automatisch in Readium öffnen"\r\n    },\r\n    "i18n_show_warning": {\r\n        "message": "Warnhinweise beim Entpacken von EPUB Dateien anzeigen"\r\n    },\r\n    "i18n_details": {\r\n        "message": "Details"\r\n    },\r\n    "i18n_read": {\r\n        "message": "Lesen"\r\n    },\r\n    "i18n_delete": {\r\n        "message": "Löschen"\r\n    },\r\n    "i18n_are_you_sure": {\r\n        "message": "Möchten Sie diese Datei wirklich unwiderruflich löschen?"\r\n    },\r\n    "delete_dlg_title": {\r\n        "message": "Löschen bestätigen"\r\n    },\r\n\r\n    "i18n_auto_page_turn_enable": {\r\n        "message": "Automatisches Umblättern einschalten"\r\n    },\r\n    "i18n_auto_page_turn_disable": {\r\n        "message": "Automatisches Umblättern ausschalten"\r\n    },\r\n\r\n    "i18n_playback_scroll_enable": {\r\n        "message": "Scrollen während der Wiedergabe"\r\n    },\r\n    "i18n_playback_scroll_disable": {\r\n        "message": "Kein Scrollen während der Wiedergabe"\r\n    },\r\n    "i18n_audio_touch_enable": {\r\n        "message": "Touch-to-play einschalten"\r\n    },\r\n    "i18n_audio_touch_disable": {\r\n        "message": "Touch-to-play ausschalten"\r\n    },\r\n    "i18n_audio_highlight_default": {\r\n        "message": "Standard"\r\n    },\r\n    "i18n_audio_highlight": {\r\n        "message": "Hervorhebungsfarbe"\r\n    },\r\n\r\n    "delete_progress_title": {\r\n        "message": "Löschen wird ausgeführt"\r\n    },\r\n    "delete_progress_message": {\r\n        "message": "Löschen"\r\n    },\r\n    "migrate_dlg_title": {\r\n        "message": "Bücher migrieren"\r\n    },\r\n    "migrate_dlg_message": {\r\n        "message": "Daten werden geladen..."\r\n    },\r\n    "migrating": {\r\n        "message": "Migrieren..."\r\n    },\r\n    "replace_dlg_title": {\r\n        "message": "Konflikt festgestellt"\r\n    },\r\n    "replace_dlg_message": {\r\n        "message": "Soll das bestehende EPUB wirklich ersetzt werden?"\r\n    },\r\n    "import_dlg_title": {\r\n        "message": "EPUB importieren"\r\n    },\r\n    "import_dlg_message": {\r\n        "message": "EPUB Inhalt überprüfen..."\r\n    },\r\n    "storing_file": {\r\n        "message": "Datei speichern"\r\n    },\r\n    "err_unknown": {\r\n        "message": "Unbekannter Fehler. Für Details öffnen Sie die Konsole."\r\n    },\r\n    "err_storage": {\r\n        "message": "Zugriff auf Dateispeicher nicht möglich."\r\n    },\r\n    "err_epub_corrupt": {\r\n        "message": "Ungültiges oder beschädigtes EPUB Paket"\r\n    },\r\n    "err_dlg_title": {\r\n        "message": "Unerwarteter Fehler"\r\n    },\r\n    "replace" : {\r\n        "message": "Ersetzen"\r\n    },\r\n    "i18n_author": {\r\n        "message": "Autor: "\r\n    },\r\n    "i18n_publisher": {\r\n        "message": "Verlag: "\r\n    },\r\n    "i18n_source": {\r\n        "message": "Quelle: "\r\n    },\r\n    "i18n_pub_date": {\r\n        "message": "Veröffentlicht am: "\r\n    },\r\n    "i18n_modified_date": {\r\n        "message": "Zuletzt geändert am: "\r\n    },\r\n    "i18n_id": {\r\n        "message": "ID: "\r\n    },\r\n    "i18n_epub_version": {\r\n        "message": "EPUB Version: "\r\n    },\r\n    "i18n_created_at": {\r\n        "message": "Erstellt am: "\r\n    },\r\n    "i18n_format": {\r\n        "message": "Format: "\r\n    },\r\n    "i18n_added": {\r\n        "message": "Hinzugefügt am: "\r\n    },\r\n    "i18n_unknown": {\r\n        "message": "Unbekannt"\r\n    },\r\n    "i18n_sorry": {\r\n        "message": "Das aktuelle EPUB enthält für diesen Inhalt keine Media Overlays."\r\n    },\r\n    "i18n_add_items": {\r\n        "message": "Füge Werke zur Bibliothek hinzu."\r\n    },\r\n    "i18n_extracting": {\r\n        "message": "Entpacke: "\r\n    },\r\n    "i18n_add_book_to_readium_library": {\r\n        "message": "Buch zur Readium Bibliothek hinzufügen:"\r\n    },\r\n    "i18n_add_book": {\r\n        "message": "Buch hinzufügen"\r\n    },\r\n    "i18n_cancel": {\r\n        "message": "Abbrechen"\r\n    },\r\n    "i18n_from_the_web": {\r\n        "message": "Internet:"\r\n    },\r\n    "i18n_from_local_file": {\r\n        "message": "Lokale Datei:"\r\n    },\r\n    "i18n_enter_a_url": {\r\n        "message": "URL einer .epub Datei eingeben"\r\n    },\r\n    "i18n_unpacked_directory": {\r\n        "message": "Entpacktes Verzeichnis:"\r\n    },\r\n    "i18n_validate": {\r\n        "message": "Prüfe:"\r\n    },\r\n    "i18n_confirm_that_this_book": {\r\n        "message": "Bestätigung, dass dieses Buch mit EPUB Standards übereinstimmt"\r\n    },\r\n    "i18n_single_pages": {\r\n        "message": "Einzelseiten"\r\n    },\r\n    "i18n_double_pages": {\r\n        "message": "Doppelseiten"\r\n    },\r\n    "i18n_save_settings": {\r\n        "message": "Einstellungen speichern"\r\n    },\r\n    "i18n_font_size": {\r\n        "message": "Schriftgröße"\r\n    },\r\n    "i18n_margins": {\r\n        "message": "Rand"\r\n    },\r\n    "i18n_text_and_background_color": {\r\n        "message": "Text- und Hintergrundfarbe"\r\n    },\r\n    "i18n_author_theme": {\r\n        "message": "Vorgabe des Autors"\r\n    },\r\n    "i18n_black_and_white": {\r\n        "message": "Schwarzweiss"\r\n    },\r\n    "i18n_arabian_nights": {\r\n        "message": "Arabian Nights"\r\n    },\r\n    "i18n_sands_of_dune": {\r\n        "message": "Sands of Dune"\r\n    },\r\n    "i18n_ballard_blues": {\r\n        "message": "Ballard Blues"\r\n    },\r\n    "i18n_vancouver_mist": {\r\n        "message": "Vancouver Mist"\r\n    },\r\n    "i18n_display_format": {\r\n        "message": "Anzeigeformat"\r\n    },\r\n    "i18n_spread_auto": {\r\n        "message": "Automatisch"\r\n    },\r\n    "i18n_scroll_mode": {\r\n        "message": "Scroll Modus"\r\n    },\r\n    "i18n_scroll_mode_auto": {\r\n        "message": "Automatisch"\r\n    },\r\n    "i18n_scroll_mode_doc": {\r\n        "message": "Dokument"\r\n    },\r\n    "i18n_scroll_mode_continuous": {\r\n        "message": "Kontinuierlich"\r\n    },\r\n\r\n    "i18n_page_transition": {\r\n        "message": "Umblätter-Effekt"\r\n    },\r\n    "i18n_page_transition_none": {\r\n        "message": "Keiner"\r\n    },\r\n    "i18n_page_transition_fade": {\r\n        "message": "Fade"\r\n    },\r\n    "i18n_page_transition_slide": {\r\n        "message": "Slide"\r\n    },\r\n    "i18n_page_transition_swoosh": {\r\n        "message": "Swoosh"\r\n    },\r\n    "i18n_page_transition_butterfly": {\r\n        "message": "Butterfly"\r\n    },\r\n    "i18n_html_readium_tm_a_project": {\r\n        "message": "Readium für Chrome ist die Chrome Browser Erweiterung basierend auf ReadiumJS, einem Open-Source Lesesystem und einer JavaScript Bibliothek zur Darstellung von EPUB® Veröffentlichungen in Web-Browsern. ReadiumJS ist ein Projekt der Readium Foundation (Readium.org). Wenn Sie mehr darüber erfahren möchten oder das Projekt unterstützen wollen, besuchen Sie bitte die <a href=\\"http://readium.org/\\">Projekt Homepage</a>."\r\n\r\n    },\r\n    "gethelp": {\r\n        "message": "Falls Sie auf Probleme stoßen, Fragen haben oder \\"Hallo\\" sagen möchten, besuchen Sie <a href=\\"http://idpf.org/forums/readium\\">unser Forum</a>."\r\n    },\r\n    "i18n_toolbar": {\r\n        "message": "Werkzeugleiste"\r\n    },\r\n    "i18n_toolbar_show": {\r\n        "message": "Werkzeugleiste anzeigen"\r\n    },\r\n    "i18n_toolbar_hide": {\r\n        "message": "Werkzeugleiste ausblenden"\r\n    },\r\n    "i18n_audio_play": {\r\n        "message": "Audio - Abspielen"\r\n    },\r\n    "i18n_audio_pause": {\r\n        "message": "Audio - Pause"\r\n    },\r\n    "i18n_audio_play_background": {\r\n        "message": "Hintergrundaudio ein"\r\n    },\r\n    "i18n_audio_pause_background": {\r\n        "message": "Hintergrundaudio aus"\r\n    },\r\n    "i18n_audio_previous": {\r\n        "message": "Vorige Audiophrase"\r\n    },\r\n    "i18n_audio_next": {\r\n        "message": "Nächste Audiophrase"\r\n    },\r\n    "i18n_audio_volume": {\r\n        "message": "Lautstärke"\r\n    },\r\n    "i18n_audio_volume_increase": {\r\n        "message": "Lautstärke erhöhen"\r\n    },\r\n    "i18n_audio_volume_decrease": {\r\n        "message": "Lautstärke verringern"\r\n    },\r\n    "i18n_audio_time": {\r\n        "message": "Audio - Zeitmarke"\r\n    },\r\n    "i18n_audio_mute": {\r\n        "message": "Audio ausschalten"\r\n    },\r\n    "i18n_audio_unmute": {\r\n        "message": "Audio einschalten"\r\n    },\r\n    "i18n_audio_expand": {\r\n        "message": "Erweiterte Audio-Steuerung anzeigen"\r\n    },\r\n    "i18n_audio_collapse": {\r\n        "message": "Erweiterte Audio-Steuerung ausblenden"\r\n    },\r\n    "i18n_audio_esc": {\r\n        "message": "Aktuellen Audio-Bereich verlassen"\r\n    },\r\n    "i18n_audio_rate": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit"\r\n    },\r\n    "i18n_audio_rate_increase": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit erhöhen"\r\n    },\r\n    "i18n_audio_rate_decrease": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit verringern"\r\n    },\r\n    "i18n_audio_rate_reset": {\r\n        "message": "Audio - Wiedergabegeschwindigkeit zurücksetzen"\r\n    },\r\n    "i18n_audio_skip_disable": {\r\n        "message": "Audio - Überspringen unterbinden "\r\n    },\r\n    "i18n_audio_skip_enable": {\r\n        "message": "Audio - Überspringen ermöglichen"\r\n    },\r\n    "i18n_audio_sync": {\r\n        "message": "Text-Audio-Synchronisation"\r\n    },\r\n    "i18n_audio_sync_default": {\r\n        "message": "Nach Vorgabe"\r\n    },\r\n    "i18n_audio_sync_word": {\r\n        "message": "Wort"\r\n    },\r\n    "i18n_audio_sync_sentence": {\r\n        "message": "Satz"\r\n    },\r\n    "i18n_audio_sync_paragraph": {\r\n        "message": "Absatz"\r\n    },\r\n    "i18n_page_previous": {\r\n        "message": "Vorige Seite"\r\n    },\r\n    "i18n_page_next": {\r\n        "message": "Nächste Seite"\r\n    },\r\n    "chrome_accept_languages": {\r\n        "message": "$CHROME$ akzeptiert $languages$ Sprachen",\r\n        "placeholders": {\r\n            "chrome": {\r\n                "content": "Chrome",\r\n                "example": "Chrome"\r\n            },\r\n            "languages": {\r\n                "content": "$1",\r\n                "example": "en-US,ja,sr,de,zh_CN"\r\n            }\r\n        }\r\n    }\r\n}';});
-
-
-define('text!readium_js_viewer_i18n/_locales/es/messages.json',[],function () { return '{\r\n\r\n    "chrome_extension_name": {\r\n        "message": "Readium"\r\n    },\r\n    "about" : {\r\n        "message" : "Acerca de"\r\n    },\r\n    "preview" : {\r\n        "message" : "Vista previa"\r\n    },\r\n    "list_view" : {\r\n        "message" : "Vista en lista"\r\n    },\r\n    "thumbnail_view" : {\r\n        "message" : "Vista en miniaturas"\r\n    },\r\n    "view_library": {\r\n        "message" : "Biblioteca"\r\n    },\r\n    "highlight_selection" : {\r\n        "message" : "Subrayar texto seleccionado"\r\n    },\r\n    "toc" : {\r\n        "message" : "Tabla de contenidos"\r\n    },\r\n    "settings" : {\r\n        "message" : "Preferencias"\r\n    },\r\n    "enter_fullscreen" : {\r\n        "message" : "Abrir modo de pantalla completa"\r\n    },\r\n    "exit_fullscreen" : {\r\n        "message" : "Cerrar modo de pantalla completa"\r\n    },\r\n    "chrome_extension_description": {\r\n        "message": "Lector de libros EPUB3."\r\n    },\r\n    "ok" : {\r\n        "message" : "Ok"\r\n    },\r\n    "delete_dlg_title" : {\r\n        "message" : "Confirmar eliminación"\r\n    },\r\n    "delete_progress_title" : {\r\n        "message" : "Eliminación en progreso"\r\n    },\r\n    "delete_progress_message" : {\r\n        "message" : "Eliminando"\r\n    },\r\n    "migrate_dlg_title" : {\r\n        "message" : "Migrando libros"\r\n    },\r\n    "migrate_dlg_message" : {\r\n        "message" : "Cargando datos..."\r\n    },\r\n    "migrating" : {\r\n        "message" : "Migrando"\r\n    },\r\n    "replace_dlg_title" : {\r\n        "message": "Se ha detectado un conflicto"\r\n    },\r\n    "replace_dlg_message": {\r\n        "message": "Si decide continuar, el siguiente epub será reemplazado por el que está siendo importado"\r\n    },\r\n    "import_dlg_title" : {\r\n        "message": "Importando EPUB"\r\n    },\r\n    "import_dlg_message" : {\r\n        "message": "Examinando contenido del EPUB..."\r\n    },\r\n    "storing_file" : {\r\n        "message": "Guardando archivo"\r\n    },\r\n    "err_unknown" : {\r\n        "message": "Error desconocido. Chequear la consola para conocer más detalles."\r\n    },\r\n    "err_storage" : {\r\n        "message": "No es posible acceder al dispositvo"\r\n    },\r\n    "err_epub_corrupt" : {\r\n        "message": "Paquete EPUB inválido o corrupto"\r\n    },\r\n    "err_dlg_title" : {\r\n        "message": "Error inesperado"\r\n    },\r\n    "replace" : {\r\n        "message": "Reemplazar"\r\n    },\r\n    "gethelp" : {\r\n        "message" : "Si encuentra algún problema, tiene preguntas, o le gustaría decir hola, visite <a href=\\"http://idpf.org/forums/readium\\">nuestro foro</a>"\r\n    },\r\n    "i18n_readium_library" : {\r\n        "message" : "Biblioteca Readium"\r\n    },\r\n    "i18n_loading" : {\r\n        "message" : "Cargando biblioteca"\r\n    },\r\n    "i18n_readium_options" : {\r\n        "message" : "Readium Opciones:"\r\n    },\r\n    "i18n_save_changes" : {\r\n        "message" : "Guardar cambios"\r\n    },\r\n    "i18n_close" : {\r\n        "message" : "Cerrar"\r\n    },\r\n    "i18n_keyboard_shortcuts" : {\r\n        "message" : "Teclas de acceso rápido"\r\n    },\r\n    "i18n_keyboard_reload" : {\r\n        "message" : "Por favor, actualiza la página para que las teclas de acceso rápido tengan efecto."\r\n    },\r\n    "i18n_reset_key" : {\r\n        "message" : "Reestablecer tecla"\r\n    },\r\n    "i18n_reset_key_all" : {\r\n        "message" : "Reestablecer todos las teclas de acceso rápido"\r\n    },\r\n    "i18n_duplicate_keyboard_shortcut" : {\r\n        "message" : "DUPLICADO"\r\n    },\r\n    "i18n_invalid_keyboard_shortcut" : {\r\n        "message" : "INVALIDO"\r\n    },\r\n    "i18n_paginate_all" : {\r\n        "message" : "Paginar todo el contenido ePUB repaginable"\r\n    },\r\n    "i18n_automatically" : {\r\n        "message" : "Abrir automáticamente urls *.epub en readium"\r\n    },\r\n    "i18n_show_warning" : {\r\n        "message" : "Mostrar advertencias al desempaquetar archivos EPUB"\r\n    },\r\n    "i18n_details" : {\r\n        "message" : "Detalles"\r\n    },\r\n    "i18n_read" : {\r\n        "message" : "Leer"\r\n    },\r\n    "i18n_delete" : {\r\n        "message" : "Eliminar"\r\n    },\r\n    "i18n_author" : {\r\n        "message" : "Autor: "\r\n    },\r\n    "i18n_publisher" : {\r\n        "message" : "Editor: "\r\n    },\r\n    "i18n_source" : {\r\n        "message" : "Fuente: "\r\n    },\r\n    "i18n_pub_date" : {\r\n        "message" : "Fecha de publicación: "\r\n    },\r\n    "i18n_modified_date" : {\r\n        "message" : "Fecha de modificación: "\r\n    },\r\n    "i18n_id" : {\r\n        "message" : "ID: "\r\n    },\r\n    "i18n_epub_version" : {\r\n        "message" : "Versión EPUB: "\r\n    },\r\n    "i18n_created_at" : {\r\n        "message" : "Creado en: "\r\n    },\r\n    "i18n_format" : {\r\n        "message" : "Formato: "\r\n    },\r\n    "i18n_added" : {\r\n        "message" : "Añadido: "\r\n    },\r\n    "i18n_unknown" : {\r\n        "message" : "Desconocido"\r\n    },\r\n    "i18n_sorry" : {\r\n        "message" : "Disculpa, el EPUB actual no contiene superposición multimedia para este contenido"\r\n    },\r\n    "i18n_add_items" : {\r\n        "message" : "¡Añade aquí elementos a tu biblioteca!"\r\n    },\r\n    "i18n_extracting" : {\r\n        "message" : "extrayendo: "\r\n    },\r\n    "i18n_are_you_sure" : {\r\n        "message" : "¿Está seguro que desea eliminar de forma permanente"\r\n    },\r\n    "i18n_add_book_to_readium_library" : {\r\n        "message" : "Añadir libro a biblioteca Readium:"\r\n    },\r\n    "i18n_add_book" : {\r\n        "message" : "Añadir a la biblioteca"\r\n    },\r\n    "i18n_cancel" : {\r\n        "message" : "Cancelar"\r\n    },\r\n    "i18n_from_the_web" : {\r\n        "message" : "Desde la web:"\r\n    },\r\n    "i18n_from_local_file" : {\r\n        "message" : "Desde un archivo local:"\r\n    },\r\n    "i18n_enter_a_url" : {\r\n        "message" : "Ingresa una URL a un archivo .epub"\r\n    },\r\n    "i18n_unpacked_directory" : {\r\n        "message" : "Carpeta descomprimida:"\r\n    },\r\n    "i18n_validate" : {\r\n        "message" : "Validar:"\r\n    },\r\n    "i18n_confirm_that_this_book" : {\r\n        "message" : "Confirmar que este libro cumple con los estándares ePUB"\r\n    },\r\n    "i18n_single_pages" : {\r\n        "message" : "Páginas simple"\r\n    },\r\n    "i18n_double_pages" : {\r\n        "message" : "Páginas doble"\r\n    },\r\n    "i18n_save_settings" : {\r\n        "message" : "Guardar preferencias"\r\n    },\r\n    "i18n_font_size" : {\r\n        "message" : "TAMAÑO DE FUENTE"\r\n    },\r\n    "i18n_margins" : {\r\n        "message" : "MARGENES"\r\n    },\r\n    "i18n_text_and_background_color" : {\r\n        "message" : "COLOR DE FUENTE Y FONDO"\r\n    },\r\n    "i18n_black_and_white" : {\r\n        "message" : "Blanco y negro"\r\n    },\r\n    "i18n_arabian_nights" : {\r\n        "message" : "Las mil y una noches"\r\n    },\r\n    "i18n_sands_of_dune" : {\r\n        "message" : "Arenas de duna"\r\n    },\r\n    "i18n_ballard_blues" : {\r\n        "message" : "Ballard Blues"\r\n    },\r\n    "i18n_vancouver_mist" : {\r\n        "message" : "Bruma de Vancouver"\r\n    },\r\n    "i18n_display_format" : {\r\n        "message" : "MOSTRAR FORMATO"\r\n    },\r\n    "i18n_scroll_mode" : {\r\n        "message" : "MODO DE DESPLAZAMIENTO"\r\n    },\r\n    "i18n_scroll_mode_default" : {\r\n        "message" : "Por defecto"\r\n    },\r\n    "i18n_scroll_mode_doc" : {\r\n        "message" : "Documento"\r\n    },\r\n    "i18n_scroll_mode_continuous" : {\r\n        "message" : "Continuo"\r\n    },\r\n    "i18n_html_readium_tm_a_project" : {\r\n        "message" : "Readium para Chrome es la extensión para Chrome de ReadiumJS, un sistema de lectura de código abierto y librería JavaScript para renderizar publicaciones EPUB® en navegadores web. ReadiumJS es un proyecto de Readium Foundation (Readium.org). Para saber más o contribuir, visita el <a href=\\"http://readium.org/projects/readiumjs\\">sitio del proyecto</a>"\r\n    },\r\n    "i18n_toolbar_show" : {\r\n        "message" : "Mostrar barra de herramientas"\r\n    },\r\n    "i18n_toolbar_hide" : {\r\n        "message" : "Ocultar barra de herramientas"\r\n    },\r\n    "i18n_audio_play" : {\r\n        "message" : "Reproducir"\r\n    },\r\n    "i18n_audio_pause" : {\r\n        "message" : "Pausa"\r\n    },\r\n    "i18n_audio_previous" : {\r\n        "message" : "Frase de audio anterior"\r\n    },\r\n    "i18n_audio_next" : {\r\n        "message" : "Frase de audio siguiente"\r\n    },\r\n    "i18n_audio_volume" : {\r\n        "message" : "Volumen de audio"\r\n    },\r\n    "i18n_audio_volume_increase" : {\r\n        "message" : "Incrementar volumen de audio"\r\n    },\r\n    "i18n_audio_volume_decrease" : {\r\n        "message" : "Reducir volumen de audio"\r\n    },\r\n    "i18n_audio_time" : {\r\n        "message" : "Cursor de tiempo de audio"\r\n    },\r\n    "i18n_audio_mute" : {\r\n        "message" : "Desactivar audio"\r\n    },\r\n    "i18n_audio_unmute" : {\r\n        "message" : "Activar audio"\r\n    },\r\n    "i18n_audio_expand" : {\r\n        "message" : "Mostrar controles avanzados de audio"\r\n    },\r\n    "i18n_audio_collapse" : {\r\n        "message" : "Cerrar controles avanzados de audio"\r\n    },\r\n    "i18n_audio_esc" : {\r\n        "message" : "Salir de contexto actual de audio"\r\n    },\r\n    "i18n_audio_rate" : {\r\n        "message" : "Velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_increase" : {\r\n        "message" : "Incrementar velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_decrease" : {\r\n        "message" : "Reducir velocidad de reproducción de audio"\r\n    },\r\n    "i18n_audio_rate_reset" : {\r\n        "message" : "Reestablecer reproducción de audio a velocidad normal"\r\n    },\r\n    "i18n_audio_skip_disable" : {\r\n        "message" : "Desactivar capacidad de omisión"\r\n    },\r\n    "i18n_audio_skip_enable" : {\r\n        "message" : "Activar capacidad de omisión"\r\n    },\r\n    "i18n_audio_touch_enable" : {\r\n        "message" : "Activar touch-to-play"\r\n    },\r\n    "i18n_audio_touch_disable" : {\r\n        "message" : "Desactivar touch-to-play"\r\n    },\r\n    "i18n_audio_highlight_default" : {\r\n        "message" : "por defecto"\r\n    },\r\n    "i18n_audio_highlight" : {\r\n        "message" : "Color de audio"\r\n    },\r\n    "i18n_audio_sync" : {\r\n        "message" : "Granularidad de sincronización texto/audio"\r\n    },\r\n    "i18n_audio_sync_default" : {\r\n        "message" : "Por defecto"\r\n    },\r\n    "i18n_audio_sync_word" : {\r\n        "message" : "Palabra"\r\n    },\r\n    "i18n_audio_sync_sentence" : {\r\n        "message" : "Oración"\r\n    },\r\n    "i18n_audio_sync_paragraph" : {\r\n        "message" : "Párrafo"\r\n    },\r\n    "i18n_page_previous" : {\r\n        "message" : "Página previa"\r\n    },\r\n    "i18n_page_next" : {\r\n        "message" : "Página siguiente"\r\n    },\r\n    "i18n_author_theme" : {\r\n      "message" : "Por defecto (estilos de autor)"\r\n    },\r\n\r\n  "i18n_spread_auto" : {\r\n       "message" : "Automático"\r\n    },\r\n\r\n  "i18n_scroll_mode_auto" : {\r\n      "message" : "Automático"\r\n    },\r\n\r\n   "i18n_page_transition" : {\r\n      "message" : "EFECTOS DE PÁGINA"\r\n    },\r\n    "i18n_page_transition_none" : {\r\n      "message" : "Desactivado"\r\n    },\r\n    "i18n_page_transition_fade" : {\r\n      "message" : "Apagarse"\r\n    },\r\n    "i18n_page_transition_slide" : {\r\n      "message" : "Deslizar"\r\n    },\r\n    "i18n_page_transition_swoosh" : {\r\n      "message" : "Swoosh"\r\n    },\r\n    "i18n_page_transition_butterfly" : {\r\n      "message" : "Mariposa"\r\n    },\r\n\r\n  "i18n_toolbar" : {\r\n      "message" : "Barra de herramientas"\r\n    },\r\n\r\n   "i18n_audio_play_background" : {\r\n      "message" : "Reproducir pista en segundo plano"\r\n    },\r\n    "i18n_audio_pause_background" : {\r\n      "message" : "Pausar pista en segundo plano"\r\n},\r\n\r\n   "i18n_auto_page_turn_enable" : {\r\n      "message" : "Activar vuelta de página automática"\r\n    },\r\n    "i18n_auto_page_turn_disable" : {\r\n      "message" : "Desactivar vuelta de página automática"\r\n    },\r\n\r\n   "i18n_playback_scroll_enable" : {\r\n      "message" : "Activar desplazamiento durante la reproducción"\r\n    },\r\n\r\n    "i18n_playback_scroll_disable" : {\r\n      "message" : "Desactivar desplazamiento durante la reproducción"\r\n    },\r\n\r\n    "chrome_accept_languages": {\r\n        "message": "$CHROME$ acepta idiomas $languages$",\r\n        "placeholders": {\r\n            "chrome": {\r\n                "content": "Chrome",\r\n                "example": "Chrome"\r\n            },\r\n            "languages": {\r\n                "content": "$1",\r\n                "example": "en-US,ja,sr,de,zh_CN"\r\n            }\r\n        }\r\n    }\r\n}';});
-
-
 define('text!readium_js_viewer_i18n/_locales/en_US/messages.json',[],function () { return '{\r\n\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "about" : {\r\n    "message" : "About"\r\n  },\r\n  "preview" : {\r\n    "message" : "PREVIEW"\r\n  },\r\n  "list_view" : {\r\n    "message" : "List View"\r\n  },\r\n  "thumbnail_view" : {\r\n    "message" : "Thumbnail View"\r\n  },\r\n  "view_library": {\r\n    "message" : "Library"\r\n  },\r\n  "highlight_selection" : {\r\n    "message" : "Highlight Selected Text"\r\n  },\r\n  "toc" : {\r\n    "message" : "Table of Contents"\r\n  },\r\n  "settings" : {\r\n    "message" : "Settings"\r\n  },\r\n  "layout" : {\r\n    "message" : "Layout"\r\n  },\r\n  "style" : {\r\n    "message" : "Style"\r\n  },\r\n  "enter_fullscreen" : {\r\n    "message" : "Enter Fullscreen"\r\n  },\r\n  "exit_fullscreen" : {\r\n    "message" : "Exit Fullscreen"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "A reader for EPUB3 books."\r\n  },\r\n  "ok" : {\r\n    "message" : "Ok"\r\n  },\r\n  "delete_dlg_title" : {\r\n    "message" : "Confirm Delete"\r\n  },\r\n  "delete_progress_title" : {\r\n    "message" : "Delete in Progress"\r\n  },\r\n  "delete_progress_message" : {\r\n    "message" : "Deleting"\r\n  },\r\n  "migrate_dlg_title" : {\r\n    "message" : "Migrating Books"\r\n  },\r\n  "migrate_dlg_message" : {\r\n    "message" : "Loading data..."\r\n  },\r\n  "migrating" : {\r\n    "message" : "Migrating"\r\n  },\r\n  "replace_dlg_title" : {\r\n    "message": "Conflict Detected"\r\n  },\r\n  "replace_dlg_message": {\r\n    "message": "If you continue, the following epub will be replaced with the one you are importing"\r\n  },\r\n  "import_dlg_title" : {\r\n    "message": "Importing EPUB"\r\n  },\r\n  "import_dlg_message" : {\r\n    "message": "Examining EPUB content..."\r\n  },\r\n  "storing_file" : {\r\n    "message": "Storing file"\r\n  },\r\n  "err_unknown" : {\r\n    "message": "Unknown error. Check console for more details."\r\n  },\r\n  "err_storage" : {\r\n    "message": "Unable to access storage"\r\n  },\r\n  "err_epub_corrupt" : {\r\n    "message": "Invalid or corrupted EPUB package"\r\n  },\r\n  "err_ajax": {\r\n    "message": "Error in ajax request"\r\n  },\r\n  "err_dlg_title" : {\r\n    "message": "Unexpected Error"\r\n  },\r\n  "replace" : {\r\n    "message": "Replace"\r\n  },\r\n  "gethelp" : {\r\n    "message" : "If you encounter any problems, have questions, or would like to say hello, visit <a href=\\"http://idpf.org/forums/readium\\">our forum</a>"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium Library"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium Options:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Save changes"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Close"\r\n  },\r\n  "i18n_keyboard_shortcuts" : {\r\n    "message" : "Keyboard shortcuts"\r\n  },\r\n  "i18n_keyboard_reload" : {\r\n    "message" : "Please reload the page for keyboard shortcuts to take effect."\r\n  },\r\n  "i18n_reset_key" : {\r\n    "message" : "Reset key"\r\n  },\r\n  "i18n_reset_key_all" : {\r\n    "message" : "Reset all keyboard shortcuts"\r\n  },\r\n  "i18n_duplicate_keyboard_shortcut" : {\r\n    "message" : "DUPLICATE"\r\n  },\r\n  "i18n_invalid_keyboard_shortcut" : {\r\n    "message" : "INVALID"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginate all reflowable ePUB content"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Automatically open *.epub urls in readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Show warning messages when unpacking EPUB files"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Details"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Read"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Delete"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Author: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Publisher: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Source: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Pub Date: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Modified Date: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB version: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Created at: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Added: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Unknown"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Sorry, the current EPUB does not contain a media overlay for this content"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Add items to your library here!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extracting: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Are you sure you want to permanently delete "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Add Book To Readium Library:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Add to Library"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Cancel"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "From the web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "From Local File:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Enter a URL to a .epub file"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Unpacked Directory:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validate:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirm that this book complies with ePUB standards"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Single Pages"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Double Pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Save Settings"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "FONT SIZE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "TEXT AND BACKGROUND COLOR"\r\n  },\r\n  "i18n_author_theme" : {\r\n    "message" : "Default (author styles)"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "DISPLAY FORMAT"\r\n  },\r\n  "i18n_spread_auto" : {\r\n     "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode" : {\r\n    "message" : "SCROLL MODE"\r\n  },\r\n  "i18n_scroll_mode_auto" : {\r\n    "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode_doc" : {\r\n    "message" : "Document"\r\n  },\r\n  "i18n_scroll_mode_continuous" : {\r\n    "message" : "Continuous"\r\n  },\r\n  \r\n  "i18n_page_transition" : {\r\n    "message" : "PAGE EFFECTS"\r\n  },\r\n  "i18n_page_transition_none" : {\r\n    "message" : "Disabled"\r\n  },\r\n  "i18n_page_transition_fade" : {\r\n    "message" : "Fade"\r\n  },\r\n  "i18n_page_transition_slide" : {\r\n    "message" : "Slide"\r\n  },\r\n  "i18n_page_transition_swoosh" : {\r\n    "message" : "Swoosh"\r\n  },\r\n  "i18n_page_transition_butterfly" : {\r\n    "message" : "Butterfly"\r\n  },\r\n  \r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium for Chrome is the Chrome browser extension configuration of ReadiumJS, an open source reading system and JavaScript library for displaying EPUB® publications in web browsers. ReadiumJS is a project of the Readium Foundation (Readium.org). To learn more or to contribute, visit the <a href=\\"http://readium.org/projects/readiumjs\\">project homepage</a>"\r\n  },\r\n  "i18n_toolbar" : {\r\n    "message" : "Toolbar"\r\n  },\r\n  "i18n_toolbar_show" : {\r\n    "message" : "Show toolbar"\r\n  },\r\n  "i18n_toolbar_hide" : {\r\n    "message" : "Hide toolbar"\r\n  },\r\n  "i18n_audio_play" : {\r\n    "message" : "Play"\r\n  },\r\n  "i18n_audio_pause" : {\r\n    "message" : "Pause"\r\n  },\r\n  "i18n_audio_play_background" : {\r\n    "message" : "Play background track"\r\n  },\r\n  "i18n_audio_pause_background" : {\r\n    "message" : "Pause background track"\r\n  },\r\n  "i18n_audio_previous" : {\r\n    "message" : "Previous audio phrase"\r\n  },\r\n  "i18n_audio_next" : {\r\n    "message" : "Next audio phrase"\r\n  },\r\n  "i18n_audio_volume" : {\r\n    "message" : "Audio volume"\r\n  },\r\n  "i18n_audio_volume_increase" : {\r\n    "message" : "Increase audio volume"\r\n  },\r\n  "i18n_audio_volume_decrease" : {\r\n    "message" : "Decrease audio volume"\r\n  },\r\n  "i18n_audio_time" : {\r\n    "message" : "Audio time cursor"\r\n  },\r\n  "i18n_audio_mute" : {\r\n    "message" : "Mute audio"\r\n  },\r\n  "i18n_audio_unmute" : {\r\n    "message" : "Unmute audio"\r\n  },\r\n  "i18n_audio_expand" : {\r\n    "message" : "Show advanced audio controls"\r\n  },\r\n  "i18n_audio_collapse" : {\r\n    "message" : "Close advanced audio controls"\r\n  },\r\n  "i18n_audio_esc" : {\r\n    "message" : "Escape current audio context"\r\n  },\r\n  "i18n_audio_rate" : {\r\n    "message" : "Audio playback rate"\r\n  },\r\n  "i18n_audio_rate_increase" : {\r\n    "message" : "Increase audio playback rate"\r\n  },\r\n  "i18n_audio_rate_decrease" : {\r\n    "message" : "Decrease audio playback rate"\r\n  },\r\n  "i18n_audio_rate_reset" : {\r\n    "message" : "Reset audio playback to normal speed"\r\n  },\r\n  "i18n_audio_skip_disable" : {\r\n    "message" : "Disable skippability"\r\n  },\r\n  "i18n_audio_skip_enable" : {\r\n    "message" : "Enable skippability"\r\n  },\r\n\r\n  "i18n_auto_page_turn_enable" : {\r\n    "message" : "Enable automatic page turn"\r\n  },\r\n  "i18n_auto_page_turn_disable" : {\r\n    "message" : "Disable automatic page turn"\r\n  },\r\n\r\n  "i18n_playback_scroll_enable" : {\r\n    "message" : "Enable scroll during playback"\r\n  },\r\n  "i18n_playback_scroll_disable" : {\r\n    "message" : "Disable scroll during playback"\r\n  },\r\n  \r\n  "i18n_audio_touch_enable" : {\r\n    "message" : "Enable touch-to-play"\r\n  },\r\n  "i18n_audio_touch_disable" : {\r\n    "message" : "Disable touch-to-play"\r\n  },\r\n  "i18n_audio_highlight_default" : {\r\n    "message" : "default"\r\n  },\r\n  "i18n_audio_highlight" : {\r\n    "message" : "Audio color"\r\n  },\r\n  "i18n_audio_sync" : {\r\n    "message" : "Text/audio synchronization granularity"\r\n  },\r\n  "i18n_audio_sync_default" : {\r\n    "message" : "Default"\r\n  },\r\n  "i18n_audio_sync_word" : {\r\n    "message" : "Word"\r\n  },\r\n  "i18n_audio_sync_sentence" : {\r\n    "message" : "Sentence"\r\n  },\r\n  "i18n_audio_sync_paragraph" : {\r\n    "message" : "Paragraph"\r\n  },\r\n  "i18n_page_previous" : {\r\n    "message" : "Previous Page"\r\n  },\r\n  "i18n_page_next" : {\r\n    "message" : "Next Page"\r\n  },\r\n  "i18n_page_navigation" : {\r\n    "message" : "Page Navigation"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
-
-
-define('text!readium_js_viewer_i18n/_locales/fr/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "Un lecteur de livres numériques EPUB3."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Bibliothèque Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Chargement de la bibliothèque"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Options de Readium :"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Enregistrer les changements"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Fermer"\r\n  },\r\n  "i18n_keyboard_shortcuts" : {\r\n    "message" : "Raccourcis clavier"\r\n  },\r\n  "i18n_keyboard_reload" : {\r\n    "message" : "Veuillez recharger la page pour que les raccourcis clavier prennent effet."\r\n  },\r\n  "i18n_reset_key" : {\r\n    "message" : "Réinitialiser le raccourci clavier par défaut"\r\n  },\r\n  "i18n_reset_key_all" : {\r\n    "message" : "Réinitialiser tous les raccourcis clavier par défaut"\r\n  },\r\n  "i18n_duplicate_keyboard_shortcut" : {\r\n    "message" : "DUPLIQUE"\r\n  },\r\n  "i18n_invalid_keyboard_shortcut" : {\r\n    "message" : "INVALIDE"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginer tout le contenu des EPUB recomposables"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Ouvrir automatiquement les urls *.epub dans Readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Montrer les messages d\'avertissement pendant la décompression des fichiers EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Détails"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Lire"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Supprimer"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Auteur : "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Éditeur : "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Source : "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Date de publication :  "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Date de modification : "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "version de l\'EPUB : "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Ajouté le : "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format : "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Ajouté le : "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Inconnu"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Désolé, l\'EPUB actuel ne contient pas de média associé (media overlay) pour ce contenu"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Ajoutez des articles à votre bibliothèque ici !"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extraction : "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Voulez-vous vraiment supprimer "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Ajoutez un livre à la bibliothèque de Readium :"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Ajouter un livre"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Annuler"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "À partir du Web :"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "À partir d\'un fichier local :"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Entrez l\'URL d\'un fichier .epub"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Répertoire non-compressé :"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Valider :"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirmer que ce livre est conforme aux standards EPUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Pages simples"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Doubles-pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Enregistrer"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "TAILLE DE LA POLICE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGES"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COULEUR DU TEXTE ET DU FOND"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Noir et Blanc"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Mille et une Nuits"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sables de Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Le Blues de Ballard"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Le Brouillard de Vancouver"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "FORMAT D\'AFFICHAGE"\r\n  },\r\n  "i18n_scroll_mode" : {\r\n    "message" : "MODE DE DÉFILEMENT"\r\n  },\r\n  "i18n_scroll_mode_auto" : {\r\n    "message" : "Auto"\r\n  },\r\n  "i18n_scroll_mode_doc" : {\r\n    "message" : "Document"\r\n  },\r\n  "i18n_scroll_mode_continuous" : {\r\n    "message" : "Continu"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium pour Chrome est l\'extension du navigateur Chrome de ReadiumJS, un système de lecture open-source et une librairie JavaScript pour afficher des documents EPUB® dans les navigateurs web. ReadiumJS est un projet de la fondation Readium (Readium.org). Pour en savoir plus ou pour contribuer, visiter la <a href=\\"http://readium.org/projects/readiumjs\\">page d\'accueil du projet</a>."\r\n  },\r\n  "i18n_audio_play" : {\r\n    "message" : "Jouer"\r\n  },\r\n  "i18n_audio_pause" : {\r\n    "message" : "Pauser"\r\n  },\r\n  "i18n_audio_previous" : {\r\n    "message" : "Phrase audio précédente"\r\n  },\r\n  "i18n_audio_next" : {\r\n    "message" : "Phrase audio suivante"\r\n  },\r\n  "i18n_audio_volume" : {\r\n    "message" : "Ajustement du volume audio"\r\n  },\r\n  "i18n_audio_time" : {\r\n    "message" : "Contrôle du curseur temporel audio"\r\n  },\r\n  "i18n_audio_mute" : {\r\n    "message" : "Silence audio"\r\n  },\r\n  "i18n_audio_unmute" : {\r\n    "message" : "Restaurer le volume audio"\r\n  },\r\n  "i18n_audio_expand" : {\r\n    "message" : "Afficher les contrôles audio avancés"\r\n  },\r\n  "i18n_audio_collapse" : {\r\n    "message" : "Fermer les contrôles audio avancés"\r\n  },\r\n  "i18n_audio_esc" : {\r\n    "message" : "Échapper le contexte audio actuel"\r\n  },\r\n  "i18n_audio_rate" : {\r\n    "message" : "Vitesse de lecture audio"\r\n  },\r\n  "i18n_audio_rate_reset" : {\r\n    "message" : "Retour à la vitesse normale de lecture audio"\r\n  },\r\n  "i18n_audio_skip_disable" : {\r\n    "message" : "Désactiver la \'skippabilité\'"\r\n  },\r\n  "i18n_audio_skip_enable" : {\r\n    "message" : "Activer la \'skippabilité\'"\r\n  },\r\n  "i18n_audio_touch_enable" : {\r\n    "message" : "Activer la fonction \'toucher pour jouer\'"\r\n  },\r\n  "i18n_audio_touch_disable" : {\r\n    "message" : "Désactiver la fonction \'toucher pour jouer\'"\r\n  },\r\n  "i18n_audio_highlight_default" : {\r\n    "message" : "défaut"\r\n  },\r\n  "i18n_audio_highlight" : {\r\n    "message" : "Couleur audio"\r\n  },\r\n  "i18n_audio_sync" : {\r\n    "message" : "Granularité de synchronisation texte / audio"\r\n  },\r\n  "i18n_audio_sync_default" : {\r\n    "message" : "Défaut"\r\n  },\r\n  "i18n_audio_sync_word" : {\r\n    "message" : "Mot"\r\n  },\r\n  "i18n_audio_sync_sentence" : {\r\n    "message" : "Phrase"\r\n  },\r\n  "i18n_audio_sync_paragraph" : {\r\n    "message" : "Paragraphe"\r\n  },\r\n  "i18n_page_previous" : {\r\n    "message" : "Page précédente"\r\n  },\r\n  "i18n_page_next" : {\r\n    "message" : "Page suivante"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,fr,ja,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
-
-
-define('text!readium_js_viewer_i18n/_locales/it/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "Un visualizzatore di documenti EPUB3"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Biblioteca di Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Caricamento biblioteca"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Opzioni di Readium"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Applica"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Chiudi"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Impagina anche i file EPUB reflowable"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Apri in Readium gli URL che terminano in .epub"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Mostra errori e avvisi relativi ai file EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Dettagli"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Leggi"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Elimina"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Autore: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Editore: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Origine: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Data pubblicazione: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Data ultima modifica: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versione EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Data importazione: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Formato: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Aggiunto: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Sconosciuto"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Spiacente, non ci sono risorse Media Overlays associate a questo elemento."\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Aggiungi libri alla tua biblioteca!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "Decomprimendo: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Sei sicuro di voler cancellare definitivamente "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Aggiungi libro alla Biblioteca di Readium"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Aggiungi libro"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Annulla"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Scarica dal Web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "Importa file EPUB dal tuo computer:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Indirizzo Web del file EPUB che vuoi aggiungere:"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Importa directory decompressa:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Convalida:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Controlla che i file siano conformi allo standard EPUB prima di aprirli"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Singole"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Affiancate"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Applica"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "DIMENSIONE CARATTERE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINI"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COMBINAZIONE COLORE TESTO/SFONDO"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Bianco su nero"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Notturno"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Deserto"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Mediterraneo"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Nebbia"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "VISUALIZZAZIONE PAGINE"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, progetto dell\'International Digital Publishing Forum (IDPF) e dei suoi sostenitori, è una piattaforma open source di lettura e un motore di rendering per documenti in formato EPUB&reg;. Per saperne di più, visita la <a href=\\"http://readium.org/\\">pagina principale del progetto</a>. Lo sviluppo del progetto è stato guidato da <a href=\\"http://evidentpoint.com/\\">Evident Point</a> e <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. Per contribuire, visita il <a href=\\"https://github.com/readium/readium-js-viewer\\">repository github</a>."\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accetta le seguenti lingue: $languages$",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,it,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
-
-
-define('text!readium_js_viewer_i18n/_locales/id/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "reader untuk buku-buku EPUB3 ."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Perpustakaan Readium"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Pilihan Readium :"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Simpan perubahan"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Tutup"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginate all reflowable ePUB content"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Secara otomatis buka *.epub urls di readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Tampilkan pesan peringatan ketika unpacking file EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Detail"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Baca"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Hapus"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Penulis: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Penerbit: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Sumber: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Tgl Terbit: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Tgl Modifikasi: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versi EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Dibuat di: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Format: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Menambahkan: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Tidak dikenal"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Maaf, EPUB saat ini tidak berisi overlay media untuk konten ini "\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Masukkan item r Library disini!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extracting: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Apakah and yakin ingin menghapus secara permanen "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Masukkan Buku ke Readium Library:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Add Book"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Batal"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Dari Web:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "Dari File local:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Masukkan  URL ke file .epub "\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Unpacked Directory:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validasi:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Konfirmasikan bahwa buku ini sesuai dengan standar EPUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Single Pages"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Double Pages"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Save Settings"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "FONT SIZE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGINS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "TEKS DAN WARNA LATAR"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "DISPLAY FORMAT"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, adalah sistem referensi open source DAN rendering engine untuk EPUB&reg; publikasi.  Untuk mengetahui lebih lanjut, kunjungi <a href=\\"http://readium.org/\\">project homepage</a>. Sampai saat ini, pengembangan project telah dipimpin oleh  <a href=\\"http://evidentpoint.com/\\">Evident Point</a> and <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. Untuk kontribusi, kunjungi <a href=\\"https://github.com/readium/readium-js-viewer\\">github repository</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
-
-
-define('text!readium_js_viewer_i18n/_locales/ja/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3ブックリーダ"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readiumライブラリ"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readiumオプション:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "変更を保存"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "閉じる"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "リフロー可能なEPUBコンテンツをすべてページネートする"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "URLが*.epubなら自動でReadiumで開く"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "EPUBファイルを展開する際には警告メッセージを表示する"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "詳細"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "読む"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "削除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "著者: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "ソース: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日時: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日時: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUBバージョン: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "追加日時: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "フォーマット: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "追加日時: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "不明"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "現在のEPUBにはこのコンテンツのメディアオーバーレイが含まれていません"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "ここをクリックして本を登録します!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "展開しています: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "本を削除します: "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Readiumライブラリに本を追加します:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "本の追加"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "キャンセル"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Webから:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "ローカルファイルから:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : ".epubファイルのURLを入力してください"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "パッケージ化されていないフォルダ:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "検証（バリデート）:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "この本がEPUB仕様に準拠していることを確認する"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "単ページ"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "ダブル"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "設定を保存する"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "文字サイズ"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "マージン"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "文字色と背景色"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "白背景に黒文字"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "アラビアンナイト"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "砂丘の砂"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "バラード ブルース"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "バンクーバーの霧"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "表示形式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>とは, International Digital Publishing Forum (IDPF) と支援企業によるプロジェクトで, EPUB&reg; 出版のためのシステムとレンダリングエンジンのオープンソースリファレンスです。詳しくは、<a href=\\"http://readium.org/\\">プロジェクトホームページ</a>をご覧ください。これまでは<a href=\\"http://evidentpoint.com/\\">Evident Point</a>と<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>がプロジェクト開発をリードしてきました。 コントリビュートするには<a href=\\"https://github.com/readium/readium-js-viewer\\">githubレポジトリ</a>をご覧ください。"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
-
-
-define('text!readium_js_viewer_i18n/_locales/ko/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3책 리더."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium 라이브러리"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium 옵션:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "변경사항 저장"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "닫기"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "모든 리플로우 컨텐츠의 페이지네이션"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "*.epub url들을 radium에서 자동으로 열기"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "EPUB파일들을 열 때 경고메시지 표시"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "세부항목"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "읽기"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "삭제"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "저자: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "출판사: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "소스: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "출판일: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "개정일: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB 버전: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "생성: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "포맷: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "추가일시: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "미상"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "현재 EPUB은 이 컨텐츠를 위한 미디어 오버레이가 포함되어 있지 않습니다."\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "책을 등록하기 위하여 여기를 클릭하세요!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "정보 추출 중: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "영구히 삭제하시길 원하십니까? "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Readium 라이브러리에 책 추가:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "책 추가"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "취소"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "웹에서:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "로컬 파일에서:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : ".epub 파일의 URL을 입력하세요"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "추출된 디렉토리:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "승인:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "이 책이 ePUB표준을 따르는지 확인"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "단일 페이지"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "더블 페이지"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "설정 저장"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "폰트 크기"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "여백"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "글자와 배경 색"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "흑백"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "아라비안 나이트"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "샌즈 오브 듄"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "발라드 블루스"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "밴쿠버 안개"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "디스플레이 포맷"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>는 EPUB&reg;컨텐츠의 출판을 위한 국제디지털출판포럼(IDPF, International Digital Publishing Forum)과 지원 기업들의 오픈소스 시스템 및 렌더링 엔진 프로젝트입니다. 자세한 내용은 <a href=\\"http://readium.org/\\">프로젝트 홈페이지</a>를 참조하세요. 지금까지, 프로젝트 개발은 <a href=\\"http://evidentpoint.com/\\">Evident Point</a>와 <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>에 의해서 주도 되었습니다. 프로젝트에 기여하시기 위해서는 <a href=\\"https://github.com/readium/readium-js-viewer\\">github 저장소</a>를 확인하시기 바랍니다."\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n';});
-
-
-define('text!readium_js_viewer_i18n/_locales/pt_BR/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description" : {\r\n    "message": "Um leitor para livros para EPUB3."\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Biblioteca Readium"\r\n  },\r\n  "i18n_loading" : {\r\n   "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Opções do Readium:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "Salvar mudanças"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "Fechar"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "Paginar todo o conteúdo ePUB fluído"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "Abrir automaticamente urls *.epub no readium"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "Exibir mensagem de alerta quando extraindo arquivos EPUB"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "Detalhes"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "Ler"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "Excluir"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "Autor: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "Editora: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "Origem: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "Publicação: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "Data de Modificação: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "Versão do EPUB: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "Criado aos: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "Formato: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "Adicionado: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "Desconhecido"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "Desculpe, o atual EPUB não contém uma mídia de sobreposição para este conteúdo"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "Adicione itens para sua biblioteca aqui!"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "extraindo: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "Você tem certeza de que deseja excluir permanentemente "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "Adicionar Livro à Biblioteca Readium:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "Adicionar Livro"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "Cancelar"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "Da Rede:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "De Arquivo Local:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "Insira uma URL para um arquivo .epub"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "Diretório Extraido:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "Validar:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "Confirmar que este livro obedece aos padrões ePUB"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "Pág. Simples"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "Pág. Duplas"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "Salvar Configurações"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "TAMANHO DA FONTE"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "MARGENS"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "COR DO TEXTO E PLANO DE FUNDO"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Preto e Branco"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Noites Árabes"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Areias de Duna"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Névoa de Vancouver"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "FORMATO DE EXIBIÇÃO"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, is an open source reference system and rendering engine for EPUB&reg; publications.  To learn more, visit the <a href=\\"http://readium.org/\\">project homepage</a>. To date, the project development has been lead by <a href=\\"http://evidentpoint.com/\\">Evident Point</a> and <a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>. To contribute visit the <a href=\\"https://github.com/readium/readium-js-viewer\\">github repository</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,pt-BR,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
-
-
-define('text!readium_js_viewer_i18n/_locales/zh_CN/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3电子书阅览器"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium书库"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium选项:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "保存更改"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "关闭"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "分页显示所有可重排版EPUB文件"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "自动用Readium打开*.epub网址"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "解压缩EPUB文件时显示警告消息"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "详细信息"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "阅读"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "删除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "作者: "\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社: "\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "源自: "\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日期: "\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日期: "\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID: "\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB版本: "\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "创建日期: "\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "格式: "\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "添加: "\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "未知"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "目前EPUB不支持此内容的媒体格式"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "点击这里添加新书"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "解压中: "\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "确定永久删除 "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "添加新书到Readium书库:"\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "添加"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "取消"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "从网络:"\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "从本地文件:"\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "请输入一个.EPUB文件的URL"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "未打包目录:"\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "验证:"\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "确认这本书是否符合EPUB标准"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "单页"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "双页"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "保存设置"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "字体大小"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "页边距"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "字体和背景颜色"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "Black and White"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "Arabian Nights"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "Sands of Dune"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "Ballard Blues"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "Vancouver Mist"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "显示格式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>，是一个International Digital Publishing Forum (IDPF)和技术支持者们共同开发的项目，也是一个开放源代码的EPUB格式出版物的渲染引擎。要了解更多信息，请访问<a href=\\"http://readium.org/\\">项目主页</a>。迄今为止，该项目的开发一直由<a href=\\"http://evidentpoint.com/\\">Evident Point</a>和<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>来领导。要贡献请访问<a href=\\"https://github.com/readium/readium-js-viewer\\">GitHub资料库</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,ja,sr,de,zh_CN"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
-
-
-define('text!readium_js_viewer_i18n/_locales/zh_TW/messages.json',[],function () { return '{\r\n  "chrome_extension_name": {\r\n    "message": "Readium"\r\n  },\r\n  "chrome_extension_description": {\r\n    "message": "EPUB3電子書閱讀器"\r\n  },\r\n  "i18n_readium_library" : {\r\n    "message" : "Readium書櫃"\r\n  },\r\n  "i18n_loading" : {\r\n    "message" : "Loading Library"\r\n  },\r\n  "i18n_readium_options" : {\r\n    "message" : "Readium設定:"\r\n  },\r\n  "i18n_save_changes" : {\r\n    "message" : "儲存變更"\r\n  },\r\n  "i18n_close" : {\r\n    "message" : "關閉"\r\n  },\r\n  "i18n_paginate_all" : {\r\n    "message" : "分頁呈現所有文字順走型的EPUB內容"\r\n  },\r\n  "i18n_automatically" : {\r\n    "message" : "自動以Readium開啟任何以.epub結尾的網址"\r\n  },\r\n  "i18n_show_warning" : {\r\n    "message" : "解壓縮EPUB檔案時顯示警告訊息"\r\n  },\r\n  "i18n_details" : {\r\n    "message" : "詳細"\r\n  },\r\n  "i18n_read" : {\r\n    "message" : "閱讀"\r\n  },\r\n  "i18n_delete" : {\r\n    "message" : "刪除"\r\n  },\r\n  "i18n_author" : {\r\n    "message" : "作者："\r\n  },\r\n  "i18n_publisher" : {\r\n    "message" : "出版社："\r\n  },\r\n  "i18n_source" : {\r\n    "message" : "來源："\r\n  },\r\n  "i18n_pub_date" : {\r\n    "message" : "出版日期："\r\n  },\r\n  "i18n_modified_date" : {\r\n    "message" : "更新日期："\r\n  },\r\n  "i18n_id" : {\r\n    "message" : "ID："\r\n  },\r\n  "i18n_epub_version" : {\r\n    "message" : "EPUB版本："\r\n  },\r\n  "i18n_created_at" : {\r\n    "message" : "建立日期："\r\n  },\r\n  "i18n_format" : {\r\n    "message" : "格式："\r\n  },\r\n  "i18n_added" : {\r\n    "message" : "加入日期："\r\n  },\r\n  "i18n_unknown" : {\r\n    "message" : "未知"\r\n  },\r\n  "i18n_sorry" : {\r\n    "message" : "目前的EPUB內容並不包含朗讀聲音"\r\n  },\r\n  "i18n_add_items" : {\r\n    "message" : "按下這裡加入新書"\r\n  },\r\n  "i18n_extracting" : {\r\n    "message" : "解壓縮中："\r\n  },\r\n  "i18n_are_you_sure" : {\r\n    "message" : "你確定要永久刪除 "\r\n  },\r\n  "i18n_add_book_to_readium_library" : {\r\n    "message" : "將書籍加入Readium書櫃："\r\n  },\r\n  "i18n_add_book" : {\r\n    "message" : "加入書籍"\r\n  },\r\n  "i18n_cancel" : {\r\n    "message" : "取消"\r\n  },\r\n  "i18n_from_the_web" : {\r\n    "message" : "從網站加入："\r\n  },\r\n  "i18n_from_local_file" : {\r\n    "message" : "從檔案加入："\r\n  },\r\n  "i18n_enter_a_url" : {\r\n    "message" : "請輸入 .epub 檔案所在網址"\r\n  },\r\n  "i18n_unpacked_directory" : {\r\n    "message" : "未壓縮目錄："\r\n  },\r\n  "i18n_validate" : {\r\n    "message" : "檢證："\r\n  },\r\n  "i18n_confirm_that_this_book" : {\r\n    "message" : "確認這本書是否符合EPUB標準"\r\n  },\r\n  "i18n_single_pages" : {\r\n    "message" : "單頁呈現"\r\n  },\r\n  "i18n_double_pages" : {\r\n    "message" : "跨頁呈現"\r\n  },\r\n  "i18n_save_settings" : {\r\n    "message" : "儲存設定"\r\n  },\r\n  "i18n_font_size" : {\r\n    "message" : "文字尺寸"\r\n  },\r\n  "i18n_margins" : {\r\n    "message" : "頁緣餘白"\r\n  },\r\n  "i18n_text_and_background_color" : {\r\n    "message" : "文字與背景色彩"\r\n  },\r\n  "i18n_black_and_white" : {\r\n    "message" : "黑底與白字"\r\n  },\r\n  "i18n_arabian_nights" : {\r\n    "message" : "阿拉伯之夜"\r\n  },\r\n  "i18n_sands_of_dune" : {\r\n    "message" : "砂丘之黃砂"\r\n  },\r\n  "i18n_ballard_blues" : {\r\n    "message" : "抒情曲藍調"\r\n  },\r\n  "i18n_vancouver_mist" : {\r\n    "message" : "溫哥華之霧"\r\n  },\r\n  "i18n_display_format" : {\r\n    "message" : "顯示格式"\r\n  },\r\n  "i18n_html_readium_tm_a_project" : {\r\n    "message" : "Readium<sup>TM</sup>是由是International Digital Publishing Forum (IDPF)與技術協助者們共同開發的專案，是供EPUB&reg; 出版品使用的開放原始碼參考系統與排版引擎。要了解更多訊息，請前往<a href=\\"http://readium.org/\\">專案網頁</a>。迄今為止，本專案持續由<a href=\\"http://evidentpoint.com/\\">Evident Point</a>和<a href=\\"http://www.bluefirereader.com/\\">Bluefire Productions</a>所主導。若想協助開發，請前往<a href=\\"https://github.com/readium/readium-js-viewer\\">GitHub專案</a>"\r\n  },\r\n  "chrome_accept_languages": {\r\n    "message": "$CHROME$ accepts $languages$ languages",\r\n    "placeholders": {\r\n      "chrome": {\r\n        "content": "Chrome",\r\n        "example": "Chrome"\r\n      },\r\n      "languages": {\r\n        "content": "$1",\r\n        "example": "en-US,zh-TW,zh-HK,ja,sr,de"\r\n      }\r\n    }\r\n  }\r\n}\r\n';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //
@@ -53587,52 +53834,18 @@ define('text!readium_js_viewer_i18n/_locales/zh_TW/messages.json',[],function ()
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define('i18nStrings',['text!readium_js_viewer_i18n/_locales/de/messages.json',
-        'text!readium_js_viewer_i18n/_locales/es/messages.json',
-		'text!readium_js_viewer_i18n/_locales/en_US/messages.json',
-		'text!readium_js_viewer_i18n/_locales/fr/messages.json',
-		'text!readium_js_viewer_i18n/_locales/it/messages.json',
-		'text!readium_js_viewer_i18n/_locales/id/messages.json',
-		'text!readium_js_viewer_i18n/_locales/ja/messages.json',
-		'text!readium_js_viewer_i18n/_locales/ko/messages.json',
-		'text!readium_js_viewer_i18n/_locales/pt_BR/messages.json',
-		'text!readium_js_viewer_i18n/_locales/zh_CN/messages.json',
-		'text!readium_js_viewer_i18n/_locales/zh_TW/messages.json'],
-function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
-	var Strings = {};
+define('i18nStrings',['text!readium_js_viewer_i18n/_locales/en_US/messages.json'], function(en_US){
+	var i18nObj = {};
 
-	Strings['de'] = de;
-	Strings['es'] = es;
-	Strings['en_US'] = en_US;
-	Strings['fr'] = fr;
-	Strings['id'] = id;
-	Strings['it'] = it;
-	Strings['ja'] = ja;
-	Strings['ko'] = ko;
-	Strings['pt_BR'] = pt_BR;
-	Strings['zh_CN'] = zh_CN;
-	Strings['zh_TW'] = zh_TW;
+	var baseObj = JSON.parse(en_US);
 
-	var language = navigator.userLanguage || navigator.language;
-//FORCE HERE (for testing)
-//language="es";
-    console.log("Language: [" + language + "]");
-
-    var allowEnglishFallback = true;
-
-	var i18nStr = Strings[language] || en_US;
-
-	var i18nObj = JSON.parse(i18nStr);
-    var i18nObj_en = i18nStr === en_US ? i18nObj : JSON.parse(en_US);
-
-	for(var prop in i18nObj_en){
-        var okay = prop in i18nObj;
-        if (!okay) console.log("Language [" + language + "], missing string: [" + prop + "]");
-
-		i18nObj[prop] = okay ? i18nObj[prop].message : (allowEnglishFallback ? ("*"+i18nObj_en[prop].message) : "");
+	var dynamicProp = function(propName){
+		Object.defineProperty(i18nObj, prop, {get : function(){return chrome.i18n.getMessage(propName);}});
+	}
+	for(var prop in baseObj){
+		dynamicProp(prop);
 	}
 	return i18nObj;
-
 });
 
 define('readium_js_viewer/EpubLibraryManager',['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings) {
@@ -56236,10 +56449,37 @@ define('readium_js_viewer/ReaderSettingsDialog',['./ModuleConfig', 'hgn!readium_
 	}
 });
 
+//  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
+//  
+//  Redistribution and use in source and binary forms, with or without modification, 
+//  are permitted provided that the following conditions are met:
+//  1. Redistributions of source code must retain the above copyright notice, this 
+//  list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice, 
+//  this list of conditions and the following disclaimer in the documentation and/or 
+//  other materials provided with the distribution.
+//  3. Neither the name of the organization nor the names of its contributors may be 
+//  used to endorse or promote products derived from this software without specific 
+//  prior written permission.
+
 define('Analytics',[],function(){
-	return{
-		trackView : function(){},
-		sendEvent : function(){}
+	window._gaq = window._gaq || [];
+	_gaq.push(['_setAccount', 'UA-29665823-1']);
+	
+
+	(function() {
+	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	  ga.src = 'https://ssl.google-analytics.com/ga.js';
+	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+	return {
+		trackView : function(viewName){
+			_gaq.push(['_trackPageview', viewName]);
+		},
+		sendEvent : function(category, action, label, value){
+			_gaq.push(['_trackEvent', category, action, label, value]);
+		}
 	}
 });
 /*

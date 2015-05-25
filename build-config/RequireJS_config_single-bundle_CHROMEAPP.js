@@ -40,8 +40,6 @@ require.config({
             process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond',
 
 
-        // below paths are overridden by this chrome-app build configuration
-
         'i18nStrings':
             process._RJS_rootDir(3) + '/src/chrome-app/i18n/Strings',
 

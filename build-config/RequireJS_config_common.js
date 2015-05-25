@@ -76,7 +76,6 @@ require.config({
 
 
 
-        // below paths are overridden by chrome-app build configuration
 
         'i18nStrings':
             process._RJS_rootDir(3) + '/src/i18n/Strings',
@@ -89,6 +88,7 @@ require.config({
 
         'Analytics':
             process._RJS_rootDir(3) + '/src/js/analytics/Analytics'
+
 
 
         // 'remotestorage':

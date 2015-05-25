@@ -664,8 +664,16 @@ scripts:
             src/chrome-app/background.js
             dist/chrome-app/scripts/
         &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            src/chrome-app/requirejs-config.js
+            dist/chrome-app/scripts/
+        &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
             src/chrome-app/icons/
+            dist/chrome-app/icons/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            src/chrome-app/icons/devBuild/
             dist/chrome-app/icons/
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
@@ -676,7 +684,6 @@ scripts:
         &&
         npm run dist:chromeApp:js
     '
-#   src/chrome-app/icons/devBuild
 
 #=====================
     'dist:chromeApp:css': '

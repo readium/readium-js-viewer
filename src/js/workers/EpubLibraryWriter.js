@@ -367,4 +367,3 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
 
 	}
 });
-(require('workers/EpubLibraryWriter'))();
