@@ -1,5 +1,5 @@
-// inflate is required by zip but won't work if inflate is loaded before zip. Just explicitly adding it here since there is
-// no way to include it in the dependency chain that makes sense.
+// inflate is required by zip,
+// but inflate must be loaded *after* zip
 define(['zip', '../workers/Messages', 'inflate'], function(zip, Messages){
 
 	var largeFileThreshold = 150 * 1024 * 1024; // 150MB
