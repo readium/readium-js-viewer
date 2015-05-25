@@ -6,7 +6,7 @@
   "default_locale" : "en_US",
   "app": {
       "background": {
-        "scripts": ["background.js"]
+        "scripts": ["scripts/background.js"]
     }
   },
   "minimum_chrome_version": "42",
@@ -14,6 +14,6 @@
       "16": "icons/small.png",
       "48": "icons/medium.png",
       "128": "icons/large.png"
-  }, 
+  },
   "permissions" : ["storage", "unlimitedStorage"]
 }
