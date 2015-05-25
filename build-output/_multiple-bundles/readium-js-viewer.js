@@ -243,7 +243,7 @@ define('readium_js_viewer/workers/Messages',[],function(){
 
 	}
 });
-define('readium_js_viewer/workers/WorkerProxy',['../ModuleConfig', './Messages', 'jquery', 'readium_js/epub-model/package_document_parser', 'readium_js/epub-fetch/encryption_handler'], function(moduleConfig, Messages, $, PackageParser, EncryptionHandler){
+define('readium_js_viewer/workers/WorkerProxy',['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_js/epub-fetch/encryption_handler'], function(moduleConfig, Messages, $, PackageParser, EncryptionHandler){
 
 	var worker;
 	var cleanupWorker = function(){

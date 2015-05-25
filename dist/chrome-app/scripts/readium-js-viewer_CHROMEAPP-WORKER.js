@@ -5469,7 +5469,6 @@ define('readium_js_viewer/workers/EpubLibraryWriter',['StorageManager', '../stor
 	var writer = new LibraryWriter(),
         overwriteContinue, overwriteSideBySide, findPackageResponse, parsePackageResponse;
 
-	return function(){
 	   onmessage = function(evt){
 			var data = evt.data,
 				msg = data.msg;
@@ -5559,13 +5558,13 @@ define('readium_js_viewer/workers/EpubLibraryWriter',['StorageManager', '../stor
                     break;
             }
 
-		}
+		};
 
+		return {};
 
-	}
 });
 
+require("readium_js_viewer/workers/EpubLibraryWriter");
 
-require(["readium_js_viewer/workers/EpubLibraryWriter"]);
 
 //# sourceMappingURL=readium-js-viewer_CHROMEAPP-WORKER.js.map

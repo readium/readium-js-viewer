@@ -272,7 +272,6 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
 	var writer = new LibraryWriter(),
         overwriteContinue, overwriteSideBySide, findPackageResponse, parsePackageResponse;
 
-	return function(){
 	   onmessage = function(evt){
 			var data = evt.data,
 				msg = data.msg;
@@ -362,8 +361,10 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                     break;
             }
 
-		}
+		};
 
+		return {};
 
-	}
 });
+
+require("readium_js_viewer/workers/EpubLibraryWriter");

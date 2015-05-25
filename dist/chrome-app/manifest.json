@@ -15,5 +15,7 @@
       "48": "icons/medium.png",
       "128": "icons/large.png"
   },
-  "permissions" : ["storage", "unlimitedStorage"]
+  "permissions" : [
+    "https://www.google-analytics.com/*",
+    "storage", "unlimitedStorage"]
 }
