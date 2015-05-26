@@ -120,6 +120,8 @@
 					return;
 			}
 
+			console.log('DOWNLOADING: dist/testbooks.zip ...');
+
     	httpreq.get(testbooksUrl, {binary: true}, function (err, res){
     		if (err){
     			console.error(err);

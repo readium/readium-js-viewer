@@ -31,7 +31,7 @@
 
 #####################################################################
 
-name: "readium-js-viewer-viewer"
+name: "readium-js-viewer"
 
 version: "0.20.0-alpha"
 
@@ -795,17 +795,26 @@ scripts:
 
 
 
-
-
-#npm run dist
 #=====================
-    'pretest_travis': '
+#    'precrx': '
+#
+#        npm run dist
+#    '
+
+#=====================
+    'crx': '
 
         node node_modules/crx/bin/crx
             pack
             dist/chrome-app/
             --output dist/Readium.crx
             --private-key tests/test.pem
+    '
+
+#=====================
+    'pretest_travis': '
+
+        npm run crx
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
             epub_content/
@@ -820,6 +829,44 @@ scripts:
         parallelshell
             \"npm run httpCloudReaderDist\"
             \"npm run mocha\"
+    '
+
+#=====================
+    'pretest_sauce': '
+
+        npm run crx
+    '
+
+#=====================
+    'test_sauce': '
+
+        npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chromeApp
+    '
+
+#=====================
+    'pretest_chromeApp': '
+
+        npm run crx
+    '
+
+#=====================
+    'test_chromeApp': '
+        parallelshell
+            \"node build-config/selenium_webdriver.js\"
+            \"npm run mocha --readium-js-viewer:MODE=chromeApp\"
+    '
+
+#=====================
+    'pretest_firefox': '
+        node build-config/selenium_webdriver.js
+        &&
+        npm run crx
+    '
+
+#=====================
+    'test_firefox': '
+
+        npm run mocha --readium-js-viewer:MODE=firefox
     '
 
 #=====================
@@ -840,13 +887,6 @@ scripts:
         node node_modules/mocha/bin/mocha
     	      --timeout 180000
     	      --ui bdd
+            --reporter dot
             tests/tests.js
-    '
-
-#=====================
-    'setEnv': '
-
-        node build-config/setEnv.js
-            USE_SAUCE
-            true
     '

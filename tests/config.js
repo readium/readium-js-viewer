@@ -1,15 +1,21 @@
+
+console.log('process.env.npm_package_config_MODE:');
+console.log(process.env.npm_package_config_MODE);
+if (process.env.npm_package_config_MODE)
+		process.env['MODE'] = process.env.npm_package_config_MODE;
+
+
+console.log('process.env.npm_package_config_USE_SAUCE:');
+console.log(process.env.npm_package_config_USE_SAUCE);
+if (process.env.npm_package_config_USE_SAUCE)
+		process.env['USE_SAUCE'] = process.env.npm_package_config_USE_SAUCE;
+
+console.log("process.env.TRAVIS_JOB_NUMBER:");		
+console.log(process.env.TRAVIS_JOB_NUMBER);
+
 var config;
 
-
-console.log('process.env.MODE:');
-console.log(process.env.MODE);
-
-
-console.log('process.env.USE_SAUCE:');
-console.log(process.env.USE_SAUCE);
-
-
-if (process.env.MODE == 'chromeApp'){
+if (process.env.npm_package_config_MODE == 'chromeApp'){
 	config = {
 		chromeExtension: true,
 		browser: {
@@ -19,8 +25,8 @@ if (process.env.MODE == 'chromeApp'){
 	};
 
 
-	if (process.env.USE_SAUCE){
-		console.log('using sauce')
+	if (process.env.npm_package_config_USE_SAUCE){
+		console.log('using sauce');
 		var fs = require('fs');
 
 		var buf = fs.readFileSync('dist/Readium.crx');
@@ -30,13 +36,13 @@ if (process.env.MODE == 'chromeApp'){
 
 		config.browser.chromeOptions.extensions = [base64Ext];
 		config.browser.version = '36';
-
+		console.log('...');
 	}
 }
 else {
 	config = {
 		browser : {
-			browserName: process.env.MODE,
+			browserName: process.env.npm_package_config_MODE,
 		},
 		url: 'http://127.0.0.1:8080'
 	};

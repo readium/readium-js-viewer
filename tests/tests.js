@@ -16,7 +16,7 @@ var extensionUrl = '';
 //var extensionUrl = 'http://google.com';
 describe("chrome extension tests", function() {
   var browser;
-  
+
 
   var addLibraryItemForApp = function(filePath){
   	return this
@@ -40,7 +40,7 @@ describe("chrome extension tests", function() {
             .frame('epubContentIframe');
 
   }
-  
+
   var openExtensionUrl = function(){
   	// this is necessary because it seems that chrome won't load the extension immediately after startup.
   	return this.get(extensionUrl).sleep(1000).get(extensionUrl);
@@ -51,7 +51,7 @@ describe("chrome extension tests", function() {
   wd.addPromiseChainMethod('switchToReaderFrameOnTransition', switchToReaderFrameOnTransition);
 
   beforeEach(function() {
-    if (process.env.USE_SAUCE){
+    if (process.env.npm_package_config_USE_SAUCE){
       var url = "ondemand.saucelabs.com",
           port = 80;
 
@@ -62,14 +62,14 @@ describe("chrome extension tests", function() {
       }
 
       browser = wd.promiseChainRemote(url, port, 'readium', 'a36ebc10-e514-4da6-924c-307aec513550');
-      
+
     }
     else{
-  	   browser = wd.promiseChainRemote(); 
+  	   browser = wd.promiseChainRemote();
     }
-    
-
-    var retVal = browser.init(config.browser).setAsyncScriptTimeout(30000);;
+//console.log(config.browser);
+    var retVal = browser.init(config.browser).setAsyncScriptTimeout(30000);
+console.log(retVal);
     if (process.env.TRAVIS_JOB_NUMBER){
       return retVal.sauceJobUpdate({name: process.env.TRAVIS_JOB_NUMBER});
     }
@@ -232,7 +232,7 @@ describe("chrome extension tests", function() {
               .elementByCss('#settings-dialog .btn-primary')
               .click()
               .sleep(500)
-              .frame('epubContentIframe') 
+              .frame('epubContentIframe')
               .execute('return document.querySelector("html").style.fontSize')
               .should.become('160%');
 
@@ -267,7 +267,7 @@ describe("chrome extension tests", function() {
                   .should.not.become(width);
               })
 
-              
+
 
     });
 
@@ -282,7 +282,7 @@ describe("chrome extension tests", function() {
               .elementByCss('#margin-size-input')
               .getValue()
               .should.become('60');
-              
+
     });
 
 
