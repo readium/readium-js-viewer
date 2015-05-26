@@ -1,14 +1,20 @@
 var config;
 
 
+console.log('process.env.MODE:');
+console.log(process.env.MODE);
+
+
+console.log('process.env.USE_SAUCE:');
+console.log(process.env.USE_SAUCE);
 
 
 if (process.env.MODE == 'chromeApp'){
 	config = {
 		chromeExtension: true,
 		browser: {
-			browserName:'chrome', 
-			chromeOptions: {'args' : ['--load-extension=' + process.cwd() + '/build/chrome-app']}
+			browserName:'chrome',
+			chromeOptions: {'args' : ['--load-extension=' + process.cwd() + '/dist/chrome-app']}
 		}
 	};
 
@@ -17,7 +23,7 @@ if (process.env.MODE == 'chromeApp'){
 		console.log('using sauce')
 		var fs = require('fs');
 
-		var buf = fs.readFileSync('build/Readium.crx');
+		var buf = fs.readFileSync('dist/Readium.crx');
 		var base64Ext = buf.toString('base64');
 
 		delete config.browser.chromeOptions.args;
@@ -32,8 +38,8 @@ else {
 		browser : {
 			browserName: process.env.MODE,
 		},
-		url: 'http://localhost:8080/index.html'
+		url: 'http://127.0.0.1:8080'
 	};
 }
 
-module.exports = config; 
+module.exports = config;

@@ -3,22 +3,18 @@ branches:
   - develop
 language: node_js
 node_js:
-- '0.10'
+- '0.12'
 before_install:
-- npm install -g grunt-cli
-install:
-- npm install
-- cd readium-js
 - pwd
-- npm install
-- cd ..
+install:
+- npm run prepare
 before_script:
-- grunt clean
+- pwd
 script:
-- grunt test_travis
+- npm run test_travis
 after_failure: cat ./sauce_connect.log
 after_success:
-- node deployCrx.js
+- node build-config/deployCrx.js
 env:
   global:
   - USE_SAUCE=true

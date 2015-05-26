@@ -1,6 +1,6 @@
 {
   "name": "readium-cloudreader",
-  "root": "./build/cloud-reader",
+  "root": "./dist/cloud-reader",
   "cache_control": {
   	"epub_content/**" : 31536000
   }

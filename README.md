@@ -29,7 +29,6 @@ See license.txt ( https://github.com/readium/readium-js-viewer/blob/develop/lice
 
 Note that the above command executes the following:
 
-* `npm install -g grunt-cli` (to enable Grunt globally) Note that some of the build tasks are Grunt-free, entirely driven from NPM scripts defined in `package.cson` (Why CSON? Read below)
 * `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
 * `npm update` (to make sure that the dependency tree is up to date)
 

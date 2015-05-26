@@ -147,30 +147,24 @@ devDependencies:
     "clean-css": 'latest'
     "uglify-js": 'latest'
 
-    "grunt": 'latest'
-    "grunt-concurrent": 'latest'
-    "grunt-contrib-clean": 'latest'
-    "grunt-contrib-copy": 'latest'
-    #"grunt-contrib-cssmin": 'latest'
-    "grunt-contrib-nodeunit": 'latest'
-    "grunt-contrib-requirejs": 'latest'
-    "grunt-contrib-watch": 'latest'
-    "grunt-crx": 'latest'
-    "grunt-env": 'latest'
-    "grunt-express": 'latest'
-    "grunt-run-grunt": 'latest'
-    "grunt-selenium-webdriver": 'latest'
-    "grunt-simple-mocha": 'latest'
-    "load-grunt-config": 'latest'
-
+    "nodeunit": 'latest'
+    "mocha": 'latest'
+    "phantomjs": 'latest'
+    "selenium-webdriver": 'latest'
+    "crx": 'latest'
     "chai": 'latest'
     "chai-as-promised": 'latest'
     "github": 'latest'
     "hogan.js": 'latest'
     "httpreq": 'latest'
-    "unzip": 'latest'
     "wd": 'latest'
     "xml2js": 'latest'
+
+    "decompress-zip": 'latest'
+
+    #"unzip": 'latest'
+    #"mkdirp": 'latest'
+    #"rimraf": 'latest'
 
 #####################################################################
 scripts:
@@ -197,8 +191,6 @@ scripts:
 #=====================
     'prepare:dependencies': '
 
-        npm install -g grunt-cli
-        &&
         npm install
         &&
         npm update
@@ -799,4 +791,62 @@ scripts:
 
         node node_modules/opener/opener.js
             http://127.0.0.1:8080/
+    '
+
+
+
+
+
+#npm run dist
+#=====================
+    'pretest_travis': '
+
+        node node_modules/crx/bin/crx
+            pack
+            dist/chrome-app/
+            --output dist/Readium.crx
+            --private-key tests/test.pem
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            epub_content/
+            dist/cloud-reader/epub_content/
+        &&
+        node build-config/createTestLibrary.js
+    '
+
+#=====================
+    'test_travis': '
+
+        parallelshell
+            \"npm run httpCloudReaderDist\"
+            \"npm run mocha\"
+    '
+
+#=====================
+    'httpCloudReaderDist': '
+        node
+
+            node_modules/http-server/bin/http-server
+            -a 127.0.0.1
+            -p 8080
+
+            -c-1
+            ./dist/cloud-reader
+    '
+
+#=====================
+    'mocha': '
+
+        node node_modules/mocha/bin/mocha
+    	      --timeout 180000
+    	      --ui bdd
+            tests/tests.js
+    '
+
+#=====================
+    'setEnv': '
+
+        node build-config/setEnv.js
+            USE_SAUCE
+            true
     '

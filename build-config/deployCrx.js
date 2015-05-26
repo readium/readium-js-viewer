@@ -5,7 +5,7 @@ if (true)//process.env.MODE == 'chromeApp')
 		repo = 'readium-js-viewer';
 
 	console.log('deploying crx to github');
-	
+
 	var GitHubApi = require("github");
 	var https = require('https');
 	var fs = require("fs");
@@ -55,7 +55,7 @@ if (true)//process.env.MODE == 'chromeApp')
 		})
 	}
 	var createRelease = function(){
-		
+
 
 		var releaseData = {
 			tag_name: version,
@@ -76,7 +76,7 @@ if (true)//process.env.MODE == 'chromeApp')
 
 			var releaseId = result.id,
 				contentType = 'application/x-chrome-extension',
-				fileName = 'build-output/Readium.crx';
+				fileName = 'dist/Readium.crx';
 
 			//var url = 'https://uploads.github.com/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx'
 
@@ -115,30 +115,29 @@ if (true)//process.env.MODE == 'chromeApp')
 
 		});
 	}
-	
+
 	var tagRef = {
 		user: owner,
 		repo: repo,
 		ref: 'tags/' + version
 	}
 	github.gitdata.getReference(tagRef, function(error, result){
-		
+
 		var func;
 		tagRef.sha = process.env.TRAVIS_COMMIT;
 		if (error){
 			console.log(version + ' tag does not exist, creating.');
 			tagRef.ref = 'refs/' + tagRef.ref;
 			github.gitdata.createReference(tagRef, deleteOldRelease);
-		}	
+		}
 		else{
 			console.log('updating previous "' + version + '" release tag');
 			github.gitdata.updateReference(tagRef, deleteOldRelease);
 		}
-		
+
 	});
 
 
-	
-	
-}
 
+
+}
