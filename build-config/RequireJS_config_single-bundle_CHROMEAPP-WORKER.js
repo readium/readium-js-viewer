@@ -22,12 +22,13 @@ require.config({
     out: "../build-output/_single-bundle/readium-js-viewer_CHROMEAPP-WORKER.js",
 
     include: [
-        "readium_js_viewer/workers/EpubLibraryWriter"
+        "readium_js_viewer_RJS-CONFIG", "readium_js_viewer/workers/EpubLibraryWriter"
     ],
 
     // ASYNC ALMOND LOAD! (because of array)
     // ...so we load this manually at the bottom of EpubLibraryWriter
-    //insertRequire: ["readium_js_viewer/workers/EpubLibraryWriter"],
+    //"readium_js_viewer/workers/EpubLibraryWriter"
+    //insertRequire: [],
 
     stubModules: ['hgn', 'i18n'],
 
@@ -36,6 +37,8 @@ require.config({
         "readium-js-viewer_CHROMEAPP-WORKER":
             process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond',
 
+        "readium_js_viewer_RJS-CONFIG":
+                process._RJS_rootDir(3) + '/src/chrome-app/requirejs-config',
 
         'i18nStrings':
             process._RJS_rootDir(3) + '/src/chrome-app/i18n/Strings',

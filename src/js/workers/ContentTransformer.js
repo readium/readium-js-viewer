@@ -56,15 +56,17 @@ define(['../ModuleConfig', 'readium_js/epub-fetch/encryption_handler'], function
 			var mathJaxUrl = moduleConfig.mathJaxUrl,
 				ersUrl = moduleConfig.epubReadingSystemUrl;
 
+			var scripts = "";
+
 			if (ersUrl){
-            	var scripts = "<script type=\"text/javascript\" src=\"" + ersUrl + "\"><\/script>";
+            	scripts += "<script type=\"text/javascript\" src=\"" + ersUrl + "\"><\/script>";
             }
 
             if (mathJaxUrl && contentDocumentHtml.indexOf("<math") >= 0) {
                 scripts += "<script type=\"text/javascript\" src=\"" + mathJaxUrl + "\"><\/script>";
             }
 
-            var mangledContent = contentDocumentHtml.replace(/(<head.*?>)/, "$1" + scripts);
+            var mangledContent = scripts ? contentDocumentHtml.replace(/(<head.*?>)/, "$1" + scripts) : contentDocumentHtml;
             return mangledContent;
 		}
 	}

@@ -12,17 +12,22 @@
 //  prior written permission.
 
 
-var HTTPServerRootFolder =
-window.location ? (
-  window.location.protocol
+var currentURL =
+self.location ? (
+  self.location.protocol
   + "//"
-  + window.location.hostname
-  + (window.location.port ? (':' + window.location.port) : '')
-  + (window.location.pathname ? window.location.pathname : '')
+  + self.location.hostname
+  + (self.location.port ? (':' + self.location.port) : '')
+  + (self.location.pathname ? self.location.pathname : '')
   ) : ''
 ;
 
-console.log(HTTPServerRootFolder);
+console.log(currentURL);
+
+// self.location.origin  == self.location.protocol + '//' + self.location.host
+
+console.log(self.location.origin);
+
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
@@ -33,9 +38,9 @@ require.config({
 
         'readium_js_viewer/ModuleConfig' : {
 
-            'mathJaxUrl': '/scripts/mathjax/MathJax.js',
+            'mathJaxUrl': self.location.origin + '/scripts/mathjax/MathJax.js',
 
-            'annotationCSSUrl': '/css/annotations.css',
+            'annotationCSSUrl': self.location.origin + '/css/annotations.css',
 
             'jsLibRoot': '/scripts/zip/',
 
@@ -49,7 +54,7 @@ require.config({
             'canHandleDirectory' : true,
 
             'workerUrl': '/scripts/readium-js-viewer_CHROMEAPP-WORKER.js',
-            'epubReadingSystemUrl': '/scripts/epubReadingSystem.js',
+            'epubReadingSystemUrl': self.location.origin + '/scripts/epubReadingSystem.js',
         }
     }
 });
