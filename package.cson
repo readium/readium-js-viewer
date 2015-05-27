@@ -839,10 +839,10 @@ scripts:
 
 
 #=====================
-#    'precrx': '
-#
-#        npm run dist
-#    '
+    'precrx': '
+
+        npm run dist
+    '
 
 #=====================
     'crx': '
