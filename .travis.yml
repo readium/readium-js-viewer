@@ -1,6 +1,6 @@
 branches:
   only:
-  - develop
+  - feature/pluginsX
 language: node_js
 node_js:
 - '0.12'
@@ -12,9 +12,9 @@ before_script:
 - pwd
 script:
 - npm run test_travis
-after_failure: cat ./sauce_connect.log
 after_success:
-- node build-config/deployCrx.js
+- echo "node build-config/deployCrx.js"
+after_failure: cat ./sauce_connect.log
 env:
   global:
   - USE_SAUCE=true
@@ -29,10 +29,10 @@ addons:
 deploy:
   provider: divshot
   skip_cleanup: true
-  api_key:
-    secure: Y/evg7Yp4WsFjDOJBkQcrJ4/XTQbKYQjdX5iSaHu/JLo/GAJEIqxnEHavprBqHE/KvLjvCStn/bZ15oAMhq+EiJ+VNpZRWmTaZh6SA2CmtJeMtRqUwhpclvbCzSm0Z/8RFHhTmsNh7P5ICuFFWXv/pJ644trfh3Rg8abOIDqvww=
-  environment: production
+  environment: development
   on:
     repo: readium/readium-js-viewer
-    branch: develop
-    condition: $MODE = firefox
+    branch: feature/pluginsX
+    condition: "$MODE = firefox"
+  api_key:
+    secure: SP4Q6iquXJynODejGaTNP6AkHx0Yy+KA0RTxodvO5eCg3jV9BjZBHjtgEG4CE4M26LmjcQh9kXMqEzwKW8l4ou/K/lZeVwFPMn8nrhd07W/mq4W9CnGOfR79lLFd/LPR6ah98XhGfoXsaxH5jeh3MttFJPsdDV+ZHgnUUtcy/yY=

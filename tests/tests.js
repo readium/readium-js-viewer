@@ -67,7 +67,7 @@ describe("chrome extension tests", function() {
     else{
   	   browser = wd.promiseChainRemote();
     }
-//console.log(config.browser);
+console.log(config.browser);
     var retVal = browser.init(config.browser).setAsyncScriptTimeout(30000);
 console.log(retVal);
     if (process.env.TRAVIS_JOB_NUMBER){

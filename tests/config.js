@@ -10,7 +10,19 @@ console.log(process.env.npm_package_config_USE_SAUCE);
 if (process.env.npm_package_config_USE_SAUCE)
 		process.env['USE_SAUCE'] = process.env.npm_package_config_USE_SAUCE;
 
-console.log("process.env.TRAVIS_JOB_NUMBER:");		
+console.log("process.env.USE_SAUCE:");
+console.log(process.env.USE_SAUCE);
+
+console.log("process.env.MODE:");
+console.log(process.env.MODE);
+
+console.log("process.env.GITHUB_TOKEN:");
+console.log(process.env.GITHUB_TOKEN);
+
+console.log("process.env.TRAVIS_COMMIT:");
+console.log(process.env.TRAVIS_COMMIT);
+
+console.log("process.env.TRAVIS_JOB_NUMBER:");
 console.log(process.env.TRAVIS_JOB_NUMBER);
 
 var config;
@@ -35,7 +47,7 @@ if (process.env.npm_package_config_MODE == 'chromeApp'){
 		delete config.browser.chromeOptions.args;
 
 		config.browser.chromeOptions.extensions = [base64Ext];
-		config.browser.version = '36';
+		config.browser.version = '42';
 		console.log('...');
 	}
 }
@@ -44,7 +56,7 @@ else {
 		browser : {
 			browserName: process.env.npm_package_config_MODE,
 		},
-		url: 'http://127.0.0.1:8080'
+		url: 'http://127.0.0.1:8080/index.html'
 	};
 }
 
