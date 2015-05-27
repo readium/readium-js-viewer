@@ -51,7 +51,7 @@ describe("chrome extension tests", function() {
   wd.addPromiseChainMethod('switchToReaderFrameOnTransition', switchToReaderFrameOnTransition);
 
   beforeEach(function() {
-    if (process.env.npm_package_config_USE_SAUCE){
+    if (process.env.USE_SAUCE){
       var url = "ondemand.saucelabs.com",
           port = 80;
 
@@ -67,9 +67,9 @@ describe("chrome extension tests", function() {
     else{
   	   browser = wd.promiseChainRemote();
     }
-console.log(config.browser);
+console.log(config.browser.browserName);
     var retVal = browser.init(config.browser).setAsyncScriptTimeout(30000);
-console.log(retVal);
+//console.log(retVal);
     if (process.env.TRAVIS_JOB_NUMBER){
       return retVal.sauceJobUpdate({name: process.env.TRAVIS_JOB_NUMBER});
     }
