@@ -287,7 +287,7 @@ console.log(config.browser.browserName);
 
 
 
-  if(extensionUrl.indexOf("http://127.0.0.1") != -1) {
+  //if(extensionUrl.indexOf("http://127.0.0.1") != -1)
       it('READIUM HTTP EXIT...', function(){
         var url = extensionUrl+"_READIUMHTTPEXIT_.html";
         console.log(url);
@@ -295,7 +295,7 @@ console.log(config.browser.browserName);
           browser.done();
         });
       });
-  }
+
 
 
   });

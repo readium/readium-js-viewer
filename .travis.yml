@@ -35,4 +35,4 @@ deploy:
     branch: feature/pluginsX
     condition: "$MODE = firefox"
   api_key:
-    secure: SP4Q6iquXJynODejGaTNP6AkHx0Yy+KA0RTxodvO5eCg3jV9BjZBHjtgEG4CE4M26LmjcQh9kXMqEzwKW8l4ou/K/lZeVwFPMn8nrhd07W/mq4W9CnGOfR79lLFd/LPR6ah98XhGfoXsaxH5jeh3MttFJPsdDV+ZHgnUUtcy/yY=
+    secure: dU2zCAnyXFjp5CxDP1TyQrVu0Mg5VG8mcU8wG47MgKwXdh6TBtTGBljowydlwLFHg3VPwdOBwAYR0ysMeU/60wiKy4O9l345fMj3ZqIGMgZsZaTHcaiMUZ06xHPrQviSTb99b6i/2P9csAOdJhwLyS02/2fXm6xsIv+4xyQ3r5o=
