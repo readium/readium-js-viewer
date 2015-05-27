@@ -48,6 +48,8 @@ author:
     email: "daniel.weck@gmail.com"
     url: "http://github.com/readium"
 
+license: "BSD-3-Clause"
+
 licenses: [
     type: "BSD-3-Clause"
     url: "http://opensource.org/licenses/BSD-3-Clause"
@@ -872,18 +874,16 @@ scripts:
     'pretest_travis': '
 
         npm run crx
-        &&
-        npm run dist:cloudReader:copy:epub_content
-        &&
-        npm run dist:cloudReader:copy:epub_testsuite
     '
+
+#&&
+#npm run dist:cloudReader:copy:epub_content
+#&&
+#npm run dist:cloudReader:copy:epub_testsuite
 
 #=====================
     'test_travis': '
-
-        parallelshell
-            \"npm run httpCloudReaderDist\"
-            \"npm run mocha\"
+        npm run mocha
     '
 
 #=====================
