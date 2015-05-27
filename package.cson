@@ -871,19 +871,35 @@ scripts:
     '
 
 #=====================
+#    'pretravis_deploy_divshot': '
+#
+#        npm run dist
+#    '
+
+#=====================
+    'travis_prepare_deploy_divshot': '
+
+        npm run dist:cloudReader:copy:epub_content
+        &&
+        npm run dist:cloudReader:copy:epub_testsuite
+    '
+
+#=====================
     'pretest_travis': '
 
         npm run crx
     '
 
-#&&
-#npm run dist:cloudReader:copy:epub_content
-#&&
-#npm run dist:cloudReader:copy:epub_testsuite
-
 #=====================
     'test_travis': '
-        npm run mocha
+        parallelshell
+            \"npm run httpCloudReaderDist\"
+            \"npm run mocha\"
+    '
+
+#=====================
+    'post:test_travis': '
+        npm run travis_prepare_deploy_divshot
     '
 
 #=====================
