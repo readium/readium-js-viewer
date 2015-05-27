@@ -888,6 +888,8 @@ scripts:
     'pretest_travis': '
 
         npm run crx
+        &&
+        npm run travis_prepare_deploy_divshot
     '
 
 #=====================
@@ -895,11 +897,6 @@ scripts:
         parallelshell
             \"npm run httpCloudReaderDist\"
             \"npm run mocha\"
-    '
-
-#=====================
-    'post:test_travis': '
-        npm run travis_prepare_deploy_divshot
     '
 
 #=====================
