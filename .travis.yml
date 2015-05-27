@@ -20,7 +20,7 @@ env:
   - USE_SAUCE=true
   - secure: onYFok5CBcV1116+kOEZJsyDB1kRHF+8deU1cll3vhxBEM/woSRvpso32oxjuza+or2uXuBT1SiZn0oTmuKD/TRaKw1e8wTtX6kQzCUhyeGoAyJH8SeGIwkt8+x232rFUe2bNLr6e0JAGZMtTjk1Q1zqfONNWAQzsUWDeUqvwt8=
   matrix:
-#  - MODE=chromeApp
+  - MODE=chromeApp
   - MODE=firefox
 addons:
   sauce_connect:

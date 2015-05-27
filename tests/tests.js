@@ -287,6 +287,17 @@ console.log(config.browser.browserName);
 
 
 
+  if(extensionUrl.indexOf("http://127.0.0.1") != -1) {
+      it('READIUM HTTP EXIT...', function(){
+        var url = extensionUrl+"_READIUMHTTPEXIT_.html";
+        console.log(url);
+        return browser.get(url, function() {
+          browser.done();
+        });
+      });
+  }
+
+
   });
 
 

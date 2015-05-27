@@ -128,8 +128,10 @@
     "test_sauce": "npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chromeApp",
     "pretest_chromeApp": "npm run crx",
     "test_chromeApp": "parallelshell \"node build-config/selenium_webdriver.js\" \"npm run mocha --readium-js-viewer:MODE=chromeApp\"",
-    "test_chrome": "parallelshell \"node build-config/selenium_webdriver.js\" \"npm run httpCloudReaderDist\" \"npm run mocha --readium-js-viewer:MODE=chrome\"",
-    "test_firefox": "parallelshell \"node build-config/selenium_webdriver.js\" \"npm run httpCloudReaderDist\" \"npm run mocha --readium-js-viewer:MODE=firefox\"",
+    "pretest_chrome": "npm run dist:cloudReader:copy:epub_content",
+    "test_chrome": "parallelshell \"node build-config/selenium_webdriver.js -a 127.0.0.1 -p 8080 -c-1 ./dist/cloud-reader\" \"npm run mocha --readium-js-viewer:MODE=chrome\"",
+    "pretest_firefox": "npm run dist:cloudReader:copy:epub_content",
+    "test_firefox": "parallelshell \"node build-config/selenium_webdriver.js -a 127.0.0.1 -p 8080 -c-1 ./dist/cloud-reader\" \"npm run mocha --readium-js-viewer:MODE=firefox\"",
     "httpCloudReaderDist": "node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 ./dist/cloud-reader",
     "mocha": "node node_modules/mocha/bin/mocha --timeout 180000 --ui bdd tests/tests.js"
   }

@@ -936,21 +936,39 @@ scripts:
             \"npm run mocha --readium-js-viewer:MODE=chromeApp\"
     '
 
+#=====================
+    'pretest_chrome': '
+
+        npm run dist:cloudReader:copy:epub_content
+    '
+
 # REQUIRES ChromeDriver in the PATH
 # https://sites.google.com/a/chromium.org/chromedriver/home
 #=====================
     'test_chrome': '
         parallelshell
-            \"node build-config/selenium_webdriver.js\"
-            \"npm run httpCloudReaderDist\"
+            \"node build-config/selenium_webdriver.js
+            -a 127.0.0.1
+            -p 8080
+            -c-1
+            ./dist/cloud-reader\"
             \"npm run mocha --readium-js-viewer:MODE=chrome\"
+    '
+    
+#==============
+    'pretest_firefox': '
+
+        npm run dist:cloudReader:copy:epub_content
     '
 
 #=====================
     'test_firefox': '
         parallelshell
-            \"node build-config/selenium_webdriver.js\"
-            \"npm run httpCloudReaderDist\"
+            \"node build-config/selenium_webdriver.js
+            -a 127.0.0.1
+            -p 8080
+            -c-1
+            ./dist/cloud-reader\"
             \"npm run mocha --readium-js-viewer:MODE=firefox\"
     '
 
