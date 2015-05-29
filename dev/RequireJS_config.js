@@ -40,6 +40,7 @@ require.config({
             //'epubLibraryPath': "../epub_content/epub_library.json",
             //'epubLibraryPath': "/epub_content/epub_library.json",
             'epubLibraryPath': "http://127.0.0.1:8080/epub_library.json",
+            //'epubLibraryPath': "http://development.readium.divshot.io/epub_content/epub_library.json",
 
             'imagePathPrefix': '/src/',
 
