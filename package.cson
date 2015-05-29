@@ -911,15 +911,6 @@ scripts:
         npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chromeApp
     '
 
-
-#\"node -e \\"var grunt = require('grunt'); grunt.tasks(['selenium_start']);\\"\"
-#node -e "var grunt = require('grunt'); grunt.tasks(['selenium_start']);"
-#node build-config/selenium_webdriver.js
-#grunt selenium_start
-
-
-
-
 #=====================
     'pretest_chromeApp': '
 
@@ -932,7 +923,11 @@ scripts:
     'test_chromeApp': '
 
         parallelshell
-            \"node build-config/selenium_webdriver.js\"
+            \"node build-config/selenium_webdriver.js
+            -a 127.0.0.1
+            -p 8080
+            -c-1
+            ./dist/chrome-app\"
             \"npm run mocha --readium-js-viewer:MODE=chromeApp\"
     '
 
@@ -954,7 +949,7 @@ scripts:
             ./dist/cloud-reader\"
             \"npm run mocha --readium-js-viewer:MODE=chrome\"
     '
-    
+
 #==============
     'pretest_firefox': '
 
