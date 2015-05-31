@@ -198,9 +198,6 @@ scripts:
             prepare:submodule
         &&
         npm run
-            prepare:forks
-        &&
-        npm run
             prepare:dependencies
     '
 
