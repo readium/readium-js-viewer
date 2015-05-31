@@ -198,15 +198,20 @@ scripts:
             prepare:submodule
         &&
         npm run
+            prepare:forks
+        &&
+        npm run
             prepare:dependencies
     '
 
 #=====================
     'prepare:dependencies': '
-
         npm install
         &&
         npm update
+        &&
+        node
+            readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/gitHubForksUpdater.js
     '
 
 #=====================
