@@ -43769,7 +43769,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"bb3d8ef5511d6f83825be4b42592e4782c3bb190","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.20.0-82-gbb3d8ef","branch":"feature/pluginsX","release":false,"timestamp":1433107246571},"readiumJs":{"sha":"947de63ea7000d3a285d509ebe49f0c6f48aee42","clean":true,"version":"0.20.0-alpha","tag":"0.17-122-g947de63","branch":"feature/pluginsX","release":false,"timestamp":1433107246925},"readiumSharedJs":{"sha":"837ed9f3a2c36ec692e552765518c5d7e9001197","clean":true,"version":"0.20.0-alpha","tag":"0.16-149-g837ed9f","branch":"feature/pluginsX","release":false,"timestamp":1433107247217},"readiumCfiJs":{"sha":"8aeeefcf2db5ebe32a95b0edba23e09cf821c430","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-119-g8aeeefc","branch":"feature/plugins","release":false,"timestamp":1433107247474}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"54b7492b583b09a5e2fcf3ec1825a21b41c4556a","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.20.0-83-g54b7492","branch":"feature/pluginsX","release":false,"timestamp":1433157529162},"readiumJs":{"sha":"947de63ea7000d3a285d509ebe49f0c6f48aee42","clean":true,"version":"0.20.0-alpha","tag":"0.17-122-g947de63","branch":"feature/pluginsX","release":false,"timestamp":1433157529543},"readiumSharedJs":{"sha":"837ed9f3a2c36ec692e552765518c5d7e9001197","clean":true,"version":"0.20.0-alpha","tag":"0.16-149-g837ed9f","branch":"feature/pluginsX","release":false,"timestamp":1433157529892},"readiumCfiJs":{"sha":"8aeeefcf2db5ebe32a95b0edba23e09cf821c430","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-119-g8aeeefc","branch":"feature/plugins","release":false,"timestamp":1433157530179}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -60938,7 +60938,7 @@ return; // TODO upgrade to Hammer API v2
 });
 define('readium_js_viewer/EpubReader',[
 "readium_shared_js/globalsSetup",
-"readium_plugin_example",
+//"readium_plugin_example",
 './ModuleConfig',
 'jquery',
 'bootstrap',
@@ -60963,7 +60963,8 @@ define('readium_js_viewer/EpubReader',[
 'readium_js/Readium'],
 
 function (
-globalSetup, examplePluginConfig,
+globalSetup,
+//examplePluginConfig,
 moduleConfig,
 $,
 bootstrap,
@@ -60987,9 +60988,9 @@ GesturesHandler,
 Versioning,
 Readium){
 
-
-        examplePluginConfig.borderColor = "blue";
-        examplePluginConfig.backgroundColor = "cyan";
+        //
+        // examplePluginConfig.borderColor = "blue";
+        // examplePluginConfig.backgroundColor = "cyan";
 
     var readium,
         embedded,

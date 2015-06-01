@@ -528,7 +528,7 @@ scripts:
             readium-js-viewer_all-min.js
             -o
             dist/cloud-reader/scripts/readium-js-viewer_all-min.js
-            --in-source-map
+            --xxxxin-source-map
             build-output/_single-bundle/readium-js-viewer_all.js.map
             --
             build-output/_single-bundle/readium-js-viewer_all.js
@@ -631,7 +631,7 @@ scripts:
             readium-js-viewer_all_LITE-min.js
             -o
             dist/cloud-reader-lite/scripts/readium-js-viewer_all_LITE-min.js
-            --in-source-map
+            --xxxxin-source-map
             build-output/_single-bundle/readium-js-viewer_all_LITE.js.map
             --
             build-output/_single-bundle/readium-js-viewer_all_LITE.js

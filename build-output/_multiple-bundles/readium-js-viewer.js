@@ -3734,7 +3734,7 @@ return; // TODO upgrade to Hammer API v2
 });
 define('readium_js_viewer/EpubReader',[
 "readium_shared_js/globalsSetup",
-"readium_plugin_example",
+//"readium_plugin_example",
 './ModuleConfig',
 'jquery',
 'bootstrap',
@@ -3759,7 +3759,8 @@ define('readium_js_viewer/EpubReader',[
 'readium_js/Readium'],
 
 function (
-globalSetup, examplePluginConfig,
+globalSetup,
+//examplePluginConfig,
 moduleConfig,
 $,
 bootstrap,
@@ -3783,9 +3784,9 @@ GesturesHandler,
 Versioning,
 Readium){
 
-
-        examplePluginConfig.borderColor = "blue";
-        examplePluginConfig.backgroundColor = "cyan";
+        //
+        // examplePluginConfig.borderColor = "blue";
+        // examplePluginConfig.backgroundColor = "cyan";
 
     var readium,
         embedded,
