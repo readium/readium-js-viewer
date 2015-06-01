@@ -18748,6 +18748,30 @@ var Helpers = {};
 
 /**
  *
+ * @returns object (map between URL query parameter names and corresponding decoded / unescaped values)
+ */
+Helpers.getURLQueryParams = function() {
+    var params = {};
+
+    var query = window.location.search;
+    if (query && query.length) {
+        query = query.substring(1);
+        var keyParams = query.split('&');
+        for (var x = 0; x < keyParams.length; x++)
+        {
+            var keyVal = keyParams[x].split('=');
+            if (keyVal.length > 1) {
+                params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+            }
+        }
+    }
+
+    return params;
+};
+
+
+/**
+ *
  * @param left
  * @param top
  * @param width
@@ -43769,7 +43793,7 @@ define('readium_plugin_annotations', ['readium_plugin_annotations/main'], functi
 
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"54b7492b583b09a5e2fcf3ec1825a21b41c4556a","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.20.0-83-g54b7492","branch":"feature/pluginsX","release":false,"timestamp":1433157529162},"readiumJs":{"sha":"947de63ea7000d3a285d509ebe49f0c6f48aee42","clean":true,"version":"0.20.0-alpha","tag":"0.17-122-g947de63","branch":"feature/pluginsX","release":false,"timestamp":1433157529543},"readiumSharedJs":{"sha":"837ed9f3a2c36ec692e552765518c5d7e9001197","clean":true,"version":"0.20.0-alpha","tag":"0.16-149-g837ed9f","branch":"feature/pluginsX","release":false,"timestamp":1433157529892},"readiumCfiJs":{"sha":"8aeeefcf2db5ebe32a95b0edba23e09cf821c430","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-119-g8aeeefc","branch":"feature/plugins","release":false,"timestamp":1433157530179}}';});
+define('text!version.json',[],function () { return '{"readiumJsViewer":{"sha":"d9c86c6e398ae3c96593b74125ab483b6a7f1d3c","clean":false,"version":"0.20.0-alpha","chromeVersion":"2.20.0-alpha","tag":"0.20.0-84-gd9c86c6","branch":"feature/pluginsX","release":false,"timestamp":1433177968359},"readiumJs":{"sha":"af1bd3428e9ca49382a4e6bb1f36285fdcce0fe4","clean":true,"version":"0.20.0-alpha","tag":"0.17-123-gaf1bd34","branch":"feature/pluginsX","release":false,"timestamp":1433177968719},"readiumSharedJs":{"sha":"0642319a06bbeef2da014c615afc06c58897fe56","clean":true,"version":"0.20.0-alpha","tag":"0.16-150-g0642319","branch":"feature/pluginsX","release":false,"timestamp":1433177969041},"readiumCfiJs":{"sha":"8aeeefcf2db5ebe32a95b0edba23e09cf821c430","clean":true,"version":"0.20.0-alpha","tag":"0.1.4-119-g8aeeefc","branch":"feature/plugins","release":false,"timestamp":1433177969297}}';});
 
 //  Copyright (c) 2014 Readium Foundation and/or its licensees. All rights reserved.
 //  
@@ -61909,32 +61933,18 @@ console.debug("ANNOTATION CLICK: " + id);
 
 });
 
-define('readium_js_viewer/ReadiumViewer',['jquery', './EpubLibrary', './EpubReader'], function($, EpubLibrary, EpubReader){
+define('readium_js_viewer/ReadiumViewer',['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'], function($, EpubLibrary, EpubReader, Helpers){
 
-	var getEpubQueryParam = function(){
-        var query = window.location.search;
-        if (query && query.length){
-            query = query.substring(1);
-        }
-        if (query.length){
-            var keyParams = query.split('&');
-            for (var x = 0; x < keyParams.length; x++)
-            {
-                var keyVal = keyParams[x].split('=');
-                if (keyVal[0] == 'epub' && keyVal.length == 2){
-                    return keyVal[1];
-                }
-            }
-
-        }
-        return null;
-    }
 
 	var initialLoad = function(){
 
-		var epubUrl = getEpubQueryParam();
+		var urlParams = Helpers.getURLQueryParams();
+
+		var epubUrl = urlParams['epub'];
+
 		if (epubUrl){
-                EpubReader.loadUI({epub: decodeURIComponent(epubUrl)});
+			// embedded, epub
+      EpubReader.loadUI(urlParams); //{epub: epubUrl}
 		}
 		else{
 			EpubLibrary.loadUI();

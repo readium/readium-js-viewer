@@ -1,29 +1,15 @@
-define(['jquery', './EpubLibrary', './EpubReader'], function($, EpubLibrary, EpubReader){
+define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'], function($, EpubLibrary, EpubReader, Helpers){
 
-	var getEpubQueryParam = function(){
-        var query = window.location.search;
-        if (query && query.length){
-            query = query.substring(1);
-        }
-        if (query.length){
-            var keyParams = query.split('&');
-            for (var x = 0; x < keyParams.length; x++)
-            {
-                var keyVal = keyParams[x].split('=');
-                if (keyVal[0] == 'epub' && keyVal.length == 2){
-                    return keyVal[1];
-                }
-            }
-
-        }
-        return null;
-    }
 
 	var initialLoad = function(){
 
-		var epubUrl = getEpubQueryParam();
+		var urlParams = Helpers.getURLQueryParams();
+
+		var epubUrl = urlParams['epub'];
+
 		if (epubUrl){
-                EpubReader.loadUI({epub: decodeURIComponent(epubUrl)});
+			// embedded, epub
+      EpubReader.loadUI(urlParams); //{epub: epubUrl}
 		}
 		else{
 			EpubLibrary.loadUI();

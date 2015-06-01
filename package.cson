@@ -35,7 +35,7 @@ name: "readium-js-viewer"
 
 version: "0.20.0-alpha"
 
-description: "Readium web app - online cloud reader, offline Chrome extension/app, etc."
+description: "Readium web app - online cloud reader, offline Chrome extension/app"
 
 keywords: [
     "readium"
@@ -137,7 +137,7 @@ devDependencies:
 
     "spin.js": 'latest'
 
-# Below dependencies are only used for building tasks (above are runtime deps):
+# Below dependencies are only used in build tasks (above are runtime deps):
 
 # see readium-cfi-js:
 # "cson", "jshint", "glob", "rimraf", "mkdirp", "watch", "live-reload"

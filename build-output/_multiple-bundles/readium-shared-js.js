@@ -1069,6 +1069,30 @@ var Helpers = {};
 
 /**
  *
+ * @returns object (map between URL query parameter names and corresponding decoded / unescaped values)
+ */
+Helpers.getURLQueryParams = function() {
+    var params = {};
+
+    var query = window.location.search;
+    if (query && query.length) {
+        query = query.substring(1);
+        var keyParams = query.split('&');
+        for (var x = 0; x < keyParams.length; x++)
+        {
+            var keyVal = keyParams[x].split('=');
+            if (keyVal.length > 1) {
+                params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+            }
+        }
+    }
+
+    return params;
+};
+
+
+/**
+ *
  * @param left
  * @param top
  * @param width

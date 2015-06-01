@@ -20,6 +20,27 @@ window.location ? (
   ) : ''
 ;
 
+var getURLQueryParams = function() {
+   var params = {};
+
+   var query = window.location.search;
+   if (query && query.length) {
+       query = query.substring(1);
+       var keyParams = query.split('&');
+       for (var x = 0; x < keyParams.length; x++)
+       {
+           var keyVal = keyParams[x].split('=');
+           if (keyVal.length > 1) {
+               params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+           }
+       }
+   }
+
+   return params;
+};
+
+var urlParams = getURLQueryParams();
+
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
@@ -39,7 +60,7 @@ require.config({
 
             //'epubLibraryPath': "../epub_content/epub_library.json",
             //'epubLibraryPath': "/epub_content/epub_library.json",
-            'epubLibraryPath': "http://127.0.0.1:8080/epub_library.json",
+            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : "http://127.0.0.1:8080/epub_library.json",
             //'epubLibraryPath': "http://development.readium.divshot.io/epub_content/epub_library.json",
 
             'imagePathPrefix': '/src/',

@@ -53,6 +53,32 @@ window.location ? (
 
 console.log(HTTPServerRootFolder);
 
+
+
+var getURLQueryParams = function() {
+   var params = {};
+
+   var query = window.location.search;
+   if (query && query.length) {
+       query = query.substring(1);
+       var keyParams = query.split('&');
+       for (var x = 0; x < keyParams.length; x++)
+       {
+           var keyVal = keyParams[x].split('=');
+           if (keyVal.length > 1) {
+               params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+           }
+       }
+   }
+
+   return params;
+};
+
+var urlParams = getURLQueryParams();
+console.log(urlParams);
+
+
+
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
@@ -70,7 +96,7 @@ require.config({
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
-            'epubLibraryPath': undefined, // defaults to /epub_content/epub_library.json relative to the application's root index.html
+            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : undefined, // defaults to /epub_content/epub_library.json relative to the application's root index.html
 
             'imagePathPrefix': undefined,
 
