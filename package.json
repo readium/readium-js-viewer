@@ -28,7 +28,7 @@
     "hogan.js": "~2.0.0",
     "httpreq": "^0.4.2",
     "load-grunt-config": "~0.8.0-beta.1",
-    "unzip": "^0.1.11",
+    "unzip2": "^0.2.5",
     "wd": "^0.3.4",
     "xml2js": "^0.4.4"
   }

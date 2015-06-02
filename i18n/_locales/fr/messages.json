@@ -177,7 +177,7 @@
     "message" : "Continu"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium pour Chrome est l'extension du navigateur Chrome de ReadiumJS, un système de lecture open-source et une librairie JavaScript pour afficher des documents EPUB® dans les navigateurs web. ReadiumJS est un projet de la fondation Readium (Readium.org). Pour en savoir plus ou pour contribuer, visiter la <a href=\"http://readium.org/projects/readiumjs\">page d'accueil du projet</a>."
+    "message" : "Readium pour Chrome est l'extension du navigateur Chrome de ReadiumJS, un système de lecture open-source et une librairie JavaScript pour afficher des documents EPUB® dans les navigateurs web. ReadiumJS est un projet de la fondation Readium (Readium.org). Pour en savoir plus ou pour contribuer, visiter la <a target=\"_blank\" href=\"http://readium.org/projects/readiumjs\">page d'accueil du projet</a>."
   },
   "i18n_audio_play" : {
     "message" : "Jouer"
