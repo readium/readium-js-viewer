@@ -313,6 +313,20 @@ scripts:
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
             build-output/_multiple-bundles/mathjax
+
+
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/_multiple-bundles/z-worker.js
+            build-output/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/_multiple-bundles/deflate.js
+            build-output/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/_multiple-bundles/inflate.js
+            build-output/
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
             build-output/_multiple-bundles/deflate.js
@@ -322,6 +336,43 @@ scripts:
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
             build-output/_multiple-bundles/z-worker.js
+
+
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/_multiple-bundles/z-worker.js.map
+            build-output/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/_multiple-bundles/deflate.js.map
+            build-output/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/_multiple-bundles/inflate.js.map
+            build-output/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/deflate.js.map
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/inflate.js.map
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/z-worker.js.map
+
+
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/RequireJS.js.src.js
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/inflate.js.src.js
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/deflate.js.src.js
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+            build-output/_multiple-bundles/z-worker.js.src.js
     '
 
 #=====================
@@ -393,42 +444,38 @@ scripts:
 
         npm run clean
         &&
-        npm run versioning
-        &&
-        npm run
-            build:scripts:single
-        &&
-        npm run
-            build:scripts:single:CHROMEAPP
-        &&
-        npm run
-            build:scripts:single:CHROMEAPPWORKER
+        npm run build:scripts
     '
 
 #=====================
     'dist': '
 
-        npm run dist:cloudReader
+        npm run dist:copy
         &&
-        npm run dist:chromeApp
-    '
-
-#=====================
-    'predist:all': '
-
-        npm run clean
-        &&
-        npm run build:scripts
-    '
-
-#=====================
-    'dist:all': '
-
         npm run dist:cloudReaderLite
         &&
         npm run dist:cloudReader
         &&
         npm run dist:chromeApp
+    '
+
+#=====================
+    'dist:copy': '
+
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+            dist/zip_sourcemap
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/z-worker.js.map
+            dist/zip_sourcemap
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/deflate.js.map
+            dist/zip_sourcemap
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/inflate.js.map
+            dist/zip_sourcemap
     '
 
 #=====================
@@ -462,15 +509,15 @@ scripts:
             dist/cloud-reader/
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/z-worker.js
+            build-output/z-worker.js
             dist/cloud-reader/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/deflate.js
+            build-output/deflate.js
             dist/cloud-reader/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/inflate.js
+            build-output/inflate.js
             dist/cloud-reader/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
@@ -516,23 +563,31 @@ scripts:
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
             dist/cloud-reader_sourcemap
         &&
-        node node_modules/uglify-js/bin/uglifyjs
-            --compress
-            --mangle
-            --screw-ie8
-            --source-map
-            dist/cloud-reader_sourcemap/readium-js-viewer_all-min.js.map
-            --source-map-url
-            readium-js-viewer_all-min.js.map
-            --source-map-root
-            readium-js-viewer_all-min.js
-            -o
-            dist/cloud-reader/scripts/readium-js-viewer_all-min.js
-            --xxxxin-source-map
-            build-output/_single-bundle/readium-js-viewer_all.js.map
-            --
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
             build-output/_single-bundle/readium-js-viewer_all.js
+            dist/cloud-reader/scripts/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/_single-bundle/readium-js-viewer_all.js.map
+            dist/cloud-reader_sourcemap/
     '
+
+#node node_modules/uglify-js/bin/uglifyjs
+#    --compress
+#    --mangle
+#    --screw-ie8
+#    --source-map
+#    dist/cloud-reader_sourcemap/readium-js-viewer_all-min.js.map
+#    --source-map-url
+#    readium-js-viewer_all-min.js.map
+#    --xxxxsource-map-root
+#    readium-js-viewer_all-min.js
+#    -o
+#    dist/cloud-reader/scripts/readium-js-viewer_all-min.js
+#    --in-source-map
+#    build-output/_single-bundle/readium-js-viewer_all.js.map
+#    --
+#    build-output/_single-bundle/readium-js-viewer_all.js
 
 #=====================
     'predist:cloudReaderLite': '
@@ -565,15 +620,15 @@ scripts:
             dist/cloud-reader-lite/
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/z-worker.js
+            build-output/z-worker.js
             dist/cloud-reader-lite/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/deflate.js
+            build-output/deflate.js
             dist/cloud-reader-lite/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/inflate.js
+            build-output/inflate.js
             dist/cloud-reader-lite/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
@@ -618,24 +673,33 @@ scripts:
 
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
             dist/cloud-reader-lite_sourcemap
+
         &&
-        node node_modules/uglify-js/bin/uglifyjs
-            --compress
-            --mangle
-            --screw-ie8
-            --source-map
-            dist/cloud-reader-lite_sourcemap/readium-js-viewer_all_LITE-min.js.map
-            --source-map-url
-            readium-js-viewer_all_LITE-min.js.map
-            --source-map-root
-            readium-js-viewer_all_LITE-min.js
-            -o
-            dist/cloud-reader-lite/scripts/readium-js-viewer_all_LITE-min.js
-            --xxxxin-source-map
-            build-output/_single-bundle/readium-js-viewer_all_LITE.js.map
-            --
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
             build-output/_single-bundle/readium-js-viewer_all_LITE.js
+            dist/cloud-reader-lite/scripts/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+            build-output/_single-bundle/readium-js-viewer_all_LITE.js.map
+            dist/cloud-reader-lite_sourcemap/
     '
+
+#node node_modules/uglify-js/bin/uglifyjs
+#--compress
+#--mangle
+#--screw-ie8
+#--source-map
+#dist/cloud-reader-lite_sourcemap/readium-js-viewer_all_LITE-min.js.map
+#--source-map-url
+#readium-js-viewer_all_LITE-min.js.map
+#--xxxxsource-map-root
+#readium-js-viewer_all_LITE-min.js
+#-o
+#dist/cloud-reader-lite/scripts/readium-js-viewer_all_LITE-min.js
+#--in-source-map
+#build-output/_single-bundle/readium-js-viewer_all_LITE.js.map
+#--
+#build-output/_single-bundle/readium-js-viewer_all_LITE.js
 
 #=====================
     'predist:chromeApp': '
@@ -669,15 +733,15 @@ scripts:
             dist/chrome-app/
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/z-worker.js
+            build-output/z-worker.js
             dist/chrome-app/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/deflate.js
+            build-output/deflate.js
             dist/chrome-app/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
-            readium-js/node_modules/zip-js/WebContent/inflate.js
+            build-output/inflate.js
             dist/chrome-app/scripts/zip
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
@@ -752,22 +816,19 @@ scripts:
             dist/chrome-app_sourcemap/
     '
 
-## No need to minify the Javascript code for the Chrome extension
-## (easier to debug too, without the need for a heavy sourcemap that is actually larger than the original JS file)
-##
 #        node node_modules/uglify-js/bin/uglifyjs
 #            --compress
 #            --mangle
 #            --screw-ie8
-#            --xxxxsource-map
+#            --source-map
 #            dist/chrome-app_sourcemap/readium-js-viewer_all_CHROMEAPP-min.js.map
-#            --xxxxsource-map-url
+#            --source-map-url
 #            readium-js-viewer_all_CHROMEAPP-min.js.map
 #            --xxxxsource-map-root
 #            readium-js-viewer_all_CHROMEAPP-min.js
 #            -o
 #            dist/chrome-app/scripts/readium-js-viewer_all_CHROMEAPP-min.js
-#            --xxxxin-source-map
+#            --in-source-map
 #            build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js.map
 #            --
 #            build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js
@@ -815,8 +876,8 @@ scripts:
 
 #=====================
     'httpApp': '
-        node
 
+        node
             readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
             -p 9090
 
@@ -826,8 +887,8 @@ scripts:
 
 #=====================
     'httpEbooks': '
-        node
 
+        node
             node_modules/http-server/bin/http-server
             -a 127.0.0.1
             -p 8080
@@ -904,6 +965,10 @@ scripts:
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
             dist/cloud-reader_sourcemap/
             dist/cloud-reader/scripts/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            dist/zip_sourcemap/
+            dist/cloud-reader/scripts/zip/
     '
 
 #=====================
@@ -912,6 +977,10 @@ scripts:
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
             dist/chrome-app_sourcemap/
             dist/chrome-app/scripts/
+        &&
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+            dist/zip_sourcemap/
+            dist/chrome-app/scripts/zip/
     '
 
 #=====================
@@ -929,7 +998,7 @@ scripts:
     '
 
 #=====================
-    'pretest_travis': '
+    'pretest:travis': '
 
         npm run dist:chromeApp:copy:sourcemap
         &&
@@ -941,26 +1010,26 @@ scripts:
     '
 
 #=====================
-    'test_travis': '
+    'test:travis': '
         parallelshell
             \"npm run httpCloudReaderDist\"
             \"npm run mocha\"
     '
 
 #=====================
-    'pretest_sauce': '
+    'pretest:sauce': '
 
         npm run crx
     '
 
 #=====================
-    'test_sauce': '
+    'test:sauce': '
 
         npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chromeApp
     '
 
 #=====================
-    'pretest_chromeApp': '
+    'pretest:chromeApp': '
 
         npm run crx
     '
@@ -968,7 +1037,7 @@ scripts:
 # REQUIRES ChromeDriver in the PATH
 # https://sites.google.com/a/chromium.org/chromedriver/home
 #=====================
-    'test_chromeApp': '
+    'test:chromeApp': '
 
         parallelshell
             \"node build-config/selenium_webdriver.js
@@ -980,7 +1049,7 @@ scripts:
     '
 
 #=====================
-    'pretest_chrome': '
+    'pretest:chrome': '
 
         npm run dist:cloudReader:copy:epub_content
     '
@@ -988,7 +1057,7 @@ scripts:
 # REQUIRES ChromeDriver in the PATH
 # https://sites.google.com/a/chromium.org/chromedriver/home
 #=====================
-    'test_chrome': '
+    'test:chrome': '
         parallelshell
             \"node build-config/selenium_webdriver.js
             -a 127.0.0.1
@@ -999,13 +1068,13 @@ scripts:
     '
 
 #==============
-    'pretest_firefox': '
+    'pretest:firefox': '
 
         npm run dist:cloudReader:copy:epub_content
     '
 
 #=====================
-    'test_firefox': '
+    'test:firefox': '
         parallelshell
             \"node build-config/selenium_webdriver.js
             -a 127.0.0.1

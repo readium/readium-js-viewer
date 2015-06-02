@@ -11,7 +11,7 @@ install:
 before_script:
 - pwd
 script:
-- npm run test_travis
+- npm run test:travis
 after_success:
 - echo "node build-config/deployCrx.js"
 after_failure: cat ./sauce_connect.log

@@ -55,6 +55,7 @@ require.config({
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
             'jsLibRoot': HTTPServerRootFolder + '/readium-js/node_modules/zip-js/WebContent/',
+            //'jsLibRoot': HTTPServerRootFolder + '/build-output/',
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
