@@ -147,7 +147,7 @@
     "message" : "디스플레이 포맷"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>는 EPUB&reg;컨텐츠의 출판을 위한 국제디지털출판포럼(IDPF, International Digital Publishing Forum)과 지원 기업들의 오픈소스 시스템 및 렌더링 엔진 프로젝트입니다. 자세한 내용은 <a target=\"_blank\" href=\"http://readium.org/\">프로젝트 홈페이지</a>를 참조하세요. 지금까지, 프로젝트 개발은 <a target=\"_blank\" href=\"http://evidentpoint.com/\">Evident Point</a>와 <a target=\"_blank\" href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>에 의해서 주도 되었습니다. 프로젝트에 기여하시기 위해서는 <a target=\"_blank\" href=\"https://github.com/readium/readium-js-viewer\">github 저장소</a>를 확인하시기 바랍니다."
+    "message" : "Readium<sup>TM</sup>는 EPUB&reg;컨텐츠의 출판을 위한 국제디지털출판포럼(IDPF, International Digital Publishing Forum)과 지원 기업들의 오픈소스 시스템 및 렌더링 엔진 프로젝트입니다. 자세한 내용은 <a href=\"http://readium.org/\">프로젝트 홈페이지</a>를 참조하세요. 지금까지, 프로젝트 개발은 <a href=\"http://evidentpoint.com/\">Evident Point</a>와 <a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>에 의해서 주도 되었습니다. 프로젝트에 기여하시기 위해서는 <a href=\"https://github.com/readium/readium-js-viewer\">github 저장소</a>를 확인하시기 바랍니다."
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",

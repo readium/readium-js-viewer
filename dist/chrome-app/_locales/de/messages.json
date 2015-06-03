@@ -309,11 +309,11 @@
         "message": "Butterfly"
     },
     "i18n_html_readium_tm_a_project": {
-        "message": "Readium für Chrome ist die Chrome Browser Erweiterung basierend auf ReadiumJS, einem Open-Source Lesesystem und einer JavaScript Bibliothek zur Darstellung von EPUB® Veröffentlichungen in Web-Browsern. ReadiumJS ist ein Projekt der Readium Foundation (Readium.org). Wenn Sie mehr darüber erfahren möchten oder das Projekt unterstützen wollen, besuchen Sie bitte die <a target=\"_blank\" href=\"http://readium.org/\">Projekt Homepage</a>."
+        "message": "Readium für Chrome ist die Chrome Browser Erweiterung basierend auf ReadiumJS, einem Open-Source Lesesystem und einer JavaScript Bibliothek zur Darstellung von EPUB® Veröffentlichungen in Web-Browsern. ReadiumJS ist ein Projekt der Readium Foundation (Readium.org). Wenn Sie mehr darüber erfahren möchten oder das Projekt unterstützen wollen, besuchen Sie bitte die <a href=\"http://readium.org/\">Projekt Homepage</a>."
 
     },
     "gethelp": {
-        "message": "Falls Sie auf Probleme stoßen, Fragen haben oder \"Hallo\" sagen möchten, besuchen Sie <a target=\"_blank\" href=\"http://idpf.org/forums/readium\">unser Forum</a>."
+        "message": "Falls Sie auf Probleme stoßen, Fragen haben oder \"Hallo\" sagen möchten, besuchen Sie <a href=\"http://idpf.org/forums/readium\">unser Forum</a>."
     },
     "i18n_toolbar": {
         "message": "Werkzeugleiste"
