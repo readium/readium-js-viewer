@@ -388,7 +388,7 @@ Readium){
         screenfull.toggle();
     }
 
-    if (chrome && chrome.app && chrome.app.window && chrome.app.window.current) { // a bit redundant...
+    if ((typeof chrome !== "undefined") && chrome.app && chrome.app.window && chrome.app.window.current) { // a bit redundant...
     	screenfull.onchange = function(e) {
     		if (chrome.app.window.current().isFullscreen()) {
     			chrome.app.window.current().restore();
