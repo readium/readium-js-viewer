@@ -17,5 +17,5 @@
   },
   "permissions" : [
     "https://www.google-analytics.com/*",
-    "storage", "unlimitedStorage"]
+    "storage", "unlimitedStorage", "app.window.fullscreen"]
 }

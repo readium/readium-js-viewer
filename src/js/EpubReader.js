@@ -388,6 +388,14 @@ Readium){
         screenfull.toggle();
     }
 
+    if (chrome && chrome.app && chrome.app.window && chrome.app.window.current) { // a bit redundant...
+    	screenfull.onchange = function(e) {
+    		if (chrome.app.window.current().isFullscreen()) {
+    			chrome.app.window.current().restore();
+    		}
+    	};
+    }
+    var oldOnChange = screenfull.onchange;
     screenfull.onchange = function(e){
         var titleText;
 
@@ -407,6 +415,7 @@ Readium){
             $('#buttFullScreenToggle').attr('aria-label', titleText);
             $('#buttFullScreenToggle').attr('title', titleText);
         }
+        oldOnChange.call(this, e);
     }
 
     var hideUI = function(){

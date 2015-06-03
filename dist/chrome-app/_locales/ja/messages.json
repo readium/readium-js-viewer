@@ -147,7 +147,7 @@
     "message" : "表示形式"
   },
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>とは, International Digital Publishing Forum (IDPF) と支援企業によるプロジェクトで, EPUB&reg; 出版のためのシステムとレンダリングエンジンのオープンソースリファレンスです。詳しくは、<a href=\"http://readium.org/\">プロジェクトホームページ</a>をご覧ください。これまでは<a href=\"http://evidentpoint.com/\">Evident Point</a>と<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>がプロジェクト開発をリードしてきました。 コントリビュートするには<a href=\"https://github.com/readium/readium-js-viewer\">githubレポジトリ</a>をご覧ください。"
+    "message" : "Readium<sup>TM</sup>とは, International Digital Publishing Forum (IDPF) と支援企業によるプロジェクトで, EPUB&reg; 出版のためのシステムとレンダリングエンジンのオープンソースリファレンスです。詳しくは、<a target=\"_blank\" href=\"http://readium.org/\">プロジェクトホームページ</a>をご覧ください。これまでは<a target=\"_blank\" href=\"http://evidentpoint.com/\">Evident Point</a>と<a target=\"_blank\" href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>がプロジェクト開発をリードしてきました。 コントリビュートするには<a target=\"_blank\" href=\"https://github.com/readium/readium-js-viewer\">githubレポジトリ</a>をご覧ください。"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
