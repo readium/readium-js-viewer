@@ -11,12 +11,20 @@ install:
 before_script:
 - pwd
 script:
+- cd readium-js/readium-shared-js/readium-cfi-js
+- npm run prepare
+- npm run build
+- npm run test:travis
+- cd ../../..
+- pwd
 - npm run test:travis
 after_success:
 - echo "node build-config/deployCrx.js"
 after_failure: cat ./sauce_connect.log
 env:
   global:
+  - SAUCE_USERNAME=readium
+  - SAUCE_ACCESS_KEY=a36ebc10-e514-4da6-924c-307aec513550
   - USE_SAUCE=true
   - secure: onYFok5CBcV1116+kOEZJsyDB1kRHF+8deU1cll3vhxBEM/woSRvpso32oxjuza+or2uXuBT1SiZn0oTmuKD/TRaKw1e8wTtX6kQzCUhyeGoAyJH8SeGIwkt8+x232rFUe2bNLr6e0JAGZMtTjk1Q1zqfONNWAQzsUWDeUqvwt8=
   matrix:
