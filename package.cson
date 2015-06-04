@@ -12,7 +12,7 @@
 #
 # ALTERNATIVE METHOD (if package.json is corrupted):
 # npm install cson
-# node ./node_modules/cson/bin/cson2json package.cson > package.json
+# node readium-js/readium-shared-js/readium-cfi-js/node_modules/cson/bin/cson2json package.cson > package.json
 # Note that on some Windows terminals (e.g. GitShell),
 # unfortunately the package.json file might need its encoding
 # converted to UTF-no-BOM :(
@@ -178,12 +178,9 @@ devDependencies:
     "decompress-zip": 'latest'
 
     #"unzip": 'latest'
-    #"mkdirp": 'latest'
-    #"rimraf": 'latest'
 
 #####################################################################
 scripts:
-
 
 #=====================
     cson2json: '
@@ -191,6 +188,30 @@ scripts:
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cson/bin/cson2json package.cson
         &&
         node readium-js/readium-shared-js/readium-cfi-js/node_modules/cson/bin/cson2json package.cson > package.json
+    '
+
+#=====================
+    rimraf: '
+
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+    '
+
+#=====================
+    mkdirp: '
+
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+    '
+
+#=====================
+    cpy: '
+
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+    '
+
+#=====================
+    ncp: '
+
+        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
     '
 
 #=====================
@@ -231,10 +252,10 @@ scripts:
         &&
         npm --version
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/*
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist
     '
 
@@ -264,7 +285,7 @@ scripts:
 
 #=====================
     'preversioning': '
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             build-output
     '
 
@@ -276,18 +297,18 @@ scripts:
 #=====================
     'prebuild:scripts:multiple': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             build-output/XXX
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/templates/
             build-output/XXX/templates/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/i18n/
             build-output/XXX/i18n/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/version.json
             build-output/XXX/
     '
@@ -295,91 +316,91 @@ scripts:
 #=====================
     'postbuild:scripts:multiple': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/XXX
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/version.json
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/templates
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/i18n
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/migration
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/storage
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/versioning
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/workers
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/mathjax
 
 
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_multiple-bundles/z-worker.js
             build-output/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_multiple-bundles/deflate.js
             build-output/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_multiple-bundles/inflate.js
             build-output/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/deflate.js
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/inflate.js
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/z-worker.js
 
 
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_multiple-bundles/z-worker.js.map
             build-output/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_multiple-bundles/deflate.js.map
             build-output/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_multiple-bundles/inflate.js.map
             build-output/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/deflate.js.map
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/inflate.js.map
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/z-worker.js.map
 
 
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/RequireJS.js.src.js
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/inflate.js.src.js
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/deflate.js.src.js
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             build-output/_multiple-bundles/z-worker.js.src.js
     '
 
@@ -452,7 +473,7 @@ scripts:
 
         npm run build
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             dist
     '
 
@@ -471,18 +492,18 @@ scripts:
 #=====================
     'dist:copy': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             dist/zip_sourcemap
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/z-worker.js.map
             dist/zip_sourcemap
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/deflate.js.map
             dist/zip_sourcemap
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/inflate.js.map
             dist/zip_sourcemap
     '
@@ -490,10 +511,10 @@ scripts:
 #=====================
     'predist:cloudReader': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/cloud-reader
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/cloud-reader_sourcemap
     '
 
@@ -510,38 +531,38 @@ scripts:
 #=====================
     'dist:cloudReader:copy': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             dist/cloud-reader/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/cloud-reader/index.html
             dist/cloud-reader/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/z-worker.js
             dist/cloud-reader/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/deflate.js
             dist/cloud-reader/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/inflate.js
             dist/cloud-reader/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/images/
             dist/cloud-reader/images/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/js/mathjax/
             dist/cloud-reader/scripts/mathjax/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             node_modules/bootstrap/fonts/
             dist/cloud-reader/fonts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/css/annotations.css
             dist/cloud-reader/css/
     '
@@ -569,14 +590,14 @@ scripts:
 #=====================
     'dist:cloudReader:js': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             dist/cloud-reader_sourcemap
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_single-bundle/readium-js-viewer_all.js
             dist/cloud-reader/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_single-bundle/readium-js-viewer_all.js.map
             dist/cloud-reader_sourcemap/
     '
@@ -601,10 +622,10 @@ scripts:
 #=====================
     'predist:cloudReaderLite': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/cloud-reader-lite
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/cloud-reader-lite_sourcemap
     '
 
@@ -621,38 +642,38 @@ scripts:
 #=====================
     'dist:cloudReaderLite:copy': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             dist/cloud-reader-lite/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/cloud-reader-lite/index.html
             dist/cloud-reader-lite/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/z-worker.js
             dist/cloud-reader-lite/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/deflate.js
             dist/cloud-reader-lite/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/inflate.js
             dist/cloud-reader-lite/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/images/
             dist/cloud-reader-lite/images/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/js/mathjax/
             dist/cloud-reader-lite/scripts/mathjax/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             node_modules/bootstrap/fonts/
             dist/cloud-reader-lite/fonts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/css/annotations.css
             dist/cloud-reader-lite/css/
     '
@@ -680,15 +701,15 @@ scripts:
 #=====================
     'dist:cloudReaderLite:js': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             dist/cloud-reader-lite_sourcemap
 
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_single-bundle/readium-js-viewer_all_LITE.js
             dist/cloud-reader-lite/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_single-bundle/readium-js-viewer_all_LITE.js.map
             dist/cloud-reader-lite_sourcemap/
     '
@@ -713,10 +734,10 @@ scripts:
 #=====================
     'predist:chromeApp': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/chrome-app
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/chrome-app_sourcemap
     '
 
@@ -734,62 +755,62 @@ scripts:
 #=====================
     'dist:chromeApp:copy': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             dist/chrome-app/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/chrome-app/index.html
             dist/chrome-app/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/z-worker.js
             dist/chrome-app/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/deflate.js
             dist/chrome-app/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/inflate.js
             dist/chrome-app/scripts/zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/images/
             dist/chrome-app/images/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/js/mathjax/
             dist/chrome-app/scripts/mathjax/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             node_modules/bootstrap/fonts/
             dist/chrome-app/fonts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/css/annotations.css
             dist/chrome-app/css/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/chrome-app/epubReadingSystem.js
             dist/chrome-app/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/chrome-app/background.js
             dist/chrome-app/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/chrome-app/requirejs-config.js
             dist/chrome-app/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/chrome-app/icons/
             dist/chrome-app/icons/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             src/i18n/_locales/
             dist/chrome-app/_locales/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             src/chrome-app/manifest.json
             dist/chrome-app/
     '
@@ -797,7 +818,7 @@ scripts:
 #=====================
     'dist:chromeApp:css': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             dist/cloud-reader/css/readium-all.css
             dist/chrome-app/css/
     '
@@ -805,22 +826,22 @@ scripts:
 #=====================
     'dist:chromeApp:js': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/mkdirp/bin/cmd.js
+        npm run mkdirp
             dist/chrome-app_sourcemap
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js
             dist/chrome-app/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js.map
             dist/chrome-app_sourcemap/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_single-bundle/readium-js-viewer_CHROMEAPP-WORKER.js
             dist/chrome-app/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/cpy/cli.js
+        npm run cpy
             build-output/_single-bundle/readium-js-viewer_CHROMEAPP-WORKER.js.map
             dist/chrome-app_sourcemap/
     '
@@ -870,7 +891,7 @@ scripts:
             \"npm run build
                 && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
                 && npm run webBrowser
-                && node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+                && npm run rimraf
                     open_webbrowser.js\"
             dev/ src/ readium-js/js/ readium-shared-js/js/ readium-shared-js/plugins/ readium-shared-js/readium-cfi-js/js/
     '
@@ -880,7 +901,7 @@ scripts:
     #    --exec \"npm run build
     #            && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
     #            && npm run webbrowser
-    #            && node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+    #            && npm run rimraf
     #                  open_webbrowser.js\"
 
 #=====================
@@ -924,16 +945,16 @@ scripts:
 #=====================
     'clean:tests': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/Readium.crx
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/cloud-reader/epub_content/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/testbooks.zip
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js
+        npm run rimraf
             dist/testlibrary/
     '
 
@@ -957,7 +978,7 @@ scripts:
 #=====================
     'dist:cloudReader:copy:epub_content': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             epub_content/
             dist/cloud-reader/epub_content/
     '
@@ -971,11 +992,11 @@ scripts:
 #=====================
     'dist:cloudReader:copy:sourcemap': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             dist/cloud-reader_sourcemap/
             dist/cloud-reader/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             dist/zip_sourcemap/
             dist/cloud-reader/scripts/zip/
     '
@@ -983,11 +1004,11 @@ scripts:
 #=====================
     'dist:chromeApp:copy:sourcemap': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             dist/chrome-app_sourcemap/
             dist/chrome-app/scripts/
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp
+        npm run ncp
             dist/zip_sourcemap/
             dist/chrome-app/scripts/zip/
     '
