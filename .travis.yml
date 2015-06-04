@@ -12,14 +12,14 @@ before_script:
 - pwd
 script:
 - cd readium-js/readium-shared-js/readium-cfi-js
-- npm run prepare
+#- npm run prepare
 - npm run build
 - npm run test:travis
 - cd ../../..
 - pwd
 - npm run test:travis
 after_success:
-- echo "node build-config/deployCrx.js"
+- node build-config/deployCrx.js
 after_failure: cat ./sauce_connect.log
 env:
   global:

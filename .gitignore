@@ -1,3 +1,6 @@
+build-output
+dist
+
 .DS_Store
 .divshot-cache
 node_modules

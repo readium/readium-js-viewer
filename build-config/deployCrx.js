@@ -1,5 +1,20 @@
-if (true)//process.env.MODE == 'chromeApp')
+var path = require('path');
+var fs = require("fs");
+
+var versionPath = path.join(process.cwd(), 'build-output/version.json');
+var versionStr = fs.readFileSync(versionPath, {encoding: 'utf-8'});
+var versionJson = JSON.parse(versionStr);
+if (versionJson.readiumJsViewer.branch !== "develop") {
+		console.log("Branch [" + versionJson.readiumJsViewer.branch + "] => skipping upload CRX, etc. to GitHub release.");
+		return;
+}
+
+
+if (!process.env.GITHUB_TOKEN)//process.env.MODE == 'chromeApp')
 {
+		console.log("process.env.GITHUB_TOKEN not defined => skipping upload CRX, etc. to GitHub release.");
+		return;
+}
 
 	var owner = 'readium',
 		repo = 'readium-js-viewer';
@@ -8,7 +23,7 @@ if (true)//process.env.MODE == 'chromeApp')
 
 	var GitHubApi = require("github");
 	var https = require('https');
-	var fs = require("fs");
+
 
 
 	var github = new GitHubApi({
@@ -16,7 +31,8 @@ if (true)//process.env.MODE == 'chromeApp')
 	    version: "3.0.0",
 	});
 
-	var packageStr = fs.readFileSync('../package.json', {encoding: 'utf-8'}),
+	var packagePath = path.join(process.cwd(), 'package.json');
+	var packageStr = fs.readFileSync(packagePath, {encoding: 'utf-8'}),
 		packageObj = JSON.parse(packageStr),
 		version = packageObj.version;
 
@@ -75,8 +91,9 @@ if (true)//process.env.MODE == 'chromeApp')
 			//console.log(result);
 
 			var releaseId = result.id,
-				contentType = 'application/x-chrome-extension',
-				fileName = 'dist/Readium.crx';
+				contentType = 'application/x-chrome-extension';
+
+			var fileName = path.join(process.cwd(), 'dist/Readium.crx');
 
 			//var url = 'https://uploads.github.com/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx'
 
@@ -136,8 +153,3 @@ if (true)//process.env.MODE == 'chromeApp')
 		}
 
 	});
-
-
-
-
-}
