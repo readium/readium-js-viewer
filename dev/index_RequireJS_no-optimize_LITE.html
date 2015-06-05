@@ -31,6 +31,7 @@
     <script type="text/javascript" src="../readium-js/readium-shared-js/build-config/RequireJS_config_common.js"> </script>
     <script type="text/javascript" src="../readium-js/readium-shared-js/readium-cfi-js/build-config/RequireJS_config_common.js"> </script>
     <script type="text/javascript" src="../build-config/RequireJS_config_common.js"> </script>
+    <script type="text/javascript" src="../readium-js/readium-shared-js/build-config/RequireJS_config_plugins.js"> </script>
 
     <script type="text/javascript" src="../readium-js/readium-shared-js/build-config/RequireJS_config_plugins.js"> </script>
 
@@ -39,7 +40,7 @@
 
 <script type="text/javascript">
 window.process = undefined;
-require(["readium_cfi_js/cfi_API", "readium_shared_js/globalsSetup", "readium_plugin_annotations"], function(){
+require(["readium_cfi_js/cfi_API", "readium_shared_js/globalsSetup"], function(){
 require(["jquery"], function(){
 require(["readium_js_viewer/ReadiumViewerLite"], function(){});
 });
