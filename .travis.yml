@@ -87,6 +87,7 @@ script:
 - cd readium-cfi-js
 - git status
 - cd ../../../
+- cat build-output/version.json
 after_success:
 - node build-config/deployCrx.js
 after_failure: cat ./sauce_connect.log
