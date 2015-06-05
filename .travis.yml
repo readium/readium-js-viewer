@@ -7,13 +7,58 @@ node_js:
 before_install:
 - git submodule update --init --recursive
 #- git fetch --all
+#
+# READIUM JS VIEWER
+#
 - git branch -avv
 - git remote -v
 - git show-ref --heads
+- git show-ref --head --hash head
 - git branch -a --contains $(git rev-parse HEAD)
 - git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
 - git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
 - git branch -avv
+#
+# READIUM JS
+#
+- cd readium-js
+#
+- git branch -avv
+- git remote -v
+- git show-ref --heads
+- git show-ref --head --hash head
+- git branch -a --contains $(git rev-parse HEAD)
+- git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git branch -avv
+#
+# READIUM SHARED JS
+#
+- cd readium-shared-js
+#
+- git branch -avv
+- git remote -v
+- git show-ref --heads
+- git show-ref --head --hash head
+- git branch -a --contains $(git rev-parse HEAD)
+- git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git branch -avv
+#
+# READIUM CFI JS
+#
+- cd readium-cfi-js
+#
+- git branch -avv
+- git remote -v
+- git show-ref --heads
+- git show-ref --head --hash head
+- git branch -a --contains $(git rev-parse HEAD)
+- git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git branch -avv
+#
+- cd ../../../
 install:
 - npm run prepare
 before_script:
