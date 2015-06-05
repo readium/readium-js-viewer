@@ -80,6 +80,13 @@ script:
 - git status
 - npm run test:travis
 - git status
+- cd readium-js
+- git status
+- cd readium-shared-js
+- git status
+- cd readium-cfi-js
+- git status
+- cd ../../../
 after_success:
 - node build-config/deployCrx.js
 after_failure: cat ./sauce_connect.log
