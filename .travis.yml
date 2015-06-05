@@ -9,8 +9,7 @@ before_install:
 #
 # READIUM JS VIEWER
 #
-- for remote in `git branch -r`; do git branch --track $remote; done
-- git fetch --all
+#- git fetch --all
 - for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
@@ -25,7 +24,7 @@ before_install:
 #
 - cd readium-js
 #
-- git fetch --all
+#- git fetch --all
 - for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
@@ -40,7 +39,7 @@ before_install:
 #
 - cd readium-shared-js
 #
-- git fetch --all
+#- git fetch --all
 - for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
@@ -55,7 +54,7 @@ before_install:
 #
 - cd readium-cfi-js
 #
-- git fetch --all
+#- git fetch --all
 - for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
