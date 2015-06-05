@@ -731,78 +731,6 @@ Readium){
             gesturesHandler = new GesturesHandler(readium.reader, readerOptions.el);
             gesturesHandler.initialize();
 
-            //epubReadingSystem
-
-            Versioning.getVersioningInfo(function(version){
-
-                $('#app-container').append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
-
-                window.navigator.epubReadingSystem.name = "readium-js-viewer";
-                window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;
-
-                window.navigator.epubReadingSystem.readium = {};
-
-                window.navigator.epubReadingSystem.readium.buildInfo = {};
-
-                window.navigator.epubReadingSystem.readium.buildInfo.dateTime = version.dateTimeString; //new Date(timestamp).toString();
-                window.navigator.epubReadingSystem.readium.buildInfo.version = version.readiumJsViewer.version;
-                window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion = version.readiumJsViewer.chromeVersion;
-
-                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories = [];
-
-                var repo1 = {};
-                repo1.name = "readium-js-viewer";
-                repo1.sha = version.readiumJsViewer.sha;
-                repo1.tag = version.readiumJsViewer.tag;
-                repo1.version = version.readiumJsViewer.version;
-                repo1.clean = version.readiumJsViewer.clean;
-                repo1.branch = version.readiumJsViewer.branch;
-                repo1.release = version.readiumJsViewer.release;
-                repo1.timestamp = version.readiumJsViewer.timestamp;
-                repo1.url = "https://github.com/readium/" + repo1.name + "/tree/" + repo1.sha;
-                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo1);
-
-                var repo2 = {};
-                repo2.name = "readium-js";
-                repo2.sha = version.readiumJs.sha;
-                repo2.tag = version.readiumJs.tag;
-                repo2.version = version.readiumJs.version;
-                repo2.clean = version.readiumJs.clean;
-                repo2.branch = version.readiumJs.branch;
-                repo2.release = version.readiumJs.release;
-                repo2.timestamp = version.readiumJs.timestamp;
-                repo2.url = "https://github.com/readium/" + repo2.name + "/tree/" + repo2.sha;
-                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo2);
-
-                var repo3 = {};
-                repo3.name = "readium-shared-js";
-                repo3.sha = version.readiumSharedJs.sha;
-                repo3.tag = version.readiumSharedJs.tag;
-                repo3.version = version.readiumSharedJs.version;
-                repo3.clean = version.readiumSharedJs.clean;
-                repo3.branch = version.readiumSharedJs.branch;
-                repo3.release = version.readiumSharedJs.release;
-                repo3.timestamp = version.readiumSharedJs.timestamp;
-                repo3.url = "https://github.com/readium/" + repo3.name + "/tree/" + repo3.sha;
-                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo3);
-
-                var repo4 = {};
-                repo4.name = "readium-cfi-js";
-                repo4.sha = version.readiumCfiJs.sha;
-                repo4.tag = version.readiumCfiJs.tag;
-                repo4.version = version.readiumCfiJs.version;
-                repo4.clean = version.readiumCfiJs.clean;
-                repo4.branch = version.readiumCfiJs.branch;
-                repo4.release = version.readiumCfiJs.release;
-                repo4.timestamp = version.readiumCfiJs.timestamp;
-                repo4.url = "https://github.com/readium/" + repo4.name + "/tree/" + repo4.sha;
-                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo4);
-
-                // Debug check:
-                //console.debug(JSON.stringify(window.navigator.epubReadingSystem, undefined, 2));
-            });
-
-
             $(window).on('keyup', function(e)
             {
                 if (e.keyCode === 9 || e.which === 9)
@@ -905,8 +833,6 @@ Readium){
 
             EpubReaderBackgroundAudioTrack.init(readium);
 
-            loadEbook(url, readerSettings, openPageRequest);
-
             readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
 console.debug("ANNOTATION CLICK: " + id);
                 readium.reader.plugins.annotations.removeHighlight(id);
@@ -918,6 +844,81 @@ console.debug("ANNOTATION CLICK: " + id);
                 });
             }
 
+            //epubReadingSystem
+
+            Versioning.getVersioningInfo(function(version){
+
+                $('#app-container').append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+
+                window.navigator.epubReadingSystem.name = "readium-js-viewer";
+                window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;
+
+                window.navigator.epubReadingSystem.readium = {};
+
+                window.navigator.epubReadingSystem.readium.buildInfo = {};
+
+                window.navigator.epubReadingSystem.readium.buildInfo.dateTime = version.dateTimeString; //new Date(timestamp).toString();
+                window.navigator.epubReadingSystem.readium.buildInfo.version = version.readiumJsViewer.version;
+                window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion = version.readiumJsViewer.chromeVersion;
+
+                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories = [];
+
+                var repo1 = {};
+                repo1.name = "readium-js-viewer";
+                repo1.sha = version.readiumJsViewer.sha;
+                repo1.tag = version.readiumJsViewer.tag;
+                repo1.version = version.readiumJsViewer.version;
+                repo1.clean = version.readiumJsViewer.clean;
+                repo1.branch = version.readiumJsViewer.branch;
+                repo1.release = version.readiumJsViewer.release;
+                repo1.timestamp = version.readiumJsViewer.timestamp;
+                repo1.url = "https://github.com/readium/" + repo1.name + "/tree/" + repo1.sha;
+                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo1);
+
+                var repo2 = {};
+                repo2.name = "readium-js";
+                repo2.sha = version.readiumJs.sha;
+                repo2.tag = version.readiumJs.tag;
+                repo2.version = version.readiumJs.version;
+                repo2.clean = version.readiumJs.clean;
+                repo2.branch = version.readiumJs.branch;
+                repo2.release = version.readiumJs.release;
+                repo2.timestamp = version.readiumJs.timestamp;
+                repo2.url = "https://github.com/readium/" + repo2.name + "/tree/" + repo2.sha;
+                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo2);
+
+                var repo3 = {};
+                repo3.name = "readium-shared-js";
+                repo3.sha = version.readiumSharedJs.sha;
+                repo3.tag = version.readiumSharedJs.tag;
+                repo3.version = version.readiumSharedJs.version;
+                repo3.clean = version.readiumSharedJs.clean;
+                repo3.branch = version.readiumSharedJs.branch;
+                repo3.release = version.readiumSharedJs.release;
+                repo3.timestamp = version.readiumSharedJs.timestamp;
+                repo3.url = "https://github.com/readium/" + repo3.name + "/tree/" + repo3.sha;
+                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo3);
+
+                var repo4 = {};
+                repo4.name = "readium-cfi-js";
+                repo4.sha = version.readiumCfiJs.sha;
+                repo4.tag = version.readiumCfiJs.tag;
+                repo4.version = version.readiumCfiJs.version;
+                repo4.clean = version.readiumCfiJs.clean;
+                repo4.branch = version.readiumCfiJs.branch;
+                repo4.release = version.readiumCfiJs.release;
+                repo4.timestamp = version.readiumCfiJs.timestamp;
+                repo4.url = "https://github.com/readium/" + repo4.name + "/tree/" + repo4.sha;
+                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo4);
+
+                // Debug check:
+                //console.debug(JSON.stringify(window.navigator.epubReadingSystem, undefined, 2));
+
+
+
+
+                loadEbook(url, readerSettings, openPageRequest);
+            });
         });
     }
 

@@ -162,9 +162,7 @@ devDependencies:
 
     "crx": 'latest'
 
-    # not latest version 3.x.x major update, theoretically breaks backward compatibility,
-    # see https://github.com/domenic/chai-as-promised/issues/108
-    "chai": '^2.0.0'
+    "chai": 'latest'
     "chai-as-promised": 'latest'
 
     "github": 'latest'

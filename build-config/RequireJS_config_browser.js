@@ -26,11 +26,13 @@ window.process._RJS_rootDir = function(n)
     if (n == 0) return "readium-js/readium-shared-js/readium-cfi-js";
 };
 
+window.process._RJS_isBrowser = true;
+
 require.config({
 
     paths:
     {
         "version":
-            process._RJS_rootDir(3) + '/build-output/version'
+            process._RJS_rootDir(3) + '/dev/version'
     }
 });
