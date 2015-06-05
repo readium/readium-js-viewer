@@ -10,7 +10,7 @@ before_install:
 # READIUM JS VIEWER
 #
 #- git fetch --all
-#- for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
+#- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
 - git show-ref --heads
@@ -25,7 +25,7 @@ before_install:
 - cd readium-js
 #
 #- git fetch --all
-- for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
+- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
 - git show-ref --heads
@@ -40,7 +40,7 @@ before_install:
 - cd readium-shared-js
 #
 #- git fetch --all
-- for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
+- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
 - git show-ref --heads
@@ -55,7 +55,7 @@ before_install:
 - cd readium-cfi-js
 #
 #- git fetch --all
-- for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
+- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
 - git show-ref --heads
