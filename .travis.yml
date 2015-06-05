@@ -10,7 +10,7 @@ before_install:
 # READIUM JS VIEWER
 #
 #- git fetch --all
-- for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
+#- for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
 - git branch -avv
 - git remote -v
 - git show-ref --heads
