@@ -6,10 +6,10 @@ node_js:
 - '0.12'
 before_install:
 - git submodule update --init --recursive
-#- git fetch --all
 #
 # READIUM JS VIEWER
 #
+- git fetch --all
 - git branch -avv
 - git remote -v
 - git show-ref --heads
@@ -23,6 +23,7 @@ before_install:
 #
 - cd readium-js
 #
+- git fetch --all
 - git branch -avv
 - git remote -v
 - git show-ref --heads
@@ -36,6 +37,7 @@ before_install:
 #
 - cd readium-shared-js
 #
+- git fetch --all
 - git branch -avv
 - git remote -v
 - git show-ref --heads
@@ -49,6 +51,7 @@ before_install:
 #
 - cd readium-cfi-js
 #
+- git fetch --all
 - git branch -avv
 - git remote -v
 - git show-ref --heads
