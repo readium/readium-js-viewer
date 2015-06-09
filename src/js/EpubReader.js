@@ -1,6 +1,5 @@
 define([
 "readium_shared_js/globalsSetup",
-//"readium_plugin_example",
 './ModuleConfig',
 'jquery',
 'bootstrap',
@@ -26,7 +25,6 @@ define([
 
 function (
 globalSetup,
-//examplePluginConfig,
 moduleConfig,
 $,
 bootstrap,
@@ -49,10 +47,6 @@ EpubReaderBackgroundAudioTrack,
 GesturesHandler,
 Versioning,
 Readium){
-
-        //
-        // examplePluginConfig.borderColor = "blue";
-        // examplePluginConfig.backgroundColor = "cyan";
 
     var readium,
         embedded,
@@ -724,7 +718,9 @@ Readium){
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
                 console.log('PLUGINS INITIALIZED!');
-                readium.reader.plugins.annotations.initialize({annotationCSSUrl: readerOptions.annotationCSSUrl});
+                if (readium.reader.plugins.annotations) {
+                    readium.reader.plugins.annotations.initialize({annotationCSSUrl: readerOptions.annotationCSSUrl});
+                }
             });
 
             //setup gestures support with hummer
