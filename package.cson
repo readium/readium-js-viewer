@@ -293,6 +293,12 @@ scripts:
     '
 
 #=====================
+    'prebuild:scripts': '
+
+       npm run genPluginsConfig
+    '
+
+#=====================
     'prebuild:scripts:multiple': '
 
         npm run mkdirp
@@ -901,6 +907,13 @@ scripts:
     #            && npm run webbrowser
     #            && npm run rimraf
     #                  open_webbrowser.js\"
+
+#=====================
+    'genPluginsConfig': '
+        cd readium-js/readium-shared-js/
+        &&
+        node readium-cfi-js/readium-build-tools/pluginsConfigMaker.js
+    '
 
 #=====================
     'httpApp': '
