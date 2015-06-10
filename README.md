@@ -32,6 +32,19 @@ Note that the above command executes the following:
 * `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
 * `npm update` (to make sure that the dependency tree is up to date)
 
+**Git branch initialization:**
+
+* Simply `cd` inside each repository / submodule, and manually enter the desired branch name: `git checkout BRANCH_NAME` (Git should automatically track the corresponding branch in the 'origin' remote).
+
+
+Otherwise, the commands below automate some of the process (this requires a recent Bash shell scripted command line environment):
+
+* `for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done` to ensure that all Git 'origin' remotes are tracked by local branches.
+* `git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`` to ensure that Git checks-out actual branch names (as by default Git initializes submodules to match their registered Git SHA1 commit, but in detached HEAD state)
+
+(repeat for each repository / submodule)
+
+
 **Typical workflow:**
 
 No RequireJS optimization:
