@@ -896,7 +896,7 @@ scripts:
     #                  open_webbrowser.js\"
 
 #=====================
-    'httpApp': '
+    'http:app': '
 
         node
             readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
