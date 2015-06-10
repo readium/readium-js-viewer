@@ -59,12 +59,9 @@ Or to use optimized Javascript bundles (single or multiple):
 * `npm run http:watch` (to launch an http server, automatically opens a web browser instance to the HTML files in the `dev` folder)
 * `npm run http` (same as above, but without watching for file changes (no automatic rebuild))
 
-And finally to update the distribution packages:
+And finally to update the distribution packages (automatically calls the `build` task above, so `npm run build` is redundant):
 
-* `npm run dist` (Chrome extension and cloud reader)
-* `npm run dist:all` (same as above, plus the "lite" cloud reader without the ebook library feature)
-
-Note that the `dist` build task only creates the 'single' RequireJS bundle (not the 'single-LITE' version, and not the 'multiple' one). This is to speed-up the build process at development / testing time. The `dist:all` task builds everything (useful to update the NPM package).
+* `npm run dist` (Chrome extension and cloud reader, including the lite / no-library variant)
 
 ## NPM (Node Package Manager)
 
