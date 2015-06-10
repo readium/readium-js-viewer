@@ -24,7 +24,7 @@ require.config({
             name: "readium-js-viewer",
             create: true,
             include: ["readium_js_viewer/ReadiumViewer"],
-            exclude: ["readium-js", "readium-external-libs", "readium-shared-js", "readium-cfi-js", "readium-plugin-example", "readium-plugin-annotations"],
+            exclude: ["readium-js", "readium-external-libs", "readium-shared-js", "readium-cfi-js"],
             insertRequire: [
                 "readium_js_viewer/ReadiumViewer"
             ]
@@ -34,7 +34,7 @@ require.config({
             name: "readium-js-viewer_LITE",
             create: true,
             include: ["readium_js_viewer/ReadiumViewerLite"],
-            exclude: ["readium-js", "readium-external-libs", "readium-shared-js", "readium-cfi-js", "readium-plugin-example", "readium-plugin-annotations"],
+            exclude: ["readium-js", "readium-external-libs", "readium-shared-js", "readium-cfi-js"],
             insertRequire: [
                 "readium_js_viewer/ReadiumViewerLite"
             ]

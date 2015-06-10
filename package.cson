@@ -271,6 +271,22 @@ scripts:
     '
 
 #=====================
+    'genPluginsConfig': '
+
+        cd readium-js/readium-shared-js/
+        &&
+        node readium-cfi-js/readium-build-tools/pluginsConfigMaker.js
+        &&
+        cd ../..
+    '
+
+#=====================
+    'prebuild:scripts': '
+
+       npm run genPluginsConfig
+    '
+
+#=====================
     'prebuild:scripts:multiple': '
 
         npm run mkdirp
@@ -548,21 +564,24 @@ scripts:
             --skip-media-merging
             --skip-restructuring
             --skip-shorthand-compacting
-            node_modules/bootstrap/dist/css/bootstrap.css
-            node_modules/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css
-            src/css/sourcesanspro.css
-            src/css/readium_js.css
-            src/css/viewer.css
-            src/css/viewer_audio.css
-            src/css/settings.css
+            "node_modules/bootstrap/dist/css/bootstrap.css"
+            "node_modules/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css"
+            "src/css/sourcesanspro.css"
+            "src/css/readium_js.css"
+            "src/css/viewer.css"
+            "src/css/viewer_audio.css"
+            "src/css/settings.css"
     '
 
 #=====================
     'dist:cloudReader:css': '
 
-        npm run dist:cssoptimize
-            -o dist/cloud-reader/css/readium-all.css
-            src/css/library.css
+        npm run mkdirp
+            dist/cloud-reader/css
+        &&
+        npm run dist:cssoptimize --
+            "src/css/library.css"
+            "-o" "dist/cloud-reader/css/readium-all.css"
     '
 
 #=====================
@@ -659,8 +678,11 @@ scripts:
 #=====================
     'dist:cloudReaderLite:css': '
 
-        npm run dist:cssoptimize
-            -o dist/cloud-reader-lite/css/readium-all.css
+        npm run mkdirp
+            dist/cloud-reader-lite/css
+        &&
+        npm run dist:cssoptimize --
+            "-o" "dist/cloud-reader-lite/css/readium-all.css"
     '
 
 #=====================
@@ -874,7 +896,7 @@ scripts:
     #                  open_webbrowser.js\"
 
 #=====================
-    'http:app': '
+    'httpApp': '
 
         node
             readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
