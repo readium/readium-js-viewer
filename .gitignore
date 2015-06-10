@@ -1,6 +1,6 @@
 build-output
 dist
-
+.idea
 .DS_Store
 .divshot-cache
 node_modules
