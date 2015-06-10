@@ -39,8 +39,8 @@ Note that the above command executes the following:
 
 Otherwise, the commands below automate some of the process (this requires a recent Bash shell scripted command line environment):
 
-* `for remote in `` `git branch -r | grep -v \> | grep -v master` ``; do git branch --track ${remote#origin/} $remote; done` to ensure that all Git 'origin' remotes are tracked by local branches.
-* `git checkout `` `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1` `` ` to ensure that Git checks-out actual branch names (as by default Git initializes submodules to match their registered Git SHA1 commit, but in detached HEAD state)
+* ``for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done`` to ensure that all Git 'origin' remotes are tracked by local branches.
+* ``git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1` `` to ensure that Git checks-out actual branch names (as by default Git initializes submodules to match their registered Git SHA1 commit, but in detached HEAD state)
 
 (repeat for each repository / submodule)
 
