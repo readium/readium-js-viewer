@@ -77,6 +77,7 @@ Mocha-driven UI tests via Selenium (not PhantomJS, but actual installed browsers
 * `npm run test:chrome`
 * `npm run test:chromeApp`
 
+
 * `npm run test` (runs all of the above)
 
 Via SauceLabs:
@@ -84,6 +85,7 @@ Via SauceLabs:
 * `npm run test:sauce:firefox`
 * `npm run test:sauce:chrome`
 * `npm run test:sauce:chromeApp`
+
 
 * `npm run test:sauce` (runs all of the above)
 
