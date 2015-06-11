@@ -114,7 +114,14 @@
 			};
 
 			// DEBUG ONLY!
-			if (fs.existsSync('dist/testbooks.zip')) {
+			var zipAlreadyExists = false;
+			try {
+					fs.accessSync(path.join(process.cwd(), 'dist', 'testbooks.zip'));
+					zipAlreadyExists = true;
+			} catch (e) {
+					// ignored
+			}
+			if (zipAlreadyExists) {
 					console.log('ALREADY DOWNLOADED: dist/testbooks.zip');
 					processZip();
 					return;
