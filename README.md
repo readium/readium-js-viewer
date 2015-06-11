@@ -63,6 +63,8 @@ And finally to update the distribution packages (automatically calls the `build`
 
 * `npm run dist` (Chrome extension and cloud reader, including the lite / no-library variant)
 
+Note that by default, compiled RequireJS bundles are minified / optimized / uglify-ed. You can force the build process to generate non-compressed Javascript bundles by setting the `RJS_UGLY` environment variable to "no" or "false" (any other value means "yes" / "true").
+
 ## NPM (Node Package Manager)
 
 All packages "owned" and maintained by the Readium Foundation are listed here: https://www.npmjs.com/~readium
