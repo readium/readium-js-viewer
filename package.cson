@@ -1042,7 +1042,7 @@ scripts:
     '
 
 #=====================
-    'pretest:sauce': '
+    'pretest:sauce:chromeApp': '
 
         npm run crx
     '
@@ -1050,7 +1050,39 @@ scripts:
 #=====================
     'test:sauce': '
 
+        npm run test:sauce:chromeApp
+        &&
+        npm run test:sauce:firefox
+        &&
+        npm run test:sauce:chrome
+    '
+
+#=====================
+    'test:sauce:chromeApp': '
+
         npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chromeApp
+    '
+
+#=====================
+    'test:sauce:firefox': '
+
+        npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=firefox
+    '
+
+#=====================
+    'test:sauce:chrome': '
+
+        npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chrome
+    '
+
+#=====================
+    'test': '
+
+        npm run test:chromeApp
+        &&
+        npm run test:firefox
+        &&
+        npm run test:chrome
     '
 
 #=====================
