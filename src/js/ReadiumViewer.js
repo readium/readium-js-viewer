@@ -29,7 +29,12 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 	$(initialLoad);
 
 	var pushState = $.noop;
-	if (window.history && window.history.pushState){
+
+	var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
+			&& chrome.app.window && chrome.app.window.current; // a bit redundant?
+
+	if (!isChromeExtensionPackagedApp // "history.pushState is not available in packaged apps"
+			&& window.history && window.history.pushState){
 		$(window).on('popstate', function(){
 			var state = history.state;
 			if (state && state.epub){
