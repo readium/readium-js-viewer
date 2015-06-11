@@ -63,9 +63,45 @@ And finally to update the distribution packages (automatically calls the `build`
 
 * `npm run dist` (Chrome extension and cloud reader, including the lite / no-library variant)
 
-Note that by default, compiled RequireJS bundles are minified / optimized / uglify-ed. You can force the build process to generate non-compressed Javascript bundles by setting the `RJS_UGLY` environment variable to "no" or "false" (any other value means "yes" / "true").
+## RequireJS bundle optimisation
+
+Note that by default, compiled RequireJS bundles are minified / mangled / uglify-ed. You can force the build process to generate non-compressed Javascript bundles by setting the `RJS_UGLY` environment variable to "no" or "false" (any other value means "yes" / "true").
+
+This may come-in handy when testing / debugging the Chrome Extension (Packaged App) in "developer mode" directly from the `dist` folder (i.e. without the sourcemaps manually copied into the script folder).
+
+## Tests
+
+Mocha-driven UI tests via Selenium (not PhantomJS, but actual installed browsers accessed via WebDriver):
+
+* `npm run test:firefox`
+* `npm run test:chrome`
+* `npm run test:chromeApp`
+
+* `npm run test` (runs all of the above)
+
+Via SauceLabs:
+
+* `npm run test:sauce:firefox`
+* `npm run test:sauce:chrome`
+* `npm run test:sauce:chromeApp`
+
+* `npm run test:sauce` (runs all of the above)
+
+Travis (Continuous Integration) automatically uses a chromeApp and Firefox test matrix (2x modes), and uses SauceLabs to actually run the test.
+
+## Distribution
+
+See the `dist` folder contents:
+
+* `cloud-reader`
+* `cloud-reader-lite` (same as above, without the ebook library feature)
+* `chrome-app` (Google Chrome Extension / Packaged App)
+
+The source maps are generated separately, so they are effectively an opt-in feature (simply copy/paste them next to their original Javascript file counterparts, e.g. in the `scripts` folder)
 
 ## NPM (Node Package Manager)
+
+NOTE THAT THIS FEATURE IS NOT FULLY IMPLEMENTED YET (PLEASE REFERENCE THE GITHUB REPOSITORIES INSTEAD FROM YOUR PACKAGE.JSON)
 
 All packages "owned" and maintained by the Readium Foundation are listed here: https://www.npmjs.com/~readium
 
@@ -83,7 +119,7 @@ See below if you need to hack the code.
 
 ## How to use (RequireJS bundles / AMD modules)
 
-The `build-output` directory contains common CSS styles, as well as two distinct folders:
+The `build-output` directory contains two distinct folders:
 
 ### Single bundle
 
