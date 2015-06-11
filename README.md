@@ -77,8 +77,7 @@ Mocha-driven UI tests via Selenium (not PhantomJS, but actual installed browsers
 * `npm run test:chrome`
 * `npm run test:chromeApp`
 
-
-* `npm run test` (runs all of the above)
+`npm run test` (runs all of the above)
 
 Via SauceLabs:
 
@@ -86,8 +85,7 @@ Via SauceLabs:
 * `npm run test:sauce:chrome`
 * `npm run test:sauce:chromeApp`
 
-
-* `npm run test:sauce` (runs all of the above)
+`npm run test:sauce` (runs all of the above)
 
 Travis (Continuous Integration) automatically uses a chromeApp and Firefox test matrix (2x modes), and uses SauceLabs to actually run the test.
 
