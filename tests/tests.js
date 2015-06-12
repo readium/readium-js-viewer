@@ -19,7 +19,9 @@ describe("chrome extension tests", function() {
 
 
   var addLibraryItemForApp = function(filePath){
-  	return this
+      console.log(filePath);
+      
+      return this
   			.waitForElementByCss('.icon-add-epub',asserters.isDisplayed, 10000)
 	  		.click()
 	  		.waitForElementByCss('#add-epub-dialog', asserters.isDisplayed, 10000)
@@ -67,8 +69,23 @@ describe("chrome extension tests", function() {
     else{
   	   browser = wd.promiseChainRemote();
     }
+
 console.log(config.browser.browserName);
+
     var retVal = browser.init(config.browser).setAsyncScriptTimeout(30000);
+    
+            browser.on('status', function(info) {
+               //console.log('STATUS >', info);
+           });
+
+            browser.on('command', function(meth, path, data) {
+               //console.log('COMMAND >', meth, path, (data || ''));
+           });
+
+            browser.on('http', function(meth, path, data) {
+               //console.log('HTTP >', meth, path, (data || ''));
+           });
+    
 //console.log(retVal);
     if (process.env.TRAVIS_JOB_NUMBER){
       return retVal.sauceJobUpdate({name: process.env.TRAVIS_JOB_NUMBER});
@@ -79,7 +96,10 @@ console.log(config.browser.browserName);
   });
 
   afterEach(function() {
-    return browser.quit();
+    return browser
+        //.log('browser')
+        //.then(function(logs) { console.log(logs);})
+      .quit();
   });
 
   if (config.chromeExtension){
