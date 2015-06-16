@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en"
 	lang="en">
 	<head>
-		<title>navigator.epubReadingSystem</title>
+		<title>navigator.epubReadingSystem within inner SUB IFRAME (e.g. nested widget)</title>
 
 <style type="text/css">
 /*<![CDATA[*/
@@ -34,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function()
 {
     epubReadingSystem();
     
-    window.frameElement.ownerDocument.body.style.background = "green";
+    window.frameElement.ownerDocument.body.style.background = "magenta";
+    window.document.body.style.background = "yellow";
     console.debug(location);
     console.debug(window.frameElement.baseURI); //ownerDocument.defaultView
     
@@ -155,20 +156,10 @@ function epubReadingSystem()
 
 	</head>
 	<body>
-		<h1><img src="./Readium_logo.png" style="width:40px; height: 40px;"/>epubReadingSystem</h1>
+		<h1><img src="../Readium_logo.png" style="width:40px; height: 40px;"/>epubReadingSystem</h1>
+            
+		<h2>(NESTED IFRAME)</h2>
 
-		<h2>(SPINE ITEM)</h2>
-
-<iframe width="100%" height="300" src="iframe/iframe.xhtml"></iframe>
-
-<!--
-<iframe src="test1.xhtml"></iframe>
-<iframe src="test2.xhtml" width="100%" height="400" />
-<iframe src='test3.xhtml'/>
-<iframe src = 'test4.xhtml'/>
--->
-
-				<hr/>
 
         <div id="placeholder"></div>
 
@@ -179,7 +170,6 @@ function epubReadingSystem()
 				<p>
 				<a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#app-epubReadingSystem" target="_BLANK">http://www.idpf.org/epub/301/spec/epub-contentdocs.html#app-epubReadingSystem</a>
 				</p>
-
 
 						<p>
 						<math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -205,7 +195,6 @@ function epubReadingSystem()
 				<p>
 				<button onclick="Javascript:window.open('http://www.idpf.org/epub/301/spec/epub-contentdocs.html#app-epubReadingSystem');">window.open(xxx)</button>
 				</p>
-
 
 	</body>
 </html>
