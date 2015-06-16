@@ -11,7 +11,7 @@
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define(['URIjs'],function(URI){
+define(['URIjs', 'screenfull'],function(URI, screenfull){
 
 
     //URI library doesn't handle correctly combination of "filesystem:chrome-extension:"
@@ -49,7 +49,11 @@ define(['URIjs'],function(URI){
             return oldAbsoluteTo.call(this, base);
         }
 	};
-
+	screenfull.onchange = function(e) {
+		if (chrome.app.window.current().isFullscreen()) {
+			chrome.app.window.current().restore();
+		}
+	}
 	Settings = {
 		put : function(key, val, callback){
 			var obj = {};
