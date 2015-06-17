@@ -11,16 +11,15 @@ var child_process = require('child_process');
 
 args.unshift(path.join(process.cwd(), 'node_modules', 'http-server', 'bin', 'http-server'));
 
-var child = child_process.execFile('node', args, function(error, stdout, stderr){
-	if (error) console.log(error);
-  //if (stdout) console.log(stdout);
-  //if (stderr) console.log(stderr);
-});
+var child = child_process.spawn('node', args);
 child.stdout.on('data', function(data) {
     console.log(data.toString());
 });
 child.stderr.on('data', function(data) {
     console.log(data.toString());
+});
+child.on('close', function(code) {
+  console.log('HTTP child process exit code: ' + code);
 });
 child.on('exit', function() {
   setTimeout(function(){
