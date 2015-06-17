@@ -245,7 +245,7 @@ requirejs.config({
 CSON = CoffeeScript-Object-Notation ( https://github.com/bevry/cson )
 
 Running the command `npm run cson2json` will re-generate the `package.json` JSON file.
-For more information, see comments in the master `package.cson` CSON file.
+For more information, see comments in the master `./package/package_base.cson` CSON file.
 
 Why CSON? Because it is a lot more readable than JSON, and therefore easier to maintain.
 The syntax is not only less verbose (separators, etc.), more importantly it allows *comments* and *line breaking*!
