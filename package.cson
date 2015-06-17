@@ -897,7 +897,7 @@ scripts:
                 && npm run webBrowser
                 && npm run rimraf
                     open_webbrowser.js\"
-            readium-js/readium-shared-js/plugins/plugins.json
+            readium-js/readium-shared-js/plugins/
     '
     
 #=====================
