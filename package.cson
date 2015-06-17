@@ -858,7 +858,20 @@ scripts:
         echo > open_webbrowser.js
         &&
         parallelshell
-            \"npm run watcher\"
+            \"npm run dowatch\"
+            \"npm run http:ebooks\"
+            \"npm run http:app\"
+    '
+#    \"npm run live-reload\"
+
+#=====================
+#### BLOCKING! (CTRL-C) [watch][live-reload][http]
+    'http:watch:plugins': '
+
+        echo > open_webbrowser.js
+        &&
+        parallelshell
+            \"npm run dowatch:plugins\"
             \"npm run http:ebooks\"
             \"npm run http:app\"
     '
@@ -876,7 +889,20 @@ scripts:
 
 #=====================
 #### BLOCKING! (CTRL-C) [watch or nodemon]
-    'watcher': '
+    'dowatch:plugins': '
+
+        npm run watch
+            \"npm run genPluginsConfig
+                && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
+                && npm run webBrowser
+                && npm run rimraf
+                    open_webbrowser.js\"
+            readium-js/readium-shared-js/plugins/plugins.json
+    '
+    
+#=====================
+#### BLOCKING! (CTRL-C) [watch or nodemon]
+    'dowatch': '
 
         npm run watch
             \"npm run build
@@ -884,7 +910,7 @@ scripts:
                 && npm run webBrowser
                 && npm run rimraf
                     open_webbrowser.js\"
-            dev/ src/ readium-js/js/ readium-shared-js/js/ readium-shared-js/plugins/ readium-shared-js/readium-cfi-js/js/
+            dev/ src/ readium-js/js/ readium-js/readium-shared-js/js/ readium-js/readium-shared-js/plugins/ readium-js/readium-shared-js/readium-cfi-js/js/
     '
     #    nodemon -q
     #    -w build-output/
