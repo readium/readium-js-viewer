@@ -99,6 +99,36 @@ See the `dist` folder contents:
 
 The source maps are generated separately, so they are effectively an opt-in feature (simply copy/paste them next to their original Javascript file counterparts, e.g. in the `scripts` folder)
 
+## Cloud reader deployment
+
+The `cloud-reader` distribution folder (see section above) can be uploaded to an HTTP server as-is,
+in which case a sibling `/epub_content/` folder is expected to contain exploded or zipped EPUBs,
+and the `/epub_content/epub_library.json` file is expected to describe the available ebooks in the online library
+(see the existing examples in `readium-js-viewer` repository). Additionally, the `epubs` URL parameter (HTTP GET)
+can be used to specify a different location for the JSON file that describes the ebook library contents, for example:
+`http://domain.com/index.html?epubs=http://otherdomain.com/ebooks.json` (assuming both HTTP servers are suitably configured with CORS),
+or for example `http://domain.com/index.html?epubs=EPUBs/ebooks.json` (assuming a folder named `EPUBs/` exists as a sibling of `index.html`,
+and this folder contains the `ebooks.json` file). Finally, the ebook library can be permanently set to a specific location,
+by editing `cloud-reader/index.html` and by replacing the value of `epubLibraryPath`:
+```javascript
+require.config({
+config : {
+        'readium_js_viewer/ModuleConfig' : {
+            'epubLibraryPath`: VALUE
+        }
+});
+```
+
+The `cloud-reader-lite` distribution does not feature an ebook library, so EPUBs must be specified via the URL parameter (HTTP GET), for example:
+`http://domain.com/index.html?epub=http://otherdomain.com/ebook.epub` (assuming both HTTP servers are suitably configured with CORS),
+or for example `http://domain.com/index.html?epub=EPUBs/ebook.epub` (assuming a folder named `EPUBs/` exists as a sibling of `index.html`,
+and this folder contains the `ebook.epub` file
+(note that the folder name is arbitrary, and it may in fact follow the default naming convention: `epub_content/`)).
+
+
+For more information about HTTP CORS, see https://docs.google.com/document/d/1RK_59-75OSE0PA6wexD9rYHQLnNYfoKIpsnH3SmDpUc
+
+
 ## NPM (Node Package Manager)
 
 NOTE THAT THIS FEATURE IS NOT FULLY IMPLEMENTED YET (PLEASE REFERENCE THE GITHUB REPOSITORIES INSTEAD FROM YOUR PACKAGE.JSON)
