@@ -54,3 +54,7 @@
     height: 85%;
     background-color: transparent;
 }
+
+a {
+  color: CornflowerBlue !important;
+}
