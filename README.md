@@ -19,12 +19,11 @@ The viewer is the default viewer for Readium.js, a JS library for rendering EPUB
 
 ReadiumJS uses git submodules to embed other repositories and it uses [Node.js](http://nodejs.org/) and associated tools and libraries. Do the following steps to be up and running:
 
-  * Install [Node.js](http://nodejs.org) (details depend on your operating system)
-  * Install the Grunt build tool using the command line: `npm install -g grunt-cli` (requires at least version 0.4.4)
   * From the command line run `git clone https://github.com/readium/readium-js-viewer.git`
   * From the command line run `cd readium-js-viewer`
   * From the command line run `git submodule update --init --recursive`
-  * install Node.JS
+  * Install [Node.js](http://nodejs.org) (details depend on your operating system)
+  * Install the Grunt build tool using the command line: `npm install -g grunt-cli` (requires at least version 0.4.4)
   * From the command line run `npm install -g grunt-cli`
   * From the command line run `npm install` (in the readium-js-viewer directory)
   * From the command line run `cd readium-js`
