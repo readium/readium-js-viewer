@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Readium",
   "description": "EPUB reader for Chrome",
-  "version": "2.20.0",
+  "version": "0.0.0",
   "default_locale" : "en_US",
   "app": {
       "background": {
@@ -18,4 +18,5 @@
   "permissions" : [
     "https://www.google-analytics.com/*",
     "storage", "unlimitedStorage", "app.window.fullscreen"]
+
 }
