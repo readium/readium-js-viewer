@@ -140,8 +140,8 @@ Versioning){
 		});
 	}
 
-	var showError = function(errorCode){
-		Dialogs.showError(errorCode);
+	var showError = function(errorCode, data){
+		Dialogs.showError(errorCode, data);
 	}
 
 	var loadDetails = function(e){

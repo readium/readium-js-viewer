@@ -2,8 +2,10 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
 
 	var worker;
 	var cleanupWorker = function(){
-		worker.terminate();
-		worker = null;
+		if (worker) {
+			worker.terminate();
+			worker = null;
+		}
 	}
 	var doWork = function(data, callbacks){
 		if (worker){
@@ -24,9 +26,9 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
 		}
 
 		var innerError = callbacks.error || $.noop;
-		var error = function(error){
+		var error = function(error, data){
 			cleanupWorker();
-			innerError(error);
+			innerError(error, data);
 		}
 
 
@@ -67,16 +69,23 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
 					break;
 				case Messages.PARSE_PACKAGE:
 					var packageDom = (new DOMParser()).parseFromString(data.packageStr, "text/xml");
-					var packageObj = PackageParser.parsePackageDom(packageDom);
+					var errors = $(packageDom).find('parsererror');
+					if (errors.length) {
+						error(Messages.ERROR_PACKAGE_PARSE, $(errors).find('div').text());
+	                    console.error('There was an xml parsing error when trying to parse the package dom');
+					}
+					else {
+						var packageObj = PackageParser.parsePackageDom(packageDom);
 
-                    var encryptionData;
-                    if(data.encryptionStr) {
-                        var encryptionDom = (new DOMParser()).parseFromString(data.encryptionStr, "text/xml");
+	                    var encryptionData;
+	                    if(data.encryptionStr) {
+	                        var encryptionDom = (new DOMParser()).parseFromString(data.encryptionStr, "text/xml");
 
-                        encryptionData = EncryptionHandler.CreateEncryptionData(packageObj.id, encryptionDom);
-                    }
+	                        encryptionData = EncryptionHandler.CreateEncryptionData(packageObj.id, encryptionDom);
+	                    }
 
-					worker.postMessage({msg: Messages.PARSE_PACKAGE_RESPONSE, packageObj: packageObj, encryptionData: encryptionData});
+						worker.postMessage({msg: Messages.PARSE_PACKAGE_RESPONSE, packageObj: packageObj, encryptionData: encryptionData});
+					}
 					break;
 				default:
 					error(data.errorMsg || "Unknown error");
