@@ -27,8 +27,8 @@ describe("chrome extension tests", function() {
 	  		.waitForElementByCss('#add-epub-dialog', asserters.isDisplayed, 10000)
 	  		.elementByCss('#epub-upload')
 	  		.sendKeys(filePath)
-	  		.waitForElementByCss('.progress-bar', asserters.isDisplayed, 10000)
-  			.waitForElementByCss('.library-item', asserters.isDisplayed, 10000)
+	  		//.waitForElementByCss('.progress-bar', asserters.isDisplayed, 10000)
+  			.waitForElementByCss('.library-item', asserters.isDisplayed, 20000)
   			.sleep(500);//wait for the modal dialog backdrop to fade
   }
 
