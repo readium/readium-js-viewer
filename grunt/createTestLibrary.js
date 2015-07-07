@@ -15,13 +15,13 @@
 
 module.exports = function(grunt) {
 	
-	var testbooksUrl = 'https://readiumfoundation.box.com/shared/static/9tv7s250je6io8nebxvh.zip';
+	var testbooksUrl = 'http://epubtest.org/epubs/TestSuiteDocuments.zip';
 
     grunt.registerTask("createTestLibrary", function() {
     	var httpreq = require('httpreq');
     	var done = this.async();
 
-    	var unzip = require('unzip');
+    	var unzip = require('unzip2');
     	var fs = require('fs');
     	var path = require('path');
     	var parseString = require('xml2js').parseString;

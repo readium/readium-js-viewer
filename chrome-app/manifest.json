@@ -2,21 +2,18 @@
   "manifest_version": 2,
   "name": "Readium",
   "description": "EPUB reader for Chrome",
-  "version": "2.17.0",
+  "version": "2.20.1",
   "default_locale" : "en_US",
   "app": {
-      "launch": {
-         "local_path": "index.html"
-      }
+      "background": {
+        "scripts": ["background.js"]
+    }
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "minimum_chrome_version": "42",
   "icons": {
       "16": "icons/small.png",
       "48": "icons/medium.png",
       "128": "icons/large.png"
   }, 
-  "background": {
-    "scripts": ["background.js"]
-  },
-  "permissions" : ["storage", "unlimitedStorage"]
+  "permissions" : ["storage", "unlimitedStorage", "app.window.fullscreen"]
 }

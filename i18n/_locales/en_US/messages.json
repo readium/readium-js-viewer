@@ -97,7 +97,7 @@
     "message": "Replace"
   },
   "gethelp" : {
-    "message" : "If you encounter any problems, have questions, or would like to say hello, visit <a href=\"http://idpf.org/forums/readium\">our forum</a>"
+    "message" : "If you encounter any problems, have questions, or would like to say hello, visit <a target=\"_blank\" href=\"http://idpf.org/forums/readium\">our forum</a>"
   },
   "i18n_readium_library" : {
     "message" : "Readium Library"
@@ -344,7 +344,7 @@
   },
   
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium for Chrome is the Chrome browser extension configuration of ReadiumJS, an open source reading system and JavaScript library for displaying EPUB® publications in web browsers. ReadiumJS is a project of the Readium Foundation (Readium.org). To learn more or to contribute, visit the <a href=\"http://readium.org/projects/readiumjs\">project homepage</a>"
+    "message" : "Readium for Chrome is the Chrome browser extension configuration of ReadiumJS, an open source reading system and JavaScript library for displaying EPUB® publications in web browsers. ReadiumJS is a project of the Readium Foundation (Readium.org). To learn more or to contribute, visit the <a target=\"blank\" href=\"http://readium.org/projects/readiumjs\">project homepage</a>"
   },
   "i18n_toolbar" : {
     "message" : "Toolbar"
