@@ -19,10 +19,11 @@ define(['text!i18n/_locales/de/messages.json',
 		'text!i18n/_locales/it/messages.json', 
 		'text!i18n/_locales/ja/messages.json',
 		'text!i18n/_locales/ko/messages.json',
+		'text!i18n/_locales/pt/messages.json',
 		'text!i18n/_locales/pt_BR/messages.json',
 		'text!i18n/_locales/zh_CN/messages.json',
 		'text!i18n/_locales/zh_TW/messages.json'], 
-function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
+function(de, es, en_US, fr, id, it, ja, ko, pt, pt_BR, zh_CN, zh_TW){
 	var Strings = {};
 
 	Strings['de'] = de;
@@ -33,6 +34,7 @@ function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 	Strings['it'] = it;
 	Strings['ja'] = ja;
 	Strings['ko'] = ko;
+	Strings['pt'] = pt;
 	Strings['pt_BR'] = pt_BR;
 	Strings['zh_CN'] = zh_CN;
 	Strings['zh_TW'] = zh_TW;
