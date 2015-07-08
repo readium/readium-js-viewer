@@ -277,7 +277,13 @@ html[data-theme=night-theme] #right-page-btn:hover
     bottom: 0px;
     top: 38px;
 
-	overflow: hidden;
+	   overflow: hidden;
+}
+
+/* show outline on reading-area when iframe gets focus */
+.contentFocus {
+  outline: 1px dotted #6fb5f1 !important;
+  outline-offset: -3px;
 }
 
 #epub-reader-container {
@@ -291,6 +297,7 @@ html[data-theme=night-theme] #right-page-btn:hover
 	
 	overflow: hidden;
 }
+
 
 /* embedded mode styles */
 .embedded .navbar .btn-group > .btn.icon-full-screen, .embedded .navbar .btn-group > .btn.icon-toc{
