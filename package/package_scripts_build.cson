@@ -11,7 +11,7 @@
         npm --version
         &&
         npm run rimraf
-            build-output/*
+            build-output
         &&
         npm run rimraf
             dist
@@ -85,9 +85,11 @@
         &&
         npm run
             build:scripts:single:CHROMEAPP
+            --readium-js-viewer:RJS_UGLY=no
         &&
         npm run
             build:scripts:single:CHROMEAPPWORKER
+            --readium-js-viewer:RJS_UGLY=no
     '
 
 #=====================

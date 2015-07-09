@@ -3,6 +3,46 @@
 # See package.cson for more information
 #
 
+#=====================
+# This is a "shortcut" task for quick build+dist'ing the Chrome extension
+    'chromeApp': '
+
+        npm run clean
+        &&
+        npm run versioning
+        &&
+        npm run genPluginsConfig
+        &&
+        npm run
+            build:scripts:single:CHROMEAPP
+            --readium-js-viewer:RJS_UGLY=no
+        &&
+        npm run
+            build:scripts:single:CHROMEAPPWORKER
+            --readium-js-viewer:RJS_UGLY=no
+        &&
+        npm run mkdirp
+            dist
+        &&
+        npm run mkdirp
+            dist/cloud-reader/css
+        &&
+        npm run dist:cssoptimize --
+            "src/css/library.css"
+            "-o" "dist/cloud-reader/css/readium-all.css"
+        &&
+        npm run dist:chromeApp
+        &&
+        npm run rimraf
+            dist/cloud-reader
+        &&
+        npm run deploy:chromeApp:copy:sourcemap
+        &&
+        npm run rimraf
+            dist/chrome-app_sourcemap
+    '
+#npm run crx
+
 
 #=====================
     'predist:chromeApp': '
@@ -37,15 +77,15 @@
             dist/chrome-app/
         &&
         npm run cpy
-            build-output/z-worker.js
+            readium-js/node_modules/zip-js/WebContent/z-worker.js
             dist/chrome-app/scripts/zip
         &&
         npm run cpy
-            build-output/deflate.js
+            readium-js/node_modules/zip-js/WebContent/deflate.js
             dist/chrome-app/scripts/zip
         &&
         npm run cpy
-            build-output/inflate.js
+            readium-js/node_modules/zip-js/WebContent/inflate.js
             dist/chrome-app/scripts/zip
         &&
         npm run ncp

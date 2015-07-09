@@ -9,8 +9,6 @@
 
         npm run dist
         &&
-        npm run deploy:chromeApp:copy:sourcemap
-        &&
         npm run crx
         &&
         npm run deploy:cloudReader:copy:sourcemap
@@ -19,6 +17,7 @@
         &&
         npm run deploy:cloudReader:copy:epub_testsuite
     '
+# npm run deploy:chromeApp:copy:sourcemap
 
 #=====================
     'test:travis': '
@@ -61,9 +60,5 @@
         npm run ncp
             dist/chrome-app_sourcemap/
             dist/chrome-app/scripts/
-        &&
-        npm run ncp
-            dist/zip_sourcemap/
-            dist/chrome-app/scripts/zip/
     '
 
