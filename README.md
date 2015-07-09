@@ -63,6 +63,10 @@ And finally to update the distribution packages (automatically calls the `build`
 
 * `npm run dist` (Chrome extension and cloud reader, including the lite / no-library variant)
 
+The above task takes a lot of time (as it builds distributable packages for *all* ReadiumJS flavours), and is in fact not strictly necessary to test the cloud reader (see `npm run http` above, using the "no optimise" RequireJS option). Thankfully, the packaged code for the Chrome App / Extension can be quickly generated using this build command instead:
+
+* `npm run chromeApp` (generates a ready-to-use Readium packaged app for Chrome, inside the usual `dist/chrome-app` folder)
+
 **Plugins integration:**
 
 When invoking the `npm run build` command, the generated `build-output` folder contains RequireJS module bundles that include the default plugins specified in `readium-js/readium-js-shared/plugins/plugins.cson` (see the `readium-js/readium-js-shared/PLUGINS.md` documentation). Developers can override the default plugins configuration by using an additional file called `plugins-override.cson`. This file is git-ignored (not persistent in the Git repository), which means that Readium's default plugins configuration is never at risk of being mistakenly overridden by developers, whilst giving developers the possibility of creating custom builds on their local machines.
