@@ -90,9 +90,7 @@ script:
 - cd ../../../
 - cat build-output/version.json
 after_success:
-- npm install surge
-- echo "epub_content" > ./dist/cloud-reader/.surgeignore
-- surge --project ./dist/cloud-reader --domain readium.surge.sh
+- [ ${MODE} -eq "firefox" ] && npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh
 - node build-config/deployCrx.js
 after_failure: cat ./sauce_connect.log
 env:
