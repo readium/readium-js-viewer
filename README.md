@@ -133,6 +133,7 @@ or for example `http://domain.com/index.html?epub=EPUBs/ebook.epub` (assuming a 
 and this folder contains the `ebook.epub` file
 (note that the folder name is arbitrary, and it may in fact follow the default naming convention: `epub_content/`)).
 
+Example of Readium app hosted at *Surge.sh*, and EPUBs hosted at *DivShot.io*: http://readium.surge.sh/?epubs=http://development.readium.divshot.io/epub_content/epub_library.json  (note that only DivShot.io specifies HTTP CORS headers, the Surge.sh server does not configure anything special to achieve this unilateral cross-origin resource sharing)
 
 For more information about HTTP CORS, see https://docs.google.com/document/d/1RK_59-75OSE0PA6wexD9rYHQLnNYfoKIpsnH3SmDpUc
 
