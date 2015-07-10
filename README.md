@@ -22,20 +22,10 @@ See license.txt ( https://github.com/readium/readium-js-viewer/blob/develop/lice
 
 ## Development
 
-**Initial setup:**
+**Git initialisation:**
 
 * `git submodule update --init --recursive` to ensure that the readium-js-viewer chain of dependencies is initialised (readium-js, readium-shared-js and readium-cfi-js)
-* `npm run prepare` (to perform required preliminary tasks, like patching code before building)
-
-Note that the above command executes the following:
-
-* `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
-* `npm update` (to make sure that the dependency tree is up to date)
-
-**Git branch initialization:**
-
-* `git submodule foreach --recursive 'git checkout BRANCH_NAME'`
-* or simply `cd` inside each repository / submodule, and manually enter the desired branch name: `git checkout BRANCH_NAME` (Git should automatically track the corresponding branch in the 'origin' remote).
+* `git submodule foreach --recursive 'git checkout BRANCH_NAME'` (or simply `cd` inside each repository / submodule, and manually enter the desired branch name: `git checkout BRANCH_NAME`) Git should automatically track the corresponding branch in the 'origin' remote.
 
 
 Advanced usage (e.g. TravisCI) - the commands below automate the remote/origin tracking process (this requires a Bash-like shell):
@@ -45,6 +35,15 @@ Advanced usage (e.g. TravisCI) - the commands below automate the remote/origin t
 
 (repeat for each repository / submodule)
 
+
+**Source tree preparation:**
+
+* `npm run prepare` (to perform required preliminary tasks, like patching code before building)
+
+Note that the above command executes the following:
+
+* `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
+* `npm update` (to make sure that the dependency tree is up to date)
 
 **Typical workflow:**
 
