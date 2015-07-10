@@ -3,7 +3,7 @@
 **EPUB reader written in HTML, CSS and Javascript.**
 
 This Readium software component implements the Readium Chrome extension / app for offline reading ( https://chrome.google.com/webstore/detail/readium/fepbnnnkkadjhjahcafoaglimekefifl ),
-and the "cloud reader" for online e-books ( http://readium-cloudreader.divshot.io or more recently: http://development.readium.divshot.io ).
+and the "cloud reader" for online e-books ( http://development.readium.divshot.io or http://readium.divshot.io for stable versions).
 
 Please see https://github.com/readium/readium-shared-js for more information about the underlying rendering engine.
 
