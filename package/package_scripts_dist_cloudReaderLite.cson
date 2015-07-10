@@ -1,0 +1,106 @@
+
+#
+# See package.cson for more information
+#
+
+#=====================
+    'predist:cloudReaderLite': '
+
+        npm run rimraf
+            dist/cloud-reader-lite
+        &&
+        npm run rimraf
+            dist/cloud-reader-lite_sourcemap
+    '
+
+#=====================
+    'dist:cloudReaderLite': '
+
+        npm run dist:cloudReaderLite:copy
+        &&
+        npm run dist:cloudReaderLite:css
+        &&
+        npm run dist:cloudReaderLite:js
+    '
+
+#=====================
+    'dist:cloudReaderLite:copy': '
+
+        npm run mkdirp
+            dist/cloud-reader-lite/scripts/zip
+        &&
+        npm run cpy
+            src/cloud-reader-lite/index.html
+            dist/cloud-reader-lite/
+        &&
+        npm run cpy
+            build-output/z-worker.js
+            dist/cloud-reader-lite/scripts/zip
+        &&
+        npm run cpy
+            build-output/deflate.js
+            dist/cloud-reader-lite/scripts/zip
+        &&
+        npm run cpy
+            build-output/inflate.js
+            dist/cloud-reader-lite/scripts/zip
+        &&
+        npm run ncp
+            src/images/
+            dist/cloud-reader-lite/images/
+        &&
+        npm run ncp
+            src/js/mathjax/
+            dist/cloud-reader-lite/scripts/mathjax/
+        &&
+        npm run ncp
+            node_modules/bootstrap/fonts/
+            dist/cloud-reader-lite/fonts/
+        &&
+        npm run cpy
+            src/css/annotations.css
+            dist/cloud-reader-lite/css/
+    '
+
+#=====================
+    'dist:cloudReaderLite:css': '
+
+        npm run mkdirp
+            dist/cloud-reader-lite/css
+        &&
+        npm run dist:cssoptimize --
+            "-o" "dist/cloud-reader-lite/css/readium-all.css"
+    '
+
+#=====================
+    'dist:cloudReaderLite:js': '
+
+        npm run mkdirp
+            dist/cloud-reader-lite_sourcemap
+
+        &&
+        npm run cpy
+            build-output/_single-bundle/readium-js-viewer_all_LITE.js
+            dist/cloud-reader-lite/scripts/
+        &&
+        npm run cpy
+            build-output/_single-bundle/readium-js-viewer_all_LITE.js.map
+            dist/cloud-reader-lite_sourcemap/
+    '
+
+#node node_modules/uglify-js/bin/uglifyjs
+#--compress
+#--mangle
+#--screw-ie8
+#--source-map
+#dist/cloud-reader-lite_sourcemap/readium-js-viewer_all_LITE-min.js.map
+#--source-map-url
+#readium-js-viewer_all_LITE-min.js.map
+#--xxxxsource-map-root
+#readium-js-viewer_all_LITE-min.js
+#-o
+#dist/cloud-reader-lite/scripts/readium-js-viewer_all_LITE-min.js
+#--in-source-map
+#build-output/_single-bundle/readium-js-viewer_all_LITE.js.map
+#--
+#build-output/_single-bundle/readium-js-viewer_all_LITE.js
