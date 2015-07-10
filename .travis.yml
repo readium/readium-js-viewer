@@ -1,6 +1,6 @@
 branches:
   only:
-  - feature/pluginsX
+  - develop
 language: node_js
 node_js:
 - '0.12'
@@ -110,7 +110,7 @@ deploy:
   environment: development
   on:
     repo: readium/readium-js-viewer
-    branch: feature/pluginsX
+    branch: develop
     condition: "$MODE = firefox"
   api_key:
     secure: dU2zCAnyXFjp5CxDP1TyQrVu0Mg5VG8mcU8wG47MgKwXdh6TBtTGBljowydlwLFHg3VPwdOBwAYR0ysMeU/60wiKy4O9l345fMj3ZqIGMgZsZaTHcaiMUZ06xHPrQviSTb99b6i/2P9csAOdJhwLyS02/2fXm6xsIv+4xyQ3r5o=
