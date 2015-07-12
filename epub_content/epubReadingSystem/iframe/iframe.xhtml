@@ -32,10 +32,21 @@
 
 document.addEventListener("DOMContentLoaded", function()
 {
+    window.addEventListener("message", function(ev) {
+        console.log("@@@@@@@@@@@@@@@@ iframe.xhtml received message:");
+        console.log(ev.data);
+    }, false);
+
+    window.parent.postMessage("MSG from iframe to parent index", "*");
+    
     epubReadingSystem();
     
-    window.frameElement.ownerDocument.body.style.background = "red";
-    window.document.body.style.background = "white";
+    window.frameElement.ownerDocument.body.style.border = "2px solid black";
+    window.parent.document.body.style.border = "2px solid black";
+    
+    window.frameElement.ownerDocument.body.style.backgroundColor = "gray";
+    window.parent.document.body.style.backgroundColor = "gray";
+    
     console.debug(location);
     console.debug(window.frameElement.baseURI); //ownerDocument.defaultView
     

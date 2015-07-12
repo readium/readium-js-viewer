@@ -34,9 +34,17 @@
 
 document.addEventListener("DOMContentLoaded", function()
 {
+    window.addEventListener("message", function(ev) {
+        console.log("@@@@@@@@@@@@@@@@ index.xhtml received message:");
+        console.log(ev.data);
+    }, false);
+
     epubReadingSystem();
     
-    window.frameElement.ownerDocument.body.style.background = "green";
+    // security test...
+    //window.frameElement.ownerDocument.body.style.border = "1px solid red";
+    //window.top.document.body.style.border = "1px solid red";
+    
     console.debug(location);
     console.debug(window.frameElement.baseURI); //ownerDocument.defaultView
     
