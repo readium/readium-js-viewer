@@ -1,26 +1,102 @@
+sudo: false
 branches:
   only:
   - develop
 language: node_js
 node_js:
-- '0.10'
+- '0.12'
 before_install:
-- npm install -g grunt-cli
-install:
-- npm install
+- git submodule update --init --recursive
+#
+# READIUM JS VIEWER
+#
+#- git fetch --all
+#- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
+- git branch -avv
+- git remote -v
+- git show-ref --heads
+- git show-ref --head --hash head
+- git branch -a --contains $(git rev-parse HEAD)
+- git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git branch -avv
+#
+# READIUM JS
+#
 - cd readium-js
-- pwd
-- npm install
-- cd ..
+#
+#- git fetch --all
+- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
+- git branch -avv
+- git remote -v
+- git show-ref --heads
+- git show-ref --head --hash head
+- git branch -a --contains $(git rev-parse HEAD)
+- git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git branch -avv
+#
+# READIUM SHARED JS
+#
+- cd readium-shared-js
+#
+#- git fetch --all
+- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
+- git branch -avv
+- git remote -v
+- git show-ref --heads
+- git show-ref --head --hash head
+- git branch -a --contains $(git rev-parse HEAD)
+- git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git branch -avv
+#
+# READIUM CFI JS
+#
+- cd readium-cfi-js
+#
+#- git fetch --all
+- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
+- git branch -avv
+- git remote -v
+- git show-ref --heads
+- git show-ref --head --hash head
+- git branch -a --contains $(git rev-parse HEAD)
+- git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git branch -avv
+#
+- cd ../../../
+install:
+- npm run prepare
 before_script:
-- grunt clean
+- pwd
 script:
-- grunt test_travis
-after_failure: cat ./sauce_connect.log
+- cd readium-js/readium-shared-js/readium-cfi-js
+#- npm run prepare
+- npm run build
+- npm run test:travis
+- cd ../../..
+- pwd
+- git status
+- npm run test:travis
+- git status
+- cd readium-js
+- git status
+- cd readium-shared-js
+- git status
+- cd readium-cfi-js
+- git status
+- cd ../../../
+- cat build-output/version.json
 after_success:
-- node deployCrx.js
+- '[ ${MODE} = "firefox" ] && npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh'
+- node build-config/deployCrx.js
+after_failure: cat ./sauce_connect.log
 env:
   global:
+  - SAUCE_USERNAME=readium
+  - SAUCE_ACCESS_KEY=a36ebc10-e514-4da6-924c-307aec513550
   - USE_SAUCE=true
   - secure: onYFok5CBcV1116+kOEZJsyDB1kRHF+8deU1cll3vhxBEM/woSRvpso32oxjuza+or2uXuBT1SiZn0oTmuKD/TRaKw1e8wTtX6kQzCUhyeGoAyJH8SeGIwkt8+x232rFUe2bNLr6e0JAGZMtTjk1Q1zqfONNWAQzsUWDeUqvwt8=
   matrix:
@@ -33,10 +109,10 @@ addons:
 deploy:
   provider: divshot
   skip_cleanup: true
-  api_key:
-    secure: Y/evg7Yp4WsFjDOJBkQcrJ4/XTQbKYQjdX5iSaHu/JLo/GAJEIqxnEHavprBqHE/KvLjvCStn/bZ15oAMhq+EiJ+VNpZRWmTaZh6SA2CmtJeMtRqUwhpclvbCzSm0Z/8RFHhTmsNh7P5ICuFFWXv/pJ644trfh3Rg8abOIDqvww=
-  environment: production
+  environment: development
   on:
     repo: readium/readium-js-viewer
     branch: develop
-    condition: $MODE = firefox
+    condition: "$MODE = firefox"
+  api_key:
+    secure: dU2zCAnyXFjp5CxDP1TyQrVu0Mg5VG8mcU8wG47MgKwXdh6TBtTGBljowydlwLFHg3VPwdOBwAYR0ysMeU/60wiKy4O9l345fMj3ZqIGMgZsZaTHcaiMUZ06xHPrQviSTb99b6i/2P9csAOdJhwLyS02/2fXm6xsIv+4xyQ3r5o=

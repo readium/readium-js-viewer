@@ -1,0 +1,197 @@
+
+#
+# See package.cson for more information
+#
+
+#=====================
+# This is a "shortcut" task for quick build+dist'ing the Chrome extension
+    'chromeApp': '
+
+        npm run clean
+        &&
+        npm run versioning
+        &&
+        npm run genPluginsConfig
+        &&
+        npm run
+            build:scripts:single:CHROMEAPP
+            --readium-js-viewer:RJS_UGLY=no
+        &&
+        npm run
+            build:scripts:single:CHROMEAPPWORKER
+            --readium-js-viewer:RJS_UGLY=no
+        &&
+        npm run mkdirp
+            dist
+        &&
+        npm run mkdirp
+            dist/cloud-reader/css
+        &&
+        npm run dist:cssoptimize --
+            "src/css/library.css"
+            "-o" "dist/cloud-reader/css/readium-all.css"
+        &&
+        npm run dist:chromeApp
+        &&
+        npm run rimraf
+            dist/cloud-reader
+        &&
+        npm run deploy:chromeApp:copy:sourcemap
+        &&
+        npm run rimraf
+            dist/chrome-app_sourcemap
+    '
+#npm run crx
+
+
+#=====================
+    'predist:chromeApp': '
+
+        npm run rimraf
+            dist/chrome-app
+        &&
+        npm run rimraf
+            dist/chrome-app_sourcemap
+    '
+
+#=====================
+    'dist:chromeApp': '
+
+        npm run dist:chromeApp:copy
+        &&
+        node build-config/updateChromeManifest.js
+        &&
+        npm run dist:chromeApp:css
+        &&
+        npm run dist:chromeApp:js
+    '
+
+#=====================
+    'dist:chromeApp:copy': '
+
+        npm run mkdirp
+            dist/chrome-app/scripts/zip
+        &&
+        npm run cpy
+            src/chrome-app/index.html
+            dist/chrome-app/
+        &&
+        npm run cpy
+            readium-js/node_modules/zip-js/WebContent/z-worker.js
+            dist/chrome-app/scripts/zip
+        &&
+        npm run cpy
+            readium-js/node_modules/zip-js/WebContent/deflate.js
+            dist/chrome-app/scripts/zip
+        &&
+        npm run cpy
+            readium-js/node_modules/zip-js/WebContent/inflate.js
+            dist/chrome-app/scripts/zip
+        &&
+        npm run ncp
+            src/images/
+            dist/chrome-app/images/
+        &&
+        npm run ncp
+            src/js/mathjax/
+            dist/chrome-app/scripts/mathjax/
+        &&
+        npm run ncp
+            node_modules/bootstrap/fonts/
+            dist/chrome-app/fonts/
+        &&
+        npm run cpy
+            src/css/annotations.css
+            dist/chrome-app/css/
+        &&
+        npm run cpy
+            src/chrome-app/epubReadingSystem.js
+            dist/chrome-app/scripts/
+        &&
+        npm run cpy
+            src/chrome-app/background.js
+            dist/chrome-app/scripts/
+        &&
+        npm run cpy
+            src/chrome-app/requirejs-config.js
+            dist/chrome-app/scripts/
+        &&
+        npm run ncp
+            src/chrome-app/icons/
+            dist/chrome-app/icons/
+        &&
+        npm run ncp
+            src/i18n/_locales/
+            dist/chrome-app/_locales/
+        &&
+        npm run cpy
+            src/chrome-app/manifest.json
+            dist/chrome-app/
+    '
+
+#=====================
+    'dist:chromeApp:css': '
+
+        npm run cpy
+            dist/cloud-reader/css/readium-all.css
+            dist/chrome-app/css/
+    '
+
+#=====================
+    'dist:chromeApp:js': '
+
+        npm run mkdirp
+            dist/chrome-app_sourcemap
+        &&
+        npm run cpy
+            build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js
+            dist/chrome-app/scripts/
+        &&
+        npm run cpy
+            build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js.map
+            dist/chrome-app_sourcemap/
+        &&
+        npm run cpy
+            build-output/_single-bundle/readium-js-viewer_CHROMEAPP-WORKER.js
+            dist/chrome-app/scripts/
+        &&
+        npm run cpy
+            build-output/_single-bundle/readium-js-viewer_CHROMEAPP-WORKER.js.map
+            dist/chrome-app_sourcemap/
+    '
+
+#        node node_modules/uglify-js/bin/uglifyjs
+#            --compress
+#            --mangle
+#            --screw-ie8
+#            --source-map
+#            dist/chrome-app_sourcemap/readium-js-viewer_all_CHROMEAPP-min.js.map
+#            --source-map-url
+#            readium-js-viewer_all_CHROMEAPP-min.js.map
+#            --xxxxsource-map-root
+#            readium-js-viewer_all_CHROMEAPP-min.js
+#            -o
+#            dist/chrome-app/scripts/readium-js-viewer_all_CHROMEAPP-min.js
+#            --in-source-map
+#            build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js.map
+#            --
+#            build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js
+
+
+
+#=====================
+#    'precrx': '
+#
+#        npm run dist
+#    '
+
+#=====================
+    'crx': '
+
+        node node_modules/crx/bin/crx
+            pack
+            dist/chrome-app/
+            --output dist/Readium.crx
+            --private-key tests/test.pem
+    '
+
