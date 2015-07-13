@@ -69,6 +69,8 @@ The above task takes a lot of time (as it builds distributable packages for *all
 
 * `npm run chromeApp` (generates a ready-to-use Readium packaged app for Chrome, inside the usual `dist/chrome-app` folder)
 
+Remember to activate "developer mode" in the Chrome web browser, so that the Readium packaged app / extension can be added directly from the `dist/chrome-app` folder. Subsequently (after each build), the app can simply be reloaded.
+
 **Plugins integration:**
 
 When invoking the `npm run build` command, the generated `build-output` folder contains RequireJS module bundles that include the default plugins specified in `readium-js/readium-js-shared/plugins/plugins.cson` (see the plugins documentation https://github.com/readium/readium-shared-js/blob/develop/PLUGINS.md ). Developers can override the default plugins configuration by using an additional file called `plugins-override.cson`. This file is git-ignored (not persistent in the Git repository), which means that Readium's default plugins configuration is never at risk of being mistakenly overridden by developers, whilst giving developers the possibility of creating custom builds on their local machines.
