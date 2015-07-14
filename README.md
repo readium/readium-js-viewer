@@ -37,7 +37,6 @@ Advanced usage (e.g. TravisCI) - the commands below automate the remote/origin t
 
 (repeat for each repository / submodule)
 
-
 **Source tree preparation:**
 
 * `npm run prepare` (to perform required preliminary tasks, like patching code before building)
@@ -70,6 +69,11 @@ The above task takes a lot of time (as it builds distributable packages for *all
 * `npm run chromeApp` (generates a ready-to-use Readium packaged app for Chrome, inside the usual `dist/chrome-app` folder)
 
 Remember to activate "developer mode" in the Chrome web browser, so that the Readium packaged app / extension can be added directly from the `dist/chrome-app` folder. Subsequently (after each build), the app can simply be reloaded.
+
+**Forking:**
+
+Assuming a fork of `https://github.com/readium/readium-js-viewer` is made under `USER` at `https://github.com/USER/readium-js-viewer`, the `.gitmodules` file ( https://github.com/readium/readium-js-viewer/blob/develop/.gitmodules ) will still point to the original submodule URL (at `readium`, instead of `USER`). Thankfully, one can simply modify the `.gitmodules` file by replacing `https://github.com/readium/` with `https://github.com/USER/`, and do this for every submodule (`readium-js-viewer` > `readium-js` > `readium-shared-js` > `readium-cfi-js`). Then the Git command `git submodule sync` can be invoked, for each submodule.
+
 
 **Plugins integration:**
 
