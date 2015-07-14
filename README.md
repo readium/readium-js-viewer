@@ -45,6 +45,7 @@ Note that the above command executes the following:
 
 * `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
 * `npm update` (to make sure that the dependency tree is up to date)
+* + some additional HTTP requests to the GitHub API in order to check for upstream library updates (wherever Readium uses a forked codebase)
 
 ### Typical workflow
 
