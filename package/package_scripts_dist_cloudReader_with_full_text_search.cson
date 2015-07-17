@@ -1,0 +1,45 @@
+#
+# See package.cson for more information
+#
+
+
+#=====================
+
+    'cloudReaderWithFullTextSearch': '
+
+        
+        npm run dist:cloudReader
+        &&
+        npm run dist:cloudReaderWithFullTextSearch:copy
+        &&
+        npm run test:cloudReaderWithFullTextSearch:copy
+        &&
+        npm run ncp epub_content/ dist/cloud-reader/epub_content
+        &&
+        node ./dist/cloud-reader/main.js
+        
+    '
+    
+#=====================
+
+    'dist:cloudReaderWithFullTextSearch': '
+
+        npm run dist:cloudReader
+        &&
+        npm run dist:cloudReaderWinpm thFullTextSearch:copy
+    '
+    
+#=====================
+    'dist:cloudReaderWithFullTextSearch:copy': '
+        
+        npm run cpy
+            src/cloud-reader/full_text_search/main.js
+                    dist/cloud-reader/
+               
+    '
+#=====================
+    'test:cloudReaderWithFullTextSearch:copy': '
+        npm run cpy
+            src/cloud-reader/full_text_search/index.html
+                    dist/cloud-reader/
+    '

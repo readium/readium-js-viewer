@@ -44,6 +44,10 @@ function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
 
     var allowEnglishFallback = true;
 
+    // workaround IE 
+    if(language === 'de-DE')
+        language = 'de';
+	
 	var i18nStr = Strings[language] || en_US;
 
 	var i18nObj = JSON.parse(i18nStr);

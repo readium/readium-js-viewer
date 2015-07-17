@@ -146,7 +146,17 @@ devDependencies:
     "remotestoragejs": 'latest'
 
     "spin.js": 'latest'
-
+        
+    "jquery-ui": 'latest'
+    
+    "epub-full-text-search": 'latest'
+    
+    "express": 'latest'
+    
+    "body-parser": 'latest'
+    
+    "ncp": 'latest'
+    
 # Below dependencies are only used in build tasks (above are runtime deps):
 
 # see readium-cfi-js:

@@ -1,4 +1,14 @@
-{ "about": {
+{
+    "search_forwards": {
+      "message": "Vorwärts suchen"
+      },
+    "search_backwards": {
+    "message": "Rückwärts suchen"
+    },
+    "full_text_search": {
+    "message": "Volltextsuche"
+    },
+    "about": {
     "message": "Über Readium"
     },
     "preview": {
@@ -36,6 +46,9 @@
     },
     "ok" : {
         "message" : "Ok"
+    },
+    "i18n_full_text_search": {
+    "message": "Volltextsuche"
     },
     "i18n_readium_library": {
         "message": "Readium Bibliothek"
@@ -150,6 +163,9 @@
     },
     "storing_file": {
         "message": "Datei speichern"
+    },
+    "enter_text" : {
+      "message": "Bitte zuerst Text eingeben."
     },
     "err_unknown": {
         "message": "Unbekannter Fehler. Für Details öffnen Sie die Konsole."
@@ -309,11 +325,11 @@
         "message": "Butterfly"
     },
     "i18n_html_readium_tm_a_project": {
-        "message": "Readium für Chrome ist die Chrome Browser Erweiterung basierend auf ReadiumJS, einem Open-Source Lesesystem und einer JavaScript Bibliothek zur Darstellung von EPUB® Veröffentlichungen in Web-Browsern. ReadiumJS ist ein Projekt der Readium Foundation (Readium.org). Wenn Sie mehr darüber erfahren möchten oder das Projekt unterstützen wollen, besuchen Sie bitte die <a href=\"http://readium.org/\">Projekt Homepage</a>."
+        "message": "Readium für Chrome ist die Chrome Browser Erweiterung basierend auf ReadiumJS, einem Open-Source Lesesystem und einer JavaScript Bibliothek zur Darstellung von EPUB® Veröffentlichungen in Web-Browsern. ReadiumJS ist ein Projekt der Readium Foundation (Readium.org). Wenn Sie mehr darüber erfahren möchten oder das Projekt unterstützen wollen, besuchen Sie bitte die <a target=\"_blank\" href=\"http://readium.org/\">Projekt Homepage</a>."
 
     },
     "gethelp": {
-        "message": "Falls Sie auf Probleme stoßen, Fragen haben oder \"Hallo\" sagen möchten, besuchen Sie <a href=\"http://idpf.org/forums/readium\">unser Forum</a>."
+        "message": "Falls Sie auf Probleme stoßen, Fragen haben oder \"Hallo\" sagen möchten, besuchen Sie <a target=\"_blank\" href=\"http://idpf.org/forums/readium\">unser Forum</a>."
     },
     "i18n_toolbar": {
         "message": "Werkzeugleiste"

@@ -21,7 +21,8 @@ define([
 './EpubReaderBackgroundAudioTrack',
 './gestures',
 './versioning/ReadiumVersioning',
-'readium_js/Readium'],
+'readium_js/Readium', 
+'./FullTextSearch'],
 
 function (
 globalSetup,
@@ -46,7 +47,8 @@ EpubReaderMediaOverlays,
 EpubReaderBackgroundAudioTrack,
 GesturesHandler,
 Versioning,
-Readium){
+Readium,
+FullTextSearch){
 
     var readium,
         embedded,
@@ -81,6 +83,8 @@ Readium){
             $("#left-page-btn").on("click", prevPage);
             $("#right-page-btn").on("click", nextPage);
 
+            new FullTextSearch(readium).init();
+            
         }, openPageRequest);
     };
 
@@ -562,7 +566,7 @@ Readium){
             loadlibrary();
             return false;
         });
-
+        
         $('.zoom-wrapper input').on('click', function(){
             if (!this.disabled){
                 this.focus();
@@ -590,7 +594,7 @@ Readium){
             $('#app-container').height(appHeight);
             $('#readium-toc-body').height(appHeight);
         };
-
+        
         Keyboard.on(Keyboard.ShowSettingsModal, 'reader', function(){$('#settings-dialog').modal("show")});
 
         $(window).on('mousemove', hideLoop);
