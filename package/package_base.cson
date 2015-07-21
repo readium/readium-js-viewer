@@ -146,8 +146,6 @@ devDependencies:
     "remotestoragejs": 'latest'
 
     "spin.js": 'latest'
-        
-    "jquery-ui": 'latest'
     
     "epub-full-text-search": 'latest'
     
