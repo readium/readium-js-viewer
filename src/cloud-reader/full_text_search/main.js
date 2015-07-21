@@ -27,7 +27,7 @@ console.log("serving static files: " + servingPath);
 // serving readium
 app.use(express.static(servingPath));
 
-var port = process.env.PORT || 8080;  // set our port
+var port = process.env.PORT || 8081;  // set our port
 
 setFullTextSearchRoutes(app, se);
 

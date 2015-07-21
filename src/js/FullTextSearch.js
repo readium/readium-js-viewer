@@ -1,4 +1,4 @@
-define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery'/*, 'jquery-ui'*/], function (Dialogs, Strings, Keyboard, $) {
+define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery-ui'], function (Dialogs, Strings, Keyboard, $) {
 
     var newSearch;
     var cfis = [];
@@ -8,6 +8,8 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery'/*, 'jquery-ui'*/], fu
     var PREVIOUS = "previous";
     var NEXT = "next";
     var direction;
+    //var host = window.location.protocol + '//' + window.location.hostname + ':8080/';
+    var host = 'http://localhost:8081';
 
     var FullTextSearch = function (readium) {
         readium = readium;
@@ -99,7 +101,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery'/*, 'jquery-ui'*/], fu
         function searchRequest(pattern) {
 
             var epubTitle = $('#book-title-header').text();
-            var request = window.location.protocol + '//' + window.location.hostname + ':8080/' + 'search?q=' + pattern + '&t=' + epubTitle;
+            var request = host + '/search?q=' + pattern + '&t=' + epubTitle;
 
             $.getJSON(request, '', {})
                 .done(function (hits) {
@@ -124,8 +126,8 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery'/*, 'jquery-ui'*/], fu
 
         function instantSearch() {
 
-            var matcher = "matcher?beginsWith=" + $("#searchbox").val();
-            var request = window.location.protocol + '//' + window.location.hostname + ':8080/' + matcher;
+            var matcher = "/matcher?beginsWith=" + $("#searchbox").val();
+            var request = host + matcher;
 
             //console.debug(request);
 
@@ -222,8 +224,8 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery'/*, 'jquery-ui'*/], fu
                 // I don`t why 
                 setTimeout(function () {
 
-                    readium.reader.removeHighlight(999999);
-                    readium.reader.addHighlight(
+                    readium.reader.plugins.annotations.removeHighlight(999999);
+                    readium.reader.plugins.annotations.addHighlight(
                         idref,
                         partialCfi,
                         999999,// Math.floor((Math.random() * 1000000)),

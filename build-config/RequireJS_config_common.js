@@ -73,11 +73,9 @@ require.config({
 
         'hammerjs':
             process._RJS_rootDir(3) + '/node_modules/hammerjs/hammer',
-
-
+        
         'jquery-ui':
-            process._RJS_rootDir(3) + '/node_modules/jquery-ui/jquery-ui',
-
+            process._RJS_rootDir(3) + '/bower_components/jquery-ui/jquery-ui',
 
         'i18nStrings':
             process._RJS_rootDir(3) + '/src/i18n/Strings',
