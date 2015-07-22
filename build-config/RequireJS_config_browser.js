@@ -26,7 +26,10 @@ window.process._RJS_rootDir = function(n)
     if (n == 0) return "readium-js/readium-shared-js/readium-cfi-js";
 };
 
-window.process._RJS_isBrowser = true;
+// Used in readium-build-tools/pluginsConfigMaker
+// and readium_shared_js/globalsSetup.
+// Flag as not optimized by r.js
+window._RJS_isBrowser = true;
 
 require.config({
 
