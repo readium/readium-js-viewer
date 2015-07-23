@@ -60,3 +60,11 @@ input.error,  input.error:focus {
     border-style: solid;
     border-color: red;
 }
+
+.highlight {
+    background-color: #323fff; !important;
+}
+
+.hover-highlight {
+    background-color: #323fff; !important;
+}

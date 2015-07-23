@@ -1,0 +1,20 @@
+{
+  "name": "epub-full-text-search-demo",
+  "version": "0.0.1",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+    "express": "~4.12.3",
+    "body-parser": "~1.12.2",
+    "epub-full-text-search": "latest",
+    "chokidar": "~1.0.1"
+  },
+  "scripts": {
+    "start": "node ./main.js"
+  }
+}

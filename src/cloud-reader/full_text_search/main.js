@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 var servingPath = process.cwd() + '/dist/cloud-reader';
+//var servingPath = process.cwd();
 console.log("serving static files: " + servingPath);
 // serving readium
 app.use(express.static(servingPath));

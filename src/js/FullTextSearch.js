@@ -1,4 +1,4 @@
-define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery-ui'], function (Dialogs, Strings, Keyboard, $) {
+define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocomplete'], function (Dialogs, Strings, Keyboard, $) {
 
     var newSearch;
     var cfis = [];
@@ -8,9 +8,9 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery-ui'], functi
     var PREVIOUS = "previous";
     var NEXT = "next";
     var direction;
-    //var host = window.location.protocol + '//' + window.location.hostname + ':8080/';
-    var host = 'http://localhost:8081';
-
+    var host = window.location.protocol + '//' + window.location.hostname + ':8081';
+    //var host = 'http://localhost:8081';
+    
     var FullTextSearch = function (readium) {
         readium = readium;
 
@@ -220,6 +220,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery-ui'], functi
                 var idref = getIdref(cfi);
                 var partialCfi = getPartialCfi(cfi);
 
+                
                 // addHightlight() need here a small delay to work correctly 
                 // I don`t why 
                 setTimeout(function () {
@@ -230,11 +231,11 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery-ui'], functi
                         partialCfi,
                         999999,// Math.floor((Math.random() * 1000000)),
                         "highlight", //"underline"
-                        undefined // styles
+                        undefined  // styles
                     )
                         ,200
                 });
-
+                
                 console.debug("hightlight of cfi: " + cfi + " ready");
             } catch (e) {
 
