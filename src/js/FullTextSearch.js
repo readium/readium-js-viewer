@@ -1,4 +1,4 @@
-define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocomplete'], function (Dialogs, Strings, Keyboard, $) {
+define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'hgn!readium_js_viewer_html_templates/search.html', 'jquery.ui.autocomplete'], function (Dialogs, Strings, Keyboard, $, SearchDialog) {
 
     var newSearch;
     var cfis = [];
@@ -10,11 +10,14 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
     var direction;
     var host = window.location.protocol + '//' + window.location.hostname + ':8081';
     //var host = 'http://localhost:8081';
-    
+
     var FullTextSearch = function (readium) {
         readium = readium;
 
         this.init = function () {
+
+            // add to navbar
+            $(SearchDialog({strings: Strings, dialogs: Dialogs, keyboard: Keyboard})).insertBefore($('.icon-library'));
 
             Keyboard.scope('reader');
 
@@ -37,27 +40,34 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
                 event.stopPropagation();
             });
 
-            Keyboard.on(Keyboard.FullTextSearchForwards, 'reader', fullTextSearchForwards);
-            Keyboard.on(Keyboard.FullTextSearchBackwards, 'reader', fullTextSearchBackwards);
+            Keyboard.on(Keyboard.FullTextSearchForwards, 'reader', forwards);
+            Keyboard.on(Keyboard.FullTextSearchBackwards, 'reader', backwards);
 
-            $("#search-btn-next").click(fullTextSearchForwards);
-            $("#search-btn-previous").click(fullTextSearchBackwards);
+            $("#search-btn-next").click(forwards);
+            $("#search-btn-previous").click(backwards);
 
 
-            Keyboard.on(Keyboard.FullTextSearch, 'reader', function(){$('#search-btn').trigger("click"); setFocusOnSearchInput});
+            Keyboard.on(Keyboard.FullTextSearch, 'reader', function () {
+                $('#search-btn').trigger("click");
+                setFocusOnSearchInput
+            });
 
             $('#search-btn').on('click', setFocusOnSearchInput);
 
-            $('#search-menu').click(function(e) {e.stopPropagation();});
-            
+            $('#search-menu').click(function (e) {
+                e.stopPropagation();
+            });
+
             readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function contentLoadedHandler() {
 
-                highlightCfi(curCfi);
+                if (curCfi)
+                    highlightCfi(curCfi);
             });
 
         };
 
-        function fullTextSearchForwards() {
+        // search forwards
+        function forwards() {
 
             direction = NEXT;
 
@@ -68,7 +78,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
             } else {
 
                 if (newSearch) {
-                    searchRequest(q);
+                    sendSearchRequest(q);
                     newSearch = false;
                 } else {
                     findNext(q)
@@ -77,7 +87,8 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
             }
         }
 
-        function fullTextSearchBackwards() {
+        // search backwards
+        function backwards() {
 
             direction = PREVIOUS;
 
@@ -88,7 +99,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
             } else {
 
                 if (newSearch) {
-                    searchRequest(q);
+                    sendSearchRequest(q);
                     newSearch = false;
                 } else {
                     findPrevious(q)
@@ -98,7 +109,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
         }
 
 
-        function searchRequest(pattern) {
+        function sendSearchRequest(pattern) {
 
             var epubTitle = $('#book-title-header').text();
             var request = host + '/search?q=' + pattern + '&t=' + epubTitle;
@@ -124,6 +135,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
                 });
         }
 
+        // looking for suggestions 
         function instantSearch() {
 
             var matcher = "/matcher?beginsWith=" + $("#searchbox").val();
@@ -141,7 +153,6 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
                             $("#search-btn-next").trigger("click");
                         }
                     });
-
                 })
                 .fail(function () {
                     console.log("error fulltext search request");
@@ -182,7 +193,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
                 var curIdref = readium.reader.getLoadedSpineItems()[0].idref;
                 var idref = getIdref(curCfi);
                 if (curIdref === idref)
-                    highlightCfi(curCfi)
+                    highlightCfi(curCfi);
                 //console.debug("curCfi: " + curCfi)
             }
         }
@@ -220,7 +231,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
                 var idref = getIdref(cfi);
                 var partialCfi = getPartialCfi(cfi);
 
-                
+
                 // addHightlight() need here a small delay to work correctly 
                 // I don`t why 
                 setTimeout(function () {
@@ -233,9 +244,9 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
                         "highlight", //"underline"
                         undefined  // styles
                     )
-                        ,200
+                        , 200
                 });
-                
+
                 console.debug("hightlight of cfi: " + cfi + " ready");
             } catch (e) {
 
@@ -296,6 +307,7 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
             return curIdref === idref;
         }
 
+        // refactoring 
         var errorNoSearchText = function () {
 
             var firstKeyDown = true;
@@ -329,17 +341,19 @@ define(['./Dialogs', 'i18nStrings', './Keyboard', 'jquery', 'jquery.ui.autocompl
 
             $('#searchbox').focus();
 
-        }
+        };
 
-        var removeErrorNoSearchText = function () {
+        function removeErrorNoSearchText () {
             $('#searchbox').removeClass("error");
             $('#searchbox').attr("placeholder", Strings.full_text_search);
             $('#searchbox').removeAttr("role");
 
-        }
+        };
 
-        var setFocusOnSearchInput = function() {
-            setTimeout(function(){ $('#searchbox')[0].focus(); }, 100);
+        function setFocusOnSearchInput() {
+            setTimeout(function () {
+                $('#searchbox')[0].focus();
+            }, 100);
         }
     };
     return FullTextSearch;

@@ -1,0 +1,17 @@
+<button id="search-btn" tabindex="1" type="button" data-toggle="dropdown" class="btn icon-search" title="{{strings.full_text_search}} [{{keyboard.FullTextSearch}}]" aria-label="{{strings.full_text_search}} [{{keyboard.FullTextSearch}}]" accesskey="{{keyboard.accesskeys.FullTextSearch}}">
+    <span class="glyphicon glyphicon-search"></span>
+</button>
+<ul id="search-menu" class="dropdown-menu" role="menu">
+    <li>
+        <input id="searchbox"  data-provide="typeahead" class="form-control" class="typeahead" type="text" placeholder="{{strings.full_text_search}}" autocomplete="off" size="38">
+        <br>
+        <div class="full-text-search-btn-group">
+            <button id="search-btn-previous" type="button" class="btn sml" aria-label="{{strings.search_backwards}} [{{keyboard.FullTextSearchBackwards}}]">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </button>
+            <button id="search-btn-next" type="button" class="btn sml" aria-label="{{strings.search_forwards}} [{{keyboard.FullTextSearchForwards}}]">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+        </div>
+    </li>
+</ul>
