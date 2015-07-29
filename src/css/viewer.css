@@ -16,7 +16,7 @@
 
 /* .chrome-app */
 .icon-annotations{
-  display:none; /* Comment this to test the annotations / highlighter plugin */
+  displayx:none; /* Comment this to test the annotations / highlighter plugin */
 }
 
 html#simpleViewer .icon-library{

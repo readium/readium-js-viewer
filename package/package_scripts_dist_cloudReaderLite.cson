@@ -1,4 +1,5 @@
 
+
 #
 # See package.cson for more information
 #
@@ -29,6 +30,9 @@
         npm run mkdirp
             dist/cloud-reader-lite/scripts/zip
         &&
+        npm run mkdirp
+            dist/cloud-reader-lite/scripts/mathjax
+        &&
         npm run cpy
             src/cloud-reader-lite/index.html
             dist/cloud-reader-lite/
@@ -51,7 +55,7 @@
         &&
         npm run cpy
             node_modules/MathJax-grunt-concatenator/MathJax.js
-            dist/chrome-app/scripts/mathjax
+            dist/cloud-reader-lite/scripts/mathjax
         &&
         npm run ncp
             node_modules/bootstrap/fonts/

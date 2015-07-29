@@ -72,6 +72,9 @@
         npm run mkdirp
             dist/chrome-app/scripts/zip
         &&
+        npm run mkdirp
+            dist/chrome-app/scripts/mathjax
+        &&
         npm run cpy
             src/chrome-app/index.html
             dist/chrome-app/
