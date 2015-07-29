@@ -30,6 +30,9 @@
         npm run mkdirp
             dist/cloud-reader-lite/scripts/zip
         &&
+        npm run mkdirp
+            dist/cloud-reader-lite/scripts/mathjax
+        &&
         npm run cpy
             src/cloud-reader-lite/index.html
             dist/cloud-reader-lite/

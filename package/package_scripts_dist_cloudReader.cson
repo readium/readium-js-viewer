@@ -29,6 +29,9 @@
         npm run mkdirp
             dist/cloud-reader/scripts/zip
         &&
+        npm run mkdirp
+            dist/cloud-reader/scripts/mathjax
+        &&
         npm run cpy
             src/cloud-reader/index.html
             dist/cloud-reader/
