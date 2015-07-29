@@ -20,13 +20,13 @@ define(['zip', '../workers/Messages', 'inflate'], function(zip, Messages){
 			var buf = this.options.buf;
 
 			this.entries = {};
-			self = this;
+			var thiz = this;
 
 			zip.createReader(new zip.BlobReader(buf), function(reader){
 				reader.getEntries(function(entries){
 					for (var i = 0; i < entries.length; i++){
 						if (!entries[i].directory){
-							self.entries[entries[i].filename] = entries[i];
+							thiz.entries[entries[i].filename] = entries[i];
 						}
 					}
 					success();
