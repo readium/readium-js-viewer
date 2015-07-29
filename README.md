@@ -22,7 +22,7 @@ See license.txt ( https://github.com/readium/readium-js-viewer/blob/develop/lice
 
 ## Development
 
-**Git initialisation:**
+### Git initialisation
 
 * `git clone —recursive https://github.com/readium/readium-js-viewer.git –b BRANCH_NAME readium-js-viewer` (replace "BRANCH_NAME" with e.g. "develop")
 * `cd readium-js-viewer`
@@ -37,8 +37,7 @@ Advanced usage (e.g. TravisCI) - the commands below automate the remote/origin t
 
 (repeat for each repository / submodule)
 
-
-**Source tree preparation:**
+### Source tree preparation
 
 * `npm run prepare` (to perform required preliminary tasks, like patching code before building)
 
@@ -46,8 +45,9 @@ Note that the above command executes the following:
 
 * `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
 * `npm update` (to make sure that the dependency tree is up to date)
+* + some additional HTTP requests to the GitHub API in order to check for upstream library updates (wherever Readium uses a forked codebase)
 
-**Typical workflow:**
+### Typical workflow
 
 No RequireJS optimization:
 
@@ -71,7 +71,12 @@ The above task takes a lot of time (as it builds distributable packages for *all
 
 Remember to activate "developer mode" in the Chrome web browser, so that the Readium packaged app / extension can be added directly from the `dist/chrome-app` folder. Subsequently (after each build), the app can simply be reloaded.
 
-**Plugins integration:**
+### Forking
+
+Assuming a fork of `https://github.com/readium/readium-js-viewer` is made under `USER` at `https://github.com/USER/readium-js-viewer`, the `.gitmodules` file ( https://github.com/readium/readium-js-viewer/blob/develop/.gitmodules ) will still point to the original submodule URL (at `readium`, instead of `USER`). Thankfully, one can simply modify the `.gitmodules` file by replacing `https://github.com/readium/` with `https://github.com/USER/`, and do this for every submodule (`readium-js-viewer` > `readium-js` > `readium-shared-js` > `readium-cfi-js`). Then the Git command `git submodule sync` can be invoked, for each submodule.
+
+
+### Plugins integration
 
 When invoking the `npm run build` command, the generated `build-output` folder contains RequireJS module bundles that include the default plugins specified in `readium-js/readium-js-shared/plugins/plugins.cson` (see the plugins documentation https://github.com/readium/readium-shared-js/blob/develop/PLUGINS.md ). Developers can override the default plugins configuration by using an additional file called `plugins-override.cson`. This file is git-ignored (not persistent in the Git repository), which means that Readium's default plugins configuration is never at risk of being mistakenly overridden by developers, whilst giving developers the possibility of creating custom builds on their local machines.
 
