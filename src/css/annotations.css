@@ -27,14 +27,14 @@
 
 .highlight {
     position: absolute;
-    opacity: 0.2;
-    background-color: #1182ba; /* how can it set programmatic???*/
+    opacity: 0.4;
+    background-color: darkblue; /* how can it set programmatic???*/
 }
 
 .hover-highlight {
     position: absolute;
-    opacity: 0.4;
-    background-color: #1182ba; /* how can it set programmatic???*/
+    opacity: 0.5;
+    background-color: darkblue; /* how can it set programmatic???*/
 }
 
 .underline-range {

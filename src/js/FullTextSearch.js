@@ -31,7 +31,7 @@ define(['./Dialogs',
 
             this.init = function () {
 
-                // add to navbar
+                // add search dialog icon to navbar
                 $(SearchDialog({
                     strings: Strings,
                     dialogs: Dialogs,
@@ -40,14 +40,14 @@ define(['./Dialogs',
 
                 Keyboard.scope('reader');
 
-                $("#searchbox").keydown(function (event) {
-
-                    if (event.which === 13) { // enter key
-
-                        $("#search-btn-next").trigger("click");
-                    }
-                    event.stopPropagation();
-                });
+                //$("#searchbox").keydown(function (event) {
+                //
+                //    if (event.which === 13) { // enter key
+                //
+                //        $("#search-btn-next").trigger("click");
+                //    }
+                //    event.stopPropagation();
+                //});
 
                 $("#searchbox").keyup(function (event) {
 
@@ -139,7 +139,7 @@ define(['./Dialogs',
                     .done(function (hits) {
                         spinner.stop();
 
-                        if (hits) {
+                        if (hits && hits.length > 0) {
 
                             //console.log("found " + hits.length + ' hits');
                             setCFIs(hits);
@@ -160,7 +160,11 @@ define(['./Dialogs',
             // looking for suggestions 
             function instantSearch() {
 
-                var matcher = "/matcher?beginsWith=" + $("#searchbox").val();
+                var q = $("#searchbox").val();
+                if (q === '')
+                    return;
+
+                var matcher = "/matcher?beginsWith=" + q;
                 var request = host + matcher;
 
                 //console.debug(request);
@@ -223,19 +227,22 @@ define(['./Dialogs',
             function setCurrentCFI(hits) {
 
                 var curIdref = readium.reader.getLoadedSpineItems()[0].idref;
-
+                
                 for (hit in hits) {
 
-                    if (curIdref === hits[hit].id) {
-
-                        if (hits[hit].cfis.length > 0) {
+                    if (hits[hit].cfis.length > 0) {
+                        
+                        if (hit === "0") 
+                            curCfi = hits[hit].cfis[0];
+                        
+                        // Try to start hit highlighting (in/near) current spine item.
+                        // This realise only "in". How can it realise "near"? 
+                        if (curIdref === hits[hit].id) {
                             curCfi = hits[hit].cfis[0];
                             currentCfiIndex = cfis.indexOf(curCfi);
                         }
-                        else
-                            console.error("found hit " + hits[hit].id + " without cfi");
-                    }
-
+                    } else
+                        console.error("found hit " + hits[hit].id + " without cfi(s)");
                 }
             }
 
@@ -266,7 +273,7 @@ define(['./Dialogs',
                             "highlight", //"underline"
                             undefined  // styles
                         )
-                            , 200
+                            , 600
                     });
 
                     console.debug("hightlight of cfi: " + cfi + " ready");
@@ -404,6 +411,8 @@ define(['./Dialogs',
 
 
         return FullTextSearch;
-    });
+    }
+)
+;
 
 

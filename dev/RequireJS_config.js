@@ -50,21 +50,24 @@ require.config({
 
         'readium_js_viewer/ModuleConfig' : {
 
-            'mathJaxUrl': HTTPServerRootFolder + '/node_modules/MathJax-grunt-concatenator/MathJax.js',
+//            'mathJaxUrl': HTTPServerRootFolder + '/node_modules/MathJax-grunt-concatenator/MathJax.js',
+            'mathJaxUrl': HTTPServerRootFolder + '/readium-js-viewer/node_modules/MathJax-grunt-concatenator/MathJax.js',
 
-            'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
-
+//          'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
+            'annotationCSSUrl': HTTPServerRootFolder + '/readium-js-viewer/src/css/annotations.css',            
+           
             'jsLibRoot': HTTPServerRootFolder + '/readium-js/node_modules/zip-js/WebContent/',
             //'jsLibRoot': HTTPServerRootFolder + '/build-output/',
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
-            //'epubLibraryPath': "../epub_content/epub_library.json",
+            'epubLibraryPath': "../epub_content/epub_library.json",
             //'epubLibraryPath': "/epub_content/epub_library.json",
-            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : "http://127.0.0.1:8080/epub_library.json",
+            //'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : "http://127.0.0.1:8080/epub_library.json",
             //'epubLibraryPath': "http://development.readium.divshot.io/epub_content/epub_library.json",
 
-            'imagePathPrefix': '/src/',
+//            'imagePathPrefix': '/src/',
+            'imagePathPrefix': '../src/',
 
             'canHandleUrl' : false,
             'canHandleDirectory' : false,
