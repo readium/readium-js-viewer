@@ -17,7 +17,7 @@ See license.txt ( https://github.com/readium/readium-js-viewer/blob/develop/lice
 ## Prerequisites
 
 * A decent terminal. On Windows, GitShell works great ( http://git-scm.com ), GitBash works too ( https://msysgit.github.io ), and Cygwin adds useful commands ( https://www.cygwin.com ).
-* NodeJS ( https://nodejs.org )
+* NodeJS ( https://nodejs.org ) **v0.12** or higher
 
 
 ## Development
