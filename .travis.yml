@@ -18,7 +18,7 @@ before_install:
 - git show-ref --head --hash head
 - git branch -a --contains $(git rev-parse HEAD)
 - git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
-- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1`
 - git branch -avv
 #
 # READIUM JS
@@ -33,7 +33,7 @@ before_install:
 - git show-ref --head --hash head
 - git branch -a --contains $(git rev-parse HEAD)
 - git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
-- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1`
 - git branch -avv
 #
 # READIUM SHARED JS
@@ -48,7 +48,7 @@ before_install:
 - git show-ref --head --hash head
 - git branch -a --contains $(git rev-parse HEAD)
 - git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
-- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1`
 - git branch -avv
 #
 # READIUM CFI JS
@@ -63,7 +63,7 @@ before_install:
 - git show-ref --head --hash head
 - git branch -a --contains $(git rev-parse HEAD)
 - git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
-- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1`
+- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1`
 - git branch -avv
 #
 - cd ../../../

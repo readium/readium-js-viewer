@@ -37,6 +37,7 @@ Advanced usage (e.g. TravisCI) - the commands below automate the remote/origin t
 
 (repeat for each repository / submodule)
 
+
 ### Source tree preparation
 
 * `npm run prepare` (to perform required preliminary tasks, like patching code before building)
@@ -46,6 +47,7 @@ Note that the above command executes the following:
 * `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
 * `npm update` (to make sure that the dependency tree is up to date)
 * + some additional HTTP requests to the GitHub API in order to check for upstream library updates (wherever Readium uses a forked codebase)
+
 
 ### Typical workflow
 
@@ -79,6 +81,10 @@ Assuming a fork of `https://github.com/readium/readium-js-viewer` is made under 
 ### Plugins integration
 
 When invoking the `npm run build` command, the generated `build-output` folder contains RequireJS module bundles that include the default plugins specified in `readium-js/readium-js-shared/plugins/plugins.cson` (see the plugins documentation https://github.com/readium/readium-shared-js/blob/develop/PLUGINS.md ). Developers can override the default plugins configuration by using an additional file called `plugins-override.cson`. This file is git-ignored (not persistent in the Git repository), which means that Readium's default plugins configuration is never at risk of being mistakenly overridden by developers, whilst giving developers the possibility of creating custom builds on their local machines.
+
+For example, the `annotations` plugin can be activated by adding it to the `include` section in `readium-js/readium-js-shared/plugins/plugins-override.cson`.
+Then, in order to create / remove highlighted selections, simply comment `display:none` for `.icon-annotations` in the `src/css/viewer.css` file (this will enable an additional toolbar button).
+
 
 ## RequireJS bundle optimisation
 
