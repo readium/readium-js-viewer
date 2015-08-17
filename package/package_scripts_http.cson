@@ -18,7 +18,7 @@
 
 #=====================
 #### BLOCKING! (CTRL-C) [watch][live-reload][http]
-    'http:watch:plugins': '
+    'http': '
 
         echo > open_webbrowser.js
         &&
@@ -31,7 +31,7 @@
 
 #=====================
 #### BLOCKING! (CTRL-C) [http]
-    'http': '
+    'http:basic': '
 
         parallelshell
             \"npm run http:ebooks\"
