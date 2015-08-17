@@ -110,7 +110,7 @@ Via SauceLabs:
 
 `npm run test:sauce` (runs all of the above)
 
-Travis (Continuous Integration) automatically uses a chromeApp and Firefox test matrix (2x modes), and uses SauceLabs to actually run the test.
+Travis (Continuous Integration) automatically uses a chromeApp and Firefox test matrix (2x modes), and uses SauceLabs to actually run the test. See https://travis-ci.org/readium/readium-js-viewer/
 
 ## Distribution
 
