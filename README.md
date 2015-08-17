@@ -53,14 +53,14 @@ Note that the above command executes the following:
 
 No RequireJS optimization:
 
-* `npm run http` (to launch an http server, automatically opens a web browser instance to the HTML files in the `dev` folder)
+* `npm run http` (to launch an http server. This automatically opens a web browser instance to the HTML files in the `dev` folder, choose `index_RequireJS_no-optimize.html`, or the `*LITE.html` variant which do include only the reader view, not the ebook library view)
 * Hack away! (e.g. source code in the `src/js` folder)
 * Press F5 (refresh / reload) in the web browser
 
 Or to use optimized Javascript bundles (single or multiple):
 
 * `npm run build` (to update the RequireJS bundles in the build output folder)
-* `npm run http:watch` (to launch an http server, automatically opens a web browser instance to the HTML files in the `dev` folder)
+* `npm run http:watch` (to launch an http server. This automatically opens a web browser instance to the HTML files in the `dev` folder, choose `index_RequireJS_single-bundle.html` or `index_RequireJS_multiple-bundles.html`, or the `*LITE.html` variants which do include only the reader view, not the ebook library view)
 * `npm run http` (same as above, but without watching for file changes (no automatic rebuild))
 
 And finally to update the distribution packages (automatically calls the `build` task above, so `npm run build` is redundant):
