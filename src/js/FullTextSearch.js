@@ -22,8 +22,11 @@ define(['./Dialogs',
         var PREVIOUS = "previous";
         var NEXT = "next";
         var direction;
-        var host = window.location.protocol + '//' + window.location.hostname + ':8081';
+        
+        // todo: host should be configurable 
+        //var host = window.location.protocol + '//' + window.location.hostname + ':8081';
         //var host = 'http://localhost:8081';
+        var host = window.location.origin;
         var spinner;
 
         var FullTextSearch = function (readium) {

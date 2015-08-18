@@ -14,7 +14,7 @@
         &&
         npm run dev:cloudReaderWithFullTextSearch:copy
         &&
-        node ./dist/cloud-reader/main.js
+        node ./dist/cloud-reader/server.js
         
     '
     
@@ -31,7 +31,7 @@
     'dist:cloudReaderWithFullTextSearch:copy': '
         
         npm run cpy
-            src/cloud-reader/full_text_search/main.js
+            src/cloud-reader/full_text_search/server.js
             dist/cloud-reader/
         &&    
         npm run cpy

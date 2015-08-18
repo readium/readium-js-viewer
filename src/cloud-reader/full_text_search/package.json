@@ -15,6 +15,6 @@
     "chokidar": "~1.0.1"
   },
   "scripts": {
-    "start": "node ./main.js"
+    "start": "node ./server.js"
   }
 }
