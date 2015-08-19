@@ -23,14 +23,19 @@ define(['./Dialogs',
         var NEXT = "next";
         var direction;
         
+        
         // todo: host should be configurable 
         //var host = window.location.protocol + '//' + window.location.hostname + ':8081';
-        //var host = 'http://localhost:8081';
-        var host = window.location.origin;
+        var host = 'http://localhost:8080';
+        //var host = window.location.origin;
         var spinner;
+        var readium;
+        var epubTitle = "";
 
-        var FullTextSearch = function (readium) {
-            readium = readium;
+        var FullTextSearch = function (readiumRef, title) {
+           
+            readium = readiumRef;
+            epubTitle = title;
 
             this.init = function () {
 
@@ -131,8 +136,7 @@ define(['./Dialogs',
 
 
             function sendSearchRequest(pattern) {
-
-                var epubTitle = $('#book-title-header').text();
+                
                 var request = host + '/search?q=' + pattern + '&t=' + epubTitle;
 
                 spinner.radius = 4;

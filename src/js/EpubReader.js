@@ -83,7 +83,7 @@ FullTextSearch){
             $("#left-page-btn").on("click", prevPage);
             $("#right-page-btn").on("click", nextPage);
 
-            new FullTextSearch(readium).init();
+            new FullTextSearch(readium, options.metadata.title).init();
             
         }, openPageRequest);
     };
