@@ -13,8 +13,8 @@ var SampleService = function () {
         self.ipaddress = process.env.OPENSHIFT_NODEJS_IP || process.env.IP;
         self.port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080;
 
-        if (typeof self.ipaddress === "undefined")
-            self.ipaddress = "127.0.0.1";
+        //if (typeof self.ipaddress === "undefined")
+        //    self.ipaddress = "127.0.0.1";
     }
 
 //watchForUpdateIndex(service, index, epubs);
