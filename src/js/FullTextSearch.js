@@ -22,18 +22,18 @@ define(['./Dialogs',
         var PREVIOUS = "previous";
         var NEXT = "next";
         var direction;
-        
-        
+
+
         // todo: host should be configurable 
         //var host = window.location.protocol + '//' + window.location.hostname + ':8081';
-        //var host = 'http://localhost:8080';
         var host = window.location.origin;
+        //var host = 'http://localhost:8080';
         var spinner;
         var readium;
         var epubTitle = "";
 
         var FullTextSearch = function (readiumRef, title) {
-           
+
             readium = readiumRef;
             epubTitle = title;
 
@@ -136,7 +136,7 @@ define(['./Dialogs',
 
 
             function sendSearchRequest(pattern) {
-                
+
                 var request = host + '/search?q=' + pattern + '&t=' + epubTitle;
 
                 spinner.radius = 4;
@@ -172,7 +172,8 @@ define(['./Dialogs',
                     return;
 
                 var matcher = "/matcher?beginsWith=" + q;
-                var request = host + matcher;
+                var title = '&t=' + epubTitle;
+                var request = host + matcher + title;
 
                 //console.debug(request);
 
@@ -234,14 +235,14 @@ define(['./Dialogs',
             function setCurrentCFI(hits) {
 
                 var curIdref = readium.reader.getLoadedSpineItems()[0].idref;
-                
+
                 for (hit in hits) {
 
                     if (hits[hit].cfis.length > 0) {
-                        
-                        if (hit === "0") 
+
+                        if (hit === "0")
                             curCfi = hits[hit].cfis[0];
-                        
+
                         // Try to start hit highlighting (in/near) current spine item.
                         // This realise only "in". How can it realise "near"? 
                         if (curIdref === hits[hit].id) {
