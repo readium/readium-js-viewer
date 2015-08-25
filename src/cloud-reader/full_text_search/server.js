@@ -46,7 +46,8 @@ var SampleService = function () {
                 return;
             }
 
-            self.se.match(req.query['beginsWith'], function (err, matches) {
+            var bookTitle = req.query['t'];
+            self.se.match(req.query['beginsWith'], bookTitle, function (err, matches) {
                 res.send(matches);
             });
         };
