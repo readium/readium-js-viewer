@@ -31,5 +31,15 @@
         "author" : "Readium",
         "packagePath" : "package.opf",
         "rootUrl" : "epub_content/epubReadingSystem"
+    },
+    {
+        "title" : "navigator.epubReadingSystem (zipped)",
+        "author" : "Readium",
+        "rootUrl" : "epub_content/epubReadingSystem.epub"
+    },
+    {
+        "title" : "packed EPUB",
+        "author" : "Readium",
+        "rootUrl" : "epub_content/internal_link.epub"
     }
 ]

@@ -1,0 +1,97 @@
+
+#
+# See package.cson for more information
+#
+
+#=====================
+    'mocha': '
+
+        node node_modules/mocha/bin/mocha
+    	      --timeout 180000
+    	      --ui bdd
+            tests/tests.js
+    '
+
+#=====================
+    'clean:tests': '
+
+        npm run rimraf
+            dist/Readium.crx
+        &&
+        npm run rimraf
+            dist/cloud-reader/epub_content/
+        &&
+        npm run rimraf
+            dist/testbooks.zip
+        &&
+        npm run rimraf
+            dist/testlibrary/
+    '
+
+#=====================
+    'test': '
+
+        npm run test:chromeApp
+        &&
+        npm run test:firefox
+        &&
+        npm run test:chrome
+    '
+
+#=====================
+    'pretest:chromeApp': '
+
+        npm run crx
+    '
+
+# REQUIRES ChromeDriver in the PATH
+# https://sites.google.com/a/chromium.org/chromedriver/home
+#=====================
+    'test:chromeApp': '
+
+        parallelshell
+            \"node build-config/selenium_webdriver.js
+            -a 127.0.0.1
+            -p 8080
+            -c-1
+            ./dist/chrome-app\"
+            \"npm run mocha --readium-js-viewer:MODE=chromeApp\"
+    '
+
+#=====================
+    'pretest:chrome': '
+
+        npm run deploy:cloudReader:copy:epub_content
+    '
+
+# REQUIRES ChromeDriver in the PATH
+# https://sites.google.com/a/chromium.org/chromedriver/home
+#=====================
+    'test:chrome': '
+
+        parallelshell
+            \"node build-config/selenium_webdriver.js
+            -a 127.0.0.1
+            -p 8080
+            -c-1
+            ./dist/cloud-reader\"
+            \"npm run mocha --readium-js-viewer:MODE=chrome\"
+    '
+
+#==============
+    'pretest:firefox': '
+
+        npm run deploy:cloudReader:copy:epub_content
+    '
+
+#=====================
+    'test:firefox': '
+
+        parallelshell
+            \"node build-config/selenium_webdriver.js
+            -a 127.0.0.1
+            -p 8080
+            -c-1
+            ./dist/cloud-reader\"
+            \"npm run mocha --readium-js-viewer:MODE=firefox\"
+    '
