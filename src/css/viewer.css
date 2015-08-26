@@ -14,9 +14,11 @@
   text-align: center;
 }
 
-/* .chrome-app */
 .icon-annotations{
-  display:none; /* Comment this to test the annotations / highlighter plugin */
+  /*
+  display:none;
+  See the annotations / highlighter plugin setup in EpubReader.js (PLUGINS_LOADED event)
+  */
 }
 
 html#simpleViewer .icon-library{
