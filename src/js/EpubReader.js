@@ -720,9 +720,24 @@ Readium){
             window.READIUM = readium;
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
+                
                 console.log('PLUGINS INITIALIZED!');
-                if (readium.reader.plugins.annotations) {
+                
+                if (!readium.reader.plugins.annotations) {   
+                    $('.icon-annotations').css("display", "none");
+                } else {
                     readium.reader.plugins.annotations.initialize({annotationCSSUrl: readerOptions.annotationCSSUrl});
+                    
+                    readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
+        console.debug("ANNOTATION CLICK: " + id);
+                        readium.reader.plugins.annotations.removeHighlight(id);
+                    });
+                }
+    
+                if (readium.reader.plugins.example) {
+                    readium.reader.plugins.example.on("exampleEvent", function(message) {
+                        alert(message);
+                    });
                 }
             });
 
@@ -831,17 +846,6 @@ Readium){
             EpubReaderMediaOverlays.init(readium);
 
             EpubReaderBackgroundAudioTrack.init(readium);
-
-            readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
-console.debug("ANNOTATION CLICK: " + id);
-                readium.reader.plugins.annotations.removeHighlight(id);
-            });
-
-            if (readium.reader.plugins.example) {
-                readium.reader.plugins.example.on("exampleEvent", function(message) {
-                    alert(message);
-                });
-            }
 
             //epubReadingSystem
 
