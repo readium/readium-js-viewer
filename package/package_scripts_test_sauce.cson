@@ -1,0 +1,38 @@
+
+#
+# See package.cson for more information
+#
+
+#=====================
+    'test:sauce': '
+
+        npm run test:sauce:chromeApp
+        &&
+        npm run test:sauce:firefox
+        &&
+        npm run test:sauce:chrome
+    '
+
+#=====================
+    'pretest:sauce:chromeApp': '
+
+        npm run crx
+    '
+
+#=====================
+    'test:sauce:chromeApp': '
+
+        npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chromeApp
+    '
+
+#=====================
+    'test:sauce:firefox': '
+
+        npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=firefox
+    '
+
+#=====================
+    'test:sauce:chrome': '
+
+        npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chrome
+    '
