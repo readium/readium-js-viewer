@@ -122,9 +122,8 @@ Readium){
 
         if (hide){
             $appContainer.removeClass('toc-visible');
-            /* BG? clear any focuable tab item
-            ** only needed if do NOT add onblur in loadToc()
-            */
+
+            // clear tabindex off of any previously focused ToC item
             var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
             if (existsFocusable.length > 0){
               existsFocusable[0].setAttribute("tabindex", "-1");
@@ -210,7 +209,6 @@ Readium){
                 // Also note that "script" elements are discarded automatically by jQuery.
                 $('iframe', $toc).remove();
 
-                
                 $('#readium-toc-body').append($toc);
 
                 if (isRTL)
@@ -218,16 +216,17 @@ Readium){
                     $toc[0].setAttributeNS("http://www.w3.org/1999/xhtml", "dir", "rtl");
                     $toc[0].style.direction = "rtl"; // The CSS stylesheet property does not trigger :(
                 }
-                // remove default focus from a elements in TOC after added to #readium-toc-body
+
+                // remove default focus from anchor elements in TOC after added to #readium-toc-body
                 var $items = $('#readium-toc-body li >a');
                 $items.each(function(){
                   $(this).attr("tabindex", "-1");
                    $(this).on("focus", function(event){
-                    console.log("toc item focus: " + event.target);
+                    //console.log("toc item focus: " + event.target);
                     // remove tabindex from previously focused
                     var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
                     if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
-                      console.log("previous focus: " + $prevFocus[0]);
+                      //console.log("previous focus: " + $prevFocus[0]);
                       $prevFocus.attr("tabindex","-1");
                     }
                     // add to newly focused
