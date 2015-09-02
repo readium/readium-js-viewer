@@ -5,7 +5,7 @@
   "._": "as this would overwrite / update the JSON, not the master CSON!",
   "*/": "----------------------------------------------------------------------------",
   "name": "readium-js-viewer",
-  "version": "0.20.0-alpha",
+  "version": "0.22.0-alpha",
   "description": "Readium web app - online cloud reader, offline Chrome extension/app",
   "keywords": [
     "readium",
