@@ -42,6 +42,8 @@ Advanced usage (e.g. TravisCI) - the commands below automate the remote/origin t
 
 * `npm run prepare` (to perform required preliminary tasks, like patching code before building)
 
+Note that in some cases, administrator rights may be needed in order to install dependencies, because of NPM-related file access permissions (the console log would clearly show the error). Should this be the case, running `sudo npm run prepare` usually solves this.
+
 Note that the above command executes the following:
 
 * `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
