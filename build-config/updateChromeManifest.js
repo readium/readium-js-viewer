@@ -6,6 +6,8 @@ var manifest = require(path.join(process.cwd(), 'dist/chrome-app/manifest.json')
 
 manifest.version = version.readiumJsViewer.chromeVersion;
 
+manifest.version_name = manifest.version;
+
 console.log(manifest.version);
 
 manifest.version = manifest.version.replace(/(.+)(-alpha)(.*)/g, "$1.1$3");
