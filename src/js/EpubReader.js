@@ -598,9 +598,9 @@ Readium){
         setTocSize();
         hideLoop();
 
-        // captures all clicks on the document on the capture phase. Not sure if it's possible with jquery
-        // so I'm using DOM api directly
-        document.addEventListener('click', hideLoop, true);
+            // captures all clicks on the document on the capture phase. Not sure if it's possible with jquery
+            // so I'm using DOM api directly
+            //document.addEventListener('click', hideLoop, true);
     };
 
     var setFitScreen = function(e){
@@ -747,10 +747,6 @@ Readium){
                 {
                     $(document.body).removeClass('hide-ui');
                 }
-            });
-
-            readium.reader.addIFrameEventListener('mousemove', function() {
-                hideLoop();
             });
 
             readium.reader.addIFrameEventListener('keydown', function(e) {
@@ -956,7 +952,6 @@ Readium){
         $(window).off('message');
         window.clearTimeout(hideTimeoutId);
         $(document.body).removeClass('embedded');
-        document.removeEventListener('click', hideLoop, true);
         $('.book-title-header').remove();
 
         $(document.body).removeClass('hide-ui');
