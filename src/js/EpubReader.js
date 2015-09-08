@@ -419,21 +419,31 @@ Readium){
         hideTimeoutId = null;
         // don't hide it toolbar while toc open in non-embedded mode
         if (!embedded && $('#app-container').hasClass('toc-visible')){
+            hideLoop()
             return;
         }
 
         var navBar = document.getElementById("app-navbar");
         if (document.activeElement) {
             var within = jQuery.contains(navBar, document.activeElement);
-            if (within) return;
+            if (within){
+                hideLoop();
+                return;
+            } 
         }
 
         var $navBar = $(navBar);
         // BROEKN! $navBar.is(':hover')
         var isMouseOver = $navBar.find(':hover').length > 0;
-        if (isMouseOver) return;
+        if (isMouseOver){
+            hideLoop()
+            return;  
+        } 
 
-        if ($('#audioplayer').hasClass('expanded-audio')) return;
+        if ($('#audioplayer').hasClass('expanded-audio')){
+            hideLoop();
+            return;  
+        } 
 
         $(document.body).addClass('hide-ui');
     }
@@ -593,7 +603,8 @@ Readium){
 
         Keyboard.on(Keyboard.ShowSettingsModal, 'reader', function(){$('#settings-dialog').modal("show")});
 
-        $(window).on('mousemove', hideLoop);
+        $('#app-navbar').on('mousemove', hideLoop);
+        
         $(window).on('resize', setTocSize);
         setTocSize();
         hideLoop();
@@ -934,6 +945,7 @@ Readium){
         $('#settings-dialog').modal('hide');
         $('#about-dialog').modal('hide');
         $('.modal-backdrop').remove();
+        $('#app-navbar').off('mousemove');
 
 
         Keyboard.off('reader');
