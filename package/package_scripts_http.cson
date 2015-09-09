@@ -122,6 +122,20 @@
     '
 
 #=====================
+#### BLOCKING! (CTRL-C) [http]    
+    'http:travis': '
+
+        node
+            node_modules/http-server/bin/http-server 
+            
+            -a 127.0.0.1
+            -p 8080
+    
+            -c-1
+            ./dist/cloud-reader/
+    '
+
+#=====================
 #    'live-reload': '
 #
 #        live-reload --port 9091 --delay 1000 build-output/
