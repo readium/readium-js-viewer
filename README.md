@@ -145,7 +145,7 @@ by editing `cloud-reader/index.html` and by replacing the value of `epubLibraryP
 require.config({
 config : {
         'readium_js_viewer/ModuleConfig' : {
-            'epubLibraryPath`: VALUE
+            'epubLibraryPath': VALUE
         }
 });
 ```

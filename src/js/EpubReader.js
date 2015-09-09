@@ -419,21 +419,31 @@ Readium){
         hideTimeoutId = null;
         // don't hide it toolbar while toc open in non-embedded mode
         if (!embedded && $('#app-container').hasClass('toc-visible')){
+            hideLoop()
             return;
         }
 
         var navBar = document.getElementById("app-navbar");
         if (document.activeElement) {
             var within = jQuery.contains(navBar, document.activeElement);
-            if (within) return;
+            if (within){
+                hideLoop();
+                return;
+            } 
         }
 
         var $navBar = $(navBar);
         // BROEKN! $navBar.is(':hover')
         var isMouseOver = $navBar.find(':hover').length > 0;
-        if (isMouseOver) return;
+        if (isMouseOver){
+            hideLoop()
+            return;  
+        } 
 
-        if ($('#audioplayer').hasClass('expanded-audio')) return;
+        if ($('#audioplayer').hasClass('expanded-audio')){
+            hideLoop();
+            return;  
+        } 
 
         $(document.body).addClass('hide-ui');
     }
@@ -593,14 +603,15 @@ Readium){
 
         Keyboard.on(Keyboard.ShowSettingsModal, 'reader', function(){$('#settings-dialog').modal("show")});
 
-        $(window).on('mousemove', hideLoop);
+        $('#app-navbar').on('mousemove', hideLoop);
+        
         $(window).on('resize', setTocSize);
         setTocSize();
         hideLoop();
 
-        // captures all clicks on the document on the capture phase. Not sure if it's possible with jquery
-        // so I'm using DOM api directly
-        document.addEventListener('click', hideLoop, true);
+            // captures all clicks on the document on the capture phase. Not sure if it's possible with jquery
+            // so I'm using DOM api directly
+            //document.addEventListener('click', hideLoop, true);
     };
 
     var setFitScreen = function(e){
@@ -751,10 +762,6 @@ Readium){
                 {
                     $(document.body).removeClass('hide-ui');
                 }
-            });
-
-            readium.reader.addIFrameEventListener('mousemove', function() {
-                hideLoop();
             });
 
             readium.reader.addIFrameEventListener('keydown', function(e) {
@@ -938,6 +945,7 @@ Readium){
         $('#settings-dialog').modal('hide');
         $('#about-dialog').modal('hide');
         $('.modal-backdrop').remove();
+        $('#app-navbar').off('mousemove');
 
 
         Keyboard.off('reader');
@@ -960,7 +968,6 @@ Readium){
         $(window).off('message');
         window.clearTimeout(hideTimeoutId);
         $(document.body).removeClass('embedded');
-        document.removeEventListener('click', hideLoop, true);
         $('.book-title-header').remove();
 
         $(document.body).removeClass('hide-ui');
