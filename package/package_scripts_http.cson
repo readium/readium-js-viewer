@@ -11,6 +11,37 @@
         &&
         parallelshell
             \"npm run dowatch\"
+            \"npm run http:app_ebooks\"
+    '
+#    \"npm run live-reload\"
+
+#=====================
+#### BLOCKING! (CTRL-C) [watch][live-reload][http]
+    'http': '
+
+        echo > open_webbrowser.js
+        &&
+        parallelshell
+            \"npm run dowatch:plugins\"
+            \"npm run http:app_ebooks\"
+    '
+#    \"npm run live-reload\"
+
+#=====================
+#### BLOCKING! (CTRL-C) [http]
+    'http:nowatch': '
+
+        npm run http:app_ebooks
+    '
+
+#=====================
+#### BLOCKING! (CTRL-C) [watch][live-reload][http]
+    'http2:watch': '
+
+        echo > open_webbrowser.js
+        &&
+        parallelshell
+            \"npm run dowatch\"
             \"npm run http:ebooks\"
             \"npm run http:app\"
     '
@@ -18,7 +49,7 @@
 
 #=====================
 #### BLOCKING! (CTRL-C) [watch][live-reload][http]
-    'http': '
+    'http2': '
 
         echo > open_webbrowser.js
         &&
@@ -31,7 +62,7 @@
 
 #=====================
 #### BLOCKING! (CTRL-C) [http]
-    'http:basic': '
+    'http2:nowatch': '
 
         parallelshell
             \"npm run http:ebooks\"
@@ -99,6 +130,26 @@
             -c-1
             --cors
             ./epub_content
+    '
+
+#=====================
+#### BLOCKING! (CTRL-C) [http]    
+    'http:app_ebooks': '
+
+        node
+            readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
+            
+            -LOGFILE
+            http_app-ebooks.log
+            
+            -OPEN
+            /dev/index_RequireJS_no-optimize.html
+            
+            -a 127.0.0.1
+            -p 8080
+    
+            -c-1
+            .
     '
 
 #=====================
