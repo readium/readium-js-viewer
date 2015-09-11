@@ -16,17 +16,19 @@ var extensionUrl = '';
 //var extensionUrl = 'http://google.com';
 describe("chrome extension tests", function() {
   var browser;
-  
+
 
   var addLibraryItemForApp = function(filePath){
-  	return this
+      console.log(filePath);
+      
+      return this
   			.waitForElementByCss('.icon-add-epub',asserters.isDisplayed, 10000)
 	  		.click()
 	  		.waitForElementByCss('#add-epub-dialog', asserters.isDisplayed, 10000)
 	  		.elementByCss('#epub-upload')
 	  		.sendKeys(filePath)
-	  		.waitForElementByCss('.progress-bar', asserters.isDisplayed, 10000)
-  			.waitForElementByCss('.library-item', asserters.isDisplayed, 10000)
+	  		//.waitForElementByCss('.progress-bar', asserters.isDisplayed, 10000)
+  			.waitForElementByCss('.library-item', asserters.isDisplayed, 20000)
   			.sleep(500);//wait for the modal dialog backdrop to fade
   }
 
@@ -40,7 +42,7 @@ describe("chrome extension tests", function() {
             .frame('epubContentIframe');
 
   }
-  
+
   var openExtensionUrl = function(){
   	// this is necessary because it seems that chrome won't load the extension immediately after startup.
   	return this.get(extensionUrl).sleep(1000).get(extensionUrl);
@@ -62,14 +64,29 @@ describe("chrome extension tests", function() {
       }
 
       browser = wd.promiseChainRemote(url, port, 'readium', 'a36ebc10-e514-4da6-924c-307aec513550');
-      
+
     }
     else{
-  	   browser = wd.promiseChainRemote(); 
+  	   browser = wd.promiseChainRemote();
     }
-    
 
-    var retVal = browser.init(config.browser).setAsyncScriptTimeout(30000);;
+console.log(config.browser.browserName);
+
+    var retVal = browser.init(config.browser).setAsyncScriptTimeout(30000);
+    
+            browser.on('status', function(info) {
+               //console.log('STATUS >', info);
+           });
+
+            browser.on('command', function(meth, path, data) {
+               //console.log('COMMAND >', meth, path, (data || ''));
+           });
+
+            browser.on('http', function(meth, path, data) {
+               //console.log('HTTP >', meth, path, (data || ''));
+           });
+    
+//console.log(retVal);
     if (process.env.TRAVIS_JOB_NUMBER){
       return retVal.sauceJobUpdate({name: process.env.TRAVIS_JOB_NUMBER});
     }
@@ -79,7 +96,10 @@ describe("chrome extension tests", function() {
   });
 
   afterEach(function() {
-    return browser.quit();
+    return browser
+        //.log('browser')
+        //.then(function(logs) { console.log(logs);})
+      .quit();
   });
 
   if (config.chromeExtension){
@@ -232,7 +252,7 @@ describe("chrome extension tests", function() {
               .elementByCss('#settings-dialog .btn-primary')
               .click()
               .sleep(500)
-              .frame('epubContentIframe') 
+              .frame('epubContentIframe')
               .execute('return document.querySelector("html").style.fontSize')
               .should.become('160%');
 
@@ -267,7 +287,7 @@ describe("chrome extension tests", function() {
                   .should.not.become(width);
               })
 
-              
+
 
     });
 
@@ -282,8 +302,17 @@ describe("chrome extension tests", function() {
               .elementByCss('#margin-size-input')
               .getValue()
               .should.become('60');
-              
+
     });
+
+
+      it('READIUM HTTP EXIT...', function(){
+        var url = "http://127.0.0.1:8080/exit-request_READIUMHTTPEXIT_.html";
+        console.log(url);
+        return browser.get(url, function() {
+          browser.done();
+        });
+      });
 
 
 
