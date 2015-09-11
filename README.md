@@ -11,23 +11,23 @@ Please see https://github.com/readium/readium-shared-js for more information abo
 
 **BSD-3-Clause** ( http://opensource.org/licenses/BSD-3-Clause )
 
-See license.txt ( https://github.com/readium/readium-js-viewer/blob/develop/license.txt )
+See [license.txt](./license.txt).
 
 
 ## Prerequisites
 
 * A decent terminal. On Windows, GitShell works great ( http://git-scm.com ), GitBash works too ( https://msysgit.github.io ), and Cygwin adds useful commands ( https://www.cygwin.com ).
-* NodeJS ( https://nodejs.org )
+* NodeJS ( https://nodejs.org ) **v0.12** or higher
 
 
 ## Development
 
-**Git initialisation:**
+### Git initialisation
 
 * `git clone —recursive https://github.com/readium/readium-js-viewer.git –b BRANCH_NAME readium-js-viewer` (replace "BRANCH_NAME" with e.g. "develop")
 * `cd readium-js-viewer`
 * `git submodule update --init --recursive` to ensure that the readium-js-viewer chain of dependencies is initialised (readium-js, readium-shared-js and readium-cfi-js)
-* `git checkout BRANCH_NAME && git submodule foreach --recursive 'git checkout BRANCH_NAME'` (or simply `cd` inside each repository / submodule, and manually enter the desired branch name: `git checkout BRANCH_NAME`) Git should automatically track the corresponding branch in the 'origin' remote.
+* `git checkout BRANCH_NAME && git submodule foreach --recursive "git checkout BRANCH_NAME"` (or simply `cd` inside each repository / submodule, and manually enter the desired branch name: `git checkout BRANCH_NAME`) Git should automatically track the corresponding branch in the 'origin' remote.
 
 
 Advanced usage (e.g. TravisCI) - the commands below automate the remote/origin tracking process (this requires a Bash-like shell):
@@ -38,27 +38,31 @@ Advanced usage (e.g. TravisCI) - the commands below automate the remote/origin t
 (repeat for each repository / submodule)
 
 
-**Source tree preparation:**
+### Source tree preparation
 
 * `npm run prepare` (to perform required preliminary tasks, like patching code before building)
+
+Note that in some cases, administrator rights may be needed in order to install dependencies, because of NPM-related file access permissions (the console log would clearly show the error). Should this be the case, running `sudo npm run prepare` usually solves this.
 
 Note that the above command executes the following:
 
 * `npm install` (to download dependencies defined in `package.json` ... note that the `--production` option can be used to avoid downloading development dependencies, for example when testing only the pre-built `build-output` folder contents)
 * `npm update` (to make sure that the dependency tree is up to date)
+* + some additional HTTP requests to the GitHub API in order to check for upstream library updates (wherever Readium uses a forked codebase)
 
-**Typical workflow:**
+
+### Typical workflow
 
 No RequireJS optimization:
 
-* `npm run http` (to launch an http server, automatically opens a web browser instance to the HTML files in the `dev` folder)
+* `npm run http` (to launch an http server. This automatically opens a web browser instance to the HTML files in the `dev` folder, choose `index_RequireJS_no-optimize.html`, or the `*LITE.html` variant which do include only the reader view, not the ebook library view)
 * Hack away! (e.g. source code in the `src/js` folder)
 * Press F5 (refresh / reload) in the web browser
 
 Or to use optimized Javascript bundles (single or multiple):
 
 * `npm run build` (to update the RequireJS bundles in the build output folder)
-* `npm run http:watch` (to launch an http server, automatically opens a web browser instance to the HTML files in the `dev` folder)
+* `npm run http:watch` (to launch an http server. This automatically opens a web browser instance to the HTML files in the `dev` folder, choose `index_RequireJS_single-bundle.html` or `index_RequireJS_multiple-bundles.html`, or the `*LITE.html` variants which do include only the reader view, not the ebook library view)
 * `npm run http` (same as above, but without watching for file changes (no automatic rebuild))
 
 And finally to update the distribution packages (automatically calls the `build` task above, so `npm run build` is redundant):
@@ -69,9 +73,29 @@ The above task takes a lot of time (as it builds distributable packages for *all
 
 * `npm run chromeApp` (generates a ready-to-use Readium packaged app for Chrome, inside the usual `dist/chrome-app` folder)
 
-**Plugins integration:**
+Remember to activate "developer mode" in the Chrome web browser, so that the Readium packaged app / extension can be added directly from the `dist/chrome-app` folder. Subsequently (after each build), the app can simply be reloaded.
+
+
+Also note that the built-in local HTTP server functionality (`npm run http`) is primarily designed to serve the Readium application at development time in its "exploded" form (`dev`, `src`, `node_modules`, etc. folders). However, it is also possible to use any arbitrary HTTP server as long as the root folder is `readium-js-viewer` (so that the application assets ; CSS, images, fonts ; can be loaded relative to this base URL). Example with the built-in NodeJS server: `node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 .`
+
+
+### HTTP CORS (separate domains / origins, app vs. ebooks)
+
+By default, a single HTTP server is launched when using the `npm run http` task, or its "watch" and "nowatch" variants (usage described in the above "Typical workflow" section).
+To launch separate local HTTP servers on two different domains (in order to test HTTP CORS cross-origin app vs. ebooks deployment architecture), simply invoke the equivalent tasks named with `http2` instead of `http`. For example: `npm run http2`. More information about real-world HTTP CORS is given in the "Cloud reader deployment" section below.
+
+### Forking
+
+Assuming a fork of `https://github.com/readium/readium-js-viewer` is made under `USER` at `https://github.com/USER/readium-js-viewer`, the `.gitmodules` file ( https://github.com/readium/readium-js-viewer/blob/develop/.gitmodules ) will still point to the original submodule URL (at `readium`, instead of `USER`). Thankfully, one can simply modify the `.gitmodules` file by replacing `https://github.com/readium/` with `https://github.com/USER/`, and do this for every submodule (`readium-js-viewer` > `readium-js` > `readium-shared-js` > `readium-cfi-js`). Then the Git command `git submodule sync` can be invoked, for each submodule.
+
+
+### Plugins integration
 
 When invoking the `npm run build` command, the generated `build-output` folder contains RequireJS module bundles that include the default plugins specified in `readium-js/readium-js-shared/plugins/plugins.cson` (see the plugins documentation https://github.com/readium/readium-shared-js/blob/develop/PLUGINS.md ). Developers can override the default plugins configuration by using an additional file called `plugins-override.cson`. This file is git-ignored (not persistent in the Git repository), which means that Readium's default plugins configuration is never at risk of being mistakenly overridden by developers, whilst giving developers the possibility of creating custom builds on their local machines.
+
+For example, the `annotations` plugin can be activated by adding it to the `include` section in `readium-js/readium-js-shared/plugins/plugins-override.cson`.
+Then, in order to create / remove highlighted selections, simply comment `display:none` for `.icon-annotations` in the `src/css/viewer.css` file (this will enable an additional toolbar button).
+
 
 ## RequireJS bundle optimisation
 
@@ -97,17 +121,20 @@ Via SauceLabs:
 
 `npm run test:sauce` (runs all of the above)
 
-Travis (Continuous Integration) automatically uses a chromeApp and Firefox test matrix (2x modes), and uses SauceLabs to actually run the test.
+Travis (Continuous Integration) automatically uses a chromeApp and Firefox test matrix (2x modes), and uses SauceLabs to actually run the test. See https://travis-ci.org/readium/readium-js-viewer/
 
 ## Distribution
 
-See the `dist` folder contents:
+See the `dist` folder contents (generated by `npm run dist`):
 
 * `cloud-reader`
 * `cloud-reader-lite` (same as above, without the ebook library feature)
 * `chrome-app` (Google Chrome Extension / Packaged App)
 
 The source maps are generated separately, so they are effectively an opt-in feature (simply copy/paste them next to their original Javascript file counterparts, e.g. in the `scripts` folder)
+
+
+Note that `npm run http` + `dev` folder is not the only way to test Readium "locally". The distributable / packaged Readium app in the `dist` folder can also execute in any arbitrary local HTTP server, such as the built-in NodeJS option `node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 ..` (assuming the current command line folder is `readium-js-viewer`). Then, simply open the `http://127.0.0.1:8080/readium-js-viewer/dist/cloud-reader/index.html?epubs=http://127.0.0.1:8080/readium-js-viewer/epub_content/epub_library.json` URL, which explicitely specifies the location of the ebook library (alternatively, you may copy/paste the `epub_content` folder manually under `dist/cloud-reader`, and open `http://127.0.0.1:8080/readium-js-viewer/dist/cloud-reader/index.html` without parameters). 
 
 ## Cloud reader deployment
 
@@ -124,7 +151,7 @@ by editing `cloud-reader/index.html` and by replacing the value of `epubLibraryP
 require.config({
 config : {
         'readium_js_viewer/ModuleConfig' : {
-            'epubLibraryPath`: VALUE
+            'epubLibraryPath': VALUE
         }
 });
 ```

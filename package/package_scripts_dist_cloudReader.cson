@@ -29,6 +29,9 @@
         npm run mkdirp
             dist/cloud-reader/scripts/zip
         &&
+        npm run mkdirp
+            dist/cloud-reader/scripts/mathjax
+        &&
         npm run cpy
             src/cloud-reader/index.html
             dist/cloud-reader/
@@ -49,9 +52,9 @@
             src/images/
             dist/cloud-reader/images/
         &&
-        npm run ncp
-            src/js/mathjax/
-            dist/cloud-reader/scripts/mathjax/
+        npm run cpy
+            node_modules/MathJax-grunt-concatenator/MathJax.js
+            dist/cloud-reader/scripts/mathjax
         &&
         npm run ncp
             node_modules/bootstrap/fonts/

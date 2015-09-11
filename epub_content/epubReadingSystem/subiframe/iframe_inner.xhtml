@@ -32,10 +32,20 @@
 
 document.addEventListener("DOMContentLoaded", function()
 {
+    window.addEventListener("message", function(ev) {
+        console.log("@@@@@@@@@@@@@@@@ iframe_inner.xhtml received message:");
+        console.log(ev.data);
+    }, false);
+    
+    window.parent.postMessage("MSG from inner iframe to parent", "*");
+
     epubReadingSystem();
     
-    window.frameElement.ownerDocument.body.style.background = "magenta";
-    window.document.body.style.background = "yellow";
+    window.frameElement.ownerDocument.body.style.backgroundColor = "magenta";
+    window.parent.document.body.style.backgroundColor = "magenta";
+    
+    window.document.body.style.backgroundColor = "yellow";
+    
     console.debug(location);
     console.debug(window.frameElement.baseURI); //ownerDocument.defaultView
     

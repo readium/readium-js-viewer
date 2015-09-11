@@ -23,7 +23,7 @@
     'test:travis': '
 
         parallelshell
-            \"npm run http:cloudReaderDist\"
+            \"npm run http:travis\"
             \"npm run mocha\"
     '
 

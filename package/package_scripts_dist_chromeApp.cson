@@ -72,6 +72,9 @@
         npm run mkdirp
             dist/chrome-app/scripts/zip
         &&
+        npm run mkdirp
+            dist/chrome-app/scripts/mathjax
+        &&
         npm run cpy
             src/chrome-app/index.html
             dist/chrome-app/
@@ -92,9 +95,9 @@
             src/images/
             dist/chrome-app/images/
         &&
-        npm run ncp
-            src/js/mathjax/
-            dist/chrome-app/scripts/mathjax/
+        npm run cpy
+            node_modules/MathJax-grunt-concatenator/MathJax.js
+            dist/chrome-app/scripts/mathjax
         &&
         npm run ncp
             node_modules/bootstrap/fonts/
