@@ -1,0 +1,64 @@
+
+#
+# See package.cson for more information
+#
+
+
+#=====================
+    'pretest:travis': '
+
+        npm run dist
+        &&
+        npm run crx
+        &&
+        npm run deploy:cloudReader:copy:sourcemap
+        &&
+        npm run deploy:cloudReader:copy:epub_content
+        &&
+        npm run deploy:cloudReader:copy:epub_testsuite
+    '
+# npm run deploy:chromeApp:copy:sourcemap
+
+#=====================
+    'test:travis': '
+
+        parallelshell
+            \"npm run http:travis\"
+            \"npm run mocha\"
+    '
+
+
+#=====================
+    'deploy:cloudReader:copy:epub_content': '
+
+        npm run ncp
+            epub_content/
+            dist/cloud-reader/epub_content/
+    '
+
+#=====================
+    'deploy:cloudReader:copy:epub_testsuite': '
+
+        node build-config/createTestLibrary.js
+    '
+
+#=====================
+    'deploy:cloudReader:copy:sourcemap': '
+
+        npm run ncp
+            dist/cloud-reader_sourcemap/
+            dist/cloud-reader/scripts/
+        &&
+        npm run ncp
+            dist/zip_sourcemap/
+            dist/cloud-reader/scripts/zip/
+    '
+
+#=====================
+    'deploy:chromeApp:copy:sourcemap': '
+
+        npm run ncp
+            dist/chrome-app_sourcemap/
+            dist/chrome-app/scripts/
+    '
+

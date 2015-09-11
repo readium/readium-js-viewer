@@ -1,0 +1,63 @@
+
+#
+# See package.cson for more information
+#
+
+#=====================
+    'dist:cssoptimize': '
+
+        node node_modules/clean-css/bin/cleancss
+            --skip-rebase
+            --skip-advanced
+            --skip-aggressive-merging
+            --skip-media-merging
+            --skip-restructuring
+            --skip-shorthand-compacting
+            "node_modules/bootstrap/dist/css/bootstrap.css"
+            "node_modules/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css"
+            "src/css/sourcesanspro.css"
+            "src/css/readium_js.css"
+            "src/css/viewer.css"
+            "src/css/viewer_audio.css"
+            "src/css/settings.css"
+    '
+    
+#=====================
+    'predist': '
+
+        npm run build
+        &&
+        npm run mkdirp
+            dist
+    '
+
+#=====================
+    'dist': '
+
+        npm run dist:copy
+        &&
+        npm run dist:cloudReaderLite
+        &&
+        npm run dist:cloudReader
+        &&
+        npm run dist:chromeApp
+    '
+
+#=====================
+    'dist:copy': '
+
+        npm run mkdirp
+            dist/zip_sourcemap
+        &&
+        npm run cpy
+            build-output/z-worker.js.map
+            dist/zip_sourcemap
+        &&
+        npm run cpy
+            build-output/deflate.js.map
+            dist/zip_sourcemap
+        &&
+        npm run cpy
+            build-output/inflate.js.map
+            dist/zip_sourcemap
+    '

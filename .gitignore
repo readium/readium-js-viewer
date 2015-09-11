@@ -1,5 +1,16 @@
+build-output
+dist
+.idea
+.settings
 .DS_Store
 .divshot-cache
 node_modules
-build
+epub_content/x
+build.txt
 local_test_data
+npm-debug.log
+
+http.log
+http_ebooks.log
+http_app.log
+http_app-ebooks.log
