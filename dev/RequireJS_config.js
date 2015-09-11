@@ -20,6 +20,18 @@ window.location ? (
   ) : ''
 ;
 
+
+var EPUB_LIB_JSON = "http://127.0.0.1:8080/epub_library.json";
+//"http://development.readium.divshot.io/epub_content/epub_library.json"
+
+// check for non-CORS mode
+if (HTTPServerRootFolder.indexOf("127.0.0.1") > 0) {
+    //EPUB_LIB_JSON = HTTPServerRootFolder + "/epub_content/epub_library.json";
+    EPUB_LIB_JSON = "../epub_content/epub_library.json";
+}
+
+console.log("Default URL of ebooks library: " + EPUB_LIB_JSON);
+
 var getURLQueryParams = function() {
    var params = {};
 
@@ -59,10 +71,7 @@ require.config({
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
-            //'epubLibraryPath': "../epub_content/epub_library.json",
-            //'epubLibraryPath': "/epub_content/epub_library.json",
-            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : "http://127.0.0.1:8080/epub_library.json",
-            //'epubLibraryPath': "http://development.readium.divshot.io/epub_content/epub_library.json",
+            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
 
             'imagePathPrefix': '/src/',
 
