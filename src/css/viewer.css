@@ -279,9 +279,17 @@ html[data-theme=night-theme] #right-page-btn:hover
     bottom: 0px;
     top: 38px;
 
-	overflow: hidden;
+    overflow: hidden;
 }
 
+/* show outline on reading-area when iframe gets focus */
+.contentFocus {
+    box-shadow: 0px 0px 5px #6fb5f1 !important;
+    outline: #6fb5f1 dotted 1px !important;
+    
+    outline-offset: -3px;
+}
+ 
 #epub-reader-container {
 
     position: absolute;

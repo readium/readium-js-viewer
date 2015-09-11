@@ -773,7 +773,12 @@ Readium){
             });
 
             readium.reader.addIFrameEventListener('focus', function(e) {
+                $('#reading-area').addClass("contentFocus");
                 $(window).trigger("focus");
+            });
+            
+            readium.reader.addIFrameEventListener('blur', function(e) {
+                $('#reading-area').removeClass("contentFocus");
             });
 
             SettingsDialog.initDialog(readium.reader);
