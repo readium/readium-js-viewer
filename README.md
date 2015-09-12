@@ -7,6 +7,7 @@ and the "cloud reader" for online e-books ( http://development.readium.divshot.i
 
 Please see https://github.com/readium/readium-shared-js for more information about the underlying rendering engine.
 
+
 ## License
 
 **BSD-3-Clause** ( http://opensource.org/licenses/BSD-3-Clause )
