@@ -5,11 +5,10 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 
 		var urlParams = Helpers.getURLQueryParams();
 
-		var epubUrl = urlParams['epub'];
-
-		if (epubUrl){
+		var ebookURL = urlParams['epub'];
+		if (ebookURL){
 			// embedded, epub
-      EpubReader.loadUI(urlParams); //{epub: epubUrl}
+      		EpubReader.loadUI(urlParams); //{epub: ebookURL}
 		}
 		else{
 			EpubLibrary.loadUI();
@@ -58,10 +57,11 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 		EpubLibrary.loadUI();
 	}
 
-	var readerView = function(url){
+	var readerView = function(ebookURL){
 		$(tooltipSelector).tooltip('destroy');
 		EpubLibrary.unloadUI();
-		EpubReader.loadUI({epub: url});
+		
+		EpubReader.loadUI({epub: ebookURL});
 	}
 
 	var URLPATH =
@@ -74,15 +74,28 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 	) : 'index.html'
 	;
 
-	$(window).on('readepub', function(e, url){
-		readerView(url);
-		pushState({epub: url}, "Readium Viewer",
-				URLPATH + '?epub=' + encodeURIComponent(url)
+	$(window).on('readepub', function(e, ebookURL){
+		readerView(ebookURL);
+		
+        var ebookURL_filepath = Helpers.getEbookUrlFilePath(ebookURL);
+		
+		pushState(
+			{epub: ebookURL},
+			"Readium Viewer",
+			URLPATH + '?epub=' + encodeURIComponent(ebookURL_filepath)
 		);
 	});
 
-	$(window).on('loadlibrary', function(e){
+	$(window).on('loadlibrary', function(e, ebook){
+
 		libraryView();
+		
+		if (ebook) {
+			setTimeout(function() {
+				EpubLibrary.importEpub(ebook);
+			}, 800);
+		}
+		
 		pushState(null, "Readium Library", URLPATH);
 	});
 
@@ -93,5 +106,65 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 	}).on('show.bs.tooltip', function(e){
 		$(tooltipSelector).not(e.target).tooltip('destroy');
 	});
+	
+	
+	
+	if (window.File
+	 	//&& window.FileReader
+	 ) {
+		var fileDragNDropHTMLArea = $(document.body);
+		fileDragNDropHTMLArea.on("dragover", function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			
+			//$(ev.target)
+			fileDragNDropHTMLArea.addClass("fileDragHover");
+		});
+		fileDragNDropHTMLArea.on("dragleave", function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			
+			//$(ev.target)
+			fileDragNDropHTMLArea.removeClass("fileDragHover");
+		});
+		fileDragNDropHTMLArea.on("drop", function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			
+			//$(ev.target)
+			fileDragNDropHTMLArea.removeClass("fileDragHover");
+			
+			var files = ev.target.files || ev.originalEvent.dataTransfer.files;
+			if (files.length) {
+				var file = files[0];
+				console.log("File drag-n-drop:");
+				console.log(file.name);
+				console.log(file.type);
+				console.log(file.size);
+				
+				if (file.type == "application/epub+zip" || (/\.epub$/.test(file.name))) {
+					
+					if (isChromeExtensionPackagedApp) {
+						
+            			$(window).triggerHandler('loadlibrary', file);
+								
+					} else {
+						
+						$(window).triggerHandler('readepub', [file]);
+					}
+					
+					// var reader = new FileReader();
+					// reader.onload = function(e) {
+						
+					// 	console.log(e.target.result);
+						
+					// 	var ebookURL = e.target.result;
+					// 	$(window).triggerHandler('readepub', [ebookURL]);
+					// }
+					// reader.readAsDataURL(file);
+				}
+			}
+		});
+	}
 
 });
