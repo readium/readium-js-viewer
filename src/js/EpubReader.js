@@ -381,9 +381,9 @@ Helpers){
                     $('.toc-visible').removeClass('toc-visible');
                     $(document.body).removeClass('hide-ui');
                 }
-            } catch (e) {
+            } catch (err) {
                 
-                console.error(e);
+                console.error(err);
                 
             } finally {
                 //e.preventDefault();
