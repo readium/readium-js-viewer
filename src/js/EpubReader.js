@@ -377,10 +377,14 @@ Helpers){
     
                 readium.reader.openContentUrl(href);
     
-                if (embedded){
+                if (embedded) {
                     $('.toc-visible').removeClass('toc-visible');
                     $(document.body).removeClass('hide-ui');
                 }
+            } catch (e) {
+                
+                console.error(e);
+                
             } finally {
                 //e.preventDefault();
                 //e.stopPropagation();
