@@ -367,20 +367,24 @@ Helpers){
 
         $('#readium-toc-body').on('click', 'a', function(e)
         {
-            e.preventDefault();
-            
-            spin();
-
-            var href = $(this).attr('href');
-            href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
-
-            _tocLinkActivated = true;
-
-            readium.reader.openContentUrl(href);
-
-            if (embedded){
-                $('.toc-visible').removeClass('toc-visible');
-                $(document.body).removeClass('hide-ui');
+            try {
+                spin();
+    
+                var href = $(this).attr('href');
+                href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
+    
+                _tocLinkActivated = true;
+    
+                readium.reader.openContentUrl(href);
+    
+                if (embedded){
+                    $('.toc-visible').removeClass('toc-visible');
+                    $(document.body).removeClass('hide-ui');
+                }
+            } finally {
+                //e.preventDefault();
+                //e.stopPropagation();
+                return false;
             }
         });
         $('#readium-toc-body').prepend('<button tabindex="50" type="button" class="close" data-dismiss="modal" aria-label="'+Strings.i18n_close+' '+Strings.toc+'" title="'+Strings.i18n_close+' '+Strings.toc+'"><span aria-hidden="true">&times;</span></button>');
