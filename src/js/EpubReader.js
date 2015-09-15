@@ -159,12 +159,12 @@ Helpers){
             hideLoop(null, true);
         }else if (readium.reader.handleViewportResize){
 
-            readium.reader.handleViewportResize();
+            readium.reader.handleViewportResize(bookmark);
 
-            setTimeout(function()
-            {
-                readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
-            }, 90);
+            // setTimeout(function()
+            // {
+            //     readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
+            // }, 90);
         }
     };
 
