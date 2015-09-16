@@ -43,6 +43,20 @@
         npm run dist:chromeApp
     '
 
+
+#=====================
+    'dist+sourcemap': '
+
+        npm run dist
+        &&
+        npm run deploy:cloudReader:copy:sourcemap
+        &&
+        npm run deploy:cloudReaderLite:copy:sourcemap
+        &&
+        npm run deploy:chromeApp:copy:sourcemap
+    '
+
+
 #=====================
     'dist:copy': '
 
