@@ -79,11 +79,16 @@ Remember to activate "developer mode" in the Chrome web browser, so that the Rea
 
 Also note that the built-in local HTTP server functionality (`npm run http`) is primarily designed to serve the Readium application at development time in its "exploded" form (`dev`, `src`, `node_modules`, etc. folders). However, it is also possible to use any arbitrary HTTP server as long as the root folder is `readium-js-viewer` (so that the application assets ; CSS, images, fonts ; can be loaded relative to this base URL). Example with the built-in NodeJS server: `node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 .`
 
+Remark: a log of HTTP requests is preserved in `http_app-ebooks.log`. This file contains ANSI color escape codes, so although it can be read using a regular text editor, it can be rendered in its original format using the shell command: `cat http_app.log` (on OSX / Linux), or `sed "s,x,x,g" http_app-ebooks.log` (on Windows).
+
 
 ### HTTP CORS (separate domains / origins, app vs. ebooks)
 
 By default, a single HTTP server is launched when using the `npm run http` task, or its "watch" and "nowatch" variants (usage described in the above "Typical workflow" section).
 To launch separate local HTTP servers on two different domains (in order to test HTTP CORS cross-origin app vs. ebooks deployment architecture), simply invoke the equivalent tasks named with `http2` instead of `http`. For example: `npm run http2`. More information about real-world HTTP CORS is given in the "Cloud reader deployment" section below.
+
+Remark: logs of HTTP requests are preserved in two separate files `http_app.log` and `http_ebooks.log`. They contains ANSI color escape codes, so although they can be read using a regular text editor, they can be rendered in their original format using the shell command: `cat http_app.log` (on OSX / Linux), or `sed "s,x,x,g" http_app.log` (on Windows).
+
 
 ### Forking
 
