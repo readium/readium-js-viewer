@@ -392,6 +392,9 @@ define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings
             SettingsModalSave: Strings.settings + " - " + Strings.i18n_save_changes,
             SettingsModalClose: Strings.settings + " - " + Strings.i18n_close,
 
+            NavBack: Strings.i18n_nav_back,
+            NavBackLinear: Strings.i18n_nav_back_linear,
+            
             PagePrevious: Strings.i18n_page_previous,
             PageNext: Strings.i18n_page_next,
             PagePreviousAlt: Strings.i18n_page_previous + " (access key)",
@@ -439,6 +442,9 @@ define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings
         SettingsModalSave: 's', //accesskey'ed
         SettingsModalClose: 'c', //accesskey'ed
 
+        NavBack: '9', //accesskey'ed
+        NavBackLinear: '0', //accesskey'ed
+            
         PagePrevious: 'left', // ALT BELOW
         PageNext: 'right', // ALT BELOW
         PagePreviousAlt: '1', //accesskey'ed

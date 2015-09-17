@@ -94,14 +94,20 @@ Helpers){
     
                 $("#left-page-btn").unbind("click");
                 $("#right-page-btn").unbind("click");
+                $("#nav-back-btn").unbind("click");
+                $("#nav-back-linear-btn").unbind("click");
+                
                 var $pageBtnsContainer = $('#readium-page-btns');
                 $pageBtnsContainer.empty();
                 var rtl = currentPackageDocument.getPageProgressionDirection() === "rtl"; //_package.spine.isLeftToRight()
                 $pageBtnsContainer.append(ReaderBodyPageButtons({strings: Strings, dialogs: Dialogs, keyboard: Keyboard,
                     pageProgressionDirectionIsRTL: rtl
                 }));
+                
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
+                $("#nav-back-btn").on("click", function() { return navBack(false); });
+                $("#nav-back-linear-btn").on("click", function() { return navBack(true); });
     
             },
             openPageRequest
@@ -375,6 +381,7 @@ Helpers){
     
                 _tocLinkActivated = true;
     
+                console.log("TOC nav: " + href);
                 readium.reader.openContentUrl(href);
     
                 if (embedded) {
@@ -507,21 +514,41 @@ Helpers){
     // https://github.com/readium/readium-js-viewer/issues/188
     // See onSwipeLeft() onSwipeRight() in gesturesHandler.
     // See nextPage() prevPage() in this class.
-    var updateUI = function(pageChangeData){
-        if(pageChangeData.paginationInfo.canGoLeft())
+    var updateUI = function(pageChangeData) {
+        
+        if (pageChangeData.paginationInfo.canGoLeft())
             $("#left-page-btn").show();
         else
             $("#left-page-btn").hide();
-        if(pageChangeData.paginationInfo.canGoRight())
+        
+        if (pageChangeData.paginationInfo.canGoRight())
             $("#right-page-btn").show();
         else
             $("#right-page-btn").hide();
+            
+        if (readium.reader.navigationHistoryCanBack(false)) {
+            $("#nav-back-btn").show();
+        } else {
+            $("#nav-back-btn").hide();
+        }
+        
+        if (pageChangeData.spineItem && readium.reader.navigationHistoryCanBack(true) && !readium.reader.spine().isValidLinearItem(pageChangeData.spineItem.index)) {
+            $("#nav-back-linear-btn").show();
+        } else {
+            $("#nav-back-linear-btn").hide();
+        }
     }
 
     var savePlace = function(){
         Settings.put(ebookURL_filepath, readium.reader.bookmarkCurrentPage(), $.noop);
     }
 
+    var navBack = function (forceLinear) {
+
+        readium.reader.navigationHistoryBack(forceLinear);
+        return false;
+    };
+    
     var nextPage = function () {
 
         readium.reader.openPageRight();
@@ -579,6 +606,10 @@ Helpers){
         Keyboard.on(Keyboard.PagePrevious, 'reader', function(){
             if (!isWithinForbiddenNavKeysArea()) prevPage();
         });
+
+
+        Keyboard.on(Keyboard.NavBack, 'reader', function() { return navBack(false); });
+        Keyboard.on(Keyboard.NavBackLinear, 'reader', function() { return navBack(true); });
 
         Keyboard.on(Keyboard.PagePreviousAlt, 'reader', prevPage);
 

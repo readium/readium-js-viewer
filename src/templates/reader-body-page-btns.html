@@ -22,6 +22,8 @@ accesskey="{{keyboard.accesskeys.PagePreviousAlt}}"
 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 </button>
   
+  
+  
 <!-- Right page -->
 <button tabindex="0" id="right-page-btn" class="page-switch-overlay-icon" type="button"
 
@@ -44,4 +46,71 @@ accesskey="{{keyboard.accesskeys.PageNextAlt}}"
 >
 <!-- img aria-hidden="true" src="images/pagination1.svg" -->
 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+</button>
+
+
+
+<!-- navigation history back -->
+<button tabindex="0" id="nav-back-btn"
+
+{{#pageProgressionDirectionIsRTL}}
+ class="page-switch-overlay-icon pageProgressionDirectionRTL"
+{{/pageProgressionDirectionIsRTL}}
+
+{{^pageProgressionDirectionIsRTL}}
+ class="page-switch-overlay-icon pageProgressionDirectionLTR"
+{{/pageProgressionDirectionIsRTL}}
+
+type="button"
+
+
+title="{{strings.i18n_nav_back}} [{{keyboard.NavBack}}]"
+
+aria-label="{{strings.i18n_nav_back}} [{{keyboard.NavBack}}]"
+
+accesskey="{{keyboard.accesskeys.NavBack}}"
+
+>
+
+{{#pageProgressionDirectionIsRTL}}
+ <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+{{/pageProgressionDirectionIsRTL}}
+
+{{^pageProgressionDirectionIsRTL}}
+ <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+{{/pageProgressionDirectionIsRTL}}
+
+</button>
+
+
+<!-- navigation history back linear -->
+<button tabindex="0" id="nav-back-linear-btn"
+
+{{#pageProgressionDirectionIsRTL}}
+ class="page-switch-overlay-icon pageProgressionDirectionRTL"
+{{/pageProgressionDirectionIsRTL}}
+
+{{^pageProgressionDirectionIsRTL}}
+ class="page-switch-overlay-icon pageProgressionDirectionLTR"
+{{/pageProgressionDirectionIsRTL}}
+
+type="button"
+
+
+title="{{strings.i18n_nav_back_linear}} [{{keyboard.NavBackLinear}}]"
+
+aria-label="{{strings.i18n_nav_back_linear}} [{{keyboard.NavBackLinear}}]"
+
+accesskey="{{keyboard.accesskeys.NavBackLinear}}"
+
+>
+
+{{#pageProgressionDirectionIsRTL}}
+ <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+{{/pageProgressionDirectionIsRTL}}
+
+{{^pageProgressionDirectionIsRTL}}
+ <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+{{/pageProgressionDirectionIsRTL}}
+
 </button>

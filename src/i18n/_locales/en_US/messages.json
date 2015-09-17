@@ -422,6 +422,12 @@
   "i18n_page_next" : {
     "message" : "Next Page"
   },
+  "i18n_nav_back" : {
+    "message" : "Navigate back"
+  },
+  "i18n_nav_back_linear" : {
+    "message" : "Return to primary reading flow"
+  },
   "i18n_page_navigation" : {
     "message" : "Page Navigation"
   },
