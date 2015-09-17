@@ -41,5 +41,10 @@
         "title" : "packed EPUB",
         "author" : "Readium",
         "rootUrl" : "epub_content/internal_link.epub"
+    },
+    {
+        "title" : "non-linear spine items (ancillary documents)",
+        "author" : "Readium",
+        "rootUrl" : "epub_content/nonLinear"
     }
 ]
