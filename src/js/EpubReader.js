@@ -510,29 +510,34 @@ Helpers){
         }
     }
 
-    //TODO: also update "previous/next page" commands status (disabled/enabled), not just button visibility.
-    // https://github.com/readium/readium-js-viewer/issues/188
-    // See onSwipeLeft() onSwipeRight() in gesturesHandler.
-    // See nextPage() prevPage() in this class.
+    var _canGoLeft = false;
+    var _canGoRight = false;
+    var _navigationHistoryCanBack = false;
+    var _navigationHistoryCanBackLinear = false;
+
     var updateUI = function(pageChangeData) {
         
-        if (pageChangeData.paginationInfo.canGoLeft())
+        _canGoLeft = pageChangeData.paginationInfo.canGoLeft(); 
+        if (_canGoLeft)
             $("#left-page-btn").show();
         else
             $("#left-page-btn").hide();
         
-        if (pageChangeData.paginationInfo.canGoRight())
+        _canGoRight = pageChangeData.paginationInfo.canGoRight();
+        if (_canGoRight)
             $("#right-page-btn").show();
         else
             $("#right-page-btn").hide();
             
-        if (readium.reader.navigationHistoryCanBack(false)) {
+        _navigationHistoryCanBack = readium.reader.navigationHistoryCanBack(false); 
+        if (_navigationHistoryCanBack) {
             $("#nav-back-btn").show();
         } else {
             $("#nav-back-btn").hide();
         }
         
-        if (pageChangeData.spineItem && readium.reader.navigationHistoryCanBack(true) && !readium.reader.spine().isValidLinearItem(pageChangeData.spineItem.index)) {
+        _navigationHistoryCanBackLinear = readium.reader.navigationHistoryCanBack(true) && !readium.reader.spine().isValidLinearItem(pageChangeData.paginationInfo.openPages[0].spineItemIndex); 
+        if (_navigationHistoryCanBackLinear) {
             $("#nav-back-linear-btn").show();
         } else {
             $("#nav-back-linear-btn").hide();
@@ -543,21 +548,27 @@ Helpers){
         Settings.put(ebookURL_filepath, readium.reader.bookmarkCurrentPage(), $.noop);
     }
 
+
     var navBack = function (forceLinear) {
 
-        readium.reader.navigationHistoryBack(forceLinear);
+        if (forceLinear && _navigationHistoryCanBackLinear
+        || !forceLinear && _navigationHistoryCanBack)
+            readium.reader.navigationHistoryBack(forceLinear);
+            
         return false;
     };
     
     var nextPage = function () {
-
-        readium.reader.openPageRight();
+        if (_canGoRight)
+            readium.reader.openPageRight();
+            
         return false;
     };
 
     var prevPage = function () {
-
-        readium.reader.openPageLeft();
+        if (_canGoLeft)
+            readium.reader.openPageLeft();
+            
         return false;
     };
 
