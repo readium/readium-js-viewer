@@ -302,7 +302,7 @@ Helpers){
                     //bookmark.idref; //manifest item
                     if (pageChangeData.spineItem)
                     {
-                        element = readium.reader.getElementByCfi(pageChangeData.spineItem, bookmark.contentCFI,
+                        element = readium.reader.getElementByCfi(pageChangeData.spineItem.idref, bookmark.contentCFI,
                             ["cfi-marker", "mo-cfi-highlight"],
                             [],
                             ["MathJax_Message"]);
