@@ -538,7 +538,7 @@ Helpers){
 
         // Set handlers for click events
         $(".icon-annotations").on("click", function () {
-            readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "highlight");
+            readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "test-highlight");
         });
 
         var isWithinForbiddenNavKeysArea = function()
