@@ -279,9 +279,18 @@ html[data-theme=night-theme] #right-page-btn:hover
     bottom: 0px;
     top: 38px;
 
-	overflow: hidden;
+    overflow: hidden;
 }
 
+/* show outline on reading-area when iframe gets focus */
+.contentFocus {
+    /* box-shadow: 0px 0px 5px #6fb5f1 !important; */
+    
+    outline: #6fb5f1 dotted 1px !important;
+    
+    outline-offset: -3px;
+}
+ 
 #epub-reader-container {
 
     position: absolute;
@@ -310,7 +319,13 @@ html[data-theme=night-theme] #right-page-btn:hover
 .embedded .toc-visible #left-page-btn, 
 .embedded .toc-visible #right-page-btn{
   -webkit-transition: opacity .2s ease-out;
-  opacity: 0
+  opacity: 0;
+}
+
+.hide-ui #left-page-btn:hover, 
+.hide-ui #right-page-btn:hover{
+   -webkit-transition: opacity .2s ease-out;
+  opacity: 1;
 }
 
 .embedded .navbar .btn-group > .btn.icon-full-screen{

@@ -12,31 +12,43 @@
 //  prior written permission.
 
 var HTTPServerRootFolder =
-        window.location ? (
-            window.location.protocol
-            + "//"
-            + window.location.hostname
-            + (window.location.port ? (':' + window.location.port) : '')
-        ) : ''
-    ;
+window.location ? (
+  window.location.protocol
+  + "//"
+  + window.location.hostname
+  + (window.location.port ? (':' + window.location.port) : '')
+  ) : ''
+;
+
+
+var EPUB_LIB_JSON = "http://127.0.0.1:8080/epub_library.json";
+//"http://development.readium.divshot.io/epub_content/epub_library.json"
+
+// check for non-CORS mode
+if (HTTPServerRootFolder.indexOf("127.0.0.1") > 0) {
+    //EPUB_LIB_JSON = HTTPServerRootFolder + "/epub_content/epub_library.json";
+    EPUB_LIB_JSON = "../epub_content/epub_library.json";
+}
+
+console.log("Default URL of ebooks library: " + EPUB_LIB_JSON);
 
 var getURLQueryParams = function() {
-    var params = {};
+   var params = {};
 
-    var query = window.location.search;
-    if (query && query.length) {
-        query = query.substring(1);
-        var keyParams = query.split('&');
-        for (var x = 0; x < keyParams.length; x++)
-        {
-            var keyVal = keyParams[x].split('=');
-            if (keyVal.length > 1) {
-                params[keyVal[0]] = decodeURIComponent(keyVal[1]);
-            }
-        }
-    }
+   var query = window.location.search;
+   if (query && query.length) {
+       query = query.substring(1);
+       var keyParams = query.split('&');
+       for (var x = 0; x < keyParams.length; x++)
+       {
+           var keyVal = keyParams[x].split('=');
+           if (keyVal.length > 1) {
+               params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+           }
+       }
+   }
 
-    return params;
+   return params;
 };
 
 var urlParams = getURLQueryParams();
@@ -61,13 +73,10 @@ require.config({
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
-            'epubLibraryPath': "../epub_content/epub_library.json",
-            //'epubLibraryPath': "/epub_content/epub_library.json",
-            //'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : "http://127.0.0.1:8080/epub_library.json",
-            //'epubLibraryPath': "http://development.readium.divshot.io/epub_content/epub_library.json",
+            //'epubLibraryPath': "../epub_content/epub_library.json",
+            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
 
-//            'imagePathPrefix': '/src/',
-            'imagePathPrefix': '../src/',
+            'imagePathPrefix': '/src/',
 
             'canHandleUrl' : false,
             'canHandleDirectory' : false,

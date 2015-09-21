@@ -23,7 +23,7 @@
     'test:travis': '
 
         parallelshell
-            \"npm run http:cloudReaderDist\"
+            \"npm run http:travis\"
             \"npm run mocha\"
     '
 
@@ -55,10 +55,21 @@
     '
 
 #=====================
+    'deploy:cloudReaderLite:copy:sourcemap': '
+
+        npm run ncp
+            dist/cloud-reader-lite_sourcemap/
+            dist/cloud-reader-lite/scripts/
+        &&
+        npm run ncp
+            dist/zip_sourcemap/
+            dist/cloud-reader-lite/scripts/zip/
+    '
+
+#=====================
     'deploy:chromeApp:copy:sourcemap': '
 
         npm run ncp
             dist/chrome-app_sourcemap/
             dist/chrome-app/scripts/
     '
-
