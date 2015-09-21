@@ -73,8 +73,8 @@ require.config({
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
-            //'epubLibraryPath': "../epub_content/epub_library.json",
-            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
+            'epubLibraryPath': "../epub_content/epub_library.json",
+            //'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
 
             'imagePathPrefix': '/src/',
 
