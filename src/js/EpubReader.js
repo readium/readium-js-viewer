@@ -111,7 +111,7 @@ Readium){
 
     var tocShowHideToggle = function(){
 
-        $(document.body).removeClass('hide-ui');
+        unhideUI();
 
         var $appContainer = $('#app-container'),
             hide = $appContainer.hasClass('toc-visible');
@@ -354,7 +354,7 @@ Readium){
 
             if (embedded){
                 $('.toc-visible').removeClass('toc-visible');
-                $(document.body).removeClass('hide-ui');
+                unhideUI();
             }
             return false;
         });
@@ -413,6 +413,9 @@ Readium){
             $('#buttFullScreenToggle').attr('title', titleText);
         }
         oldOnChange.call(this, e);
+    }
+    var unhideUI = function(){
+        hideLoop();
     }
 
     var hideUI = function(){
@@ -529,7 +532,7 @@ Readium){
             if (!embedded && $('#app-container').hasClass('toc-visible')){
                 return;
             }
-            $(document.body).addClass('hide-ui');
+            hideUI();
             if (document.activeElement) document.activeElement.blur();
         };
         $("#buttHideToolBar").on("click", hideTB);
@@ -537,7 +540,7 @@ Readium){
 
         var showTB = function(){
             $("#aboutButt1")[0].focus();
-            $(document.body).removeClass('hide-ui');
+            unhideUI();
             setTimeout(function(){ $("#aboutButt1")[0].focus(); }, 50);
         };
         $("#buttShowToolBar").on("click", showTB);
@@ -760,7 +763,7 @@ Readium){
             {
                 if (e.keyCode === 9 || e.which === 9)
                 {
-                    $(document.body).removeClass('hide-ui');
+                    unhideUI();
                 }
             });
 
@@ -782,7 +785,7 @@ Readium){
 
                 Keyboard.scope('reader');
 
-                $(document.body).removeClass('hide-ui');
+                unhideUI()
                 setTimeout(function(){ $("#settbutt1").focus(); }, 50);
 
                 $("#buttSave").removeAttr("accesskey");
@@ -800,7 +803,7 @@ Readium){
             $('#about-dialog').on('hidden.bs.modal', function () {
                 Keyboard.scope('reader');
 
-                $(document.body).removeClass('hide-ui');
+                unhideUI();
                 setTimeout(function(){ $("#aboutButt1").focus(); }, 50);
             });
             $('#about-dialog').on('shown.bs.modal', function(){
