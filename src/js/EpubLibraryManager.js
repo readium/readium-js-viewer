@@ -5,19 +5,21 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 
 	var adjustEpubLibraryPath = function(path) {
 
-				if (!path || !moduleConfig.epubLibraryPath) return path;
+        if (!path || !moduleConfig.epubLibraryPath) return path;
+        
+        if (path.startsWith("http://") || path.startsWith("https://")) return path;
 
-				if (path.indexOf("epub_content/") == 0) {
-						path = path.replace("epub_content/", "");
-				}
+        if (path.indexOf("epub_content/") == 0) {
+            path = path.replace("epub_content/", "");
+        }
 
-				var parts = moduleConfig.epubLibraryPath.split('/');
-				parts.pop();
+        var parts = moduleConfig.epubLibraryPath.split('/');
+        parts.pop();
 
-				var root = parts.join('/');
-				path = root + (path.charAt(0) == '/' ? '' : '/') + path;
+        var root = parts.join('/');
+        path = root + (path.charAt(0) == '/' ? '' : '/') + path;
 
-				return path;
+        return path;
 	};
 
 	LibraryManager.prototype = {
@@ -41,25 +43,114 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
                 return;
             }
 
-		        var indexUrl = moduleConfig.epubLibraryPath
-														? StorageManager.getPathUrl(moduleConfig.epubLibraryPath)
-														: StorageManager.getPathUrl('/epub_library.json');
+            var indexUrl = moduleConfig.epubLibraryPath
+                        ? StorageManager.getPathUrl(moduleConfig.epubLibraryPath)
+                        : StorageManager.getPathUrl('/epub_library.json');
 
-            var self = this;
-						$.getJSON(indexUrl, function(data){
-
-								if (moduleConfig.epubLibraryPath) {
-										for (var i = 0; i < data.length; i++) {
-												data[i].coverHref = adjustEpubLibraryPath(data[i].coverHref);
-												data[i].rootUrl = adjustEpubLibraryPath(data[i].rootUrl);
-										}
-								}
-
-			          self.libraryData = data;
-								success(data);
-						}).fail(function(){
+            var dataFail = function() {
+                console.error("Ebook library fail: " + indexUrl);
+                
                 self.libraryData = [];
                 success([]);
+            };
+            
+            var dataSuccess = function(data) {
+                console.log("Ebook library success: " + indexUrl);
+                
+                if (moduleConfig.epubLibraryPath) {
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].coverHref = adjustEpubLibraryPath(data[i].coverHref);
+                        data[i].rootUrl = adjustEpubLibraryPath(data[i].rootUrl);
+                    }
+                }
+                
+                self.libraryData = data;
+                success(data);
+            };
+
+            var self = this;
+            
+            $.getJSON(indexUrl, function(data){
+                dataSuccess(data);
+            }).fail(function(){
+                
+                // console.error(moduleConfig.epubLibraryPath);
+                // console.log(indexUrl);
+
+                if (indexUrl.startsWith("opds://")) {
+                    indexUrl = indexUrl.replace("opds://", "http://");
+                }
+
+                $.get(indexUrl, function(data){
+                    
+                    try {
+                        if (typeof data === "string") {
+                            data = $.parseXML(data);
+                        }
+                        
+                        $xml = $(data);
+                        
+                        var json = [];
+                        
+                        $xml.find('entry').each(function() {
+                            var $entry = $(this);
+                            var title = $entry.find('title').text();
+                            var author = $entry.find('author').find('name').text();
+                            var rootUrl = undefined;
+                            var coverHref = undefined;
+                            var coverHref_thumb = undefined;
+                            $entry.find('link').each(function() {
+                                var $entry = $(this);
+                                var href  = $entry.attr('href');
+                                if (href) {
+                                    var t  = $entry.attr('type');
+                                    var rel  = $entry.attr('rel');
+                                    
+                                    if (!rootUrl
+                                        && t == "application/epub+zip"
+                                        && rel == "http://opds-spec.org/acquisition") {
+                                        rootUrl = href;  
+                                    }
+                                    
+                                    if (t && t.startsWith("image/")) {
+                                        
+                                        if (rel == "http://opds-spec.org/image") {
+                                            coverHref = href;
+                                        } else if (rel == "http://opds-spec.org/image/thumbnail") {
+                                            coverHref_thumb = href;
+                                        }
+                                    }
+                                }
+                            });
+                            
+                            if (!coverHref || coverHref_thumb) {
+                                coverHref = coverHref_thumb;
+                            }
+                            
+                            if (rootUrl
+                                && json.length < 50 // TODO: library view pagination!
+                            ) {
+                                json.push({
+                                    rootUrl: rootUrl,
+                                    title: title,
+                                    author: author,
+                                    coverHref: coverHref 
+                                });
+                            }
+                        });
+        
+                        if (json.length) {
+                            dataSuccess(json);
+                        } else {
+                            dataFail();
+                        }
+                    } catch(err) {
+                        console.error(err);
+                        dataFail();
+                    }
+                }).fail(function(){
+                    dataFail();
+                });
             });
 		},
 
