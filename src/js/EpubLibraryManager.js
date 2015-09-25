@@ -108,8 +108,9 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
                                     
                                     if (!rootUrl
                                         && t == "application/epub+zip"
-                                        && rel == "http://opds-spec.org/acquisition") {
-                                        rootUrl = href;  
+                                        && rel && rel.startsWith("http://opds-spec.org/acquisition")
+                                        ) {
+                                        rootUrl = href;
                                     }
                                     
                                     if (t && t.startsWith("image/")) {
