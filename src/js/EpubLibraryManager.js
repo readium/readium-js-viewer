@@ -1,4 +1,4 @@
-define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings) {
+define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings', 'URIjs'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings, URI) {
 
 	var LibraryManager = function(){
 	};
@@ -69,89 +69,124 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
             };
 
             var self = this;
+        
+            var isOPDS = false; 
+            if (indexUrl.startsWith("opds://")) {
+                isOPDS = true;
+                indexUrl = indexUrl.replace("opds://", "http://");
+            }
             
-            $.getJSON(indexUrl, function(data){
-                dataSuccess(data);
-            }).fail(function(){
-                
-                // console.error(moduleConfig.epubLibraryPath);
-                // console.log(indexUrl);
-
-                if (indexUrl.startsWith("opds://")) {
-                    indexUrl = indexUrl.replace("opds://", "http://");
-                }
-
-                $.get(indexUrl, function(data){
+            var processOPDS = function(data) {
+        
+                try {
+                    if (typeof data === "string") {
+                        data = $.parseXML(data);
+                    }
                     
-                    try {
-                        if (typeof data === "string") {
-                            data = $.parseXML(data);
-                        }
-                        
-                        $xml = $(data);
-                        
-                        var json = [];
-                        
-                        $xml.find('entry').each(function() {
+                    $xml = $(data);
+                    
+                    var json = [];
+                    
+                    $xml.find('entry').each(function() {
+                        var $entry = $(this);
+                        var title = $entry.find('title').text();
+                        var author = $entry.find('author').find('name').text();
+                        var rootUrl = undefined;
+                        var coverHref = undefined;
+                        var coverHref_thumb = undefined;
+                        $entry.find('link').each(function() {
                             var $entry = $(this);
-                            var title = $entry.find('title').text();
-                            var author = $entry.find('author').find('name').text();
-                            var rootUrl = undefined;
-                            var coverHref = undefined;
-                            var coverHref_thumb = undefined;
-                            $entry.find('link').each(function() {
-                                var $entry = $(this);
-                                var href  = $entry.attr('href');
-                                if (href) {
-                                    var t  = $entry.attr('type');
-                                    var rel  = $entry.attr('rel');
+                            var href  = $entry.attr('href');
+                            if (href) {
+                                var t  = $entry.attr('type');
+                                var rel  = $entry.attr('rel');
+                                
+                                if (!rootUrl
+                                    && t == "application/epub+zip"
+                                    && rel && rel.startsWith("http://opds-spec.org/acquisition")
+                                    ) {
+                                    rootUrl = href;
+                                }
+                                
+                                if (t && t.startsWith("image/")) {
                                     
-                                    if (!rootUrl
-                                        && t == "application/epub+zip"
-                                        && rel && rel.startsWith("http://opds-spec.org/acquisition")
-                                        ) {
-                                        rootUrl = href;
-                                    }
-                                    
-                                    if (t && t.startsWith("image/")) {
-                                        
-                                        if (rel == "http://opds-spec.org/image") {
-                                            coverHref = href;
-                                        } else if (rel == "http://opds-spec.org/image/thumbnail") {
-                                            coverHref_thumb = href;
-                                        }
+                                    if (rel == "http://opds-spec.org/image") {
+                                        coverHref = href;
+                                    } else if (rel == "http://opds-spec.org/image/thumbnail") {
+                                        coverHref_thumb = href;
                                     }
                                 }
-                            });
-                            
-                            if (!coverHref || coverHref_thumb) {
-                                coverHref = coverHref_thumb;
-                            }
-                            
-                            if (rootUrl
-                                && json.length < 50 // TODO: library view pagination!
-                            ) {
-                                json.push({
-                                    rootUrl: rootUrl,
-                                    title: title,
-                                    author: author,
-                                    coverHref: coverHref 
-                                });
                             }
                         });
-        
-                        if (json.length) {
-                            dataSuccess(json);
-                        } else {
-                            dataFail();
+                        
+                        if (!coverHref || coverHref_thumb) {
+                            coverHref = coverHref_thumb;
                         }
-                    } catch(err) {
-                        console.error(err);
+                        
+                        if (rootUrl
+                            && json.length < 50 // TODO: library view pagination!
+                        ) {
+                            
+                            if (!rootUrl.startsWith("http://") && !rootUrl.startsWith("https://")) {
+                                
+                                var thisRootUrl = window.location.origin + window.location.pathname;
+                                
+                                var indexUrlAbsolute = indexUrl; 
+                                if (!indexUrlAbsolute.startsWith("http://") && !indexUrlAbsolute.startsWith("https://")) {
+                                    try {
+                                        indexUrlAbsolute = new URI(indexUrl).absoluteTo(thisRootUrl).toString();
+                                    } catch(err) {
+                                        console.error(err);
+                                        console.log(indexUrlAbsolute);
+                                    }
+                                }
+                                
+                                try {
+                                    rootUrl = new URI(rootUrl).absoluteTo(indexUrlAbsolute).toString();
+                                } catch(err) {
+                                    console.error(err);
+                                    console.log(rootUrl);
+                                }
+                            }
+                            
+                            json.push({
+                                rootUrl: rootUrl,
+                                title: title,
+                                author: author,
+                                coverHref: coverHref 
+                            });
+                        }
+                    });
+    
+                    if (json.length) {
+                        dataSuccess(json);
+                    } else {
                         dataFail();
                     }
+                } catch(err) {
+                    console.error(err);
+                    dataFail();
+                }
+            };
+            
+            $[isOPDS ? "get" : "getJSON"](indexUrl, function(data){
+                if (isOPDS) {
+                    processOPDS(data);
+                } else {
+                    dataSuccess(data);
+                }
+                
+            }).fail(function(){
+
+                // JSON failed to parse? ... maybe OPDS with HTTP URI protocol
+                $.get(indexUrl, function(data) {
+                    
+                    processOPDS(data);
+                        
                 }).fail(function(){
                     dataFail();
                 });
+                
             });
 		},
 
