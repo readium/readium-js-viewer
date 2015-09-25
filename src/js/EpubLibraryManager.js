@@ -7,7 +7,7 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 
         if (!path || !moduleConfig.epubLibraryPath) return path;
         
-        if (path.startsWith("http://") || path.startsWith("https://")) return path;
+        if (path.indexOf("http://") == 0 || path.indexOf("https://") == 0) return path;
 
         if (path.indexOf("epub_content/") == 0) {
             path = path.replace("epub_content/", "");
@@ -71,7 +71,7 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
             var self = this;
         
             var isOPDS = false; 
-            if (indexUrl.startsWith("opds://")) {
+            if (indexUrl.indexOf("opds://") == 0) {
                 isOPDS = true;
                 indexUrl = indexUrl.replace("opds://", "http://");
             }
@@ -103,12 +103,12 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
                                 
                                 if (!rootUrl
                                     && t == "application/epub+zip"
-                                    && rel && rel.startsWith("http://opds-spec.org/acquisition")
+                                    && rel && rel.indexOf("http://opds-spec.org/acquisition") == 0
                                     ) {
                                     rootUrl = href;
                                 }
                                 
-                                if (t && t.startsWith("image/")) {
+                                if (t && t.indexOf("image/") == 0) {
                                     
                                     if (rel == "http://opds-spec.org/image") {
                                         coverHref = href;
@@ -127,12 +127,12 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
                             && json.length < 50 // TODO: library view pagination!
                         ) {
                             
-                            if (!rootUrl.startsWith("http://") && !rootUrl.startsWith("https://")) {
+                            if (rootUrl.indexOf("http://") != 0 && rootUrl.indexOf("https://") != 0) {
                                 
                                 var thisRootUrl = window.location.origin + window.location.pathname;
                                 
                                 var indexUrlAbsolute = indexUrl; 
-                                if (!indexUrlAbsolute.startsWith("http://") && !indexUrlAbsolute.startsWith("https://")) {
+                                if (indexUrlAbsolute.indexOf("http://") != 0 && indexUrlAbsolute.indexOf("https://") != 0) {
                                     try {
                                         indexUrlAbsolute = new URI(indexUrl).absoluteTo(thisRootUrl).toString();
                                     } catch(err) {
