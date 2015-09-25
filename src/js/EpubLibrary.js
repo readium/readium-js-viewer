@@ -20,7 +20,8 @@ define([
 './workers/Messages',
 'Analytics',
 './Keyboard',
-'./versioning/ReadiumVersioning'],
+'./versioning/ReadiumVersioning',
+'readium_shared_js/helpers'],
 
 function(
 moduleConfig,
@@ -44,7 +45,8 @@ Dialogs,
 Messages,
 Analytics,
 Keyboard,
-Versioning){
+Versioning,
+Helpers){
 
     var detailsDialogStr = DetailsDialog({strings: Strings});
 
@@ -192,7 +194,15 @@ Versioning){
 	var readClick = function(e){
 
 		var ebookURL = $(this).attr('data-book');
-		$(window).triggerHandler('readepub', [ebookURL]);
+		
+		var urlParams = Helpers.getURLQueryParams();
+		//var ebookURL = urlParams['epub'];
+		var libraryURL = urlParams['epubs'];
+		var embedded = urlParams['embedded'];
+		 
+		var eventPayload = {embedded: embedded, epub: ebookURL, epubs: libraryURL};
+		$(window).triggerHandler('readepub', eventPayload);
+		
 		return false;
 	}
 
