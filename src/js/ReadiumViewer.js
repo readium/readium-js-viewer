@@ -189,7 +189,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 						var libraryURL = urlParams['epubs'];
 						var embedded = urlParams['embedded'];
 						
-						var eventPayload = {embedded: embedded, ebookURL: file, libraryURL: libraryURL};
+						var eventPayload = {embedded: embedded, epub: file, epubs: libraryURL};
 						$(window).triggerHandler('readepub', eventPayload);
 					}
 					
