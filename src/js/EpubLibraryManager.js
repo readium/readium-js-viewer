@@ -1,4 +1,4 @@
-define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings', 'URIjs'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings, URI) {
+define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings', 'URIjs', './EpubLibraryOPDS'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings, URI, EpubLibraryOPDS) {
 
 	var LibraryManager = function(){
 	};
@@ -43,6 +43,8 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
                 return;
             }
 
+            var self = this;
+        
             var indexUrl = moduleConfig.epubLibraryPath
                         ? StorageManager.getPathUrl(moduleConfig.epubLibraryPath)
                         : StorageManager.getPathUrl('/epub_library.json');
@@ -68,126 +70,16 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
                 success(data);
             };
 
-            var self = this;
-        
-            var isOPDS = false; 
-            if (indexUrl.indexOf("opds://") == 0) {
-                isOPDS = true;
-                indexUrl = indexUrl.replace("opds://", "http://");
-            }
-            
-            var processOPDS = function(data) {
-        
-                try {
-                    if (typeof data === "string") {
-                        data = $.parseXML(data);
-                    }
-                    
-                    $xml = $(data);
-                    
-                    var json = [];
-                    
-                    $xml.find('entry').each(function() {
-                        var $entry = $(this);
-                        var title = $entry.find('title').text();
-                        var author = $entry.find('author').find('name').text();
-                        var rootUrl = undefined;
-                        var coverHref = undefined;
-                        var coverHref_thumb = undefined;
-                        $entry.find('link').each(function() {
-                            var $entry = $(this);
-                            var href  = $entry.attr('href');
-                            if (href) {
-                                var t  = $entry.attr('type');
-                                var rel  = $entry.attr('rel');
-                                
-                                if (!rootUrl
-                                    && t == "application/epub+zip"
-                                    && rel && rel.indexOf("http://opds-spec.org/acquisition") == 0
-                                    ) {
-                                    rootUrl = href;
-                                }
-                                
-                                if (t && t.indexOf("image/") == 0) {
-                                    
-                                    if (rel == "http://opds-spec.org/image") {
-                                        coverHref = href;
-                                    } else if (rel == "http://opds-spec.org/image/thumbnail") {
-                                        coverHref_thumb = href;
-                                    }
-                                }
-                            }
-                        });
-                        
-                        if (!coverHref || coverHref_thumb) {
-                            coverHref = coverHref_thumb;
-                        }
-                        
-                        if (rootUrl
-                            && json.length < 50 // TODO: library view pagination!
-                        ) {
-                            
-                            if (rootUrl.indexOf("http://") != 0 && rootUrl.indexOf("https://") != 0) {
-                                
-                                var thisRootUrl = window.location.origin + window.location.pathname;
-                                
-                                var indexUrlAbsolute = indexUrl; 
-                                if (indexUrlAbsolute.indexOf("http://") != 0 && indexUrlAbsolute.indexOf("https://") != 0) {
-                                    try {
-                                        indexUrlAbsolute = new URI(indexUrl).absoluteTo(thisRootUrl).toString();
-                                    } catch(err) {
-                                        console.error(err);
-                                        console.log(indexUrlAbsolute);
-                                    }
-                                }
-                                
-                                try {
-                                    rootUrl = new URI(rootUrl).absoluteTo(indexUrlAbsolute).toString();
-                                } catch(err) {
-                                    console.error(err);
-                                    console.log(rootUrl);
-                                }
-                            }
-                            
-                            json.push({
-                                rootUrl: rootUrl,
-                                title: title,
-                                author: author,
-                                coverHref: coverHref 
-                            });
-                        }
-                    });
-    
-                    if (json.length) {
-                        dataSuccess(json);
-                    } else {
-                        dataFail();
-                    }
-                } catch(err) {
-                    console.error(err);
-                    dataFail();
-                }
-            };
-            
-            $[isOPDS ? "get" : "getJSON"](indexUrl, function(data){
-                if (isOPDS) {
-                    processOPDS(data);
-                } else {
-                    dataSuccess(data);
-                }
+            if (/\.json$/.test(indexUrl)) {
                 
-            }).fail(function(){
-
-                // JSON failed to parse? ... maybe OPDS with HTTP URI protocol
-                $.get(indexUrl, function(data) {
-                    
-                    processOPDS(data);
-                        
+                $.getJSON(indexUrl, function(data){
+                    dataSuccess(data);
                 }).fail(function(){
                     dataFail();
                 });
-                
-            });
+            } else {
+                EpubLibraryOPDS.tryParse(indexUrl, dataSuccess, dataFail);
+            }
 		},
 
         deleteEpubWithId : function(id, success, error){
