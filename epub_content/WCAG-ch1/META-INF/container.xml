@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><container xmlns="urn:oasis:names:tc:opendocument:xmlns:container" version="1.0"><rootfiles><rootfile full-path="EPUB/package.opf" media-type="application/oebps-package+xml"/>
+                <rootfile xmlns:rendition="http://www.idpf.org/2013/rendition" rendition:language="En-US" rendition:label="Pre-translated to braille" rendition:accessMode="tactile" media-type="application/oebps-package+xml" full-path="EPUB/package-braille.opf"/>
+            </rootfiles>
+                <link href="EPUB/renditionMapping.html" rel="mapping" media-type="application/xhtml+xml"/>
+            </container>

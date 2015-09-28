@@ -1,0 +1,1670 @@
+@namespace epub  'http://www.idpf.org/2007/ops';
+
+html {
+  color: #000;
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+a, abbr, acronym, address, applet, article, aside, audio,
+b, big, blockquote, body, canvas, caption, center, cite,
+code, dd, del, details, dfn, dl, dt, em, embed, fieldset,
+figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6,
+header, i, iframe, img, ins, kbd, label,
+legend, li, mark, menu, nav, object, ol, output, p, pre,
+q, ruby, s, samp, section, small, strike, strong, sub,
+summary, sup, table, tbody, td, tfoot, th, thead, time,
+tr, tt, u, ul, var, video, :before, :after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: 1;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img {
+  font-style: italic;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+}
+
+html {
+  font-size: 17px;
+}
+@media screen and (min-width: 640px) {
+  html {
+    font-size: 19px;
+  }
+}
+
+body {
+  background: #fff !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #333 !important;
+  line-height: 1.5em;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+body > section,
+body > nav,
+body > footer {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding: 0 80px;
+  margin: 57px 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+@media (max-width: 768px) {
+  body > section,
+  body > nav,
+  body > footer {
+    padding: 0 40px;
+    margin: 57px 0;
+  }
+}
+@media (max-width: 480px) {
+  body > section,
+  body > nav,
+  body > footer {
+    padding: 0 20px;
+    margin: 28.5px 0;
+  }
+}
+
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  background: transparent;
+}
+
+aside {
+  clear: both;
+  margin-bottom: 1.5em;
+}
+aside:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+aside p {
+  margin-bottom: 0.75em;
+}
+.pullquote, [epub|type~='pullquote'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 1.26316em;
+  font-weight: 300;
+  font-family: Georgia, serif;
+  color: #468173;
+}
+.vignette {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding-top: 0em;
+  padding-bottom: 0em;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.vignette > header > h1 {
+  font-size: 1.89474em ;
+  line-height: 1.58333 ;
+  margin-top: 0em ;
+  margin-bottom: 0.39583em ;
+  font-weight: bold;
+  font-style: normal;
+  color: #585858;
+  margin-top: 0;
+}
+
+button {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  background: #eee;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  cursor: pointer;
+  color: #585858;
+  font-weight: 700;
+}
+button:hover {
+  color: #585858;
+  background: #ddd;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+button:active {
+  color: #eee;
+  background: #585858;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.equation,
+.informalequation,
+.inlineequation {
+  position: relative;
+}
+.equation img,
+.informalequation img,
+.inlineequation img {
+  width: auto;
+}
+
+.inlineequation {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+figure {
+  clear: both;
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding: 0em;
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 1.5em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+figure:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+figure header {
+  margin-bottom: 0;
+}
+figure header h1 {
+  margin-bottom: 0;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: 1em;
+  color: #585858;
+  font-weight: 700;
+}
+figure header h1 .label, figure header h1 [epub|type~='label'] {
+  font-size: 1em !important;
+}
+figure figcaption {
+  margin-top: 0.75em;
+  color: #585858;
+  font-weight: 300;
+}
+.figure figcaption .caption .source,
+figure figcaption .caption .source {
+  margin-bottom: 0;
+}
+.figure figcaption .caption :last-child,
+figure figcaption .caption :last-child {
+  margin-bottom: 0;
+}
+.figure :last-child,
+figure :last-child {
+  margin-bottom: 0;
+}
+
+.inline,
+.figure-inline {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.inline {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.inline header {
+  margin-bottom: 0;
+}
+.inline h1 {
+  font-size: 1em;
+  color: #585858;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.inline figcaption {
+  margin-top: 0.75em;
+}
+
+img.inline {
+  vertical-align: middle;
+}
+
+h1 {
+  line-height: 1.5;
+}
+
+.level1 > header > h1,
+.level1 > header > h2,
+.level1 > header > h3 {
+  font-size: 48px !important;
+  font-size: 2.52632em !important;
+  line-height: 1.1875 !important;
+  margin-top: 1.1875em !important;
+  margin-bottom: 0.59375em !important;
+  color: #498778 !important;
+  font-style: normal !important;
+  font-weight: 300 !important;
+}
+
+.level2 > header > h2,
+.level2 > header > h3,
+.level2 > header > h4 {
+  font-size: 36px !important;
+  font-size: 1.89474em !important;
+  line-height: 1.58333 !important;
+  margin-top: 1.1875em !important;
+  margin-bottom: 0.79167em !important;
+  color: #666666 !important;
+  font-style: normal !important;
+  font-weight: 300 !important;
+}
+.level3 > header > h3,
+.level3 > header > h4,
+.level3 > header > h5 {
+  font-size: 30px !important;
+  font-size: 1.57895em !important;
+  margin-top: 0.95em !important;
+  margin-bottom: 0.475em !important;
+  color: #666666 !important;
+  font-style: italic !important;
+  font-weight: 300 !important;
+}
+.level4 > header > h4,
+.level4 > header > h5,
+.level4 > header > h6 {
+  font-size: 19px !important;
+  font-size: 1em !important;
+  line-height: 1.5 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 0.75em !important;
+  color: #498778 !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+}
+
+section nav > header,
+nav > header,
+nav nav > header {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+section nav > header h1,
+nav > header h1,
+nav nav > header h1 {
+  font-size: 2.52632em ;
+  margin-top: 1.1875em ;
+  margin-bottom: 0.59375em ;
+  color: #468173;
+  font-style: normal;
+  font-weight: 300;
+}
+section > header .subtitle, section > header [epub|type~='subtitle'],
+section nav > header .subtitle, section nav > header [epub|type~='subtitle'],
+nav > header .subtitle, nav > header [epub|type~='subtitle'],
+nav nav > header .subtitle, nav nav > header [epub|type~='subtitle'] {
+  font-size: 1.57895em ;
+  margin-top: 0em ;
+  margin-bottom: 0.95em ;
+  color: #585858;
+  font-style: italic;
+  font-weight: 300;
+}
+section section > header,
+nav section > header {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+section section > header h1,
+nav section > header h1 {
+  font-size: 1.89474em ;
+  margin-top: 1.1875em ;
+  margin-bottom: 0.79167em ;
+  color: #585858;
+  font-style: normal;
+  font-weight: 300;
+}
+section section > header .subtitle, section section > header [epub|type~='subtitle'],
+nav section > header .subtitle, nav section > header [epub|type~='subtitle'] {
+  font-size: 1.26316em ;
+  margin-top: 0em ;
+  margin-bottom: 1.1875em ;
+  color: #585858;
+  font-style: normal;
+  font-weight: 500;
+}
+section section section > header,
+nav section section > header {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+section section section > header h1,
+nav section section > header h1 {
+  font-size: 1.57895em ;
+  margin-top: 0.95em ;
+  margin-bottom: 0.475em ;
+  color: #585858;
+  font-style: italic;
+  font-weight: 300;
+}
+section section section > header .subtitle, section section section > header [epub|type~='subtitle'],
+nav section section > header .subtitle, nav section section > header [epub|type~='subtitle'] {
+  font-size: 1em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  color: #585858;
+  font-style: italic;
+  font-weight: 300;
+}
+section section section section > header,
+nav section section section > header {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+section section section section > header h1,
+nav section section section > header h1 {
+  font-size: 1.26316em ;
+  margin-top: 1.1875em ;
+  margin-bottom: 0.59375em ;
+  color: #585858;
+  font-style: normal;
+  font-weight: 500;
+}
+section section section section > header .subtitle, section section section section > header [epub|type~='subtitle'],
+nav section section section > header .subtitle, nav section section section > header [epub|type~='subtitle'] {
+  font-size: 1em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  color: #468173;
+  font-style: normal;
+  font-weight: 500;
+}
+section section section section section > header,
+nav section section section section > header {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+section section section section section > header h1,
+nav section section section section > header h1 {
+  font-size: 1em ;
+  margin-top: 1.5em ;
+  margin-bottom: 0em ;
+  color: #585858;
+  font-style: italic;
+  font-weight: 300;
+}
+section section section section section > header .subtitle, section section section section section > header [epub|type~='subtitle'],
+nav section section section section > header .subtitle, nav section section section section > header [epub|type~='subtitle'] {
+  font-size: 1em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  color: #468173;
+  font-style: normal;
+  font-weight: 500;
+}
+section section section section section section > header,
+nav section section section section section > header {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+section section section section section section > header h1
+nav section section section section section > header h1 {
+  font-size: 1em ;
+  margin-top: 1.5em ;
+  margin-bottom: 0em ;
+  color: #468173;
+  font-style: normal;
+  font-weight: 500;
+}
+section section section section section section > header .subtitle, section section section section section section > header [epub|type~='subtitle'],
+nav section section section section section > header .subtitle, nav section section section section section > header [epub|type~='subtitle'] {
+  font-size: 0.89474em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+}
+
+body > h1,
+section > h1,
+section > header > h1,
+nav > h1 {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 2.52632em ;
+  margin-top: 1.1875em ;
+  margin-bottom: 0.59375em ;
+  color: #468173;
+  font-style: normal;
+  font-weight: 300;
+}
+body > h2,
+section > h2,
+section > header > h2,
+nav > h2 {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 1.89474em ;
+  margin-top: 1.1875em ;
+  margin-bottom: 0.79167em ;
+  color: #585858;
+  font-style: normal;
+  font-weight: 300;
+}
+body > h3,
+section > h3,
+section > header > h3,
+nav > h3 {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 1.57895em ;
+  margin-top: 0.95em ;
+  margin-bottom: 0.475em ;
+  color: #585858;
+  font-style: italic;
+  font-weight: 300;
+}
+body > h4,
+section > h4,
+section > header > h4,
+nav > h4 {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 1.26316em ;
+  margin-top: 1.1875em ;
+  margin-bottom: 0.59375em ;
+  color: #585858;
+  font-style: normal;
+  font-weight: 500;
+}
+body > h5,
+section > h5,
+section > header > h5,
+nav > h5 {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 1em ;
+  margin-top: 1.5em ;
+  margin-bottom: 0em ;
+  color: #585858;
+  font-style: italic;
+  font-weight: 300;
+}
+body > h6,
+section > h6,
+section > header > h6,
+nav > h6 {
+  background: transparent;
+  border: none;
+  padding: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 1em ;
+  margin-top: 1.5em ;
+  margin-bottom: 0em ;
+  color: #468173;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.bridgehead, [epub|type~='bridgehead'] {
+  margin-top: 1.1875em ;
+  margin-bottom: 0.59375em ;
+}
+
+b {
+  font-weight: 700;
+}
+
+code, pre, kbd, samp {
+  font-family: Courier, "Courier New", monospace;
+  font-size: 0.84211em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  color: #468173;
+  padding: 2px 4px;
+}
+
+code {
+  background: rgba(70, 129, 115, 0.15);
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding-top: 0.10526em;
+  padding-right: 0.21053em;
+  padding-left: 0.21053em;
+  padding-bottom: 0em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+pre {
+  background: rgba(70, 129, 115, 0.15);
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding-top: 1.5em;
+  padding-right: 0em;
+  padding-bottom: 1.5em;
+  padding-left: 2.02632em;
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 1.5em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  white-space: pre-wrap;
+}
+pre kbd, pre samp {
+  font-size: 1em;
+}
+
+em {
+  font-style: italic;
+}
+
+i {
+  font-style: italic;
+}
+
+span.keyword, span[epub|type~='keyword'] {
+  font-weight: 700;
+  color: #1E7AB9;
+  text-decoration: underline;
+}
+
+span.leadin {
+  font-weight: 700;
+}
+
+small {
+  font-size: 16px;
+}
+
+span.smallcaps {
+  font-variant: small-caps;
+}
+
+strong {
+  font-weight: 700;
+}
+
+s {
+  text-decoration: line-through;
+}
+
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+  font-size: 0.75em;
+}
+
+sub {
+  top: 0.2em;
+}
+
+u {
+  text-decoration: underline;
+}
+
+.doubleunderscore {
+  border-bottom: 4px double #333;
+}
+
+ins {
+  text-decoration: underline;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+mark {
+  background: #fffdc9;
+}
+
+span.label, span[epub|type~='label'],
+span.ordinal, span[epub|type~='ordinal'],
+.inlineequation,
+.speaker,
+.index-term, [epub|type~='index-term'],
+.index-locator-range, [epub|type~='index-locator-range'],
+.index-xref-related, [epub|type~='index-xref-related'],
+.index-xref-preferred, [epub|type~='index-xref-preferred'] {
+  text-transform: none;
+}
+
+var {
+  font-style: italic;
+}
+
+span.wol {
+  text-decoration: underline;
+}
+
+a {
+  color: #1E7AB9;
+  text-decoration: none;
+  font-weight: 700;
+}
+a:hover, a:focus, a:active {
+  color: #175d8d;
+}
+
+.xref {
+  background: url(images/iconmonstr-window-new-icon-20x20.png) no-repeat right center;
+  display: inline-block;
+  padding: 0 23px 0 0;
+}
+
+a.keyword, a[epub|type~='keyword'] {
+  font-weight: bold;
+  color: #1E7AB9;
+  text-decoration: none;
+  display: inline-block;
+  background: url(images/iconmonstr-info-8-icon-20x20.png) no-repeat right center;
+  padding: 0 23px 0 0;
+}
+
+.noteref_footnote,
+.noteref_endnote,
+.noteref_rearnote,
+[epub|type~='noteref'] {
+  vertical-align: super;
+  font-size: 0.89474em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+}
+
+.url-example {
+  text-transform: none;
+}
+
+.url-obsolete {
+  color: #aaa;
+}
+
+.pagebreak, [epub|type~='pagebreak'] {
+  color: inherit;
+}
+
+.biblioentry, [epub|type~='biblioentry'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding-top: 0em;
+  padding-right: 0em;
+  padding-bottom: 1.5em;
+  padding-left: 1.5em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 19px;
+  font-weight: normal;
+  color: #333;
+  text-indent: -1.5em;
+}
+.practicelist {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+.practices, [epub|type~='practices'], [epub|type~='assessments'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.practices > li, [epub|type~='practices'] > li, [epub|type~='assessments'] > li,
+.practices > .general-problem, [epub|type~='practices'] > [epub|type~='general-problem'], [epub|type~='assessments'] > [epub|type~='general-problem'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.practices table, [epub|type~='practices'] table, [epub|type~='assessments'] table {
+  float: left;
+}
+
+ol {
+  margin-left: 57px;
+  margin-bottom: 1.5em;
+}
+ol ol:not([type]) {
+  list-style-type: upper-latin;
+}
+ol ol ol:not([type]) {
+  list-style-type: decimal;
+}
+ol ol ol ol:not([type]) {
+  list-style-type: lower-latin;
+}
+ol ul {
+  list-style-type: square;
+}
+ol p {
+  margin-bottom: 0;
+}
+ol img {
+  margin-bottom: 1.5em;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 1.5em;
+  margin-bottom: 1.5em;
+}
+ul ul {
+  list-style-type: square;
+}
+ul ul ul {
+  list-style-type: circle;
+}
+ul ul ul ul {
+  list-style-type: disc;
+}
+ul p {
+  margin-bottom: 0;
+}
+
+.nomark {
+  list-style-type: none;
+}
+.nomark p {
+  margin-bottom: 0.75em;
+}
+
+.tocentrylist,
+nav.toc ol {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding: 0em;
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 1.5em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.tocentrylist li,
+.tocentrylist .toclevel1,
+nav.toc ol li,
+nav.toc ol .toclevel1 {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding: 0em;
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 0.75em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.tocentrylist li p,
+.tocentrylist .toclevel1 p,
+nav.toc ol li p,
+nav.toc ol .toclevel1 p {
+  margin-bottom: 0;
+}
+.tocentrylist li a,
+.tocentrylist .toclevel1 a,
+nav.toc ol li a,
+nav.toc ol .toclevel1 a {
+  color: #468173;
+}
+.tocentrylist ol,
+nav.toc ol ol {
+  margin-left: 1.5em;
+}
+.tocentrylist ol li a,
+nav.toc ol ol li a {
+  color: #1E7AB9;
+}
+
+nav.toc ol:not(.tocentrylist) {
+  margin-left: 1.5em;
+}
+nav.toc ol:not(.tocentrylist) li {
+  margin-bottom: 0;
+}
+
+.chapter .tocentrylist, [epub|type~='chapter'] .tocentrylist {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding: 0em;
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 1.5em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.chapter .tocentrylist li, [epub|type~='chapter'] .tocentrylist li,
+.chapter .tocentrylist .toclevel1, [epub|type~='chapter'] .tocentrylist .toclevel1 {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  padding: 0em;
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 0.75em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.chapter .tocentrylist li p, [epub|type~='chapter'] .tocentrylist li p,
+.chapter .tocentrylist .toclevel1 p, [epub|type~='chapter'] .tocentrylist .toclevel1 p {
+  margin-bottom: 0;
+}
+.chapter .tocentrylist li a, [epub|type~='chapter'] .tocentrylist li a,
+.chapter .tocentrylist .toclevel1 a, [epub|type~='chapter'] .tocentrylist .toclevel1 a {
+  color: #468173;
+}
+.chapter .tocentrylist ol, [epub|type~='chapter'] .tocentrylist ol {
+  margin-left: 1.5em;
+}
+.chapter .tocentrylist ol li a, [epub|type~='chapter'] .tocentrylist ol li a {
+  color: #1E7AB9;
+}
+
+.learning-objectives .learning-objective, [epub|type~='learning-objectives'] [epub|type~='learning-objective'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  color: #333;
+  font-size: 19px;
+  font-weight: normal;
+}
+.learning-objectives .learning-objective p, [epub|type~='learning-objectives'] [epub|type~='learning-objective'] p {
+  color: #333;
+}
+.learning-objectives .learning-objective a, [epub|type~='learning-objectives'] [epub|type~='learning-objective'] a {
+  color: #333;
+}
+.learning-objectives .learning-objective a:hover, [epub|type~='learning-objectives'] [epub|type~='learning-objective'] a:hover,
+.learning-objectives .learning-objective a:active, [epub|type~='learning-objectives'] [epub|type~='learning-objective'] a:active,
+.learning-objectives .learning-objective a:focus, [epub|type~='learning-objectives'] [epub|type~='learning-objective'] a:focus {
+  color: #1a1a1a;
+}
+
+.keywords:not([type]), [epub|type~='keywords']:not([type]),
+.tocpart:not([type]),
+.tocchapter:not([type]),
+.tocentrylist:not([type]),
+.nomark:not([type]),
+.index-entry-list:not([type]), [epub|type~='index-entry-list']:not([type]),
+.tocproductfrontmatter:not([type]),
+.tocproductbacktmatter:not([type]),
+.staticlist:not([type]){
+  list-style: none;
+}
+
+
+.rearnotelist, [epub|type~='rearnotes'] {
+  list-style-type: none;
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.rearnotelist li, [epub|type~='rearnotes'] li {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.rearnotelist li .ordinal, [epub|type~='rearnotes'] li [epub|type~='ordinal'],
+.staticlist li .ordinal, .staticlist li [epub|type~='ordinal']{
+  font-weight: bold;
+  margin-right: 1.5em;
+}
+
+.keywords, [epub|type~='keywords'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.keywords li, [epub|type~='keywords'] li {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.staticlist li {
+  margin-left: 28.5px;
+}
+
+.epigraph, [epub|type~='epigraph'] {
+  padding: 0 3em;
+  border: none;
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 1.5em;
+}
+
+.essay {
+  padding: 0 3em;
+}
+
+.letter {
+  padding: 0 3em;
+}
+
+.drama {
+  margin-left: 1.5em;
+}
+.drama .speaker {
+  font-weight: 700;
+}
+.drama > header {
+  margin-bottom: 0.75em;
+}
+.drama > header > h1 {
+  font-size: 1em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  font-weight: bold;
+}
+
+.poem {
+  margin-left: 1.5em;
+}
+
+.dialogue {
+  margin-bottom: 1.5em;
+}
+.dialogue .speech {
+  overflow: hidden;
+  clear: both;
+  margin-bottom: 0.75em;
+}
+.dialogue .speech:last-of-type {
+  margin-bottom: 0;
+}
+.dialogue .line {
+  overflow: hidden;
+  float: right;
+  width: 87%;
+}
+.dialogue .line ~ .line {
+  margin-top: 0.75em;
+}
+.dialogue .speaker,
+.dialogue .persona {
+  width: 11%;
+  float: left;
+  font-weight: 700;
+  word-wrap: break-word;
+  margin-right: 0.75em;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.dialogue .line ~ .speaker,
+.dialogue .line ~ .persona {
+  clear: both;
+  margin-top: 0.75em;
+}
+.dialogue p {
+  margin-bottom: 0;
+}
+
+audio {
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+iframe,
+object {
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+video {
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+p {
+  margin-bottom: 1.5em;
+}
+
+hr {
+  border: 0px;
+  box-shadow: 0 -1px 0px 1px #aaa;
+  margin-top: -1px;
+  height: 1px;
+}
+
+.abstract, [epub|type~='abstract'] {
+  padding: 0 1.5em;
+}
+
+dfn {
+  font-style: italic;
+  font-weight: 600;
+}
+
+dt {
+  margin-bottom: 0;
+}
+
+.glossdef, [epub|type~='glossdef'] {
+  margin-left: 1.5em;
+}
+
+.rearnotelist, [epub|type~='rearnotes'] {
+  font-size: 0.89474em ;
+  line-height: 1.67647 ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+}
+.rearnotelist p, [epub|type~='rearnotes'] p {
+  margin: 0;
+}
+
+.footnote, [epub|type~='footnote'] {
+  font-size: 0.89474em ;
+  line-height: 1.67647 ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+}
+.footnote p, [epub|type~='footnote'] p {
+  margin: 0;
+}
+.footnote .ordinal, [epub|type~='footnote'] [epub|type~='ordinal'] {
+  font-weight: bold;
+}
+
+summary:focus {
+  outline: 0;
+}
+
+details {
+  display: none !important;
+}
+
+blockquote {
+  background: transparent;
+  border-style: solid;
+  border-width: 0 0 0 1px;
+  border-color: #cc6600;
+  padding-top: 0em;
+  padding-right: 0em;
+  padding-bottom: 0em;
+  padding-left: 1.5em;
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 1.5em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 0.89474em ;
+  line-height: 1.67647 ;
+  margin-top: 0em ;
+  margin-bottom: 1.67647em ;
+  font-weight: 300;
+  line-height: 28.5px;
+}
+blockquote + .source,
+blockquote + [epub|type~='credit']{
+  font-style: italic;
+  padding-top: 0em;
+  padding-right: 0em;
+  padding-bottom: 0em;
+  padding-left: 1.5em;
+  border-color: #cc6600;
+  border-style: solid;
+  border-width: 0 0 0 1px;
+}
+blockquote :last-child {
+  margin-bottom: 0;
+}
+
+cite {
+  font-style: italic;
+}
+
+.table figcaption header h1 {
+  font-weight: bold;
+}
+
+table {
+  background: transparent;
+  border-style: solid;
+  border-width: 2px 1px 2px;
+  border-color: #468173;
+  padding: 0em;
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 1.5em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  font-size: 0.89474em ;
+  line-height: 1.67647 ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+}
+table thead {
+  border-bottom: 1px solid #468173;
+}
+table th {
+  background: rgba(70, 129, 115, 0.15);
+  border-style: solid;
+  border-width: 1px;
+  border-color: #468173;
+  padding: 0.75em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  vertical-align: top;
+  text-align: left;
+  color: #468173;
+  font-style: normal;
+  font-weight: 600;
+}
+table td {
+  background: transparent;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #468173;
+  padding: 0.75em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  vertical-align: top;
+  text-align: left;
+}
+table tfoot td {
+  background: transparent;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #468173;
+  padding: 0.75em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  color: #585858;
+  font-style: italic;
+  font-weight: 400;
+  text-align: left;
+}
+
+.aboutauthor {
+  margin-bottom: 3em;
+}
+.aboutauthor > header > h1 {
+  margin-bottom: 0.5em;
+}
+
+.bibliography, [epub|type~='bibliography'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.bibliography > header h1, [epub|type~='bibliography'] > header h1 {
+  font-size: 1.89474em ;
+  line-height: 1.58333 ;
+  margin-top: 0.79167em ;
+  margin-bottom: 0.79167em ;
+  font-weight: 300;
+  font-style: normal;
+  color: #585858;
+}
+aside > .bibliography, aside > [epub|type~='bibliography'],
+footer > .bibliography, footer [epub|type~='bibliography'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+aside > .bibliography > header h1, aside > [epub|type~='bibliography'] > header h1,
+footer > .bibliography > header h1, footer > [epub|type~='bibliography'] > header h1 {
+  font-size: 1.57895em ;
+  line-height: 1.9 ;
+  margin-top: 0.95em ;
+  margin-bottom: 0.95em ;
+  font-weight: 300;
+  color: #585858;
+  font-style: italic;
+}
+
+.chapter > header, [epub|type~='chapter'] > header {
+  background: transparent;
+  border-style: solid;
+  border-width: 2px 0 1px 0;
+  border-color: #468173;
+  padding: 0em;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  margin-right: 0em;
+  margin-left: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.chapter > header h1, [epub|type~='chapter'] > header h1,
+.chapter > header h2, [epub|type~='chapter'] > header h2 {
+  color: #585858;
+  font-size: 2.52632em;
+  line-height: 1.2;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+.chapter > header h1 a, [epub|type~='chapter'] > header h1 a,
+.chapter > header h2 a, [epub|type~='chapter'] > header h2 a{
+  color: #585858;
+}
+.chapter > header h1 .ordinal, [epub|type~='chapter'] > header h1 [epub|type~='ordinal'],
+.chapter > header h2 .ordinal, [epub|type~='chapter'] > header h2 [epub|type~='ordinal']{
+  color: #468173;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+.dedication, [epub|type~='dedication'] {
+  margin-top: 3em;
+  padding: 0 57px;
+}
+
+.feature {
+  background: rgba(70, 129, 115, 0.15);
+  border-style: solid;
+  border-width: 0 0 0 1px;
+  border-color: #468173;
+  padding: 3em;
+  margin: 0em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.feature header {
+  margin-bottom: 0.75em;
+}
+.feature header > h1 {
+  font-size: 1.26316em !important;
+  margin-top: 0em !important;
+  margin-bottom: 0em !important;
+  font-weight: bold !important;
+  font-style: normal !important;
+  color: #585858 !important;
+  margin-top: 0;
+}
+
+.example {
+  color: #585858;
+  margin-left: 28.5px;
+}
+.example > header {
+  margin-bottom: 0.75em;
+}
+.example > header > h1 {
+  font-size: 1.26316em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  font-weight: bold;
+}
+
+.glossary, [epub|type~='glossary'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.glossary > header h1, [epub|type~='glossary'] > header h1 {
+  font-size: 2.52632em ;
+  line-height: 1.1875 ;
+  margin-top: 0.59375em ;
+  margin-bottom: 0.59375em ;
+  font-style: normal;
+  font-weight: 300;
+  color: #468173;
+}
+aside > .glossary, aside > [epub|type~='glossary'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+aside > .glossary > header h1, aside > [epub|type~='glossary'] > header h1 {
+  font-size: 1.57895em ;
+  line-height: 1.9 ;
+  margin-top: 0em ;
+  margin-bottom: 0.95em ;
+  font-style: italic;
+  font-weight: 300;
+  color: #585858;
+  margin-top: 0;
+}
+
+.introduction, [epub|type~='introduction'] {
+  font-size: 1.26316em;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.listgroup > header {
+  margin-bottom: 0.75em;
+}
+.listgroup > header > h1 {
+  font-size: 1em ;
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  font-weight: bold;
+}
+
+.notice, [epub|type~='notice'] {
+  padding: 1.5em 28.5px;
+  border: 1px solid;
+}
+.notice > header, [epub|type~='notice'] > header {
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+.notice > header > h1, [epub|type~='notice'] > header > h1 {
+  font-size: 1.26316em ;
+  line-height: 1.1875 ;
+  margin-top: 0em ;
+  margin-bottom: 1.1875em ;
+  font-weight: bold;
+}
+.learning-objectives, [epub|type~='learning-objectives'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.learning-objectives > header h1, [epub|type~='learning-objectives'] > header h1 {
+  font-size: 1.89474em ;
+  line-height: 1.58333 ;
+  margin-top: 0.79167em ;
+  margin-bottom: 0.79167em ;
+  font-weight: 300;
+  font-style: normal;
+  color: #585858;
+}
+aside > .learning-objectives, aside > [epub|type~='learning-objectives'] {
+  background: transparent;
+  border-style: none;
+  border-width: 0;
+  border-color: transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+aside > .learning-objectives > header h1, aside > [epub|type~='learning-objectives'] > header h1 {
+  font-size: 1.57895em ;
+  line-height: 1.9 ;
+  margin-top: 0.95em ;
+  margin-bottom: 0.95em ;
+  font-weight: 300;
+  color: #585858;
+  font-style: italic;
+}
+
+.author, [epub|type~='author'],
+.affiliation, [epub|type~='affiliation'],
+.publisher, [epub|type~='publisher'] {
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: bold;
+  margin-top: 1.5em;
+  padding: 0;
+}
+
+.authorgroup p, 
+[epub|type~='authorgroup'] p{
+  margin: 0;
+}
+.authorgroup .affiliation,
+[epub|type~='authorgroup'] [epub|type~='affiliation']{
+  font-weight: normal;
+  margin-top: 0;
+}
+
+.publisher .publisherlocation {
+  font-weight: normal;
+}
+
+aside, blockquote, figure, header, iframe,
+nav, object, pre, section, table {
+  page-break-inside: avoid;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+
+p {
+  orphans: 2;
+  widows: 2;
+}
+.hidden {
+display:none;
+}
+
+.uc {
+   text-transform: uppercase;
+}
+
+dfn {
+   font-style: italic;
+}
+
+ol.loweralpha { list-style-type: lower-alpha; }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><package xmlns="http://www.idpf.org/2007/opf" prefix="dc: http://purl.org/dc/elements/1.1/" version="3.0" unique-identifier="d21041e30">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:type>edupub</dc:type>
+        <dc:type>distributable-object</dc:type>
+        <dc:title id="d20201e20">World Cultures and Geography</dc:title>
+        <meta property="title-type" refines="#d20201e20">main</meta>
+        <dc:identifier id="d21041e30">41f1328c-0571-4e71-8be8-e65bc148281a</dc:identifier>
+        
+        <dc:rights>Copyright © 2003 McDougal Littel, Inc.</dc:rights> 
+        <dc:rights>McDougal Littel, Inc. holds the copyright for these files and has provided permission to use them for the purpose of creating exemplar files. They should not be re-posted to other sites, nor may they be sold for commercial purposes.</dc:rights>
+        <meta property="dcterms:modified">2015-08-24T17:13:03Z</meta>
+        <meta property="dc:publisher">McDougal Littell</meta>
+        <meta property="dc:date">2014-12-11T09:12:52+00:00</meta>
+        <dc:source id="src">urn:isbn:9780618596645</dc:source>
+        <meta property="source-of" refines="#src">pagination</meta>
+        <meta property="schema:accessibilityFeature">alternativeText</meta>
+        <meta property="schema:accessibilityFeature">longDescription</meta>
+        <meta property="schema:accessibilityFeature">printPageNumbers</meta>
+        <meta property="schema:accessibilityFeature">readingOrder</meta>
+        <meta property="schema:accessibilityFeature">structuralNavigation</meta>
+        <meta property="schema:accessibilityFeature">tableOfContents</meta>
+        <meta property="schema:accessibilityFeature">unlocked</meta>
+        <meta property="schema:educationalRole">student</meta>
+        <meta property="schema:typicalAgeRange">18+</meta>
+    <dc:language xmlns:opf="http://www.idpf.org/2007/opf">En-US</dc:language><dc:language xmlns:opf="http://www.idpf.org/2007/opf">en</dc:language></metadata>
+    <manifest>
+        <item href="images/wcag-p2-1.jpg" id="item_1" media-type="image/jpeg"/>
+        <item href="images/wcag-p14-1.jpg" id="item_2" media-type="image/jpeg"/>
+        <item href="images/wcag-p15-1-1.jpg" id="item_3" media-type="image/jpeg"/>
+        <item href="images/wcag-p16-1.jpg" id="item_4" media-type="image/jpeg"/>
+        <item href="images/wcag-p16-2.jpg" id="item_5" media-type="image/jpeg"/>
+        <item href="images/wcag-p17-1.jpg" id="item_6" media-type="image/jpeg"/>
+        <item href="images/wcag-p17-2.jpg" id="item_7" media-type="image/jpeg"/>
+        <item href="images/wcag-p18-1.jpg" id="item_8" media-type="image/jpeg"/>
+        <item href="images/wcag-p18-2.jpg" id="item_9" media-type="image/jpeg"/>
+        <item href="images/wcag-p19-1.jpg" id="item_10" media-type="image/jpeg"/>
+        <item href="images/wcag-p19-2.jpg" id="item_11" media-type="image/jpeg"/>
+        <item href="images/wcag-p19-3.jpg" id="item_12" media-type="image/jpeg"/>
+        <item href="images/wcag-p19-4.jpg" id="item_13" media-type="image/jpeg"/>
+        <item href="images/wcag-p19-5.jpg" id="item_14" media-type="image/jpeg"/>
+        <item href="images/wcag-p20-1.jpg" id="item_15" media-type="image/jpeg"/>
+        <item href="images/wcag-p20-2.jpg" id="item_16" media-type="image/jpeg"/>
+        <item href="images/wcag-p21-1.jpg" id="item_17" media-type="image/jpeg"/>
+        <item href="images/wcag-p22-1.jpg" id="item_18" media-type="image/jpeg"/>
+        <item href="images/wcag-p22-2.jpg" id="item_19" media-type="image/jpeg"/>
+        <item href="images/wcag-p22-3.jpg" id="item_20" media-type="image/jpeg"/>
+        <item href="images/wcag-p22-4.jpg" id="item_21" media-type="image/jpeg"/>
+        <item href="images/wcag-p24-1.jpg" id="item_22" media-type="image/jpeg"/>
+        <item href="images/wcag-p24-2.jpg" id="item_23" media-type="image/jpeg"/>
+        <item href="images/wcag-p25-1.jpg" id="item_24" media-type="image/jpeg"/>
+        <item href="images/wcag-p25-2.jpg" id="item_25" media-type="image/jpeg"/>
+        <item href="images/wcag-p26-1.jpg" id="item_26" media-type="image/jpeg"/>
+        <item href="images/wcag-p26-2.jpg" id="item_27" media-type="image/jpeg"/>
+        <item href="images/wcag-p26-3.jpg" id="item_28" media-type="image/jpeg"/>
+        <item href="images/wcag-p27-1.jpg" id="item_29" media-type="image/jpeg"/>
+        <item href="images/wcag-p30-1.jpg" id="item_30" media-type="image/jpeg"/>
+        <item href="images/wcag-p30-2.jpg" id="item_31" media-type="image/jpeg"/>
+        <item href="images/wcag-p31-1.jpg" id="item_32" media-type="image/jpeg"/>
+        <item href="images/wcag-p31-2.jpg" id="item_33" media-type="image/jpeg"/>
+        <item href="xhtml/WCAG-ch1-1_braille.xhtml" media-type="application/xhtml+xml" id="item_34"/>
+        <item href="xhtml/WCAG-ch1-2_braille.xhtml" media-type="application/xhtml+xml" id="item_35"/>
+        <item href="xhtml/toc_braille.xhtml" properties="nav" media-type="application/xhtml+xml" id="item_36"/>
+        <item href="css/images/iconmonstr-info-8-icon-20x20.png" id="item_37" media-type="image/png"/>
+        <item href="css/images/iconmonstr-info-8-icon.png" id="item_38" media-type="image/png"/>
+        <item href="css/images/iconmonstr-window-new-icon-20x20.png" id="item_39" media-type="image/png"/>
+        <item href="css/images/iconmonstr-window-new-icon.png" id="item_40" media-type="image/png"/>
+        <item href="css/default.css" id="item_41" media-type="text/css"/>
+    </manifest>
+    <spine>
+        <itemref idref="item_34" id="itemref_1"/>
+        <itemref idref="item_35" id="itemref_2"/>
+    </spine>
+</package>
