@@ -141,7 +141,7 @@ Helpers){
 
     var tocShowHideToggle = function(){
 
-        $(document.body).removeClass('hide-ui');
+        unhideUI();
 
         var $appContainer = $('#app-container'),
             hide = $appContainer.hasClass('toc-visible');
@@ -386,7 +386,7 @@ Helpers){
     
                 if (embedded) {
                     $('.toc-visible').removeClass('toc-visible');
-                    $(document.body).removeClass('hide-ui');
+                    unhideUI();
                 }
             } catch (err) {
                 
@@ -453,6 +453,9 @@ Helpers){
             $('#buttFullScreenToggle').attr('title', titleText);
         }
         oldOnChange.call(this, e);
+    }
+    var unhideUI = function(){
+        hideLoop();
     }
 
     var hideUI = function(){
@@ -600,7 +603,7 @@ Helpers){
             if (!embedded && $('#app-container').hasClass('toc-visible')){
                 return;
             }
-            $(document.body).addClass('hide-ui');
+            hideUI();
             if (document.activeElement) document.activeElement.blur();
         };
         $("#buttHideToolBar").on("click", hideTB);
@@ -608,7 +611,7 @@ Helpers){
 
         var showTB = function(){
             $("#aboutButt1")[0].focus();
-            $(document.body).removeClass('hide-ui');
+            unhideUI();
             setTimeout(function(){ $("#aboutButt1")[0].focus(); }, 50);
         };
         $("#buttShowToolBar").on("click", showTB);
@@ -637,8 +640,13 @@ Helpers){
         var loadlibrary = function()
         {
             $("html").attr("data-theme", "library");
-
-            $(window).trigger('loadlibrary');
+            
+            var urlParams = Helpers.getURLQueryParams();
+            //var ebookURL = urlParams['epub'];
+            var libraryURL = urlParams['epubs'];
+            
+            $(window).triggerHandler('loadlibrary', libraryURL);
+            //$(window).trigger('loadlibrary');
         };
 
         Keyboard.on(Keyboard.SwitchToLibrary, 'reader', loadlibrary /* function(){setTimeout(, 30);} */ );
@@ -836,7 +844,7 @@ Helpers){
             {
                 if (e.keyCode === 9 || e.which === 9)
                 {
-                    $(document.body).removeClass('hide-ui');
+                    unhideUI();
                 }
             });
 
@@ -863,7 +871,7 @@ Helpers){
 
                 Keyboard.scope('reader');
 
-                $(document.body).removeClass('hide-ui');
+                unhideUI()
                 setTimeout(function(){ $("#settbutt1").focus(); }, 50);
 
                 $("#buttSave").removeAttr("accesskey");
@@ -881,7 +889,7 @@ Helpers){
             $('#about-dialog').on('hidden.bs.modal', function () {
                 Keyboard.scope('reader');
 
-                $(document.body).removeClass('hide-ui');
+                unhideUI();
                 setTimeout(function(){ $("#aboutButt1").focus(); }, 50);
             });
             $('#about-dialog').on('shown.bs.modal', function(){
