@@ -85,14 +85,21 @@ Helpers){
 			renditionReload: _.debounce(function() {
 				
 				console.debug("renditionMediaQueryCallback");
-				
+        
+                var urlParams = Helpers.getURLQueryParams();
+                //var ebookURL = urlParams['epub'];
+                var libraryURL = urlParams['epubs'];
+                //var embedded = urlParams['embedded'];
+                
 				var data = {
 					embedded: embedded,
-					epub: url
+					epub: ebookURL,
+                    epubs: libraryURL
 				};
 				
 				console.debug("embedded: " + embedded);
-				console.debug("url: " + url);
+				console.debug("epub: " + ebookURL_filepath);
+				console.debug("epubs: " + libraryURL);
 				
 				unloadReaderUI();
 				applyKeyboardSettingsAndLoadUi(data);
