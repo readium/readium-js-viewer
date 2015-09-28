@@ -20,7 +20,8 @@ define([
 './workers/Messages',
 'Analytics',
 './Keyboard',
-'./versioning/ReadiumVersioning'],
+'./versioning/ReadiumVersioning',
+'readium_shared_js/helpers'],
 
 function(
 moduleConfig,
@@ -44,7 +45,8 @@ Dialogs,
 Messages,
 Analytics,
 Keyboard,
-Versioning){
+Versioning,
+Helpers){
 
     var detailsDialogStr = DetailsDialog({strings: Strings});
 
@@ -191,8 +193,16 @@ Versioning){
 
 	var readClick = function(e){
 
-		var epubUrl = $(this).attr('data-book');
-		$(window).triggerHandler('readepub', [epubUrl]);
+		var ebookURL = $(this).attr('data-book');
+		
+		var urlParams = Helpers.getURLQueryParams();
+		//var ebookURL = urlParams['epub'];
+		var libraryURL = urlParams['epubs'];
+		var embedded = urlParams['embedded'];
+		 
+		var eventPayload = {embedded: embedded, epub: ebookURL, epubs: libraryURL};
+		$(window).triggerHandler('readepub', eventPayload);
+		
 		return false;
 	}
 
@@ -240,9 +250,8 @@ Versioning){
 		libraryManager.retrieveAvailableEpubs(loadLibraryItems);
 	}
 
-	var handleFileSelect = function(evt){
-		var file = evt.target.files[0];
-		$('#add-epub-dialog').modal('hide');
+	var importZippedEpub = function(file) {
+		
 		Dialogs.showModalProgress(Strings.import_dlg_title, Strings.import_dlg_message);
 		libraryManager.handleZippedEpub({
 			file: file,
@@ -251,7 +260,13 @@ Versioning){
 			progress: Dialogs.updateProgress,
 			error: showError
 		});
+	};
 
+	var handleFileSelect = function(evt){
+		$('#add-epub-dialog').modal('hide');
+		
+		var file = evt.target.files[0];
+		importZippedEpub(file);
 	}
 
 	var handleDirSelect = function(evt){
@@ -266,6 +281,7 @@ Versioning){
 			error: showError
 		});
 	}
+	
 	var handleUrlSelect = function(){
 		var url = $('#url-upload').val();
 		$('#add-epub-dialog').modal('hide');
@@ -278,6 +294,16 @@ Versioning){
 			error: showError
 		});
 	}
+
+	var importEpub = function(ebook) {
+		
+		// TODO: also allow import of URL and directory select
+		// See libraryManager.canHandleUrl() + handleUrlSelect()
+		// See libraryManager.canHandleDirectory() + handleDirSelect()
+		
+		if (!window.File || !(ebook instanceof File)) return;
+		importZippedEpub(ebook);
+	};
 
 	var doMigration = function(){
 		Dialogs.showModalProgress(Strings.migrate_dlg_title, Strings.migrate_dlg_message);
@@ -405,14 +431,14 @@ Versioning){
 		});
 	}
 
-    var applyKeyboardSettingsAndLoadUi = function(data)
+    var applyKeyboardSettingsAndLoadUi = function()
     {
         // override current scheme with user options
         Settings.get('reader', function(json)
         {
            Keyboard.applySettings(json);
 
-           loadLibraryUI(data);
+           loadLibraryUI();
         });
     };
     window.setReplaceByDefault = function(replace){
@@ -420,6 +446,7 @@ Versioning){
     }
 	return {
         loadUI : applyKeyboardSettingsAndLoadUi,
-        unloadUI : unloadLibraryUI
+        unloadUI : unloadLibraryUI,
+		importEpub : importEpub 
 	};
 });

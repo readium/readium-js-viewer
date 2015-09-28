@@ -13,6 +13,13 @@ body {
     box-sizing:border-box;
 	-moz-box-sizing:border-box; /* Firefox */
 	-webkit-box-sizing:border-box; /* Safari */
+    
+}
+
+body.fileDragHover {
+-webkit-box-shadow: inset 0px 0px 32px 0px blue;
+-moz-box-shadow: inset 0px 0px 32px 0px blue;
+box-shadow: inset 0px 0px 32px 0px blue;
 }
 
 iframe {

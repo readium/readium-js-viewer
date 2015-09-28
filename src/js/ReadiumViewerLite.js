@@ -3,8 +3,9 @@ define(['jquery', './EpubReader', 'readium_shared_js/helpers'], function($, Epub
     $(function(){
 
 	    var urlParams = Helpers.getURLQueryParams();
-
-			// embedded, epub
+	
+		// embedded, epub
+		// (epub is ebookURL)
       EpubReader.loadUI(urlParams);
 
 		$(document.body).on('click', function()
@@ -27,4 +28,49 @@ define(['jquery', './EpubReader', 'readium_shared_js/helpers'], function($, Epub
 	}).on('show.bs.tooltip', function(e){
 		$(tooltipSelector).not(e.target).tooltip('destroy');
 	});
+	
+	
+	
+	
+	if (window.File
+	 	//&& window.FileReader
+	 ) {
+		var fileDragNDropHTMLArea = $(document.body);
+		fileDragNDropHTMLArea.on("dragover", function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			
+			//$(ev.target)
+			fileDragNDropHTMLArea.addClass("fileDragHover");
+		});
+		fileDragNDropHTMLArea.on("dragleave", function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			
+			//$(ev.target)
+			fileDragNDropHTMLArea.removeClass("fileDragHover");
+		});
+		fileDragNDropHTMLArea.on("drop", function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			
+			//$(ev.target)
+			fileDragNDropHTMLArea.removeClass("fileDragHover");
+			
+			var files = ev.target.files || ev.originalEvent.dataTransfer.files;
+			if (files.length) {
+				var file = files[0];
+				console.log("File drag-n-drop:");
+				console.log(file.name);
+				console.log(file.type);
+				console.log(file.size);
+				
+				if (file.type == "application/epub+zip" || (/\.epub$/.test(file.name))) {
+					
+      				EpubReader.loadUI({epub: file});
+				}
+			}
+		});
+	}
+
 });
