@@ -40,11 +40,12 @@ define(['./Dialogs',
             this.init = function () {
 
                 // add search dialog icon to navbar
-                $(SearchDialog({
+                $('.navbar-right').prepend(
+                    $(SearchDialog({
                     strings: Strings,
                     dialogs: Dialogs,
                     keyboard: Keyboard
-                })).insertBefore($('.icon-library'));
+                })));
 
                 Keyboard.scope('reader');
 
