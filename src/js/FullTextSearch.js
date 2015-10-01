@@ -40,7 +40,7 @@ define(['./Dialogs',
             this.init = function () {
 
                 // add search dialog icon to navbar
-                $('.navbar-right').prepend(
+                $('#app-navbar > .navbar-right').prepend(
                     $(SearchDialog({
                     strings: Strings,
                     dialogs: Dialogs,
