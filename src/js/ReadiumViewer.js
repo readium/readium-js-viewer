@@ -1,6 +1,7 @@
 define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'], function($, EpubLibrary, EpubReader, Helpers){
 
 
+	var _initialLoad = true; // replaces pushState() with replaceState() at first load 
 	var initialLoad = function(){
 
 		var urlParams = Helpers.getURLQueryParams();
@@ -34,12 +35,14 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 	}
 
 	var pushState = $.noop;
+	var replaceState = $.noop;
 
 	var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
 			&& chrome.app.window && chrome.app.window.current; // a bit redundant?
 
 	if (!isChromeExtensionPackagedApp // "history.pushState is not available in packaged apps"
 			&& window.history && window.history.pushState){
+		
 		$(window).on('popstate', function(){
 			
 			var state = history.state;
@@ -57,12 +60,21 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 				libraryView();
 			}
 		});
+		
 		pushState = function(data, title, url){
 			console.debug("BROWSER HISTORY PUSH STATE:");
 			//console.log(title);
 			console.log(url);
 			console.log(data);
 			history.pushState(data, title, url);
+		};
+		
+		replaceState = function(data, title, url){
+			console.debug("BROWSER HISTORY REPLACE STATE:");
+			//console.log(title);
+			console.log(url);
+			console.log(data);
+			history.replaceState(data, title, url);
 		};
 	}
 
@@ -71,14 +83,18 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 
 	var libraryView = function(libraryURL){
 		$(tooltipSelector).tooltip('destroy');
+		
 		EpubReader.unloadUI();
+		//EpubLibrary.unloadUI();
 		
 		EpubLibrary.loadUI({epubs: libraryURL});
 	}
 
 	var readerView = function(data){
 		$(tooltipSelector).tooltip('destroy');
+		
 		EpubLibrary.unloadUI();
+		//EpubReader.unloadUI();
 		
 		EpubReader.loadUI(data);
 	}
@@ -99,13 +115,16 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 		
         var ebookURL_filepath = Helpers.getEbookUrlFilePath(eventPayload.epub);
 		
-		pushState(
+		var func = _initialLoad ? replaceState : pushState;
+		func(
 			{epub: eventPayload.epub, epubs: eventPayload.epubs},
 			"Readium Viewer",
 			URLPATH + '?epub=' + encodeURIComponent(ebookURL_filepath)
 			+ (eventPayload.epubs ? ('&epubs=' + encodeURIComponent(eventPayload.epubs)) : '')
 			+ (eventPayload.embedded ? ('&embedded=' + eventPayload.embedded) : '')
 		);
+	
+		_initialLoad = false;
 		
 		readerView(eventPayload);
 	});
@@ -123,13 +142,16 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 			}, 800);
 		}
 		
-		pushState(
+		var func = _initialLoad ? replaceState : pushState;
+		func(
 			{epubs: libraryURL},
 			"Readium Library",
 			libraryURL ?
 			URLPATH + '?epubs=' + encodeURIComponent(libraryURL)
 			: URLPATH);
-			
+		
+		_initialLoad = false;
+
 		libraryView(libraryURL);
 	});
 
