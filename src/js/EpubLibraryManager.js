@@ -37,6 +37,11 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
             return root + (relativeUrl.charAt(0) == '/' ? '' : '/') + relativeUrl
         },
 
+        // TODO: see disabled usage in EpubLibrary.js
+        // resetLibraryData: function() {
+        //     this.libraryData = undefined;
+        // },
+
         retrieveAvailableEpubs : function(success, error){
             if (this.libraryData){
                 success(this.libraryData);
@@ -91,23 +96,23 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
 
-						$.get(packageUrl, function(data){
+            $.get(packageUrl, function(data){
+    
+                if(typeof(data) === "string" ) {
+                    var parser = new window.DOMParser;
+                    data = parser.parseFromString(data, 'text/xml');
+                }
+                var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
+                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
+                jsonObj.packageUrl = packageUrl;
+                jsonObj.rootDir = rootDir;
+                jsonObj.rootUrl = rootUrl;
+                jsonObj.noCoverBackground = noCoverBackground;
+    
+                success(jsonObj);
 
-	                if(typeof(data) === "string" ) {
-	                    var parser = new window.DOMParser;
-	                    data = parser.parseFromString(data, 'text/xml');
-	                }
-	                var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
-	                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
-	                jsonObj.packageUrl = packageUrl;
-	                jsonObj.rootDir = rootDir;
-	                jsonObj.rootUrl = rootUrl;
-	                jsonObj.noCoverBackground = noCoverBackground;
-
-	                success(jsonObj);
-
-						}).fail(error);
-				},
+            }).fail(error);
+        },
         _refreshLibraryFromWorker : function(callback, newLibraryData){
             this.libraryData = newLibraryData;
             callback();

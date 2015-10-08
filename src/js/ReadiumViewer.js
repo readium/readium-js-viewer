@@ -85,8 +85,8 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 		$(tooltipSelector).tooltip('destroy');
 		
 		EpubReader.unloadUI();
-		//EpubLibrary.unloadUI();
 		
+		//EpubLibrary.unloadUI();
 		EpubLibrary.loadUI({epubs: libraryURL});
 	}
 
@@ -94,8 +94,8 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 		$(tooltipSelector).tooltip('destroy');
 		
 		EpubLibrary.unloadUI();
-		//EpubReader.unloadUI();
 		
+		//EpubReader.unloadUI();
 		EpubReader.loadUI(data);
 	}
 
