@@ -6,10 +6,11 @@ define(['readium_js/Readium'], function(Readium){
 			Readium.getVersion(function(version){
 
 				var versionInfo = {};
-
 				versionInfo = version;
-				versionInfo.dateTimeString = new Date(version.readiumJsViewer.timestamp).toString();
-
+				
+				var date = new Date(version.readiumJsViewer.timestamp);
+				versionInfo.dateTimeString = date.toUTCString ? date.toUTCString() : date.toString();
+				
 				callback(versionInfo);
 			});
 		}
