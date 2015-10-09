@@ -439,9 +439,9 @@ define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings
         defaultOptions:  {},
         accesskeys: {}, // single key strokes are dynamically populated, based on the full shortcuts below:
 
-        FullTextSearch: 's', //accesskey'ed
-        FullTextSearchBackwards: '3',
-        FullTextSearchForwards: '4',
+        FullTextSearch: 'f', //accesskey'ed
+        FullTextSearchBackwards: '4',
+        FullTextSearchForwards: '3',
 
 
         ShowSettingsModal: 'o', //accesskey'ed

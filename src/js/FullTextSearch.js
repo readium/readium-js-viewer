@@ -42,10 +42,10 @@ define(['./Dialogs',
                 // add search dialog icon to navbar
                 $('#app-navbar > .navbar-right').prepend(
                     $(SearchDialog({
-                    strings: Strings,
-                    dialogs: Dialogs,
-                    keyboard: Keyboard
-                })));
+                        strings: Strings,
+                        dialogs: Dialogs,
+                        keyboard: Keyboard
+                    })));
 
                 Keyboard.scope('reader');
 
@@ -67,7 +67,7 @@ define(['./Dialogs',
                     newSearch = true;
                     event.stopPropagation();
                 });
-
+                
                 Keyboard.on(Keyboard.FullTextSearchForwards, 'reader', forwards);
                 Keyboard.on(Keyboard.FullTextSearchBackwards, 'reader', backwards);
 
