@@ -228,12 +228,11 @@ console.log("--- HTML5 Filesystem unzip...");
 							zip.workerScriptsPath = moduleConfig.jsLibRoot;
 							
 							var zipFs = new zip.fs.FS();
-							
-														
+								
 							function onerror(message) {
 								console.error(message);
 							}
-							
+								
 							function removeRecursively(entry, onend, onerror) {
 								var rootReader = entry.createReader();
 								rootReader.readEntries(function(entries) {
@@ -308,33 +307,50 @@ console.debug("FILE: " + entry.toURL());
 									},
 									onerror);
 								};
-								
-								zipFs.importBlob(
-									file,
-									function() {
-										zipFs.root.getFileEntry(
-											filesystem.root,
-											callback,
-											function(current, total){
-												var percent = (current / total) * 100;
-												
-												Dialogs.updateProgress(percent, //Math.round(percent,2)
-												Messages.PROGRESS_EXTRACTING, file.name, false);
-											},
-											onerror);
+							
+								zipFs.root.getFileEntry(
+									filesystem.root,
+									callback,
+									function(current, total){
+										var percent = (current / total) * 100;
+										
+										Dialogs.updateProgress(percent, //Math.round(percent,2)
+										Messages.PROGRESS_EXTRACTING, file.name, false);
 									},
 									onerror);
 							}
 
-							requestFileSystem(
-								TEMPORARY,
-								//4 * 1024 * 1024 * 1024,
-								file.size * 10,
-								function(fs) {
-									filesystem = fs;
-									removeRecursively(filesystem.root, after, after);
-								}, onerror);
-
+							// zipFs.createReader(
+							// 	new zipFs.BlobReader(file),
+							// 	function(reader) {
+							// 		reader.getEntries(function(entries) {
+							// 			for (var i = 0; i < entries.length, i++) {
+							// 				console.log(entries[i].uncompressedSize);
+							// 			}
+							// 		});
+							// 	},
+							// 	onerror
+							// );
+							
+							zipFs.importBlob(
+								file,
+								function() {
+									
+									//TODO
+									// zipFs.root.children
+									
+									var SIZE = file.size * 10; //4 * 1024 * 1024 * 1024,
+									
+									requestFileSystem(
+										TEMPORARY,
+										SIZE,
+										function(fs) {
+											filesystem = fs;
+											removeRecursively(filesystem.root, after, after);
+										}, onerror);
+								},
+								onerror);
+								
 							return;
 						}
 
