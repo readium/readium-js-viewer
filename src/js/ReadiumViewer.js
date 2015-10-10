@@ -1,4 +1,4 @@
-define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'], function($, EpubLibrary, EpubReader, Helpers){
+define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', './ModuleConfig', `zip-ext`, 'i18nStrings', './Dialogs', './workers/Messages'], function($, EpubLibrary, EpubReader, Helpers, moduleConfig, zip, Strings, Dialogs, Messages){
 
 
 	var _initialLoad = true; // replaces pushState() with replaceState() at first load 
@@ -206,13 +206,139 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 								
 					} else {
 						
-						var urlParams = Helpers.getURLQueryParams();
-						//var ebookURL = urlParams['epub'];
-						var libraryURL = urlParams['epubs'];
-						var embedded = urlParams['embedded'];
+						var launch = function(epub) {
+							var urlParams = Helpers.getURLQueryParams();
+							//var ebookURL = urlParams['epub'];
+							var libraryURL = urlParams['epubs'];
+							var embedded = urlParams['embedded'];
+							
+							var eventPayload = {embedded: embedded, epub: epub, epubs: libraryURL};
+							$(window).triggerHandler('readepub', eventPayload);	
+						};
 						
-						var eventPayload = {embedded: embedded, epub: file, epubs: libraryURL};
-						$(window).triggerHandler('readepub', eventPayload);
+						var requestFileSystem = window.webkitRequestFileSystem || window.mozRequestFileSystem || window.msRequestFileSystem || window.requestFileSystem;
+						if (requestFileSystem) {
+										
+console.log("--- HTML5 Filesystem unzip...");				
+
+							var filesystem;
+							
+							// The Web Worker requires standalone z-worker/inflate/deflate.js files in libDir (i.e. cannot be aggregated/minified/optimised in the final generated single-file build)
+							zip.useWebWorkers = true; // (true by default)
+							zip.workerScriptsPath = moduleConfig.jsLibRoot;
+							
+							var zipFs = new zip.fs.FS();
+							
+														
+							function onerror(message) {
+								console.error(message);
+							}
+							
+							function removeRecursively(entry, onend, onerror) {
+								var rootReader = entry.createReader();
+								rootReader.readEntries(function(entries) {
+									var i = 0;
+							
+									function next() {
+										i++;
+										removeNextEntry();
+									}
+							
+									function removeNextEntry() {
+										var entry = entries[i];
+										if (entry) {
+											if (entry.isDirectory) {
+												removeRecursively(entry, next, onerror);
+											}
+											else if (entry.isFile) {
+console.debug("DELETE: " + entry.toURL());
+												entry.remove(next, onerror);
+											}
+										} else {
+											onend();
+										}
+									}
+							
+									removeNextEntry();
+								}, onerror);
+							}
+							
+							function listFilesystem(entry, onend, onerror) {
+								var rootReader = entry.createReader();
+								rootReader.readEntries(function(entries) {
+									var i = 0;
+							
+									function next() {
+										i++;
+										listNextEntry();
+									}
+									
+									function listNextEntry() {
+										var entry = entries[i];
+										if (entry) {
+											if (entry.isDirectory) {
+//console.debug("DIR: " + entry.toURL());
+												listFilesystem(entry, next, onerror);
+											}
+											else if (entry.isFile) {
+console.debug("FILE: " + entry.toURL());
+												next();
+											}
+										} else {
+											onend();
+										}
+									}
+							
+									listNextEntry();
+								}, onerror);
+							}
+							
+							function after() {
+								console.log("--- UNZIP...");
+								
+								Dialogs.showModalProgress(Strings.import_dlg_title, Strings.import_dlg_message);
+								
+								Dialogs.updateProgress(0, Messages.PROGRESS_EXTRACTING, file.name, false);
+								
+								var callback = function() {
+									listFilesystem(filesystem.root,
+									function(){
+										console.log(arguments);
+										launch(filesystem.root.toURL());
+									},
+									onerror);
+								};
+								
+								zipFs.importBlob(
+									file,
+									function() {
+										zipFs.root.getFileEntry(
+											filesystem.root,
+											callback,
+											function(current, total){
+												var percent = (current / total) * 100;
+												
+												Dialogs.updateProgress(percent, //Math.round(percent,2)
+												Messages.PROGRESS_EXTRACTING, file.name, false);
+											},
+											onerror);
+									},
+									onerror);
+							}
+
+							requestFileSystem(
+								TEMPORARY,
+								//4 * 1024 * 1024 * 1024,
+								file.size * 10,
+								function(fs) {
+									filesystem = fs;
+									removeRecursively(filesystem.root, after, after);
+								}, onerror);
+
+							return;
+						}
+
+						launch(file);
 					}
 					
 					// var reader = new FileReader();
