@@ -84,6 +84,10 @@ URI){
 				rootUrl_SubOPDS = undefined;
 			}
 			
+			if (rootUrl_EPUBAcquisition) {
+				rootUrl_EPUBAcquisitionIndirect = undefined;
+			}
+			
 			if (!author && rootUrl_SubOPDS) {
 				$xml.find('author').each(function() {
 					var $author = $(this);
