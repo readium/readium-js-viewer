@@ -13,7 +13,11 @@ URI){
 
 	var processOPDS = function(opdsURL, data, dataSuccess, dataFail) {
 
-		var thisRootUrl = window.location.origin + window.location.pathname;
+		var origin = window.location.origin; 
+		if (!origin) {
+			origin = window.location.protocol + '//' + window.location.host;
+		}
+		var thisRootUrl = origin + window.location.pathname;
 		
 		var opdsURLAbsolute = opdsURL; 
 		if (opdsURLAbsolute.indexOf("http://") != 0 && opdsURLAbsolute.indexOf("https://") != 0) {
