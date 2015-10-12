@@ -115,9 +115,14 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 		
         var ebookURL_filepath = Helpers.getEbookUrlFilePath(eventPayload.epub);
 		
+		var epub = eventPayload.epub;
+		if (epub && (typeof epub !== "string")) {
+			epub = ebookURL_filepath;
+		}
+		
 		var func = _initialLoad ? replaceState : pushState;
 		func(
-			{epub: eventPayload.epub, epubs: eventPayload.epubs},
+			{epub: epub, epubs: eventPayload.epubs},
 			"Readium Viewer",
 			URLPATH + '?epub=' + encodeURIComponent(ebookURL_filepath)
 			+ (eventPayload.epubs ? ('&epubs=' + encodeURIComponent(eventPayload.epubs)) : '')
