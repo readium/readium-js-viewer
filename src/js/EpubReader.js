@@ -397,11 +397,11 @@ Helpers){
                 spin(true);
     
                 var href = $(this).attr('href');
-                href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
+                //href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
     
                 _tocLinkActivated = true;
     
-                readium.reader.openContentUrl(href);
+                readium.reader.openContentUrl(href, tocUrl, undefined);
     
                 if (embedded) {
                     $('.toc-visible').removeClass('toc-visible');
