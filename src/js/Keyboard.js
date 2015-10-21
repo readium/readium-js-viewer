@@ -36,7 +36,7 @@ define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings
             			_Object_defineProperty(e, {writable: true, configurable: true, value: 9})
             			*/
 
-            			return ((e["keyIdentifier"] || e["key"]) == "+" && (e["keyLocation"] || e["location"]) == 3) && (
+            			return ((e["keyIdentifier"] || e["key"]) == "+" && e["location"] == 3) && (
             				e.ctrlKey ?
             					e.altKey ? // webkit
             						1
