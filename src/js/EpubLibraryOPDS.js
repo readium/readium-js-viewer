@@ -124,14 +124,35 @@ URI){
 			if (rootUrl) {
 				if (rootUrl.indexOf("http://") != 0 && rootUrl.indexOf("https://") != 0) {
 					
+					// Ensures URLs like http://crossorigin.me/http://domain.com/etc
+					// do not end-up loosing the double forward slash in http://domain.com
+					// (because of URI.absoluteTo() path normalisation)
+					var opdsURLAbsolute_ = opdsURLAbsolute.replace("/http://", "%2Fhttp%3A%2F%2F");
+					var opdsURLAbsolute_ = opdsURLAbsolute.replace("/https://", "%2Fhttps%3A%2F%2F");
 					try {
-						rootUrl = new URI(rootUrl).absoluteTo(opdsURLAbsolute).toString();
+						rootUrl = new URI(rootUrl).absoluteTo(opdsURLAbsolute_).toString();
 					} catch(err) {
 						console.error(err);
 						console.log(rootUrl);
 					}
+					rootUrl = rootUrl.replace("%2Fhttp%3A%2F%2F", "/http://");
+					rootUrl = rootUrl.replace("%2Fhttps%3A%2F%2F", "/https://");
+					
+				} else if (rootUrl_EPUBAcquisition || rootUrl_SubOPDS) { // anything other than rootUrl_EPUBAcquisitionIndirect
+					var ihttp = opdsURLAbsolute.indexOf("/http://");
+					if (ihttp < 0) {
+						ihttp = opdsURLAbsolute.indexOf("/https://");
+					}
+					if (ihttp > 0) {
+						var xOriginProxy = opdsURLAbsolute.substr(0, ihttp);
+						rootUrl = xOriginProxy + "/" + rootUrl;
+						console.log("Detected CORS proxy: " + xOriginProxy + " ... adjusting URL: " + rootUrl);
+						// var ihttp = rootUrl.indexOf("/http://");
+						// if (ihttp < 0) {	
+						// }
+					}
 				}
-				
+
 				if (json.length < 50) { // TODO: library view pagination!
 					json.push({
 						rootUrl: rootUrl,
