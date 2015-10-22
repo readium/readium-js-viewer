@@ -128,18 +128,20 @@ URI){
 			var rootUrl = rootUrl_EPUBAcquisition || rootUrl_EPUBAcquisitionIndirect || rootUrl_SubOPDS;
 			if (rootUrl) {
 				if (rootUrl.indexOf("http://") != 0 && rootUrl.indexOf("https://") != 0) {
-					
+
 					// Ensures URLs like http://crossorigin.me/http://domain.com/etc
 					// do not end-up loosing the double forward slash in http://domain.com
 					// (because of URI.absoluteTo() path normalisation)
 					var opdsURLAbsolute_ = opdsURLAbsolute.replace("/http://", "%2Fhttp%3A%2F%2F");
-					var opdsURLAbsolute_ = opdsURLAbsolute.replace("/https://", "%2Fhttps%3A%2F%2F");
+					opdsURLAbsolute_ = opdsURLAbsolute_.replace("/https://", "%2Fhttps%3A%2F%2F");
+
 					try {
 						rootUrl = new URI(rootUrl).absoluteTo(opdsURLAbsolute_).toString();
 					} catch(err) {
 						console.error(err);
 						console.log(rootUrl);
 					}
+					
 					rootUrl = rootUrl.replace("%2Fhttp%3A%2F%2F", "/http://");
 					rootUrl = rootUrl.replace("%2Fhttps%3A%2F%2F", "/https://");
 					
