@@ -60,12 +60,18 @@ URI){
 				
 					var hasAcquisition = rel && rel.indexOf("http://opds-spec.org/acquisition") == 0;
 					
-					if (hasAcquisition && t) {
-						if (t.indexOf("application/epub+zip") >= 0) {
-							rootUrl_EPUBAcquisition = href;
-						}
-						if (t.indexOf("text/html") >= 0) {
-							rootUrl_EPUBAcquisitionIndirect = href;
+					if (hasAcquisition) {
+						if (t) {
+							if (t.indexOf("application/epub+zip") >= 0) {
+								rootUrl_EPUBAcquisition = href;
+							}
+							if (t.indexOf("text/html") >= 0) {
+								rootUrl_EPUBAcquisitionIndirect = href;
+							}
+						} else {
+							if (/\.epub$/.test(href)) {
+								rootUrl_EPUBAcquisition = href;
+							}
 						}
 					}
 					
@@ -120,7 +126,6 @@ URI){
 			}
 			
 			var rootUrl = rootUrl_EPUBAcquisition || rootUrl_EPUBAcquisitionIndirect || rootUrl_SubOPDS;
-			
 			if (rootUrl) {
 				if (rootUrl.indexOf("http://") != 0 && rootUrl.indexOf("https://") != 0) {
 					
