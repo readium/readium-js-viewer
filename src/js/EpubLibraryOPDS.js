@@ -76,6 +76,10 @@ URI){
 				
 				var href  = $link.attr('href');
 				if (href) {
+					if (href.indexOf("//") == 0) {
+						href = "http:" + href;
+					}
+					
 					var t  = $link.attr('type');
 					var rel  = $link.attr('rel');
 				
@@ -101,7 +105,10 @@ URI){
 					}
 					
 					if (t && t.indexOf("application/atom+xml") >= 0) {
-						rootUrl_SubOPDS = href;
+						if (!rootUrl_SubOPDS || rel == "subsection")
+						{
+							rootUrl_SubOPDS = href;
+						}
 					}
 					
 					if (t && t.indexOf("image/") == 0) {
