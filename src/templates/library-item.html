@@ -46,8 +46,8 @@
         <a href="#details-modal" data-book="{{epub.packageUrl}}" aria-pressed="true" class="btn btn-default details" data-toggle="modal" role="button">{{strings.i18n_details}}</a>
     </div> -->
     <div class='caption book-info'>
-        <h4 class='title'>{{ epub.title }}</h4>
-        <div class='author'>{{ epub.author}}{{^epub.author}}No Author Listed{{/epub.author}}</div>
+        <h4 class='title' title="{{epub.title}}">{{epub.title}}</h4>
+        <div class='author' title="{{epub.author}}">{{epub.author}}{{^epub.author}}No Author Listed{{/epub.author}}</div>
 
         {{^epub.isSubLibraryLink}}
             
