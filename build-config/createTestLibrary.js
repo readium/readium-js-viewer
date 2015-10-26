@@ -57,69 +57,69 @@ var processUnzipped = function() {
         var bookUnzipper = new DecompressZip(epubPath);
 
         bookUnzipper.on('error', function (err) {
-                     console.log("DecompressZip: extract ERROR - " + epubPath);
-                     console.log(err);
-           });
+            console.log("DecompressZip: extract ERROR - " + epubPath);
+            console.log(err);
+        });
 
         bookUnzipper.on('extract', function (log) {
-               console.log("DecompressZip: extract OK - " + epubPath);
-                     //console.log(log);
-
-                     processUnzippedBook(rootLibPath, books, epubName, rootBookPath);
-           });
+            console.log("DecompressZip: extract OK - " + epubPath);
+            //console.log(log);
+    
+            processUnzippedBook(rootLibPath, books, epubName, rootBookPath);
+        });
 
         bookUnzipper.extract({
-                     path: rootBookPath,
-                     filter: function (file) {
-                            return file.type !== "SymbolicLink";
-                     }
-           });
+            path: rootBookPath,
+            filter: function (file) {
+                return file.type !== "SymbolicLink";
+            }
+        });
     });
 };
 
 var processZip = function() {
-
-//var reader = fs.createReadStream('dist/testbooks.zip');
-//var writer = unzip.Extract({ path: 'dist/testlibrary' });
-    //reader.pipe(writer);
-    // writer.on('close', function(){
-    //         processUnzipped();
-// });
+    
+    //var reader = fs.createReadStream('dist/testbooks.zip');
+    //var writer = unzip.Extract({ path: 'dist/testlibrary' });
+        //reader.pipe(writer);
+        // writer.on('close', function(){
+        //         processUnzipped();
+    // });
 
     var unzipper = new DecompressZip('dist/testbooks.zip');
-       
-       unzipper.on('error', function (err) {
-              console.log("DecompressZip: extract ERROR");
-              console.log(err);
-       });
-       
-       unzipper.on('extract', function (log) {
-              console.log("DecompressZip: extract OK");
-              console.log(log);
-       
-              processUnzipped();
-       });
-       
-       unzipper.extract({
-              path: 'dist/testlibrary',
-              filter: function (file) {
-                     return file.type !== "SymbolicLink";
-              }
-       });
+    
+    unzipper.on('error', function (err) {
+        console.log("DecompressZip: extract ERROR");
+        console.log(err);
+    });
+    
+    unzipper.on('extract', function (log) {
+        console.log("DecompressZip: extract OK");
+        console.log(log);
+    
+        processUnzipped();
+    });
+    
+    unzipper.extract({
+        path: 'dist/testlibrary',
+        filter: function (file) {
+                return file.type !== "SymbolicLink";
+        }
+    });
 };
 
 // DEBUG ONLY!
 var zipAlreadyExists = false;
 try {
-       fs.accessSync(path.join(process.cwd(), 'dist', 'testbooks.zip'));
-       zipAlreadyExists = true;
+    fs.accessSync(path.join(process.cwd(), 'dist', 'testbooks.zip'));
+    zipAlreadyExists = true;
 } catch (e) {
-        // ignored
+    // ignored
 }
 if (zipAlreadyExists) {
-       console.log('ALREADY DOWNLOADED: dist/testbooks.zip');
-       processZip();
-       return;
+    console.log('ALREADY DOWNLOADED: dist/testbooks.zip');
+    processZip();
+    return;
 }
 
 console.log('DOWNLOADING: dist/testbooks.zip ...');
@@ -132,5 +132,5 @@ httpreq.get(testbooksUrl, {binary: true}, function (err, res){
 
     fs.writeFileSync('dist/testbooks.zip', res.body);
 
-       processZip();
+    processZip();
 });
