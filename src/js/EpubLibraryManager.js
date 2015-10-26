@@ -6,8 +6,16 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 	var adjustEpubLibraryPath = function(path) {
 
         if (!path || !moduleConfig.epubLibraryPath) return path;
+
+        var pathUri = undefined;
+        try {
+            pathUri = new URI(path);
+        } catch(err) {
+            console.error(err);
+            console.log(path);
+        }
         
-        if (path.indexOf("http://") == 0 || path.indexOf("https://") == 0) return path;
+        if (pathUri && pathUri.is("absolute")) return path; // "http://", "https://", "data:", etc.
 
         if (path.indexOf("epub_content/") == 0) {
             path = path.replace("epub_content/", "");

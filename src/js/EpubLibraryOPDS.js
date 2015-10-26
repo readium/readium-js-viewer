@@ -31,9 +31,19 @@ URI){
 		var thisRootUrl = origin + window.location.pathname;
 		
 		var opdsURLAbsolute = opdsURL; 
-		if (opdsURLAbsolute.indexOf("http://") != 0 && opdsURLAbsolute.indexOf("https://") != 0) {
+
+		var opdsURLAbsoluteUri = undefined;
+		try {
+			opdsURLAbsoluteUri = new URI(opdsURLAbsolute);
+		} catch(err) {
+			console.error(err);
+			console.log(opdsURLAbsolute);
+		}
+		
+		if (opdsURLAbsoluteUri && !opdsURLAbsoluteUri.is("absolute")) { // "http://", "https://", "data:", etc.
+
 			try {
-				opdsURLAbsolute = new URI(opdsURL).absoluteTo(thisRootUrl).toString();
+				opdsURLAbsolute = opdsURLAbsoluteUri.absoluteTo(thisRootUrl).toString();
 			} catch(err) {
 				console.error(err);
 				console.log(opdsURLAbsolute);
@@ -146,8 +156,17 @@ URI){
 			}
 			
 			if (coverHref) {
-				if (coverHref.indexOf("http://") != 0 && coverHref.indexOf("https://") != 0) {
-					
+				
+				var coverHrefUri = undefined;
+				try {
+					coverHrefUri = new URI(coverHref);
+				} catch(err) {
+					console.error(err);
+					console.log(coverHref);
+				}
+				
+				if (coverHrefUri && !coverHrefUri.is("absolute")) { // "http://", "https://", "data:", etc.
+
 					var opdsURLAbsolute_ = opdsURLAbsolute;
 					if (xOriginProxy) {
 						//console.log("Removing CORS proxy from URL: " + opdsURLAbsolute_);
@@ -155,7 +174,7 @@ URI){
 					}
 					
 					try {
-						coverHref = new URI(coverHref).absoluteTo(opdsURLAbsolute_).toString();
+						coverHref = coverHrefUri.absoluteTo(opdsURLAbsolute_).toString();
 					} catch(err) {
 						console.error(err);
 						console.log(coverHref);
@@ -169,8 +188,16 @@ URI){
 				
 				var isExternalLink = (typeof rootUrl_EPUBAcquisitionIndirect) != "undefined"; //(rootUrl == rootUrl_EPUBAcquisitionIndirect);
 				var isSubLibraryLink = (typeof rootUrl_SubOPDS) != "undefined"; //(rootUrl == rootUrl_SubOPDS);
+
+				var rootUrlUri = undefined;
+				try {
+					rootUrlUri = new URI(rootUrl);
+				} catch(err) {
+					console.error(err);
+					console.log(rootUrl);
+				}
 				
-				if (rootUrl.indexOf("http://") != 0 && rootUrl.indexOf("https://") != 0) {
+				if (rootUrlUri && !rootUrlUri.is("absolute")) { // "http://", "https://", "data:", etc.
 
 					var opdsURLAbsolute_ = opdsURLAbsolute;
 					if (xOriginProxy) {
@@ -184,10 +211,11 @@ URI){
 					}
 
 					try {
-						rootUrl = new URI(rootUrl).absoluteTo(opdsURLAbsolute_).toString();
+						rootUrl = rootUrlUri.absoluteTo(opdsURLAbsolute_).toString();
 					} catch(err) {
 						console.error(err);
 						console.log(rootUrl);
+						console.log(opdsURLAbsolute_);
 					}
 					
 					if (xOriginProxy) {
