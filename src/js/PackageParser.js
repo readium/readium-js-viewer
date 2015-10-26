@@ -1,5 +1,5 @@
 define(['jath'], function(Jath){
-	Jath.resolver = function( prefix ) {
+    Jath.resolver = function( prefix ) {
             var mappings = { 
                 def: "http://www.idpf.org/2007/opf",
                     dc: "http://purl.org/dc/elements/1.1/"
@@ -7,7 +7,7 @@ define(['jath'], function(Jath){
             return mappings[ prefix ];
     }
 
-	var jathTemplate = {
+    var jathTemplate = {
 
         metadata:  { 
                 id: "//def:metadata/dc:identifier",
@@ -43,10 +43,10 @@ define(['jath'], function(Jath){
                 media_type: "@media-type"
         } ]
         
-	};
+    };
 
-	PackageParser = {
-		parsePackageDom : function(data){
+    PackageParser = {
+        parsePackageDom : function(data){
             var jsonObj = Jath.parse(jathTemplate, data);
             jsonObj = jsonObj.metadata;
             jsonObj.coverHref = PackageParser.getCoverHref(data);
@@ -86,6 +86,6 @@ define(['jath'], function(Jath){
             // seems like there isn't one, thats ok...
             return null;
         },
-	}
-	return PackageParser;
+    }
+    return PackageParser;
 })
