@@ -234,3 +234,32 @@ body.list-view .details{
 	display:none;
 }
 
+
+.library-item button[data-link] div p {
+	margin: 0;
+	padding: 0;
+}
+.library-item button[data-link] div p:before {
+	
+	content: ">>>>";
+	
+	font-family: sans-serif;
+	font-weight: bold;
+	
+	font-size: 0.5em;
+	padding: 0.3em;
+	margin: 0;
+	
+	background-color: black;
+	color: white;
+	
+	border: 0.12em solid white;
+	
+	opacity: 0.8;
+	
+	width: 100%;	
+	
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
+}
