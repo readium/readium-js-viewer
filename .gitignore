@@ -5,7 +5,9 @@ dist
 .DS_Store
 .divshot-cache
 node_modules
+
 epub_content/x
+
 build.txt
 local_test_data
 npm-debug.log

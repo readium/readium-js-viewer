@@ -25,7 +25,7 @@ See [license.txt](./license.txt).
 
 ### Git initialisation
 
-* `git clone —recursive https://github.com/readium/readium-js-viewer.git –b BRANCH_NAME readium-js-viewer` (replace "BRANCH_NAME" with e.g. "develop")
+* `git clone --recursive -b BRANCH_NAME https://github.com/readium/readium-js-viewer.git readium-js-viewer` (replace "BRANCH_NAME" with e.g. "develop")
 * `cd readium-js-viewer`
 * `git submodule update --init --recursive` to ensure that the readium-js-viewer chain of dependencies is initialised (readium-js, readium-shared-js and readium-cfi-js)
 * `git checkout BRANCH_NAME && git submodule foreach --recursive "git checkout BRANCH_NAME"` (or simply `cd` inside each repository / submodule, and manually enter the desired branch name: `git checkout BRANCH_NAME`) Git should automatically track the corresponding branch in the 'origin' remote.

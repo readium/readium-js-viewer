@@ -20,7 +20,8 @@ define([
 './workers/Messages',
 'Analytics',
 './Keyboard',
-'./versioning/ReadiumVersioning'],
+'./versioning/ReadiumVersioning',
+'readium_shared_js/helpers'],
 
 function(
 moduleConfig,
@@ -44,7 +45,8 @@ Dialogs,
 Messages,
 Analytics,
 Keyboard,
-Versioning){
+Versioning,
+Helpers){
 
     var detailsDialogStr = DetailsDialog({strings: Strings});
 
@@ -183,16 +185,55 @@ Versioning){
 		var count = 0;
 		epubs.forEach(function(epub){
 			var noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
-
+			if (epub.isSubLibraryLink) {
+				noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover2.jpg';
+			}
+			
 			$('.library-items').append(LibraryItem({count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
 		});
 		$('.details').on('click', loadDetails);
 	}
 
 	var readClick = function(e){
-
+		var urlParams = Helpers.getURLQueryParams();
+		//var ebookURL = urlParams['epub'];
+		var libraryURL = urlParams['epubs'];
+		var embedded = urlParams['embedded'];
+			
 		var ebookURL = $(this).attr('data-book');
-		$(window).triggerHandler('readepub', [ebookURL]);
+		if (ebookURL) {
+			var eventPayload = {embedded: embedded, epub: ebookURL, epubs: libraryURL};
+			$(window).triggerHandler('readepub', eventPayload);
+		}
+		else {
+			var libURL = $(this).attr('data-library');
+			if (libURL) {
+				
+				// TODO: this doesn't work, so we refresh the whole page, bypassing pushState (replaceState is used instead after reload)
+				// libraryManager.resetLibraryData();
+				// var eventPayload = libURL;
+				// $(window).triggerHandler('loadlibrary', eventPayload);
+							
+				var URLPATH =
+				window.location ? (
+					window.location.protocol
+					+ "//"
+					+ window.location.hostname
+					+ (window.location.port ? (':' + window.location.port) : '')
+					+ window.location.pathname
+				) : 'index.html'
+				;
+				
+				var url = URLPATH + '?epubs=' + encodeURIComponent(libURL);
+				
+				window.location = url;
+			} else {
+				var linkURL = $(this).attr('data-link');
+				if (linkURL) {
+					window.open(linkURL, '_blank');
+				}
+			}
+		}
 		return false;
 	}
 
@@ -324,7 +365,7 @@ Versioning){
 		}));
 
 		Versioning.getVersioningInfo(function(version){
-			$appContainer.append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+			$appContainer.append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dateTimeString: version.dateTimeString, viewerJs: version.readiumJsViewer, readiumJs: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 		});
 
 
@@ -421,8 +462,15 @@ Versioning){
 		});
 	}
 
-    var applyKeyboardSettingsAndLoadUi = function()
+    var applyKeyboardSettingsAndLoadUi = function(data)
     {
+		if (data && data.epubs && (typeof data.epubs == "string")) {
+			
+			// this is normally init'ed at page launch using the "epubs" URL GET query parameter,
+			// but needs manually setting when using pushState() to refresh the page contents with a different library source 
+			moduleConfig.epubLibraryPath = data.epubs;
+		}
+		
         // override current scheme with user options
         Settings.get('reader', function(json)
         {
