@@ -62,7 +62,7 @@ define(['../ModuleConfig', 'readium_js/epub-fetch/encryption_handler'], function
                 scripts += "<script type=\"text/javascript\" src=\"" + ersUrl + "\"><\/script>";
             }
 
-            if (mathJaxUrl && contentDocumentHtml.indexOf("<math") >= 0) {
+            if (mathJaxUrl && contentDocumentHtml.search(/<(\w+:|)(?=math)/) >= 0) {
                 scripts += "<script type=\"text/javascript\" src=\"" + mathJaxUrl + "\"><\/script>";
             }
 
