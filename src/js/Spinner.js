@@ -1,5 +1,5 @@
 define(['spin'], function(Spinner){
-	var opts = {
+    var opts = {
       lines: 17, // The number of lines to draw
       length: 0, // The length of each line
       width: 10, // The line thickness

@@ -13,27 +13,27 @@
 
 define([],function(){
 
-	Settings = {
-		put : function(key, val, callback){
-			var obj = {};
-			obj[key] = JSON.stringify(val);
-			chrome.storage.local.set(obj, callback);
-		},
-		get : function(key, callback){
-			chrome.storage.local.get(key, function(val){
-				if (val[key]){
-					callback(JSON.parse(val[key]));
-				}
-				else{
-					callback(null);
-				}
-			});
-		},
-		getMultiple : function(keys, callback){
-			chrome.storage.local.get(keys, function(val){
-				callback(val);
-			});
-		}
-	}
-	return Settings;
+    Settings = {
+        put : function(key, val, callback){
+            var obj = {};
+            obj[key] = JSON.stringify(val);
+            chrome.storage.local.set(obj, callback);
+        },
+        get : function(key, callback){
+            chrome.storage.local.get(key, function(val){
+                if (val[key]){
+                    callback(JSON.parse(val[key]));
+                }
+                else{
+                    callback(null);
+                }
+            });
+        },
+        getMultiple : function(keys, callback){
+            chrome.storage.local.get(keys, function(val){
+                callback(val);
+            });
+        }
+    }
+    return Settings;
 })
