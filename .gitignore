@@ -6,6 +6,7 @@ dist
 .divshot-cache
 node_modules
 
+.surgeignore
 epub_content/x
 
 build.txt
