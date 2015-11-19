@@ -268,7 +268,7 @@ html[data-theme=night-theme] #right-page-btn:hover
 }
 
 #app-container {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 #reading-area {
@@ -284,7 +284,8 @@ html[data-theme=night-theme] #right-page-btn:hover
 
 /* show outline on reading-area when iframe gets focus */
 .contentFocus {
-    box-shadow: 0px 0px 5px #6fb5f1 !important;
+    /* box-shadow: 0px 0px 5px #6fb5f1 !important; */
+    
     outline: #6fb5f1 dotted 1px !important;
     
     outline-offset: -3px;
@@ -298,8 +299,8 @@ html[data-theme=night-theme] #right-page-btn:hover
     right: 0;
     bottom: 0;
     top: 0;
-	
-	overflow: hidden;
+    
+    overflow: hidden;
 }
 
 /* embedded mode styles */

@@ -5,151 +5,142 @@ var versionPath = path.join(process.cwd(), 'build-output/version.json');
 var versionStr = fs.readFileSync(versionPath, {encoding: 'utf-8'});
 var versionJson = JSON.parse(versionStr);
 if (versionJson.readiumJsViewer.branch !== "develop") {
-		console.log("Branch [" + versionJson.readiumJsViewer.branch + "] => skipping upload CRX, etc. to GitHub release.");
-		return;
+    console.log("Branch [" + versionJson.readiumJsViewer.branch + "] => skipping upload CRX, etc. to GitHub release.");
+    return;
 }
 
 
 if (!process.env.GITHUB_TOKEN)//process.env.MODE == 'chromeApp')
 {
-		console.log("process.env.GITHUB_TOKEN not defined => skipping upload CRX, etc. to GitHub release.");
-		return;
+    console.log("process.env.GITHUB_TOKEN not defined => skipping upload CRX, etc. to GitHub release.");
+    return;
 }
 
-	var owner = 'readium',
-		repo = 'readium-js-viewer';
+var owner = 'readium';
+var repo = 'readium-js-viewer';
 
-	console.log('deploying crx to github');
+console.log('deploying crx to github');
 
-	var GitHubApi = require("github");
-	var https = require('https');
+var GitHubApi = require("github");
+var https = require('https');
 
+var github = new GitHubApi({
+    // required
+    version: "3.0.0"
+});
 
+var packagePath = path.join(process.cwd(), 'package.json');
+var packageStr = fs.readFileSync(packagePath, {encoding: 'utf-8'});
+var packageObj = JSON.parse(packageStr);
+var version = packageObj.version;
 
-	var github = new GitHubApi({
-	    // required
-	    version: "3.0.0",
-	});
+var oauthToken = process.env.GITHUB_TOKEN;
+github.authenticate({
+    type: "oauth",
+    token: oauthToken//process.env.GITHUB_TOKEN
+});
 
-	var packagePath = path.join(process.cwd(), 'package.json');
-	var packageStr = fs.readFileSync(packagePath, {encoding: 'utf-8'}),
-		packageObj = JSON.parse(packageStr),
-		version = packageObj.version;
+var deleteOldRelease = function(error, response){
+    if (error){
+        console.error(JSON.stringify(error));
+        return;
+    }
+    github.releases.listReleases({owner: owner, repo: repo}, function(error, releases){
+        for (var i = 0; i < releases.length; i++){
+            if (releases[i].tag_name == version){
+                break;
+            }
+        }
+        if (i < releases.length){
+            console.log('found existing release, deleting');
+            github.releases.deleteRelease({owner: owner, repo: repo, id: releases[i].id}, function(error, response){
+                if (error){
+                    console.error(JSON.stringify(error));
+                    return;
+                }
+                createRelease();
+            });
+        }
+        else{
+            createRelease();
+        }
+    });
+};
 
+var createRelease = function(){
 
+    var releaseData = {
+        tag_name: version,
+        //target_commitish: process.env.TRAVIS_COMMIT,
+        owner: owner,
+        repo: repo,
+        name: 'Automated build on ' + new Date().toString(),
+        prerelease: true
+    };
+    
+    github.releases.createRelease(releaseData, function(error, result){
+        if (error){
+            console.error(JSON.stringify(error));
+            return;
+        }
+        console.log('release created');
+        //console.log(result);
 
+        var releaseId = result.id,
+            contentType = 'application/x-chrome-extension';
 
-	var oauthToken = process.env.GITHUB_TOKEN;
-	github.authenticate({
-	    type: "oauth",
-	    token: oauthToken//process.env.GITHUB_TOKEN
-	});
-	var deleteOldRelease = function(error, response){
-		if (error){
-			console.error(JSON.stringify(error));
-			return;
-		}
-		github.releases.listReleases({owner: owner, repo: repo}, function(error, releases){
-			for (var i = 0; i < releases.length; i++){
-				if (releases[i].tag_name == version){
-					break;
-				}
-			}
-			if (i < releases.length){
-				console.log('found existing release, deleting');
-				github.releases.deleteRelease({owner: owner, repo: repo, id: releases[i].id}, function(error, response){
-					if (error){
-						console.error(JSON.stringify(error));
-						return;
-					}
-					createRelease();
-				});
-			}
-			else{
-				createRelease()
-			}
-		})
-	}
-	var createRelease = function(){
+        var fileName = path.join(process.cwd(), 'dist/Readium.crx');
 
+        //var url = 'https://uploads.github.com/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx'
 
-		var releaseData = {
-			tag_name: version,
-			//target_commitish: process.env.TRAVIS_COMMIT,
-			owner: owner,
-			repo: repo,
-			name: 'Automated build on ' + new Date().toString(),
-			prerelease: true
+        var stats = fs.statSync(fileName);
+        var fileSizeInBytes = stats["size"];
 
-		}
-		github.releases.createRelease(releaseData, function(error, result){
-			if (error){
-				console.error(JSON.stringify(error));
-				return;
-			}
-			console.log('release created');
-			//console.log(result);
+        var httpOptions = {
+            hostname: 'uploads.github.com',
+            port: 443,
+            path: '/repos/'+ owner + '/' + repo + '/releases/' + releaseId + '/assets?name=Readium.crx',
+            method: 'POST',
+            headers: {
+                'Content-Type': contentType,
+                'Content-Length': fileSizeInBytes,
+                'Authorization' : 'token ' + oauthToken
+            }
+        };
+        //console.log(httpOptions);
 
-			var releaseId = result.id,
-				contentType = 'application/x-chrome-extension';
+        var req = https.request(httpOptions, function(res){
+            if (res.statusCode < 400){
+                console.log('binary uploaded successfully');
+            }
+            else{
+                console.log('error uploading binary: ' + res.statusCode);
+            }
+        });
 
-			var fileName = path.join(process.cwd(), 'dist/Readium.crx');
+        fs.createReadStream(fileName).pipe(req);
 
-			//var url = 'https://uploads.github.com/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx'
+        //req.end();
+    });
+};
 
+var tagRef = {
+    user: owner,
+    repo: repo,
+    ref: 'tags/' + version
+};
 
-			var stats = fs.statSync(fileName)
-		 	var fileSizeInBytes = stats["size"]
+github.gitdata.getReference(tagRef, function(error, result){
 
-			var httpOptions = {
-				hostname: 'uploads.github.com',
-				port: 443,
-				path: '/repos/'+ owner + '/' + repo + '/releases/' + releaseId + '/assets?name=Readium.crx',
-				method: 'POST',
-				headers: {
-					'Content-Type': contentType,
-					'Content-Length': fileSizeInBytes,
-					'Authorization' : 'token ' + oauthToken
-				}
-			}
-			//console.log(httpOptions);
-
-			var req = https.request(httpOptions, function(res){
-				if (res.statusCode < 400){
-					console.log('binary uploaded successfully');
-				}
-				else{
-					console.log('error uploading binary: ' + res.statusCode);
-
-				}
-			});
-
-			fs.createReadStream(fileName).pipe(req);
-
-			//req.end();
-
-
-
-		});
-	}
-
-	var tagRef = {
-		user: owner,
-		repo: repo,
-		ref: 'tags/' + version
-	}
-	github.gitdata.getReference(tagRef, function(error, result){
-
-		var func;
-		tagRef.sha = process.env.TRAVIS_COMMIT;
-		if (error){
-			console.log(version + ' tag does not exist, creating.');
-			tagRef.ref = 'refs/' + tagRef.ref;
-			github.gitdata.createReference(tagRef, deleteOldRelease);
-		}
-		else{
-			console.log('updating previous "' + version + '" release tag');
-			github.gitdata.updateReference(tagRef, deleteOldRelease);
-		}
-
-	});
+    var func;
+    tagRef.sha = process.env.TRAVIS_COMMIT;
+    if (error){
+        console.log(version + ' tag does not exist, creating.');
+        tagRef.ref = 'refs/' + tagRef.ref;
+        github.gitdata.createReference(tagRef, deleteOldRelease);
+    }
+    else{
+        console.log('updating previous "' + version + '" release tag');
+        github.gitdata.updateReference(tagRef, deleteOldRelease);
+    }
+});

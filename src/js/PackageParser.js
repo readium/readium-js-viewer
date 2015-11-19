@@ -1,3 +1,4 @@
+
 define(['jquery', 'jxpath'], function($, JXPath){
     var resolver = function( prefix ) {
             var mappings = { 
