@@ -1,8 +1,8 @@
 define(function(){
 
-	return{
-		checkIfNeedsMigration : function(callback){
-			callback(false);
-		}
-	}
+    return{
+        checkIfNeedsMigration : function(callback){
+            callback(false);
+        }
+    }
 });

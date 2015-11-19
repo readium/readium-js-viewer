@@ -2,23 +2,27 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-      	<div class="splash-logo">
-      		<img src="{{{imagePathPrefix}}}images/about_readium_logo.png" alt="">
-      	</div>
+          <div class="splash-logo">
+              <img src="{{{imagePathPrefix}}}images/about_readium_logo.png" alt="">
+          </div>
 
-      	<div class="about-message">
-	      	<span>{{{strings.i18n_html_readium_tm_a_project}}}</span>
-      	</div>
-      	<div>
-			     <img src="{{{imagePathPrefix}}}images/partner_logos.png">
-		    </div>
+          <div class="about-message">
+              <span>{{{strings.i18n_html_readium_tm_a_project}}}</span>
+          </div>
+          <div>
+                 <img src="{{{imagePathPrefix}}}images/partner_logos.png">
+            </div>
         <h4 style="color:#111155">{{{strings.gethelp}}}</h4>
-        <div class="version">{{viewer.chromeVersion}}</div>
-        <div class="build-date">{{viewer.dateTimeString}}</div>
+        <div class="version">{{viewerJs.chromeVersion}}</div>
+        <div class="build-date">{{dateTimeString}}</div>
         <div class="version-details">
-        <div><a target="_blank" href="https://github.com/readium/readium-js-viewer/tree/{{viewer.sha}}">readium-js-viewer@{{viewer.sha}}</a>{{^viewer.clean}}<span class="local-changes-alert"> ({{{strings.gitHasLocalChanges}}})</span>{{/viewer.clean}}</div>
-          <div><a target="_blank" href="https://github.com/readium/readium-js/tree/{{readium.sha}}">readium-js@{{readium.sha}}</a>{{^readium.clean}}<span class="local-changes-alert"> ({{{strings.gitHasLocalChanges}}})</span>{{/readium.clean}}</div>
+            
+          <div><a target="_blank" href="https://github.com/readium/readium-js-viewer/tree/{{viewerJs.sha}}">readium-js-viewer@{{viewerJs.sha}}</a>{{^viewerJs.clean}}<span class="local-changes-alert"> ({{{strings.gitHasLocalChanges}}})</span>{{/viewerJs.clean}}</div>
+          
+          <div><a target="_blank" href="https://github.com/readium/readium-js/tree/{{readiumJs.sha}}">readium-js@{{readiumJs.sha}}</a>{{^readiumJs.clean}}<span class="local-changes-alert"> ({{{strings.gitHasLocalChanges}}})</span>{{/readiumJs.clean}}</div>
+          
           <div><a target="_blank" href="https://github.com/readium/readium-shared-js/tree/{{sharedJs.sha}}">readium-shared-js@{{sharedJs.sha}}</a>{{^sharedJs.clean}}<span class="local-changes-alert"> ({{{strings.gitHasLocalChanges}}})</span>{{/sharedJs.clean}}</div>
+          
           <div><a target="_blank" href="https://github.com/readium/readium-cfi-js/tree/{{cfiJs.sha}}">readium-cfi-js@{{cfiJs.sha}}</a>{{^cfiJs.clean}}<span class="local-changes-alert"> ({{{strings.gitHasLocalChanges}}})</span>{{/cfiJs.clean}}</div>
         </div>
       </div>
