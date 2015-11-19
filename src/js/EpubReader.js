@@ -72,8 +72,8 @@ Helpers){
     // (bad naming convention, hard to find usages of "el")
     var el = document.documentElement;
 
-	var _renditionSelection = undefined;
-	   
+    var _renditionSelection = undefined;
+       
     function setBookTitle(title) {
     
         var $titleEl = $('.book-title-header');
@@ -87,33 +87,33 @@ Helpers){
     // This function will retrieve a package document and load an EPUB
     var loadEbook = function (readerSettings, openPageRequest) {
 
-		_renditionSelection = {
-			renditionLanguage: readerSettings.renditionSelectionLanguage,
-			renditionAccessMode: readerSettings.renditionSelectionAccessMode,
-			renditionLayout: readerSettings.renditionSelectionLayout,
-			renditionReload: _.debounce(function() {
-				
-				console.debug("renditionMediaQueryCallback");
+        _renditionSelection = {
+            renditionLanguage: readerSettings.renditionSelectionLanguage,
+            renditionAccessMode: readerSettings.renditionSelectionAccessMode,
+            renditionLayout: readerSettings.renditionSelectionLayout,
+            renditionReload: _.debounce(function() {
+                
+                console.debug("renditionMediaQueryCallback");
         
                 var urlParams = Helpers.getURLQueryParams();
                 //var ebookURL = urlParams['epub'];
                 var libraryURL = urlParams['epubs'];
                 //var embedded = urlParams['embedded'];
                 
-				var data = {
-					embedded: embedded,
-					epub: ebookURL,
+                var data = {
+                    embedded: embedded,
+                    epub: ebookURL,
                     epubs: libraryURL
-				};
-				
-				console.debug("embedded: " + embedded);
-				console.debug("epub: " + ebookURL_filepath);
-				console.debug("epubs: " + libraryURL);
-				
-				unloadReaderUI();
-				applyKeyboardSettingsAndLoadUi(data);
-			}, 500, false)
-		};
+                };
+                
+                console.debug("embedded: " + embedded);
+                console.debug("epub: " + ebookURL_filepath);
+                console.debug("epubs: " + libraryURL);
+                
+                unloadReaderUI();
+                applyKeyboardSettingsAndLoadUi(data);
+            }, 500, false)
+        };
         
         readium.openPackageDocument(
             
@@ -154,8 +154,8 @@ Helpers){
                 }));
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
-    			
-    			SettingsDialog.updateMultipleRenditions(readium.reader.getMultipleRenditions(), _renditionSelection);
+                
+                SettingsDialog.updateMultipleRenditions(readium.reader.getMultipleRenditions(), _renditionSelection);
             },
             openPageRequest,
             _renditionSelection
@@ -581,16 +581,16 @@ Helpers){
 
     var savePlace = function(){
 
-		var bookMark = readium.reader.bookmarkCurrentPage(); // string, not JSON!
+        var bookMark = readium.reader.bookmarkCurrentPage(); // string, not JSON!
 
-		var multipleRenditions = readium.reader.getMultipleRenditions();
-		if (multipleRenditions) {
-			var rendition = multipleRenditions.renditions[multipleRenditions.selectedIndex];
+        var multipleRenditions = readium.reader.getMultipleRenditions();
+        if (multipleRenditions) {
+            var rendition = multipleRenditions.renditions[multipleRenditions.selectedIndex];
 
-			bookMark = JSON.parse(bookMark);
-			bookMark["opf"] = rendition.opfPath;
-			bookMark = JSON.stringify(bookMark);
-		}
+            bookMark = JSON.parse(bookMark);
+            bookMark["opf"] = rendition.opfPath;
+            bookMark = JSON.stringify(bookMark);
+        }
 console.log("SAVING READING LOCATION");
 console.debug(bookMark); // string, not JSON!
 
@@ -838,10 +838,10 @@ console.debug(bookMark); // string, not JSON!
 
             if (settings[ebookURL_filepath]) {
 
-				//see savePlace() which stores reader.bookmarkCurrentPage() at every PAGINATION_CHANGED event.
+                //see savePlace() which stores reader.bookmarkCurrentPage() at every PAGINATION_CHANGED event.
 
                 var bookmark = JSON.parse(settings[ebookURL_filepath]); // string
-				bookmark = JSON.parse(bookmark); // JSON
+                bookmark = JSON.parse(bookmark); // JSON
 
                 openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI, opfPath: bookmark.opf};
 console.log("RESTORING READING LOCATION");
