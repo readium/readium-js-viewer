@@ -71,7 +71,16 @@ Helpers){
     // TODO: is this variable actually used anywhere here??
     // (bad naming convention, hard to find usages of "el")
     var el = document.documentElement;
+
+    function setBookTitle(title) {
     
+        var $titleEl = $('.book-title-header');
+        if ($titleEl.length) {
+            $titleEl.text(title);
+        } else {
+            $('<h2 class="book-title-header"></h2>').insertAfter('.navbar').text(title);
+        }
+    };
 
     // This function will retrieve a package document and load an EPUB
     var loadEbook = function (readerSettings, openPageRequest) {
@@ -81,6 +90,20 @@ Helpers){
             ebookURL,
             
             function(packageDocument, options){
+                
+                if (!packageDocument) {
+                    
+                    console.error("ERROR OPENING EBOOK: " + ebookURL_filepath);
+                    
+                    spin(false);
+                    setBookTitle(ebookURL_filepath);
+                            
+                    Dialogs.showErrorWithDetails(Strings.err_epub_corrupt, ebookURL_filepath);
+                    //Dialogs.showModalMessage(Strings.err_dlg_title, ebookURL_filepath);
+                            
+                    return;
+                }
+                
                 currentPackageDocument = packageDocument;
                 currentPackageDocument.generateTocListDOM(function(dom){
                     loadToc(dom)
@@ -89,8 +112,7 @@ Helpers){
                 wasFixed = readium.reader.isCurrentViewFixedLayout();
                 var metadata = options.metadata;
     
-                $('<h2 class="book-title-header"></h2>').insertAfter('.navbar').text(metadata.title);
-    
+                setBookTitle(metadata.title);
     
                 $("#left-page-btn").unbind("click");
                 $("#right-page-btn").unbind("click");
@@ -114,29 +136,44 @@ Helpers){
         );
     };
 
-    var spin = function()
+    var spin = function(on)
     {
-//console.error("do SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-        if (spinner.willSpin || spinner.isSpinning) return;
-
-        spinner.willSpin = true;
-
-        setTimeout(function()
-        {
-            if (spinner.stopRequested)
+        if (on) {
+    //console.error("do SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+            if (spinner.willSpin || spinner.isSpinning) return;
+    
+            spinner.willSpin = true;
+    
+            setTimeout(function()
             {
-//console.debug("STOP REQUEST: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                if (spinner.stopRequested)
+                {
+    //console.debug("STOP REQUEST: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                    spinner.willSpin = false;
+                    spinner.stopRequested = false;
+                    return;
+                }
+    //console.debug("SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                spinner.isSpinning = true;
+                spinner.spin($('#reading-area')[0]);
+    
                 spinner.willSpin = false;
-                spinner.stopRequested = false;
-                return;
+    
+            }, 100);
+        } else {
+            
+            if (spinner.isSpinning)
+            {
+//console.debug("!! SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                spinner.stop();
+                spinner.isSpinning = false;
             }
-//console.debug("SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-            spinner.isSpinning = true;
-            spinner.spin($('#reading-area')[0]);
-
-            spinner.willSpin = false;
-
-        }, 100);
+            else if (spinner.willSpin)
+            {
+//console.debug("!! SPIN REQ: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                spinner.stopRequested = true;
+            }
+        }
     };
 
     var tocShowHideToggle = function(){
@@ -279,18 +316,7 @@ Helpers){
             savePlace();
             updateUI(pageChangeData);
 
-
-            if (spinner.isSpinning)
-            {
-//console.debug("!! SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-                spinner.stop();
-                spinner.isSpinning = false;
-            }
-            else if (spinner.willSpin)
-            {
-//console.debug("!! SPIN REQ: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-                spinner.stopRequested = true;
-            }
+            spin(false);
 
             if (!_tocLinkActivated) return;
             _tocLinkActivated = false;
@@ -374,15 +400,14 @@ Helpers){
         $('#readium-toc-body').on('click', 'a', function(e)
         {
             try {
-                spin();
+                spin(true);
     
                 var href = $(this).attr('href');
-                href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
+                //href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
     
                 _tocLinkActivated = true;
     
-                console.log("TOC nav: " + href);
-                readium.reader.openContentUrl(href);
+                readium.reader.openContentUrl(href, tocUrl, undefined);
     
                 if (embedded) {
                     $('.toc-visible').removeClass('toc-visible');
@@ -422,15 +447,15 @@ Helpers){
         screenfull.toggle();
     }
 
-  	var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
-  			&& chrome.app.window && chrome.app.window.current; // a bit redundant?
+      var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
+              && chrome.app.window && chrome.app.window.current; // a bit redundant?
 
     if (isChromeExtensionPackagedApp) {
-    	screenfull.onchange = function(e) {
-    		if (chrome.app.window.current().isFullscreen()) {
-    			chrome.app.window.current().restore();
-    		}
-    	};
+        screenfull.onchange = function(e) {
+            if (chrome.app.window.current().isFullscreen()) {
+                chrome.app.window.current().restore();
+            }
+        };
     }
     var oldOnChange = screenfull.onchange;
     screenfull.onchange = function(e){
@@ -751,7 +776,7 @@ Helpers){
         $('#zoom-custom a').on('click', enableCustom);
         $('.zoom-wrapper input').on('change', setCustom);
 
-        spin();
+        spin(true);
     }
 
     var loadReaderUI = function (data) {
@@ -936,7 +961,7 @@ Helpers){
             Keyboard.on(Keyboard.NightTheme, 'reader', toggleNightTheme);
 
             readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function($iframe, spineItem) {
-                spin();
+                spin(true);
             });
 
             EpubReaderMediaOverlays.init(readium);
@@ -947,7 +972,8 @@ Helpers){
 
             Versioning.getVersioningInfo(function(version){
 
-                $('#app-container').append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+                $('#app-container').append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dateTimeString: version.dateTimeString, viewerJs: version.readiumJsViewer, readiumJs: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+
 
                 window.navigator.epubReadingSystem.name = "readium-js-viewer";
                 window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;
@@ -1047,7 +1073,14 @@ Helpers){
         // visibility check fails because iframe is unloaded
         //if (readium.reader.isMediaOverlayAvailable())
         if (readium && readium.reader) // window.push/popstate
-            readium.reader.pauseMediaOverlay();
+        {
+            try{
+                readium.reader.pauseMediaOverlay();
+            }catch(err){
+                //ignore error.
+                //can occur when ReaderView._mediaOverlayPlayer is null, for example when openBook() fails 
+            }
+        }
 
         $(window).off('resize');
         $(window).off('mousemove');

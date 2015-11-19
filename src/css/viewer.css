@@ -378,7 +378,7 @@ html[data-theme=night-theme] #right-page-btn:hover
 }
 
 #app-container {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 #reading-area {
@@ -409,8 +409,8 @@ html[data-theme=night-theme] #right-page-btn:hover
     right: 0;
     bottom: 0;
     top: 0;
-	
-	overflow: hidden;
+    
+    overflow: hidden;
 }
 
 /* embedded mode styles */

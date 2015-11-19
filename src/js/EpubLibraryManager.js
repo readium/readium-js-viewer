@@ -1,13 +1,21 @@
 define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings', 'URIjs', './EpubLibraryOPDS'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings, URI, EpubLibraryOPDS) {
 
-	var LibraryManager = function(){
-	};
+    var LibraryManager = function(){
+    };
 
-	var adjustEpubLibraryPath = function(path) {
+    var adjustEpubLibraryPath = function(path) {
 
         if (!path || !moduleConfig.epubLibraryPath) return path;
+
+        var pathUri = undefined;
+        try {
+            pathUri = new URI(path);
+        } catch(err) {
+            console.error(err);
+            console.log(path);
+        }
         
-        if (path.indexOf("http://") == 0 || path.indexOf("https://") == 0) return path;
+        if (pathUri && pathUri.is("absolute")) return path; // "http://", "https://", "data:", etc.
 
         if (path.indexOf("epub_content/") == 0) {
             path = path.replace("epub_content/", "");
@@ -20,11 +28,11 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
         path = root + (path.charAt(0) == '/' ? '' : '/') + path;
 
         return path;
-	};
+    };
 
-	LibraryManager.prototype = {
+    LibraryManager.prototype = {
 
-	   _getFullUrl : function(packageUrl, relativeUrl){
+       _getFullUrl : function(packageUrl, relativeUrl){
             if (!relativeUrl){
                 return null;
             }
@@ -36,6 +44,11 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
 
             return root + (relativeUrl.charAt(0) == '/' ? '' : '/') + relativeUrl
         },
+
+        // TODO: see disabled usage in EpubLibrary.js
+        // resetLibraryData: function() {
+        //     this.libraryData = undefined;
+        // },
 
         retrieveAvailableEpubs : function(success, error){
             if (this.libraryData){
@@ -80,7 +93,7 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
             } else {
                 EpubLibraryOPDS.tryParse(indexUrl, dataSuccess, dataFail);
             }
-		},
+        },
 
         deleteEpubWithId : function(id, success, error){
             WorkerProxy.deleteEpub(id, this.libraryData, {
@@ -88,26 +101,26 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
                 error: error
             });
         },
-		retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
+        retrieveFullEpubDetails : function(packageUrl, rootUrl, rootDir, noCoverBackground, success, error){
             var self = this;
 
-						$.get(packageUrl, function(data){
+            $.get(packageUrl, function(data){
+    
+                if(typeof(data) === "string" ) {
+                    var parser = new window.DOMParser;
+                    data = parser.parseFromString(data, 'text/xml');
+                }
+                var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
+                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
+                jsonObj.packageUrl = packageUrl;
+                jsonObj.rootDir = rootDir;
+                jsonObj.rootUrl = rootUrl;
+                jsonObj.noCoverBackground = noCoverBackground;
+    
+                success(jsonObj);
 
-	                if(typeof(data) === "string" ) {
-	                    var parser = new window.DOMParser;
-	                    data = parser.parseFromString(data, 'text/xml');
-	                }
-	                var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
-	                jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;
-	                jsonObj.packageUrl = packageUrl;
-	                jsonObj.rootDir = rootDir;
-	                jsonObj.rootUrl = rootUrl;
-	                jsonObj.noCoverBackground = noCoverBackground;
-
-	                success(jsonObj);
-
-						}).fail(error);
-				},
+            }).fail(error);
+        },
         _refreshLibraryFromWorker : function(callback, newLibraryData){
             this.libraryData = newLibraryData;
             callback();
@@ -174,13 +187,13 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
         canHandleDirectory : function(){
             return moduleConfig.canHandleDirectory;
         }
-	}
+    }
 
     window.cleanEntireLibrary = function(){
         StorageManager.deleteFile('/', function(){
             console.log('done');
         }, console.error);
     }
-	return new LibraryManager();
+    return new LibraryManager();
 
 });
