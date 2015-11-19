@@ -1,10 +1,10 @@
 define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoader', './Messages', './ContentTransformer'], function(StorageManager, ZipFileLoader, UnpackedDirLoader, Messages, ContentTransformer){
 
-	var LibraryWriter = function(){
+    var LibraryWriter = function(){
 
-	}
+    }
 
-	LibraryWriter.prototype = {
+    LibraryWriter.prototype = {
         _getFullUrl : function(packageUrl, relativeUrl){
             if (!relativeUrl){
                 return null;
@@ -219,7 +219,7 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                 error: callbacks.error
             });
 
-        	fileLoader.init(this._addEpubToLibrary.bind(this, fileLoader));
+            fileLoader.init(this._addEpubToLibrary.bind(this, fileLoader));
 
         },
         continueImportZip : function(blob, index, rootDirName, callbacks) {
@@ -267,29 +267,29 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
 
             xhr.send();
         }
-	}
+    }
 
-	var writer = new LibraryWriter(),
+    var writer = new LibraryWriter(),
         overwriteContinue, overwriteSideBySide, findPackageResponse, parsePackageResponse;
 
-	   onmessage = function(evt){
-			var data = evt.data,
-				msg = data.msg;
+       onmessage = function(evt){
+            var data = evt.data,
+                msg = data.msg;
 
-			var success = function(){
-				postMessage({msg: Messages.SUCCESS, library: writer.libraryData});
-			}
-			var progress = function(percent, type, data){
-				postMessage({msg: Messages.PROGRESS, percent: percent, progressType: type, progressData: data});
-			}
-			var error = function(errorCode, data){
-				postMessage({msg: Messages.ERROR, errorMsg: errorCode, errorData: data});
-			}
+            var success = function(){
+                postMessage({msg: Messages.SUCCESS, library: writer.libraryData});
+            }
+            var progress = function(percent, type, data){
+                postMessage({msg: Messages.PROGRESS, percent: percent, progressType: type, progressData: data});
+            }
+            var error = function(errorCode, data){
+                postMessage({msg: Messages.ERROR, errorMsg: errorCode, errorData: data});
+            }
             var continueImport = function(buf, index, rootDirName) {
                 postMessage({msg: Messages.CONTINUE_IMPORT_ZIP, buf: buf, index: index, rootDirName: rootDirName, libraryItems: writer.libraryData});
             }
-			var overwrite = function(item, kontinue, sidebyside){
-				postMessage({msg: Messages.OVERWRITE, item: item});
+            var overwrite = function(item, kontinue, sidebyside){
+                postMessage({msg: Messages.OVERWRITE, item: item});
                 overwriteContinue = function(){
                     overwriteContinue = null;
                     overwriteSideBySide = null;
@@ -300,16 +300,16 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                     overwriteSideBySide = null;
                     sidebyside();
                 }
-			}
+            }
 
             switch(msg){
-    			case Messages.IMPORT_ZIP :
+                case Messages.IMPORT_ZIP :
                     writer.libraryData = data.libraryItems;
-    				var buf = data.buf;
+                    var buf = data.buf;
                     StorageManager.initStorage(function(){
-    				    writer.importZip(buf, {success: success, progress: progress, error: error, overwrite: overwrite, continueImport: continueImport});
+                        writer.importZip(buf, {success: success, progress: progress, error: error, overwrite: overwrite, continueImport: continueImport});
                     }, error);
-    			    break;
+                    break;
                 case Messages.CONTINUE_IMPORT_ZIP :
                     writer.libraryData = data.libraryItems;
                     var buf = data.buf,
@@ -361,9 +361,9 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                     break;
             }
 
-		};
+        };
 
-		return {};
+        return {};
 
 });
 

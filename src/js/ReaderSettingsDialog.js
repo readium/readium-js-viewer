@@ -1,6 +1,6 @@
 define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
 
-	var defaultSettings = {
+    var defaultSettings = {
         fontSize: 100,
         syntheticSpread: "auto",
         scroll: "auto",
@@ -9,10 +9,10 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
     var getBookStyles = function(theme){
         var isAuthorTheme = theme === "author-theme";
-    	var $previewText = $('.preview-text');
-    	setPreviewTheme($previewText, theme);
-    	var previewStyle = window.getComputedStyle($previewText[0]);
-    	var bookStyles = [{selector: 'body', declarations: {
+        var $previewText = $('.preview-text');
+        setPreviewTheme($previewText, theme);
+        var previewStyle = window.getComputedStyle($previewText[0]);
+        var bookStyles = [{selector: 'body', declarations: {
             backgroundColor: isAuthorTheme ? "" : previewStyle.backgroundColor,
             color: isAuthorTheme ? "" : previewStyle.color
         }}];
@@ -50,10 +50,10 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         $slider.attr("aria-label", label + " " + txt);
     };
 
-	var initDialog = function(reader){
-		$('#app-container').append(SettingsDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
+    var initDialog = function(reader){
+        $('#app-container').append(SettingsDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
 
-		$previewText = $('.preview-text');
+        $previewText = $('.preview-text');
         $('.theme-option').on('click', function(){
             var newTheme = $(this).attr('data-theme');
             setPreviewTheme($previewText, newTheme);
@@ -217,7 +217,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             readerSettings.theme = $previewText.attr('data-theme');
             if (reader){
                updateReader(reader, readerSettings);
-	        }
+            }
 
 
             var keys = KeyboardSettings.saveKeys();
@@ -286,11 +286,11 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         });
 
         $('#settings-dialog .btn-primary').on('click', save);
-	}
+    }
 
-	return {
-		initDialog : initDialog,
-		updateReader : updateReader,
-		defaultSettings : defaultSettings
-	}
+    return {
+        initDialog : initDialog,
+        updateReader : updateReader,
+        defaultSettings : defaultSettings
+    }
 });
