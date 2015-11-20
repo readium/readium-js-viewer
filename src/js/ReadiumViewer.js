@@ -37,6 +37,8 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
     var pushState = $.noop;
     var replaceState = $.noop;
 
+    var isElectron = navigator.userAgent.indexOf("Electron/") >= 0;
+
     var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
             && chrome.app.window && chrome.app.window.current; // a bit redundant?
 
@@ -205,7 +207,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
                 
                 if (file.type == "application/epub+zip" || (/\.epub$/.test(file.name))) {
                     
-                    if (isChromeExtensionPackagedApp) {
+                    if (isChromeExtensionPackagedApp || isElectron) {
                         
                         $(window).triggerHandler('loadlibrary', file);
                                 

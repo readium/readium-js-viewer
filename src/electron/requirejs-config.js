@@ -22,13 +22,39 @@ self.location ? (
   ) : ''
 ;
 
-//    chrome-extension://UUID/index.html
+//    file:///FULL-PATH/index.html
 console.log(currentURL);
 
 // self.location.origin  == self.location.protocol + '//' + self.location.host
 
-//    chrome-extension://UUID
+//    file://
 console.log(self.location.origin);
+
+
+
+
+var path = (self.location && self.location.pathname) ? self.location.pathname : ''; 
+
+// extracts path to index.html (or more generally: /PATH/TO/*.[x]html or /PATH/TO/*.js for the worker script)
+path = path.replace(/(.*)(\/.*\.[x]?html|\/scripts\/.*\.js)$/, "$1");
+
+// removes trailing slash
+path = path.charAt(path.length-1) == '/'
+          ? path.substr(0, path.length-1)
+          : path;
+          
+var HTTPServerRootFolder =
+self.location ? (
+  self.location.protocol
+  + "//"
+  + self.location.hostname
+  + (self.location.port ? (':' + self.location.port) : '')
+  + path
+  ) : ''
+;
+
+console.log(HTTPServerRootFolder);
+
 
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
@@ -40,15 +66,15 @@ require.config({
 
         'readium_js_viewer/ModuleConfig' : {
 
-            'mathJaxUrl': self.location.origin + '/scripts/mathjax/MathJax.js',
+            'mathJaxUrl': HTTPServerRootFolder + '/scripts/mathjax/MathJax.js',
 
-            'annotationCSSUrl': self.location.origin + '/css/annotations.css',
+            'annotationCSSUrl': HTTPServerRootFolder + '/css/annotations.css',
 
-            'jsLibRoot': '/scripts/zip/',
+            'jsLibRoot': HTTPServerRootFolder + '/scripts/zip/',
 
             'useSimpleLoader' : true,
 
-            //   filesystem:chrome-extension://UUID/persistent/epub_library.json
+            //    filesystem:file:///persistent/epub_library.json
             'epubLibraryPath': undefined,
 
             'imagePathPrefix': undefined,
@@ -56,8 +82,9 @@ require.config({
             'canHandleUrl' : false,
             'canHandleDirectory' : true,
 
-            'workerUrl': '/scripts/readium-js-viewer_CHROMEAPP-WORKER.js',
-            'epubReadingSystemUrl': self.location.origin + '/scripts/epubReadingSystem.js'
+            'workerUrl': HTTPServerRootFolder + '/scripts/readium-js-viewer_CHROMEAPP-WORKER.js',
+            
+            'epubReadingSystemUrl': HTTPServerRootFolder + '/scripts/epubReadingSystem.js'
         }
     }
 });

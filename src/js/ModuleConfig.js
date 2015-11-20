@@ -19,6 +19,5 @@ define(['module'], function(module) {
             'jsLibRoot': config.jsLibRoot || "/ZIPJS/",
 
             'useSimpleLoader': config.useSimpleLoader || false
-
         };
 });
