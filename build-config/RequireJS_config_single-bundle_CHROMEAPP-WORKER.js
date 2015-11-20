@@ -40,11 +40,13 @@ require.config({
         "readium_js_viewer_RJS-CONFIG":
                 process._RJS_rootDir(3) + '/src/chrome-app/requirejs-config',
 
-        'i18nStrings':
-            process._RJS_rootDir(3) + '/src/chrome-app/i18n/Strings',
+        'i18nStrings': ((typeof process.env.npm_package_config_RJS_CHROMESKIP === "undefined") ?
+            process._RJS_rootDir(3) + '/src/chrome-app/i18n/Strings' :
+            process._RJS_rootDir(3) + '/src/i18n/Strings'),
 
-        'Settings':
-            process._RJS_rootDir(3) + '/src/chrome-app/storage/ChromeSettings',
+        'Settings': ((typeof process.env.npm_package_config_RJS_CHROMESKIP === "undefined") ?
+            process._RJS_rootDir(3) + '/src/chrome-app/storage/ChromeSettings' :
+            process._RJS_rootDir(3) + '/src/js/storage/Settings'),
 
         'StorageManager':
             process._RJS_rootDir(3) + '/src/chrome-app/storage/FileSystemStorage'

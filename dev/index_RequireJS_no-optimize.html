@@ -35,6 +35,19 @@
     <link rel="stylesheet" type="text/css" href="../src/css/settings.css">
     <link rel="stylesheet" type="text/css" href="../src/css/library.css">
 
+<script>
+if (window.require) {
+    console.log("window.require NULLIFY");
+window.nodeRequire = window.require;
+delete window.require;
+}
+
+if (typeof window.module !== "undefined")
+{
+    console.log("window.module NULLIFY");
+delete window.module;
+}
+</script>
 
 
 <script type="text/javascript" src="../readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/require.js"> </script>

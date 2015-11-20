@@ -73,3 +73,11 @@
             dist/chrome-app_sourcemap/
             dist/chrome-app/scripts/
     '
+
+#=====================
+    'deploy:electron:copy:sourcemap': '
+
+        npm run ncp
+            dist/electron_sourcemap/
+            dist/electron/scripts/
+    '

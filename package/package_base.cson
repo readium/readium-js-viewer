@@ -114,6 +114,7 @@ dependencies:
 # These dependencies can be fetched by using the "--dev" option
 # in "npm install --dev readium-js-viewer".
 devDependencies:
+    "electron-prebuilt": 'latest'
 
 # see readium-js:
 # "crypto-js", "zipjs", "requirejs-text"
