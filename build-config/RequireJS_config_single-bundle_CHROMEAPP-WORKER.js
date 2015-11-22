@@ -37,15 +37,15 @@ require.config({
         "readium-js-viewer_CHROMEAPP-WORKER":
             process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond',
 
-        "readium_js_viewer_RJS-CONFIG": ((typeof process.env.npm_package_config_RJS_ELECTRON === "undefined") ?
+        "readium_js_viewer_RJS-CONFIG": ((typeof process.env.npm_package_config_RJS_CHROMEXT !== "undefined") ?
                 process._RJS_rootDir(3) + '/src/chrome-app/requirejs-config' :
                 process._RJS_rootDir(3) + '/src/electron/requirejs-config'),
 
-        'i18nStrings': ((typeof process.env.npm_package_config_RJS_ELECTRON === "undefined") ?
+        'i18nStrings': ((typeof process.env.npm_package_config_RJS_CHROMEXT !== "undefined") ?
             process._RJS_rootDir(3) + '/src/chrome-app/i18n/Strings' :
             process._RJS_rootDir(3) + '/src/i18n/Strings'),
 
-        'Settings': ((typeof process.env.npm_package_config_RJS_ELECTRON === "undefined") ?
+        'Settings': ((typeof process.env.npm_package_config_RJS_CHROMEXT !== "undefined") ?
             process._RJS_rootDir(3) + '/src/chrome-app/storage/ChromeSettings' :
             process._RJS_rootDir(3) + '/src/js/storage/Settings'),
 

@@ -16,10 +16,12 @@
         npm run
             build:scripts:single:CHROMEAPP
             --readium-js-viewer:RJS_UGLY=no
+            --readium-js-viewer:RJS_CHROMEXT=yes
         &&
         npm run
             build:scripts:single:CHROMEAPPWORKER
             --readium-js-viewer:RJS_UGLY=no
+            --readium-js-viewer:RJS_CHROMEXT=yes
         &&
         npm run mkdirp
             dist

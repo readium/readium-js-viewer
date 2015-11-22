@@ -41,6 +41,7 @@
 #####################################################################
 
 name: "readium-js-viewer"
+productName: "Readium web reader"
 
 version: "0.22.0-alpha"
 
