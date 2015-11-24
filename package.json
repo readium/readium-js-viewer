@@ -51,7 +51,7 @@
     "http-server": "danielweck/http-server"
   },
   "devDependencies": {
-    "electron-prebuilt": "latest",
+    "electron-prebuilt": "^0.35.0",
     "keymaster": "danielweck/keymaster",
     "jath": "danielweck/jath",
     "MathJax-grunt-concatenator": "pkra/MathJax-single-file",
