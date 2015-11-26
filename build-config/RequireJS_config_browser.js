@@ -11,14 +11,14 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-window.process = {};
+self.process = {};
 
-window.process._RJS_baseUrl = function(n)
+self.process._RJS_baseUrl = function(n)
 {
     return "..";
 };
 
-window.process._RJS_rootDir = function(n)
+self.process._RJS_rootDir = function(n)
 {
     if (n == 3) return ".";
     if (n == 2) return "readium-js";
@@ -29,7 +29,7 @@ window.process._RJS_rootDir = function(n)
 // Used in readium-build-tools/pluginsConfigMaker
 // and readium_shared_js/globalsSetup.
 // Flag as not optimized by r.js
-window._RJS_isBrowser = true;
+self._RJS_isBrowser = true;
 
 require.config({
 
