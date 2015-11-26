@@ -35,28 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../src/css/settings.css">
     <link rel="stylesheet" type="text/css" href="../src/css/library.css">
 
-<!-- ELECTRON NODEJS CONTEXT HACKS (not necessary as we disable the NodeJS context ... so here for reference only) -->
-<!-- script>
-if (window.require) {
-    console.log("window.require NULLIFY");
-window.nodeRequire = window.require;
-delete window.require;
-}
-
-if (typeof window.module !== "undefined")
-{
-    console.log("window.module NULLIFY");
-delete window.module;
-}
-
-    if (typeof module !== "undefined")
-    {
-        console.log("Atom-Shell/Electron or CommonJS NodeJS context? (global jQuery)");
-        window.$ = window.jQuery = $;
-    }
-</script -->
-
-
 <script type="text/javascript" src="../readium-js/readium-shared-js/readium-cfi-js/node_modules/requirejs/require.js"> </script>
 
 <script type="text/javascript" src="../build-config/RequireJS_config_browser.js"> </script>
