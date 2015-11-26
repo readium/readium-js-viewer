@@ -116,6 +116,7 @@ dependencies:
 # in "npm install --dev readium-js-viewer".
 devDependencies:
     "electron-prebuilt": '^0.35.0'
+#    "nslog": 'latest'
 
 # see readium-js:
 # "crypto-js", "zipjs", "requirejs-text"
