@@ -1,9 +1,13 @@
 
+var args = process.argv.slice(2);
+
+//var nslog = require('nslog');
+//nslog("Electron main.js arguments: ");
+//nslog(args);
+
+
 var app = require('app');
 var BrowserWindow = require('browser-window');
-
-var name = app.getName();
-console.log(name);
 
 //require('crash-reporter').start();
 
@@ -140,8 +144,6 @@ app.on('ready', function() {
     //   }
     ];
 
-    console.log(process.platform);
-    
     if (process.platform == 'darwin') {
       var name = app.getName();
       template.unshift({
@@ -206,14 +208,36 @@ app.on('ready', function() {
 
     // CTRL SHIFT i
   //mainWindow.webContents.openDevTools();
+  
+  mainWindow.webContents.on('dom-ready', function() {
+    
+      mainWindow.webContents.executeJavaScript("console.log('Electron app name: "+
+      app.getName()
+      +"')");
+      
+      mainWindow.webContents.executeJavaScript("console.log('Electron process platform: "+
+      process.platform
+      +"')");
+      
+      mainWindow.webContents.executeJavaScript("console.log('main.js ARGS: "+
+      args.map(function(item) {
+          return "[[" + item + "]]";
+      }).join(' ')
+      +"')");
+  });
 
   mainWindow.on('closed', function() {
     // free reference (ensures garbage collection))
     mainWindow = null;
   });
   
-  //mainWindow.loadURL('file://' + __dirname + '/../../dev/index_RequireJS_no-optimize.html');
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  if (args[0] === "dev") {  
+    mainWindow.loadURL('file://' + __dirname + '/../../dev/index_RequireJS_no-optimize_ELECTRON.html');
+  }
+  else {
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
+  }
+  
  mainWindow.show();
 });
 
