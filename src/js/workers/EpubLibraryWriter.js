@@ -143,7 +143,7 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                         callback(undefined);
                     }
                     else {
-                        this.callbacks.error(Messages.ERROR_EPUB);
+                        error(Messages.ERROR_EPUB);
                         console.error('Epub archive or directory missing a required  file: ' + path);
                     }
                 }
