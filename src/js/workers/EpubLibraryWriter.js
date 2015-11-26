@@ -143,8 +143,8 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                         callback(undefined);
                     }
                     else {
-                        this.callbacks.error(Messages.ERROR_EPUB);
                         console.error('Epub archive or directory missing a required  file: ' + path);
+                        error(Messages.ERROR_EPUB);
                     }
                 }
             });
@@ -362,9 +362,11 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
             }
 
         };
-
-        return {};
-
+        
+        setTimeout(function(){
+            postMessage({msg: Messages.READY});
+        }, 30);
+        
+        //return {};
+        return LibraryWriter;
 });
-
-require("readium_js_viewer/workers/EpubLibraryWriter");

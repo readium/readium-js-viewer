@@ -7,12 +7,13 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
             worker = null;
         }
     }
-    var doWork = function(data, callbacks){
+    var doWork = function(job, callbacks){
         if (worker){
             console.log('dangling worker');
         }
 
         var workerUrl = moduleConfig.workerUrl;
+        console.log("WORKER URL: " + workerUrl);
         worker = new Worker(workerUrl);
 
         var continueOverwrite = function(){
@@ -26,16 +27,22 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
         }
 
         var innerError = callbacks.error || $.noop;
-        var error = function(error, data){
+        var error = function(error, job){
             cleanupWorker();
-            innerError(error, data);
+            innerError(error, job);
         }
 
-
-
         worker.onmessage = function(evt){
+            
             var data = evt.data;
             switch (data.msg){
+                case Messages.READY:
+                
+                    // Worker.onMessage() is ready to receive the job
+                    // (RequireJS loader for AMD modules => async! require([NAME],function(module){}))
+                    worker.postMessage(job);
+                    
+                    break;
                 case Messages.SUCCESS:
                     if (callbacks.success){
                         callbacks.success(data.libraryItems);
@@ -95,8 +102,6 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
         worker.onerror = function(){
             console.error(arguments)
         }
-        currentWorker = worker;
-        worker.postMessage(data);
     }
 
     return {

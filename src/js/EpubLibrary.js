@@ -301,6 +301,8 @@ Helpers){
     }
 
     var handleDirSelect = function(evt){
+        // TODO: on Chrome, evt.target.files.length is the number of files INSIDE the chosen folder, recursively. Unfortunately on Electron this is just the top directory container.
+        // See add-epub-dialog.html <input type="file" webkitdirectory="" />
         var files = evt.target.files;
         $('#add-epub-dialog').modal('hide');
         Dialogs.showModalProgress(Strings.import_dlg_title, Strings.import_dlg_message);

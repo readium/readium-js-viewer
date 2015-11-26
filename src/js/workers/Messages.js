@@ -20,7 +20,6 @@ define(function(){
         FIND_PACKAGE : 104,
         PARSE_PACKAGE: 105,
 
-
         PROGRESS_EXTRACTING : 200,
         PROGRESS_WRITING: 201,
         PROGRESS_DELETING: 202,
@@ -29,7 +28,8 @@ define(function(){
         ERROR_STORAGE : 300,
         ERROR_EPUB : 301,
         ERROR_AJAX : 302,
-        ERROR_PACKAGE_PARSE: 303
+        ERROR_PACKAGE_PARSE: 303,
 
+        READY: 400
     }
 });

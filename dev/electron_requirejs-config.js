@@ -36,7 +36,7 @@ console.log(self.location.origin);
 var path = (self.location && self.location.pathname) ? self.location.pathname : ''; 
 
 // extracts path to index.html (or more generally: /PATH/TO/*.[x]html or /PATH/TO/*.js for the worker script)
-path = path.replace(/(.*)(\/.*\.[x]?html|\/scripts\/.*\.js)$/, "$1");
+path = path.replace(/(.*)(\/dev\/.*\.[x]?html|\/dev\/.*\.js)$/, "$1");
 
 // removes trailing slash
 path = path.charAt(path.length-1) == '/'
@@ -53,39 +53,54 @@ self.location ? (
   ) : ''
 ;
 
+//HTTPServerRootFolder = HTTPServerRootFolder + "/..";
 console.log(HTTPServerRootFolder);
 
+
+
+console.debug(process._RJS_rootDir(3));
 
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
     waitSeconds: 0,
+    
+    paths:
+    {
+        'StorageManager':
+            process._RJS_rootDir(3) + '/src/chrome-app/storage/FileSystemStorage',
 
+        'Analytics':
+            process._RJS_rootDir(3) + '/src/chrome-app/analytics/ExtensionAnalytics'
+    },
+    
     config : {
 
         'readium_js_viewer/ModuleConfig' : {
 
-            'mathJaxUrl': HTTPServerRootFolder + '/scripts/mathjax/MathJax.js',
+            'mathJaxUrl': HTTPServerRootFolder + '/node_modules/MathJax-grunt-concatenator/MathJax.js',
 
-            'annotationCSSUrl': HTTPServerRootFolder + '/css/annotations.css',
+            'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
-            'jsLibRoot': HTTPServerRootFolder + '/scripts/zip/',
+            'jsLibRoot': HTTPServerRootFolder + '/readium-js/node_modules/zip-js/WebContent/',
+            //'jsLibRoot': HTTPServerRootFolder + '/build-output/',
 
             'useSimpleLoader' : true,
 
             //    filesystem:file:///persistent/epub_library.json
             'epubLibraryPath': undefined,
 
-            'imagePathPrefix': undefined,
+            'imagePathPrefix': HTTPServerRootFolder + '/src/',
 
             'canHandleUrl' : false,
             
             'canHandleDirectory' : false, //see EpubLibrary.js handleDirSelect() <input type="file" webkitdirectory=""/>  recursive folder file listing, not implemented in Electron
 
-            'workerUrl': HTTPServerRootFolder + '/scripts/readium-js-viewer_CHROMEAPP-WORKER.js',
-            
-            'epubReadingSystemUrl': HTTPServerRootFolder + '/scripts/epubReadingSystem.js'
+
+            'workerUrl': HTTPServerRootFolder + '/dev/electron_worker.js',
+
+            'epubReadingSystemUrl': HTTPServerRootFolder + '/src/chrome-app/epubReadingSystem.js'
         }
     }
 });
