@@ -4,9 +4,16 @@
 #
 
 #=====================
-    'electron-launch': '
+    'electron-dist': '
         node node_modules/electron-prebuilt/cli.js
             dist/electron/main.js
+    '
+
+#=====================
+    'electron-dev': '
+        node node_modules/electron-prebuilt/cli.js
+            src/electron/main.js
+            dev
     '
 
 
