@@ -25,6 +25,8 @@ console.log(process.env.TRAVIS_COMMIT);
 console.log("process.env.TRAVIS_JOB_NUMBER:");
 console.log(process.env.TRAVIS_JOB_NUMBER);
 
+var path = require('path');
+
 var config;
 
 if (process.env.MODE == 'chromeApp'){
@@ -51,6 +53,23 @@ if (process.env.MODE == 'chromeApp'){
         console.log('...');
     }
 }
+//TODO: Electron
+// else if (process.env.MODE == 'electron'){
+
+// console.log(process.env.npm_package_config_ELECTRONDEVORDIST);
+// console.log(__dirname);
+// console.log(process.cwd());
+// var electronUrl = 'file:///' + path.join(process.cwd(), '/dev/index_RequireJS_no-optimize_ELECTRON.html').replace(/\\/g, '/');
+// if (process.env.npm_package_config_ELECTRONDEVORDIST === "dist")
+//     electronUrl = 'file:///' + path.join(process.cwd(), '/dist/electron/index.html').replace(/\\/g, '/');
+  
+//     config = {
+//         browser : {
+//             browserName: process.env.MODE,
+//         },
+//         url: electronUrl
+//     };
+// }
 else {
     config = {
         browser : {

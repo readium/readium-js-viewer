@@ -168,7 +168,8 @@ devDependencies:
 
     #"nodeunit": 'latest'
     "mocha": 'latest'
-
+    #"electron-mocha": 'latest'
+    
     "wd": 'latest'
 
     "phantomjs": 'latest'

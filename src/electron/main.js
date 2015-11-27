@@ -3,7 +3,7 @@ var args = process.argv.slice(2);
 
 //var nslog = require('nslog');
 //nslog("Electron main.js arguments: ");
-//nslog(args);
+console.log(args);
 
 
 var app = require('app');
@@ -231,11 +231,14 @@ app.on('ready', function() {
     mainWindow = null;
   });
   
-  if (args[0] === "dev") {  
-    mainWindow.loadURL('file://' + __dirname + '/../../dev/index_RequireJS_no-optimize_ELECTRON.html');
+  var path = require('path');
+  
+  if (args[0] === "dev") {
+      
+    mainWindow.loadURL('file:///' + path.join(__dirname, '/../../dev/index_RequireJS_no-optimize_ELECTRON.html').replace(/\\/g, '/'));
   }
   else {
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    mainWindow.loadURL('file:///' + path.join(__dirname, '/index.html').replace(/\\/g, '/'));
   }
   
  mainWindow.show();

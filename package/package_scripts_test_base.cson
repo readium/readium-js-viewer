@@ -11,7 +11,7 @@
     	      --ui bdd
             tests/tests.js
     '
-
+    
 #=====================
     'clean:tests': '
 
@@ -95,3 +95,24 @@
             ./dist/cloud-reader\"
             \"npm run mocha --readium-js-viewer:MODE=firefox\"
     '
+
+
+
+
+#=====================
+#    'electron-mocha': '
+#
+#        node node_modules/electron-mocha/bin/electron-mocha              
+#              --timeout 2000
+#            tests/tests.js
+#    '
+#--ui bdd
+#--renderer
+
+#=====================
+#    'test:electron': '
+#
+#        parallelshell
+#            \"node build-config/selenium_webdriver.js\"
+#            \"npm run mocha --readium-js-viewer:MODE=electron\"
+#    '
