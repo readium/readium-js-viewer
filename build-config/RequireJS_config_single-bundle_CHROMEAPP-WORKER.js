@@ -25,7 +25,9 @@ require.config({
         "readium_js_viewer_RJS-CONFIG", "readium_js_viewer/workers/EpubLibraryWriter"
     ],
 
-    insertRequire: ["readium_js_viewer/workers/EpubLibraryWriter"],
+    insertRequire: [
+        "readium_js_viewer/workers/EpubLibraryWriter"
+    ],
 
     stubModules: ['hgn', 'i18n'],
 

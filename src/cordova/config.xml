@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="org.readium" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Readium</name>
+    <description>
+        Readium web / cloud reader, hosted in Apache Cordova hybrid app framework 
+    </description>
+    <author email="daniel.weck@gmail.com" href="http://github.com/readium">
+        Readium Team
+    </author>
+    <content src="index.html" />
+    
+    <access origin="*" /> <!-- cdvfile://* -->
+    
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    
+    <preference name="windows-target-version" value="8.1" />
+    <preference name="windows-phone-target-version" value="8.1" />
+    
+    <!-- preference name="Windows.Universal-MinVersion" value="10.0.0.0" />
+    <preference name="Windows.Mobile-MinVersion" value="10.0.9927.0" />
+    <preference name="Windows.Mobile-MaxVersionTested" value="10.0.10031.0" />
+    <preference name="Microsoft.Band-MinVersion" value="10.0.11.0" / -->
+
+    <preference name="WindowsDefaultUriPrefix" value="ms-appx://" /> <!-- ms-appx-web:// -->
+</widget>

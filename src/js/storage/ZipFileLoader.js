@@ -76,6 +76,7 @@ define(['zip', '../workers/Messages', 'inflate'], function(zip, Messages){
 
             // for large files we want to extract only one file at a time
             var concurrent = buf.size > largeFileThreshold ? 1 : 200;
+concurrent = 1;
 
             for (var fn in entries) {
                 var entry = entries[fn];

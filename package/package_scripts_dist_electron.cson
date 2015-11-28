@@ -56,7 +56,6 @@
             dist/electron_sourcemap
     '
 
-
 #=====================
     'predist:electron': '
 
@@ -128,14 +127,14 @@
             src/chrome-app/epubReadingSystem.js
             dist/electron/scripts/
         &&
-        npm run cpy
-            src/electron/requirejs-config.js
-            dist/electron/scripts/
-        &&
         npm run ncp
             src/chrome-app/icons/
             dist/electron/icons/
     '
+
+#        npm run cpy
+#            src/electron/requirejs-config.js
+#            dist/electron/scripts/
 #        &&
 #        npm run cpy
 #            src/chrome-app/background.js
@@ -197,3 +196,100 @@
 #            --
 #            build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js
 
+
+#=====================
+    'precordova-android-common': '
+
+        npm run electron
+    '
+
+#=====================
+    'cordova-android-common': '
+
+        npm run mkdirp
+            build-output/cordova
+        &&
+        npm run ncp
+            src/cordova/
+            build-output/cordova/
+        &&
+        npm run ncp
+            dist/electron/
+            build-output/cordova/www/
+        &&
+        npm run cpy
+            build-output/cordova/index.html
+            build-output/cordova/www/
+        &&
+        npm run rimraf
+            build-output/cordova/index.html
+        &&
+        cd build-output/cordova/
+        &&
+        cordova platform add android@5.0.0
+        &&
+        cordova plugin add https://github.com/apache/cordova-plugin-file.git
+    '
+    
+#=====================
+    'precordova-android': '
+
+        npm run cordova-android-common
+    '
+    
+#=====================
+    'cordova-android': '
+
+        cd build-output/cordova/
+        &&
+        cordova build android
+        &&
+        cd ../..
+        &&
+        npm run mkdirp
+            dist/cordova-android
+        &&
+        npm run cpy
+            build-output/cordova/platforms/android/build/outputs/apk/android-debug.apk
+            dist/cordova-android/
+        &&
+        adb devices
+        &&
+        adb install -r dist/cordova-android/android-debug.apk
+    '
+#cordova plugin add cordova-plugin-file
+
+
+#=====================
+    'precordova-android-Xwalk': '
+
+        npm run cordova-android-common
+    '
+    
+#=====================
+    'cordova-android-Xwalk': '
+
+        cd build-output/cordova/
+        &&
+        cordova plugin add cordova-plugin-crosswalk-webview
+        &&
+        cordova build android
+        &&
+        cd ../..
+        &&
+        npm run mkdirp
+            dist/cordova-android
+        &&
+        npm run cpy
+            build-output/cordova/platforms/android/build/outputs/apk/android-x86-debug.apk
+            dist/cordova-android/
+        &&
+        npm run cpy
+            build-output/cordova/platforms/android/build/outputs/apk/android-armv7-debug.apk
+            dist/cordova-android/
+        &&
+        adb devices
+        &&
+        adb install -r dist/cordova-android/android-armv7-debug.apk
+    '
+    

@@ -116,6 +116,8 @@ dependencies:
 # in "npm install --dev readium-js-viewer".
 devDependencies:
     "electron-prebuilt": '^0.35.0'
+    "cordova": 'latest'
+    "cca": 'latest'
 #    "nslog": 'latest'
 
 # see readium-js:

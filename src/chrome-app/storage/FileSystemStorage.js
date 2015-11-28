@@ -187,7 +187,7 @@ define(['readium_js_viewer/workers/Messages'], function(Messages){
 
     var migrateBookFiles = function(existingBooks, db, results, success, error, progress){
         var extensionId = self.location.hostname;
-        requestFileSystem(self.TEMPORARY, 5*1024*1024*1024, function(fs){
+        self.requestFileSystem(self.TEMPORARY, 5*1024*1024*1024, function(fs){
             var tempRoot = fs.root;
             var ebooks = [];
             for (var i = 0; i < results.rows.length; i++){
@@ -266,10 +266,12 @@ define(['readium_js_viewer/workers/Messages'], function(Messages){
 
 
         saveFile : function(path, blob, success, error){
+console.debug("FS SAVING: " + path);
             FileUtils.mkfile(rootDir, path, blob, success, wrapErrorHandler('save', path, error));
         },
 
         deleteFile : function(path, success, error){
+console.debug("FS DELETING: " + path);
             var errorHandler = wrapErrorHandler('delete', path, error);
             if (path == '/'){
                 FileUtils.ls(rootDir, function(entries){
@@ -299,14 +301,22 @@ define(['readium_js_viewer/workers/Messages'], function(Messages){
             if (path.charAt(0) == '/')
                 path = path.substring(1);
 
-            return rootDir.toURL() + path
+            // Cordova cdvfile://localhost/persistent/path/to/file
+            return (rootDir.toInternalURL ? rootDir.toInternalURL() : rootDir.toURL()) + path;
         },
         initStorage : function(success, error){
             if (rootDir){
                 success();
                 return;
             }
-            requestFileSystem(self.PERSISTENT, 5*1024*1024*1024, function(fs){
+            
+            if (!self.requestFileSystem) {
+                error(404, "requestFileSystem() is missing! (Apache Cordova Web Worker?)");
+            }
+            
+            var size = 5*1024*1024*1024;
+            console.debug("requestFileSystem ... " + size);
+            self.requestFileSystem(self.PERSISTENT, size, function(fs){
                 rootDir = fs.root;
                 success();
             }, wrapErrorHandler('init', '/', error));

@@ -155,6 +155,7 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                 findPackageResponse = null;
                 callback(data.path);
             }
+console.debug("WW postMessage: FIND_PACKAGE");
             postMessage({msg: Messages.FIND_PACKAGE, containerStr: containerStr});
         },
         _parsePackageData : function(packageStr, encryptionStr, callback){
@@ -162,6 +163,7 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                 parsePackageResponse = null;
                 callback(data.packageObj, data.encryptionData);
             }
+console.debug("WW postMessage: PARSE_PACKAGE");
             postMessage({msg: Messages.PARSE_PACKAGE, packageStr: packageStr, encryptionStr: encryptionStr});
         },
         _addEpubToLibrary : function(fileLoader){
@@ -256,7 +258,7 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
             xhr.onload = function(e) {
               if (this.status == 200) {
                 // Note: .response instead of .responseText
-                var blob = new Blob([this.response], {type: 'application/epub'});
+                var blob = new Blob([this.response], {type: 'application/epub+zip'});
                 self.importZip(blob, callbacks);
               }
               else{
@@ -277,18 +279,34 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                 msg = data.msg;
 
             var success = function(){
+console.debug("WW postMessage: SUCCESS");
                 postMessage({msg: Messages.SUCCESS, library: writer.libraryData});
             }
             var progress = function(percent, type, data){
+console.debug("WW postMessage: PROGRESS");
                 postMessage({msg: Messages.PROGRESS, percent: percent, progressType: type, progressData: data});
             }
             var error = function(errorCode, data){
-                postMessage({msg: Messages.ERROR, errorMsg: errorCode, errorData: data});
+console.debug("WW postMessage: ERROR");
+                var json = JSON.stringify(data);
+                console.error(json);
+                postMessage({msg: Messages.ERROR, errorMsg: errorCode, errorData: json});
             }
             var continueImport = function(buf, index, rootDirName) {
+            
+console.debug("WW postMessage: CONTINUE_IMPORT_ZIP");
+
+                // var reader = new FileReader();
+                // reader.onload = function(e) {
+                //     var buffer = this.result;
+                //     postMessage({msg: Messages.CONTINUE_IMPORT_ZIP, buf: buffer, index: index, rootDirName: rootDirName, libraryItems: writer.libraryData}, [buffer]);
+                // }
+                // reader.readAsArrayBuffer(buf);
+                
                 postMessage({msg: Messages.CONTINUE_IMPORT_ZIP, buf: buf, index: index, rootDirName: rootDirName, libraryItems: writer.libraryData});
             }
             var overwrite = function(item, kontinue, sidebyside){
+console.debug("WW postMessage: OVERWRITE");
                 postMessage({msg: Messages.OVERWRITE, item: item});
                 overwriteContinue = function(){
                     overwriteContinue = null;
@@ -306,8 +324,9 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                 case Messages.IMPORT_ZIP :
                     writer.libraryData = data.libraryItems;
                     var buf = data.buf;
+                    var blob = buf; //new Blob([buf], {type: "application/epub+zip"});
                     StorageManager.initStorage(function(){
-                        writer.importZip(buf, {success: success, progress: progress, error: error, overwrite: overwrite, continueImport: continueImport});
+                        writer.importZip(blob, {success: success, progress: progress, error: error, overwrite: overwrite, continueImport: continueImport});
                     }, error);
                     break;
                 case Messages.CONTINUE_IMPORT_ZIP :
@@ -315,8 +334,9 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                     var buf = data.buf,
                         index = data.index,
                         rootDirName = data.rootDirName;
+                    var blob = buf; //new Blob([buf], {type: "application/epub+zip"});
                     StorageManager.initStorage(function(){
-                        writer.continueImportZip(buf, index, rootDirName, {success: success, progress: progress, error: error, overwrite: overwrite, continueImport: continueImport});
+                        writer.continueImportZip(blob, index, rootDirName, {success: success, progress: progress, error: error, overwrite: overwrite, continueImport: continueImport});
                     }, error);
                     break;
                 case Messages.DELETE_EPUB:
@@ -363,7 +383,16 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
 
         };
         
+        StorageManager.initStorage(function(){
+            console.log("WEB WORKER requestFileSystem OKAY.");
+        }, function(errCode, errData) {
+            console.error("WEB WORKER requestFileSystem FAIL (Apache Cordova / CrossWalk?).");
+            console.debug(errCode);
+            console.log(errData);
+        });
+        
         setTimeout(function(){
+console.debug("WW postMessage: READY");
             postMessage({msg: Messages.READY});
         }, 30);
         

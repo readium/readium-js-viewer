@@ -4,6 +4,25 @@
 #
 
 #=====================
+    'prechromeAppCordovaXWalk': '
+
+        npm run chromeApp 
+    '
+    
+#=====================
+    'chromeAppCordovaXWalk': '
+
+        cca create dist/chrome-app-cordova/ --copy-from=dist/chrome-app/manifest.json
+        &&
+        cd dist/chrome-app-cordova/
+        &&
+        cca run android --device
+        &&
+        cd ../..
+    '
+# dist/chrome-app-cordova/platforms/android/build/outputs/apk/android-armv7-debug.apk
+
+#=====================
 # This is a "shortcut" task for quick build+dist'ing the Chrome extension
     'chromeApp': '
 
@@ -117,10 +136,6 @@
             src/chrome-app/background.js
             dist/chrome-app/scripts/
         &&
-        npm run cpy
-            src/chrome-app/requirejs-config.js
-            dist/chrome-app/scripts/
-        &&
         npm run ncp
             src/chrome-app/icons/
             dist/chrome-app/icons/
@@ -133,6 +148,10 @@
             src/chrome-app/manifest.json
             dist/chrome-app/
     '
+
+#        npm run cpy
+#            src/chrome-app/requirejs-config.js
+#            dist/chrome-app/scripts/
 
 #=====================
     'dist:chromeApp:css': '

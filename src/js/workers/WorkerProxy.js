@@ -7,7 +7,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
             worker = null;
         }
     }
-    var doWork = function(job, callbacks){
+    var doWork = function(job, callbacks, transferables){
         if (worker){
             console.log('dangling worker');
         }
@@ -17,9 +17,11 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
         worker = new Worker(workerUrl);
 
         var continueOverwrite = function(){
+console.debug("postMessage: OVERWRITE_CONTINUE");
             worker.postMessage({msg: Messages.OVERWRITE_CONTINUE});
         }
         var keepBoth = function(){
+console.debug("postMessage: OVERWRITE_SIDE_BY_SIDE");
             worker.postMessage({msg: Messages.OVERWRITE_SIDE_BY_SIDE})
         }
         var cancelOverwrite = function(){
@@ -38,9 +40,15 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
             switch (data.msg){
                 case Messages.READY:
                 
+console.debug("postMessage: " + job.msg);
                     // Worker.onMessage() is ready to receive the job
                     // (RequireJS loader for AMD modules => async! require([NAME],function(module){}))
-                    worker.postMessage(job);
+                    if (transferables) {
+console.debug("postMessage TRANSFERABLES");
+                        worker.postMessage(job, transferables);
+                    } else {
+                        worker.postMessage(job);
+                    }
                     
                     break;
                 case Messages.SUCCESS:
@@ -51,7 +59,17 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
                     break;
                 case Messages.CONTINUE_IMPORT_ZIP:
                     cleanupWorker();
+                    
+                    // var reader = new FileReader();
+                    // reader.onload = function(e) {
+                    //     var buffer = reader.result;
+                    
+                    //     doWork({msg: Messages.CONTINUE_IMPORT_ZIP, buf: buffer, index: data.index, rootDirName: data.rootDirName, libraryItems: data.libraryItems}, callbacks, [buffer]);
+                    // }
+                    // reader.readAsArrayBuffer(data.buf);
+                
                     doWork({msg: Messages.CONTINUE_IMPORT_ZIP, buf: data.buf, index: data.index, rootDirName: data.rootDirName, libraryItems: data.libraryItems}, callbacks);
+                    
                     break;
                 case Messages.PROGRESS:
                     if (callbacks.progress){
@@ -71,6 +89,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
                         console.error('Epub container.xml missing rootfile element');
                     }
                     else{
+console.debug("postMessage: FIND_PACKAGE_RESPONSE");
                         worker.postMessage({msg: Messages.FIND_PACKAGE_RESPONSE, path: $rootfile.attr('full-path')});
                     }
                     break;
@@ -90,7 +109,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
 
                             encryptionData = EncryptionHandler.CreateEncryptionData(packageObj.id, encryptionDom);
                         }
-
+console.debug("postMessage: PARSE_PACKAGE_RESPONSE");
                         worker.postMessage({msg: Messages.PARSE_PACKAGE_RESPONSE, packageObj: packageObj, encryptionData: encryptionData});
                     }
                     break;
@@ -106,6 +125,14 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
 
     return {
         importZip: function(blob, libraryItems, callbacks){
+            
+            // var reader = new FileReader();
+            // reader.onload = function(e) {
+            //     var buffer = reader.result;
+            //     doWork({msg: Messages.IMPORT_ZIP, buf: buffer, libraryItems: libraryItems}, callbacks, [buffer]);
+            // }
+            // reader.readAsArrayBuffer(blob);
+            
             doWork({msg: Messages.IMPORT_ZIP, buf: blob, libraryItems: libraryItems}, callbacks);
         },
         importDirectory : function(files, libraryItems, callbacks){
