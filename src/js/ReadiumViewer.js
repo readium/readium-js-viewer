@@ -83,21 +83,26 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 
     var tooltipSelector = 'nav *[title]';
 
-    var libraryView = function(libraryURL){
+    var libraryView = function(libraryURL, importEPUB){
         $(tooltipSelector).tooltip('destroy');
         
         EpubReader.unloadUI();
+        EpubLibrary.unloadUI();
         
-        //EpubLibrary.unloadUI();
-        EpubLibrary.loadUI({epubs: libraryURL});
+        if (libraryURL) {
+            EpubLibrary.loadUI({epubs: libraryURL});
+        } else {
+            
+            EpubLibrary.loadUI({epubs: undefined, importEPUB: importEPUB});
+        }
     }
 
     var readerView = function(data){
         $(tooltipSelector).tooltip('destroy');
         
         EpubLibrary.unloadUI();
+        EpubReader.unloadUI();
         
-        //EpubReader.unloadUI();
         EpubReader.loadUI(data);
     }
 
@@ -138,16 +143,14 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
 
     $(window).on('loadlibrary', function(e, eventPayload){
 
-        var libraryURL = (typeof eventPayload == "string") ? eventPayload : undefined;
-        
-        if (eventPayload instanceof Blob) { // includes File
-            // See below invoke:
-            // $(window).triggerHandler('loadlibrary', file);
-            
-            setTimeout(function() {
-                EpubLibrary.importEpub(eventPayload);
-            }, 800);
+        var libraryURL = undefined;
+        var importEPUB = undefined;
+        if (typeof eventPayload === "string") { 
+            libraryURL = eventPayload;
+        } else { //File/Blob
+            importEPUB = eventPayload;
         }
+        
         
         var func = _initialLoad ? replaceState : pushState;
         func(
@@ -159,7 +162,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
         
         _initialLoad = false;
 
-        libraryView(libraryURL);
+        libraryView(libraryURL, importEPUB);
     });
 
     $(document.body).tooltip({
