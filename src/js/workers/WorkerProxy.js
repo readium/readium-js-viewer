@@ -6,7 +6,8 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
             worker.terminate();
             worker = null;
         }
-    }
+    };
+    
     var doWork = function(job, callbacks, transferables){
         if (worker){
             console.log('dangling worker');
@@ -49,7 +50,6 @@ console.debug("postMessage TRANSFERABLES");
                     } else {
                         worker.postMessage(job);
                     }
-                    
                     break;
                 case Messages.SUCCESS:
                     if (callbacks.success){
@@ -117,7 +117,8 @@ console.debug("postMessage: PARSE_PACKAGE_RESPONSE");
                     error(data.errorMsg || "Unknown error");
                     cleanupWorker();
             }
-        }
+        };
+        
         worker.onerror = function(){
             console.error(arguments)
         }

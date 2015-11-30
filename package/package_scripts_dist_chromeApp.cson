@@ -148,7 +148,7 @@
             src/chrome-app/manifest.json
             dist/chrome-app/
     '
-
+#        &&
 #        npm run cpy
 #            src/chrome-app/requirejs-config.js
 #            dist/chrome-app/scripts/
