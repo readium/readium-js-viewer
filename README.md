@@ -81,6 +81,26 @@ Also note that the built-in local HTTP server functionality (`npm run http`) is 
 
 Remark: a log of HTTP requests is preserved in `http_app-ebooks.log`. This file contains ANSI color escape codes, so although it can be read using a regular text editor, it can be rendered in its original format using the shell command: `cat http_app.log` (on OSX / Linux), or `sed "s,x,x,g" http_app-ebooks.log` (on Windows).
 
+### Hybrid application frameworks, desktop and mobile
+
+The Readium Chrome extension is in fact a "packaged application" for the Chrome web browser runtime, on desktop platforms. This offline app features an "ebook library" based on Chrome's local storage (HTML5 Filesystem API). The exact same functionality is available via the **Electron** NodeJS+Chromium runtime (formerly-known as Atom Shell), and the app can be launched using the following command:
+
+* `npm run electron-dev` (just like `npm run http`, this development-time build configuration fetches the application resources directly from the exploded source tree, no prior RequireJS optimization / bundling is necessary, which allows quick edit+reload coding iterations)
+
+Alternatively, an application distributable can be generated and launched using:
+
+* `npm run electron`
+* `npm run electron-dist`
+
+_TODO_: create platform-specific application installers.
+
+Electron is a NodeJS (+Chromium) desktop runtime, but Readium actually only makes use of browser technology (Javascript, HTML, CSS, etc.). Consequently, the same Readium app can execute in non-NodeJS runtimes, such as Apache Cordova and/or CrossWalk. Support for HTML5 Filesystem via the Cordova "file" plugin is currently broken due to Web Worker integration issues (amongst other things). Here are commands that can be used to debunk various flavours of Apache Cordova builds for Android:
+
+* `npm run chromeAppCordovaXWalk` (this uses Google's own `CCA` tool to automatically convert the Chrome-extension / packaged-app to a Cordova + CrossWalk APK)
+* `npm run cordova-android-Xwalk` (this is a manually-created setup for a Cordova + CrossWalk APK build of the same app that executes within the Electron runtime)
+* `npm run cordova-android` (same as above, but without CrossWalk, which means that the default Chromium webview is used instead, and its actual version depends on which one ships by default on the target Android platform)
+
+_TODO_: no tests have been conducted on iOS yet, only Android 6.0 Marshmallow (which is the latest iteration of Google's operating system).
 
 ### HTTP CORS (separate domains / origins, app vs. ebooks)
 
