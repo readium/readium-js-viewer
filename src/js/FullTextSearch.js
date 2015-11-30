@@ -26,10 +26,10 @@ define(['./Dialogs',
 
         // todo: host should be configurable 
         //var host = window.location.protocol + '//' + window.location.hostname + ':8081';
-        var host = window.location.origin;
         //var host = 'http://localhost:8080';
-        var spinner;
+        var host = window.location.origin;
         var readium;
+        var spinner;
         var epubTitle = "";
 
         var FullTextSearch = function (readiumRef, title) {
@@ -281,17 +281,48 @@ define(['./Dialogs',
                             999999,// Math.floor((Math.random() * 1000000)),
                             "highlight", //"underline"
                             undefined  // styles
-                        )
-                            , 600
-                    });
+                        ), 600
 
                     console.debug("hightlight of cfi: " + cfi + " ready");
+                        setTimeout(function () {
+
+
+                            var $epubContentIframe = $('#epubContentIframe');
+                            
+                            // delete old auxiliary element
+                            var $searchResult = $epubContentIframe.contents().find("#searchResult");
+                            $searchResult.first().unwrap();
+                            
+                            //$epubContentIframe[0].contentDocument.designMode = "on";
+                            var startMarker = $epubContentIframe.contents().find(".range-start-marker")[0];
+                            var range = document.createRange();
+
+
+                            $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="555" style="display:inline"></span>');
+                            $searchResult = $epubContentIframe.contents().find("#searchResult");
+                            //$searchResult.css("color","#1182ba");
+                            //$searchResult.css("background-color","yellow");
+                            $searchResult.focus();
+
+                        }, 500);
+                    });
+
+
                 } catch (e) {
 
                     console.error(e);
                 }
             }
 
+
+            function highlightRange(range) {
+                var newNode = document.createElement("div");
+                newNode.setAttribute("style", "background-color: yellow; display: inline;");
+                newNode.setAttribute("contenteditable", "true");
+                newNode.id = "searchResult";
+                range.surroundContents(newNode);
+            }
+            
             function setNextCfi() {
 
                 // wrap around:
