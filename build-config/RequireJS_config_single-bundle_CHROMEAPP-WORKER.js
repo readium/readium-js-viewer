@@ -25,10 +25,9 @@ require.config({
         "readium_js_viewer_RJS-CONFIG", "readium_js_viewer/workers/EpubLibraryWriter"
     ],
 
-    // ASYNC ALMOND LOAD! (because of array)
-    // ...so we load this manually at the bottom of EpubLibraryWriter
-    //"readium_js_viewer/workers/EpubLibraryWriter"
-    //insertRequire: [],
+    insertRequire: [
+        "readium_js_viewer/workers/EpubLibraryWriter"
+    ],
 
     stubModules: ['hgn', 'i18n'],
 
