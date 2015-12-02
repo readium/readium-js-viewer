@@ -81,81 +81,61 @@ define(['readium_shared_js/globals', 'module','jquery', 'underscore', 'bootstrap
                 Settings.put('reader', json);
             }
 
+            var settingsToUpdate = { doNotUpdateView: true };
+
             if (json.mediaOverlaysSkipSkippables) // excludes typeof json.mediaOverlaysSkipSkippables === "undefined", so the default is to disable skippability
             {
                 $audioPlayer.addClass('skip');
 
-                readium.reader.updateSettings({
-                    doNotUpdateView: true,
-                    mediaOverlaysSkipSkippables: true
-                });
+                settingsToUpdate.mediaOverlaysSkipSkippables = true;
             }
             else
             {
                 $audioPlayer.removeClass('skip');
 
-                readium.reader.updateSettings({
-                    doNotUpdateView: true,
-                    mediaOverlaysSkipSkippables: false
-                });
+                settingsToUpdate.mediaOverlaysSkipSkippables = false;
             }
 
             if (json.mediaOverlaysPreservePlaybackWhenScroll)
             {
                 $audioPlayer.addClass('playScroll');
 
-                readium.reader.updateSettings({
-                    doNotUpdateView: true,
-                    mediaOverlaysPreservePlaybackWhenScroll: true
-                });
+                settingsToUpdate.mediaOverlaysPreservePlaybackWhenScroll = true;
             }
             else
             {
                 $audioPlayer.removeClass('playScroll');
 
-                readium.reader.updateSettings({
-                    doNotUpdateView: true,
-                    mediaOverlaysPreservePlaybackWhenScroll: false
-                });
+                settingsToUpdate.mediaOverlaysPreservePlaybackWhenScroll = false;
             }
 
             if (json.mediaOverlaysAutomaticPageTurn)
             {
                 $audioPlayer.addClass('autoPageTurn');
 
-                readium.reader.updateSettings({
-                    doNotUpdateView: true,
-                    mediaOverlaysAutomaticPageTurn: true
-                });
+                settingsToUpdate.mediaOverlaysAutomaticPageTurn = true;
             }
             else
             {
                 $audioPlayer.removeClass('autoPageTurn');
 
-                readium.reader.updateSettings({
-                    doNotUpdateView: true,
-                    mediaOverlaysAutomaticPageTurn: false
-                });
+                settingsToUpdate.mediaOverlaysAutomaticPageTurn = false;
             }
 
             if (json.mediaOverlaysEnableClick)
             {
                 $audioPlayer.removeClass('no-touch');
 
-                readium.reader.updateSettings({
-                    doNotUpdateView: true,
-                    mediaOverlaysEnableClick: true
-                });
+                settingsToUpdate.mediaOverlaysEnableClick = true;
             }
             else
             {
                 $audioPlayer.addClass('no-touch');
 
-                readium.reader.updateSettings({
-                    doNotUpdateView: true,
-                    mediaOverlaysEnableClick: false
-                });
+                settingsToUpdate.mediaOverlaysEnableClick = false;
             }
+            
+            readium.reader.updateSettings(settingsToUpdate);
         });
 
         var $moSyncDefault = $('#mo-sync-default');
