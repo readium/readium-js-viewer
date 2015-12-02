@@ -1,10 +1,12 @@
 
-define(['module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './Spinner', 'Settings', 'i18nStrings', './Dialogs', './Keyboard'], 
-        function (module, $, _, bootstrap, Readium, spinner, Settings, Strings, Dialogs, Keyboard) {
+define(['readium_shared_js/globals', 'module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './Spinner', 'Settings', 'i18nStrings', './Dialogs', './Keyboard'], 
+        function (Globals, module, $, _, bootstrap, Readium, spinner, Settings, Strings, Dialogs, Keyboard) {
 
     var init = function(readium) {
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData) {
+            
+            Globals.logEvent("ReadiumSDK.Events.PAGINATION_CHANGED - ON - EpubReaderMediaOverlays.js");
             // That's after mediaOverlayPlayer.onPageChanged()
 
             if (readium.reader.isMediaOverlayAvailable()) {
@@ -477,6 +479,8 @@ define(['module','jquery', 'underscore', 'bootstrap', 'readium_js/Readium', './S
         );
 
         readium.reader.on(ReadiumSDK.Events.MEDIA_OVERLAY_STATUS_CHANGED, function (value) {
+            
+            Globals.logEvent("ReadiumSDK.Events.MEDIA_OVERLAY_STATUS_CHANGED - ON - EpubReaderMediaOverlays.js");
 
             //var $audioPlayerControls = $('#audioplayer button, #audioplayer input:not(.mo-sync)');
 

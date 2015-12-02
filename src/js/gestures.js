@@ -11,7 +11,7 @@
 //  used to endorse or promote products derived from this software without specific 
 //  prior written permission.
 
-define(['jquery','jquery_hammer','hammerjs'], function($,jqueryHammer,Hammer) {
+define(['readium_shared_js/globals', 'jquery','jquery_hammer','hammerjs'], function(Globals, $,jqueryHammer,Hammer) {
 
     var gesturesHandler = function(reader, viewport){
         
@@ -35,6 +35,8 @@ return; // TODO upgrade to Hammer API v2
         this.initialize= function(){
 
             reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function(iframe,s) {
+                Globals.logEvent("ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED - ON - gestures.js");
+                
                 //set hammer's document root
                 Hammer.DOCUMENT = iframe.contents();
                 //hammer's internal touch events need to be redefined? (doesn't work without)
