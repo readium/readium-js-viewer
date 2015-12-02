@@ -287,13 +287,13 @@ Helpers){
             wasFixed;
 
         readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, function() {
-            Globals.logEvent("ReadiumSDK.Events.FXL_VIEW_RESIZED - ON - EpubReader.js");
+            Globals.logEvent("FXL_VIEW_RESIZED", "ON", "EpubReader.js");
             setScaleDisplay();
         });
         
         readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem)
         {
-            Globals.logEvent("ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED - ON - EpubReader.js");
+            Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "EpubReader.js");
             
             var isFixed = readium.reader.isCurrentViewFixedLayout();
 
@@ -314,7 +314,7 @@ Helpers){
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData)
         {
-            Globals.logEvent("ReadiumSDK.Events.PAGINATION_CHANGED - ON - EpubReader.js");
+            Globals.logEvent("PAGINATION_CHANGED", "ON", "EpubReader.js");
             
             savePlace();
             updateUI(pageChangeData);
@@ -763,12 +763,12 @@ Helpers){
         //because we reinitialize the reader we have to unsubscribe to all events for the previews reader instance
         if(readium && readium.reader) {
             
-            Globals.logEvent("ReadiumSDK.Events.__ALL__ - OFF - EpubReader.js");
+            Globals.logEvent("__ALL__", "OFF", "EpubReader.js");
             readium.reader.off();
         }
 
         if (window.ReadiumSDK) {
-            Globals.logEvent("ReadiumSDK.Events.PLUGINS_LOADED - OFF - EpubReader.js");
+            Globals.logEvent("PLUGINS_LOADED", "OFF", "EpubReader.js");
             ReadiumSDK.off(ReadiumSDK.Events.PLUGINS_LOADED);
         }
 
@@ -812,7 +812,7 @@ Helpers){
             window.READIUM = readium;
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
-                Globals.logEvent("ReadiumSDK.Events.PLUGINS_LOADED - ON - EpubReader.js");
+                Globals.logEvent("PLUGINS_LOADED", "ON", "EpubReader.js");
                 
                 console.log('PLUGINS INITIALIZED!');
                 
@@ -933,7 +933,7 @@ Helpers){
             Keyboard.on(Keyboard.NightTheme, 'reader', toggleNightTheme);
 
             readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function($iframe, spineItem) {
-                Globals.logEvent("ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START - ON - EpubReader.js");
+                Globals.logEvent("CONTENT_DOCUMENT_LOAD_START", "ON", "EpubReader.js");
                 
                 spin(true);
             });

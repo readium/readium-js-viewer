@@ -35,7 +35,7 @@ return; // TODO upgrade to Hammer API v2
         this.initialize= function(){
 
             reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function(iframe,s) {
-                Globals.logEvent("ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED - ON - gestures.js");
+                Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "gestures.js");
                 
                 //set hammer's document root
                 Hammer.DOCUMENT = iframe.contents();

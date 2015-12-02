@@ -6,7 +6,7 @@ define(['readium_shared_js/globals', 'module','jquery', 'underscore', 'bootstrap
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData) {
             
-            Globals.logEvent("ReadiumSDK.Events.PAGINATION_CHANGED - ON - EpubReaderMediaOverlays.js");
+            Globals.logEvent("PAGINATION_CHANGED", "ON", "EpubReaderMediaOverlays.js");
             // That's after mediaOverlayPlayer.onPageChanged()
 
             if (readium.reader.isMediaOverlayAvailable()) {
@@ -480,7 +480,7 @@ define(['readium_shared_js/globals', 'module','jquery', 'underscore', 'bootstrap
 
         readium.reader.on(ReadiumSDK.Events.MEDIA_OVERLAY_STATUS_CHANGED, function (value) {
             
-            Globals.logEvent("ReadiumSDK.Events.MEDIA_OVERLAY_STATUS_CHANGED - ON - EpubReaderMediaOverlays.js");
+            Globals.logEvent("MEDIA_OVERLAY_STATUS_CHANGED", "ON", "EpubReaderMediaOverlays.js");
 
             //var $audioPlayerControls = $('#audioplayer button, #audioplayer input:not(.mo-sync)');
 
