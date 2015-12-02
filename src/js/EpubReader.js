@@ -293,7 +293,7 @@ Helpers){
         
         readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem)
         {
-            Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "EpubReader.js");
+            Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "EpubReader.js [ " + spineItem.href + " ]");
             
             var isFixed = readium.reader.isCurrentViewFixedLayout();
 
@@ -933,7 +933,7 @@ Helpers){
             Keyboard.on(Keyboard.NightTheme, 'reader', toggleNightTheme);
 
             readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function($iframe, spineItem) {
-                Globals.logEvent("CONTENT_DOCUMENT_LOAD_START", "ON", "EpubReader.js");
+                Globals.logEvent("CONTENT_DOCUMENT_LOAD_START", "ON", "EpubReader.js [ " + spineItem.href + " ]");
                 
                 spin(true);
             });
