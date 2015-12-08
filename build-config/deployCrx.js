@@ -69,7 +69,7 @@ var deleteOldRelease = function(error, response){
 
 var createRelease = function(){
 
-    var upload = function(fileName, filePath, contentType, error, success) {
+    var upload = function(releaseId, fileName, filePath, contentType, error, success) {
         
         console.log("UPLOAD TO RELEASE: [" + fileName + "] from [" + filePath + "] (" + contentType + ")");
         
@@ -129,12 +129,12 @@ var createRelease = function(){
         var fileName = 'Readium.crx';
         var filePath = path.join(process.cwd(), 'dist/' + fileName);
         var contentType = 'application/x-chrome-extension';
-        upload(fileName, filePath, contentType, undefined, function() {
+        upload(releaseId, fileName, filePath, contentType, undefined, function() {
 
             fileName = 'cloud-reader.zip';
             filePath = path.join(process.cwd(), 'dist/' + fileName);
             contentType = 'application/zip';
-            upload(fileName, filePath, contentType, undefined, undefined); 
+            upload(releaseId, fileName, filePath, contentType, undefined, undefined); 
         });
     });
 };
