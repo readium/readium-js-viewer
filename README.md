@@ -312,8 +312,6 @@ requirejs.config({
 ```
 
 
-
-
 ## CSON vs. JSON (package.json)
 
 CSON = CoffeeScript-Object-Notation ( https://github.com/bevry/cson )
