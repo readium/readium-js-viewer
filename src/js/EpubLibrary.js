@@ -332,7 +332,9 @@ Helpers){
         // See libraryManager.canHandleUrl() + handleUrlSelect()
         // See libraryManager.canHandleDirectory() + handleDirSelect()
         
+        if (!window.Blob || !(ebook instanceof Blob)) return;
         if (!window.File || !(ebook instanceof File)) return;
+        
         importZippedEpub(ebook);
     };
 
@@ -477,6 +479,10 @@ Helpers){
            Keyboard.applySettings(json);
 
            loadLibraryUI();
+           
+           if (data && data.importEPUB) { // File/Blob
+               importEpub(data.importEPUB);
+           }
         });
     };
     window.setReplaceByDefault = function(replace){
