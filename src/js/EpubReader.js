@@ -576,7 +576,7 @@ Helpers){
 
         // Set handlers for click events
         $(".icon-annotations").on("click", function () {
-            readium.reader.plugins.annotations.addSelectionHighlight(Math.floor((Math.random()*1000000)), "highlight");
+            readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "test-highlight");
         });
 
         var isWithinForbiddenNavKeysArea = function()
@@ -815,15 +815,18 @@ Helpers){
                 Globals.logEvent("PLUGINS_LOADED", "ON", "EpubReader.js");
                 
                 console.log('PLUGINS INITIALIZED!');
-                
-                if (!readium.reader.plugins.annotations) {   
+
+                if (!readium.reader.plugins.highlights) {
                     $('.icon-annotations').css("display", "none");
                 } else {
-                    readium.reader.plugins.annotations.initialize({annotationCSSUrl: readerOptions.annotationCSSUrl});
-                    
-                    readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
+
+                    readium.reader.plugins.highlights.initialize({
+                        annotationCSSUrl: readerOptions.annotationCSSUrl
+                    });
+
+                    readium.reader.plugins.highlights.on("annotationClicked", function(type, idref, cfi, id) {
         console.debug("ANNOTATION CLICK: " + id);
-                        readium.reader.plugins.annotations.removeHighlight(id);
+                        readium.reader.plugins.highlights.removeHighlight(id);
                     });
                 }
     
