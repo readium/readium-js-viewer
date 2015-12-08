@@ -423,7 +423,7 @@
     "message" : "Next Page"
   },
   "i18n_nav_back" : {
-    "message" : "Navigate back"
+    "message" : "Go back in navigation history"
   },
   "i18n_nav_back_linear" : {
     "message" : "Return to primary reading flow"
