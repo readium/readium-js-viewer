@@ -22,7 +22,7 @@ require.config({
     out: "../build-output/_single-bundle/readium-js-viewer_all_CHROMEAPP.js",
 
     include: [
-      "readium_js_viewer/ReadiumViewer"
+      "readium_js_viewer_RJS-CONFIG", "readium_js_viewer/ReadiumViewer"
     ],
 
     insertRequire: [
@@ -39,6 +39,8 @@ require.config({
         "readium-js-viewer_all_CHROMEAPP":
             process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond',
 
+        "readium_js_viewer_RJS-CONFIG":
+            process._RJS_rootDir(3) + '/src/chrome-app/requirejs-config',
 
         'i18nStrings':
             process._RJS_rootDir(3) + '/src/chrome-app/i18n/Strings',
