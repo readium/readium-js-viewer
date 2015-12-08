@@ -13,6 +13,8 @@
         &&
         npm run deploy:cloudReader:copy:sourcemap
         &&
+        zip -r dist/cloud-reader.zip dist/cloud-reader -x dist/cloud-reader/epub_content**
+        &&
         npm run deploy:cloudReader:copy:epub_content
         &&
         npm run deploy:cloudReader:copy:epub_testsuite

@@ -149,7 +149,7 @@
     "test:sauce:chromeApp": "npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chromeApp",
     "test:sauce:firefox": "npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=firefox",
     "test:sauce:chrome": "npm run mocha --readium-js-viewer:USE_SAUCE=true --readium-js-viewer:MODE=chrome",
-    "pretest:travis": "npm run dist && npm run crx && npm run deploy:cloudReader:copy:sourcemap && npm run deploy:cloudReader:copy:epub_content && npm run deploy:cloudReader:copy:epub_testsuite",
+    "pretest:travis": "npm run dist && npm run crx && npm run deploy:cloudReader:copy:sourcemap && zip -r dist/cloud-reader.zip dist/cloud-reader -x dist/cloud-reader/epub_content** && npm run deploy:cloudReader:copy:epub_content && npm run deploy:cloudReader:copy:epub_testsuite",
     "test:travis": "parallelshell \"npm run http:travis\" \"npm run mocha\"",
     "deploy:cloudReader:copy:epub_content": "node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/ncp/bin/ncp epub_content/ dist/cloud-reader/epub_content/",
     "deploy:cloudReader:copy:epub_testsuite": "node build-config/createTestLibrary.js",

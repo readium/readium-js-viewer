@@ -69,6 +69,44 @@ var deleteOldRelease = function(error, response){
 
 var createRelease = function(){
 
+    var upload = function(fileName, filePath, contentType, error, success) {
+        
+        console.log("UPLOAD TO RELEASE: [" + fileName + "] from [" + filePath + "] (" + contentType + ")");
+        
+        //var url = 'https://uploads.github.com/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx'
+
+        var stats = fs.statSync(filePath);
+        var fileSizeInBytes = stats["size"];
+
+        var httpOptions = {
+            hostname: 'uploads.github.com',
+            port: 443,
+            path: '/repos/'+ owner + '/' + repo + '/releases/' + releaseId + '/assets?name=' + fileName,
+            method: 'POST',
+            headers: {
+                'Content-Type': contentType,
+                'Content-Length': fileSizeInBytes,
+                'Authorization' : 'token ' + oauthToken
+            }
+        };
+        //console.log(httpOptions);
+
+        var req = https.request(httpOptions, function(res){
+            if (res.statusCode < 400){
+                console.log('binary uploaded successfully');
+                if (success) success();
+            }
+            else{
+                console.log('error uploading binary: ' + res.statusCode);
+                if (error) error(res.statusCode);
+            }
+        });
+
+        fs.createReadStream(filePath).pipe(req);
+
+        //req.end();
+    };
+    
     var releaseData = {
         tag_name: version,
         //target_commitish: process.env.TRAVIS_COMMIT,
@@ -86,41 +124,18 @@ var createRelease = function(){
         console.log('release created');
         //console.log(result);
 
-        var releaseId = result.id,
-            contentType = 'application/x-chrome-extension';
+        var releaseId = result.id;
+        
+        var fileName = 'Readium.crx';
+        var filePath = path.join(process.cwd(), 'dist/' + fileName);
+        var contentType = 'application/x-chrome-extension';
+        upload(fileName, filePath, contentType, undefined, function() {
 
-        var fileName = path.join(process.cwd(), 'dist/Readium.crx');
-
-        //var url = 'https://uploads.github.com/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx'
-
-        var stats = fs.statSync(fileName);
-        var fileSizeInBytes = stats["size"];
-
-        var httpOptions = {
-            hostname: 'uploads.github.com',
-            port: 443,
-            path: '/repos/'+ owner + '/' + repo + '/releases/' + releaseId + '/assets?name=Readium.crx',
-            method: 'POST',
-            headers: {
-                'Content-Type': contentType,
-                'Content-Length': fileSizeInBytes,
-                'Authorization' : 'token ' + oauthToken
-            }
-        };
-        //console.log(httpOptions);
-
-        var req = https.request(httpOptions, function(res){
-            if (res.statusCode < 400){
-                console.log('binary uploaded successfully');
-            }
-            else{
-                console.log('error uploading binary: ' + res.statusCode);
-            }
+            fileName = 'cloud-reader.zip';
+            filePath = path.join(process.cwd(), 'dist/' + fileName);
+            contentType = 'application/zip';
+            upload(fileName, filePath, contentType, undefined, undefined); 
         });
-
-        fs.createReadStream(fileName).pipe(req);
-
-        //req.end();
     });
 };
 
