@@ -54,7 +54,7 @@ require.config({
             'canHandleDirectory' : true,
 
             'workerUrl': '/scripts/readium-js-viewer_CHROMEAPP-WORKER.js',
-            'epubReadingSystemUrl': self.location.origin + '/scripts/epubReadingSystem.js',
+            'epubReadingSystemUrl': self.location.origin + '/scripts/epubReadingSystem.js'
         }
     }
 });
