@@ -42,7 +42,7 @@
 
 name: "readium-js-viewer"
 
-version: "0.23.0-alpha"
+version: "0.22.1"
 
 engines:
     node: ">=0.12"
