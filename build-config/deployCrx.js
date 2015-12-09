@@ -131,10 +131,16 @@ var createRelease = function(){
         var contentType = 'application/x-chrome-extension';
         upload(releaseId, fileName, filePath, contentType, undefined, function() {
 
-            fileName = 'cloud-reader.zip';
+            fileName = 'Readium_cloud-reader.zip';
             filePath = path.join(process.cwd(), 'dist/' + fileName);
             contentType = 'application/zip';
-            upload(releaseId, fileName, filePath, contentType, undefined, undefined); 
+            upload(releaseId, fileName, filePath, contentType, undefined, function() {
+
+                fileName = 'Readium_cloud-reader-lite.zip';
+                filePath = path.join(process.cwd(), 'dist/' + fileName);
+                contentType = 'application/zip';
+                upload(releaseId, fileName, filePath, contentType, undefined, undefined); 
+            }); 
         });
     });
 };
