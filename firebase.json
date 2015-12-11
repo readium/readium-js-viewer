@@ -8,19 +8,15 @@
   ],
   "headers": [
     {
-      "source": "/epub_content/**",
-      "headers": []
-    },
-    {
-      "source": "*.epub",
-      "headers": []
-    },
-    {
       "source": "epub_content/**",
-      "headers": [
+      "headers": [ 
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "true"
         }
       ]
     }
