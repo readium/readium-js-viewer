@@ -36,10 +36,6 @@ scripts:
         &&
         npm update
         &&
-        npm ls --depth 0 --prod
-        &
-        npm ls --depth 0 --dev
-        &
         node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/gitHubForksUpdater.js
     '
 
