@@ -1,0 +1,28 @@
+{
+  "firebase": "readium",
+  "public": "./dist/cloud-reader",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ],
+  "headers": [
+    {
+      "source": "/epub_content/**",
+      "headers": []
+    },
+    {
+      "source": "*.epub",
+      "headers": []
+    },
+    {
+      "source": "epub_content/**",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000"
+        }
+      ]
+    }
+  ]
+}
