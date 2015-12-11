@@ -28,8 +28,6 @@
         cd ../..
         &&
         npm run deploy:cloudReader:copy:epub_content
-        &&
-        npm run deploy:cloudReader:copy:epub_testsuite
     '
 # npm run deploy:chromeApp:copy:sourcemap
 
@@ -48,12 +46,6 @@
         npm run ncp
             epub_content/
             dist/cloud-reader/epub_content/
-    '
-
-#=====================
-    'deploy:cloudReader:copy:epub_testsuite': '
-
-        node build-config/createTestLibrary.js
     '
 
 #=====================
