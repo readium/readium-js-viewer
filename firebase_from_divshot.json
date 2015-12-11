@@ -16,7 +16,7 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "true"
+          "value": "*"
         },
         {
           "key": "Access-Control-Allow-Methods",
