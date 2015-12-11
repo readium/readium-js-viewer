@@ -53,7 +53,7 @@
     "keymaster": "danielweck/keymaster",
     "jath": "danielweck/jath",
     "MathJax-grunt-concatenator": "pkra/MathJax-single-file",
-    "bootstrap": "latest",
+    "bootstrap": "3.x",
     "bootstrap-accessibility-plugin": "latest",
     "hammerjs": "latest",
     "jquery-hammerjs": "latest",
