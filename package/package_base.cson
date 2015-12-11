@@ -131,7 +131,7 @@ devDependencies:
 
     "MathJax-grunt-concatenator": 'pkra/MathJax-single-file'
 
-    "bootstrap": 'latest'
+    "bootstrap": '3.x'
 
     "bootstrap-accessibility-plugin": 'latest'
 
