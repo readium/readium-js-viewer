@@ -791,9 +791,50 @@ Helpers){
             var openPageRequest;
             if (settings[ebookURL_filepath]){
                 var bookmark = JSON.parse(JSON.parse(settings[ebookURL_filepath]));
+                //console.log("Bookmark restore: " + JSON.stringify(bookmark));
                 openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
+                console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
             }
 
+            var urlParams = Helpers.getURLQueryParams();
+            var goto = urlParams['goto'];
+            if (goto) {
+                console.log("Goto override? " + goto);
+                
+                try {
+                    var gotoObj = JSON.parse(goto);
+                    
+                    var openPageRequest_ = undefined;
+                    
+                    
+                    // See ReaderView.openBook()
+                    // e.g. with accessible_epub_3:
+                    // &goto={"contentRefUrl":"ch02.xhtml%23_data_integrity","sourceFileHref":"EPUB"}
+                    // or: {"idref":"id-id2635343","elementCfi":"/4/2[building_a_better_epub]@0:10"} (the legacy spatial bookmark is wrong here, but this is fixed in intel-cfi-improvement feature branch)
+                    if (gotoObj.idref) {
+                        if (gotoObj.spineItemPageIndex) {
+                            openPageRequest_ = {idref: gotoObj.idref, spineItemPageIndex: gotoObj.spineItemPageIndex};
+                        }
+                        else if (gotoObj.elementCfi) {
+                            openPageRequest_ = {idref: gotoObj.idref, elementCfi: gotoObj.elementCfi};
+                        }
+                        else {
+                            openPageRequest_ = {idref: gotoObj.idref};
+                        }
+                    }
+                    else if (gotoObj.contentRefUrl && gotoObj.sourceFileHref) {
+                        openPageRequest_ = {contentRefUrl: gotoObj.contentRefUrl, sourceFileHref: gotoObj.sourceFileHref};
+                    }
+                    
+                    
+                    if (openPageRequest_) {
+                        openPageRequest = openPageRequest_;
+                        console.debug("Open request (goto): " + JSON.stringify(openPageRequest));
+                    }
+                } catch(err) {
+                    console.error(err);
+                }
+            }
 
             readium = new Readium(readiumOptions, readerOptions);
 
