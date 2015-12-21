@@ -330,8 +330,8 @@ define(['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'i18
         return keys;
     };
 
-	return {
-		initKeyboardList : initKeyboardList,
+    return {
+        initKeyboardList : initKeyboardList,
         saveKeys : saveKeys
-	}
+    }
 });

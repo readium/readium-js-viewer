@@ -21,13 +21,13 @@ window.location ? (
 ;
 
 
-var EPUB_LIB_JSON = "http://127.0.0.1:8080/epub_library.json";
+var EPUB_LIB_JSON = "http://127.0.0.1:8080/epub_library.opds";
 //"http://development.readium.divshot.io/epub_content/epub_library.json"
 
 // check for non-CORS mode
 if (HTTPServerRootFolder.indexOf("127.0.0.1") > 0) {
-    //EPUB_LIB_JSON = HTTPServerRootFolder + "/epub_content/epub_library.json";
-    EPUB_LIB_JSON = "../epub_content/epub_library.json";
+    //EPUB_LIB_JSON = HTTPServerRootFolder + "/epub_content/epub_library.opds";
+    EPUB_LIB_JSON = "../epub_content/epub_library.opds";
 }
 
 console.log("Default URL of ebooks library: " + EPUB_LIB_JSON);

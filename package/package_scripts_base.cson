@@ -24,12 +24,14 @@ scripts:
             prepare:submodule
         &&
         npm run
-            prepare:dependencies
+            prepare:local
     '
 
 #=====================
-    'prepare:dependencies': '
+    'prepare:local': '
 
+        npm outdated
+        &&
         npm install
         &&
         npm update
