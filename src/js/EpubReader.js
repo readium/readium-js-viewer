@@ -1,5 +1,6 @@
 define([
 "readium_shared_js/globalsSetup",
+ "readium_shared_js/globals",
 './ModuleConfig',
 'jquery',
 'bootstrap',
@@ -26,6 +27,7 @@ define([
 
 function (
 globalSetup,
+Globals,
 moduleConfig,
 $,
 bootstrap,
@@ -290,10 +292,15 @@ Helpers){
         var lastIframe = undefined,
             wasFixed;
 
-        readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, setScaleDisplay);
+        readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, function() {
+            Globals.logEvent("FXL_VIEW_RESIZED", "ON", "EpubReader.js");
+            setScaleDisplay();
+        });
+        
         readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem)
         {
-
+            Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "EpubReader.js [ " + spineItem.href + " ]");
+            
             var isFixed = readium.reader.isCurrentViewFixedLayout();
 
             // TODO: fix the pan-zoom feature!
@@ -313,6 +320,8 @@ Helpers){
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData)
         {
+            Globals.logEvent("PAGINATION_CHANGED", "ON", "EpubReader.js");
+            
             savePlace();
             updateUI(pageChangeData);
 
@@ -334,7 +343,7 @@ Helpers){
                     //bookmark.idref; //manifest item
                     if (pageChangeData.spineItem)
                     {
-                        element = readium.reader.getElementByCfi(pageChangeData.spineItem, bookmark.contentCFI,
+                        element = readium.reader.getElementByCfi(pageChangeData.spineItem.idref, bookmark.contentCFI,
                             ["cfi-marker", "mo-cfi-highlight"],
                             [],
                             ["MathJax_Message"]);
@@ -604,7 +613,7 @@ Helpers){
 
         // Set handlers for click events
         $(".icon-annotations").on("click", function () {
-            readium.reader.plugins.annotations.addSelectionHighlight(Math.floor((Math.random()*1000000)), "highlight");
+            readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "test-highlight");
         });
 
         var isWithinForbiddenNavKeysArea = function()
@@ -794,10 +803,13 @@ Helpers){
 
         //because we reinitialize the reader we have to unsubscribe to all events for the previews reader instance
         if(readium && readium.reader) {
+            
+            Globals.logEvent("__ALL__", "OFF", "EpubReader.js");
             readium.reader.off();
         }
 
         if (window.ReadiumSDK) {
+            Globals.logEvent("PLUGINS_LOADED", "OFF", "EpubReader.js");
             ReadiumSDK.off(ReadiumSDK.Events.PLUGINS_LOADED);
         }
 
@@ -832,26 +844,71 @@ Helpers){
             var openPageRequest;
             if (settings[ebookURL_filepath]){
                 var bookmark = JSON.parse(JSON.parse(settings[ebookURL_filepath]));
+                //console.log("Bookmark restore: " + JSON.stringify(bookmark));
                 openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
+                console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
             }
 
+            var urlParams = Helpers.getURLQueryParams();
+            var goto = urlParams['goto'];
+            if (goto) {
+                console.log("Goto override? " + goto);
+                
+                try {
+                    var gotoObj = JSON.parse(goto);
+                    
+                    var openPageRequest_ = undefined;
+                    
+                    
+                    // See ReaderView.openBook()
+                    // e.g. with accessible_epub_3:
+                    // &goto={"contentRefUrl":"ch02.xhtml%23_data_integrity","sourceFileHref":"EPUB"}
+                    // or: {"idref":"id-id2635343","elementCfi":"/4/2[building_a_better_epub]@0:10"} (the legacy spatial bookmark is wrong here, but this is fixed in intel-cfi-improvement feature branch)
+                    if (gotoObj.idref) {
+                        if (gotoObj.spineItemPageIndex) {
+                            openPageRequest_ = {idref: gotoObj.idref, spineItemPageIndex: gotoObj.spineItemPageIndex};
+                        }
+                        else if (gotoObj.elementCfi) {
+                            openPageRequest_ = {idref: gotoObj.idref, elementCfi: gotoObj.elementCfi};
+                        }
+                        else {
+                            openPageRequest_ = {idref: gotoObj.idref};
+                        }
+                    }
+                    else if (gotoObj.contentRefUrl && gotoObj.sourceFileHref) {
+                        openPageRequest_ = {contentRefUrl: gotoObj.contentRefUrl, sourceFileHref: gotoObj.sourceFileHref};
+                    }
+                    
+                    
+                    if (openPageRequest_) {
+                        openPageRequest = openPageRequest_;
+                        console.debug("Open request (goto): " + JSON.stringify(openPageRequest));
+                    }
+                } catch(err) {
+                    console.error(err);
+                }
+            }
 
             readium = new Readium(readiumOptions, readerOptions);
 
             window.READIUM = readium;
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
+                Globals.logEvent("PLUGINS_LOADED", "ON", "EpubReader.js");
                 
                 console.log('PLUGINS INITIALIZED!');
-                
-                if (!readium.reader.plugins.annotations) {   
+
+                if (!readium.reader.plugins.highlights) {
                     $('.icon-annotations').css("display", "none");
                 } else {
-                    readium.reader.plugins.annotations.initialize({annotationCSSUrl: readerOptions.annotationCSSUrl});
-                    
-                    readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
+
+                    readium.reader.plugins.highlights.initialize({
+                        annotationCSSUrl: readerOptions.annotationCSSUrl
+                    });
+
+                    readium.reader.plugins.highlights.on("annotationClicked", function(type, idref, cfi, id) {
         console.debug("ANNOTATION CLICK: " + id);
-                        readium.reader.plugins.annotations.removeHighlight(id);
+                        readium.reader.plugins.highlights.removeHighlight(id);
                     });
                 }
     
@@ -961,6 +1018,8 @@ Helpers){
             Keyboard.on(Keyboard.NightTheme, 'reader', toggleNightTheme);
 
             readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function($iframe, spineItem) {
+                Globals.logEvent("CONTENT_DOCUMENT_LOAD_START", "ON", "EpubReader.js [ " + spineItem.href + " ]");
+                
                 spin(true);
             });
 
