@@ -13,9 +13,21 @@
         &&
         npm run deploy:cloudReader:copy:sourcemap
         &&
-        npm run deploy:cloudReader:copy:epub_content
+        cd dist/cloud-reader
         &&
-        npm run deploy:cloudReader:copy:epub_testsuite
+        zip -r ../Readium_cloud-reader.zip . -x epub_content\*
+        &&
+        cd ../..
+        &&
+        npm run deploy:cloudReaderLite:copy:sourcemap
+        &&
+        cd dist/cloud-reader-lite
+        &&
+        zip -r ../Readium_cloud-reader-lite.zip .
+        &&
+        cd ../..
+        &&
+        npm run deploy:cloudReader:copy:epub_content
     '
 # npm run deploy:chromeApp:copy:sourcemap
 
@@ -34,12 +46,6 @@
         npm run ncp
             epub_content/
             dist/cloud-reader/epub_content/
-    '
-
-#=====================
-    'deploy:cloudReader:copy:epub_testsuite': '
-
-        node build-config/createTestLibrary.js
     '
 
 #=====================

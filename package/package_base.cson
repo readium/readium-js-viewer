@@ -43,7 +43,7 @@
 name: "readium-js-viewer"
 productName: "Readium web reader"
 
-version: "0.22.0-alpha"
+version: "0.23.0-alpha"
 
 engines:
     node: ">=0.12"
@@ -136,7 +136,7 @@ devDependencies:
 
     "MathJax-grunt-concatenator": 'pkra/MathJax-single-file'
 
-    "bootstrap": 'latest'
+    "bootstrap": '3.x'
 
     "bootstrap-accessibility-plugin": 'latest'
 

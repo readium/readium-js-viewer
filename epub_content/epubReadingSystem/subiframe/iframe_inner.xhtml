@@ -41,10 +41,13 @@ document.addEventListener("DOMContentLoaded", function()
 
     epubReadingSystem();
     
+    setTimeout(function(){
     window.frameElement.ownerDocument.body.style.backgroundColor = "magenta";
     window.parent.document.body.style.backgroundColor = "magenta";
     
     window.document.body.style.backgroundColor = "yellow";
+    
+    }, 200);
     
     console.debug(location);
     console.debug(window.frameElement.baseURI); //ownerDocument.defaultView

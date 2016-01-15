@@ -1,3 +1,5 @@
+_Note: Please don't use the zip download feature on this repo as this repo uses submodules and this is not supported at present by github and will result in an incomplete copy of the repo._
+
 # readium-js-viewer
 
 **EPUB reader written in HTML, CSS and Javascript.**
@@ -18,7 +20,7 @@ See [license.txt](./license.txt).
 ## Prerequisites
 
 * A decent terminal. On Windows, GitShell works great ( http://git-scm.com ), GitBash works too ( https://msysgit.github.io ), and Cygwin adds useful commands ( https://www.cygwin.com ).
-* NodeJS ( https://nodejs.org ) **v0.12** or higher
+* NodeJS ( https://nodejs.org ) **v4** (but not v5, because the installer ships with NPM v3 which seems to [have bugs](https://github.com/readium/readium-js-viewer/issues/453) related to the new flat module dependencies)
 
 
 ## Development
@@ -330,8 +332,6 @@ requirejs.config({
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-js-viewer.js.bundles.js"> </script>
 
 ```
-
-
 
 
 ## CSON vs. JSON (package.json)
