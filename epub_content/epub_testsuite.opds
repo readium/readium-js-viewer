@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
+
+<entry>
+<title>0100 - Reflowable</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0100" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0101 - Styling</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0101" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0102 - Scripting</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0102" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0103 - Font Embedding and Obfuscation</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0103" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0110 - Document Flow #1</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0110" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0111 - Document Flow #2</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0111" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0112 - Document Flow #3</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0112" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0120 - Media Overlays Reflowable</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0120" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0130 - RTL Progression and Vertical Writing</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0130" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0140 - CFI Content Fragment Identifier</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0140" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0150 - Navigation Document</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0150" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0201 - FXL Fixed Layout</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0201" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0202 - FXL Fixed Layout Spreads (both)</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0202" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0203 - FXL Fixed Layout Spreads (landscape)</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0203" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0204 - FXL Fixed Layout Spreads (none)</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0204" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0205 - FXL Fixed Layout Spreads (portait)</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0205" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0206 - FXL Fixed Layout Landscape Orientation</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0206" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0207 - FXL Fixed Layout Portrait Orientation</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0207" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0208 - FXL Fixed Layout Override (reflowable)</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0208" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0209 - FXL Fixed Layout Override (pre-paginated)</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0209" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0210 - FXL Fixed Layout Orientation Spine Override</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0210" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0211 - FXL Fixed Layout Page Progression Direction</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0211" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0220 - Media Overlays FXL Fixed Layout</title>
+<author>
+  <name>IDPF EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0220" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0300 - Fundamental Accessible Reading System Tests</title>
+<author>
+  <name>IDPF / DAISY EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0300" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+<title>0320 - Media Overlays Fundamental Accessibility Tests</title>
+<author>
+  <name>IDPF / DAISY EPUB TestSuite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0320" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+</feed>
