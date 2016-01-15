@@ -97,7 +97,7 @@ URI){
                     
                     if (hasAcquisition) {
                         if (t) {
-                            if (t.indexOf("application/epub+zip") >= 0) {
+                            if (t.indexOf("application/epub") >= 0) {
                                 rootUrl_EPUBAcquisition = href;
                             }
                             if (t.indexOf("text/html") >= 0) {
@@ -109,7 +109,7 @@ URI){
                             }
                         }
                     } else {
-                        if (t && t.indexOf("application/epub+zip") >= 0) {
+                        if (t && t.indexOf("application/epub") >= 0) {
                             rootUrl_EPUBAcquisition = href;
                         }
                     }

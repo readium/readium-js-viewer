@@ -41,11 +41,14 @@ document.addEventListener("DOMContentLoaded", function()
     
     epubReadingSystem();
     
+    setTimeout(function(){
+    
     window.frameElement.ownerDocument.body.style.border = "2px solid black";
     window.parent.document.body.style.border = "2px solid black";
     
     window.frameElement.ownerDocument.body.style.backgroundColor = "gray";
     window.parent.document.body.style.backgroundColor = "gray";
+    }, 200);
     
     console.debug(location);
     console.debug(window.frameElement.baseURI); //ownerDocument.defaultView

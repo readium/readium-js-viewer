@@ -29,7 +29,8 @@ define(function(){
         ERROR_STORAGE : 300,
         ERROR_EPUB : 301,
         ERROR_AJAX : 302,
-        ERROR_PACKAGE_PARSE: 303
-
+        ERROR_PACKAGE_PARSE: 303,
+        
+        READY: 400
     }
 });

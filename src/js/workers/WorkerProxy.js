@@ -7,7 +7,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
             worker = null;
         }
     }
-    var doWork = function(data, callbacks){
+    var doWork = function(job, callbacks){
         if (worker){
             console.log('dangling worker');
         }
@@ -36,6 +36,9 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
         worker.onmessage = function(evt){
             var data = evt.data;
             switch (data.msg){
+                case Messages.READY:                
+                    worker.postMessage(job);
+                    break;
                 case Messages.SUCCESS:
                     if (callbacks.success){
                         callbacks.success(data.libraryItems);
@@ -91,12 +94,11 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
                     error(data.errorMsg || "Unknown error");
                     cleanupWorker();
             }
-        }
+        };
+        
         worker.onerror = function(){
             console.error(arguments)
         }
-        currentWorker = worker;
-        worker.postMessage(data);
     }
 
     return {

@@ -81,21 +81,26 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
 
     var tooltipSelector = 'nav *[title]';
 
-    var libraryView = function(libraryURL){
+    var libraryView = function(libraryURL, importEPUB){
         $(tooltipSelector).tooltip('destroy');
         
         EpubReader.unloadUI();
+        EpubLibrary.unloadUI();
         
-        //EpubLibrary.unloadUI();
-        EpubLibrary.loadUI({epubs: libraryURL});
+        if (libraryURL) {
+            EpubLibrary.loadUI({epubs: libraryURL});
+        } else {
+            
+            EpubLibrary.loadUI({epubs: undefined, importEPUB: importEPUB});
+        }
     }
 
     var readerView = function(data){
         $(tooltipSelector).tooltip('destroy');
         
         EpubLibrary.unloadUI();
+        EpubReader.unloadUI();
         
-        //EpubReader.unloadUI();
         EpubReader.loadUI(data);
     }
 
@@ -109,6 +114,44 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
     ) : 'index.html'
     ;
 
+    var buildUrlQueryParameters = function(urlpath, overrides) {
+        
+        var paramsString = "";
+        
+        for (var key in overrides) {
+            if (!overrides.hasOwnProperty(key)) continue;
+            
+            if (!overrides[key]) continue;
+            
+            var val = overrides[key].trim();
+            if (!val) continue;
+            
+            console.debug("URL QUERY PARAM OVERRIDE: " + key + " = " + val);
+
+            paramsString += (key + "=" + encodeURIComponent(val));
+            paramsString += "&";
+        }
+        
+        var urlParams = Helpers.getURLQueryParams();
+        for (var key in urlParams) {
+            if (!urlParams.hasOwnProperty(key)) continue;
+            
+            if (!urlParams[key]) continue;
+            
+            if (overrides[key]) continue;
+
+            var val = urlParams[key].trim();
+            if (!val) continue;
+            
+            console.debug("URL QUERY PARAM PRESERVED: " + key + " = " + val);
+
+            paramsString += (key + "=" + encodeURIComponent(val));
+            paramsString += "&";
+        }
+        
+        return urlpath + "?" + paramsString;
+    };
+
     $(window).on('readepub', function(e, eventPayload){
         
         if (!eventPayload || !eventPayload.epub) return;
@@ -120,13 +163,17 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
             epub = ebookURL_filepath;
         }
         
+        var urlState = buildUrlQueryParameters(URLPATH, {
+            epub: ebookURL_filepath,
+            epubs: (eventPayload.epubs ? eventPayload.epubs : undefined),
+            embedded: (eventPayload.embedded ? eventPayload.embedded : undefined)
+        });
+        
         var func = _initialLoad ? replaceState : pushState;
         func(
             {epub: epub, epubs: eventPayload.epubs},
             "Readium Viewer",
-            URLPATH + '?epub=' + encodeURIComponent(ebookURL_filepath)
-            + (eventPayload.epubs ? ('&epubs=' + encodeURIComponent(eventPayload.epubs)) : '')
-            + (eventPayload.embedded ? ('&embedded=' + eventPayload.embedded) : '')
+            urlState
         );
     
         _initialLoad = false;
@@ -136,28 +183,30 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
 
     $(window).on('loadlibrary', function(e, eventPayload){
 
-        var libraryURL = (typeof eventPayload == "string") ? eventPayload : undefined;
-        
-        if (eventPayload instanceof Blob) { // includes File
-            // See below invoke:
-            // $(window).triggerHandler('loadlibrary', file);
-            
-            setTimeout(function() {
-                EpubLibrary.importEpub(eventPayload);
-            }, 800);
+        var libraryURL = undefined;
+        var importEPUB = undefined;
+        if (typeof eventPayload === "string") { 
+            libraryURL = eventPayload;
+        } else { //File/Blob
+            importEPUB = eventPayload;
         }
+        
+        var urlState = buildUrlQueryParameters(URLPATH, {
+            epubs: (libraryURL ? libraryURL : undefined),
+            epub: " ",
+            "goto": " "
+        });
         
         var func = _initialLoad ? replaceState : pushState;
         func(
             {epubs: libraryURL},
             "Readium Library",
-            libraryURL ?
-            URLPATH + '?epubs=' + encodeURIComponent(libraryURL)
-            : URLPATH);
+            urlState
+        );
         
         _initialLoad = false;
 
-        libraryView(libraryURL);
+        libraryView(libraryURL, importEPUB);
     });
 
     $(document.body).tooltip({
