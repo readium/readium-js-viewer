@@ -4,7 +4,8 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         fontSize: 100,
         syntheticSpread: "auto",
         scroll: "auto",
-        columnGap: 60
+        columnGap: 60,
+        epubPopupFootnotes: true
     }
 
     var getBookStyles = function(theme){
@@ -150,6 +151,13 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                     $('#scroll-default-option input').prop('checked', true);
                 }
 
+                if(readerSettings.epubPopupFootnotes == true) {
+                    $('#EPUBPopupFootNotes-ON-option input').prop('checked', true);
+                }
+                else {
+                    $('#EPUBPopupFootNotes-OFF-option input').prop('checked', true);
+                }
+                
                 if (readerSettings.pageTransition === 0)
                 {
                     $('#pageTransition-1-option input').prop('checked', true);
@@ -185,7 +193,8 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 fontSize: Number($fontSizeSlider.val()),
                 syntheticSpread: "auto",
                 columnGap: Number($marginSlider.val()),
-                scroll: "auto"
+                scroll: "auto",
+                epubPopupFootnotes: true
             };
 
             if($('#scroll-doc-option input').prop('checked')) {
@@ -194,6 +203,22 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             else if($('#scroll-continuous-option input').prop('checked')) {
                 readerSettings.scroll = "scroll-continuous";
             }
+            
+            if($('#EPUBPopupFootNotes-ON-option input').prop('checked')) {
+                
+                if (reader && reader.viewerSettings() && !reader.viewerSettings().epubPopupFootnotes){
+                    Dialogs.showModalMessage("Readium - " + Strings.i18n_EPUBPopupFootNotes, Strings.i18n_EPUBPopupFootNotes_reload);
+                }
+                readerSettings.epubPopupFootnotes = true;
+            }
+            else if($('#EPUBPopupFootNotes-OFF-option input').prop('checked')) {
+                
+                if (reader && reader.viewerSettings() && reader.viewerSettings().epubPopupFootnotes){
+                    Dialogs.showModalMessage("Readium - " + Strings.i18n_EPUBPopupFootNotes, Strings.i18n_EPUBPopupFootNotes_reload);
+                }
+                readerSettings.epubPopupFootnotes = false;
+            }
+            
 
             if($('#two-up-option input').prop('checked')) {
                 readerSettings.syntheticSpread = "double";
