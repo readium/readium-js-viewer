@@ -62,7 +62,7 @@ require.config({
 
         'readium_js_viewer/ModuleConfig' : {
 
-            'mathJaxUrl': HTTPServerRootFolder + '/node_modules/MathJax-grunt-concatenator/MathJax.js',
+            'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MathJax.js',
 
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
