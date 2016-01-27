@@ -36,6 +36,7 @@
         <author>
             <name>Readium</name>
         </author>
-       <link type="image/jpeg" href="epubReadingSystem/cover.png" rel="http://opds-spec.        <link type="application/epub+zip" href="epubReadingSystem/epubReadingSystem.epub" rel="http://opds-spec.org/acquisition"/>
+       <link type="image/jpeg" href="epubReadingSystem/cover.png" rel="http://opds-spec.org/image/thumbnail"/>        
+       <link type="application/epub+zip" href="epubReadingSystem/epubReadingSystem.epub" rel="http://opds-spec.org/acquisition"/>
     </entry>
 </feed>
