@@ -1,0 +1,18 @@
+
+#
+# See package.cson for more information
+#
+
+#=====================
+    genOPDS: '
+        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+            epub_content/epub_testsuite.opds
+            IDPF epub-testsuite master /content/30
+        &&
+        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+            epub_content/epub_samples.opds
+            IDPF epub3-samples master /30
+    '
+
+# https://github.com/IDPF/epub-testsuite/tree/master/content/30
+# https://github.com/IDPF/epub3-samples/tree/master/30
