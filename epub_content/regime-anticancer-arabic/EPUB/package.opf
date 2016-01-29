@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" prefix="cc: http://creativecommons.org/ns#" version="3.0" unique-identifier="bookid" xml:lang="fr" id="package">
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<!-- unique identifier -->
+		<dc:identifier id="bookid">code.google.com.epub-samples.regime-anticancer-arabic</dc:identifier>
+		<meta refines="#bookid" property="identifier-type" scheme="onix:codelist5">01</meta>
+<!-- language of the book -->
+		<dc:language>ar</dc:language>
+<!-- title -->
+		<dc:title id="title">Le Vrai Régime anti-cancer</dc:title>
+		<meta refines="#title" property="alternate-script" xml:lang="ar">السرطان من  للوقاية الصحيح الغذائي  النظام</meta>
+<!-- creator -->
+	<!-- 1 -->
+		<dc:creator id="creator1">Pr David Khayat</dc:creator>
+		<meta refines="#creator1" property="role" scheme="marc:relators">aut</meta>
+		<meta refines="#creator1" property="alternate-script" xml:lang="ar">دافيد  خيّاط لبروفيسورا</meta>
+		<meta refines="#creator1" property="display-seq">1</meta>
+	<!-- 2 -->
+		<dc:creator id="creator2">Nathalie Hutter-Lardeau</dc:creator>
+		<meta refines="#creator2" property="role" scheme="marc:relators">aut</meta>
+		<meta refines="#creator2" property="alternate-script" xml:lang="ar">اردو هاتر ناتالي</meta>
+		<meta refines="#creator2" property="display-seq">2</meta>
+	<!-- 3 -->
+		<dc:creator id="creator3">Marina Khalil Fayad</dc:creator>
+		<meta refines="#creator3" property="role" scheme="marc:relators">trl</meta>
+		<meta refines="#creator3" property="alternate-script" xml:lang="ar">فيّاض خليل مارينا</meta>
+<!-- When the display-seq property is attached to some, but not all, of the members in a set, only the elements identified as having a sequence should be included in any rendering. -->
+<!-- publisher -->
+		<dc:publisher>Hachette Antoine</dc:publisher>
+<!-- date -->
+		<dc:date>2012</dc:date>
+<!-- rights -->
+		<dc:rights xml:lang="en">This work is shared with the public using the Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license.</dc:rights>
+		<link rel="cc:license" href="http://creativecommons.org/licenses/by-sa/3.0/"/>
+<!-- contributor -->
+		<dc:contributor id="contributor">Vincent Gros</dc:contributor>
+		<meta refines="#contributor" property="role" scheme="marc:relators">mrk</meta>
+		<meta refines="#contributor" property="file-as">Gros, Vincent</meta>
+		<meta property="dcterms:modified">2012-08-28T18:00:00Z</meta>
+<!-- meta for the cover -->
+		<meta name="cover" content="cover"/>
+	</metadata>
+	<manifest>
+		<item href="Navigation/toc.ncx" id="ncx" media-type="application/x-dtbncx+xml" />
+		<item href="Navigation/nav.xhtml" id="nav" properties="nav" media-type="application/xhtml+xml"/>
+		<item href="Style/style.css" id="stylesheet" media-type="text/css"/>
+		<item href="Content/A_cover.xhtml" id="coverpage" media-type="application/xhtml+xml"/>
+		<item href="Image/cover.jpg" id="cover" media-type="image/jpeg"/>
+		<item href="Content/B_titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+		<item href="Image/titlepage.jpg" id="titleimage" media-type="image/jpeg"/>
+		<item href="Content/C_content.xhtml" id="content" media-type="application/xhtml+xml"/>
+	</manifest>
+	<spine toc="ncx" page-progression-direction="rtl">
+		<itemref idref="coverpage"/>
+		<itemref idref="titlepage"/>
+		<itemref idref="content"/>
+	</spine>
+</package>

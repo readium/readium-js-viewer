@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid">
+<metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dc:rights>Creative commons 2.5 CC-BY-SA</dc:rights>
+<meta property="dcterms:rights">Creative commons 2.5 CC-BY-SA</meta>
+<dc:creator>אורי עידן</dc:creator>
+<meta property="dcterms:creator">אורי עידן</meta>
+<dc:language>he</dc:language>
+<meta property="dcterms:language">he</meta>
+<dc:subject>פרוזה</dc:subject>
+<meta property="dcterms:subject">פרוזה</meta>
+<dc:description>כשנתיים לאחר תום הסיפור "רחשי הלב האחרונים" אבישי גר ביאכטה שלו במרינה הרצליה. לפתע הוא מקבל ביקור בלתי צפוי. ביקור זה מוביל להרפתקאות מעניינות לאורך חופי הארץ.
+כמו בשאר הספרים על אבישי, אין צורך לקרוא את הספרים האחרים על מנת להבין סיפור זה.
+תודה לד"ר אלדד רחביה על היעוץ הרפואי וליהודית גורג'י על ההגהה.</dc:description>
+<meta property="dcterms:description">כשנתיים לאחר תום הסיפור "רחשי הלב האחרונים" אבישי גר ביאכטה שלו במרינה הרצליה. לפתע הוא מקבל ביקור בלתי צפוי. ביקור זה מוביל להרפתקאות מעניינות לאורך חופי הארץ.
+כמו בשאר הספרים על אבישי, אין צורך לקרוא את הספרים האחרים על מנת להבין סיפור זה.
+תודה לד"ר אלדד רחביה על היעוץ הרפואי וליהודית גורג'י על ההגהה.</meta>
+<dc:identifier id="bookid">hee31112104</dc:identifier>
+<meta property="dcterms:identifier">hee31112104</meta>
+<dc:title>מפליגים בישראל</dc:title>
+<meta property="dcterms:title">מפליגים בישראל</meta>
+<dc:publisher>הליקון ספרים</dc:publisher>
+<meta property="dcterms:publisher">הליקון ספרים</meta>
+<dc:date>2013-01-25</dc:date>
+<meta property="dcterms:modified">2013-01-25T19:27:38Z</meta>
+<meta name="cover" content="cover-image" />
+</metadata>
+<manifest>
+<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+<item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml" />
+<item id="css" href="default.css" media-type="text/css"/>
+<item id="DejaVuSans" href="Fonts/DejaVuSans.ttf" media-type="application/x-font-ttf" />
+<item id="DejaVuSans-Oblique" href="Fonts/DejaVuSans-Oblique.ttf" media-type="application/x-font-ttf" />
+<item id="DejaVuSans-Bold" href="Fonts/DejaVuSans-Bold.ttf" media-type="application/x-font-ttf" />
+<item id="DejaVuSans-BoldOblique" href="Fonts/DejaVuSans-BoldOblique.ttf" media-type="application/x-font-ttf" />
+<item id="pdheb" href="Fonts/pdheb.ttf" media-type="application/x-font-ttf" />
+<item id="cover-image" href="israelsailing.jpg" media-type="image/jpeg" />
+<item id="licenselogo" href="logo_ccbysa.png" media-type="image/png" />
+<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>
+<item id="copyright" href="copyright.xhtml" media-type="application/xhtml+xml"/>
+<item id="chapter1" href="chapter1.xhtml" media-type="application/xhtml+xml"/>
+<item id="pic65" href="pic65.jpg" media-type="image/jpeg" />
+<item id="chapter2" href="chapter2.xhtml" media-type="application/xhtml+xml"/>
+<item id="c2" href="c2.jpg" media-type="image/jpeg" />
+<item id="chapter3" href="chapter3.xhtml" media-type="application/xhtml+xml"/>
+<item id="chapter4" href="chapter4.xhtml" media-type="application/xhtml+xml"/>
+<item id="chapter5" href="chapter5.xhtml" media-type="application/xhtml+xml"/>
+<item id="p2" href="p2.jpg" media-type="image/jpeg" />
+<item id="chapter6" href="chapter6.xhtml" media-type="application/xhtml+xml"/>
+<item id="DSC_0645" href="DSC_0645.jpg" media-type="image/jpeg" />
+<item id="chapter7" href="chapter7.xhtml" media-type="application/xhtml+xml"/>
+<item id="chapter8" href="chapter8.xhtml" media-type="application/xhtml+xml"/>
+<item id="chapter9" href="chapter9.xhtml" media-type="application/xhtml+xml"/>
+<item id="chapter10" href="chapter10.xhtml" media-type="application/xhtml+xml"/>
+<item id="p7" href="p7.jpg" media-type="image/jpeg" />
+</manifest>
+<spine page-progression-direction="rtl" toc="ncx">
+<itemref idref="cover" />
+<itemref idref="copyright" />
+<itemref idref="chapter1" />
+<itemref idref="chapter2" />
+<itemref idref="chapter3" />
+<itemref idref="chapter4" />
+<itemref idref="chapter5" />
+<itemref idref="chapter6" />
+<itemref idref="chapter7" />
+<itemref idref="chapter8" />
+<itemref idref="chapter9" />
+<itemref idref="chapter10" />
+</spine>
+<guide>
+<reference href="cover.xhtml" type="cover" title="Cover"/>
+</guide>
+</package>

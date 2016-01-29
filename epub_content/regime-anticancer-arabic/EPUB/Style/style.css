@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+/* Cover and titlepage (fullpage image) */
+figure.fullpage {
+	max-height:100%;
+	margin:0;
+	padding:0;
+}
+img {
+	max-height:100%;
+	margin:0;
+	padding:0;
+}
+
+
+/* titles */
+h2 {
+	font-size: 135%;
+	margin: 0em;
+}
+h1{
+	font-weight: bold;
+	font-size: 200%;
+	margin: 0em;
+}
+article h1 {
+	font-size: 120%;
+	margin: 1.71em 0 1.14em 0;
+}
+article h2 {
+	font-size: 110%;
+	margin: 1.23em 2.15em 0.62em 10.77em;
+}
+
+/* content */
+p {
+	text-align: justify;
+}
+strong {
+	font-weight: bold;
+}
+
+
+/* footnotes */
+p.footnotes {
+	font-size: 60%;
+}

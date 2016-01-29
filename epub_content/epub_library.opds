@@ -39,4 +39,76 @@
        <link type="image/jpeg" href="epubReadingSystem/cover.png" rel="http://opds-spec.org/image/thumbnail"/>        
        <link type="application/epub+zip" href="epubReadingSystem/epubReadingSystem.epub" rel="http://opds-spec.org/acquisition"/>
     </entry>
+    <entry>
+        <title>Alice in Wonderland</title>
+        <author>
+            <name>Lewis Carroll</name>
+        </author>
+        <link type="image/gif" href="alice3/images/alice01a.gif" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="alice3" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>Creative Commons - Shared Culture</title>
+        <author>
+            <name>Jesse Dylan</name>
+        </author>
+        <link type="image/jpeg" href="cc-shared-culture/EPUB/images/326261902_3fa36f548d.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="cc-shared-culture" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>Children's Literature</title>
+        <author>
+            <name>Charels Madison Curry</name>
+        </author>
+        <link type="image/png" href="childrens-literature/EPUB/images/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="childrens-literature" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>Thomas Cole - The Voyage of Life</title>
+        <author>
+            <name>Jesse Dylan</name>
+        </author>
+        <link type="image/jpeg" href="cole-voyage-of-life/EPUB/images/portrait.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="cole-voyage-of-life" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>מפליגים בישראל</title>
+        <author>
+            <name>אורי עידן</name>
+        </author>
+        <link type="image/jpeg" href="israelsailing/OEBPS/israelsailing.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="israelsailing" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>草枕</title>
+        <author>
+            <name>夏目 漱石</name>
+        </author>
+        <link type="image/jpeg" href="kusamakura-preview/EPUB/images/夏目漱石.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="kusamakura-preview" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>Le Vrai Régime anti-cancer</title>
+        <author>
+            <name>Pr David Khayat</name>
+        </author>
+        <link type="image/jpeg" href="regime-anti-cancer-arabix/EPUB/images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="regime-anticancer-arabic" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>SVG In Spine</title>
+        <author>
+            <name>EPUB Sample Project</name>
+        </author>
+        <link type="image/svg+xml" href="svg-in-spine/OPS/images/cover.svg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="svg-in-spine" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>The Waste Land</title>
+        <author>
+            <name>T.S. Eliot</name>
+        </author>
+        <link type="image/jpeg" href="wasteland-woff-obf/EPUB/wasteland-cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="wasteland-woff-obf" rel="http://opds-spec.org/acquisition"/>
+    </entry>
 </feed>

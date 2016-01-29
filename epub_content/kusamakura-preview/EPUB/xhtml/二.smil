@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="utf-8"?>
+<smil xmlns="http://www.w3.org/ns/SMIL"
+      xmlns:epub="http://www.idpf.org/2007/ops"
+      xmlns:dcterms="http://purl.org/dc/terms/"
+      version="3.0">
+  <head>
+    <metadata><!--
+    <meta property="dcterms:title" xml:lang="ja">二</meta>
+
+    <meta property="dcterms:isPartOf" xml:lang="ja"        >草枕</meta>
+    <meta property="dcterms:isPartOf" xml:lang="ja-Hrkt-JP">くさまくら</meta>
+
+    <meta property="media:duration"     xml:lang="ja">0:33:35.025</meta>
+    <meta property="media:narrator"     xml:lang="ja">持田怜香</meta>
+    <meta property="generator"          xml:lang="ja">Publisher 3.01 ビルド 220 # 044FSI300030248</meta>
+      <meta property="dcterms:identifier" xml:lang="ja">81353847207-00110</meta>-->
+    </metadata>
+  </head>
+  <body>
+    <seq epub:textref="二.xhtml" epub:type="chapter"> <!-- 1588.006s -->
+      <par id="ibcw_0001">
+        <text src="二.xhtml#dol_1_1_ibcw_0001"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="0.000" clipEnd="1.919"/>
+      </par>
+      <par id="ibcw_0002">
+        <text src="二.xhtml#dol_1_1_ibcw_0002"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1.919" clipEnd="7.859"/>
+      </par>
+      <par id="ibcw_0003">
+        <text src="二.xhtml#dol_1_1_ibcw_0003"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="7.859" clipEnd="15.539"/>
+      </par>
+      <par id="ibcw_0004">
+        <text src="二.xhtml#dol_1_1_ibcw_0004"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="15.539" clipEnd="19.199"/>
+      </par>
+      <par id="ibcw_0005">
+        <text src="二.xhtml#dol_1_1_ibcw_0005"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="19.199" clipEnd="30.179"/>
+      </par>
+      <par id="ibcw_0006">
+        <text src="二.xhtml#dol_1_1_ibcw_0006"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="30.179" clipEnd="40.160"/>
+      </par>
+      <par id="ibcw_0007">
+        <text src="二.xhtml#dol_1_1_ibcw_0007"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="40.160" clipEnd="45.140"/>
+      </par>
+      <par id="ibcw_0008">
+        <text src="二.xhtml#dol_1_1_ibcw_0008"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="45.140" clipEnd="55.400"/>
+      </par>
+      <par id="ibcw_0009">
+        <text src="二.xhtml#dol_1_1_ibcw_0009"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="55.400" clipEnd="61.340"/>
+      </par>
+      <par id="ibcw_0010">
+        <text src="二.xhtml#dol_1_1_ibcw_0010"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="61.340" clipEnd="79.459"/>
+      </par>
+      <par id="ibcw_0011">
+        <text src="二.xhtml#dol_1_1_ibcw_0011"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="79.459" clipEnd="84.319"/>
+      </par>
+      <par id="ibcw_0012">
+        <text src="二.xhtml#dol_1_1_ibcw_0012"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="84.319" clipEnd="92.419"/>
+      </par>
+      <par id="ibcw_0013">
+        <text src="二.xhtml#dol_1_1_ibcw_0013"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="92.419" clipEnd="97.159"/>
+      </par>
+      <par id="ibcw_0014">
+        <text src="二.xhtml#dol_1_1_ibcw_0014"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="97.159" clipEnd="101.479"/>
+      </par>
+      <par id="ibcw_0015">
+        <text src="二.xhtml#dol_1_1_ibcw_0015"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="101.479" clipEnd="107.779"/>
+      </par>
+      <par id="ibcw_0016">
+        <text src="二.xhtml#dol_1_1_ibcw_0016"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="107.779" clipEnd="118.699"/>
+      </par>
+      <par id="ibcw_0017">
+        <text src="二.xhtml#dol_1_1_ibcw_0017"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="118.699" clipEnd="124.481"/>
+      </par>
+      <par id="ibcw_0018">
+        <text src="二.xhtml#dol_1_1_ibcw_0018"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="124.481" clipEnd="140.321"/>
+      </par>
+      <par id="ibcw_0019">
+        <text src="二.xhtml#dol_1_1_ibcw_0019"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="140.321" clipEnd="144.101"/>
+      </par>
+      <par id="ibcw_0020">
+        <text src="二.xhtml#dol_1_1_ibcw_0020"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="144.101" clipEnd="153.521"/>
+      </par>
+      <par id="ibcw_0021">
+        <text src="二.xhtml#dol_1_1_ibcw_0021"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="153.521" clipEnd="158.321"/>
+      </par>
+      <par id="ibcw_0022">
+        <text src="二.xhtml#dol_1_1_ibcw_0022"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="158.321" clipEnd="162.821"/>
+      </par>
+      <par id="ibcw_0023">
+        <text src="二.xhtml#dol_1_1_ibcw_0023"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="162.821" clipEnd="166.661"/>
+      </par>
+      <par id="ibcw_0024">
+        <text src="二.xhtml#dol_1_1_ibcw_0024"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="166.661" clipEnd="171.821"/>
+      </par>
+      <par id="ibcw_0025">
+        <text src="二.xhtml#dol_1_1_ibcw_0025"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="171.821" clipEnd="176.194"/>
+      </par>
+      <par id="ibcw_0026">
+        <text src="二.xhtml#dol_1_1_ibcw_0026"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="176.194" clipEnd="179.313"/>
+      </par>
+      <par id="ibcw_0027">
+        <text src="二.xhtml#dol_1_1_ibcw_0027"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="179.313" clipEnd="188.732"/>
+      </par>
+      <par id="ibcw_0028">
+        <text src="二.xhtml#dol_1_1_ibcw_0028"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="188.732" clipEnd="198.452"/>
+      </par>
+      <par id="ibcw_0029">
+        <text src="二.xhtml#dol_1_1_ibcw_0029"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="198.452" clipEnd="202.471"/>
+      </par>
+      <par id="ibcw_0030">
+        <text src="二.xhtml#dol_1_1_ibcw_0030"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="202.471" clipEnd="207.691"/>
+      </par>
+      <par id="ibcw_0031">
+        <text src="二.xhtml#dol_1_1_ibcw_0031"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="207.691" clipEnd="214.711"/>
+      </par>
+      <par id="ibcw_0032">
+        <text src="二.xhtml#dol_1_1_ibcw_0032"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="214.711" clipEnd="220.651"/>
+      </par>
+      <par id="ibcw_0033">
+        <text src="二.xhtml#dol_1_1_ibcw_0033"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="220.651" clipEnd="231.214"/>
+      </par>
+      <par id="ibcw_0034">
+        <text src="二.xhtml#dol_1_1_ibcw_0034"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="231.214" clipEnd="236.854"/>
+      </par>
+      <par id="ibcw_0035">
+        <text src="二.xhtml#dol_1_1_ibcw_0035"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="236.854" clipEnd="252.394"/>
+      </par>
+      <par id="ibcw_0036">
+        <text src="二.xhtml#dol_1_1_ibcw_0036"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="252.394" clipEnd="259.894"/>
+      </par>
+      <par id="ibcw_0037">
+        <text src="二.xhtml#dol_1_1_ibcw_0037"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="259.894" clipEnd="264.634"/>
+      </par>
+      <par id="ibcw_0038">
+        <text src="二.xhtml#dol_1_1_ibcw_0038"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="264.634" clipEnd="269.134"/>
+      </par>
+      <par id="ibcw_0039">
+        <text src="二.xhtml#dol_1_1_ibcw_0039"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="269.134" clipEnd="272.074"/>
+      </par>
+      <par id="ibcw_0040">
+        <text src="二.xhtml#dol_1_1_ibcw_0040"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="272.074" clipEnd="278.133"/>
+      </par>
+      <par id="ibcw_0041">
+        <text src="二.xhtml#dol_1_1_ibcw_0041"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="278.133" clipEnd="282.093"/>
+      </par>
+      <par id="ibcw_0042">
+        <text src="二.xhtml#dol_1_1_ibcw_0042"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="282.093" clipEnd="287.313"/>
+      </par>
+      <par id="ibcw_0043">
+        <text src="二.xhtml#dol_1_1_ibcw_0043"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="287.313" clipEnd="293.493"/>
+      </par>
+      <par id="ibcw_0044">
+        <text src="二.xhtml#dol_1_1_ibcw_0044"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="293.493" clipEnd="298.593"/>
+      </par>
+      <par id="ibcw_0045">
+        <text src="二.xhtml#dol_1_1_ibcw_0045"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="298.593" clipEnd="302.793"/>
+      </par>
+      <par id="ibcw_0046">
+        <text src="二.xhtml#dol_1_1_ibcw_0046"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="302.793" clipEnd="312.393"/>
+      </par>
+      <par id="ibcw_0047">
+        <text src="二.xhtml#dol_1_1_ibcw_0047"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="312.393" clipEnd="323.423"/>
+      </par>
+      <par id="ibcw_0048">
+        <text src="二.xhtml#dol_1_1_ibcw_0048"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="323.423" clipEnd="329.423"/>
+      </par>
+      <par id="ibcw_0049">
+        <text src="二.xhtml#dol_1_1_ibcw_0049"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="329.423" clipEnd="338.243"/>
+      </par>
+      <par id="ibcw_0050">
+        <text src="二.xhtml#dol_1_1_ibcw_0050"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="338.243" clipEnd="348.443"/>
+      </par>
+      <par id="ibcw_0051">
+        <text src="二.xhtml#dol_1_1_ibcw_0051"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="348.443" clipEnd="356.722"/>
+      </par>
+      <par id="ibcw_0052">
+        <text src="二.xhtml#dol_1_1_ibcw_0052"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="356.722" clipEnd="365.196"/>
+      </par>
+      <par id="ibcw_0053">
+        <text src="二.xhtml#dol_1_1_ibcw_0053"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="365.196" clipEnd="373.596"/>
+      </par>
+      <par id="ibcw_0054">
+        <text src="二.xhtml#dol_1_1_ibcw_0054"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="373.596" clipEnd="382.896"/>
+      </par>
+      <par id="ibcw_0055">
+        <text src="二.xhtml#dol_1_1_ibcw_0055"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="382.896" clipEnd="385.896"/>
+      </par>
+      <par id="ibcw_0056">
+        <text src="二.xhtml#dol_1_1_ibcw_0056"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="385.896" clipEnd="390.636"/>
+      </par>
+      <par id="ibcw_0057">
+        <text src="二.xhtml#dol_1_1_ibcw_0057"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="390.636" clipEnd="393.636"/>
+      </par>
+      <par id="ibcw_0058">
+        <text src="二.xhtml#dol_1_1_ibcw_0058"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="393.636" clipEnd="397.776"/>
+      </par>
+      <par id="ibcw_0059">
+        <text src="二.xhtml#dol_1_1_ibcw_0059"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="397.776" clipEnd="401.520"/>
+      </par>
+      <par id="ibcw_0060">
+        <text src="二.xhtml#dol_1_1_ibcw_0060"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="401.520" clipEnd="403.559"/>
+      </par>
+      <par id="ibcw_0061">
+        <text src="二.xhtml#dol_1_1_ibcw_0061"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="403.559" clipEnd="408.478"/>
+      </par>
+      <par id="ibcw_0062">
+        <text src="二.xhtml#dol_1_1_ibcw_0062"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="408.478" clipEnd="415.018"/>
+      </par>
+      <par id="ibcw_0063">
+        <text src="二.xhtml#dol_1_1_ibcw_0063"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="415.018" clipEnd="425.637"/>
+      </par>
+      <par id="ibcw_0064">
+        <text src="二.xhtml#dol_1_1_ibcw_0064"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="425.637" clipEnd="428.277"/>
+      </par>
+      <par id="ibcw_0065">
+        <text src="二.xhtml#dol_1_1_ibcw_0065"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="428.277" clipEnd="432.237"/>
+      </par>
+      <par id="ibcw_0066">
+        <text src="二.xhtml#dol_1_1_ibcw_0066"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="432.237" clipEnd="442.497"/>
+      </par>
+      <par id="ibcw_0067">
+        <text src="二.xhtml#dol_1_1_ibcw_0067"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="442.497" clipEnd="449.841"/>
+      </par>
+      <par id="ibcw_0068">
+        <text src="二.xhtml#dol_1_1_ibcw_0068"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="449.841" clipEnd="454.041"/>
+      </par>
+      <par id="ibcw_0069">
+        <text src="二.xhtml#dol_1_1_ibcw_0069"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="454.041" clipEnd="458.061"/>
+      </par>
+      <par id="ibcw_0070">
+        <text src="二.xhtml#dol_1_1_ibcw_0070"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="458.061" clipEnd="485.980"/>
+      </par>
+      <par id="ibcw_0071">
+        <text src="二.xhtml#dol_1_1_ibcw_0071"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="485.980" clipEnd="497.080"/>
+      </par>
+      <par id="ibcw_0072">
+        <text src="二.xhtml#dol_1_1_ibcw_0072"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="497.080" clipEnd="509.020"/>
+      </par>
+      <par id="ibcw_0073">
+        <text src="二.xhtml#dol_1_1_ibcw_0073"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="509.020" clipEnd="517.000"/>
+      </par>
+      <par id="ibcw_0074">
+        <text src="二.xhtml#dol_1_1_ibcw_0074"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="517.000" clipEnd="524.200"/>
+      </par>
+      <par id="ibcw_0075">
+        <text src="二.xhtml#dol_1_1_ibcw_0075"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="524.200" clipEnd="535.119"/>
+      </par>
+      <par id="ibcw_0076">
+        <text src="二.xhtml#dol_1_1_ibcw_0076"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="535.119" clipEnd="540.999"/>
+      </par>
+      <par id="ibcw_0077">
+        <text src="二.xhtml#dol_1_1_ibcw_0077"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="540.999" clipEnd="552.279"/>
+      </par>
+      <par id="ibcw_0078">
+        <text src="二.xhtml#dol_1_1_ibcw_0078"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="552.279" clipEnd="561.699"/>
+      </par>
+      <par id="ibcw_0079">
+        <text src="二.xhtml#dol_1_1_ibcw_0079"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="561.699" clipEnd="579.519"/>
+      </par>
+      <par id="ibcw_0080">
+        <text src="二.xhtml#dol_1_1_ibcw_0080"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="579.519" clipEnd="588.458"/>
+      </par>
+      <par id="ibcw_0081">
+        <text src="二.xhtml#dol_1_1_ibcw_0081"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="588.458" clipEnd="599.323"/>
+      </par>
+      <par id="ibcw_0082">
+        <text src="二.xhtml#dol_1_1_ibcw_0082"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="599.323" clipEnd="601.183"/>
+      </par>
+      <par id="ibcw_0083">
+        <text src="二.xhtml#dol_1_1_ibcw_0083"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="601.183" clipEnd="612.555"/>
+      </par>
+      <par id="ibcw_0084">
+        <text src="二.xhtml#dol_1_1_ibcw_0084"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="612.555" clipEnd="617.715"/>
+      </par>
+      <par id="ibcw_0085">
+        <text src="二.xhtml#dol_1_1_ibcw_0085"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="617.715" clipEnd="628.755"/>
+      </par>
+      <par id="ibcw_0086">
+        <text src="二.xhtml#dol_1_1_ibcw_0086"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="628.755" clipEnd="633.435"/>
+      </par>
+      <par id="ibcw_0087">
+        <text src="二.xhtml#dol_1_1_ibcw_0087"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="633.435" clipEnd="637.287"/>
+      </par>
+      <par id="ibcw_0088">
+        <text src="二.xhtml#dol_1_1_ibcw_0088"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="637.287" clipEnd="645.146"/>
+      </par>
+      <par id="ibcw_0089">
+        <text src="二.xhtml#dol_1_1_ibcw_0089"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="645.146" clipEnd="652.466"/>
+      </par>
+      <par id="ibcw_0090">
+        <text src="二.xhtml#dol_1_1_ibcw_0090"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="652.466" clipEnd="656.846"/>
+      </par>
+      <par id="ibcw_0091">
+        <text src="二.xhtml#dol_1_1_ibcw_0091"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="656.846" clipEnd="659.606"/>
+      </par>
+      <par id="ibcw_0092">
+        <text src="二.xhtml#dol_1_1_ibcw_0092"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="659.606" clipEnd="663.806"/>
+      </par>
+      <par id="ibcw_0093">
+        <text src="二.xhtml#dol_1_1_ibcw_0093"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="663.806" clipEnd="669.086"/>
+      </par>
+      <par id="ibcw_0094">
+        <text src="二.xhtml#dol_1_1_ibcw_0094"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="669.086" clipEnd="672.806"/>
+      </par>
+      <par id="ibcw_0095">
+        <text src="二.xhtml#dol_1_1_ibcw_0095"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="672.806" clipEnd="678.986"/>
+      </par>
+      <par id="ibcw_0096">
+        <text src="二.xhtml#dol_1_1_ibcw_0096"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="678.986" clipEnd="686.066"/>
+      </par>
+      <par id="ibcw_0097">
+        <text src="二.xhtml#dol_1_1_ibcw_0097"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="686.066" clipEnd="690.686"/>
+      </par>
+      <par id="ibcw_0098">
+        <text src="二.xhtml#dol_1_1_ibcw_0098"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="690.686" clipEnd="694.226"/>
+      </par>
+      <par id="ibcw_0099">
+        <text src="二.xhtml#dol_1_1_ibcw_0099"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="694.226" clipEnd="699.746"/>
+      </par>
+      <par id="ibcw_0100">
+        <text src="二.xhtml#dol_1_1_ibcw_0100"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="699.746" clipEnd="703.586"/>
+      </par>
+      <par id="ibcw_0101">
+        <text src="二.xhtml#dol_1_1_ibcw_0101"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="703.586" clipEnd="716.966"/>
+      </par>
+      <par id="ibcw_0102">
+        <text src="二.xhtml#dol_1_1_ibcw_0102"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="716.966" clipEnd="724.706"/>
+      </par>
+      <par id="ibcw_0103">
+        <text src="二.xhtml#dol_1_1_ibcw_0103"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="724.706" clipEnd="733.106"/>
+      </par>
+      <par id="ibcw_0104">
+        <text src="二.xhtml#dol_1_1_ibcw_0104"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="733.106" clipEnd="739.225"/>
+      </par>
+      <par id="ibcw_0105">
+        <text src="二.xhtml#dol_1_1_ibcw_0105"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="739.225" clipEnd="745.944"/>
+      </par>
+      <par id="ibcw_0106">
+        <text src="二.xhtml#dol_1_1_ibcw_0106"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="745.944" clipEnd="748.358"/>
+      </par>
+      <par id="ibcw_0107">
+        <text src="二.xhtml#dol_1_1_ibcw_0107"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="748.358" clipEnd="754.053"/>
+      </par>
+      <par id="ibcw_0108">
+        <text src="二.xhtml#dol_1_1_ibcw_0108"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="754.053" clipEnd="761.012"/>
+      </par>
+      <par id="ibcw_0109">
+        <text src="二.xhtml#dol_1_1_ibcw_0109"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="761.012" clipEnd="764.852"/>
+      </par>
+      <par id="ibcw_0110">
+        <text src="二.xhtml#dol_1_1_ibcw_0110"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="764.852" clipEnd="772.771"/>
+      </par>
+      <par id="ibcw_0111">
+        <text src="二.xhtml#dol_1_1_ibcw_0111"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="772.771" clipEnd="781.110"/>
+      </par>
+      <par id="ibcw_0112">
+        <text src="二.xhtml#dol_1_1_ibcw_0112"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="781.110" clipEnd="787.530"/>
+      </par>
+      <par id="ibcw_0113">
+        <text src="二.xhtml#dol_1_1_ibcw_0113"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="787.530" clipEnd="796.050"/>
+      </par>
+      <par id="ibcw_0114">
+        <text src="二.xhtml#dol_1_1_ibcw_0114"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="796.050" clipEnd="803.730"/>
+      </par>
+      <par id="ibcw_0115">
+        <text src="二.xhtml#dol_1_1_ibcw_0115"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="803.730" clipEnd="811.650"/>
+      </par>
+      <par id="ibcw_0116">
+        <text src="二.xhtml#dol_1_1_ibcw_0116"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="811.650" clipEnd="827.670"/>
+      </par>
+      <par id="ibcw_0117">
+        <text src="二.xhtml#dol_1_1_ibcw_0117"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="827.670" clipEnd="847.649"/>
+      </par>
+      <par id="ibcw_0118">
+        <text src="二.xhtml#dol_1_1_ibcw_0118"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="847.649" clipEnd="855.089"/>
+      </par>
+      <par id="ibcw_0119">
+        <text src="二.xhtml#dol_1_1_ibcw_0119"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="855.089" clipEnd="869.489"/>
+      </par>
+      <par id="ibcw_0120">
+        <text src="二.xhtml#dol_1_1_ibcw_0120"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="869.489" clipEnd="886.349"/>
+      </par>
+      <par id="ibcw_0121">
+        <text src="二.xhtml#dol_1_1_ibcw_0121"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="886.349" clipEnd="894.387"/>
+      </par>
+      <par id="ibcw_0122">
+        <text src="二.xhtml#dol_1_1_ibcw_0122"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="894.387" clipEnd="896.737"/>
+      </par>
+      <par id="ibcw_0123">
+        <text src="二.xhtml#dol_1_1_ibcw_0123"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="896.737" clipEnd="899.180"/>
+      </par>
+      <par id="ibcw_0124">
+        <text src="二.xhtml#dol_1_1_ibcw_0124"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="899.180" clipEnd="903.859"/>
+      </par>
+      <par id="ibcw_0125">
+        <text src="二.xhtml#dol_1_1_ibcw_0125"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="903.859" clipEnd="912.799"/>
+      </par>
+      <par id="ibcw_0126">
+        <text src="二.xhtml#dol_1_1_ibcw_0126"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="912.799" clipEnd="915.799"/>
+      </par>
+      <par id="ibcw_0127">
+        <text src="二.xhtml#dol_1_1_ibcw_0127"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="915.799" clipEnd="918.139"/>
+      </par>
+      <par id="ibcw_0128">
+        <text src="二.xhtml#dol_1_1_ibcw_0128"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="918.139" clipEnd="922.999"/>
+      </par>
+      <par id="ibcw_0129">
+        <text src="二.xhtml#dol_1_1_ibcw_0129"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="922.999" clipEnd="925.639"/>
+      </par>
+      <par id="ibcw_0130">
+        <text src="二.xhtml#dol_1_1_ibcw_0130"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="925.639" clipEnd="930.859"/>
+      </par>
+      <par id="ibcw_0131">
+        <text src="二.xhtml#dol_1_1_ibcw_0131"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="930.859" clipEnd="934.639"/>
+      </par>
+      <par id="ibcw_0132">
+        <text src="二.xhtml#dol_1_1_ibcw_0132"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="934.639" clipEnd="938.599"/>
+      </par>
+      <par id="ibcw_0133">
+        <text src="二.xhtml#dol_1_1_ibcw_0133"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="938.599" clipEnd="943.459"/>
+      </par>
+      <par id="ibcw_0134">
+        <text src="二.xhtml#dol_1_1_ibcw_0134"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="943.459" clipEnd="947.059"/>
+      </par>
+      <par id="ibcw_0135">
+        <text src="二.xhtml#dol_1_1_ibcw_0135"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="947.059" clipEnd="950.059"/>
+      </par>
+      <par id="ibcw_0136">
+        <text src="二.xhtml#dol_1_1_ibcw_0136"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="950.059" clipEnd="954.199"/>
+      </par>
+      <par id="ibcw_0137">
+        <text src="二.xhtml#dol_1_1_ibcw_0137"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="954.199" clipEnd="958.579"/>
+      </par>
+      <par id="ibcw_0138">
+        <text src="二.xhtml#dol_1_1_ibcw_0138"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="958.579" clipEnd="965.479"/>
+      </par>
+      <par id="ibcw_0139">
+        <text src="二.xhtml#dol_1_1_ibcw_0139"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="965.479" clipEnd="972.499"/>
+      </par>
+      <par id="ibcw_0140">
+        <text src="二.xhtml#dol_1_1_ibcw_0140"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="972.499" clipEnd="994.285"/>
+      </par>
+      <par id="ibcw_0141">
+        <text src="二.xhtml#dol_1_1_ibcw_0141"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="994.285" clipEnd="1000.045"/>
+      </par>
+      <par id="ibcw_0142">
+        <text src="二.xhtml#dol_1_1_ibcw_0142"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1000.045" clipEnd="1010.605"/>
+      </par>
+      <par id="ibcw_0143">
+        <text src="二.xhtml#dol_1_1_ibcw_0143"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1010.605" clipEnd="1013.905"/>
+      </par>
+      <par id="ibcw_0144">
+        <text src="二.xhtml#dol_1_1_ibcw_0144"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1013.905" clipEnd="1022.245"/>
+      </par>
+      <par id="ibcw_0145">
+        <text src="二.xhtml#dol_1_1_ibcw_0145"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1022.245" clipEnd="1028.425"/>
+      </par>
+      <par id="ibcw_0146">
+        <text src="二.xhtml#dol_1_1_ibcw_0146"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1028.425" clipEnd="1031.965"/>
+      </par>
+      <par id="ibcw_0147">
+        <text src="二.xhtml#dol_1_1_ibcw_0147"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1031.965" clipEnd="1034.485"/>
+      </par>
+      <par id="ibcw_0148">
+        <text src="二.xhtml#dol_1_1_ibcw_0148"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1034.485" clipEnd="1039.465"/>
+      </par>
+      <par id="ibcw_0149">
+        <text src="二.xhtml#dol_1_1_ibcw_0149"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1039.465" clipEnd="1054.045"/>
+      </par>
+      <par id="ibcw_0150">
+        <text src="二.xhtml#dol_1_1_ibcw_0150"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1054.045" clipEnd="1057.825"/>
+      </par>
+      <par id="ibcw_0151">
+        <text src="二.xhtml#dol_1_1_ibcw_0151"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1057.825" clipEnd="1063.225"/>
+      </par>
+      <par id="ibcw_0152">
+        <text src="二.xhtml#dol_1_1_ibcw_0152"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1063.225" clipEnd="1072.764"/>
+      </par>
+      <par id="ibcw_0153">
+        <text src="二.xhtml#dol_1_1_ibcw_0153"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1072.764" clipEnd="1079.783"/>
+      </par>
+      <par id="ibcw_0154">
+        <text src="二.xhtml#dol_1_1_ibcw_0154"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1079.783" clipEnd="1082.423"/>
+      </par>
+      <par id="ibcw_0155">
+        <text src="二.xhtml#dol_1_1_ibcw_0155"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1082.423" clipEnd="1096.883"/>
+      </par>
+      <par id="ibcw_0156">
+        <text src="二.xhtml#dol_1_1_ibcw_0156"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1096.883" clipEnd="1114.163"/>
+      </par>
+      <par id="ibcw_0157">
+        <text src="二.xhtml#dol_1_1_ibcw_0157"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1114.163" clipEnd="1120.823"/>
+      </par>
+      <par id="ibcw_0158">
+        <text src="二.xhtml#dol_1_1_ibcw_0158"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1120.823" clipEnd="1144.703"/>
+      </par>
+      <par id="ibcw_0159">
+        <text src="二.xhtml#dol_1_1_ibcw_0159"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1144.703" clipEnd="1151.388"/>
+      </par>
+      <par id="ibcw_0160">
+        <text src="二.xhtml#dol_1_1_ibcw_0160"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1151.388" clipEnd="1158.948"/>
+      </par>
+      <par id="ibcw_0161">
+        <text src="二.xhtml#dol_1_1_ibcw_0161"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1158.948" clipEnd="1162.188"/>
+      </par>
+      <par id="ibcw_0162">
+        <text src="二.xhtml#dol_1_1_ibcw_0162"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1162.188" clipEnd="1166.508"/>
+      </par>
+      <par id="ibcw_0163">
+        <text src="二.xhtml#dol_1_1_ibcw_0163"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1166.508" clipEnd="1172.868"/>
+      </par>
+      <par id="ibcw_0164">
+        <text src="二.xhtml#dol_1_1_ibcw_0164"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1172.868" clipEnd="1176.828"/>
+      </par>
+      <par id="ibcw_0165">
+        <text src="二.xhtml#dol_1_1_ibcw_0165"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1176.828" clipEnd="1179.888"/>
+      </par>
+      <par id="ibcw_0166">
+        <text src="二.xhtml#dol_1_1_ibcw_0166"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1179.888" clipEnd="1183.127"/>
+      </par>
+      <par id="ibcw_0167">
+        <text src="二.xhtml#dol_1_1_ibcw_0167"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1183.127" clipEnd="1187.927"/>
+      </par>
+      <par id="ibcw_0168">
+        <text src="二.xhtml#dol_1_1_ibcw_0168"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1187.927" clipEnd="1194.767"/>
+      </par>
+      <par id="ibcw_0169">
+        <text src="二.xhtml#dol_1_1_ibcw_0169"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1194.767" clipEnd="1206.587"/>
+      </par>
+      <par id="ibcw_0170">
+        <text src="二.xhtml#dol_1_1_ibcw_0170"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1206.587" clipEnd="1213.758"/>
+      </par>
+      <par id="ibcw_0171">
+        <text src="二.xhtml#dol_1_1_ibcw_0171"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1213.758" clipEnd="1223.777"/>
+      </par>
+      <par id="ibcw_0172">
+        <text src="二.xhtml#dol_1_1_ibcw_0172"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1223.777" clipEnd="1238.896"/>
+      </par>
+      <par id="ibcw_0173">
+        <text src="二.xhtml#dol_1_1_ibcw_0173"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1238.896" clipEnd="1242.256"/>
+      </par>
+      <par id="ibcw_0174">
+        <text src="二.xhtml#dol_1_1_ibcw_0174"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1242.256" clipEnd="1245.856"/>
+      </par>
+      <par id="ibcw_0175">
+        <text src="二.xhtml#dol_1_1_ibcw_0175"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1245.856" clipEnd="1248.736"/>
+      </par>
+      <par id="ibcw_0176">
+        <text src="二.xhtml#dol_1_1_ibcw_0176"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1248.736" clipEnd="1253.716"/>
+      </par>
+      <par id="ibcw_0177">
+        <text src="二.xhtml#dol_1_1_ibcw_0177"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1253.716" clipEnd="1260.496"/>
+      </par>
+      <par id="ibcw_0178">
+        <text src="二.xhtml#dol_1_1_ibcw_0178"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1260.496" clipEnd="1264.696"/>
+      </par>
+      <par id="ibcw_0179">
+        <text src="二.xhtml#dol_1_1_ibcw_0179"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1264.696" clipEnd="1271.776"/>
+      </par>
+      <par id="ibcw_0180">
+        <text src="二.xhtml#dol_1_1_ibcw_0180"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1271.776" clipEnd="1274.596"/>
+      </par>
+      <par id="ibcw_0181">
+        <text src="二.xhtml#dol_1_1_ibcw_0181"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1274.596" clipEnd="1277.056"/>
+      </par>
+      <par id="ibcw_0182">
+        <text src="二.xhtml#dol_1_1_ibcw_0182"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1277.056" clipEnd="1283.956"/>
+      </par>
+      <par id="ibcw_0183">
+        <text src="二.xhtml#dol_1_1_ibcw_0183"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1283.956" clipEnd="1289.896"/>
+      </par>
+      <par id="ibcw_0184">
+        <text src="二.xhtml#dol_1_1_ibcw_0184"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1289.896" clipEnd="1292.536"/>
+      </par>
+      <par id="ibcw_0185">
+        <text src="二.xhtml#dol_1_1_ibcw_0185"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1292.536" clipEnd="1298.416"/>
+      </par>
+      <par id="ibcw_0186">
+        <text src="二.xhtml#dol_1_1_ibcw_0186"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1298.416" clipEnd="1300.756"/>
+      </par>
+      <par id="ibcw_0187">
+        <text src="二.xhtml#dol_1_1_ibcw_0187"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1300.756" clipEnd="1302.076"/>
+      </par>
+      <par id="ibcw_0188">
+        <text src="二.xhtml#dol_1_1_ibcw_0188"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1302.076" clipEnd="1305.796"/>
+      </par>
+      <par id="ibcw_0189">
+        <text src="二.xhtml#dol_1_1_ibcw_0189"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1305.796" clipEnd="1311.735"/>
+      </par>
+      <par id="ibcw_0190">
+        <text src="二.xhtml#dol_1_1_ibcw_0190"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1311.735" clipEnd="1321.455"/>
+      </par>
+      <par id="ibcw_0191">
+        <text src="二.xhtml#dol_1_1_ibcw_0191"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1321.455" clipEnd="1323.975"/>
+      </par>
+      <par id="ibcw_0192">
+        <text src="二.xhtml#dol_1_1_ibcw_0192"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1323.975" clipEnd="1331.775"/>
+      </par>
+      <par id="ibcw_0193">
+        <text src="二.xhtml#dol_1_1_ibcw_0193"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1331.775" clipEnd="1333.935"/>
+      </par>
+      <par id="ibcw_0194">
+        <text src="二.xhtml#dol_1_1_ibcw_0194"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1333.935" clipEnd="1347.795"/>
+      </par>
+      <par id="ibcw_0195">
+        <text src="二.xhtml#dol_1_1_ibcw_0195"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1347.795" clipEnd="1360.094"/>
+      </par>
+      <par id="ibcw_0196">
+        <text src="二.xhtml#dol_1_1_ibcw_0196"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1360.094" clipEnd="1367.534"/>
+      </par>
+      <par id="ibcw_0197">
+        <text src="二.xhtml#dol_1_1_ibcw_0197"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1367.534" clipEnd="1381.754"/>
+      </par>
+      <par id="ibcw_0198">
+        <text src="二.xhtml#dol_1_1_ibcw_0198"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1381.754" clipEnd="1390.274"/>
+      </par>
+      <par id="ibcw_0199">
+        <text src="二.xhtml#dol_1_1_ibcw_0199"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1390.274" clipEnd="1396.514"/>
+      </par>
+      <par id="ibcw_0200">
+        <text src="二.xhtml#dol_1_1_ibcw_0200"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1396.514" clipEnd="1402.694"/>
+      </par>
+      <par id="ibcw_0201">
+        <text src="二.xhtml#dol_1_1_ibcw_0201"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1402.694" clipEnd="1407.854"/>
+      </par>
+      <par id="ibcw_0202">
+        <text src="二.xhtml#dol_1_1_ibcw_0202"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1407.854" clipEnd="1414.178"/>
+      </par>
+      <par id="ibcw_0203">
+        <text src="二.xhtml#dol_1_1_ibcw_0203"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1414.178" clipEnd="1427.549"/>
+      </par>
+      <par id="ibcw_0204">
+        <text src="二.xhtml#dol_1_1_ibcw_0204"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1427.549" clipEnd="1432.708"/>
+      </par>
+      <par id="ibcw_0205">
+        <text src="二.xhtml#dol_1_1_ibcw_0205"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1432.708" clipEnd="1446.481"/>
+      </par>
+      <par id="ibcw_0206">
+        <text src="二.xhtml#dol_1_1_ibcw_0206"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1446.481" clipEnd="1452.420"/>
+      </par>
+      <par id="ibcw_0207">
+        <text src="二.xhtml#dol_1_1_ibcw_0207"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1452.420" clipEnd="1474.103"/>
+      </par>
+      <par id="ibcw_0208">
+        <text src="二.xhtml#dol_1_1_ibcw_0208"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1474.103" clipEnd="1481.963"/>
+      </par>
+      <par id="ibcw_0209">
+        <text src="二.xhtml#dol_1_1_ibcw_0209"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1481.963" clipEnd="1488.263"/>
+      </par>
+      <par id="ibcw_0210">
+        <text src="二.xhtml#dol_1_1_ibcw_0210"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1488.263" clipEnd="1496.603"/>
+      </par>
+      <par id="ibcw_0211">
+        <text src="二.xhtml#dol_1_1_ibcw_0211"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1496.603" clipEnd="1510.823"/>
+      </par>
+      <par id="ibcw_0212">
+        <text src="二.xhtml#dol_1_1_ibcw_0212"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1510.823" clipEnd="1512.083"/>
+      </par>
+      <par id="ibcw_0213">
+        <text src="二.xhtml#dol_1_1_ibcw_0213"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1512.083" clipEnd="1518.563"/>
+      </par>
+      <par id="ibcw_0214">
+        <text src="二.xhtml#dol_1_1_ibcw_0214"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1518.563" clipEnd="1528.043"/>
+      </par>
+      <par id="ibcw_0215">
+        <text src="二.xhtml#dol_1_1_ibcw_0215"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1528.043" clipEnd="1541.063"/>
+      </par>
+      <par id="ibcw_0216">
+        <text src="二.xhtml#dol_1_1_ibcw_0216"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1541.063" clipEnd="1552.463"/>
+      </par>
+      <par id="ibcw_0217">
+        <text src="二.xhtml#dol_1_1_ibcw_0217"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1552.463" clipEnd="1565.140"/>
+      </par>
+      <par id="ibcw_0218">
+        <text src="二.xhtml#dol_1_1_ibcw_0218"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1565.140" clipEnd="1574.266"/>
+      </par>
+      <par id="ibcw_0219">
+        <text src="二.xhtml#dol_1_1_ibcw_0219"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1574.266" clipEnd="1580.386"/>
+      </par>
+      <par id="ibcw_0220">
+        <text src="二.xhtml#dol_1_1_ibcw_0220"/>
+        <audio src="../audio/ulnr0036.mp3" clipBegin="1580.386" clipEnd="1588.006"/>
+      </par>
+    </seq>
+  </body>
+</smil>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/C:/EPub/epub-revision/build/30/schema/package-30.rnc" type="application/relax-ng-compact-syntax"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="ja"
+         prefix="foaf: http://xmlns.com/foaf/spec/"
+         unique-identifier="identifier0"> <!--pub-id-->
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:dcterms="http://purl.org/dc/terms/">
+
+    <!-- identifier -->
+    <!-- ISBN番号がある場合は、以下を利用。`unique-identifier' を、`pub-id' にする。
+    <dc:identifier id="isbn" id="pub-id"
+                   >urn:isbn:978-4-XXXX-YYYY-Z</dc:identifier>
+    <meta property="dcterms:identifier" id="isbn"
+          >urn:isbn:978-4-XXXX-YYYY-Z</meta>
+    <meta refines="#pub-id" property="scheme" datatype="xsd:string">isbn</meta>
+    -->
+        <dc:identifier id="identifier0">urn:uuid:f86268a4-683a-4bba-acf1-f78e8e39e580</dc:identifier>
+
+    <!-- title -->
+    <dc:title id="題名" xml:lang="ja-JP" dir="rtl">草枕</dc:title>
+    <meta refines="#題名" property="title-type" id="title-type">main</meta>
+    <meta refines="#題名" property="file-as" xml:lang="ja-Hrkt-JP">くさまくら</meta>
+    <meta refines="#題名" property="alternate-script" xml:lang="ja-Hrkt-JP">くさまくら</meta>
+    <meta refines="#題名" property="alternate-script" xml:lang="en">Kusamakura</meta>
+
+    <!-- language -->
+    <dc:language>ja-jp</dc:language>
+
+    <!-- author -->
+    <meta property="dcterms:creator" id="著者">夏目 漱石</meta>
+    <meta refines="#著者" property="file-as" xml:lang="ja-Hrkt-JP">なつめ そうせき</meta>
+    <meta refines="#著者" property="alternate-script" xml:lang="ja-Hrkt-JP">なつめ そうせき</meta>
+    <meta refines="#著者" property="alternate-script" xml:lang="en">Natsume, Sōseki</meta>
+    <meta refines="#著者" property="role" scheme="marc:relators">aut</meta>
+
+    <!-- contributors -->
+    <meta property="dcterms:contributor" id="入力者">柴田 卓治</meta>
+    <meta refines="#入力者" property="role" scheme="marc:relators" >dtc</meta> 
+    <meta refines="#入力者" property="dcterms:date" scheme="dcterms:W3CDTF"
+          >1999-02-17</meta>
+
+    <meta property="dcterms:contributor" id="校正者">伊藤 時也</meta>
+    <meta refines="#校正者" property="role" scheme="marc:relators">pfr</meta> 
+    <meta refines="#校正者" property="dcterms:date" scheme="dcterms:W3CDTF"
+          >2007-05-28</meta>
+
+    <meta property="dcterms:contributor" id="総務省">総務省</meta>
+    <meta refines="#総務省" property="alternate-script" xml:lang="en"
+          >Ministry of Internal Affairs and Communications</meta>
+    <meta refines="#総務省" property="role" scheme="marc:relators">sht</meta> 
+
+    <meta property="dcterms:contributor" id="EPUB日本語拡張仕様策定プロジェクト"
+          >EPUB日本語拡張仕様策定プロジェクト</meta>
+    <meta refines="#EPUB日本語拡張仕様策定プロジェクト" property="foaf:mbox" scheme="xsd:anyURI"
+          >mailto:epubcafe@googlegroups.com</meta>
+    <meta refines="#EPUB日本語拡張仕様策定プロジェクト" property="foaf:homepage" scheme="xsd:anyURI"
+          >http://www.epubcafe.jp/</meta>
+    <meta refines="#EPUB日本語拡張仕様策定プロジェクト" property="alternate-script" xml:lang="en"
+          >Japanese EPUB Specification Settlement Project</meta>
+    <meta refines="#EPUB日本語拡張仕様策定プロジェクト" property="role" id="EPUB日本語拡張仕様策定プロジェクト-role">mrk</meta> 
+    <meta refines="#EPUB日本語拡張仕様策定プロジェクト" property="role" scheme="marc:relators">mrk</meta> 
+
+    <meta property="dcterms:contributor" id="朗読者">持田 怜香</meta>
+    <meta refines="#朗読者" property="alternate-script" xml:lang="en">Reika Mochida</meta>
+    <meta refines="#朗読者" property="foaf:Organization" id="朗読者の所属" xml:lang="ja-jp"
+          >NPO 支援技術開発機構</meta>
+    <meta refines="#朗読者の所属" property="alternate-script" xml:lang="en"
+          >Assistive Technology Development Organization</meta>
+    <meta refines="#朗読者" property="role" scheme="marc:relators">nrt</meta> 
+
+    <meta property="dcterms:contributor" id="濱田">濱田 麻邑</meta>
+    <meta refines="#濱田" property="alternate-script" xml:lang="en">Mayu Hamada</meta>
+    <meta refines="#濱田" property="foaf:Organization" id="濱田の所属" xml:lang="ja-jp"
+              >NPO 支援技術開発機構</meta>
+    <meta refines="#濱田の所属" property="alternate-script" xml:lang="en"
+              >Assistive Technology Development Organization</meta>
+    <meta refines="#濱田" property="role" scheme="marc:relators">drt</meta> 
+        
+    <meta property="dcterms:contributor" id="川幡">川幡 太一</meta>
+    <meta refines="#川幡" property="alternate-script" xml:lang="en">Taichi Kawabata</meta>
+    <meta refines="#川幡" property="foaf:organization" id="川幡の所属"
+              >NTT未来ねっと研究所</meta>
+    <meta refines="#川幡の所属" property="alternate-script" xml:lang="en"
+              >Network Innovation Laboratories, NTT</meta>
+    <meta refines="#川幡" property="role" scheme="marc:relators">mrk</meta> 
+             
+        <meta property="dcterms:contributor" id="村田">村田 真</meta>
+        <meta refines="#村田" property="alternate-script" xml:lang="en">Makoto Murata</meta>
+        <meta refines="#村田" property="foaf:organization" id="村田の所属"
+              >国際大学</meta>
+        <meta refines="#村田の所属" property="alternate-script" xml:lang="en"
+              >International University of Japan</meta>
+    <meta refines="#村田" property="role" scheme="marc:relators">mrk</meta> 
+        
+    <!-- media-overlays -->
+    <meta property="media:duration" refines="#一_overlay">0:33:35.025</meta>
+        <meta property="media:duration">0:33:35.025</meta>
+    <meta property="media:narrator">c</meta>
+
+    <!-- copyright -->
+    <meta property="dcterms:rights" refines="#一_audio"
+          >Assistive Technology Development Organization</meta>
+    <meta property="dcterms:rights">EPUB日本語拡張仕様策定プロジェクト</meta>
+
+    <!-- license -->
+    <meta property="dcterms:license" refines="#一_audio" scheme="xsd:anyURI"
+          >http://creativecommons.org/licenses/by-nc-sa/3.0/</meta>
+    <meta property="dcterms:license" scheme="xsd:anyURI"
+          >http://creativecommons.org/publicdomain/zero/1.0/</meta>
+
+    <!-- source -->
+    <meta property="dcterms:source" scheme="xsd:anyURI"
+          >http://www.aozora.gr.jp/cards/000148/card776.html</meta>
+    <link rel="xmp-record" href="meta/底本.xmp"/>
+    <meta property="dcterms:isPartOf" scheme="xsd:IDREF">底本</meta>
+
+    <!-- misc -->
+    <meta property="dcterms:publisher">青空文庫</meta>
+    <meta property="dcterms:modified" scheme="dcterms:W3CDTF">2015-01-04T22:30:00Z</meta>
+  </metadata>
+
+  <manifest>
+    <!-- stylesheets -->
+    <item id="hstyle" href="css/horizontal.css" media-type="text/css"/>
+    <item id="vstyle" href="css/vertical.css" media-type="text/css"/>
+    <!-- documents -->
+        <item id="表紙" href="xhtml/表紙.xhtml" media-type="application/xhtml+xml"/>
+    <item id="目次" properties="nav" href="xhtml/目次.xhtml" media-type="application/xhtml+xml"/>
+    <item id="一" href="xhtml/一.xhtml" media-type="application/xhtml+xml"
+          media-overlay="一_overlay"/>
+    <!-- images -->
+    <item id="夏目漱石" href="images/夏目漱石.jpg" media-type="image/jpeg"/>
+    <item id="書デジ" href="images/書デジ.png" media-type="image/png"/>
+    <!-- smil -->
+    <item id="一_overlay" href="xhtml/一.smil" media-type="application/smil+xml"/>
+    <!-- audio -->
+    <item id="一_audio" href="audio/fmse004b.mp3" media-type="audio/mpeg"/> 
+    <!-- fonts -->
+    <item id="foobar" href="fonts/foobar.ttf" media-type="application/vnd.ms-opentype"/>
+    <!-- misc -->
+<!--    <item id="底本" href="meta/底本.xmp" media-type="application/rdf+xml"/>-->
+    <!-- for EPUB2 compatibility -->
+    <item id="ncxtoc" href="xhtml/toc.ncx" media-type="application/x-dtbncx+xml"/>
+  </manifest>
+
+  <spine toc="ncxtoc" page-progression-direction="rtl">
+    <itemref idref="表紙" linear="yes"/>
+    <itemref idref="目次" linear="no"/>
+    <itemref idref="一" linear="yes"/>
+  </spine>
+</package>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+<head>
+<meta name="dtb:uid" content="hee31112104"/>
+<meta name="dtb:depth" content="1"/>
+<meta name="dtb:totalPageCount" content="0"/>
+<meta name="dtb:maxPageNumber" content="0"/>
+</head>
+<docTitle>
+<text>מפליגים בישראל</text>
+</docTitle>
+<docAuthor>
+<text></text>
+</docAuthor>
+<navMap>
+<navPoint class="chapter" id="cover" playOrder="1">
+<navLabel>
+<text>דף פתיחה</text>
+</navLabel>
+<content src="cover.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="copyright" playOrder="2">
+<navLabel>
+<text>זכויות יוצרים</text>
+</navLabel>
+<content src="copyright.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter1" playOrder="3">
+<navLabel>
+<text>הפלגת קצרה עם רונית</text>
+</navLabel>
+<content src="chapter1.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter2" playOrder="4">
+<navLabel>
+<text>אלכס מגיעה לביקור</text>
+</navLabel>
+<content src="chapter2.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter3" playOrder="5">
+<navLabel>
+<text>אבישי מספר את סיפורו</text>
+</navLabel>
+<content src="chapter3.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter4" playOrder="6">
+<navLabel>
+<text>הזמנה להפלגה לעכו</text>
+</navLabel>
+<content src="chapter4.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter5" playOrder="7">
+<navLabel>
+<text>יוצאים להפליג ומתחיל המתח</text>
+</navLabel>
+<content src="chapter5.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter6" playOrder="8">
+<navLabel>
+<text>מצילים יאכטה מטביעה?</text>
+</navLabel>
+<content src="chapter6.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter7" playOrder="9">
+<navLabel>
+<text>אפשר להמשיך להפליג</text>
+</navLabel>
+<content src="chapter7.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter8" playOrder="10">
+<navLabel>
+<text>עוד מקרה חירום?</text>
+</navLabel>
+<content src="chapter8.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter9" playOrder="11">
+<navLabel>
+<text>רופא נשאר רופא</text>
+</navLabel>
+<content src="chapter9.xhtml" />
+</navPoint>
+<navPoint class="chapter" id="chapter10" playOrder="12">
+<navLabel>
+<text>חוזרים להרצליה</text>
+</navLabel>
+<content src="chapter10.xhtml" />
+</navPoint>
+</navMap>
+</ncx>

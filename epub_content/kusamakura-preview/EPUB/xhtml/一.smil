@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="utf-8"?>
+<smil xmlns="http://www.w3.org/ns/SMIL" xmlns:epub="http://www.idpf.org/2007/ops"
+  xmlns:dcterms="http://purl.org/dc/terms/" version="3.0">
+  <head>
+    <metadata><!--
+      <meta property="dcterms:title" xml:lang="ja">一</meta>
+      <meta property="dcterms:isPartOf" xml:lang="ja">草枕</meta>
+      <meta property="dcterms:isPartOf" xml:lang="ja-Hrkt-JP">くさまくら</meta>
+      <meta property="media:duration" xml:lang="ja">0:33:35.025</meta>
+      <meta property="media:narrator" xml:lang="ja">持田怜香</meta>
+      <meta property="generator" xml:lang="ja">Publisher 3.01 ビルド 220 # 044FSI300030248</meta>
+      <meta property="dcterms:identifier" xml:lang="ja">81353847207-00109</meta>-->
+    </metadata>
+  </head>
+  <body>
+    <seq epub:textref="一.xhtml" epub:type="chapter">
+      <!-- 2015.025s -->
+      <par id="fgyq_0001">
+        <text src="一.xhtml#fgyq_0001"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="0.000" clipEnd="1.979"/>
+      </par>
+      <par id="fgyq_0002">
+        <text src="一.xhtml#fgyq_0002"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1.979" clipEnd="8.039"/>
+      </par>
+      <par id="fgyq_0003">
+        <text src="一.xhtml#fgyq_0003"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="8.039" clipEnd="13.139"/>
+      </par>
+      <par id="fgyq_0004">
+        <text src="一.xhtml#fgyq_0004"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="13.139" clipEnd="18.059"/>
+      </par>
+      <par id="fgyq_0005">
+        <text src="一.xhtml#fgyq_0005"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="18.059" clipEnd="23.159"/>
+      </par>
+      <par id="fgyq_0006">
+        <text src="一.xhtml#fgyq_0006"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="23.159" clipEnd="27.478"/>
+      </par>
+      <par id="fgyq_0007">
+        <text src="一.xhtml#fgyq_0007"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="27.478" clipEnd="35.578"/>
+      </par>
+      <par id="fgyq_0008">
+        <text src="一.xhtml#fgyq_0008"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="35.578" clipEnd="45.358"/>
+      </par>
+      <par id="par_0009">
+        <text src="一.xhtml#fmse_0001"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="45.358" clipEnd="53.098"/>
+      </par>
+      <par id="fgyq_0011">
+        <text src="一.xhtml#fgyq_0011"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="53.098" clipEnd="62.578"/>
+      </par>
+      <par id="fgyq_0012">
+        <text src="一.xhtml#fgyq_0012"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="62.578" clipEnd="71.698"/>
+      </par>
+      <par id="fgyq_0013">
+        <text src="一.xhtml#fgyq_0013"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="71.698" clipEnd="77.578"/>
+      </par>
+      <par id="par_0013">
+        <text src="一.xhtml#fmse_0003"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="77.578" clipEnd="84.897"/>
+      </par>
+      <par id="fgyq_0016">
+        <text src="一.xhtml#fgyq_0016"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="84.897" clipEnd="102.417"/>
+      </par>
+      <par id="fgyq_0017">
+        <text src="一.xhtml#fgyq_0017"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="102.417" clipEnd="111.357"/>
+      </par>
+      <par id="fgyq_0018">
+        <text src="一.xhtml#fgyq_0018"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="111.357" clipEnd="123.897"/>
+      </par>
+      <par id="fgyq_0019">
+        <text src="一.xhtml#fgyq_0019"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="123.897" clipEnd="137.517"/>
+      </par>
+      <par id="fgyq_0020">
+        <text src="一.xhtml#fgyq_0020"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="137.517" clipEnd="141.696"/>
+      </par>
+      <par id="fgyq_0021">
+        <text src="一.xhtml#fgyq_0021"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="141.696" clipEnd="146.255"/>
+      </par>
+      <par id="fgyq_0022">
+        <text src="一.xhtml#fgyq_0022"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="146.255" clipEnd="153.755"/>
+      </par>
+      <par id="fgyq_0023">
+        <text src="一.xhtml#fgyq_0023"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="153.755" clipEnd="162.215"/>
+      </par>
+      <par id="fgyq_0024">
+        <text src="一.xhtml#fgyq_0024"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="162.215" clipEnd="173.615"/>
+      </par>
+      <par id="fgyq_0025">
+        <text src="一.xhtml#fgyq_0025"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="173.615" clipEnd="188.675"/>
+      </par>
+      <par id="fgyq_0026">
+        <text src="一.xhtml#fgyq_0026"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="188.675" clipEnd="234.188"/>
+      </par>
+      <par id="fgyq_0027">
+        <text src="一.xhtml#fgyq_0027"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="234.188" clipEnd="242.238"/>
+      </par>
+      <par id="fgyq_0028">
+        <text src="一.xhtml#fgyq_0028"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="242.238" clipEnd="254.127"/>
+      </par>
+      <par id="fgyq_0029">
+        <text src="一.xhtml#fgyq_0029"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="254.127" clipEnd="259.467"/>
+      </par>
+      <par id="fgyq_0030">
+        <text src="一.xhtml#fgyq_0030"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="259.467" clipEnd="270.746"/>
+      </par>
+      <par id="fgyq_0031">
+        <text src="一.xhtml#fgyq_0031"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="270.746" clipEnd="276.326"/>
+      </par>
+      <par id="fgyq_0032">
+        <text src="一.xhtml#fgyq_0032"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="276.326" clipEnd="281.426"/>
+      </par>
+      <par id="fgyq_0033">
+        <text src="一.xhtml#fgyq_0033"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="281.426" clipEnd="289.346"/>
+      </par>
+      <par id="fgyq_0034">
+        <text src="一.xhtml#fgyq_0034"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="289.346" clipEnd="299.726"/>
+      </par>
+      <par id="fgyq_0035">
+        <text src="一.xhtml#fgyq_0035"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="299.726" clipEnd="306.206"/>
+      </par>
+      <par id="fgyq_0036">
+        <text src="一.xhtml#fgyq_0036"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="306.206" clipEnd="311.606"/>
+      </par>
+      <par id="fgyq_0037">
+        <text src="一.xhtml#fgyq_0037"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="311.606" clipEnd="315.866"/>
+      </par>
+      <par id="fgyq_0038">
+        <text src="一.xhtml#fgyq_0038"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="315.866" clipEnd="319.406"/>
+      </par>
+      <par id="fgyq_0039">
+        <text src="一.xhtml#fgyq_0039"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="319.406" clipEnd="324.626"/>
+      </par>
+      <par id="fgyq_0040">
+        <text src="一.xhtml#fgyq_0040"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="324.626" clipEnd="326.186"/>
+      </par>
+      <par id="fgyq_0041">
+        <text src="一.xhtml#fgyq_0041"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="326.186" clipEnd="339.582"/>
+      </par>
+      <par id="fgyq_0042">
+        <text src="一.xhtml#fgyq_0042"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="339.582" clipEnd="356.454"/>
+      </par>
+      <par id="fgyq_0043">
+        <text src="一.xhtml#fgyq_0043"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="356.454" clipEnd="366.269"/>
+      </par>
+      <par id="fgyq_0044">
+        <text src="一.xhtml#fgyq_0044"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="366.269" clipEnd="375.989"/>
+      </par>
+      <par id="fgyq_0045">
+        <text src="一.xhtml#fgyq_0045"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="375.989" clipEnd="394.289"/>
+      </par>
+      <par id="fgyq_0046">
+        <text src="一.xhtml#fgyq_0046"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="394.289" clipEnd="402.629"/>
+      </par>
+      <par id="fgyq_0047">
+        <text src="一.xhtml#fgyq_0047"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="402.629" clipEnd="413.609"/>
+      </par>
+      <par id="fgyq_0048">
+        <text src="一.xhtml#fgyq_0048"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="413.609" clipEnd="419.309"/>
+      </par>
+      <par id="fgyq_0049">
+        <text src="一.xhtml#fgyq_0049"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="419.309" clipEnd="424.349"/>
+      </par>
+      <par id="fgyq_0050">
+        <text src="一.xhtml#fgyq_0050"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="424.349" clipEnd="437.182"/>
+      </par>
+      <par id="fgyq_0051">
+        <text src="一.xhtml#fgyq_0051"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="437.182" clipEnd="441.562"/>
+      </par>
+      <par id="fgyq_0052">
+        <text src="一.xhtml#fgyq_0052"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="441.562" clipEnd="450.501"/>
+      </par>
+      <par id="fgyq_0053">
+        <text src="一.xhtml#fgyq_0053"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="450.501" clipEnd="456.081"/>
+      </par>
+      <par id="fgyq_0054">
+        <text src="一.xhtml#fgyq_0054"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="456.081" clipEnd="461.901"/>
+      </par>
+      <par id="fgyq_0055">
+        <text src="一.xhtml#fgyq_0055"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="461.901" clipEnd="471.621"/>
+      </par>
+      <par id="fgyq_0056">
+        <text src="一.xhtml#fgyq_0056"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="471.621" clipEnd="478.161"/>
+      </par>
+      <par id="fgyq_0057">
+        <text src="一.xhtml#fgyq_0057"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="478.161" clipEnd="483.793"/>
+      </par>
+      <par id="fgyq_0058">
+        <text src="一.xhtml#fgyq_0058"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="483.793" clipEnd="497.318"/>
+      </par>
+      <par id="fgyq_0059">
+        <text src="一.xhtml#fgyq_0059"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="497.318" clipEnd="504.458"/>
+      </par>
+      <par id="fgyq_0060">
+        <text src="一.xhtml#fgyq_0060"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="504.458" clipEnd="511.418"/>
+      </par>
+      <par id="fgyq_0061">
+        <text src="一.xhtml#fgyq_0061"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="511.418" clipEnd="517.358"/>
+      </par>
+      <par id="fgyq_0062">
+        <text src="一.xhtml#fgyq_0062"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="517.358" clipEnd="524.978"/>
+      </par>
+      <par id="fgyq_0063">
+        <text src="一.xhtml#fgyq_0063"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="524.978" clipEnd="529.658"/>
+      </par>
+      <par id="fgyq_0064">
+        <text src="一.xhtml#fgyq_0064"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="529.658" clipEnd="534.338"/>
+      </par>
+      <par id="fgyq_0065">
+        <text src="一.xhtml#fgyq_0065"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="534.338" clipEnd="541.237"/>
+      </par>
+      <par id="fgyq_0066">
+        <text src="一.xhtml#fgyq_0066"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="541.237" clipEnd="546.877"/>
+      </par>
+      <par id="fgyq_0067">
+        <text src="一.xhtml#fgyq_0067"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="546.877" clipEnd="555.930"/>
+      </par>
+      <par id="fgyq_0068">
+        <text src="一.xhtml#fgyq_0068"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="555.930" clipEnd="562.349"/>
+      </par>
+      <par id="fgyq_0069">
+        <text src="一.xhtml#fgyq_0069"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="562.349" clipEnd="568.031"/>
+      </par>
+      <par id="fgyq_0070">
+        <text src="一.xhtml#fgyq_0070"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="568.031" clipEnd="584.411"/>
+      </par>
+      <par id="fgyq_0071">
+        <text src="一.xhtml#fgyq_0071"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="584.411" clipEnd="600.851"/>
+      </par>
+      <par id="fgyq_0072">
+        <text src="一.xhtml#fgyq_0072"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="600.851" clipEnd="604.990"/>
+      </par>
+      <par id="fgyq_0073">
+        <text src="一.xhtml#fgyq_0073"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="604.990" clipEnd="611.770"/>
+      </par>
+      <par id="fgyq_0074">
+        <text src="一.xhtml#fgyq_0074"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="611.770" clipEnd="619.630"/>
+      </par>
+      <par id="fgyq_0075">
+        <text src="一.xhtml#fgyq_0075"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="619.630" clipEnd="631.870"/>
+      </par>
+      <par id="fgyq_0076">
+        <text src="一.xhtml#fgyq_0076"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="631.870" clipEnd="635.350"/>
+      </par>
+      <par id="fgyq_0077">
+        <text src="一.xhtml#fgyq_0077"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="635.350" clipEnd="643.330"/>
+      </par>
+      <par id="fgyq_0078">
+        <text src="一.xhtml#fgyq_0078"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="643.330" clipEnd="650.710"/>
+      </par>
+      <par id="fgyq_0079">
+        <text src="一.xhtml#fgyq_0079"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="650.710" clipEnd="657.010"/>
+      </par>
+      <par id="fgyq_0080">
+        <text src="一.xhtml#fgyq_0080"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="657.010" clipEnd="664.270"/>
+      </par>
+      <par id="fgyq_0081">
+        <text src="一.xhtml#fgyq_0081"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="664.270" clipEnd="672.490"/>
+      </par>
+      <par id="fgyq_0082">
+        <text src="一.xhtml#fgyq_0082"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="672.490" clipEnd="681.790"/>
+      </par>
+      <par id="fgyq_0083">
+        <text src="一.xhtml#fgyq_0083"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="681.790" clipEnd="684.670"/>
+      </par>
+      <par id="fgyq_0084">
+        <text src="一.xhtml#fgyq_0084"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="684.670" clipEnd="691.330"/>
+      </par>
+      <par id="fgyq_0085">
+        <text src="一.xhtml#fgyq_0085"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="691.330" clipEnd="705.009"/>
+      </par>
+      <par id="fgyq_0086">
+        <text src="一.xhtml#fgyq_0086"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="705.009" clipEnd="709.929"/>
+      </par>
+      <par id="fgyq_0087">
+        <text src="一.xhtml#fgyq_0087"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="709.929" clipEnd="730.175"/>
+      </par>
+      <par id="fgyq_0088">
+        <text src="一.xhtml#fgyq_0088"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="730.175" clipEnd="738.934"/>
+      </par>
+      <par id="fgyq_0089">
+        <text src="一.xhtml#fgyq_0089"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="738.934" clipEnd="745.714"/>
+      </par>
+      <par id="fgyq_0090">
+        <text src="一.xhtml#fgyq_0090"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="745.714" clipEnd="756.572"/>
+      </par>
+      <par id="fgyq_0091">
+        <text src="一.xhtml#fgyq_0091"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="756.572" clipEnd="771.931"/>
+      </par>
+      <par id="fgyq_0092">
+        <text src="一.xhtml#fgyq_0092"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="771.931" clipEnd="781.411"/>
+      </par>
+      <par id="fgyq_0093">
+        <text src="一.xhtml#fgyq_0093"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="781.411" clipEnd="787.950"/>
+      </par>
+      <par id="fgyq_0094">
+        <text src="一.xhtml#fgyq_0094"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="787.950" clipEnd="800.130"/>
+      </par>
+      <par id="fgyq_0095">
+        <text src="一.xhtml#fgyq_0095"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="800.130" clipEnd="807.090"/>
+      </par>
+      <par id="fgyq_0096">
+        <text src="一.xhtml#fgyq_0096"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="807.090" clipEnd="812.850"/>
+      </par>
+      <par id="fgyq_0097">
+        <text src="一.xhtml#fgyq_0097"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="812.850" clipEnd="822.570"/>
+      </par>
+      <par id="fgyq_0098">
+        <text src="一.xhtml#fgyq_0098"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="822.570" clipEnd="827.490"/>
+      </par>
+      <par id="fgyq_0099">
+        <text src="一.xhtml#fgyq_0099"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="827.490" clipEnd="837.390"/>
+      </par>
+      <par id="fgyq_0100">
+        <text src="一.xhtml#fgyq_0100"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="837.390" clipEnd="852.689"/>
+      </par>
+      <par id="fgyq_0101">
+        <text src="一.xhtml#fgyq_0101"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="852.689" clipEnd="856.289"/>
+      </par>
+      <par id="fgyq_0102">
+        <text src="一.xhtml#fgyq_0102"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="856.289" clipEnd="859.769"/>
+      </par>
+      <par id="fgyq_0103">
+        <text src="一.xhtml#fgyq_0103"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="859.769" clipEnd="870.809"/>
+      </par>
+      <par id="fgyq_0104">
+        <text src="一.xhtml#fgyq_0104"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="870.809" clipEnd="877.469"/>
+      </par>
+      <par id="fgyq_0105">
+        <text src="一.xhtml#fgyq_0105"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="877.469" clipEnd="886.889"/>
+      </par>
+      <par id="fgyq_0106">
+        <text src="一.xhtml#fgyq_0106"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="886.889" clipEnd="897.149"/>
+      </par>
+      <par id="fgyq_0107">
+        <text src="一.xhtml#fgyq_0107"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="897.149" clipEnd="902.969"/>
+      </par>
+      <par id="fgyq_0108">
+        <text src="一.xhtml#fgyq_0108"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="902.969" clipEnd="911.849"/>
+      </par>
+      <par id="fgyq_0109">
+        <text src="一.xhtml#fgyq_0109"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="911.849" clipEnd="916.769"/>
+      </par>
+      <par id="fgyq_0110">
+        <text src="一.xhtml#fgyq_0110"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="916.769" clipEnd="924.869"/>
+      </par>
+      <par id="fgyq_0111">
+        <text src="一.xhtml#fgyq_0111"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="924.869" clipEnd="937.348"/>
+      </par>
+      <par id="fgyq_0112">
+        <text src="一.xhtml#fgyq_0112"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="937.348" clipEnd="955.724"/>
+      </par>
+      <par id="fgyq_0113">
+        <text src="一.xhtml#fgyq_0113"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="955.724" clipEnd="960.284"/>
+      </par>
+      <par id="fgyq_0114">
+        <text src="一.xhtml#fgyq_0114"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="960.284" clipEnd="971.323"/>
+      </par>
+      <par id="fgyq_0115">
+        <text src="一.xhtml#fgyq_0115"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="971.323" clipEnd="980.923"/>
+      </par>
+      <par id="fgyq_0116">
+        <text src="一.xhtml#fgyq_0116"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="980.923" clipEnd="995.209"/>
+      </par>
+      <par id="fgyq_0117">
+        <text src="一.xhtml#fgyq_0117"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="995.209" clipEnd="1002.649"/>
+      </par>
+      <par id="fgyq_0118">
+        <text src="一.xhtml#fgyq_0118"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1002.649" clipEnd="1011.349"/>
+      </par>
+      <par id="fgyq_0119">
+        <text src="一.xhtml#fgyq_0119"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1011.349" clipEnd="1017.289"/>
+      </par>
+      <par id="fgyq_0120">
+        <text src="一.xhtml#fgyq_0120"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1017.289" clipEnd="1020.949"/>
+      </par>
+      <par id="fgyq_0121">
+        <text src="一.xhtml#fgyq_0121"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1020.949" clipEnd="1032.229"/>
+      </par>
+      <par id="fgyq_0122">
+        <text src="一.xhtml#fgyq_0122"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1032.229" clipEnd="1038.469"/>
+      </par>
+      <par id="fgyq_0123">
+        <text src="一.xhtml#fgyq_0123"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1038.469" clipEnd="1046.495"/>
+      </par>
+      <par id="fgyq_0124">
+        <text src="一.xhtml#fgyq_0124"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1046.495" clipEnd="1053.815"/>
+      </par>
+      <par id="fgyq_0125">
+        <text src="一.xhtml#fgyq_0125"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1053.815" clipEnd="1064.855"/>
+      </par>
+      <par id="fgyq_0126">
+        <text src="一.xhtml#fgyq_0126"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1064.855" clipEnd="1078.714"/>
+      </par>
+      <par id="fgyq_0127">
+        <text src="一.xhtml#fgyq_0127"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1078.714" clipEnd="1081.654"/>
+      </par>
+      <par id="fgyq_0128">
+        <text src="一.xhtml#fgyq_0128"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1081.654" clipEnd="1089.814"/>
+      </par>
+      <par id="fgyq_0129">
+        <text src="一.xhtml#fgyq_0129"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1089.814" clipEnd="1096.654"/>
+      </par>
+      <par id="fgyq_0130">
+        <text src="一.xhtml#fgyq_0130"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1096.654" clipEnd="1105.294"/>
+      </par>
+      <par id="fgyq_0131">
+        <text src="一.xhtml#fgyq_0131"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1105.294" clipEnd="1113.214"/>
+      </par>
+      <par id="fgyq_0132">
+        <text src="一.xhtml#fgyq_0132"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1113.214" clipEnd="1122.514"/>
+      </par>
+      <par id="fgyq_0133">
+        <text src="一.xhtml#fgyq_0133"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1122.514" clipEnd="1132.714"/>
+      </par>
+      <par id="fgyq_0134">
+        <text src="一.xhtml#fgyq_0134"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1132.714" clipEnd="1140.094"/>
+      </par>
+      <par id="fgyq_0135">
+        <text src="一.xhtml#fgyq_0135"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1140.094" clipEnd="1152.634"/>
+      </par>
+      <par id="fgyq_0136">
+        <text src="一.xhtml#fgyq_0136"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1152.634" clipEnd="1165.766"/>
+      </par>
+      <par id="fgyq_0137">
+        <text src="一.xhtml#fgyq_0137"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1165.766" clipEnd="1175.426"/>
+      </par>
+      <par id="fgyq_0138">
+        <text src="一.xhtml#fgyq_0138"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1175.426" clipEnd="1180.945"/>
+      </par>
+      <par id="fgyq_0139">
+        <text src="一.xhtml#fgyq_0139"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1180.945" clipEnd="1188.025"/>
+      </par>
+      <par id="fgyq_0140">
+        <text src="一.xhtml#fgyq_0140"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1188.025" clipEnd="1196.885"/>
+      </par>
+      <par id="fgyq_0141">
+        <text src="一.xhtml#fgyq_0141"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1196.885" clipEnd="1204.805"/>
+      </par>
+      <par id="fgyq_0142">
+        <text src="一.xhtml#fgyq_0142"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1204.805" clipEnd="1215.965"/>
+      </par>
+      <par id="fgyq_0143">
+        <text src="一.xhtml#fgyq_0143"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1215.965" clipEnd="1224.725"/>
+      </par>
+      <par id="fgyq_0144">
+        <text src="一.xhtml#fgyq_0144"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1224.725" clipEnd="1241.945"/>
+      </par>
+      <par id="fgyq_0145">
+        <text src="一.xhtml#fgyq_0145"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1241.945" clipEnd="1248.905"/>
+      </par>
+      <par id="fgyq_0146">
+        <text src="一.xhtml#fgyq_0146"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1248.905" clipEnd="1257.065"/>
+      </par>
+      <par id="fgyq_0147">
+        <text src="一.xhtml#fgyq_0147"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1257.065" clipEnd="1272.915"/>
+      </par>
+      <par id="fgyq_0148">
+        <text src="一.xhtml#fgyq_0148"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1272.915" clipEnd="1282.914"/>
+      </par>
+      <par id="fgyq_0149">
+        <text src="一.xhtml#fgyq_0149"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1282.914" clipEnd="1300.376"/>
+      </par>
+      <par id="fgyq_0150">
+        <text src="一.xhtml#fgyq_0150"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1300.376" clipEnd="1314.416"/>
+      </par>
+      <par id="fgyq_0151">
+        <text src="一.xhtml#fgyq_0151"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1314.416" clipEnd="1324.895"/>
+      </par>
+      <par id="fgyq_0152">
+        <text src="一.xhtml#fgyq_0152"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1324.895" clipEnd="1332.035"/>
+      </par>
+      <par id="fgyq_0153">
+        <text src="一.xhtml#fgyq_0153"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1332.035" clipEnd="1345.764"/>
+      </par>
+      <par id="fgyq_0154">
+        <text src="一.xhtml#fgyq_0154"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1345.764" clipEnd="1359.384"/>
+      </par>
+      <par id="fgyq_0155">
+        <text src="一.xhtml#fgyq_0155"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1359.384" clipEnd="1362.844"/>
+      </par>
+      <par id="fgyq_0156">
+        <text src="一.xhtml#fgyq_0156"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1362.844" clipEnd="1373.763"/>
+      </par>
+      <par id="fgyq_0157">
+        <text src="一.xhtml#fgyq_0157"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1373.763" clipEnd="1387.083"/>
+      </par>
+      <par id="fgyq_0158">
+        <text src="一.xhtml#fgyq_0158"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1387.083" clipEnd="1397.462"/>
+      </par>
+      <par id="fgyq_0159">
+        <text src="一.xhtml#fgyq_0159"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1397.462" clipEnd="1401.062"/>
+      </par>
+      <par id="fgyq_0160">
+        <text src="一.xhtml#fgyq_0160"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1401.062" clipEnd="1410.662"/>
+      </par>
+      <par id="fgyq_0161">
+        <text src="一.xhtml#fgyq_0161"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1410.662" clipEnd="1414.562"/>
+      </par>
+      <par id="fgyq_0162">
+        <text src="一.xhtml#fgyq_0162"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1414.562" clipEnd="1425.781"/>
+      </par>
+      <par id="fgyq_0163">
+        <text src="一.xhtml#fgyq_0163"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1425.781" clipEnd="1439.581"/>
+      </par>
+      <par id="fgyq_0164">
+        <text src="一.xhtml#fgyq_0164"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1439.581" clipEnd="1449.961"/>
+      </par>
+      <par id="fgyq_0165">
+        <text src="一.xhtml#fgyq_0165"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1449.961" clipEnd="1455.241"/>
+      </par>
+      <par id="fgyq_0166">
+        <text src="一.xhtml#fgyq_0166"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1455.241" clipEnd="1470.035"/>
+      </par>
+      <par id="fgyq_0167">
+        <text src="一.xhtml#fgyq_0167"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1470.035" clipEnd="1479.095"/>
+      </par>
+      <par id="fgyq_0168">
+        <text src="一.xhtml#fgyq_0168"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1479.095" clipEnd="1493.255"/>
+      </par>
+      <par id="fgyq_0169">
+        <text src="一.xhtml#fgyq_0169"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1493.255" clipEnd="1506.155"/>
+      </par>
+      <par id="fgyq_0170">
+        <text src="一.xhtml#fgyq_0170"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1506.155" clipEnd="1509.635"/>
+      </par>
+      <par id="fgyq_0171">
+        <text src="一.xhtml#fgyq_0171"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1509.635" clipEnd="1517.015"/>
+      </par>
+      <par id="fgyq_0172">
+        <text src="一.xhtml#fgyq_0172"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1517.015" clipEnd="1533.994"/>
+      </par>
+      <par id="par_0171">
+        <text src="一.xhtml#fmse_0005"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1533.994" clipEnd="1545.031"/>
+      </par>
+      <par id="fgyq_0176">
+        <text src="一.xhtml#fgyq_0176"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1545.031" clipEnd="1557.328"/>
+      </par>
+      <par id="fgyq_0177">
+        <text src="一.xhtml#fgyq_0177"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1557.328" clipEnd="1572.550"/>
+      </par>
+      <par id="fgyq_0178">
+        <text src="一.xhtml#fgyq_0178"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1572.550" clipEnd="1592.614"/>
+      </par>
+      <par id="fgyq_0179">
+        <text src="一.xhtml#fgyq_0179"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1592.614" clipEnd="1603.481"/>
+      </par>
+      <par id="fgyq_0180">
+        <text src="一.xhtml#fgyq_0180"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1603.481" clipEnd="1621.421"/>
+      </par>
+      <par id="fgyq_0181">
+        <text src="一.xhtml#fgyq_0181"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1621.421" clipEnd="1630.421"/>
+      </par>
+      <par id="fgyq_0182">
+        <text src="一.xhtml#fgyq_0182"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1630.421" clipEnd="1645.850"/>
+      </par>
+      <par id="fgyq_0183">
+        <text src="一.xhtml#fgyq_0183"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1645.850" clipEnd="1648.669"/>
+      </par>
+      <par id="fgyq_0184">
+        <text src="一.xhtml#fgyq_0184"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1648.669" clipEnd="1653.829"/>
+      </par>
+      <par id="fgyq_0185">
+        <text src="一.xhtml#fgyq_0185"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1653.829" clipEnd="1660.608"/>
+      </par>
+      <par id="fgyq_0186">
+        <text src="一.xhtml#fgyq_0186"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1660.608" clipEnd="1673.148"/>
+      </par>
+      <par id="fgyq_0187">
+        <text src="一.xhtml#fgyq_0187"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1673.148" clipEnd="1679.748"/>
+      </par>
+      <par id="fgyq_0188">
+        <text src="一.xhtml#fgyq_0188"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1679.748" clipEnd="1691.988"/>
+      </par>
+      <par id="fgyq_0189">
+        <text src="一.xhtml#fgyq_0189"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1691.988" clipEnd="1712.856"/>
+      </par>
+      <par id="fgyq_0190">
+        <text src="一.xhtml#fgyq_0190"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1712.856" clipEnd="1718.736"/>
+      </par>
+      <par id="fgyq_0191">
+        <text src="一.xhtml#fgyq_0191"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1718.736" clipEnd="1721.976"/>
+      </par>
+      <par id="fgyq_0192">
+        <text src="一.xhtml#fgyq_0192"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1721.976" clipEnd="1734.936"/>
+      </par>
+      <par id="fgyq_0193">
+        <text src="一.xhtml#fgyq_0193"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1734.936" clipEnd="1742.496"/>
+      </par>
+      <par id="fgyq_0194">
+        <text src="一.xhtml#fgyq_0194"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1742.496" clipEnd="1749.396"/>
+      </par>
+      <par id="fgyq_0195">
+        <text src="一.xhtml#fgyq_0195"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1749.396" clipEnd="1768.716"/>
+      </par>
+      <par id="fgyq_0196">
+        <text src="一.xhtml#fgyq_0196"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1768.716" clipEnd="1787.196"/>
+      </par>
+      <par id="fgyq_0197">
+        <text src="一.xhtml#fgyq_0197"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1787.196" clipEnd="1798.296"/>
+      </par>
+      <par id="fgyq_0198">
+        <text src="一.xhtml#fgyq_0198"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1798.296" clipEnd="1805.436"/>
+      </par>
+      <par id="fgyq_0199">
+        <text src="一.xhtml#fgyq_0199"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1805.436" clipEnd="1810.236"/>
+      </par>
+      <par id="fgyq_0200">
+        <text src="一.xhtml#fgyq_0200"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1810.236" clipEnd="1817.916"/>
+      </par>
+      <par id="fgyq_0201">
+        <text src="一.xhtml#fgyq_0201"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1817.916" clipEnd="1821.636"/>
+      </par>
+      <par id="fgyq_0202">
+        <text src="一.xhtml#fgyq_0202"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1821.636" clipEnd="1833.635"/>
+      </par>
+      <par id="fgyq_0203">
+        <text src="一.xhtml#fgyq_0203"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1833.635" clipEnd="1844.974"/>
+      </par>
+      <par id="fgyq_0204">
+        <text src="一.xhtml#fgyq_0204"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1844.974" clipEnd="1859.907"/>
+      </par>
+      <par id="fgyq_0205">
+        <text src="一.xhtml#fgyq_0205"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1859.907" clipEnd="1863.746"/>
+      </par>
+      <par id="fgyq_0206">
+        <text src="一.xhtml#fgyq_0206"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1863.746" clipEnd="1868.666"/>
+      </par>
+      <par id="fgyq_0207">
+        <text src="一.xhtml#fgyq_0207"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1868.666" clipEnd="1871.486"/>
+      </par>
+      <par id="fgyq_0208">
+        <text src="一.xhtml#fgyq_0208"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1871.486" clipEnd="1884.026"/>
+      </par>
+      <par id="fgyq_0209">
+        <text src="一.xhtml#fgyq_0209"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1884.026" clipEnd="1896.146"/>
+      </par>
+      <par id="fgyq_0210">
+        <text src="一.xhtml#fgyq_0210"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1896.146" clipEnd="1907.006"/>
+      </par>
+      <par id="fgyq_0211">
+        <text src="一.xhtml#fgyq_0211"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1907.006" clipEnd="1913.906"/>
+      </par>
+      <par id="fgyq_0212">
+        <text src="一.xhtml#fgyq_0212"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1913.906" clipEnd="1933.601"/>
+      </par>
+      <par id="fgyq_0213">
+        <text src="一.xhtml#fgyq_0213"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1933.601" clipEnd="1949.321"/>
+      </par>
+      <par id="fgyq_0214">
+        <text src="一.xhtml#fgyq_0214"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1949.321" clipEnd="1964.201"/>
+      </par>
+      <par id="fgyq_0215">
+        <text src="一.xhtml#fgyq_0215"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1964.201" clipEnd="1969.481"/>
+      </par>
+      <par id="fgyq_0216">
+        <text src="一.xhtml#fgyq_0216"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1969.481" clipEnd="1973.620"/>
+      </par>
+      <par id="fgyq_0217">
+        <text src="一.xhtml#fgyq_0217"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1973.620" clipEnd="1978.660"/>
+      </par>
+      <par id="fgyq_0218">
+        <text src="一.xhtml#fgyq_0218"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1978.660" clipEnd="1988.380"/>
+      </par>
+      <par id="fgyq_0219">
+        <text src="一.xhtml#fgyq_0219"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1988.380" clipEnd="1992.640"/>
+      </par>
+      <par id="fgyq_0220">
+        <text src="一.xhtml#fgyq_0220"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1992.640" clipEnd="1997.740"/>
+      </par>
+      <par id="fgyq_0221">
+        <text src="一.xhtml#fgyq_0221"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="1997.740" clipEnd="2003.380"/>
+      </par>
+      <par id="fgyq_0222">
+        <text src="一.xhtml#fgyq_0222"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="2003.380" clipEnd="2010.520"/>
+      </par>
+      <par id="fgyq_0223">
+        <text src="一.xhtml#fgyq_0223"/>
+        <audio src="../audio/fmse004b.mp3" clipBegin="2010.520" clipEnd="2015.025"/>
+      </par>
+    </seq>
+  </body>
+</smil>

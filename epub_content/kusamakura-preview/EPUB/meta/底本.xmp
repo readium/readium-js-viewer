@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:xmpmeta xmlns:x='adobe:ns:meta/'>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <rdf:Description rdf:about=""
+                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                 xmlns:dcndl="http://ndl.go.jp/dcndl/terms/"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:dcterms="http://purl.org/dc/terms/">
+      <dc:title>夏目漱石全集. ３</dc:title>
+      <dcndl:titleTranscription>ナツメ　ソウセキ　ゼンシュウ. ３</dcndl:titleTranscription>
+      <dc:creator xsi:type="dcndl:NDLNH">夏目‖漱石（１８６７−１９１６）</dc:creator>
+      <dcndl:creatorTranscription xsi:type="dcndl:NDLNH">ナツメ，ソウセキ（１８６７−１９１６）</dcndl:creatorTranscription>
+      <dc:subject xsi:type="dcndl:NDC">９１８．６８</dc:subject>
+      <dc:subject xsi:type="dcndl:NDLC">ＫＨ４２６</dc:subject>
+      <dc:description>出版地 : 東京</dc:description>
+      <dc:description>形態 : ４４５ｐ ; １５ｃｍ</dc:description>
+      <dc:description>シリーズ : ちくま文庫</dc:description>
+      <dc:description>各巻タイトル : 草枕・二百十日・野分</dc:description>
+      <dc:description>各巻タイトルよみ : クサマクラ　ニヒャク　トオカ　ノワキ</dc:description>
+      <dc:description>税込価格 : ６４０円</dc:description>
+      <dc:publisher>筑摩書房</dc:publisher>
+      <dcterms:issued>１９８７．１２</dcterms:issued>
+      <dcterms:issued xsi:type="dcterms:W3CDTF">1987</dcterms:issued>
+      <dc:identifier xsi:type="dcndl:ISBN">4-480-02163-9</dc:identifier>
+      <dc:identifier xsi:type="dcndl:JPNO">88014163</dc:identifier>
+      <dc:language xsi:type="dcterms:ISO639-2">JPN</dc:language>
+    </rdf:Description>
+  </rdf:RDF>
+</x:xmpmeta>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- For compatibility with ePub2 Player -->
+<ncx:ncx xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <ncx:head>
+    <ncx:meta name="dtb:uid" content="http://www.aozora.gr.jp/cards/000148/card776.html"/>
+    <ncx:meta name="dtb:depth" content="-1"/>
+    <ncx:meta name="dtb:totalPageCount" content="0"/>
+    <ncx:meta name="dtb:maxPageNumber" content="0"/>
+  </ncx:head>
+  <ncx:docTitle>
+    <ncx:text>草枕</ncx:text>
+  </ncx:docTitle>
+  <ncx:docAuthor>
+    <ncx:text>夏目漱石</ncx:text>
+  </ncx:docAuthor>
+  <ncx:navMap>
+
+    <ncx:navPoint id="表紙" playOrder="1">
+      <ncx:navLabel><ncx:text>表紙</ncx:text></ncx:navLabel>
+      <ncx:content src="表紙.xhtml"/>
+    </ncx:navPoint>
+
+    <ncx:navPoint id="一" playOrder="2">
+      <ncx:navLabel><ncx:text>一</ncx:text></ncx:navLabel>
+      <ncx:content src="一.xhtml"/>
+    </ncx:navPoint>
+    
+  </ncx:navMap>
+</ncx:ncx>

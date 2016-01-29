@@ -1,0 +1,242 @@
+@font-face {
+font-family: 'DejaVu Sans';
+font-style: normal;
+font-weight: normal;
+src:url(Fonts/DejaVuSans.ttf);
+}
+
+@font-face {
+font-family: 'DejaVu Sans';
+font-style: italic;
+font-weight: normal;
+src:url(Fonts/DejaVuSans-Oblique.ttf);
+}
+
+@font-face {
+font-family: 'DejaVu Sans';
+font-style: normal;
+font-weight: bold;
+src:url(Fonts/DejaVuSans-Bold.ttf);
+}
+
+@font-face {
+font-family: 'DejaVu Sans';
+font-style: italic;
+font-weight: bold;
+src:url(Fonts/DejaVuSans-BoldOblique.ttf);
+}
+
+@font-face {
+font-family: 'Time New Romans';
+font-style: normal;
+font-weight: normal;
+src:url(Fonts/pdheb.ttf);
+}
+
+body {font-size: 1em;
+		padding-left: 0pt;}
+
+div {font-size: 1em;
+		padding: 0px 0px 0px 0px;
+		margin: 0.1 0.1 0.1 0.1;}
+
+p {font-size: 1em;
+	text-align:right;
+	margin: 8px;}
+
+span {font-size: 1em;
+	text-align:right;
+}
+	
+/*Used for book title*/
+h1 { font-size: 230%;
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	text-align: center;
+	writing-mode: rl-tb;
+	font-weight: normal;
+}
+/*Used for book authors*/
+h2 { font-size: 180%;
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	text-align: center;
+	writing-mode: rl-tb;
+	font-weight: normal;
+}
+/*Used for chapters*/
+h3 {	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 130%;
+	font-weight: normal;
+    text-align: center;
+}
+
+/*Used for larger centered text, like info and copyright*/
+h4 { font-size: 105%;
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	text-align: center;
+	writing-mode: rl-tb;
+	font-weight: normal;
+}
+/*Used for regular centered text, or centered images*/
+h5 { font-size: 100%;
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	text-align: center;
+/*	writing-mode: rl-tb; */
+	font-weight: normal;
+}		
+
+.initial {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 478%;
+}
+
+.regular {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 100%;
+}
+
+.regularbold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 100%;
+	font-weight:bold;
+}
+
+.regularitalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 102%;
+	font-style:italic; 
+}
+
+.regularunderline {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 102%;
+	text-decoration: underline;
+}
+
+.regulars {
+	font-family: 'Time New Romans';
+	font-size: 100%;
+}
+
+.regularbolditalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 102%;
+	font-style:italic; 
+	font-weight:bold;
+}
+
+.smaller {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 92%;
+}
+
+.smallerbold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 92%;
+	font-weight:bold;
+}
+
+.smalleritalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 94%;
+	font-style:italic; 
+}
+
+.larger {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 108%;
+}
+
+.largerbold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 108%;
+	font-weight:bold;
+}
+
+.largeritalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 110%;
+	font-style:italic; 
+}
+
+.largerbolditalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 110%;
+	font-style:italic; 
+	font-weight:bold;
+}
+
+.larger118 {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 118%;
+}
+
+.larger118italic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 118%;
+	font-style:italic;
+}
+
+.larger118bold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 118%;
+	font-weight:bold;
+}
+
+.larger118bolditalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 120%;
+	font-weight:bold;
+	font-style:italic;
+}
+
+.larger138 {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 138%;
+}
+
+.larger148 {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 148%;
+}
+
+.larger148italic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 148%;
+	font-style:italic;
+}
+
+.larger148bold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 148%;
+	font-weight:bold;
+}
+
+.smaller72 {
+    font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+    font-size: 72%;
+}
+
+.smaller72bold {
+    font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+    font-size: 72%;
+    font-weight:bold;
+}
+
+.smaller72italic {
+    font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+    font-size: 74%;
+    font-style:italic;
+}
+
+.footnotes {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 100%;
+}
+
+.footnote {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 95%;
+}
+
+
+
