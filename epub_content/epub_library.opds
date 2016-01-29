@@ -111,4 +111,12 @@
         <link type="image/jpeg" href="wasteland-woff-obf/EPUB/wasteland-cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
         <link type="application/epub" href="wasteland-woff-obf" rel="http://opds-spec.org/acquisition"/>
     </entry>
+    <entry>
+        <title>Cyclones</title>
+        <author>
+            <name>Wikipedia Contributors</name>
+        </author>
+        <link type="image/jpeg" href="cyclones/Cyclone-Cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="cyclones" rel="http://opds-spec.org/acquisition"/>
+    </entry>
 </feed>
