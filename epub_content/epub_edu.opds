@@ -1,0 +1,48 @@
+<feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
+<entry>
+<title>English Language GCSE for AQA: Student Book</title>
+<author>
+  <name>IDPF/edupub (master) - samples/English-Language-GCSE-for-AQA</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/English-Language-GCSE-for-AQA" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/English-Language-GCSE-for-AQA/EPUB/content.opf/../Images/9781107453005frcvr.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+</entry>
+<entry>
+<title>GCSE English Literature for AQA: Poetry Student Book</title>
+<author>
+  <name>IDPF/edupub (master) - samples/English-Literature-GCSE-for-AQA</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/English-Literature-GCSE-for-AQA" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/English-Literature-GCSE-for-AQA/EPUB/content.opf/../Images/9781107454729frcvr.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+</entry>
+<entry>
+<title>World Cultures and Geography</title>
+<author>
+  <name>IDPF/edupub (master) - samples/WCAG-ch1</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/WCAG-ch1" rel="http://opds-spec.org/acquisition"/>
+</entry>
+<entry>
+<title>A First Course in Linear Algebra</title>
+<author>
+  <name>IDPF/edupub (master) - samples/linear-algebra</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/linear-algebra" rel="http://opds-spec.org/acquisition"/>
+</entry>
+<entry>
+<title>EDUPUB Structure Sample</title>
+<author>
+  <name>IDPF/edupub (master) - samples/structure-sample-01</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/structure-sample-01" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/structure-sample-01/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+</entry>
+</feed>
+<entry>
+<title>World Cultures and Geography</title>
+<author>
+  <name>snaekobbi/braille-rendition-epub (samples) - edupub/samples/WCAG-ch1</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/snaekobbi/braille-rendition-epub/samples/edupub/samples/WCAG-ch1" rel="http://opds-spec.org/acquisition"/>
+</entry>
+</feed>
