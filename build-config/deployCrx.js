@@ -123,7 +123,7 @@ var createRelease = function(){
     
     var releaseTitle = "Pre-release v" + version + " ('develop' branch)";
     var releaseDescription = "Automated build on " + releaseDate + "\n" +
-    "TravisCI ["+process.env.TRAVIS_JOB_NUMBER+"] https://travis-ci.org/readium/readium-js-viewer/builds/" + process.env.TRAVIS_BUILD_NUMBER + "\n" +
+    "TravisCI ["+process.env.TRAVIS_BUILD_NUMBER+"] https://travis-ci.org/readium/readium-js-viewer/builds/" + process.env.TRAVIS_BUILD_ID + "\n" +
     "\n\n\nCloud / web reader app (main deployment at Firebase):\nhttps://readium.firebaseapp.com\n\nCloud / web reader app (secondary deployment at Surge):\nhttps://readium.surge.sh/?epubs=https%3A%2F%2Freadium.firebaseapp.com%2Fepub_content%2Fepub_library.opds\n\n\nDO NOT DOWNLOAD THE SOURCE CODE LINKS BELOW (ZIP AND TAR.GZ files), AS GITHUB DOES NOT INCLUDE SUBMODULES!";
     
     
