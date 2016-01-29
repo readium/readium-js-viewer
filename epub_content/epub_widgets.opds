@@ -7,7 +7,6 @@
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/master/Samples/1-basic_component/embedded/basic_template" rel="http://opds-spec.org/acquisition"/>
 <link type="image/jpg" href="https://cdn.rawgit.com/IDPF/scriptable-components/master/Samples/1-basic_component/embedded/basic_template/EPUB/package.opf/../img/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
 </entry>
-</feed>
 <entry>
 <title>component_name</title>
 <author>

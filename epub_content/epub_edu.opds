@@ -37,7 +37,6 @@
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/structure-sample-01" rel="http://opds-spec.org/acquisition"/>
 <link type="image/jpg" href="https://cdn.rawgit.com/IDPF/edupub/master/samples/structure-sample-01/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
 </entry>
-</feed>
 <entry>
 <title>World Cultures and Geography</title>
 <author>
