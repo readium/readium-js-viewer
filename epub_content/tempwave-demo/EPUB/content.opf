@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id" version="3.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">   
+	
+	    <!--general metadata -->
+	    <dc:type>scriptable-component</dc:type>
+	    <dc:title>ESC-Tempwave-Demo</dc:title>
+	    <dc:creator>Readium</dc:creator>
+	    <dc:creator>Ric Wright</dc:creator>
+	    <dc:identifier id="pub-id">urn:uuid:e2110a37-afe8-4893-b287-5fcea1e3fcc1</dc:identifier>
+	    <dc:description>Demo of the Logger Widget</dc:description>
+	    <dc:publisher>Readium</dc:publisher>
+	    <dc:date>2015-05-19</dc:date>
+	    <dc:rights>Readium Foundation</dc:rights>
+	    <dc:language>en</dc:language>
+	    <meta property="dcterms:modified">2015-07-21T08:46:47Z</meta>
+	    <meta name="generator" content="epubcrude"/>
+        <!-- widget-specific metadata -->
+        <meta property="epubsc:version">1.0.20150721</meta>
+        <meta property="epubsc:storage-required">false</meta>
+        <meta property="epubsc:network-access-required">false</meta>
+        <meta property="epubsc:required-params">false</meta>
+
+   	    <!--  layout metadata  -->
+	    <meta property="rendition:layout">pre-paginated</meta>
+	    <meta property="rendition:orientation">portrait</meta>
+	    <meta property="rendition:spread">auto</meta>
+
+	    <!-- cover -->
+        <meta name="cover" content="cover-image" />
+
+    </metadata>
+
+    <manifest>   
+        <!-- images -->
+        <item id="twave-cover" href="images/twave-cover.png" media-type="image/png" properties="cover-image"/>
+        <!-- css -->
+        <item id="tempwave-demo-css" href="css/tempwave-demo.css" media-type="text/css"/>
+        <!--front matter  -->
+	    <item id="toc" href="xhtml/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+        <!-- javascript -->
+       <item id="tempwave-demo-js" href="js/tempwave-demo.js" media-type="text/javascript" />
+        <!-- container page -->
+        <item id="intro" href="xhtml/intro.xhtml" media-type="application/xhtml+xml" />
+        <item id="tempwave-demo" href="xhtml/tempwave-demo.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+
+		<!-- the shared widget manifest items -->
+		<item id="epubsc-api" href="components/readium/shared/api/epubsc_api.js" media-type="text/javascript" />
+		<item id="util-js" href="components/readium/shared/js/util.js" media-type="text/javascript" />
+		<item id="twave-css" href="components/readium/shared/css/twave.css" media-type="text/css" />
+
+		<!-- the model-widget's manifest items -->
+		<item id="tw-widget-model" href="components/readium/tw-model/EPUB/svg/tw-widget-model.svg" media-type="image/svg+xml" properties="scripted"/>
+		<item id="tw-widget-model-js" href="components/readium/tw-model/EPUB/js/tw-widget-model.js" media-type="text/javascript" />
+
+		<!-- the controls-widget's manifest items -->
+		<item id="tw-widget-controls" href="components/readium/tw-controls/EPUB/svg/tw-widget-controls.svg" media-type="image/svg+xml" properties="scripted"/>
+		<item id="tw-widget-controls-js" href="components/readium/tw-controls/EPUB/js/tw-widget-controls.js" media-type="text/javascript" />
+
+		<!-- the profile-widget's manifest items -->
+		<item id="tw-widget-profile" href="components/readium/tw-profile/EPUB/svg/tw-widget-profile.svg" media-type="image/svg+xml" properties="scripted"/>
+		<item id="tw-widget-profile-js" href="components/readium/tw-profile/EPUB/js/tw-widget-profile.js" media-type="text/javascript" />
+
+		<!-- the series-widget's manifest items -->
+		<item id="tw-widget-series" href="components/readium/tw-series/EPUB/svg/tw-widget-series.svg" media-type="image/svg+xml" properties="scripted"/>
+		<item id="tw-widget-series-js" href="components/readium/tw-series/EPUB/js/tw-widget-series.js" media-type="text/javascript" />
+
+		<!-- the status-widget's manifest items -->
+		<item id="tw-widget-status" href="components/readium/tw-status/EPUB/xhtml/tw-widget-status.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="tw-widget-status-js" href="components/readium/tw-status/EPUB/js/tw-widget-status.js" media-type="text/javascript" />
+	</manifest>
+			
+	<spine page-progression-direction="ltr">
+		<itemref idref="intro" />
+        <itemref idref="tempwave-demo" />
+	</spine>
+
+	<!-- the model widget -->
+	<collection role="scriptable-component">
+        <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        	<dc:type>scriptable-component</dc:type>
+            <dc:title>tw-widget-model</dc:title>
+            <dc:creator>Readium</dc:creator>
+            <dc:language>en</dc:language>
+            <meta property="epubsc:version">1.0.20150721</meta>
+		</metadata>
+
+		<collection role="manifest">
+        	<link href="components/readium/shared/api/epubsc_api.js"/>
+        	<link href="components/readium/shared/js/util.js"/>
+        	<link href="components/readium/shared/css/twave.css"/>
+        	<link href="components/readium/tw-model/EPUB/svg/tw-widget-model.svg"/>
+        	<link href="components/readium/tw-model/EPUB/js/tw-widget-model.js"/>
+		</collection>
+
+		<link href="components/readium/tw-model/EPUB/svg/tw-widget-model.svg"/>
+	</collection>
+
+	<!-- the controls widget -->
+	<collection role="scriptable-component">
+        <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        	<dc:type>scriptable-component</dc:type>
+            <dc:title>tw-widget-controls</dc:title>
+            <dc:creator>Readium</dc:creator>
+            <dc:language>en</dc:language>
+            <meta property="epubsc:version">1.0.20150721</meta>
+		</metadata>
+
+		<collection role="manifest">
+        	<link href="components/readium/shared/api/epubsc_api.js"/>
+        	<link href="components/readium/shared/js/util.js"/>
+        	<link href="components/readium/shared/css/twave.css"/>
+        	<link href="components/readium/tw-controls/EPUB/svg/tw-widget-controls.svg"/>
+        	<link href="components/readium/tw-controls/EPUB/js/tw-widget-controls.js"/>
+		</collection>
+
+		<link href="components/readium/tw-model/EPUB/svg/tw-widget-controls.svg"/>
+	</collection>
+
+	<!-- the profile widget -->
+	<collection role="scriptable-component">
+        <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        	<dc:type>scriptable-component</dc:type>
+            <dc:title>tw-widget-profile</dc:title>
+            <dc:creator>Readium</dc:creator>
+            <dc:language>en</dc:language>
+            <meta property="epubsc:version">1.0.20150721</meta>
+		</metadata>
+
+		<collection role="manifest">
+        	<link href="components/readium/shared/api/epubsc_api.js"/>
+        	<link href="components/readium/shared/js/util.js"/>
+        	<link href="components/readium/shared/css/twave.css"/>
+        	<link href="components/readium/tw-profile/EPUB/svg/tw-widget-profile.svg"/>
+       	    <link href="components/readium/tw-profile/EPUB/js/tw-widget-profile.js"/>
+		</collection>
+
+		<link href="components/readium/tw-profile/EPUB/svg/tw-widget-profile.svg"/>
+	</collection>
+
+	<!-- the time-series widget -->
+	<collection role="scriptable-component">
+        <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        	<dc:type>scriptable-component</dc:type>
+            <dc:title>tw-widget-series</dc:title>
+            <dc:creator>Readium</dc:creator>
+            <dc:language>en</dc:language>
+            <meta property="epubsc:version">1.0.20150721</meta>
+		</metadata>
+
+		<collection role="manifest">
+        	<link href="components/readium/shared/api/epubsc_api.js"/>
+        	<link href="components/readium/shared/js/util.js"/>
+        	<link href="components/readium/shared/css/twave.css"/>
+        	<link href="components/readium/tw-series/EPUB/svg/tw-widget-series.svg"/>
+       	    <link href="components/readium/tw-series/EPUB/js/tw-widget-series.js"/>
+		</collection>
+
+		<link href="components/readium/tw-series/EPUB/svg/tw-widget-series.svg"/>
+	</collection>
+
+	<!-- the status widget -->
+	<collection role="scriptable-component">
+        <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        	<dc:type>scriptable-component</dc:type>
+            <dc:title>tw-widget-status</dc:title>
+            <dc:creator>Readium</dc:creator>
+            <dc:language>en</dc:language>
+            <meta property="epubsc:version">1.0.20150721</meta>
+		</metadata>
+
+		<collection role="manifest">
+        	<link href="components/readium/shared/api/epubsc_api.js"/>
+        	<link href="components/readium/shared/js/util.js"/>
+        	<link href="components/readium/shared/css/twave.css"/>
+        	<link href="components/readium/tw-status/EPUB/xhtml/tw-widget-status.xhtml"/>
+       	    <link href="components/readium/tw-status/EPUB/js/tw-widget-status.js"/>
+		</collection>
+
+		<link href="components/readium/tw-status/EPUB/svg/tw-widget-status.svg"/>
+	</collection>
+
+</package>

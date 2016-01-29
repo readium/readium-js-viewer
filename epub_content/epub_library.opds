@@ -116,7 +116,15 @@
         <author>
             <name>Wikipedia Contributors</name>
         </author>
-        <link type="image/jpeg" href="cyclones/Cyclone-Cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="image/png" href="cyclones/Cyclone-Cover.png" rel="http://opds-spec.org/image/thumbnail"/>
         <link type="application/epub" href="cyclones" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>Tempwave ESC Demo</title>
+        <author>
+            <name>Ric Wright</name>
+        </author>
+        <link type="image/png" href="tempwave-demo/EPUB/images/twave-cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="tempwave-demo" rel="http://opds-spec.org/acquisition"/>
     </entry>
 </feed>

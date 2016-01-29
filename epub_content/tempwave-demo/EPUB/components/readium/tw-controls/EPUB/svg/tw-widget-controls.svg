@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="controls" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 124.0694 14.3397" enable-background="new 0 0 124.0694 14.3397" xml:space="preserve">
+	 <script type="text/javascript" xlink:href="../../../shared/api/epubsc_api.js" />
+	 <script type="text/javascript" xlink:href="../../../shared/js/util.js" />
+     <script type="text/javascript" xlink:href="../js/tw-widget-controls.js" />
+<g>
+	<g id="controls-playbutton" onmousedown="OnPlayButton(evt)" transform="matrix(1 0 0 1 408 236)">
+		<path fill="#008000" stroke="#000000" d="M-405.7787-235.5h20.2247c0.9507,0,1.7213,0.7706,1.7213,1.7213v9.8972
+			c0,0.9506-0.7706,1.7213-1.7213,1.7213h-20.2247c-0.9506,0-1.7213-0.7706-1.7213-1.7213v-9.8972
+			C-407.5-234.7294-406.7294-235.5-405.7787-235.5z"/>
+		<text transform="matrix(1 0 0 1 -400.9904 -228.8301)" font-family="'Verdana'" font-size="5.1638">Play</text>
+	</g>
+	<g id="controls-pausebutton" onmousedown="OnPauseButton(evt)" transform="matrix(1 0 0 1 484 236)">
+		<path fill="#FFFF00" stroke="#000000" d="M-449.075-235.5h20.2247c0.9506,0,1.7213,0.7706,1.7213,1.7213v9.8972
+			c0,0.9506-0.7706,1.7213-1.7213,1.7213h-20.2247c-0.9506,0-1.7212-0.7706-1.7212-1.7213v-9.8972
+			C-450.7962-234.7294-450.0256-235.5-449.075-235.5z"/>
+		<text transform="matrix(1 0 0 1 -446.5235 -228.8301)" font-family="'Verdana'" font-size="5.1638">Pause</text>
+	</g>
+	<g id="controls-stopbutton" onmousedown="OnStopButton(evt)" transform="matrix(1 0 0 1 561 236)">
+		<path fill="#FF0000" stroke="#000000" d="M-492.9409-235.5h20.2247c0.9506,0,1.7213,0.7706,1.7213,1.7213v9.8972
+			c0,0.9506-0.7706,1.7213-1.7213,1.7213h-20.2247c-0.9506,0-1.7213-0.7706-1.7213-1.7213v-9.8972
+			C-494.6622-234.7294-493.8916-235.5-492.9409-235.5z"/>
+		<text transform="matrix(1 0 0 1 -488.7871 -228.8301)" font-family="'Verdana'" font-size="5.1638">Stop</text>
+	</g>
+	<g id="controls-restartbutton" onmousedown="OnRestartButton(evt)" transform="matrix(1 0 0 1 639 236)">
+		<path fill="#FF00FF" stroke="#000000" d="M-537.3766-235.5h20.2247c0.9506,0,1.7213,0.7706,1.7213,1.7213v9.8972
+			c0,0.9506-0.7706,1.7213-1.7213,1.7213h-20.2247c-0.9506,0-1.7213-0.7706-1.7213-1.7213v-9.8972
+			C-539.0978-234.7294-538.3272-235.5-537.3766-235.5z"/>
+		<text transform="matrix(1 0 0 1 -536.5667 -228.8301)" font-family="'Verdana'" font-size="5.1638">Restart</text>
+	</g>
+</g>
+</svg>

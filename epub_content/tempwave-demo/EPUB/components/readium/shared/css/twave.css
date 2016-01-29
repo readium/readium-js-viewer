@@ -1,0 +1,12 @@
+.body {
+    font-family: Courier,monospace;
+    font-size:12px;
+}
+
+
+#statusDiv {
+    padding: 0.5em;
+    font-family: Courier,monospace;
+    font-size:12px;
+    height:230px;
+}

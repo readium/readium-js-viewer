@@ -1,0 +1,50 @@
+
+iframe {
+    border: 1px solid #7c7c7c;
+}
+
+.h2 {
+    font-family:Times-Roman, serif;
+}
+
+#tw-widget-model {
+    display:none;
+}
+
+#tw-widget-controls {
+    position: absolute;
+    top: 20px;
+    left: 350px;
+    width: 300px;
+    height: 50px;
+    padding:0.0em;
+}
+
+#tw-widget-status {
+    position: absolute;
+    top: 90px;
+    left: 350px;
+    width: 300px;
+    height: 230px;
+    padding:0.0em;
+}
+
+#tw-widget-profile {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    width: 300px;
+    height: 300px;
+    padding:0.0em;
+}
+
+#tw-widget-series {
+    position: absolute;
+    top: 350px;
+    left: 20px;
+    width: 700px;
+    height: 172px;
+    padding:0.0em;
+}
+
+
