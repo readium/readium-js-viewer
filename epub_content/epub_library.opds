@@ -20,8 +20,8 @@
         <author>
             <name>Herman Melville</name>
         </author>
-        <link type="image/jpeg" href="moby_dick/OPS/images/9780316000000.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-        <link type="application/epub" href="moby_dick" rel="http://opds-spec.org/acquisition"/>
+        <link type="image/jpeg" href="moby-dick/OPS/images/9780316000000.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="moby-dick" rel="http://opds-spec.org/acquisition"/>
     </entry>
     <entry>
         <title>A First Course in Linear Algebra</title>
@@ -92,7 +92,7 @@
         <author>
             <name>Pr David Khayat</name>
         </author>
-        <link type="image/jpeg" href="regime-anti-cancer-arabix/EPUB/images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="image/jpeg" href="regime-anticancer-arabic/EPUB/Image/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
         <link type="application/epub" href="regime-anticancer-arabic" rel="http://opds-spec.org/acquisition"/>
     </entry>
     <entry>
@@ -100,7 +100,7 @@
         <author>
             <name>EPUB Sample Project</name>
         </author>
-        <link type="image/svg+xml" href="svg-in-spine/OPS/images/cover.svg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="image/svg+xml" href="svg-in-spine/OPS/Images/cover.svg" rel="http://opds-spec.org/image/thumbnail"/>
         <link type="application/epub" href="svg-in-spine" rel="http://opds-spec.org/acquisition"/>
     </entry>
     <entry>
