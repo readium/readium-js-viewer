@@ -24,7 +24,7 @@
    	    <!--  layout metadata  -->
 	    <meta property="rendition:layout">pre-paginated</meta>
 	    <meta property="rendition:orientation">portrait</meta>
-	    <meta property="rendition:spread">both</meta>
+	    <meta property="rendition:spread">auto</meta>
 
 	    <!-- cover -->
         <meta name="cover" content="cover-image" />
