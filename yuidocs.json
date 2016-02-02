@@ -1,0 +1,16 @@
+{
+  "COMMAND LINE": "node node_modules/yuidocjs/lib/cli.js -N -C -c yuidocs.json",
+  "name": "readium-js-viewer",
+  "description": "Readium - viewer (reader+library) written in Javascript+HTML+CSS etc.",
+  "version": "0.0.0",
+  "url": "https://github.com/readium/readium-js-viewer",
+  "logo": "http://readium.org/sites/readium.org/files/header-logo.png",
+  "options": {
+    "linkNatives": "true",
+    "exclude": "readium-js,epub_content,package,src,lib,node_modules,api-docs,dev,tests,gen,build-output,dist,build-config",
+    "paths": [
+      "src"
+    ],
+    "outdir": "./api-docs"
+  }
+}
