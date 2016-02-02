@@ -4,7 +4,7 @@
 	unique-identifier="pub-identifier">
 	<metadata>
 		<dc:identifier id="pub-identifier">urn:isbn:0123456789</dc:identifier>
-		<dc:title id="pub-title">navigator.epubReadingSystem</dc:title>
+		<dc:title id="pub-title">navigator.epubReadingSystem (extended)</dc:title>
 		<dc:language id="pub-language">en</dc:language>
 		<dc:date>2014-10-13</dc:date>
 		<meta property="dcterms:modified">2014-10-13T00:00:00Z</meta>
