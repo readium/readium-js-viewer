@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en"
+	lang="en">
+	<head>
+		<title>navigator.epubReadingSystem</title>
+
+<style type="text/css">
+/*<![CDATA[*/
+
+.repo
+{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.name
+{
+    font-weight: bold;
+}
+
+.value
+{
+    font-weight: normal;
+}
+
+/*]]>*/
+</style>
+
+<script>
+//<![CDATA[
+
+document.addEventListener("DOMContentLoaded", function()
+{
+    window.addEventListener("message", function(ev) {
+        console.log("@@@@@@@@@@@@@@@@ index.xhtml received message:");
+        console.log(ev.data);
+    }, false);
+
+    epubReadingSystem();
+    
+    // security test...
+    //window.frameElement.ownerDocument.body.style.border = "1px solid red";
+    //window.top.document.body.style.border = "1px solid red";
+    
+    console.debug(location);
+    console.debug(window.frameElement.baseURI); //ownerDocument.defaultView
+    
+}, false);
+
+window.onload=function()
+{
+//   dump();
+};
+
+function epubReadingSystem()
+{
+    var div = document.getElementById("placeholder");
+
+    var logError = function(msg)
+    {
+        if (console && console.log) console.log(msg);
+        if (alert) alert(msg);
+        //TODO: append HTML to placeholder div
+    };
+
+    if (!window.navigator.epubReadingSystem)
+    {
+        logError("!window.navigator.epubReadingSystem ???");
+        return;
+    }
+
+    var appendNameValuePair = function(name, value, link)
+    {
+        var p = document.createElementNS("http://www.w3.org/1999/xhtml", 'p');
+
+				if (name !== "name") {
+
+		        var span1 = document.createElementNS("http://www.w3.org/1999/xhtml", 'span');
+		        span1.setAttribute("class", "name");
+
+		        var txt1 = document.createTextNode(name + ": ");
+		        span1.appendChild(txt1);
+
+		        p.appendChild(span1);
+				}
+
+        var span2 = document.createElementNS("http://www.w3.org/1999/xhtml", 'span');
+        span2.setAttribute("class", (name === "name") ? "repo" : "value");
+
+        var txt2 = document.createTextNode(value);
+        span2.appendChild(txt2);
+
+        if (link)
+        {
+            var a = document.createElementNS("http://www.w3.org/1999/xhtml", 'a');
+            a.setAttribute("href", value);
+            a.setAttribute("target", "_BLANK");
+            a.appendChild(span2);
+            p.appendChild(a);
+        }
+        else
+        {
+            p.appendChild(span2);
+        }
+
+        div.appendChild(p);
+    };
+
+    appendNameValuePair("NAME", window.navigator.epubReadingSystem.name);
+    appendNameValuePair("VERSION", window.navigator.epubReadingSystem.version);
+
+    if (!window.navigator.epubReadingSystem.readium)
+    {
+        logError("!window.navigator.epubReadingSystem.readium");
+        return;
+    }
+    if (!window.navigator.epubReadingSystem.readium.buildInfo)
+    {
+        logError("!window.navigator.epubReadingSystem.readium.buildInfo");
+        return;
+    }
+
+    //appendNameValuePair("BUILD DATE/TIME", window.navigator.epubReadingSystem.readium.buildInfo.dateTime);
+		console.log("window.navigator.epubReadingSystem.readium.buildInfo.dateTime: " + window.navigator.epubReadingSystem.readium.buildInfo.dateTime);
+
+    //appendNameValuePair("readium.buildInfo.version", window.navigator.epubReadingSystem.readium.buildInfo.version);
+		console.log("window.navigator.epubReadingSystem.readium.buildInfo.version: " + window.navigator.epubReadingSystem.readium.buildInfo.version);
+
+    //appendNameValuePair("readium.buildInfo.chromeVersion", window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion);
+		console.log("window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion: " + window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion);
+
+    if (!window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories || !window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.length)
+    {
+        logError("!window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories");
+        return;
+    }
+
+    for (var i = 0; i < window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.length; i++)
+    {
+				div.appendChild(document.createElementNS("http://www.w3.org/1999/xhtml", 'hr'));
+				//
+        // var pp = document.createElementNS("http://www.w3.org/1999/xhtml", 'p');
+        // pp.setAttribute("class", "repo");
+        // var txt = document.createTextNode("readium.buildInfo.gitRepositories["+i+"]");
+        // pp.appendChild(txt);
+        // div.appendChild(pp);
+
+        var repo = window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories[i];
+        appendNameValuePair("name", repo.name);
+        appendNameValuePair("sha", repo.sha);
+        appendNameValuePair("version", repo.version);
+        appendNameValuePair("tag", repo.tag);
+        appendNameValuePair("branch", repo.branch);
+        appendNameValuePair("release", repo.release);
+        appendNameValuePair("clean", repo.clean);
+        appendNameValuePair("timestamp", "[" + repo.timestamp + "] " + new Date(repo.timestamp).toString());
+        appendNameValuePair("url", repo.url, true);
+    }
+}
+//]]>
+</script>
+
+	</head>
+	<body>
+		<h1>epubReadingSystem</h1>
+
+        <div id="placeholder"> </div>
+    
+	</body>
+</html>
