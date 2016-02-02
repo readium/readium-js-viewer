@@ -186,6 +186,12 @@ Helpers){
         if (hide){
             $appContainer.removeClass('toc-visible');
 
+            // clear tabindex off of any previously focused ToC item
+            var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
+            if (existsFocusable.length > 0){
+              existsFocusable[0].setAttribute("tabindex", "-1");
+            }
+            /* end of clear focusable tab item */
             setTimeout(function(){ $('#tocButt')[0].focus(); }, 100);
         }
         else{
@@ -273,6 +279,24 @@ Helpers){
                     $toc[0].setAttributeNS("http://www.w3.org/1999/xhtml", "dir", "rtl");
                     $toc[0].style.direction = "rtl"; // The CSS stylesheet property does not trigger :(
                 }
+
+                // remove default focus from anchor elements in TOC after added to #readium-toc-body
+                var $items = $('#readium-toc-body li >a');
+                $items.each(function(){
+                  $(this).attr("tabindex", "-1");
+                   $(this).on("focus", function(event){
+                    //console.log("toc item focus: " + event.target);
+                    // remove tabindex from previously focused
+                    var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
+                    if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
+                      //console.log("previous focus: " + $prevFocus[0]);
+                      $prevFocus.attr("tabindex","-1");
+                    }
+                    // add to newly focused
+                    event.target.setAttribute("tabindex", "60");
+                  });
+                });
+
             }
 
         } else {
@@ -387,12 +411,15 @@ Helpers){
                     iframe = lastIframe;
                 }
 
+
+/* Remove because is removing focus from the toc
                 if (iframe)
                 {
                     //var doc = ( iframe.contentWindow || iframe.contentDocument ).document;
                     var toFocus = iframe; //doc.body
                     setTimeout(function(){ toFocus.focus(); }, 50);
                 }
+*/
             }
             catch (e)
             {
@@ -441,7 +468,67 @@ Helpers){
             */
             return false;
         })
-    }
+//        var KEY_ENTER = 0x0D;
+//        var KEY_SPACE = 0x20;
+        var KEY_END = 0x23;
+        var KEY_HOME = 0x24;
+//        var KEY_LEFT = 0x25;
+        var KEY_UP = 0x26;
+//        var KEY_RIGHT = 0x27;
+        var KEY_DOWN = 0x28;
+
+        $('#readium-toc-body').keyup( function(event){
+            var next = null;
+            var blurNode = event.target;
+            switch (event.which) {
+              case KEY_HOME:
+                  //find first li >a
+                  next = $('#readium-toc-body li >a')[0];
+              break;
+
+              case KEY_END:
+              // find last a within toc
+                next = $('#readium-toc-body a').last()[0];
+              break;
+
+              case KEY_DOWN:
+                if (blurNode.tagName == "BUTTON") {
+                    var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
+                    if (existsFocusable.length > 0) {
+                      next = existsFocusable[0];
+                    } else {
+                      // go to first entry
+                      next = $('#readium-toc-body li >a')[0];
+                    }
+                } else {
+                  // find all the a elements, find previous focus (tabindex=60) then get next
+                  var $items = $('#readium-toc-body a');
+                  var index = $('a[tabindex="60"]').index('#readium-toc-body a');
+                  //var index = $('a[tabindex="60"]').index($items); // not sure why this won't work?
+                  if (index > -1 && index < $items.length-1) {
+                    next = $items.get(index+1);
+                  } 
+                }
+              break;
+
+              case KEY_UP:
+                // find all the a elements, find previous focus (tabindex=60) then get previous
+                var $items = $('#readium-toc-body a');
+                var index = $('a[tabindex="60"]').index('#readium-toc-body a');
+                if (index > -1 && index > 0 ) {
+                  next = $items.get(index-1);
+                } 
+              break;
+
+              default:
+                return true;
+            }
+            if (next) {
+              setTimeout(next.focus(), 5);
+            }
+          return true;
+      }); // end of onkeyup
+    } // end of loadToc
 
     var toggleFullScreen = function(){
 
