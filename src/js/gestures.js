@@ -15,8 +15,8 @@ define(['readium_shared_js/globals', 'jquery','jquery_hammer','hammerjs'], funct
 
     var gesturesHandler = function(reader, viewport){
         
-this.initialize= function(){};
-return; // TODO upgrade to Hammer API v2
+// this.initialize= function(){};
+// return; // TODO upgrade to Hammer API v2
 
         var onSwipeLeft = function(){
             reader.openPageRight();
@@ -37,20 +37,16 @@ return; // TODO upgrade to Hammer API v2
             reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function(iframe, spineItem) {
                 Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "gestures.js [ " + spineItem.href + " ]");
                 
-                //set hammer's document root
-                Hammer.DOCUMENT = iframe.contents();
-                //hammer's internal touch events need to be redefined? (doesn't work without)
-                Hammer.event.onTouch(Hammer.DOCUMENT, Hammer.EVENT_MOVE, Hammer.detection.detect);
-                Hammer.event.onTouch(Hammer.DOCUMENT, Hammer.EVENT_END, Hammer.detection.detect);
-
-                //set up the hammer gesture events
-                //swiping handlers
-                var swipingOptions = {prevent_mouseevents: true};
-                Hammer(Hammer.DOCUMENT,swipingOptions).on("swipeleft", function() {
+                var hm = new Hammer(iframe.contents()[0]);
+                hm.on("swipe", function(e){
+                  if (e.direction === 2) {
+                    // Swipe left
                     onSwipeLeft();
-                });
-                Hammer(Hammer.DOCUMENT,swipingOptions).on("swiperight", function() {
+                  }
+                  else if (e.direction === 4) {
+                    // Swipe right
                     onSwipeRight();
+                  }
                 });
 
                 //remove stupid ipad safari elastic scrolling
