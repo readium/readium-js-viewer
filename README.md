@@ -20,7 +20,7 @@ See [license.txt](./license.txt).
 ## Prerequisites
 
 * A decent terminal. On Windows, GitShell works great ( http://git-scm.com ), GitBash works too ( https://msysgit.github.io ), and Cygwin adds useful commands ( https://www.cygwin.com ).
-* NodeJS ( https://nodejs.org ) **v0.12** or higher
+* NodeJS ( https://nodejs.org ) **v4** (but not v5, because the installer ships with NPM v3 which seems to [have bugs](https://github.com/readium/readium-js-viewer/issues/453) related to the new flat module dependencies)
 
 
 ## Development
@@ -146,9 +146,9 @@ Note that `npm run http` + `dev` folder is not the only way to test Readium "loc
 
 ## Cloud reader deployment
 
-The `cloud-reader` distribution folder (see section above) can be uploaded to an HTTP server as-is,
-in which case a sibling `/epub_content/` folder is expected to contain exploded or zipped EPUBs,
-and the `/epub_content/epub_library.json` file is expected to describe the available ebooks in the online library
+The contents of the `cloud-reader` distribution folder (see section above) can be uploaded to an HTTP server as-is (either in the http://domain.com/ root, or any subfolder path http://domain.com/reader/),
+and a sibling `epub_content/` folder is expected to contain exploded or zipped EPUBs (e.g. http://domain.com/reader/epub_content/ebook.epub or http://domain.com/epub_content/ebook/ for extracted files),
+and the `epub_content/epub_library.json` file is expected to describe the available ebooks in the online library
 (see the existing examples in `readium-js-viewer` repository). Additionally, the `epubs` URL parameter (HTTP GET)
 can be used to specify a different location for the JSON file that describes the ebook library contents, for example:
 `http://domain.com/index.html?epubs=http://otherdomain.com/ebooks.json` (assuming both HTTP servers are suitably configured with CORS),

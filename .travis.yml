@@ -4,7 +4,7 @@ branches:
   - develop
 language: node_js
 node_js:
-- '0.12'
+- '4.2'
 before_install:
 - git submodule update --init --recursive
 #
@@ -91,6 +91,7 @@ script:
 - cat build-output/version.json
 after_success:
 - '[ ${MODE} = "firefox" ] && npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh'
+- '[ ${MODE} = "firefox" ] && npm install firebase-tools && firebase deploy --token "$FIREBASE_TOKEN"'
 - '[ ${MODE} = "chromeApp" ] && node build-config/deployCrx.js'
 after_failure: cat ./sauce_connect.log
 env:
@@ -106,13 +107,3 @@ addons:
   sauce_connect:
     username: readium
     access_key: a36ebc10-e514-4da6-924c-307aec513550
-deploy:
-  provider: divshot
-  skip_cleanup: true
-  environment: development
-  on:
-    repo: readium/readium-js-viewer
-    branch: develop
-    condition: "$MODE = firefox"
-  api_key:
-    secure: dU2zCAnyXFjp5CxDP1TyQrVu0Mg5VG8mcU8wG47MgKwXdh6TBtTGBljowydlwLFHg3VPwdOBwAYR0ysMeU/60wiKy4O9l345fMj3ZqIGMgZsZaTHcaiMUZ06xHPrQviSTb99b6i/2P9csAOdJhwLyS02/2fXm6xsIv+4xyQ3r5o=

@@ -163,7 +163,7 @@
             http_app-ebooks.log
             
             -OPEN
-            /dist/cloud-reader/?epubs=http://127.0.0.1:8080/epub_content/epub_library.json
+            /dist/cloud-reader/?epubs=http://127.0.0.1:8080/epub_content/epub_library.opds
             
             -a 127.0.0.1
             -p 8080
