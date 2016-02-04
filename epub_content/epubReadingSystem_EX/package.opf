@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<package xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/" version="3.0" xml:lang="en"
+	unique-identifier="pub-identifier">
+	<metadata>
+		<dc:identifier id="pub-identifier">urn:isbn:0123456789</dc:identifier>
+		<dc:title id="pub-title">navigator.epubReadingSystem (extended)</dc:title>
+		<dc:language id="pub-language">en</dc:language>
+		<dc:date>2014-10-13</dc:date>
+		<meta property="dcterms:modified">2014-10-13T00:00:00Z</meta>
+		<dc:creator>Readium</dc:creator>
+		<dc:publisher>Readium Foundation</dc:publisher>
+		<dc:rights>Copyright © 2014 Readium Foundation</dc:rights>
+	</metadata>
+	<manifest>
+		<item id="nav" href="nav.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+		<item id="main" href="index.xhtml" media-type="application/xhtml+xml"/>
+	</manifest>
+	<spine>
+		<itemref idref="main"/>
+	</spine>
+</package>
