@@ -1,15 +1,15 @@
 define([
 './ModuleConfig',
 'jquery',
-'readium_shared_js/helpers',
-'URIjs'
+'URIjs',
+'readium_cfi_js/XmlParse'
 ],
 
 function(
 moduleConfig,
 $,
-Helpers,
-URI){
+URI,
+XmlParse){
 
     var processOPDS = function(opdsURL, data, dataSuccess, dataFail) {
 
@@ -61,7 +61,7 @@ URI){
         }
         
         if (typeof data === "string") {
-            data = $.parseXML(data);
+            data = XmlParse.fromString(data);
         }
         
         $xml = $(data);

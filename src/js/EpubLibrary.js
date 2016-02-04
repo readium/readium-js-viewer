@@ -21,7 +21,8 @@ define([
 'Analytics',
 './Keyboard',
 './versioning/ReadiumVersioning',
-'readium_shared_js/helpers'],
+'readium_shared_js/helpers',
+'readium_cfi_js/XmlParse'],
 
 function(
 moduleConfig,
@@ -46,7 +47,8 @@ Messages,
 Analytics,
 Keyboard,
 Versioning,
-Helpers){
+Helpers,
+XmlParse){
 
     var detailsDialogStr = DetailsDialog({strings: Strings});
 
@@ -188,8 +190,7 @@ Helpers){
             $.get(urlContainerXml, function(data){
     
                 if(typeof(data) === "string" ) {
-                    var parser = new window.DOMParser;
-                    data = parser.parseFromString(data, 'text/xml');
+                    data = XmlParse.fromString(data);
                 }
                 var $rootfile = $('rootfile', data);
                 var rootFilePath = $rootfile.attr('full-path');
@@ -253,8 +254,7 @@ Helpers){
                 // $.get(epub.rootUrl + "/META-INF/container.xml", function(data){
         
                 //     if(typeof(data) === "string" ) {
-                //         var parser = new window.DOMParser;
-                //         data = parser.parseFromString(data, 'text/xml');
+                //         data = XmlParse.fromString(data);
                 //     }
                 //     var $rootfile = $('rootfile', data);
                 //     epub.packagePath = $rootfile.attr('full-path');
