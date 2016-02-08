@@ -190,7 +190,7 @@ XmlParse){
             $.get(urlContainerXml, function(data){
     
                 if(typeof(data) === "string" ) {
-                    data = XmlParse.fromString(data);
+                    data = XmlParse.fromString(data, "text/xml");
                 }
                 var $rootfile = $('rootfile', data);
                 var rootFilePath = $rootfile.attr('full-path');
@@ -254,7 +254,7 @@ XmlParse){
                 // $.get(epub.rootUrl + "/META-INF/container.xml", function(data){
         
                 //     if(typeof(data) === "string" ) {
-                //         data = XmlParse.fromString(data);
+                //         data = XmlParse.fromString(data, "text/xml");
                 //     }
                 //     var $rootfile = $('rootfile', data);
                 //     epub.packagePath = $rootfile.attr('full-path');

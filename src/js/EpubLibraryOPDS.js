@@ -61,7 +61,7 @@ XmlParse){
         }
         
         if (typeof data === "string") {
-            data = XmlParse.fromString(data);
+            data = XmlParse.fromString(data, "text/xml");
         }
         
         $xml = $(data);

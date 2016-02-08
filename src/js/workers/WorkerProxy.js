@@ -60,7 +60,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
                     }
                     break;
                 case Messages.FIND_PACKAGE:
-                    var containerDom = XmlParse.fromString(data.containerStr);
+                    var containerDom = XmlParse.fromString(data.containerStr, "text/xml");
                     var $rootfile = $('rootfile', containerDom);
                     if (!$rootfile.length){
                         error(Messages.ERROR_EPUB);
@@ -71,7 +71,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
                     }
                     break;
                 case Messages.PARSE_PACKAGE:
-                    var packageDom = XmlParse.fromString(data.packageStr);
+                    var packageDom = XmlParse.fromString(data.packageStr, "text/xml");
                     var errors = $(packageDom).find('parsererror');
                     if (errors.length) {
                         error(Messages.ERROR_PACKAGE_PARSE, $(errors).find('div').text());
@@ -82,7 +82,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
 
                         var encryptionData;
                         if(data.encryptionStr) {
-                            var encryptionDom = XmlParse.fromString(data.encryptionStr);
+                            var encryptionDom = XmlParse.fromString(data.encryptionStr, "text/xml");
 
                             encryptionData = EncryptionHandler.CreateEncryptionData(packageObj.id, encryptionDom);
                         }

@@ -107,7 +107,7 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
             $.get(packageUrl, function(data){
     
                 if(typeof(data) === "string" ) {
-                    data = XmlParse.fromString(data);
+                    data = XmlParse.fromString(data, "text/xml");
                 }
                 var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
                 jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;

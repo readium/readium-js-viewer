@@ -132,7 +132,7 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                 if (blob){
                     fileReader.onload = function() {
                         // readium_cfi_js/XmlParse
-                        // var xmlDom = XmlParse.fromString(this.result);
+                        // var xmlDom = XmlParse.fromString(this.result, "text/xml");
                         callback(this.result);
                     };
 
