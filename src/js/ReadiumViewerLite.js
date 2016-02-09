@@ -27,6 +27,10 @@ define(['jquery', './EpubReader', 'readium_shared_js/helpers'], function($, Epub
         container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted
     }).on('show.bs.tooltip', function(e){
         $(tooltipSelector).not(e.target).tooltip('destroy');
+        var target = e.target; 
+        setTimeout(function(){
+            $(target).tooltip('destroy');
+        }, 8000);
     });
     
     
