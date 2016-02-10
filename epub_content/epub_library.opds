@@ -124,6 +124,7 @@
         <author>
             <name>Frank Baum</name>
         </author>
-        <link type="image/png" href="emeral-city-oz/OPS/images/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="image/png" href="emerald-city-oz/OPS/images/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
         <link type="application/epub" href="emerald-city-oz" rel="http://opds-spec.org/acquisition"/>
-    </entry></feed>
+    </entry>
+</feed>
