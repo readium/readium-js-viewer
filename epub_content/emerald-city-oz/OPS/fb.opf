@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<package version="2.0" unique-identifier="PrimaryID" xmlns="http://www.idpf.org/2007/opf">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/">
+    <dc:title>The Emerald City of Oz</dc:title>
+    <dc:identifier id="PrimaryID" opf:scheme="URN">urn:uuid:a2e4e23c-cb2e-11e5-84b0-4c72b9252ec6</dc:identifier>
+      <dc:identifier opf:scheme="URI">http://www.feedbooks.com/book/231</dc:identifier>
+
+    <dc:language xsi:type="dcterms:RFC4646">en</dc:language>
+
+    <dc:creator opf:role="aut" opf:file-as="Baum, Lyman Frank">Lyman Frank Baum</dc:creator>
+
+    <dc:publisher>Feedbooks</dc:publisher>
+    <dc:description></dc:description>
+    <dc:coverage></dc:coverage>
+    <dc:source>http://en.wikisource.org</dc:source>
+    <dc:date opf:event="original-publication">1910</dc:date>
+    <dc:date opf:event="ops-publication">2007-01-22</dc:date>
+<dc:rights>This work is available for countries where copyright is Life+70 and in the USA.</dc:rights>
+          <dc:subject>Fiction</dc:subject>
+          <dc:subject>Fantasy</dc:subject>
+
+	    <meta name="cover" content="book-cover"/>
+  </metadata>
+
+  <manifest>
+    <!-- Content Documents -->
+    <item id="cover"
+      href="cover.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="titlepage"
+      href="title.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="about"
+      href="about.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main0"
+      href="main0.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main1"
+      href="main1.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main2"
+      href="main2.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main3"
+      href="main3.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main4"
+      href="main4.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main5"
+      href="main5.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main6"
+      href="main6.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main7"
+      href="main7.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main8"
+      href="main8.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main9"
+      href="main9.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main10"
+      href="main10.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main11"
+      href="main11.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main12"
+      href="main12.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main13"
+      href="main13.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main14"
+      href="main14.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main15"
+      href="main15.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main16"
+      href="main16.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main17"
+      href="main17.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main18"
+      href="main18.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main19"
+      href="main19.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main20"
+      href="main20.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main21"
+      href="main21.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main22"
+      href="main22.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main23"
+      href="main23.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main24"
+      href="main24.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main25"
+      href="main25.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main26"
+      href="main26.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main27"
+      href="main27.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main28"
+      href="main28.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main29"
+      href="main29.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="main30"
+      href="main30.xml"
+      media-type="application/xhtml+xml"/>
+
+    <item id="feedbooks"
+      href="feedbooks.xml"
+      media-type="application/xhtml+xml"/>
+
+    <!-- CSS Style Sheets -->
+
+    <item id="page-css"
+      href="css/page.css"
+      media-type="text/css"/>
+
+    <item id="feedbooks-css"
+      href="css/feedbooks.css"
+      media-type="text/css"/>
+
+    <item id="titlepage-css"
+      href="css/title.css"
+      media-type="text/css"/>
+
+    <item id="about-css"
+      href="css/about.css"
+      media-type="text/css"/>
+
+    <item id="main-css"
+      href="css/main.css"
+      media-type="text/css"/>
+
+    <item id="footnotes-css"
+      href="css/footnotes.css"
+      media-type="text/css"/>
+
+    <!-- Images -->
+
+    <item id="logo-feedbooks-tiny"
+      href="images/logo-feedbooks-tiny.png"
+      media-type="image/png"/>
+
+    <item id="logo-feedbooks"
+      href="images/logo-feedbooks.png"
+      media-type="image/png"/>
+
+    <item id="book-cover"
+      href="images/cover.png"
+      media-type="image/png"/>
+
+    <!-- NCX -->
+
+    <item id="ncx"
+      href="fb.ncx"
+      media-type="application/x-dtbncx+xml"/>
+
+  </manifest>
+
+  <spine toc="ncx">
+
+  <itemref idref="cover" linear="yes"/>
+
+
+  <itemref idref="titlepage" linear="yes"/>
+
+  <itemref idref="about" linear="yes"/>
+
+  <itemref idref="main0" linear="yes"/>
+
+  <itemref idref="main1" linear="yes"/>
+
+  <itemref idref="main2" linear="yes"/>
+
+  <itemref idref="main3" linear="yes"/>
+
+  <itemref idref="main4" linear="yes"/>
+
+  <itemref idref="main5" linear="yes"/>
+
+  <itemref idref="main6" linear="yes"/>
+
+  <itemref idref="main7" linear="yes"/>
+
+  <itemref idref="main8" linear="yes"/>
+
+  <itemref idref="main9" linear="yes"/>
+
+  <itemref idref="main10" linear="yes"/>
+
+  <itemref idref="main11" linear="yes"/>
+
+  <itemref idref="main12" linear="yes"/>
+
+  <itemref idref="main13" linear="yes"/>
+
+  <itemref idref="main14" linear="yes"/>
+
+  <itemref idref="main15" linear="yes"/>
+
+  <itemref idref="main16" linear="yes"/>
+
+  <itemref idref="main17" linear="yes"/>
+
+  <itemref idref="main18" linear="yes"/>
+
+  <itemref idref="main19" linear="yes"/>
+
+  <itemref idref="main20" linear="yes"/>
+
+  <itemref idref="main21" linear="yes"/>
+
+  <itemref idref="main22" linear="yes"/>
+
+  <itemref idref="main23" linear="yes"/>
+
+  <itemref idref="main24" linear="yes"/>
+
+  <itemref idref="main25" linear="yes"/>
+
+  <itemref idref="main26" linear="yes"/>
+
+  <itemref idref="main27" linear="yes"/>
+
+  <itemref idref="main28" linear="yes"/>
+
+  <itemref idref="main29" linear="yes"/>
+
+  <itemref idref="main30" linear="yes"/>
+
+
+  <itemref idref="feedbooks" linear="yes"/>
+
+  </spine>
+
+  <guide>
+
+  <reference type="cover" title="Cover" href="cover.xml"/>
+
+  <reference type="title-page" title="Title Page" href="title.xml"/>
+
+  <reference type="bibliography" title="About" href="about.xml"/>
+
+  <reference type="text" title="Main0" href="main0.xml"/>
+
+  <reference type="text" title="Main1" href="main1.xml"/>
+
+  <reference type="text" title="Main2" href="main2.xml"/>
+
+  <reference type="text" title="Main3" href="main3.xml"/>
+
+  <reference type="text" title="Main4" href="main4.xml"/>
+
+  <reference type="text" title="Main5" href="main5.xml"/>
+
+  <reference type="text" title="Main6" href="main6.xml"/>
+
+  <reference type="text" title="Main7" href="main7.xml"/>
+
+  <reference type="text" title="Main8" href="main8.xml"/>
+
+  <reference type="text" title="Main9" href="main9.xml"/>
+
+  <reference type="text" title="Main10" href="main10.xml"/>
+
+  <reference type="text" title="Main11" href="main11.xml"/>
+
+  <reference type="text" title="Main12" href="main12.xml"/>
+
+  <reference type="text" title="Main13" href="main13.xml"/>
+
+  <reference type="text" title="Main14" href="main14.xml"/>
+
+  <reference type="text" title="Main15" href="main15.xml"/>
+
+  <reference type="text" title="Main16" href="main16.xml"/>
+
+  <reference type="text" title="Main17" href="main17.xml"/>
+
+  <reference type="text" title="Main18" href="main18.xml"/>
+
+  <reference type="text" title="Main19" href="main19.xml"/>
+
+  <reference type="text" title="Main20" href="main20.xml"/>
+
+  <reference type="text" title="Main21" href="main21.xml"/>
+
+  <reference type="text" title="Main22" href="main22.xml"/>
+
+  <reference type="text" title="Main23" href="main23.xml"/>
+
+  <reference type="text" title="Main24" href="main24.xml"/>
+
+  <reference type="text" title="Main25" href="main25.xml"/>
+
+  <reference type="text" title="Main26" href="main26.xml"/>
+
+  <reference type="text" title="Main27" href="main27.xml"/>
+
+  <reference type="text" title="Main28" href="main28.xml"/>
+
+  <reference type="text" title="Main29" href="main29.xml"/>
+
+  <reference type="text" title="Main30" href="main30.xml"/>
+
+
+  <reference type="copyright-page" title="Feedbooks" href="feedbooks.xml"/>
+
+  </guide>
+</package>
