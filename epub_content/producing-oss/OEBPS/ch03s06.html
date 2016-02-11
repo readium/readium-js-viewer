@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>RSS Feeds</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="RSS Feeds"><div class="titlepage"><div><div><h1 class="title"><a id="rss"/>RSS Feeds</h1></div></div></div><p><em class="firstterm">RSS</em> (Really Simple Syndication) is a
+mechanism for distributing meta-data-rich news summaries to
+"subscribers", that is, people who have indicated an interest in
+receiving those summaries.  A given RSS source is usually called
+a <em class="firstterm">feed</em>, and the user's subscription interface
+is called a <em class="firstterm">feed reader</em> or <em class="firstterm">feed
+aggregator</em>.  <a class="ulink" href="http://www.rssbandit.org/">RSS
+Bandit</a> and the eponymous
+<a class="ulink" href="http://www.feedreader.com/">Feedreader</a> are two
+open source RSS readers, for example.</p><p>There is not space here for a detailed technical explanation of
+RSS<sup>[<a id="idp5913792" href="#ftn.idp5913792" class="footnote">19</a>]</sup>, but you should be aware of two main
+things.  First, the feed reading software is chosen by the subscriber
+and is <span class="emphasis"><em>the same</em></span> for all the feeds that subscriber
+monitors — in fact, this is the major selling point of
+RSS: that the subscriber chooses one interface to use for all their
+feeds, so each feed can concentrate just on delivering content.
+Second, RSS is now ubiquitous, so much so that most people who use it
+don't even know they're using it.  To the world at large, RSS looks
+like a little button on a web page, with a label saying "Subscribe to
+this site" or "News feed".  You click on the button, and from then on,
+your feed reader (which may well be an applet embedded in your home
+page) automatically updates whenever there's news from the
+site.</p><p>This means that your open source project should probably offer
+an RSS feed (note that many of the canned hosting
+sites — see
+<a class="xref" href="ch03s08.html#canned-hosting" title="Canned Hosting">the section called “Canned Hosting”</a> — offer it right out
+of the box).  Be careful not to post so many news items each day that
+subscribers can't separate the wheat from the chaff.  If there are too
+many news events, people will just ignore the feed, or even
+unsubscribe in exasperation.  Ideally, a project would offer separate
+feeds, one for big announcements, another following (say) events in
+the issue tracker, another for each mailing list, etc.  In practice,
+this is hard to do well: it can result in interface confusion both for
+visitors to the project's web site and for the administrators.  But at
+a minimum, the project should offer one RSS feed on the front page,
+for sending out major announcements such as releases and security
+alerts.<sup>[<a id="idp5916864" href="#ftn.idp5916864" class="footnote">20</a>]</sup></p><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp5913792" href="#idp5913792" class="para">19</a>] </sup>See
+<a class="ulink" href="http://www.xml.com/pub/a/2002/12/18/dive-into-xml.html">http://www.xml.com/pub/a/2002/12/18/dive-into-xml.html</a>
+for that.</p></div><div class="footnote"><p><sup>[<a id="ftn.idp5916864" href="#idp5916864" class="para">20</a>] </sup>Credit where credit is due: this section wasn't
+in the first published edition of the book, but Brian Aker's blog
+entry
+<a class="ulink" href="http://krow.livejournal.com/564980.html">"Release Criteria,
+Open Source, Thoughts On..."</a> reminded me of the usefulness of
+RSS feeds for open source projects.</p></div></div></div></body></html>

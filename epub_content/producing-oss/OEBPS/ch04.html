@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 4. Social and Political Infrastructure</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="chapter" title="Chapter 4. Social and Political Infrastructure"><div class="titlepage"><div><div><h1 class="title"><a id="social-infrastructure"/>Chapter 4. Social and Political Infrastructure</h1></div></div></div><div class="simplesect"><div class="titlepage"/><p>The first questions people usually ask about free software are
+"How does it work?  What keeps a project running?  Who makes the
+decisions?"  I'm always dissatisfied with bland responses about
+meritocracy, the spirit of cooperation, code speaking for itself, etc.
+The fact is, the question is not easy to answer.  Meritocracy,
+cooperation, and running code are all part of it, but they do little
+to explain how projects actually run on a day-to-day basis, and say
+nothing about how conflicts are resolved.</p><p>This chapter tries to show the structural underpinnings
+successful projects have in common.  I mean "successful" not just in
+terms of technical quality, but also operational health and
+survivability.  Operational health is the project's ongoing ability to
+incorporate new code contributions and new developers, and to be
+responsive to incoming bug reports.  Survivability is the project's
+ability to exist independently of any individual participant or
+sponsor—think of it as the likelihood that the project would
+continue even if all of its founding members were to move on to other
+things.  Technical success is not hard to achieve, but without a
+robust developer base and social foundation, a project may be unable
+to handle the growth that initial success brings, or the departure of
+charismatic individuals.</p><p>There are various ways to achieve this kind of success.  Some
+involve a formal governance structure, by which debates are resolved,
+new developers are invited in (and sometimes out), new features
+planned, and so on.  Others involve less formal structure, but more
+conscious self-restraint, to produce an atmosphere of fairness that
+people can rely on as a <span class="foreignphrase"><em class="foreignphrase">de facto</em></span> form
+of governance.  Both ways lead to the same result: a sense of
+institutional permanence, supported by habits and procedures that are
+well understood by everyone who participates.  These features are even
+more important in self-organizing systems than in centrally-controlled
+ones, because in self-organizing systems, everyone is conscious that a
+few bad apples can spoil the whole barrel, at least for a while.</p><div class="sect1" title="Forkability"><div class="titlepage"><div><div><h1 class="title"><a id="forkability"/>Forkability</h1></div></div></div><p>The indispensable ingredient that binds developers together on a
+free software project, and makes them willing to compromise when
+necessary, is the code's <em class="firstterm">forkability</em>: the
+ability of anyone to take a copy of the source code and use it to
+start a competing project, known as a <em class="firstterm">fork</em>.
+The paradoxical thing is that the <span class="emphasis"><em>possibility</em></span> of
+forks is usually a much greater force in free software projects than
+actual forks, which are very rare.  Because a fork is bad for everyone
+(for reasons examined in detail in
+<a class="xref" href="ch08s06.html" title="Forks">the section called “Forks”</a><span> in
+<a class="xref" href="ch08.html" title="Chapter 8. Managing Volunteers">Chapter 8, <em>Managing Volunteers</em></a></span>), the more serious
+the threat of a fork becomes, the more willing people are to
+compromise to avoid it.</p><p>Forks, or rather the potential for forks, are the reason there
+are no true dictators in free software projects.  This may seem like a
+surprising claim, considering how common it is to hear someone called
+the "dictator" or "tyrant" in a given open source project.  But this
+kind of tyranny is special, quite different from the conventional
+understanding of the word.  Imagine a king whose subjects could copy
+his entire kingdom at any time and move to the copy to rule as they
+see fit.  Would not such a king govern very differently from one whose
+subjects were bound to stay under his rule no matter what he
+did?</p><p>This is why even projects that are not formally organized as
+democracies are, in practice, democracies when it comes to important
+decisions.  Replicability implies forkability; forkability implies
+consensus.  It may well be that everyone is willing to defer to one
+leader (the most famous example being Linus Torvalds in Linux kernel
+development), but this is because they <span class="emphasis"><em>choose</em></span> to
+do so, in an entirely non-cynical and non-sinister way.  The dictator
+has no magical hold over the project.  A key property of all open
+source licenses is that they do not give one party more power than any
+other in deciding how the code can be changed or used.  If the dictator
+were to suddenly start making bad decisions, there would be
+restlessness, followed eventually by revolt and a fork.  Except, of
+course, things rarely get that far, because the dictator compromises
+first.</p><p>But just because forkability puts an upper limit on how much
+power anyone can exert in a project doesn't mean there aren't
+important differences in how projects are governed.  You don't want
+every decision to come down to the last-resort question of who is
+considering a fork.  That would get tiresome very quickly, and sap
+energy away from real work.  The next two sections examine different
+ways to organize projects such that most decisions go smoothly.  These
+two examples are somewhat idealized extremes; many projects fall
+somewhere along a continuum between them.</p></div></div><div class="simplesect"><div class="titlepage"/></div><div class="sect1" title="Benevolent Dictators"><div class="titlepage"><div><div><h1 class="title"><a id="benevolent-dictator"/>Benevolent Dictators</h1></div></div></div><p>The <em class="firstterm">benevolent dictator</em> model is exactly
+what it sounds like: final decision-making authority rests with one
+person, who, by virtue of personality and experience, is expected
+to use it wisely.</p><p>Although "benevolent dictator" (or <em class="firstterm">BD</em>)is
+the standard term for this role, it would be better to think of it as
+"community-approved arbitrator" or "judge".  Generally, benevolent
+dictators do not actually make all the decisions, or even most of the
+decisions.  It's unlikely that one person could have enough expertise
+to make consistently good decisions across all areas of the project,
+and anyway, quality developers won't stay around unless they have some
+influence on the project's direction.  Therefore, benevolent dictators
+commonly do not dictate much.  Instead, they let things work
+themselves out through discussion and experimentation whenever
+possible.  They participate in those discussions themselves, but as
+regular developers, often deferring to an area maintainer who has more
+expertise.  Only when it is clear that no consensus can be reached,
+and that most of the group <span class="emphasis"><em>wants</em></span> someone to guide
+the decision so that development can move on, do they put their foot
+down and say "This is the way it's going to be."  Reluctance to make
+decisions by fiat is a trait shared by virtually all successful
+benevolent dictators; it is one of the reasons they manage to keep the
+role.</p><div class="simplesect"><div class="titlepage"/></div><div class="sect2" title="Who Can Be a Good Benevolent Dictator?"><div class="titlepage"><div><div><h2 class="title"><a id="benevolent-dictator-qualifications"/>Who Can Be a Good Benevolent Dictator?</h2></div></div></div><p>Being a BD requires a combination of traits.  It needs, first of
+all, a well-honed sensitivity to one's own influence in the project,
+which in turn brings self-restraint.  In the early stages of a
+discussion, one should not express opinions and conclusions with so
+much certainty that others feel like it's pointless to dissent.
+People must be free to air ideas, even stupid ideas.  It is inevitable
+that the BD will post a stupid idea from time to time too, of course,
+and therefore the role also requires an ability to recognize and
+acknowledge when one has made a bad decision—though this is
+simply a trait that <span class="emphasis"><em>any</em></span> good developer should
+have, especially if she stays with the project a long time.  But the
+difference is that the BD can afford to slip from time to time without
+worrying about long-term damage to her credibility.  Developers with
+less seniority may not feel so secure, so the BD should phrase
+critiques or contrary decisions with some sensitivity for how much
+weight her words carry, both technically and psychologically.</p><p>The BD does <span class="emphasis"><em>not</em></span> need to have the sharpest
+technical skills of anyone in the project.  She must be skilled enough
+to work on the code herself, and to understand and comment on any
+change under consideration, but that's all.  The BD position is
+neither acquired nor held by virtue of intimidating coding skills.
+What <span class="emphasis"><em>is</em></span> important is experience and overall
+design sense—not necessarily the ability to produce good
+design on demand, but the ability to recognize good design, whatever
+its source.</p><p>It is common for the benevolent dictator to be a founder of the
+project, but this is more a correlation than a cause.  The sorts of
+qualities that make one able to successfully start a
+project—technical competence, ability to persuade other people
+to join, etc.—are exactly the qualities any BD would need.  And
+of course, founders start out with a sort of automatic seniority,
+which can often be enough to make benevolent dictatorship appear the
+path of least resistance for all concerned.</p><p>Remember that the potential to fork goes both ways.  A BD can
+fork a project just as easily as anyone else, and some have
+occasionally done so, when they felt that the direction they wanted to
+take the project was different from where the majority of other
+developers wanted to go.  Because of forkability, it does not matter
+whether the benevolent dictator has root (system administrator
+privileges) on the project's main servers or not.  People sometimes
+talk of server control as though it were the ultimate source of power
+in a project, but in fact it is irrelevant.  The ability to add or
+remove people's commit passwords on one particular server affects only
+the copy of the project that resides on that server.  Prolonged abuse
+of that power, whether by the BD or someone else, would simply lead to
+development moving to a different server.</p></div><p>Whether your project should have a benevolent dictator, or would
+run better with some less centralized system, largely depends on who
+is available to fill the role.  As a general rule, if it's simply
+obvious to everyone who should be the BD, then that's the way to go.
+But if no candidate for BD is immediately obvious, then the project
+should probably use a decentralized decision-making process, as
+described in the next section.</p></div></div></body></html>

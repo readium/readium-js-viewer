@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 3. Technical Infrastructure</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="chapter" title="Chapter 3. Technical Infrastructure"><div class="titlepage"><div><div><h1 class="title"><a id="technical-infrastructure"/>Chapter 3. Technical Infrastructure</h1></div></div></div><div class="simplesect"><div class="titlepage"/><p>Free software projects rely on technologies that support the
+selective capture and integration of information.  The more skilled
+you are at using these technologies, and at persuading others to use
+them, the more successful your project will be.  This only becomes
+more true as the project grows.  Good information management is what
+prevents open source projects from collapsing under the weight of
+Brooks' Law<sup>[<a id="idp5476384" href="#ftn.idp5476384" class="footnote">12</a>]</sup>,
+which states that adding manpower to a late software project makes it
+later.  Fred Brooks observed that the complexity of a project
+increases as the <span class="emphasis"><em>square</em></span> of the number of
+participants.  When only a few people are involved, everyone can easily
+talk to everyone else, but when hundreds of people are involved, it is
+no longer possible for each person to remain constantly aware of what
+everyone else is doing.  If good free software project management is
+about making everyone feel like they're all working together in the
+same room, the obvious question is: what happens when everyone in a
+crowded room tries to talk at once?</p><p>This problem is not new.  In non-metaphorical crowded rooms, the
+solution is <em class="firstterm">parliamentary procedure</em>: formal
+guidelines for how to have real-time discussions in large groups, how
+to make sure important dissents are not lost in floods of "me-too"
+comments, how to form subcommittees, how to recognize when decisions
+are made, etc.  An important part of parliamentary procedure is
+specifying how the group interacts with its information management
+system.  Some remarks are made "for the record", others are not.  The
+record itself is subject to direct manipulation, and is understood to
+be not a literal transcript of what occurred, but a representation of
+what the group is willing to <span class="emphasis"><em>agree</em></span> occurred.  The
+record is not monolithic, but takes different forms for different
+purposes.  It comprises the minutes of individual meetings, the
+complete collection of all minutes of all meetings, summaries, agendas
+and their annotations, committee reports, reports from correspondents
+not present, lists of action items, etc.</p><p>Because the Internet is not really a room, we don't have to
+worry about replicating those parts of parliamentary procedure that
+keep some people quiet while others are speaking.  But when it comes
+to information management techniques, well-run open source projects
+are parliamentary procedure on steroids.  Since almost all
+communication in open source projects happens in writing, elaborate
+systems have evolved for routing and labeling data appropriately; for
+minimizing repetitions so as to avoid spurious divergences; for
+storing and retrieving data; for correcting bad or obsolete
+information; and for associating disparate bits of information with
+each other as new connections are observed.  Active participants in
+open source projects internalize many of these techniques, and will
+often perform complex manual tasks to ensure that information is
+routed correctly.  But the whole endeavor ultimately depends on
+sophisticated software support.  As much as possible, the
+communications media themselves should do the routing, labeling, and
+recording, and should make the information available to humans in the
+most convenient way possible.  In practice, of course, humans will
+still need to intervene at many points in the process, and it's
+important that the software make such interventions convenient too.
+But in general, if the humans take care to label and route information
+accurately on its first entry into the system, then the software
+should be configured to make as much use of that metadata as
+possible.</p><p>The advice in this chapter is intensely practical, based on
+experiences with specific software and usage patterns.  But the point
+is not just to teach a particular collection of techniques.  It is
+also to demonstrate, by means of many small examples, the overall
+attitude that will best encourage good information management in your
+project.  This attitude will involve a combination of technical skills
+and people skills.  The technical skills are essential because
+information management software always requires configuration, plus a
+certain amount of ongoing maintenance and tweaking as new needs arise
+(for example, see the discussion of how to handle project growth in
+<a class="xref" href="ch03s04.html#bug-filtering" title="Pre-Filtering the Bug Tracker">the section called “Pre-Filtering the Bug Tracker”</a><span> later in
+this chapter</span>).  The people skills are necessary
+because the human community also requires maintenance: it's not always
+immediately obvious how to use these tools to full advantage, and in
+some cases projects have conflicting conventions (for example, see the
+discussion of setting <code class="systemitem">Reply-to</code> headers on
+outgoing mailing list posts, in <a class="xref" href="ch03s02.html" title="Mailing Lists">the section called “Mailing Lists”</a>).
+Everyone involved with the project will need to be encouraged, at the
+right times and in the right ways, to do their part to keep the
+project's information well organized.  The more involved the
+contributor, the more complex and specialized the techniques she can
+be expected to learn.</p><p>Information management has no cut-and-dried solution.  There are
+too many variables.  You may finally get everything configured just
+the way you want it, and have most of the community participating, but
+then project growth will make some of those practices unscalable.  Or
+project growth may stabilize, and the developer and user communities
+settle into a comfortable relationship with the technical
+infrastructure, but then someone will come along and invent a whole
+new information management service, and pretty soon newcomers will be
+asking why your project doesn't use it—for example, this is
+happening now to a lot of free software projects that predate the
+invention of the wiki (see
+<a class="ulink" href="http://en.wikipedia.org/wiki/Wiki">http://en.wikipedia.org/wiki/Wiki</a>).  Many questions are
+matters of judgement, involving tradeoffs between the convenience of
+those producing information and the convenience of those consuming it,
+or between the time required to configure information management
+software and the benefit it brings to the project.</p><p>Beware of the temptation to over-automate, that is, to automate
+things that really require human attention.  Technical infrastructure
+is important, but what makes a free software project work is
+care—and intelligent expression of that care—by the humans
+involved.  The technical infrastructure is mainly about giving humans
+convenient ways to do that.</p></div><div class="sect1" title="What a Project Needs"><div class="titlepage"><div><div><h1 class="title"><a id="tools-needed"/>What a Project Needs</h1></div></div></div><p>Most open source projects offer at least a minimum, standard set
+of tools for managing information:</p><div class="variablelist"><dl><dt><span class="term">Web site</span></dt><dd><p>Primarily a centralized, one-way conduit of
+           information from the project out to the public.  The web
+           site may also serve as an administrative interface for
+           other project tools.</p></dd><dt><span class="term">Mailing lists</span></dt><dd><p>Usually the most active communications forum in the
+             project, and the "medium of record."</p></dd><dt><span class="term">Version control</span></dt><dd><p>Enables developers to manage code changes conveniently,
+             including reverting and "change porting".  Enables
+             everyone to watch what's happening to the code.</p></dd><dt><span class="term">Bug tracking</span></dt><dd><p>Enables developers to keep track of what they're working
+             on, coordinate with each other, and plan releases.  Enables
+             everyone to query the status of bugs and record
+             information (e.g., reproduction recipes) about particular
+             bugs.  Can be used for tracking not only bugs, but also
+             tasks, releases, new features, etc.</p></dd><dt><span class="term">Real-time chat</span></dt><dd><p>A place for quick, lightweight discussions and
+             question/answer exchanges.  Not always archived
+             completely.</p></dd></dl></div><p>Each tool in this set addresses a distinct need, but their functions
+are also interrelated, and the tools must be made to work together.
+Below we will examine how they can do so, and more importantly, how to
+get people to use them.  The web site is not discussed until the end,
+since it acts more as glue for the other components than as a tool
+unto itself.</p><p>You may be able to avoid a lot of the headache of choosing and
+configuring these tools by using a <em class="firstterm">canned
+hosting</em> site: a server that offers prepackaged,
+templatized web areas with all the accompanying tools needed to run a
+free software project.  See
+<a class="xref" href="ch03s08.html#canned-hosting" title="Canned Hosting">the section called “Canned Hosting”</a><span> later
+in this chapter</span> for a discussion of the advantages and
+disadvantages of canned hosting.</p></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp5476384" href="#idp5476384" class="para">12</a>] </sup>From his book <em class="citetitle">The Mythical Man
+Month</em>, 1975.  See <a class="ulink" href="http://en.wikipedia.org/wiki/The_Mythical_Man-Month">http://en.wikipedia.org/wiki/The_Mythical_Man-Month</a> and <a class="ulink" href="http://en.wikipedia.org/wiki/Brooks_Law">http://en.wikipedia.org/wiki/Brooks_Law</a>.</p></div></div></div></body></html>

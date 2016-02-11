@@ -1,13 +1,5 @@
 <feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog" xml:lang="en">
     <entry>
-        <title>Accessible EPUB 3</title>
-        <author>
-            <name>Matt Garrish</name>
-        </author>
-        <link type="image/jpeg" href="accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-        <link type="application/epub" href="accessible_epub_3" rel="http://opds-spec.org/acquisition"/>
-    </entry>
-    <entry>
         <title>Page Blanche</title>
         <author>
             <name>Boulet and Penelope Bagieu</name>
@@ -126,5 +118,13 @@
         </author>
         <link type="image/png" href="emerald-city-oz/OPS/images/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
         <link type="application/epub" href="emerald-city-oz" rel="http://opds-spec.org/acquisition"/>
+    </entry>
+    <entry>
+        <title>Producing OSS Software</title>
+        <author>
+            <name>Karl Fogel</name>
+        </author>
+        <link type="image/jpeg" href="producing-oss/OEBPS/producing-oss.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="producing-oss" rel="http://opds-spec.org/acquisition"/>
     </entry>
 </feed>

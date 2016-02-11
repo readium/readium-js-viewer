@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Share Management Tasks as Well as Technical Tasks</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Share Management Tasks as Well as Technical Tasks"><div class="titlepage"><div><div><h1 class="title"><a id="share-management"/>Share Management Tasks as Well as Technical Tasks</h1></div></div></div><p>Share the management burden as well as the technical burden of
+running the project.  As a project becomes more complex, more and more
+of the work is about managing people and information flow.  There is
+no reason not to share that burden, and sharing it does not
+necessarily require a top-down hierarchy either—what happens in
+practice tends to be more of a peer-to-peer network topology than a
+military-style command structure.</p><p>Sometimes management roles are formalized, and sometimes they
+happen spontaneously.  In the Subversion project, we have a patch
+manager, a translation manager, documentation managers, issue managers
+(albeit unofficial), and a release manager.  Some of these roles we
+made a conscious decision to initiate, others just happened by
+themselves; as the project grows, I expect more roles to be added.
+Below we'll examine these roles, and a couple of others, in detail
+(except for release manager, which was already covered in
+<a class="xref" href="ch07s03.html#release-manager" title="Release manager">the section called “Release manager”</a> and
+<a class="xref" href="ch07s03.html#release-owner" title="Dictatorship by Release Owner">the section called “Dictatorship by Release Owner”</a><span> earlier
+in this chapter</span>).</p><p>As you read the role descriptions, notice that none of them
+requires exclusive control over the domain in question.  The issue
+manager does not prevent other people from making changes in the
+issues database, the FAQ manager does not insist on being the only
+person to edit the FAQ, and so on.  These roles are all about
+responsibility without monopoly.  An important part of each domain
+manager's job is to notice when other people are working in that domain,
+and train them to do the things the way the manager does, so that the
+multiple efforts reinforce rather than conflict.  Domain managers
+should also document the processes by which they do their work, so
+that when one leaves, someone else can pick up the slack right
+away.</p><p>Sometimes there is a conflict: two or more people want the same
+role.  There is no one right way to handle this.  You could suggest
+that each volunteer post a proposal (an "application") and have all
+the committers vote on which is best.  But this is cumbersome and
+potentially awkward.  I find that a better technique is just to ask the
+multiple candidates to settle it among themselves.  They usually will,
+and will be more satisfied with the result than if a decision had been
+imposed on them from the outside.</p><div class="sect2" title="Patch Manager"><div class="titlepage"><div><div><h2 class="title"><a id="patch-manager"/>Patch Manager</h2></div></div></div><p>In a free software project that receives a lot of patches,
+keeping track of which patches have arrived and what has been decided
+about them can be a nightmare, especially if done in a decentralized
+way.  Most patches arrive as posts to the project's development
+mailing list (though some may appear first in the issue tracker, or on
+external web sites), and there are a number of different routes a
+patch can take after arrival.</p><p>Sometimes someone reviews the patch, finds problems, and bounces
+it back to the original author for cleanup.  This usually leads to an
+iterative process—all visible on the mailing list—in which
+the original author posts revised versions of the patch until the
+reviewer has nothing more to criticize.  It is not always easy to tell
+when this process is done: if the reviewer commits the patch, then
+clearly the cycle is complete.  But if she does not, it might be
+because she simply didn't have time, or doesn't have commit access
+herself and couldn't rope any of the other developers into doing
+it.</p><p>Another frequent response to a patch is a freewheeling
+discussion, not necessarily about the patch itself, but about whether
+the concept behind the patch is good.  For example, the patch may fix
+a bug, but the project prefers to fix that bug in another way, as part
+of solving a more general class of problems.  Often this is not known
+in advance, and it is the patch that stimulates the discovery.</p><p>Occasionally, a posted patch is met with utter silence.  Usually
+this is due to no developer having time <span class="emphasis"><em>at that
+moment</em></span> to review the patch, so each hopes that someone else
+will do it.  Since there's no particular limit to how long each person
+waits for someone else to pick up the ball, and meanwhile other
+priorities are always coming up, it's very easy for a patch to slip
+through the cracks without any single person intending for that to
+happen.  The project might miss out on a useful patch this way, and
+there are other harmful side effects as well: it is discouraging to
+the author, who invested work in the patch, and it makes the project
+as a whole look a bit out of touch, especially to others considering
+writing patches.</p><p>The patch manager's job is to make sure that patches don't "slip
+through the cracks."  This is done by following every patch through to
+some sort of stable state.  The patch manager watches every mailing
+list thread that results from a patch posting.  If it ends in a commit
+of the patch, he does nothing.  If it goes into a review/revise
+iteration, ending with a final version of the patch but no commit, he
+files an issue pointing to the final version, and to the mailing list
+thread around it, so that there is a permanent record for developers
+to follow up on later.  If the patch addresses an existing issue, he
+annotates that issue with the relevant information, instead of opening
+a new issue.</p><p>When a patch gets no reaction at all, the patch manager waits a
+few days, then follows up asking if anyone is going to review it.
+This usually gets a reaction: a developer may explain that she doesn't
+think the patch should be applied, and give the reasons why, or she may
+review it, in which case one of the previously described paths is
+taken.  If there is still no response, the patch manager may or may
+not file an issue for the patch, at his discretion, but at
+least the original submitter got <span class="emphasis"><em>some</em></span>
+reaction.</p><p>Having a patch manager has saved the Subversion development team
+a lot of time and mental energy.  Without a designated person to take
+responsibility, every developer would constantly have to worry "If I
+don't have time to respond to this patch right now, can I count on
+someone else doing it?  Should I try to keep an eye on it?  But if
+other people are also keeping an eye on it, for the same reasons, then
+we'd have needlessly duplicated effort."  The patch manager removes
+the second-guessing from the situation.  Each developer can make the
+decision that is right for her at the moment she first sees the patch.
+If she wants to follow up with a review, she can do that—the
+patch manager will adjust his behavior accordingly.  If she wants to
+ignore the patch completely, that's fine too; the patch manager will
+make sure it isn't forgotten.</p><p>Because this system works only if people can depend on the patch
+manager being there without fail, the role should be held formally.
+In Subversion, we advertised for it on the development and users
+mailing lists, got several volunteers, and took the first one who
+replied.  When that person had to step down (see
+<a class="xref" href="ch08s03.html" title="Transitions">the section called “Transitions”</a><span> later in
+this chapter</span>), we did the same thing again.
+We've never tried having multiple people share the role, because of
+the communications overhead that would be required between them; but
+perhaps at very high volumes of patch submission, a multiheaded patch
+manager might make sense.</p></div><div class="sect2" title="Translation Manager"><div class="titlepage"><div><div><h2 class="title"><a id="translation-manager"/>Translation Manager</h2></div></div></div><p>In software projects, "translation" can refer to two very
+different things.  It can mean translating the software's
+documentation into other languages, or it can mean translating the
+software itself—that is, having the program display errors and
+help messages in the user's preferred language.  Both are complex
+tasks, but once the right infrastructure is in place, they are largely
+separable from other development.  Because the tasks are similar in
+some ways, it may make sense (depending on your project) to have a
+single translation manager handle both, or it may be better to have
+two different managers.</p><p>In the Subversion project, we have one translation manager
+handle both.  He does not actually write the translations himself, of
+course—he may help out on one or two, but as of this writing, he
+would need to speak ten languages (twelve counting dialects) in order
+to work on all of them!  Instead, he manages teams of volunteer
+translators: he helps them coordinate among each other, and he
+coordinates between the teams and the rest of the project.</p><p>Part of the reason the translation manager is necessary is that
+translators are a different demographic from developers.  They
+sometimes have little or no experience working in a version control
+repository, or indeed with working as part of a distributed volunteer
+team at all.  But in other respects they are often the best kind of
+volunteer: people with specific domain knowledge who saw a need and
+chose to get involved.  They are usually willing to learn, and
+enthusiastic to get to work.  All they need is someone to tell them
+how.  The translation manager makes sure that the translations happen
+in a way that does not interfere unnecessarily with regular
+development.  He also serves as a sort of representative of the
+translators as a unified body, whenever the developers must be
+informed of technical changes required to support the translation
+effort.</p><p>Thus, the position's most important skills are diplomatic, not
+technical.  For example, in Subversion we have a policy that all
+translations should have at least two people working on them, because
+otherwise there is no way for the text to be reviewed.  When a new
+volunteer shows up offering to translate Subversion to, say, Malagasy,
+the translation manager has to either hook him up with someone who
+posted six months ago expressing interest in doing a Malagasy
+translation, or else politely ask the volunteer to go
+find <span class="emphasis"><em>another</em></span> Malagasy translator to work with as
+a partner.  Once enough people are available, the manager sets them up
+with the proper kind of commit access, informs them of the project's
+conventions (such as how to write log messages), and then keeps an eye
+out to make sure they adhere to those conventions.</p><p>Conversations between the translation manager and the
+developers, or between the translation manager and translation teams,
+are usually held in the project's original language—that is, the
+language from which all the translations are being made.  For most
+free software projects, this is English, but it doesn't matter what it
+is as long as the project agrees on it.  (English is probably best for
+projects that want to attract a broad international development
+community, though.)</p><p>Conversations <span class="emphasis"><em>within</em></span> a particular
+translation team usually happen in their shared language, however, and
+one of the other tasks of the translation manager is to set up a
+dedicated mailing list for each team.  That way the translators can
+discuss their work freely, without distracting people on the project's
+main lists, most of whom would not be able to understand the
+translation language anyway.</p><div class="sidebar" title="Internationalization Versus Localization"><a id="i7n"/><div class="titlepage"><div><div><p class="title"><strong>Internationalization Versus Localization</strong></p></div></div></div><p><em class="firstterm">Internationalization</em>
+  (<em class="firstterm">I18N</em>) and <em class="firstterm">localization</em>
+  (<em class="firstterm">L10N</em>) both refer to the process of adapting
+  a program to work in linguistic and cultural environments other than
+  the one for which it was originally written.  The terms are often
+  treated as interchangeable, but in fact they are not quite the same
+  thing.  As <a class="ulink" href="http://en.wikipedia.org/wiki/G11n">http://en.wikipedia.org/wiki/G11n</a>
+  writes:</p><div class="blockquote"><blockquote class="blockquote"><p>The distinction between them is subtle but important:
+     Internationalization is the adaptation of products
+     for <span class="emphasis"><em>potential</em></span> use virtually everywhere, while
+     localization is the addition of special features for use in
+     a <span class="emphasis"><em>specific</em></span> locale.</p></blockquote></div><p>For example, changing your software to losslessly handle
+  Unicode (<a class="ulink" href="http://en.wikipedia.org/wiki/Unicode">http://en.wikipedia.org/wiki/Unicode</a>) text
+  encodings is an internationalization move, since it's not about a
+  particular language, but rather about accepting text from any of a
+  number of languages.  On the other hand, making your software print
+  all error messages in Slovenian, when it detects that it is running
+  in a Slovenian environment, is a localization move.</p><p>Thus, the translation manager's task is principally about
+  localization, not internationalization.</p></div></div><div class="sect2" title="Documentation Manager"><div class="titlepage"><div><div><h2 class="title"><a id="documentation-manager"/>Documentation Manager</h2></div></div></div><p>Keeping software documentation up-to-date is a never-ending
+task.  Every new feature or enhancement that goes into the code has
+the potential to cause a change in the documentation.  Also, once the
+project's documentation reaches a certain level of completeness, you
+will find that a lot of the patches people send in are for the
+documentation, not for the code.  This is because there are many more
+people competent to fix bugs in prose than in code: all users are
+readers, but only a few are programmers.</p><p>Documentation patches are usually much easier to review and
+apply than code patches.  There is little or no testing to be done,
+and the quality of the change can be evaluated quickly just by review.
+Since the quantity is high, but the review burden fairly low, the
+ratio of administrative overhead to productive work is greater for
+documentation patches than for code patches.  Furthermore, most of the
+patches will probably need some sort of adjustment, in order to
+maintain a consistent authorial voice in the documentation.  In many
+cases, patches will overlap with or affect other patches, and need to
+be adjusted with respect to each other before being committed.</p><p>Given the exigencies of handling documentation patches, and the
+fact that the code base needs to be constantly monitored so the
+documentation can be kept up-to-date, it makes sense to have one
+person, or a small team, dedicated to the task.  They can keep a
+record of exactly where and how the documentation lags behind the
+software, and they can have practiced procedures for handling large
+quantities of patches in an integrated way.</p><p>Of course, this does not preclude other people in the project
+from applying documentation patches on the fly, especially small ones,
+as time permits.  And the same patch manager (see
+<a class="xref" href="ch08s02.html#patch-manager" title="Patch Manager">the section called “Patch Manager”</a><span> earlier
+in this chapter</span>) can track both code and
+documentation patches, filing them wherever the development and
+documentation teams want them, respectively.  (If the total quantity of
+patches ever exceeds one human's capacity to track, though, switching
+to separate patch managers for code and documentation is probably a
+good first step.)  The point of a documentation team is to have people
+who think of themselves as responsible for keeping the documentation
+organized, up-to-date, and consistent with itself.  In practice, this
+means knowing the documentation intimately, watching the code base,
+watching the changes
+<span class="emphasis"><em>others</em></span> commit to the documentation, watching for
+incoming documentation patches, and using all these information
+sources to do whatever is necessary to keep the documentation
+healthy.</p></div><div class="sect2" title="Issue Manager"><div class="titlepage"><div><div><h2 class="title"><a id="issue-manager"/>Issue Manager</h2></div></div></div><p>The number of issues in a project's bug tracker grows in
+proportion to the number of people using the software.  Therefore,
+even as you fix bugs and ship an increasingly robust program, you
+should still expect the number of open issues to grow essentially
+without bound.  The frequency of duplicate issues will also increase,
+as will the frequency of incomplete or poorly described issues.</p><p>Issue managers help alleviate these problems by watching what
+goes into the database, and periodically sweeping through it looking
+for specific problems.  Their most common action is probably to fix up
+incoming issues, either because the reporter didn't set some of the
+form fields correctly, or because the issue is a duplicate of one
+already in the database.  Obviously, the more familiar an issue
+manager is with the project's bug database, the more efficiently she
+will be able to detect duplicate issues—this is one of the main
+advantages of having a few people specialize in the bug database,
+instead of everyone trying to do it <span class="foreignphrase"><em class="foreignphrase">ad
+hoc</em></span>.  When the group tries to do it in a decentralized
+manner, no single individual acquires a deep expertise in the content
+of the database.</p><p>Issue managers can also help map between issues and individual
+developers.  When there are a lot of bug reports coming in, not every
+developer may read the issue notification mailing list with equal
+attention.  However, if someone who knows the development team is
+keeping an eye on all incoming issues, then she can discreetly direct
+certain developers' attention to specific bugs when appropriate.  Of
+course, this has to be done with a sensitivity to everything else
+going on in development, and to the recipient's desires and
+temperament.  Therefore, it is often best for issue managers to be
+developers themselves.</p><p>Depending on how your project uses the issue tracker, issue
+managers can also shape the database to reflect the project's
+priorities.  For example, in Subversion we schedule issues into
+specific future releases, so that when someone asks "When will bug X
+be fixed?" we can say "Two releases from now," even if we can't give
+an exact date.  The releases are represented in the issue tracker as
+target milestones, a field available in
+IssueZilla.<sup>[<a id="idp8317376" href="#ftn.idp8317376" class="footnote">27</a>]</sup> As a rule, every
+Subversion release has one major new feature and a list of specific
+bug fixes.  We assign the appropriate target milestone to all the
+issues planned for that release (including the new feature—it
+gets an issue too), so that people can view the bug database through
+the lens of release scheduling.  These targets rarely remain static,
+however.  As new bugs come in, priorities sometimes get shifted
+around, and issues must be moved from one milestone to another so that
+each release remains manageable.  This, again, is best done by people
+who have an overall sense of what's in the database, and how various
+issues relate to each other.</p><p>Another thing issue managers do is notice when issues become
+obsolete.  Sometimes a bug is fixed accidentally as part of an
+unrelated change to the software, or sometimes the project changes its
+mind about whether a certain behavior is buggy.  Finding obsoleted
+issues is not easy: the only way to do it systematically is by making
+a sweep over all the issues in the database.  Full sweeps become less
+and less feasible over time, however, as the number of issues grows.
+After a certain point, the only way to keep the database sane is to use a
+divide-and-conquer approach: categorize issues immediately on arrival
+and direct them to the appropriate developer's or team's attention.
+The recipient then takes charge of the issue for the rest of its
+lifetime, shepherding it to resolution or oblivion as necessary.  When
+the database is that large, the issue manager becomes more of an
+overall coordinator, spending less time looking at each issue herself
+and more time getting it into the right person's hands.</p></div><div class="sect2" title="FAQ Manager"><div class="titlepage"><div><div><h2 class="title"><a id="faq-manager"/>FAQ Manager</h2></div></div></div><p>FAQ maintenance is a surprisingly difficult problem.  Unlike
+most other documents in a project, whose content is planned out in
+advance by the authors, a FAQ is a wholly reactive document (see
+<a class="xref" href="ch02.html#starting-a-faq" title="Maintaining a FAQ">Maintaining a FAQ</a>).  No matter how big it gets, you
+still never know what the next addition will be.  And because it is
+always added to piecemeal, it is very easy for the document as a whole
+to become incoherent and disorganized, and even to contain duplicate
+or semi-duplicate entries.  Even when it does not have any obvious
+problems like that, there are often unnoticed interdependencies
+between items—links that should be made but aren't—because
+the related items were added a year apart.</p><p>The role of a FAQ manager is twofold.  First, she maintains the
+overall quality of the FAQ by staying familiar with at least the
+topics of all the questions in it, so that when people add new items
+that are duplicates of, or related to, existing items, the appropriate
+adjustments can be made.  Second, she watches the project mailing
+lists and other forums for recurring problems or questions, and to
+write new FAQ entries based on this input.  This latter task can be
+quite complex: one must be able to follow a thread, recognize the core
+questions raised in it, post a proposed FAQ entry, incorporate
+comments from others (since it's impossible for the FAQ manager to be
+an expert in every topic covered by the FAQ), and sense when the
+process is finished so the item can at last be added.</p><p>The FAQ manager usually also becomes the default expert in FAQ
+formatting.  There are a lot of little details involved in keeping a
+FAQ in shape (see
+<a class="xref" href="ch06s04.html#all-as-archives" title="Treat all resources like archives">the section called “Treat all resources like archives”</a><span> in
+<a class="xref" href="ch06.html" title="Chapter 6. Communications">Chapter 6, <em>Communications</em></a></span>); when random
+people edit the FAQ, they will sometimes forget some of these details.
+That's okay, as long as the FAQ manager is there to clean up after
+them.</p><p>Various free software is available to help with the process of
+FAQ maintenance.  It's fine to use it, as long as it doesn't
+compromise the quality of the FAQ, but beware of over-automation.
+Some projects try to fully automate the process of FAQ maintenance,
+allowing everyone to contribute and edit FAQ items in a manner similar
+to a wiki (see <a class="xref" href="ch03s07.html" title="Wikis">the section called “Wikis”</a><span>
+in <a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span>).  I've
+seen this happen particularly with Faq-O-Matic
+(<a class="ulink" href="http://faqomatic.sourceforge.net/">http://faqomatic.sourceforge.net/</a>), though it may be
+that the cases I saw were simply abuses that went beyond what
+Faq-O-Matic was originally intended for.  In any case, while complete
+decentralization of FAQ maintenance does reduce the workload for the
+project, it also results in a poorer FAQ.  There's no one person with
+a broad view of the entire FAQ, no one to notice when certain items
+need updating or become obsolete entirely, and no one keeping watch for
+interdependencies between items.  The result is a FAQ that often fails
+to provide users what they were looking for, and in the worst cases
+misleads them.  Use whatever tools you need to maintain your
+project's FAQ, but never let the convenience of the tools seduce you
+into compromising the quality of the FAQ.</p><p>See Sean Michael Kerner's article, <em class="citetitle">The FAQs on
+FAQs</em>, at
+<a class="ulink" href="http://osdir.com/Article1722.phtml">http://osdir.com/Article1722.phtml</a>, for descriptions
+and evaluations of open source FAQ maintenance tools.</p></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp8317376" href="#idp8317376" class="para">27</a>] </sup>IssueZilla is the issue tracker we use; it
+is a descendant of BugZilla.</p></div></div></div></body></html>
