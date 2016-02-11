@@ -1,0 +1,16 @@
+<feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
+<entry>
+<title>EPUBTEST 0300 - Fundamental Accessible Reading System Tests</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0300</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0300" rel="http://opds-spec.org/acquisition"/>
+</entry>
+<entry>
+<title>EPUBTEST 0320 - Media Overlays Fundamental Accessibility Tests</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0320</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0320" rel="http://opds-spec.org/acquisition"/>
+</entry>
+</feed>
