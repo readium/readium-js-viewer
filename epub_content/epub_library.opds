@@ -66,8 +66,44 @@
   <author>
     <name>https://github.com/IDPF/epub-testsuite</name>
   </author>
-<link type="image/jpeg" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
   <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_testsuite.opds"/>
+</entry>
+
+<entry>
+  <title>IDPF EPUB Samples</title>
+  <author>
+    <name>https://github.com/IDPF/epub3-samples</name>
+  </author>
+<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_samples.opds"/>
+</entry>
+
+<entry>
+  <title>IDPF EPUB widgets / embedded scriptable components</title>
+  <author>
+    <name>https://github.com/IDPF/scriptable-components</name>
+  </author>
+<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_widgets.opds"/>
+</entry>
+
+<entry>
+  <title>IDPF EDUPUB Examples</title>
+  <author>
+    <name>https://github.com/IDPF/edupub</name>
+  </author>
+<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_edu.opds"/>
+</entry>
+
+<entry>
+  <title>DAISY EPUB Accessibility Tests</title>
+  <author>
+    <name>https://github.com/daisy/epub-accessibility-tests</name>
+  </author>
+<link type="image/gif" href="http://www.daisy.org/images-site2/logos/daisylogo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_tests_a11y.opds"/>
 </entry>
 
 </feed>

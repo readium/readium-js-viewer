@@ -53,7 +53,7 @@
             dist/cloud-reader/images/
         &&
         npm run cpy
-            node_modules/MathJax-grunt-concatenator/MathJax.js
+            node_modules/mathjax-single-file/dist/MathJax.js
             dist/cloud-reader/scripts/mathjax
         &&
         npm run ncp
