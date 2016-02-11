@@ -5,7 +5,7 @@ _Note: Please don't use the zip download feature on this repo as this repo uses 
 **EPUB reader written in HTML, CSS and Javascript.**
 
 This Readium software component implements the Readium Chrome extension / app for offline reading ( https://chrome.google.com/webstore/detail/readium/fepbnnnkkadjhjahcafoaglimekefifl ),
-and the "cloud reader" for online e-books ( http://development.readium.divshot.io or http://readium.divshot.io for stable versions).
+and the "cloud reader" for online e-books ( http://readium-master.surge.sh/?epubs=https%3A%2F%2Fdl.dropboxusercontent.com%2Fu%2F585153%2FReadium%2Febooks%2Fepub_testsuite.opds which is the latest build from the develop branch).
 
 Please see https://github.com/readium/readium-shared-js for more information about the underlying rendering engine.
 
