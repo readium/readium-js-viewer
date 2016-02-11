@@ -130,9 +130,10 @@
 
                     </div>
 
-                    <h5 hiddenx="hidden" id="setting-header-pageTransition-legend" class="setting-header">{{strings.i18n_page_transition}}</h5>
+                    <!-- Page transitions are seriously broken (see readium-shared-js one_page_view.js disablePageTransitions boolean), so we hide the UI config options -->
+                    <h5 style="display:none;" hiddenx="hidden" id="setting-header-pageTransition-legend" class="setting-header">{{strings.i18n_page_transition}}</h5>
 
-                    <div hiddenx="hidden" role="radiogroup" class="row" style="width:100%;text-align:center;" aria-labelledby="setting-header-pageTransition-legend">
+                    <div style="display:none; width:100%;text-align:center;" hiddenx="hidden" role="radiogroup" class="row" aria-labelledby="setting-header-pageTransition-legend">
 
                         <div role="radio" id="pageTransition-none-option" style="vertical-align:middle;width:15%;display:inline-block;position:relative;">
                             <input style=""  name="pageTransition" value="single" type="radio" id="pageTransition-none-radio"/>

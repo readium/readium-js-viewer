@@ -69,37 +69,19 @@ var deleteOldRelease = function(error, response){
 
 var createRelease = function(){
 
-    var releaseData = {
-        tag_name: version,
-        //target_commitish: process.env.TRAVIS_COMMIT,
-        owner: owner,
-        repo: repo,
-        name: 'Automated build on ' + new Date().toString(),
-        prerelease: true
-    };
-    
-    github.releases.createRelease(releaseData, function(error, result){
-        if (error){
-            console.error(JSON.stringify(error));
-            return;
-        }
-        console.log('release created');
-        //console.log(result);
-
-        var releaseId = result.id,
-            contentType = 'application/x-chrome-extension';
-
-        var fileName = path.join(process.cwd(), 'dist/Readium.crx');
-
+    var upload = function(releaseId, fileName, filePath, contentType, error, success) {
+        
+        console.log("UPLOAD TO RELEASE: [" + fileName + "] from [" + filePath + "] (" + contentType + ")");
+        
         //var url = 'https://uploads.github.com/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx'
 
-        var stats = fs.statSync(fileName);
+        var stats = fs.statSync(filePath);
         var fileSizeInBytes = stats["size"];
 
         var httpOptions = {
             hostname: 'uploads.github.com',
             port: 443,
-            path: '/repos/'+ owner + '/' + repo + '/releases/' + releaseId + '/assets?name=Readium.crx',
+            path: '/repos/'+ owner + '/' + repo + '/releases/' + releaseId + '/assets?name=' + fileName,
             method: 'POST',
             headers: {
                 'Content-Type': contentType,
@@ -112,15 +94,75 @@ var createRelease = function(){
         var req = https.request(httpOptions, function(res){
             if (res.statusCode < 400){
                 console.log('binary uploaded successfully');
+                if (success) success();
             }
             else{
                 console.log('error uploading binary: ' + res.statusCode);
+                if (error) error(res.statusCode);
             }
         });
 
-        fs.createReadStream(fileName).pipe(req);
+        fs.createReadStream(filePath).pipe(req);
 
         //req.end();
+    };
+    
+    
+    
+    var releaseDate = new Date().toUTCString();
+    console.log("BUILD DATE/TIME: "+releaseDate);
+    
+    console.log("BUILD tag: "+version);
+    
+    console.log("TRAVIS_BRANCH: "+process.env.TRAVIS_BRANCH);
+    console.log("TRAVIS_COMMIT: "+process.env.TRAVIS_COMMIT);
+    
+    console.log("TRAVIS_JOB_NUMBER: "+process.env.TRAVIS_JOB_NUMBER);
+    console.log("TRAVIS_BUILD_ID: "+process.env.TRAVIS_BUILD_ID);
+    console.log("TRAVIS_BUILD_NUMBER: "+process.env.TRAVIS_BUILD_NUMBER);
+    
+    var releaseTitle = "Pre-release v" + version + " ('develop' branch)";
+    var releaseDescription = "Automated build on " + releaseDate + "\n" +
+    "TravisCI ["+process.env.TRAVIS_BUILD_NUMBER+"] https://travis-ci.org/readium/readium-js-viewer/builds/" + process.env.TRAVIS_BUILD_ID + "\n" +
+    "\n\n\nCloud / web reader app (main deployment at Firebase):\nhttps://readium.firebaseapp.com\n\nCloud / web reader app (secondary deployment at Surge):\nhttps://readium.surge.sh/?epubs=https%3A%2F%2Freadium.firebaseapp.com%2Fepub_content%2Fepub_library.opds\n\n\nDO NOT DOWNLOAD THE SOURCE CODE LINKS BELOW (ZIP AND TAR.GZ files), AS GITHUB DOES NOT INCLUDE SUBMODULES!";
+    
+    
+    var releaseData = {
+        tag_name: version,
+        //target_commitish: process.env.TRAVIS_COMMIT,
+        owner: owner,
+        repo: repo,
+        name: releaseTitle,
+        body: releaseDescription,
+        prerelease: true
+    };
+    
+    github.releases.createRelease(releaseData, function(error, result){
+        if (error){
+            console.error(JSON.stringify(error));
+            return;
+        }
+        console.log('release created');
+        //console.log(result);
+
+        var releaseId = result.id;
+        
+        var fileName = 'Readium.crx';
+        var filePath = path.join(process.cwd(), 'dist/' + fileName);
+        var contentType = 'application/x-chrome-extension';
+        upload(releaseId, fileName, filePath, contentType, undefined, function() {
+
+            fileName = 'Readium_cloud-reader.zip';
+            filePath = path.join(process.cwd(), 'dist/' + fileName);
+            contentType = 'application/zip';
+            upload(releaseId, fileName, filePath, contentType, undefined, function() {
+
+                fileName = 'Readium_cloud-reader-lite.zip';
+                filePath = path.join(process.cwd(), 'dist/' + fileName);
+                contentType = 'application/zip';
+                upload(releaseId, fileName, filePath, contentType, undefined, undefined); 
+            }); 
+        });
     });
 };
 

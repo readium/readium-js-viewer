@@ -1,9 +1,11 @@
+_Note: Please don't use the zip download feature on this repo as this repo uses submodules and this is not supported at present by github and will result in an incomplete copy of the repo._
+
 # readium-js-viewer
 
 **EPUB reader written in HTML, CSS and Javascript.**
 
 This Readium software component implements the Readium Chrome extension / app for offline reading ( https://chrome.google.com/webstore/detail/readium/fepbnnnkkadjhjahcafoaglimekefifl ),
-and the "cloud reader" for online e-books ( http://development.readium.divshot.io or http://readium.divshot.io for stable versions).
+and the "cloud reader" for online e-books ( http://readium-master.surge.sh/?epubs=https%3A%2F%2Fdl.dropboxusercontent.com%2Fu%2F585153%2FReadium%2Febooks%2Fepub_testsuite.opds which is the latest build from the develop branch).
 
 Please see https://github.com/readium/readium-shared-js for more information about the underlying rendering engine.
 
@@ -18,7 +20,7 @@ See [license.txt](./license.txt).
 ## Prerequisites
 
 * A decent terminal. On Windows, GitShell works great ( http://git-scm.com ), GitBash works too ( https://msysgit.github.io ), and Cygwin adds useful commands ( https://www.cygwin.com ).
-* NodeJS ( https://nodejs.org ) **v0.12** or higher
+* NodeJS ( https://nodejs.org ) **v4** (but not v5, because the installer ships with NPM v3 which seems to [have bugs](https://github.com/readium/readium-js-viewer/issues/453) related to the new flat module dependencies)
 
 
 ## Development
@@ -77,7 +79,7 @@ The above task takes a lot of time (as it builds distributable packages for *all
 Remember to activate "developer mode" in the Chrome web browser, so that the Readium packaged app / extension can be added directly from the `dist/chrome-app` folder. Subsequently (after each build), the app can simply be reloaded.
 
 
-Also note that the built-in local HTTP server functionality (`npm run http`) is primarily designed to serve the Readium application at development time in its "exploded" form (`dev`, `src`, `node_modules`, etc. folders). However, it is also possible to use any arbitrary HTTP server as long as the root folder is `readium-js-viewer` (so that the application assets ; CSS, images, fonts ; can be loaded relative to this base URL). Example with the built-in NodeJS server: `node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 .`
+Also note that the built-in local HTTP server functionality (`npm run http`) is primarily designed to serve the Readium application at development time in its "exploded" form (`dev`, `src`, `node_modules`, etc. folders). It is also possible to use any arbitrary HTTP server as long as the root folder is `readium-js-viewer` (so that the application assets ; CSS, images, fonts ; can be loaded relative to this base URL). Example with the built-in NodeJS server: `node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 .`. Also note that the `127.0.0.1` IP address which is used by default when invoking the `npm run http` command can be set to `0.0.0.0` in order to automatically bind the HTTP server to the local LAN IP, making it possible to open the Readium app in a web browser from another machine on the network. Simply set the `RJS_HTTP_IP` environment variable to `0.0.0.0` (e.g. using `export RJS_HTTP_IP="0.0.0.0"` from the command line), or for a less permanent setting: `RJS_HTTP_IP="0.0.0.0" npm run http` (the environment variable only "lasts" for the lifespan of the NPM command).
 
 Remark: a log of HTTP requests is preserved in `http_app-ebooks.log`. This file contains ANSI color escape codes, so although it can be read using a regular text editor, it can be rendered in its original format using the shell command: `cat http_app.log` (on OSX / Linux), or `sed "s,x,x,g" http_app-ebooks.log` (on Windows).
 
@@ -144,9 +146,9 @@ Note that `npm run http` + `dev` folder is not the only way to test Readium "loc
 
 ## Cloud reader deployment
 
-The `cloud-reader` distribution folder (see section above) can be uploaded to an HTTP server as-is,
-in which case a sibling `/epub_content/` folder is expected to contain exploded or zipped EPUBs,
-and the `/epub_content/epub_library.json` file is expected to describe the available ebooks in the online library
+The contents of the `cloud-reader` distribution folder (see section above) can be uploaded to an HTTP server as-is (either in the http://domain.com/ root, or any subfolder path http://domain.com/reader/),
+and a sibling `epub_content/` folder is expected to contain exploded or zipped EPUBs (e.g. http://domain.com/reader/epub_content/ebook.epub or http://domain.com/epub_content/ebook/ for extracted files),
+and the `epub_content/epub_library.json` file is expected to describe the available ebooks in the online library
 (see the existing examples in `readium-js-viewer` repository). Additionally, the `epubs` URL parameter (HTTP GET)
 can be used to specify a different location for the JSON file that describes the ebook library contents, for example:
 `http://domain.com/index.html?epubs=http://otherdomain.com/ebooks.json` (assuming both HTTP servers are suitably configured with CORS),
@@ -310,8 +312,6 @@ requirejs.config({
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-js-viewer.js.bundles.js"> </script>
 
 ```
-
-
 
 
 ## CSON vs. JSON (package.json)

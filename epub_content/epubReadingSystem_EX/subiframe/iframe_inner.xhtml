@@ -2,10 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en"
 	lang="en">
-	<head
-        id="noop"
-        >
-		<title>navigator.epubReadingSystem</title>
+	<head>
+		<title>navigator.epubReadingSystem within inner SUB IFRAME (e.g. nested widget)</title>
 
 <style type="text/css">
 /*<![CDATA[*/
@@ -35,15 +33,21 @@
 document.addEventListener("DOMContentLoaded", function()
 {
     window.addEventListener("message", function(ev) {
-        console.log("@@@@@@@@@@@@@@@@ index.xhtml received message:");
+        console.log("@@@@@@@@@@@@@@@@ iframe_inner.xhtml received message:");
         console.log(ev.data);
     }, false);
+    
+    window.parent.postMessage("MSG from inner iframe to parent", "*");
 
     epubReadingSystem();
     
-    // security test...
-    //window.frameElement.ownerDocument.body.style.border = "1px solid red";
-    //window.top.document.body.style.border = "1px solid red";
+    setTimeout(function(){
+    window.frameElement.ownerDocument.body.style.backgroundColor = "magenta";
+    window.parent.document.body.style.backgroundColor = "magenta";
+    
+    window.document.body.style.backgroundColor = "yellow";
+    
+    }, 200);
     
     console.debug(location);
     console.debug(window.frameElement.baseURI); //ownerDocument.defaultView
@@ -165,19 +169,16 @@ function epubReadingSystem()
 
 	</head>
 	<body>
-		<h1><img src="./Readium_logo.png" style="width:40px; height: 40px;"/>epubReadingSystem</h1>
+		<h1><img src="../Readium_logo.png" style="width:40px; height: 40px;"/>epubReadingSystem</h1>
+            
+		<h2>(NESTED IFRAME)</h2>
 
-		<h2>(SPINE ITEM)</h2>
-
-<iframe width="100%" height="300" src="iframe/iframe.xhtml"
-    > </iframe>
 
         <div id="placeholder"> </div>
 
 				<p>
 				<a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#app-epubReadingSystem" target="_BLANK">http://www.idpf.org/epub/301/spec/epub-contentdocs.html#app-epubReadingSystem</a>
 				</p>
-
 
 						<p>
 						<math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -203,7 +204,6 @@ function epubReadingSystem()
 				<p>
 				<button onclick="Javascript:window.open('http://www.idpf.org/epub/301/spec/epub-contentdocs.html#app-epubReadingSystem');">window.open(xxx)</button>
 				</p>
-
 
 	</body>
 </html>

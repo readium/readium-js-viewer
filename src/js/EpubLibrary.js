@@ -171,7 +171,44 @@ Helpers){
 
 
         $('.details-dialog').modal();
-        libraryManager.retrieveFullEpubDetails(url, bookRoot, rootDir, noCoverBg, showDetailsDialog, showError);
+        
+        var retrieveDetails = function(packageUrl) {
+            
+            if (!packageUrl || packageUrl.indexOf(".opf") < 0) {
+                console.warn("no package path (OPF within zipped EPUB archive?): " + packageUrl);
+            }
+            
+            libraryManager.retrieveFullEpubDetails(packageUrl, bookRoot, rootDir, noCoverBg, showDetailsDialog, showError);
+        };
+        
+        console.log("OPF package URL: " + url);
+        if (url && url.indexOf(".opf") < 0) {
+            
+            var urlContainerXml = url + "META-INF/container.xml"; 
+            $.get(urlContainerXml, function(data){
+    
+                if(typeof(data) === "string" ) {
+                    var parser = new window.DOMParser;
+                    data = parser.parseFromString(data, 'text/xml');
+                }
+                var $rootfile = $('rootfile', data);
+                var rootFilePath = $rootfile.attr('full-path');
+                console.log("OPF package path (root-file from container.xml): " + rootFilePath);
+                
+                var packageUrl = url + (Helpers.EndsWith(url, "/") ? "" : "/") + rootFilePath;
+            
+                console.log("OPF package URL (from container.xml): " + packageUrl);
+                retrieveDetails(packageUrl);
+    
+            }).fail(function() {
+                //console.warn(arguments);
+                console.error("FAILED OPF package URL (from container.xml): " + urlContainerXml);
+                retrieveDetails(url);
+            });
+        }
+        else {
+            retrieveDetails(url);
+        }
     }
 
     var loadLibraryItems = function(epubs){
@@ -181,17 +218,59 @@ Helpers){
             $('#app-container .library-items').append(EmptyLibrary({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings}));
             return;
         }
+        
+        var processEpub = function(epubs, count) {
+            var epub = epubs[count];
+            if (!epub) { // count >= epubs.length
+                $('.details').on('click', loadDetails);
+                return;
+            }
 
-        var count = 0;
-        epubs.forEach(function(epub){
-            var noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover' + ((count++ % 8) + 1) + '.jpg';
+            var noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover' + ((count % 8) + 1) + '.jpg';
             if (epub.isSubLibraryLink) {
                 noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover2.jpg';
             }
             
-            $('.library-items').append(LibraryItem({count:{n: count, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
-        });
-        $('.details').on('click', loadDetails);
+            var createLibraryItem = function() {
+
+                // See --COMMENT-- below!
+                // if (!epub.isSubLibraryLink && !epub.packagePath) {
+                //     console.warn("no epub.packagePath (OPF within zipped EPUB archive?): " + epub.rootUrl);
+                //     //console.log(epub);
+                // }
+                
+                $('.library-items').append(LibraryItem({count:{n: count+1, tabindex:count*2+99}, epub: epub, strings: Strings, noCoverBackground: noCoverBackground}));
+                
+                processEpub(epubs, ++count);
+            };
+            
+            if (!epub.isSubLibraryLink && !epub.packagePath) {
+                
+                createLibraryItem();
+                
+                // --COMMENT--
+                // Code below works, but just here to demonstrate how the package OPF path can be resolved whilst populating the library view. Because the HTTP requests for each ebook introduce huge lag, instead we resolve the OPF path on-demand, when user chooses to see the EPUB details / metadata dialog popup (see loadDetails() function above, which itself emits an HTTP request to get the actual OPF file XML payload, via LibraryManager.retrieveFullEpubDetails())
+                // $.get(epub.rootUrl + "/META-INF/container.xml", function(data){
+        
+                //     if(typeof(data) === "string" ) {
+                //         var parser = new window.DOMParser;
+                //         data = parser.parseFromString(data, 'text/xml');
+                //     }
+                //     var $rootfile = $('rootfile', data);
+                //     epub.packagePath = $rootfile.attr('full-path');
+                
+                //     createLibraryItem();
+        
+                // }).fail(function() {
+                //     //console.warn(arguments);
+                //     createLibraryItem();
+                // });
+            }
+            else {
+                createLibraryItem();
+            }
+        };
+        processEpub(epubs, 0);
     }
 
     var readClick = function(e){
@@ -332,7 +411,9 @@ Helpers){
         // See libraryManager.canHandleUrl() + handleUrlSelect()
         // See libraryManager.canHandleDirectory() + handleDirSelect()
         
+        if (!window.Blob || !(ebook instanceof Blob)) return;
         if (!window.File || !(ebook instanceof File)) return;
+        
         importZippedEpub(ebook);
     };
 
@@ -477,6 +558,10 @@ Helpers){
            Keyboard.applySettings(json);
 
            loadLibraryUI();
+           
+           if (data && data.importEPUB) { // File/Blob
+               importEpub(data.importEPUB);
+           }
         });
     };
     window.setReplaceByDefault = function(replace){

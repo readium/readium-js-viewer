@@ -42,7 +42,7 @@
 
 name: "readium-js-viewer"
 
-version: "0.22.0-alpha"
+version: "0.23.0-alpha"
 
 engines:
     node: ">=0.12"
@@ -132,9 +132,9 @@ devDependencies:
     "jquery-xpath": 'latest'
     #"jquery-xpath": 'ilinsky/jquery-xpath'
 
-    "MathJax-grunt-concatenator": 'pkra/MathJax-single-file'
+    "mathjax-single-file": 'pkra/MathJax-single-file'
 
-    "bootstrap": 'latest'
+    "bootstrap": '3.x'
 
     "bootstrap-accessibility-plugin": 'latest'
 
