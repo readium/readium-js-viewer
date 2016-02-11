@@ -60,7 +60,15 @@
 </author>
 <link type="application/epub+zip" href="internal_link.epub" rel="http://opds-spec.org/acquisition"/>
 </entry>
-    
+
+<entry>
+  <title>IDPF EPUB 3.1 specification (zipped)</title>
+  <author>
+    <name>https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/epub31.epub</name>
+  </author>
+  <link type="application/epub+zip" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/epub31.epub" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
 <entry>
   <title>IDPF EPUB Test Suite</title>
   <author>
