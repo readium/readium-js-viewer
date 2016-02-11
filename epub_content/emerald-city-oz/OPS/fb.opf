@@ -25,143 +25,143 @@
   <manifest>
     <!-- Content Documents -->
     <item id="cover"
-      href="cover.xml"
+      href="cover.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="titlepage"
-      href="title.xml"
+      href="title.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="about"
-      href="about.xml"
+      href="about.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main0"
-      href="main0.xml"
+      href="main0.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main1"
-      href="main1.xml"
+      href="main1.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main2"
-      href="main2.xml"
+      href="main2.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main3"
-      href="main3.xml"
+      href="main3.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main4"
-      href="main4.xml"
+      href="main4.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main5"
-      href="main5.xml"
+      href="main5.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main6"
-      href="main6.xml"
+      href="main6.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main7"
-      href="main7.xml"
+      href="main7.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main8"
-      href="main8.xml"
+      href="main8.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main9"
-      href="main9.xml"
+      href="main9.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main10"
-      href="main10.xml"
+      href="main10.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main11"
-      href="main11.xml"
+      href="main11.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main12"
-      href="main12.xml"
+      href="main12.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main13"
-      href="main13.xml"
+      href="main13.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main14"
-      href="main14.xml"
+      href="main14.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main15"
-      href="main15.xml"
+      href="main15.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main16"
-      href="main16.xml"
+      href="main16.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main17"
-      href="main17.xml"
+      href="main17.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main18"
-      href="main18.xml"
+      href="main18.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main19"
-      href="main19.xml"
+      href="main19.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main20"
-      href="main20.xml"
+      href="main20.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main21"
-      href="main21.xml"
+      href="main21.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main22"
-      href="main22.xml"
+      href="main22.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main23"
-      href="main23.xml"
+      href="main23.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main24"
-      href="main24.xml"
+      href="main24.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main25"
-      href="main25.xml"
+      href="main25.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main26"
-      href="main26.xml"
+      href="main26.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main27"
-      href="main27.xml"
+      href="main27.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main28"
-      href="main28.xml"
+      href="main28.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main29"
-      href="main29.xml"
+      href="main29.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="main30"
-      href="main30.xml"
+      href="main30.xhtml"
       media-type="application/xhtml+xml"/>
 
     <item id="feedbooks"
-      href="feedbooks.xml"
+      href="feedbooks.xhtml"
       media-type="application/xhtml+xml"/>
 
     <!-- CSS Style Sheets -->
@@ -290,76 +290,76 @@
 
   <guide>
 
-  <reference type="cover" title="Cover" href="cover.xml"/>
+  <reference type="cover" title="Cover" href="cover.xhtml"/>
 
-  <reference type="title-page" title="Title Page" href="title.xml"/>
+  <reference type="title-page" title="Title Page" href="title.xhtml"/>
 
-  <reference type="bibliography" title="About" href="about.xml"/>
+  <reference type="bibliography" title="About" href="about.xhtml"/>
 
-  <reference type="text" title="Main0" href="main0.xml"/>
+  <reference type="text" title="Main0" href="main0.xhtml"/>
 
-  <reference type="text" title="Main1" href="main1.xml"/>
+  <reference type="text" title="Main1" href="main1.xhtml"/>
 
-  <reference type="text" title="Main2" href="main2.xml"/>
+  <reference type="text" title="Main2" href="main2.xhtml"/>
 
-  <reference type="text" title="Main3" href="main3.xml"/>
+  <reference type="text" title="Main3" href="main3.xhtml"/>
 
-  <reference type="text" title="Main4" href="main4.xml"/>
+  <reference type="text" title="Main4" href="main4.xhtml"/>
 
-  <reference type="text" title="Main5" href="main5.xml"/>
+  <reference type="text" title="Main5" href="main5.xhtml"/>
 
-  <reference type="text" title="Main6" href="main6.xml"/>
+  <reference type="text" title="Main6" href="main6.xhtml"/>
 
-  <reference type="text" title="Main7" href="main7.xml"/>
+  <reference type="text" title="Main7" href="main7.xhtml"/>
 
-  <reference type="text" title="Main8" href="main8.xml"/>
+  <reference type="text" title="Main8" href="main8.xhtml"/>
 
-  <reference type="text" title="Main9" href="main9.xml"/>
+  <reference type="text" title="Main9" href="main9.xhtml"/>
 
-  <reference type="text" title="Main10" href="main10.xml"/>
+  <reference type="text" title="Main10" href="main10.xhtml"/>
 
-  <reference type="text" title="Main11" href="main11.xml"/>
+  <reference type="text" title="Main11" href="main11.xhtml"/>
 
-  <reference type="text" title="Main12" href="main12.xml"/>
+  <reference type="text" title="Main12" href="main12.xhtml"/>
 
-  <reference type="text" title="Main13" href="main13.xml"/>
+  <reference type="text" title="Main13" href="main13.xhtml"/>
 
-  <reference type="text" title="Main14" href="main14.xml"/>
+  <reference type="text" title="Main14" href="main14.xhtml"/>
 
-  <reference type="text" title="Main15" href="main15.xml"/>
+  <reference type="text" title="Main15" href="main15.xhtml"/>
 
-  <reference type="text" title="Main16" href="main16.xml"/>
+  <reference type="text" title="Main16" href="main16.xhtml"/>
 
-  <reference type="text" title="Main17" href="main17.xml"/>
+  <reference type="text" title="Main17" href="main17.xhtml"/>
 
-  <reference type="text" title="Main18" href="main18.xml"/>
+  <reference type="text" title="Main18" href="main18.xhtml"/>
 
-  <reference type="text" title="Main19" href="main19.xml"/>
+  <reference type="text" title="Main19" href="main19.xhtml"/>
 
-  <reference type="text" title="Main20" href="main20.xml"/>
+  <reference type="text" title="Main20" href="main20.xhtml"/>
 
-  <reference type="text" title="Main21" href="main21.xml"/>
+  <reference type="text" title="Main21" href="main21.xhtml"/>
 
-  <reference type="text" title="Main22" href="main22.xml"/>
+  <reference type="text" title="Main22" href="main22.xhtml"/>
 
-  <reference type="text" title="Main23" href="main23.xml"/>
+  <reference type="text" title="Main23" href="main23.xhtml"/>
 
-  <reference type="text" title="Main24" href="main24.xml"/>
+  <reference type="text" title="Main24" href="main24.xhtml"/>
 
-  <reference type="text" title="Main25" href="main25.xml"/>
+  <reference type="text" title="Main25" href="main25.xhtml"/>
 
-  <reference type="text" title="Main26" href="main26.xml"/>
+  <reference type="text" title="Main26" href="main26.xhtml"/>
 
-  <reference type="text" title="Main27" href="main27.xml"/>
+  <reference type="text" title="Main27" href="main27.xhtml"/>
 
-  <reference type="text" title="Main28" href="main28.xml"/>
+  <reference type="text" title="Main28" href="main28.xhtml"/>
 
-  <reference type="text" title="Main29" href="main29.xml"/>
+  <reference type="text" title="Main29" href="main29.xhtml"/>
 
-  <reference type="text" title="Main30" href="main30.xml"/>
+  <reference type="text" title="Main30" href="main30.xhtml"/>
 
 
-  <reference type="copyright-page" title="Feedbooks" href="feedbooks.xml"/>
+  <reference type="copyright-page" title="Feedbooks" href="feedbooks.xhtml"/>
 
   </guide>
 </package>

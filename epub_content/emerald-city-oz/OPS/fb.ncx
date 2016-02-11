@@ -34,12 +34,12 @@
 
     <navPoint class="titlepage" id="level1-titlepage" playOrder="1">
       <navLabel><text>Title</text></navLabel>
-      <content src="title.xml"/>
+      <content src="title.xhtml"/>
     </navPoint>
 
     <navPoint class="about" id="level1-about" playOrder="2">
       <navLabel><text>About</text></navLabel>
-      <content src="about.xml"/>
+      <content src="about.xhtml"/>
     </navPoint>
         
 
@@ -52,7 +52,7 @@
 <navPoint class="section" id="sec10196" playOrder="3">
   <navLabel><text>Author&#39;s Note</text></navLabel>
   
-    <content src="main0.xml"/>
+    <content src="main0.xhtml"/>
   
     
     
@@ -74,7 +74,7 @@
 
 <navPoint class="chapter" id="chap10198" playOrder="4">
   <navLabel><text>Chapter 1 - How the Nome King Became Angry</text></navLabel> 
-  <content src="main1.xml"/>
+  <content src="main1.xhtml"/>
     
   
     
@@ -96,7 +96,7 @@
 
 <navPoint class="chapter" id="chap10200" playOrder="5">
   <navLabel><text>Chapter 2 - How Uncle Henry Got Into Trouble</text></navLabel> 
-  <content src="main2.xml"/>
+  <content src="main2.xhtml"/>
     
   
     
@@ -118,7 +118,7 @@
 
 <navPoint class="chapter" id="chap10202" playOrder="6">
   <navLabel><text>Chapter 3 - How Ozma Granted Dorothy&#39;s Request</text></navLabel> 
-  <content src="main3.xml"/>
+  <content src="main3.xhtml"/>
     
   
     
@@ -140,7 +140,7 @@
 
 <navPoint class="chapter" id="chap10204" playOrder="7">
   <navLabel><text>Chapter 4 - How The Nome King Planned Revenge</text></navLabel> 
-  <content src="main4.xml"/>
+  <content src="main4.xhtml"/>
     
   
     
@@ -162,7 +162,7 @@
 
 <navPoint class="chapter" id="chap10206" playOrder="8">
   <navLabel><text>Chapter 5 - How Dorothy Became a Princess</text></navLabel> 
-  <content src="main5.xml"/>
+  <content src="main5.xhtml"/>
     
   
     
@@ -184,7 +184,7 @@
 
 <navPoint class="chapter" id="chap10208" playOrder="9">
   <navLabel><text>Chapter 6 - How Guph Visited the Whimsies</text></navLabel> 
-  <content src="main6.xml"/>
+  <content src="main6.xhtml"/>
     
   
     
@@ -206,7 +206,7 @@
 
 <navPoint class="chapter" id="chap10210" playOrder="10">
   <navLabel><text>Chapter 7 - How Aunt Em Conquered the Lion</text></navLabel> 
-  <content src="main7.xml"/>
+  <content src="main7.xhtml"/>
     
   
     
@@ -228,7 +228,7 @@
 
 <navPoint class="chapter" id="chap10212" playOrder="11">
   <navLabel><text>Chapter 8 - How the Grand Gallipoot Joined The Nomes</text></navLabel> 
-  <content src="main8.xml"/>
+  <content src="main8.xhtml"/>
     
   
     
@@ -250,7 +250,7 @@
 
 <navPoint class="chapter" id="chap10214" playOrder="12">
   <navLabel><text>Chapter 9 - How the Wogglebug Taught Athletics</text></navLabel> 
-  <content src="main9.xml"/>
+  <content src="main9.xhtml"/>
     
   
     
@@ -272,7 +272,7 @@
 
 <navPoint class="chapter" id="chap10216" playOrder="13">
   <navLabel><text>Chapter 10 - How the Cuttenclips Lived</text></navLabel> 
-  <content src="main10.xml"/>
+  <content src="main10.xhtml"/>
     
   
     
@@ -294,7 +294,7 @@
 
 <navPoint class="chapter" id="chap10218" playOrder="14">
   <navLabel><text>Chapter 11 - How the General Met the First and Foremost</text></navLabel> 
-  <content src="main11.xml"/>
+  <content src="main11.xhtml"/>
     
   
     
@@ -316,7 +316,7 @@
 
 <navPoint class="chapter" id="chap10220" playOrder="15">
   <navLabel><text>Chapter 12 - How they Matched the Fuddles</text></navLabel> 
-  <content src="main12.xml"/>
+  <content src="main12.xhtml"/>
     
   
     
@@ -338,7 +338,7 @@
 
 <navPoint class="chapter" id="chap10222" playOrder="16">
   <navLabel><text>Chapter 13 - How the General Talked to the King</text></navLabel> 
-  <content src="main13.xml"/>
+  <content src="main13.xhtml"/>
     
   
     
@@ -360,7 +360,7 @@
 
 <navPoint class="chapter" id="chap10224" playOrder="17">
   <navLabel><text>Chapter 14 - How the Wizard Practiced Sorcery</text></navLabel> 
-  <content src="main14.xml"/>
+  <content src="main14.xhtml"/>
     
   
     
@@ -382,7 +382,7 @@
 
 <navPoint class="chapter" id="chap10226" playOrder="18">
   <navLabel><text>Chapter 15 - How Dorothy Happened to Get Lost</text></navLabel> 
-  <content src="main15.xml"/>
+  <content src="main15.xhtml"/>
     
   
     
@@ -404,7 +404,7 @@
 
 <navPoint class="chapter" id="chap10228" playOrder="19">
   <navLabel><text>Chapter 16 - How Dorothy Visited Utensia</text></navLabel> 
-  <content src="main16.xml"/>
+  <content src="main16.xhtml"/>
     
   
     
@@ -426,7 +426,7 @@
 
 <navPoint class="chapter" id="chap10230" playOrder="20">
   <navLabel><text>Chapter 17 - How They Came to Bunbury</text></navLabel> 
-  <content src="main17.xml"/>
+  <content src="main17.xhtml"/>
     
   
     
@@ -448,7 +448,7 @@
 
 <navPoint class="chapter" id="chap10232" playOrder="21">
   <navLabel><text>Chapter 18 - How Ozma Looked into the Magic Picture</text></navLabel> 
-  <content src="main18.xml"/>
+  <content src="main18.xhtml"/>
     
   
     
@@ -470,7 +470,7 @@
 
 <navPoint class="chapter" id="chap10234" playOrder="22">
   <navLabel><text>Chapter 19 - How Bunnybury Welcomed the Strangers</text></navLabel> 
-  <content src="main19.xml"/>
+  <content src="main19.xhtml"/>
     
   
     
@@ -492,7 +492,7 @@
 
 <navPoint class="chapter" id="chap10236" playOrder="23">
   <navLabel><text>Chapter 20 - How Dorothy Lunched With a King</text></navLabel> 
-  <content src="main20.xml"/>
+  <content src="main20.xhtml"/>
     
   
     
@@ -514,7 +514,7 @@
 
 <navPoint class="chapter" id="chap10238" playOrder="24">
   <navLabel><text>Chapter 21 - How the King Changed His Mind</text></navLabel> 
-  <content src="main21.xml"/>
+  <content src="main21.xhtml"/>
     
   
     
@@ -536,7 +536,7 @@
 
 <navPoint class="chapter" id="chap10240" playOrder="25">
   <navLabel><text>Chapter 22 - How the Wizard Found Dorothy</text></navLabel> 
-  <content src="main22.xml"/>
+  <content src="main22.xhtml"/>
     
   
     
@@ -558,7 +558,7 @@
 
 <navPoint class="chapter" id="chap10242" playOrder="26">
   <navLabel><text>Chapter 23 - How They Encountered the Flutterbudgets</text></navLabel> 
-  <content src="main23.xml"/>
+  <content src="main23.xhtml"/>
     
   
     
@@ -580,7 +580,7 @@
 
 <navPoint class="chapter" id="chap10244" playOrder="27">
   <navLabel><text>Chapter 24 - How the Tin Woodman Told the Sad News</text></navLabel> 
-  <content src="main24.xml"/>
+  <content src="main24.xhtml"/>
     
   
     
@@ -602,7 +602,7 @@
 
 <navPoint class="chapter" id="chap10246" playOrder="28">
   <navLabel><text>Chapter 25 - How the Scarecrow Displayed His Wisdom</text></navLabel> 
-  <content src="main25.xml"/>
+  <content src="main25.xhtml"/>
     
   
     
@@ -624,7 +624,7 @@
 
 <navPoint class="chapter" id="chap10248" playOrder="29">
   <navLabel><text>Chapter 26 - How Ozma Refused to Fight for Her Kingdom</text></navLabel> 
-  <content src="main26.xml"/>
+  <content src="main26.xhtml"/>
     
   
     
@@ -646,7 +646,7 @@
 
 <navPoint class="chapter" id="chap10250" playOrder="30">
   <navLabel><text>Chapter 27 - How the Fierce Warriors Invaded Oz</text></navLabel> 
-  <content src="main27.xml"/>
+  <content src="main27.xhtml"/>
     
   
     
@@ -668,7 +668,7 @@
 
 <navPoint class="chapter" id="chap10252" playOrder="31">
   <navLabel><text>Chapter 28 - How They Drank at the Forbidden Fountain</text></navLabel> 
-  <content src="main28.xml"/>
+  <content src="main28.xhtml"/>
     
   
     
@@ -690,7 +690,7 @@
 
 <navPoint class="chapter" id="chap10254" playOrder="32">
   <navLabel><text>Chapter 29 - How Glinda Worked a Magic Spell</text></navLabel> 
-  <content src="main29.xml"/>
+  <content src="main29.xhtml"/>
     
   
     
@@ -712,7 +712,7 @@
 
 <navPoint class="chapter" id="chap10256" playOrder="33">
   <navLabel><text>Chapter 30 - How the Story of Oz Came to an End</text></navLabel> 
-  <content src="main30.xml"/>
+  <content src="main30.xhtml"/>
     
   
     
