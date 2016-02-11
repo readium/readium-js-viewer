@@ -477,7 +477,7 @@ Helpers){
 //        var KEY_RIGHT = 0x27;
         var KEY_DOWN = 0x28;
 
-        $('#readium-toc-body').keyup( function(event){
+        $('#readium-toc-body').keydown( function(event){
             var next = null;
             var blurNode = event.target;
             switch (event.which) {
@@ -521,12 +521,13 @@ Helpers){
               break;
 
               default:
-                return true;
+                return;
             }
             if (next) {
+              event.preventDefault();
               setTimeout(next.focus(), 5);
             }
-          return true;
+          return;
       }); // end of onkeyup
     } // end of loadToc
 
