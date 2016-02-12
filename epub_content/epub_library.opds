@@ -16,12 +16,12 @@
         <link type="application/epub" href="moby-dick" rel="http://opds-spec.org/acquisition"/>
     </entry>
     <entry>
-        <title>A First Course in Linear Algebra</title>
+        <title>What is Motivic Measure?</title>
         <author>
-            <name>Robert A. Beezer</name>
+            <name>Thomas C. Hales</name>
         </author>
-        <link type="image/png" href="linear-algebra/EPUB/images/Linear-Algebra-Cover.png" rel="http://opds-spec.org/image/thumbnail"/>
-        <link type="application/epub" href="linear-algebra" rel="http://opds-spec.org/acquisition"/>
+        <link type="image/png" href="Hales-Motivic-Measure/EPUB/img/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="Hales-Motivic-Measure" rel="http://opds-spec.org/acquisition"/>
     </entry>
     <entry>
         <title>navigator.epubReadingSystem (zipped)</title>
