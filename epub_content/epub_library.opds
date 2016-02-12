@@ -54,7 +54,7 @@
 </entry>
 
 <entry>
-<title>packed EPUB</title>
+<title>internal_link EPUB (zipped)</title>
 <author>
   <name>Readium</name>
 </author>
@@ -64,9 +64,17 @@
 <entry>
   <title>IDPF EPUB 3.1 specification (zipped)</title>
   <author>
-    <name>https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/epub31.epub</name>
+    <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30.epub</name>
   </author>
-  <link type="application/epub+zip" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/epub31.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="application/epub+zip" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+  <title>IDPF EPUB 3.1 specification (unzipped)</title>
+  <author>
+    <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30.epub</name>
+  </author>
+  <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30" rel="http://opds-spec.org/acquisition"/>
 </entry>
 
 <entry>
