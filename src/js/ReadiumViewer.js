@@ -78,11 +78,8 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
         };
     }
 
-
-    var tooltipSelector = 'nav *[title], #readium-page-btns *[title]';
-
     var libraryView = function(libraryURL, importEPUB){
-        $(tooltipSelector).tooltip('destroy');
+        $(EpubReader.tooltipSelector()).tooltip('destroy');
         
         EpubReader.unloadUI();
         EpubLibrary.unloadUI();
@@ -96,7 +93,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
     }
 
     var readerView = function(data){
-        $(tooltipSelector).tooltip('destroy');
+        $(EpubReader.tooltipSelector()).tooltip('destroy');
         
         EpubLibrary.unloadUI();
         EpubReader.unloadUI();
@@ -210,7 +207,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
     });
 
     $(document.body).tooltip({
-        selector : tooltipSelector,
+        selector : EpubReader.tooltipSelector(),
         placement: function(tip, element){
           var placeValue = 'auto';
           if (element.id == 'left-page-btn'){
@@ -222,7 +219,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
         },
         container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted
     }).on('show.bs.tooltip', function(e){
-        $(tooltipSelector).not(e.target).tooltip('destroy');
+        $(EpubReader.tooltipSelector()).not(e.target).tooltip('destroy');
         var target = e.target; 
         setTimeout(function(){
             $(target).tooltip('destroy');

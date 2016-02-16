@@ -74,6 +74,10 @@ Helpers){
     // (bad naming convention, hard to find usages of "el")
     var el = document.documentElement;
 
+    var tooltipSelector = function() {
+        return 'nav *[title], #readium-page-btns *[title]';
+    };
+   
     function setBookTitle(title) {
     
         var $titleEl = $('.book-title-header');
@@ -515,6 +519,8 @@ Helpers){
             hideLoop();
             return;  
         } 
+
+        $(tooltipSelector()).tooltip('destroy');
 
         $(document.body).addClass('hide-ui');
     }
@@ -1124,7 +1130,8 @@ Helpers){
 
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
-        unloadUI : unloadReaderUI
+        unloadUI : unloadReaderUI,
+        tooltipSelector : tooltipSelector
     };
 
 });
