@@ -19,11 +19,19 @@ define(['jquery', './EpubReader', 'readium_shared_js/helpers'], function($, Epub
         });
     });
 
-    var tooltipSelector = 'nav *[title]';
+    var tooltipSelector = 'nav *[title], #readium-page-btns *[title]';
 
     $(document.body).tooltip({
         selector : tooltipSelector,
-        placement: 'auto',
+        placement: function(tip, element){
+          var placeValue = 'auto';
+          if (element.id == 'left-page-btn'){
+            placeValue = 'right';
+          } else if (element.id == 'right-page-btn') {
+            placeValue = 'left'
+          }
+          return placeValue;
+        },
         container: 'body' // do this to prevent weird navbar re-sizing issue when the tooltip is inserted
     }).on('show.bs.tooltip', function(e){
         $(tooltipSelector).not(e.target).tooltip('destroy');

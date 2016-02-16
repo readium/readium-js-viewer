@@ -537,7 +537,7 @@ Helpers){
             hideUI();
         }
         else{
-            hideTimeoutId = window.setTimeout(hideUI, 4000);
+            hideTimeoutId = window.setTimeout(hideUI, 8000);
         }
     }
 
