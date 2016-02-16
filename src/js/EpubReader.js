@@ -130,7 +130,12 @@ Helpers){
                 }));
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
-    
+                $("#left-page-btn").mouseleave(function() {
+                  $(tooltipSelector()).tooltip('destroy');
+                });
+                $("#right-page-btn").mouseleave(function() {
+                  $(tooltipSelector()).tooltip('destroy');
+                });
             },
             openPageRequest
         );
