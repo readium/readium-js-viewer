@@ -74,6 +74,10 @@ Helpers){
     // (bad naming convention, hard to find usages of "el")
     var el = document.documentElement;
 
+    var tooltipSelector = function() {
+        return 'nav *[title], #readium-page-btns *[title]';
+    };
+   
     function setBookTitle(title) {
     
         var $titleEl = $('.book-title-header');
@@ -126,7 +130,12 @@ Helpers){
                 }));
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
-    
+                $("#left-page-btn").mouseleave(function() {
+                  $(tooltipSelector()).tooltip('destroy');
+                });
+                $("#right-page-btn").mouseleave(function() {
+                  $(tooltipSelector()).tooltip('destroy');
+                });
             },
             openPageRequest
         );
@@ -516,6 +525,8 @@ Helpers){
             return;  
         } 
 
+        $(tooltipSelector()).tooltip('destroy');
+
         $(document.body).addClass('hide-ui');
     }
 
@@ -537,7 +548,7 @@ Helpers){
             hideUI();
         }
         else{
-            hideTimeoutId = window.setTimeout(hideUI, 4000);
+            hideTimeoutId = window.setTimeout(hideUI, 8000);
         }
     }
 
@@ -1124,7 +1135,8 @@ Helpers){
 
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
-        unloadUI : unloadReaderUI
+        unloadUI : unloadReaderUI,
+        tooltipSelector : tooltipSelector
     };
 
 });
