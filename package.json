@@ -68,7 +68,7 @@
     "uglify-js": "latest",
     "mocha": "latest",
     "wd": "latest",
-    "phantomjs": "latest",
+    "phantomjs-prebuilt": "latest",
     "grunt-selenium-webdriver": "latest",
     "crx": "latest",
     "chai": "latest",
