@@ -4,7 +4,9 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         fontSize: 100,
         syntheticSpread: "auto",
         scroll: "auto",
-        columnGap: 60
+        columnGap: 60,
+        columnMaxWidth: 550,
+        columnMinWidth: 400
     }
 
     var getBookStyles = function(theme){
@@ -67,6 +69,20 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             updateSliderLabels($marginSlider, val, val + "px", Strings.i18n_margins);
         }
         );
+        
+        var $columnMaxWidthSlider = $("#column-max-width-input");
+        $columnMaxWidthSlider.on("change",
+        function() {
+            var val = $columnMaxWidthSlider.val();
+            
+            var maxVal = Number($columnMaxWidthSlider.attr("max"));
+
+            var columnMaxWidth_text = (val >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (val + "px");
+            
+            updateSliderLabels($columnMaxWidthSlider, val, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
+        }
+        );
+        
 
         var $fontSizeSlider = $("#font-size-input");
         $fontSizeSlider.on('change', function(){
@@ -126,9 +142,17 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
 
-
+                // reset column gap top default, as page width control is now used (see readerSettings.columnMaxWidth) 
+                readerSettings.columnGap = defaultSettings.columnGap;
+                //
                 $marginSlider.val(readerSettings.columnGap);
                 updateSliderLabels($marginSlider, readerSettings.columnGap, readerSettings.columnGap + "px", Strings.i18n_margins);
+
+                var maxVal = Number($columnMaxWidthSlider.attr("max"));
+
+                var columnMaxWidth_text = (readerSettings.columnMaxWidth >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (readerSettings.columnMaxWidth + "px");
+                $columnMaxWidthSlider.val(readerSettings.columnMaxWidth);
+                updateSliderLabels($columnMaxWidthSlider, readerSettings.columnMaxWidth, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
 
                 if (readerSettings.syntheticSpread == "double"){
                     $('#two-up-option input').prop('checked', true);
@@ -185,6 +209,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 fontSize: Number($fontSizeSlider.val()),
                 syntheticSpread: "auto",
                 columnGap: Number($marginSlider.val()),
+                columnMaxWidth: Number($columnMaxWidthSlider.val()),
                 scroll: "auto"
             };
 
