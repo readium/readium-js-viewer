@@ -1,5 +1,4 @@
-define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'], function($, EpubLibrary, EpubReader, Helpers){
-
+define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 'URIjs'], function($, EpubLibrary, EpubReader, Helpers, URI){
 
     var _initialLoad = true; // replaces pushState() with replaceState() at first load 
     var initialLoad = function(){
@@ -32,7 +31,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
         {
             $(document.body).addClass("keyboard");
         });
-    }
+    };
 
     var pushState = $.noop;
     var replaceState = $.noop;
@@ -90,7 +89,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
             
             EpubLibrary.loadUI({epubs: undefined, importEPUB: importEPUB});
         }
-    }
+    };
 
     var readerView = function(data){
         $(EpubReader.tooltipSelector()).tooltip('destroy');
@@ -99,54 +98,6 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
         EpubReader.unloadUI();
         
         EpubReader.loadUI(data);
-    }
-
-    var URLPATH =
-    window.location ? (
-        window.location.protocol
-        + "//"
-        + window.location.hostname
-        + (window.location.port ? (':' + window.location.port) : '')
-        + window.location.pathname
-    ) : 'index.html'
-    ;
-
-    var buildUrlQueryParameters = function(urlpath, overrides) {
-        
-        var paramsString = "";
-        
-        for (var key in overrides) {
-            if (!overrides.hasOwnProperty(key)) continue;
-            
-            if (!overrides[key]) continue;
-            
-            var val = overrides[key].trim();
-            if (!val) continue;
-            
-            console.debug("URL QUERY PARAM OVERRIDE: " + key + " = " + val);
-
-            paramsString += (key + "=" + encodeURIComponent(val));
-            paramsString += "&";
-        }
-        
-        var urlParams = Helpers.getURLQueryParams();
-        for (var key in urlParams) {
-            if (!urlParams.hasOwnProperty(key)) continue;
-            
-            if (!urlParams[key]) continue;
-            
-            if (overrides[key]) continue;
-
-            var val = urlParams[key].trim();
-            if (!val) continue;
-            
-            console.debug("URL QUERY PARAM PRESERVED: " + key + " = " + val);
-
-            paramsString += (key + "=" + encodeURIComponent(val));
-            paramsString += "&";
-        }
-        
-        return urlpath + "?" + paramsString;
     };
 
     $(window).on('readepub', function(e, eventPayload){
@@ -159,8 +110,25 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
         if (epub && (typeof epub !== "string")) {
             epub = ebookURL_filepath;
         }
-        
-        var urlState = buildUrlQueryParameters(URLPATH, {
+
+        if (ebookURL_filepath.indexOf("http") == 0) {  
+            var appUrl =
+            window.location ? (
+                window.location.protocol
+                + "//"
+                + window.location.hostname
+                + (window.location.port ? (':' + window.location.port) : '')
+                + window.location.pathname
+            ) : undefined;
+            
+            if (appUrl) {
+                console.log("EPUB URL absolute:" + ebookURL_filepath);
+                ebookURL_filepath = new URI(ebookURL_filepath).relativeTo(appUrl).toString();
+                console.log("EPUB URL relative to app:" + ebookURL_filepath);
+            }
+        }
+
+        var urlState = Helpers.buildUrlQueryParameters(undefined, {
             epub: ebookURL_filepath,
             epubs: (eventPayload.epubs ? eventPayload.epubs : undefined),
             embedded: (eventPayload.embedded ? eventPayload.embedded : undefined)
@@ -188,10 +156,10 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
             importEPUB = eventPayload;
         }
         
-        var urlState = buildUrlQueryParameters(URLPATH, {
+        var urlState = Helpers.buildUrlQueryParameters(undefined, {
             epubs: (libraryURL ? libraryURL : undefined),
             epub: " ",
-            "goto": " "
+            goto: " "
         });
         
         var func = _initialLoad ? replaceState : pushState;
