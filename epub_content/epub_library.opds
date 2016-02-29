@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
 
+<id>READIUM_OPDS_0123456789</id>
+<updated>2016-02-12T00:00:00Z</updated>
+<title>Readium CloudReader OPDS feed</title>
+<link rel="self" href="epub_library.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="start" href="epub_library.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+
 <entry>
 <title>Accessible EPUB 3</title>
 <author>
@@ -8,6 +14,10 @@
 </author>
 <link type="image/jpeg" href="accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg" rel="http://opds-spec.org/image/thumbnail"/>
 <link type="application/epub" href="accessible_epub_3" rel="http://opds-spec.org/acquisition"/>
+
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_1</id>
+
 </entry>
 
 <entry>
@@ -17,6 +27,10 @@
 </author>
 <link type="image/jpeg" href="page-blanche/EPUB/Image/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
 <link type="application/epub" href="page-blanche" rel="http://opds-spec.org/acquisition"/>
+
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_2</id>
+
 </entry>
 
 <entry>
@@ -26,6 +40,10 @@
 </author>
 <link type="image/jpeg" href="moby_dick/OPS/images/9780316000000.jpg" rel="http://opds-spec.org/image/thumbnail"/>
 <link type="application/epub" href="moby_dick" rel="http://opds-spec.org/acquisition"/>
+
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_3</id>
+
 </entry>
 
 
@@ -35,6 +53,10 @@
   <name>Robert A. Beezer</name>
 </author>
 <link type="application/epub" href="linear-algebra" rel="http://opds-spec.org/acquisition"/>
+
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_4</id>
+
 </entry>
 
 <entry>
@@ -43,6 +65,10 @@
   <name>Readium</name>
 </author>
 <link type="application/epub" href="epubReadingSystem" rel="http://opds-spec.org/acquisition"/>
+
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_5</id>
+
 </entry>
 
 <entry>
@@ -51,23 +77,121 @@
   <name>Readium</name>
 </author>
 <link type="application/epub+zip" href="epubReadingSystem.epub" rel="http://opds-spec.org/acquisition"/>
+
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_6</id>
+
 </entry>
 
 <entry>
-<title>packed EPUB</title>
+<title>internal_link EPUB (zipped)</title>
 <author>
   <name>Readium</name>
 </author>
 <link type="application/epub+zip" href="internal_link.epub" rel="http://opds-spec.org/acquisition"/>
+
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_7</id>
+
 </entry>
-    
+
+<entry>
+  <title>IDPF EPUB 3.1 specification (zipped)</title>
+  <author>
+    <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30.epub</name>
+  </author>
+  <link type="application/epub+zip" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
+  
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_8</id>
+
+</entry>
+
+<entry>
+  <title>IDPF EPUB 3.1 specification (unzipped)</title>
+  <author>
+    <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30</name>
+  </author>
+  <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30" rel="http://opds-spec.org/acquisition"/>
+  
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_9</id>
+
+</entry>
+
 <entry>
   <title>IDPF EPUB Test Suite</title>
   <author>
     <name>https://github.com/IDPF/epub-testsuite</name>
   </author>
-<link type="image/jpeg" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
   <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_testsuite.opds"/>
+  
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_10</id>
+
+<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
+
+</entry>
+
+<entry>
+  <title>IDPF EPUB Samples</title>
+  <author>
+    <name>https://github.com/IDPF/epub3-samples</name>
+  </author>
+<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_samples.opds"/>
+  
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_11</id>
+
+<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
+
+</entry>
+
+<entry>
+  <title>IDPF EPUB widgets / embedded scriptable components</title>
+  <author>
+    <name>https://github.com/IDPF/scriptable-components</name>
+  </author>
+<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_widgets.opds"/>
+  
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_12</id>
+
+<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
+
+</entry>
+
+<entry>
+  <title>IDPF EDUPUB Examples</title>
+  <author>
+    <name>https://github.com/IDPF/edupub</name>
+  </author>
+<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_edu.opds"/>
+  
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_13</id>
+
+<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
+
+</entry>
+
+<entry>
+  <title>DAISY EPUB Accessibility Tests</title>
+  <author>
+    <name>https://github.com/daisy/epub-accessibility-tests</name>
+  </author>
+<link type="image/gif" href="http://www.daisy.org/images-site2/logos/daisylogo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_tests_a11y.opds"/>
+  
+<updated>2016-02-12T00:00:00Z</updated>
+<id>READIUM_OPDS_0123456789_14</id>
+
+<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
+
 </entry>
 
 </feed>

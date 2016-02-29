@@ -181,21 +181,28 @@ Helpers){
             libraryManager.retrieveFullEpubDetails(packageUrl, bookRoot, rootDir, noCoverBg, showDetailsDialog, showError);
         };
         
-        if (!url || url.indexOf(".opf") < 0) {
+        console.log("OPF package URL: " + url);
+        if (url && url.indexOf(".opf") < 0) {
             
-            $.get(url + "META-INF/container.xml", function(data){
+            var urlContainerXml = url + "META-INF/container.xml"; 
+            $.get(urlContainerXml, function(data){
     
                 if(typeof(data) === "string" ) {
                     var parser = new window.DOMParser;
                     data = parser.parseFromString(data, 'text/xml');
                 }
                 var $rootfile = $('rootfile', data);
-                var packageUrl = url + "/" + $rootfile.attr('full-path');
+                var rootFilePath = $rootfile.attr('full-path');
+                console.log("OPF package path (root-file from container.xml): " + rootFilePath);
+                
+                var packageUrl = url + (Helpers.EndsWith(url, "/") ? "" : "/") + rootFilePath;
             
+                console.log("OPF package URL (from container.xml): " + packageUrl);
                 retrieveDetails(packageUrl);
     
             }).fail(function() {
                 //console.warn(arguments);
+                console.error("FAILED OPF package URL (from container.xml): " + urlContainerXml);
                 retrieveDetails(url);
             });
         }
