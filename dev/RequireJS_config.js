@@ -82,7 +82,7 @@ require.config({
             'epubLibraryPath': "../epub_content/epub_library.json",
             //'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
 
-            'imagePathPrefix': '/src/',
+            'imagePathPrefix': '/readium-js-viewer/src/',
 
             'canHandleUrl' : false,
             'canHandleDirectory' : false,
