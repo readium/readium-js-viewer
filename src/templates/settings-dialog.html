@@ -1,4 +1,4 @@
-<div tabindex="-1" class="modal fade" id="settings-dialog" role="dialog" aria-label="{{strings.settings}}" aria-hidden="true">
+<div tabindex="-1" class="modal fade" id="settings-dialog" role="dialog" aria-label="{{strings.settings}}">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -34,7 +34,7 @@
                             <img src="{{{imagePathPrefix}}}images/glyphicons_115_text_smaller.png" alt="" aria-hidden="true">
                         </div>
                         <div class="col-xs-8">
-                            <input  type="range" role="slider" aria-labelledby="setting-header-font-size" id="font-size-input" min="60" aria-value-min="60" aria-valuemin="60" step="10" max="170" aria-value-max="170" aria-valuemax="170" value="100" aria-valuenow="100" aria-value-now="100" aria-valuetext="1em" aria-value-text="1em" title="{{strings.i18n_font_size}}" aria-label="{{strings.i18n_font_size}}" />
+                            <input  type="range" aria-labelledby="setting-header-font-size" id="font-size-input" min="60" aria-value-min="60" aria-valuemin="60" step="10" max="170" aria-value-max="170" aria-valuemax="170" value="100" aria-valuenow="100" aria-value-now="100" aria-valuetext="1em" aria-value-text="1em" title="{{strings.i18n_font_size}}" aria-label="{{strings.i18n_font_size}}" />
                         </div>
                         <div class="col-xs-2">
                             <img src="{{{imagePathPrefix}}}images/glyphicons_116_text_bigger.png" alt="" aria-hidden="true">
@@ -130,9 +130,10 @@
 
                     </div>
 
-                    <h5 hiddenx="hidden" id="setting-header-pageTransition-legend" class="setting-header">{{strings.i18n_page_transition}}</h5>
+                    <!-- Page transitions are seriously broken (see readium-shared-js one_page_view.js disablePageTransitions boolean), so we hide the UI config options -->
+                    <h5 style="display:none;" hiddenx="hidden" id="setting-header-pageTransition-legend" class="setting-header">{{strings.i18n_page_transition}}</h5>
 
-                    <div hiddenx="hidden" role="radiogroup" class="row" style="width:100%;text-align:center;" aria-labelledby="setting-header-pageTransition-legend">
+                    <div style="display:none; width:100%;text-align:center;" hiddenx="hidden" role="radiogroup" class="row" aria-labelledby="setting-header-pageTransition-legend">
 
                         <div role="radio" id="pageTransition-none-option" style="vertical-align:middle;width:15%;display:inline-block;position:relative;">
                             <input style=""  name="pageTransition" value="single" type="radio" id="pageTransition-none-radio"/>

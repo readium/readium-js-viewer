@@ -32,6 +32,12 @@
   "highlight_selection" : {
     "message" : "Highlight Selected Text"
   },
+  "share_url" : {
+    "message" : "Share reader bookmark..."
+  },
+  "share_url_label" : {
+    "message" : "Use your clipboard to copy/paste this shareable link:"
+  },
   "toc" : {
     "message" : "Table of Contents"
   },

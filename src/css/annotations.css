@@ -1,37 +1,10 @@
-/* The z-index is to ensure that the bookmark is accessible even if it's overlayed on a highlight/underline of some type */
-.comment {
-    /*
-    background-image : url("/images/comment_clickable_icon.png");
-    background-repeat : no-repeat;
-    */
-    background-color: blue;
-    opacity : 0.5;
-    z-index : 10; 
-}
-.hover-comment {
-    /*
-    background-image : url("/images/comment_clickable_icon.png");
-    background-repeat : no-repeat;
-    */
-    background-color: blue;
-    opacity : 1.0;
-    z-index : 10;
-}
-
-.bookmark {
-    position : fixed;
-    top : "0px";
-    right : "0px";
-    background-color: red;
-}
-
-.highlight {
+.rd-highlight.test-highlight {
     position: absolute;
     opacity: 0.4;
     background-color: darkblue; /* how can it set programmatic???*/
 }
 
-.hover-highlight {
+.rd-highlight.hover-test-highlight {
     position: absolute;
     opacity: 0.5;
     background-color: darkblue; /* how can it set programmatic???*/
