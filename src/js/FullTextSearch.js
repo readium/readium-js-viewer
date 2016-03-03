@@ -4,6 +4,7 @@ define(['./Dialogs',
         'jquery',
         'hgn!readium_js_viewer_html_templates/search.html',
         'spin',
+        'readium_shared_js/models/bookmark_data',
         'jquery.ui.autocomplete'
     ],
 
@@ -12,7 +13,8 @@ define(['./Dialogs',
               Keyboard,
               $,
               SearchDialog,
-              Spinner) {
+              Spinner,
+              BookmarkData) {
 
         var newSearch;
         var cfis = [];
@@ -31,11 +33,13 @@ define(['./Dialogs',
         var readium;
         var spinner;
         var epubTitle = "";
+        var highlighter;
 
         var FullTextSearch = function (readiumRef, title) {
 
             readium = readiumRef;
             epubTitle = title;
+            highlighter = new Highlighter(readium);
 
             this.init = function () {
 
@@ -67,7 +71,7 @@ define(['./Dialogs',
                     newSearch = true;
                     event.stopPropagation();
                 });
-                
+
                 Keyboard.on(Keyboard.FullTextSearchForwards, 'reader', forwards);
                 Keyboard.on(Keyboard.FullTextSearchBackwards, 'reader', backwards);
 
@@ -269,44 +273,8 @@ define(['./Dialogs',
                     var idref = getIdref(cfi);
                     var partialCfi = getPartialCfi(cfi);
 
-
-                    // addHightlight() need here a small delay to work correctly 
-                    // I don`t why 
-                    setTimeout(function () {
-
-                        readium.reader.plugins.annotations.removeHighlight(999999);
-                        readium.reader.plugins.annotations.addHighlight(
-                            idref,
-                            partialCfi,
-                            999999,// Math.floor((Math.random() * 1000000)),
-                            "highlight", //"underline"
-                            undefined  // styles
-                        ), 600
-
-                    console.debug("hightlight of cfi: " + cfi + " ready");
-                        setTimeout(function () {
-
-
-                            var $epubContentIframe = $('#epubContentIframe');
-                            
-                            // delete old auxiliary element
-                            var $searchResult = $epubContentIframe.contents().find("#searchResult");
-                            $searchResult.first().unwrap();
-                            
-                            //$epubContentIframe[0].contentDocument.designMode = "on";
-                            var startMarker = $epubContentIframe.contents().find(".range-start-marker")[0];
-                            var range = document.createRange();
-
-
-                            $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="555" style="display:inline"></span>');
-                            $searchResult = $epubContentIframe.contents().find("#searchResult");
-                            //$searchResult.css("color","#1182ba");
-                            //$searchResult.css("background-color","yellow");
-                            $searchResult.focus();
-
-                        }, 500);
-                    });
-
+                    // TODO: looks like this should be call after spineitem is loaded
+                    highlighter.add(idref, partialCfi, 'blue');
 
                 } catch (e) {
 
@@ -315,14 +283,14 @@ define(['./Dialogs',
             }
 
 
-            function highlightRange(range) {
-                var newNode = document.createElement("div");
-                newNode.setAttribute("style", "background-color: yellow; display: inline;");
-                newNode.setAttribute("contenteditable", "true");
-                newNode.id = "searchResult";
-                range.surroundContents(newNode);
-            }
-            
+            //function highlightRange(range) {
+            //    var newNode = document.createElement("div");
+            //    newNode.setAttribute("style", "background-color: yellow; display: inline;");
+            //    newNode.setAttribute("contenteditable", "true");
+            //    newNode.id = "searchResult";
+            //    range.surroundContents(newNode);
+            //}
+
             function setNextCfi() {
 
                 // wrap around:
@@ -450,9 +418,152 @@ define(['./Dialogs',
         };
 
 
+        /**
+         * Highlighter use part from CFI navigation helper class.
+         *
+         * Own Hightlighter should be full text search module
+         * a little bit more independent from future developing waves
+         */
+        var Highlighter = function (readium) {
+
+            // todo: focus screenreader
+            
+            var self = this;
+            var lastOverlay;
+
+            self.add = function (idref, partialCfi, borderColor) {
+
+                if (lastOverlay)
+                    lastOverlay.remove();
+                
+                var range = readium.reader.getDomRangeFromRangeCfi(new BookmarkData(idref, partialCfi));
+                console.log("________________________ range: " + range);
+
+                drawOverlayFromDomRange(range, borderColor)
+            };
+
+
+            function drawOverlayFromDomRange(range, borderColor) {
+                var rect = getNodeRangeClientRect(
+                    range.startContainer,
+                    range.startOffset,
+                    range.endContainer,
+                    range.endOffset);
+
+                drawOverlayFromRect(rect, borderColor);
+            }
+
+
+            function drawOverlayFromRect(rect, borderColor) {
+                var leftOffset, topOffset;
+
+                if (isVerticalWritingMode()) {
+                    leftOffset = 0;
+                    topOffset = -getPaginationLeftOffset();
+                } else {
+                    leftOffset = -getPaginationLeftOffset();
+                    topOffset = 0;
+                }
+
+                addOverlayRect({
+                    left: rect.left + leftOffset,
+                    top: rect.top + topOffset,
+                    width: rect.width,
+                    height: rect.height
+                }, borderColor, self.getRootDocument());
+            }
+
+
+            function addOverlayRect(rects, borderColor, doc) {
+
+                if (!(rects instanceof Array)) {
+                    rects = [rects];
+                }
+                for (var i = 0; i != rects.length; i++) {
+                    var rect = rects[i];
+                    var overlayDiv = doc.createElement('div');
+                    overlayDiv.style.position = 'absolute';
+                    $(overlayDiv).css('z-index', '1000');
+                    $(overlayDiv).css('pointer-events', 'none');
+                    $(overlayDiv).css('opacity', '0.4');
+                    overlayDiv.style.border = '2px dashed ' + borderColor;
+                    overlayDiv.style.background = 'yellow';
+                    overlayDiv.style.margin = overlayDiv.style.padding = '0';
+                    overlayDiv.style.top = (rect.top ) + 'px';
+                    overlayDiv.style.left = (rect.left ) + 'px';
+                    // we want rect.width to be the border width, so content width is 2px less.
+                    overlayDiv.style.width = (rect.width - 2) + 'px';
+                    overlayDiv.style.height = (rect.height - 2) + 'px';
+                    doc.documentElement.appendChild(overlayDiv);
+                    lastOverlay = overlayDiv;
+                }
+            }
+
+            function getPaginationLeftOffset() {
+
+                var $htmlElement = $("html", self.getRootDocument());
+                var offsetLeftPixels = $htmlElement.css(isVerticalWritingMode() ? "top" : (isPageProgressionRightToLeft() ? "right" : "left"));
+                var offsetLeft = parseInt(offsetLeftPixels.replace("px", ""));
+                if (isNaN(offsetLeft)) {
+                    //for fixed layouts, $htmlElement.css("left") has no numerical value
+                    offsetLeft = 0;
+                }
+                if (isPageProgressionRightToLeft() && !isVerticalWritingMode()) return -offsetLeft;
+                return offsetLeft;
+            }
+
+            function getNodeRangeClientRect(startNode, startOffset, endNode, endOffset) {
+                var range = createRange();
+                range.setStart(startNode, startOffset ? startOffset : 0);
+                if (endNode.nodeType === Node.ELEMENT_NODE) {
+                    range.setEnd(endNode, endOffset ? endOffset : endNode.childNodes.length);
+                } else if (endNode.nodeType === Node.TEXT_NODE) {
+                    range.setEnd(endNode, endOffset ? endOffset : 0);
+                }
+                return normalizeRectangle(range.getBoundingClientRect(), 0, 0);
+            }
+
+            function normalizeRectangle(textRect, leftOffset, topOffset) {
+
+                var plainRectObject = {
+                    left: textRect.left,
+                    right: textRect.right,
+                    top: textRect.top,
+                    bottom: textRect.bottom,
+                    width: textRect.right - textRect.left,
+                    height: textRect.bottom - textRect.top
+                };
+                offsetRectangle(plainRectObject, leftOffset, topOffset);
+                return plainRectObject;
+            }
+
+            function offsetRectangle(rect, leftOffset, topOffset) {
+
+                rect.left += leftOffset;
+                rect.right += leftOffset;
+                rect.top += topOffset;
+                rect.bottom += topOffset;
+            }
+
+            function isPageProgressionRightToLeft() {
+                return readium.reader.getPaginationInfo().rightToLeft;
+            }
+
+            function isVerticalWritingMode() {
+                return readium.reader.getPaginationInfo().isVerticalWritingMode;
+            }
+
+            this.getRootDocument = function () {
+                return $('#epubContentIframe')[0].contentDocument;
+            };
+
+            function createRange() {
+                return self.getRootDocument().createRange();
+            }
+        };
+
         return FullTextSearch;
     }
-)
-;
+);
 
 

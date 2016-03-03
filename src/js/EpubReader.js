@@ -25,7 +25,7 @@ define([
 'readium_js/Readium',
 'readium_shared_js/helpers',
 'readium_shared_js/models/bookmark_data',
-'./FullTextSearch']
+'./FullTextSearch'],
 
 function (
 globalSetup,
