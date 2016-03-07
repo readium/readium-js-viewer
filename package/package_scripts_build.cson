@@ -14,7 +14,7 @@
             build-output
         &&
         npm run rimraf
-            api-docs/*
+            "api-docs/*"
         &&
         npm run rimraf
             dist
@@ -45,7 +45,7 @@
     lint: '
 
         npm run jshint
-            js/**.js
+            "js/**.js"
     '
 
 
