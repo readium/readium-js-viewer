@@ -15,7 +15,7 @@
         &&
         cd dist/cloud-reader
         &&
-        zip -r ../Readium_cloud-reader.zip . -x epub_content\*
+        zip -r ../Readium_cloud-reader.zip . -x "epub_content\*"
         &&
         cd ../..
         &&

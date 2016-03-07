@@ -14,6 +14,12 @@
             build-output
         &&
         npm run rimraf
+<<<<<<< HEAD
+=======
+            "api-docs/*"
+        &&
+        npm run rimraf
+>>>>>>> 87bb4ab... fixed OSX file selector wildcard / glob
             dist
     '
 
@@ -36,7 +42,7 @@
     lint: '
 
         npm run jshint
-            js/**.js
+            "js/**.js"
     '
 
 
