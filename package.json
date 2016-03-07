@@ -84,7 +84,7 @@
     "prepare": "npm run prepare:submodule && npm run prepare:dependencies",
     "prepare:dependencies": "npm install && npm update && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/gitHubForksUpdater.js",
     "prepare:submodule": "cd readium-js && npm run prepare && cd .. && ls",
-    "clean": "node --version && npm --version && node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js build-output && node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js <<<<<<< HEAD ======= \"api-docs/*\" && node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js >>>>>>> 87bb4ab... fixed OSX file selector wildcard / glob dist",
+    "clean": "node --version && npm --version && node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js build-output && node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js \"api-docs/*\" && node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js dist",
     "prebuild": "npm run clean",
     "build": "npm run build:scripts",
     "lint": "node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/jshint_glob.js \"js/**.js\"",
