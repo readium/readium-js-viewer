@@ -100,7 +100,7 @@
   <author>
     <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30.epub</name>
   </author>
-  <link type="application/epub+zip" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="application/epub+zip" href="https://rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
   
 <updated>2016-02-12T00:00:00Z</updated>
 <id>READIUM_OPDS_0123456789_8</id>
@@ -112,7 +112,7 @@
   <author>
     <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30</name>
   </author>
-  <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30" rel="http://opds-spec.org/acquisition"/>
+  <link type="application/epub" href="https://rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30" rel="http://opds-spec.org/acquisition"/>
   
 <updated>2016-02-12T00:00:00Z</updated>
 <id>READIUM_OPDS_0123456789_9</id>
