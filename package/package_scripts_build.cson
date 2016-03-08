@@ -45,7 +45,7 @@
     lint: '
 
         npm run jshint
-            js/**.js
+            "src/js/**.js"
     '
 
 
