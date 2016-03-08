@@ -43,16 +43,32 @@
         npm run dist:chromeApp
     '
 
+
+#=====================
+    'dist+sourcemap': '
+
+        npm run dist
+        &&
+        npm run deploy:cloudReader:copy:sourcemap
+        &&
+        npm run deploy:cloudReaderLite:copy:sourcemap
+        &&
+        npm run deploy:chromeApp:copy:sourcemap
+    '
+
+
 #=====================
     'dist:copy': '
 
         npm run mkdirp
             dist/zip_sourcemap
         &&
+        (
         npm run cpy
             build-output/z-worker.js.map
             dist/zip_sourcemap
         &&
+        (
         npm run cpy
             build-output/deflate.js.map
             dist/zip_sourcemap
@@ -60,4 +76,13 @@
         npm run cpy
             build-output/inflate.js.map
             dist/zip_sourcemap
+        )
+        ||
+        (
+        echo "=== SUCCESS [ignore previous error]: no sourcemaps were generated for zip web-worker, deflate, inflate (no uglification)."
+        &&
+        npm run rimraf
+            dist/zip_sourcemap
+        )
+        )
     '

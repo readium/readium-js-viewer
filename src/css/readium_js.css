@@ -6,7 +6,7 @@ html.disable-ie-back-swipe {
 html {
     height: 100%;
     margin: 0;
-	overflow: hidden;
+    overflow: hidden;
 }
 
 body {
@@ -17,8 +17,15 @@ body {
     overflow: hidden;
 	-ms-overflow-style: -ms-autohiding-scrollbar;
     box-sizing:border-box;
-	-moz-box-sizing:border-box; /* Firefox */
-	-webkit-box-sizing:border-box; /* Safari */
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+    
+}
+
+body.fileDragHover {
+-webkit-box-shadow: inset 0px 0px 32px 0px blue;
+-moz-box-shadow: inset 0px 0px 32px 0px blue;
+box-shadow: inset 0px 0px 32px 0px blue;
 }
 
 iframe {

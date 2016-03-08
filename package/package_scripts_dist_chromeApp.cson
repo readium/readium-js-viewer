@@ -96,7 +96,7 @@
             dist/chrome-app/images/
         &&
         npm run cpy
-            node_modules/MathJax-grunt-concatenator/MathJax.js
+            node_modules/mathjax-single-file/dist/MathJax.js
             dist/chrome-app/scripts/mathjax
         &&
         npm run ncp
@@ -115,10 +115,6 @@
             src/chrome-app/background.js
             dist/chrome-app/scripts/
         &&
-        npm run cpy
-            src/chrome-app/requirejs-config.js
-            dist/chrome-app/scripts/
-        &&
         npm run ncp
             src/chrome-app/icons/
             dist/chrome-app/icons/
@@ -132,6 +128,11 @@
             dist/chrome-app/
     '
 
+#        &&
+#        npm run cpy
+#            src/chrome-app/requirejs-config.js
+#            dist/chrome-app/scripts/
+            
 #=====================
     'dist:chromeApp:css': '
 

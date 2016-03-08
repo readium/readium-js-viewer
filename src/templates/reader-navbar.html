@@ -98,7 +98,7 @@
                 <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
             </button>
             
-            <input tabindex="1" id="rate-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="4" aria-value-max="4" aria-valuemax="4" value="1" aria-valuenow="1" aria-value-now="1" aria-valuetext="1x" aria-value-text="1x" step="0.5" title="{{strings.i18n_audio_rate}} [{{keyboard.MediaOverlaysRateDecrease}}] / [{{keyboard.MediaOverlaysRateIncrease}}]" aria-label="{{strings.i18n_audio_rate}} [{{keyboard.MediaOverlaysRateDecrease}}] / [{{keyboard.MediaOverlaysRateIncrease}}]" />
+            <input tabindex="1" id="rate-range-slider" type="range" role="slider" min="0" aria-value-min="0" aria-valuemin="0" max="4" aria-value-max="4" aria-valuemax="4" value="1" aria-valuenow="1" aria-value-now="1" aria-valuetext="1x" aria-value-text="1x" step="0.1" title="{{strings.i18n_audio_rate}} [{{keyboard.MediaOverlaysRateDecrease}}] / [{{keyboard.MediaOverlaysRateIncrease}}]" aria-label="{{strings.i18n_audio_rate}} [{{keyboard.MediaOverlaysRateDecrease}}] / [{{keyboard.MediaOverlaysRateIncrease}}]" />
             
             <span aria-hidden="true" tabindex="-1" id="rate-range-slider-label">1x</span>
             
@@ -201,6 +201,9 @@
     </button>
     <button tabindex="1" type="button" class="btn icon-annotations" title="{{strings.highlight_selection}}" aria-label="{{strings.highlight_selection}}">
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+    </button>
+    <button tabindex="1" type="button" class="btn icon-shareUrl" title="{{strings.share_url}}" aria-label="{{strings.share_url}}">
+        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
     </button>
     <button id="tocButt" tabindex="1" type="button" class="btn icon-toc" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}">
         <span class="glyphicon glyphicon-list" aria-hidden="true"></span>

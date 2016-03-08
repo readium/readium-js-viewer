@@ -1,5 +1,6 @@
 define([
 "readium_shared_js/globalsSetup",
+ "readium_shared_js/globals",
 './ModuleConfig',
 'jquery',
 'bootstrap',
@@ -21,10 +22,13 @@ define([
 './EpubReaderBackgroundAudioTrack',
 './gestures',
 './versioning/ReadiumVersioning',
-'readium_js/Readium'],
+'readium_js/Readium',
+'readium_shared_js/helpers',
+'readium_shared_js/models/bookmark_data'],
 
 function (
 globalSetup,
+Globals,
 moduleConfig,
 $,
 bootstrap,
@@ -46,72 +50,243 @@ EpubReaderMediaOverlays,
 EpubReaderBackgroundAudioTrack,
 GesturesHandler,
 Versioning,
-Readium){
+Readium,
+Helpers,
+BookmarkData){
 
-    var readium,
-        embedded,
-        url,
-        el = document.documentElement,
-        currentDocument,
-        gesturesHandler;
+    // initialised in initReadium()
+    var readium = undefined;
 
-    // This function will retrieve a package document and load an EPUB
-    var loadEbook = function (packageDocumentURL, readerSettings, openPageRequest) {
+    // initialised in loadReaderUI(), with passed data.embedded
+    var embedded = undefined;
+    
+    // initialised in loadReaderUI(), with passed data.epub
+    var ebookURL = undefined;
+    var ebookURL_filepath = undefined;
+    
+    // initialised in loadEbook() >> readium.openPackageDocument()
+    var currentPackageDocument = undefined;
+    
+    // initialised in initReadium()
+    // (variable not actually used anywhere here, but top-level to indicate that its lifespan is that of the reader object (not to be garbage-collected))
+    var gesturesHandler = undefined;
+    
+    
+    // TODO: is this variable actually used anywhere here??
+    // (bad naming convention, hard to find usages of "el")
+    var el = document.documentElement;
 
-        readium.openPackageDocument(packageDocumentURL, function(packageDocument, options){
-            currentDocument = packageDocument;
-            currentDocument.generateTocListDOM(function(dom){
-                loadToc(dom)
-            });
+    var tooltipSelector = function() {
+        return 'nav *[title], #readium-page-btns *[title]';
+    };
+   
+    var ensureUrlIsRelativeToApp = function(ebookURL) {
 
-            wasFixed = readium.reader.isCurrentViewFixedLayout();
-            var metadata = options.metadata;
-
-            $('<h2 class="book-title-header"></h2>').insertAfter('.navbar').text(metadata.title);
-
-
-            $("#left-page-btn").unbind("click");
-            $("#right-page-btn").unbind("click");
-            var $pageBtnsContainer = $('#readium-page-btns');
-            $pageBtnsContainer.empty();
-            var rtl = currentDocument.getPageProgressionDirection() === "rtl"; //_package.spine.isLeftToRight()
-            $pageBtnsContainer.append(ReaderBodyPageButtons({strings: Strings, dialogs: Dialogs, keyboard: Keyboard,
-                pageProgressionDirectionIsRTL: rtl
-            }));
-            $("#left-page-btn").on("click", prevPage);
-            $("#right-page-btn").on("click", nextPage);
-
-        }, openPageRequest);
+        if (!ebookURL) {
+            return ebookURL;
+        }
+        
+        if (ebookURL.indexOf("http") != 0) {
+            return ebookURL;
+        }
+            
+        var isHTTPS = (ebookURL.indexOf("https") == 0);
+    
+        var CORS_PROXY_HTTP_TOKEN = "/http://";
+        var CORS_PROXY_HTTPS_TOKEN = "/https://";
+        
+        // Ensures URLs like http://crossorigin.me/http://domain.com/etc
+        // do not end-up loosing the double forward slash in http://domain.com
+        // (because of URI.absoluteTo() path normalisation)
+        var CORS_PROXY_HTTP_TOKEN_ESCAPED = "%2Fhttp%3A%2F%2F";
+        var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "%2Fhttps%3A%2F%2F";
+        
+        // case-insensitive regexp for percent-escapes
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("%2F(http[s]?)%3A%2F%2F", "gi");
+        
+        var appUrl =
+        window.location ? (
+            window.location.protocol
+            + "//"
+            + window.location.hostname
+            + (window.location.port ? (':' + window.location.port) : '')
+            + window.location.pathname
+        ) : undefined;
+        
+        if (appUrl) {
+            console.log("EPUB URL absolute: " + ebookURL);
+            console.log("App URL: " + appUrl);
+            
+            ebookURL = ebookURL.replace(CORS_PROXY_HTTP_TOKEN, CORS_PROXY_HTTP_TOKEN_ESCAPED);
+            ebookURL = ebookURL.replace(CORS_PROXY_HTTPS_TOKEN, CORS_PROXY_HTTPS_TOKEN_ESCAPED);
+            
+            ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
+            if (ebookURL.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
+                ebookURL = (isHTTPS ? "https:" : "http:") + ebookURL;
+            }
+            
+            ebookURL = ebookURL.replace(regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED, "/$1://");
+            
+            console.log("EPUB URL relative to app: " + ebookURL);
+        }
+        
+        return ebookURL;
     };
 
-    var spin = function()
-    {
-//console.error("do SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-        if (spinner.willSpin || spinner.isSpinning) return;
+    function setBookTitle(title) {
+    
+        var $titleEl = $('.book-title-header');
+        if ($titleEl.length) {
+            $titleEl.text(title);
+        } else {
+            $('<h2 class="book-title-header"></h2>').insertAfter('.navbar').text(title);
+        }
+    };
 
-        spinner.willSpin = true;
-
-        setTimeout(function()
-        {
-            if (spinner.stopRequested)
-            {
-//console.debug("STOP REQUEST: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-                spinner.willSpin = false;
-                spinner.stopRequested = false;
-                return;
+    var _debugBookmarkData_goto = undefined;
+    var debugBookmarkData = function(cfi) {
+            
+        var DEBUG = true; // change this to visualize the CFI range
+        if (!DEBUG) return;
+                
+        if (!readium) return;
+            
+        var paginationInfo = readium.reader.getPaginationInfo();
+        console.log(JSON.stringify(paginationInfo));
+        
+        if (paginationInfo.isFixedLayout) return;
+    
+        try {
+            ReadiumSDK._DEBUG_CfiNavigationLogic.clearDebugOverlays();
+            
+        } catch (error) {
+            //ignore
+        }
+        
+        try {
+            console.log(cfi);
+            
+            var range = readium.reader.getDomRangeFromRangeCfi(cfi);
+            console.log(range);
+            
+            var res = ReadiumSDK._DEBUG_CfiNavigationLogic.drawDebugOverlayFromDomRange(range);
+            console.log(res);
+        
+            var cfiFirst = ReadiumSDK.reader.getFirstVisibleCfi();
+            console.log(cfiFirst);
+            
+            var cfiLast  = ReadiumSDK.reader.getLastVisibleCfi();
+            console.log(cfiLast);
+            
+        } catch (error) {
+            //ignore
+        }
+        
+        setTimeout(function() {
+            try {
+                ReadiumSDK._DEBUG_CfiNavigationLogic.clearDebugOverlays();
+            } catch (error) {
+                //ignore
             }
-//console.debug("SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-            spinner.isSpinning = true;
-            spinner.spin($('#reading-area')[0]);
+        }, 2000);
+    };
+    
+    // This function will retrieve a package document and load an EPUB
+    var loadEbook = function (readerSettings, openPageRequest) {
 
-            spinner.willSpin = false;
+        readium.openPackageDocument(
+            
+            ebookURL,
+            
+            function(packageDocument, options){
+                
+                if (!packageDocument) {
+                    
+                    console.error("ERROR OPENING EBOOK: " + ebookURL_filepath);
+                    
+                    spin(false);
+                    setBookTitle(ebookURL_filepath);
+                            
+                    Dialogs.showErrorWithDetails(Strings.err_epub_corrupt, ebookURL_filepath);
+                    //Dialogs.showModalMessage(Strings.err_dlg_title, ebookURL_filepath);
+                            
+                    return;
+                }
+                
+                currentPackageDocument = packageDocument;
+                currentPackageDocument.generateTocListDOM(function(dom){
+                    loadToc(dom)
+                });
+    
+                wasFixed = readium.reader.isCurrentViewFixedLayout();
+                var metadata = options.metadata;
+    
+                setBookTitle(metadata.title);
+    
+                $("#left-page-btn").unbind("click");
+                $("#right-page-btn").unbind("click");
+                var $pageBtnsContainer = $('#readium-page-btns');
+                $pageBtnsContainer.empty();
+                var rtl = currentPackageDocument.getPageProgressionDirection() === "rtl"; //_package.spine.isLeftToRight()
+                $pageBtnsContainer.append(ReaderBodyPageButtons({strings: Strings, dialogs: Dialogs, keyboard: Keyboard,
+                    pageProgressionDirectionIsRTL: rtl
+                }));
+                $("#left-page-btn").on("click", prevPage);
+                $("#right-page-btn").on("click", nextPage);
+                $("#left-page-btn").mouseleave(function() {
+                  $(tooltipSelector()).tooltip('destroy');
+                });
+                $("#right-page-btn").mouseleave(function() {
+                  $(tooltipSelector()).tooltip('destroy');
+                });
+            },
+            openPageRequest
+        );
+    };
 
-        }, 100);
+    var spin = function(on)
+    {
+        if (on) {
+    //console.error("do SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+            if (spinner.willSpin || spinner.isSpinning) return;
+    
+            spinner.willSpin = true;
+    
+            setTimeout(function()
+            {
+                if (spinner.stopRequested)
+                {
+    //console.debug("STOP REQUEST: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                    spinner.willSpin = false;
+                    spinner.stopRequested = false;
+                    return;
+                }
+    //console.debug("SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                spinner.isSpinning = true;
+                spinner.spin($('#reading-area')[0]);
+    
+                spinner.willSpin = false;
+    
+            }, 100);
+        } else {
+            
+            if (spinner.isSpinning)
+            {
+//console.debug("!! SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                spinner.stop();
+                spinner.isSpinning = false;
+            }
+            else if (spinner.willSpin)
+            {
+//console.debug("!! SPIN REQ: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
+                spinner.stopRequested = true;
+            }
+        }
     };
 
     var tocShowHideToggle = function(){
 
-        $(document.body).removeClass('hide-ui');
+        unhideUI();
 
         var $appContainer = $('#app-container'),
             hide = $appContainer.hasClass('toc-visible');
@@ -123,6 +298,12 @@ Readium){
         if (hide){
             $appContainer.removeClass('toc-visible');
 
+            // clear tabindex off of any previously focused ToC item
+            var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
+            if (existsFocusable.length > 0){
+              existsFocusable[0].setAttribute("tabindex", "-1");
+            }
+            /* end of clear focusable tab item */
             setTimeout(function(){ $('#tocButt')[0].focus(); }, 100);
         }
         else{
@@ -135,12 +316,12 @@ Readium){
             hideLoop(null, true);
         }else if (readium.reader.handleViewportResize){
 
-            readium.reader.handleViewportResize();
+            readium.reader.handleViewportResize(bookmark);
 
-            setTimeout(function()
-            {
-                readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
-            }, 90);
+            // setTimeout(function()
+            // {
+            //     readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
+            // }, 90);
         }
     };
 
@@ -188,7 +369,7 @@ Readium){
             }
 
             var toc = (tocNav && $(tocNav).html()) || $('body', dom).html() || $(dom).html();
-            var tocUrl = currentDocument.getToc();
+            var tocUrl = currentPackageDocument.getToc();
 
             if (toc && toc.length)
             {
@@ -210,10 +391,28 @@ Readium){
                     $toc[0].setAttributeNS("http://www.w3.org/1999/xhtml", "dir", "rtl");
                     $toc[0].style.direction = "rtl"; // The CSS stylesheet property does not trigger :(
                 }
+
+                // remove default focus from anchor elements in TOC after added to #readium-toc-body
+                var $items = $('#readium-toc-body li >a');
+                $items.each(function(){
+                  $(this).attr("tabindex", "-1");
+                   $(this).on("focus", function(event){
+                    //console.log("toc item focus: " + event.target);
+                    // remove tabindex from previously focused
+                    var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
+                    if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
+                      //console.log("previous focus: " + $prevFocus[0]);
+                      $prevFocus.attr("tabindex","-1");
+                    }
+                    // add to newly focused
+                    event.target.setAttribute("tabindex", "60");
+                  });
+                });
+
             }
 
         } else {
-            var tocUrl = currentDocument.getToc();
+            var tocUrl = currentPackageDocument.getToc();
 
             $('#readium-toc-body').append("?? " + tocUrl);
         }
@@ -223,10 +422,15 @@ Readium){
         var lastIframe = undefined,
             wasFixed;
 
-        readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, setScaleDisplay);
+        readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, function() {
+            Globals.logEvent("FXL_VIEW_RESIZED", "ON", "EpubReader.js");
+            setScaleDisplay();
+        });
+        
         readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem)
         {
-
+            Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "EpubReader.js [ " + spineItem.href + " ]");
+            
             var isFixed = readium.reader.isCurrentViewFixedLayout();
 
             // TODO: fix the pan-zoom feature!
@@ -246,21 +450,18 @@ Readium){
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData)
         {
+            Globals.logEvent("PAGINATION_CHANGED", "ON", "EpubReader.js");
+            
+            if (_debugBookmarkData_goto) {
+                
+                debugBookmarkData(_debugBookmarkData_goto);
+                _debugBookmarkData_goto = undefined;
+            }
+            
             savePlace();
             updateUI(pageChangeData);
 
-
-            if (spinner.isSpinning)
-            {
-//console.debug("!! SPIN: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-                spinner.stop();
-                spinner.isSpinning = false;
-            }
-            else if (spinner.willSpin)
-            {
-//console.debug("!! SPIN REQ: -- WILL: " + spinner.willSpin + " IS:" + spinner.isSpinning + " STOP REQ:" + spinner.stopRequested);
-                spinner.stopRequested = true;
-            }
+            spin(false);
 
             if (!_tocLinkActivated) return;
             _tocLinkActivated = false;
@@ -278,7 +479,7 @@ Readium){
                     //bookmark.idref; //manifest item
                     if (pageChangeData.spineItem)
                     {
-                        element = readium.reader.getElementByCfi(pageChangeData.spineItem, bookmark.contentCFI,
+                        element = readium.reader.getElementByCfi(pageChangeData.spineItem.idref, bookmark.contentCFI,
                             ["cfi-marker", "mo-cfi-highlight"],
                             [],
                             ["MathJax_Message"]);
@@ -328,12 +529,15 @@ Readium){
                     iframe = lastIframe;
                 }
 
+
+/* Remove because is removing focus from the toc
                 if (iframe)
                 {
                     //var doc = ( iframe.contentWindow || iframe.contentDocument ).document;
                     var toFocus = iframe; //doc.body
                     setTimeout(function(){ toFocus.focus(); }, 50);
                 }
+*/
             }
             catch (e)
             {
@@ -343,20 +547,29 @@ Readium){
 
         $('#readium-toc-body').on('click', 'a', function(e)
         {
-            spin();
-
-            var href = $(this).attr('href');
-            href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
-
-            _tocLinkActivated = true;
-
-            readium.reader.openContentUrl(href);
-
-            if (embedded){
-                $('.toc-visible').removeClass('toc-visible');
-                $(document.body).removeClass('hide-ui');
+            try {
+                spin(true);
+    
+                var href = $(this).attr('href');
+                //href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
+    
+                _tocLinkActivated = true;
+    
+                readium.reader.openContentUrl(href, tocUrl, undefined);
+    
+                if (embedded) {
+                    $('.toc-visible').removeClass('toc-visible');
+                    unhideUI();
+                }
+            } catch (err) {
+                
+                console.error(err);
+                
+            } finally {
+                //e.preventDefault();
+                //e.stopPropagation();
+                return false;
             }
-            return false;
         });
         $('#readium-toc-body').prepend('<button tabindex="50" type="button" class="close" data-dismiss="modal" aria-label="'+Strings.i18n_close+' '+Strings.toc+'" title="'+Strings.i18n_close+' '+Strings.toc+'"><span aria-hidden="true">&times;</span></button>');
         $('#readium-toc-body button.close').on('click', function(){
@@ -373,7 +586,68 @@ Readium){
             */
             return false;
         })
-    }
+//        var KEY_ENTER = 0x0D;
+//        var KEY_SPACE = 0x20;
+        var KEY_END = 0x23;
+        var KEY_HOME = 0x24;
+//        var KEY_LEFT = 0x25;
+        var KEY_UP = 0x26;
+//        var KEY_RIGHT = 0x27;
+        var KEY_DOWN = 0x28;
+
+        $('#readium-toc-body').keydown( function(event){
+            var next = null;
+            var blurNode = event.target;
+            switch (event.which) {
+              case KEY_HOME:
+                  //find first li >a
+                  next = $('#readium-toc-body li >a')[0];
+              break;
+
+              case KEY_END:
+              // find last a within toc
+                next = $('#readium-toc-body a').last()[0];
+              break;
+
+              case KEY_DOWN:
+                if (blurNode.tagName == "BUTTON") {
+                    var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
+                    if (existsFocusable.length > 0) {
+                      next = existsFocusable[0];
+                    } else {
+                      // go to first entry
+                      next = $('#readium-toc-body li >a')[0];
+                    }
+                } else {
+                  // find all the a elements, find previous focus (tabindex=60) then get next
+                  var $items = $('#readium-toc-body a');
+                  var index = $('a[tabindex="60"]').index('#readium-toc-body a');
+                  //var index = $('a[tabindex="60"]').index($items); // not sure why this won't work?
+                  if (index > -1 && index < $items.length-1) {
+                    next = $items.get(index+1);
+                  } 
+                }
+              break;
+
+              case KEY_UP:
+                // find all the a elements, find previous focus (tabindex=60) then get previous
+                var $items = $('#readium-toc-body a');
+                var index = $('a[tabindex="60"]').index('#readium-toc-body a');
+                if (index > -1 && index > 0 ) {
+                  next = $items.get(index-1);
+                } 
+              break;
+
+              default:
+                return;
+            }
+            if (next) {
+              event.preventDefault();
+              setTimeout(next.focus(), 5);
+            }
+          return;
+      }); // end of onkeyup
+    } // end of loadToc
 
     var toggleFullScreen = function(){
 
@@ -382,15 +656,15 @@ Readium){
         screenfull.toggle();
     }
 
-  	var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
-  			&& chrome.app.window && chrome.app.window.current; // a bit redundant?
+    var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
+              && chrome.app.window && chrome.app.window.current; // a bit redundant?
 
     if (isChromeExtensionPackagedApp) {
-    	screenfull.onchange = function(e) {
-    		if (chrome.app.window.current().isFullscreen()) {
-    			chrome.app.window.current().restore();
-    		}
-    	};
+        screenfull.onchange = function(e) {
+            if (chrome.app.window.current().isFullscreen()) {
+                chrome.app.window.current().restore();
+            }
+        };
     }
     var oldOnChange = screenfull.onchange;
     screenfull.onchange = function(e){
@@ -413,6 +687,9 @@ Readium){
             $('#buttFullScreenToggle').attr('title', titleText);
         }
         oldOnChange.call(this, e);
+    }
+    var unhideUI = function(){
+        hideLoop();
     }
 
     var hideUI = function(){
@@ -445,6 +722,8 @@ Readium){
             return;  
         } 
 
+        $(tooltipSelector()).tooltip('destroy');
+
         $(document.body).addClass('hide-ui');
     }
 
@@ -466,7 +745,7 @@ Readium){
             hideUI();
         }
         else{
-            hideTimeoutId = window.setTimeout(hideUI, 4000);
+            hideTimeoutId = window.setTimeout(hideUI, 8000);
         }
     }
 
@@ -486,7 +765,7 @@ Readium){
     }
 
     var savePlace = function(){
-        Settings.put(url, readium.reader.bookmarkCurrentPage(), $.noop);
+        Settings.put(ebookURL_filepath, readium.reader.bookmarkCurrentPage(), $.noop);
     }
 
     var nextPage = function () {
@@ -503,9 +782,47 @@ Readium){
 
     var installReaderEventHandlers = function(){
 
+        if (isChromeExtensionPackagedApp) {
+            $('.icon-shareUrl').css("display", "none");
+        } else {
+            $(".icon-shareUrl").on("click", function () {
+                
+                var urlParams = Helpers.getURLQueryParams();
+                var ebookURL = urlParams['epub'];
+                if (!ebookURL) return;
+                
+                var bookmark = readium.reader.bookmarkCurrentPage();
+                bookmark = JSON.parse(bookmark);
+                
+                var cfi = new BookmarkData(bookmark.idref, bookmark.contentCFI);
+                debugBookmarkData(cfi);
+                
+                bookmark.elementCfi = bookmark.contentCFI;
+                bookmark.contentCFI = undefined;
+                bookmark = JSON.stringify(bookmark);
+                
+                ebookURL = ensureUrlIsRelativeToApp(ebookURL);
+
+                var url = Helpers.buildUrlQueryParameters(undefined, {
+                    epub: ebookURL,
+                    epubs: " ",
+                    embedded: " ",
+                    goto: bookmark
+                });
+                
+                //showModalMessage
+                //showErrorWithDetails
+                Dialogs.showModalMessageEx(Strings.share_url, $('<p id="share-url-dialog-input-label">'+Strings.share_url_label+'</p><input id="share-url-dialog-input-id" aria-labelledby="share-url-dialog-input-label" type="text" value="'+url+'" readonly="readonly" style="width:100%" />'));
+                
+                setTimeout(function(){
+                    $('#share-url-dialog-input-id').focus().select();
+                }, 500);
+            });
+        }
+
         // Set handlers for click events
         $(".icon-annotations").on("click", function () {
-            readium.reader.plugins.annotations.addSelectionHighlight(Math.floor((Math.random()*1000000)), "highlight");
+            readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "test-highlight");
         });
 
         var isWithinForbiddenNavKeysArea = function()
@@ -529,7 +846,7 @@ Readium){
             if (!embedded && $('#app-container').hasClass('toc-visible')){
                 return;
             }
-            $(document.body).addClass('hide-ui');
+            hideUI();
             if (document.activeElement) document.activeElement.blur();
         };
         $("#buttHideToolBar").on("click", hideTB);
@@ -537,7 +854,7 @@ Readium){
 
         var showTB = function(){
             $("#aboutButt1")[0].focus();
-            $(document.body).removeClass('hide-ui');
+            unhideUI();
             setTimeout(function(){ $("#aboutButt1")[0].focus(); }, 50);
         };
         $("#buttShowToolBar").on("click", showTB);
@@ -562,8 +879,13 @@ Readium){
         var loadlibrary = function()
         {
             $("html").attr("data-theme", "library");
-
-            $(window).trigger('loadlibrary');
+            
+            var urlParams = Helpers.getURLQueryParams();
+            //var ebookURL = urlParams['epub'];
+            var libraryURL = urlParams['epubs'];
+            
+            $(window).triggerHandler('loadlibrary', libraryURL);
+            //$(window).trigger('loadlibrary');
         };
 
         Keyboard.on(Keyboard.SwitchToLibrary, 'reader', loadlibrary /* function(){setTimeout(, 30);} */ );
@@ -668,14 +990,16 @@ Readium){
         $('#zoom-custom a').on('click', enableCustom);
         $('.zoom-wrapper input').on('change', setCustom);
 
-        spin();
+        spin(true);
     }
 
     var loadReaderUI = function (data) {
 
         Keyboard.scope('reader');
 
-        url = data.epub;
+        ebookURL = data.epub;
+        ebookURL_filepath = Helpers.getEbookUrlFilePath(ebookURL);
+
 
         Analytics.trackView('/reader');
         embedded = data.embedded;
@@ -684,10 +1008,13 @@ Readium){
 
         //because we reinitialize the reader we have to unsubscribe to all events for the previews reader instance
         if(readium && readium.reader) {
+            
+            Globals.logEvent("__ALL__", "OFF", "EpubReader.js");
             readium.reader.off();
         }
 
         if (window.ReadiumSDK) {
+            Globals.logEvent("PLUGINS_LOADED", "OFF", "EpubReader.js");
             ReadiumSDK.off(ReadiumSDK.Events.PLUGINS_LOADED);
         }
 
@@ -702,7 +1029,7 @@ Readium){
         console.log("MODULE CONFIG:");
         console.log(moduleConfig);
 
-        Settings.getMultiple(['reader', url], function(settings){
+        Settings.getMultiple(['reader', ebookURL_filepath], function(settings){
 
             var readerOptions =  {
                 el: "#epub-reader-frame",
@@ -719,29 +1046,78 @@ Readium){
                 readiumOptions.useSimpleLoader = true;
             }
 
+            _debugBookmarkData_goto = undefined;
             var openPageRequest;
-            if (settings[url]){
-                var bookmark = JSON.parse(JSON.parse(settings[url]));
+            if (settings[ebookURL_filepath]){
+                var bookmark = JSON.parse(JSON.parse(settings[ebookURL_filepath]));
+                //console.log("Bookmark restore: " + JSON.stringify(bookmark));
                 openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
+                console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
             }
 
+            var urlParams = Helpers.getURLQueryParams();
+            var goto = urlParams['goto'];
+            if (goto) {
+                console.log("Goto override? " + goto);
+                
+                try {
+                    var gotoObj = JSON.parse(goto);
+                    
+                    var openPageRequest_ = undefined;
+                    
+                    
+                    // See ReaderView.openBook()
+                    // e.g. with accessible_epub_3:
+                    // &goto={"contentRefUrl":"ch02.xhtml%23_data_integrity","sourceFileHref":"EPUB"}
+                    // or: {"idref":"id-id2635343","elementCfi":"/4/2[building_a_better_epub]@0:10"} (the legacy spatial bookmark is wrong here, but this is fixed in intel-cfi-improvement feature branch)
+                    if (gotoObj.idref) {
+                        if (gotoObj.spineItemPageIndex) {
+                            openPageRequest_ = {idref: gotoObj.idref, spineItemPageIndex: gotoObj.spineItemPageIndex};
+                        }
+                        else if (gotoObj.elementCfi) {
+                                        
+                            _debugBookmarkData_goto = new BookmarkData(gotoObj.idref, gotoObj.elementCfi);
+                            
+                            openPageRequest_ = {idref: gotoObj.idref, elementCfi: gotoObj.elementCfi};
+                        }
+                        else {
+                            openPageRequest_ = {idref: gotoObj.idref};
+                        }
+                    }
+                    else if (gotoObj.contentRefUrl && gotoObj.sourceFileHref) {
+                        openPageRequest_ = {contentRefUrl: gotoObj.contentRefUrl, sourceFileHref: gotoObj.sourceFileHref};
+                    }
+                    
+                    
+                    if (openPageRequest_) {
+                        openPageRequest = openPageRequest_;
+                        console.debug("Open request (goto): " + JSON.stringify(openPageRequest));
+                    }
+                } catch(err) {
+                    console.error(err);
+                }
+            }
 
             readium = new Readium(readiumOptions, readerOptions);
 
             window.READIUM = readium;
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
+                Globals.logEvent("PLUGINS_LOADED", "ON", "EpubReader.js");
                 
                 console.log('PLUGINS INITIALIZED!');
-                
-                if (!readium.reader.plugins.annotations) {   
+
+                if (!readium.reader.plugins.highlights) {
                     $('.icon-annotations').css("display", "none");
                 } else {
-                    readium.reader.plugins.annotations.initialize({annotationCSSUrl: readerOptions.annotationCSSUrl});
-                    
-                    readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
+
+                    readium.reader.plugins.highlights.initialize({
+                        annotationCSSUrl: readerOptions.annotationCSSUrl
+                    });
+
+                    readium.reader.plugins.highlights.on("annotationClicked", function(type, idref, cfi, id) {
         console.debug("ANNOTATION CLICK: " + id);
-                        readium.reader.plugins.annotations.removeHighlight(id);
+                        readium.reader.plugins.highlights.removeHighlight(id);
                     });
                 }
     
@@ -752,7 +1128,6 @@ Readium){
                 }
             });
 
-            //setup gestures support with hummer
             gesturesHandler = new GesturesHandler(readium.reader, readerOptions.el);
             gesturesHandler.initialize();
 
@@ -760,7 +1135,7 @@ Readium){
             {
                 if (e.keyCode === 9 || e.which === 9)
                 {
-                    $(document.body).removeClass('hide-ui');
+                    unhideUI();
                 }
             });
 
@@ -787,7 +1162,7 @@ Readium){
 
                 Keyboard.scope('reader');
 
-                $(document.body).removeClass('hide-ui');
+                unhideUI()
                 setTimeout(function(){ $("#settbutt1").focus(); }, 50);
 
                 $("#buttSave").removeAttr("accesskey");
@@ -805,7 +1180,7 @@ Readium){
             $('#about-dialog').on('hidden.bs.modal', function () {
                 Keyboard.scope('reader');
 
-                $(document.body).removeClass('hide-ui');
+                unhideUI();
                 setTimeout(function(){ $("#aboutButt1").focus(); }, 50);
             });
             $('#about-dialog').on('shown.bs.modal', function(){
@@ -852,7 +1227,9 @@ Readium){
             Keyboard.on(Keyboard.NightTheme, 'reader', toggleNightTheme);
 
             readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function($iframe, spineItem) {
-                spin();
+                Globals.logEvent("CONTENT_DOCUMENT_LOAD_START", "ON", "EpubReader.js [ " + spineItem.href + " ]");
+                
+                spin(true);
             });
 
             EpubReaderMediaOverlays.init(readium);
@@ -863,7 +1240,8 @@ Readium){
 
             Versioning.getVersioningInfo(function(version){
 
-                $('#app-container').append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, viewer: version.readiumJsViewer, readium: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+                $('#app-container').append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dateTimeString: version.dateTimeString, viewerJs: version.readiumJsViewer, readiumJs: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+
 
                 window.navigator.epubReadingSystem.name = "readium-js-viewer";
                 window.navigator.epubReadingSystem.version = version.readiumJsViewer.chromeVersion;
@@ -930,9 +1308,7 @@ Readium){
                 //console.debug(JSON.stringify(window.navigator.epubReadingSystem, undefined, 2));
 
 
-
-
-                loadEbook(url, readerSettings, openPageRequest);
+                loadEbook(readerSettings, openPageRequest);
             });
         });
     }
@@ -965,7 +1341,14 @@ Readium){
         // visibility check fails because iframe is unloaded
         //if (readium.reader.isMediaOverlayAvailable())
         if (readium && readium.reader) // window.push/popstate
-            readium.reader.pauseMediaOverlay();
+        {
+            try{
+                readium.reader.pauseMediaOverlay();
+            }catch(err){
+                //ignore error.
+                //can occur when ReaderView._mediaOverlayPlayer is null, for example when openBook() fails 
+            }
+        }
 
         $(window).off('resize');
         $(window).off('mousemove');
@@ -991,7 +1374,9 @@ Readium){
 
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
-        unloadUI : unloadReaderUI
+        unloadUI : unloadReaderUI,
+        tooltipSelector : tooltipSelector,
+        ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp 
     };
 
 });

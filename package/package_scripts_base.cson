@@ -8,7 +8,7 @@ scripts:
 
 #=====================
     cson2json: '
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/concat.js package/*.cson package.cson
+        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/concat.js "package/*.cson" package.cson
         &&
         node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/cson/bin/cson2json package.cson > package.json
         &&
@@ -24,12 +24,14 @@ scripts:
             prepare:submodule
         &&
         npm run
-            prepare:dependencies
+            prepare:local
     '
 
 #=====================
-    'prepare:dependencies': '
+    'prepare:local': '
 
+        npm outdated
+        &&
         npm install
         &&
         npm update

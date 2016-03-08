@@ -1,0 +1,45 @@
+{
+  "firebase": "readium",
+  "public": "./dist/cloud-reader",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ],
+  "headers": [
+    {
+      "source": "epub_content/**",
+      "headers": [ 
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, HEAD, POST"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Range, Content-Type, Origin, X-Requested-With, Accept, Accept-Language, Content-Language"
+        },
+        {
+          "key": "Access-Control-Expose-Headers",
+          "value": "Accept-Ranges, Content-Encoding, Content-Type, Content-Length, Content-Range, Content-Language, Cache-Control, Expires, Last-Modified, Pragma"
+        }
+      ]
+    },
+    {
+      "source": "*.epub",
+      "headers": [ 
+        {
+          "key": "content-type",
+          "value": "application/epub+zip"
+        }
+      ]
+    }
+  ]
+}
