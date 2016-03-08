@@ -748,7 +748,9 @@ BookmarkData){
                 bookmark.contentCFI = undefined;
                 bookmark = JSON.stringify(bookmark);
                 
-                if (ebookURL.indexOf("http") == 0) {  
+                if (ebookURL.indexOf("http") == 0) {
+                    var isHTTPS = (ebookURL.indexOf("https") == 0);
+                    
                     var appUrl =
                     window.location ? (
                         window.location.protocol
@@ -759,9 +761,13 @@ BookmarkData){
                     ) : undefined;
                     
                     if (appUrl) {
-                        console.log("EPUB URL absolute:" + ebookURL);
+                        console.log("EPUB URL absolute: " + ebookURL);
+                        console.log("App URL: " + appUrl);
                         ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
-                        console.log("EPUB URL relative to app:" + ebookURL);
+                        if (ebookURL.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
+                            ebookURL = (isHTTPS ? "https:" : "http:") + ebookURL;
+                        }
+                        console.log("EPUB URL relative to app: " + ebookURL);
                     }
                 }
 

@@ -111,7 +111,9 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
             epub = ebookURL_filepath;
         }
 
-        if (ebookURL_filepath.indexOf("http") == 0) {  
+        if (ebookURL_filepath.indexOf("http") == 0) {
+            var isHTTPS = (ebookURL_filepath.indexOf("https") == 0);
+            
             var appUrl =
             window.location ? (
                 window.location.protocol
@@ -122,9 +124,13 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
             ) : undefined;
             
             if (appUrl) {
-                console.log("EPUB URL absolute:" + ebookURL_filepath);
+                console.log("EPUB URL absolute: " + ebookURL_filepath);
+                console.log("App URL: " + appUrl);
                 ebookURL_filepath = new URI(ebookURL_filepath).relativeTo(appUrl).toString();
-                console.log("EPUB URL relative to app:" + ebookURL_filepath);
+                if (ebookURL_filepath.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
+                    ebookURL_filepath = (isHTTPS ? "https:" : "http:") + ebookURL_filepath;
+                }
+                console.log("EPUB URL relative to app: " + ebookURL_filepath);
             }
         }
 
