@@ -168,7 +168,7 @@ devDependencies:
 
     "wd": 'latest'
 
-    "phantomjs": 'latest'
+    "phantomjs-prebuilt": 'latest'
 
     #"grunt": 'latest'
     "grunt-selenium-webdriver": 'latest'
