@@ -1,5 +1,5 @@
 <feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
-<updated>2016-02-12T09:04:53.622Z</updated>
+<updated>2016-03-08T13:15:48.877Z</updated>
 <id>READIUM_OPDS_https___github.com_daisy_epub-accessibility-tests_tree_master_content</id>
 <title>Readium CloudReader OPDS feed for [ https://github.com/daisy/epub-accessibility-tests/tree/master/content ]</title>
 <link rel="self" href="epub_content/epub_tests_a11y.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
@@ -10,17 +10,17 @@
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0300</name>
 </author>
-<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0300" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:53.622Z</updated>
-<id>READIUM_OPDS_https___cdn.rawgit.com_daisy_epub-accessibility-tests_master_content_epub30-test-0300</id>
+<link type="application/epub" href="https://rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0300" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-03-08T13:15:48.877Z</updated>
+<id>READIUM_OPDS_https___rawgit.com_daisy_epub-accessibility-tests_master_content_epub30-test-0300</id>
 </entry>
 <entry>
 <title>EPUBTEST 0320 - Media Overlays Fundamental Accessibility Tests</title>
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0320</name>
 </author>
-<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0320" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:53.622Z</updated>
-<id>READIUM_OPDS_https___cdn.rawgit.com_daisy_epub-accessibility-tests_master_content_epub30-test-0320</id>
+<link type="application/epub" href="https://rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0320" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-03-08T13:15:48.877Z</updated>
+<id>READIUM_OPDS_https___rawgit.com_daisy_epub-accessibility-tests_master_content_epub30-test-0320</id>
 </entry>
 </feed>
