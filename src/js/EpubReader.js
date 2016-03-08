@@ -23,7 +23,8 @@ define([
 './gestures',
 './versioning/ReadiumVersioning',
 'readium_js/Readium',
-'readium_shared_js/helpers'],
+'readium_shared_js/helpers',
+'readium_shared_js/models/bookmark_data'],
 
 function (
 globalSetup,
@@ -50,7 +51,8 @@ EpubReaderBackgroundAudioTrack,
 GesturesHandler,
 Versioning,
 Readium,
-Helpers){
+Helpers,
+BookmarkData){
 
     // initialised in initReadium()
     var readium = undefined;
@@ -78,6 +80,59 @@ Helpers){
         return 'nav *[title], #readium-page-btns *[title]';
     };
    
+    var ensureUrlIsRelativeToApp = function(ebookURL) {
+
+        if (!ebookURL) {
+            return ebookURL;
+        }
+        
+        if (ebookURL.indexOf("http") != 0) {
+            return ebookURL;
+        }
+            
+        var isHTTPS = (ebookURL.indexOf("https") == 0);
+    
+        var CORS_PROXY_HTTP_TOKEN = "/http://";
+        var CORS_PROXY_HTTPS_TOKEN = "/https://";
+        
+        // Ensures URLs like http://crossorigin.me/http://domain.com/etc
+        // do not end-up loosing the double forward slash in http://domain.com
+        // (because of URI.absoluteTo() path normalisation)
+        var CORS_PROXY_HTTP_TOKEN_ESCAPED = "%2Fhttp%3A%2F%2F";
+        var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "%2Fhttps%3A%2F%2F";
+        
+        // case-insensitive regexp for percent-escapes
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("%2F(http[s]?)%3A%2F%2F", "gi");
+        
+        var appUrl =
+        window.location ? (
+            window.location.protocol
+            + "//"
+            + window.location.hostname
+            + (window.location.port ? (':' + window.location.port) : '')
+            + window.location.pathname
+        ) : undefined;
+        
+        if (appUrl) {
+            console.log("EPUB URL absolute: " + ebookURL);
+            console.log("App URL: " + appUrl);
+            
+            ebookURL = ebookURL.replace(CORS_PROXY_HTTP_TOKEN, CORS_PROXY_HTTP_TOKEN_ESCAPED);
+            ebookURL = ebookURL.replace(CORS_PROXY_HTTPS_TOKEN, CORS_PROXY_HTTPS_TOKEN_ESCAPED);
+            
+            ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
+            if (ebookURL.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
+                ebookURL = (isHTTPS ? "https:" : "http:") + ebookURL;
+            }
+            
+            ebookURL = ebookURL.replace(regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED, "/$1://");
+            
+            console.log("EPUB URL relative to app: " + ebookURL);
+        }
+        
+        return ebookURL;
+    };
+
     function setBookTitle(title) {
     
         var $titleEl = $('.book-title-header');
@@ -88,6 +143,54 @@ Helpers){
         }
     };
 
+    var _debugBookmarkData_goto = undefined;
+    var debugBookmarkData = function(cfi) {
+            
+        var DEBUG = true; // change this to visualize the CFI range
+        if (!DEBUG) return;
+                
+        if (!readium) return;
+            
+        var paginationInfo = readium.reader.getPaginationInfo();
+        console.log(JSON.stringify(paginationInfo));
+        
+        if (paginationInfo.isFixedLayout) return;
+    
+        try {
+            ReadiumSDK._DEBUG_CfiNavigationLogic.clearDebugOverlays();
+            
+        } catch (error) {
+            //ignore
+        }
+        
+        try {
+            console.log(cfi);
+            
+            var range = readium.reader.getDomRangeFromRangeCfi(cfi);
+            console.log(range);
+            
+            var res = ReadiumSDK._DEBUG_CfiNavigationLogic.drawDebugOverlayFromDomRange(range);
+            console.log(res);
+        
+            var cfiFirst = ReadiumSDK.reader.getFirstVisibleCfi();
+            console.log(cfiFirst);
+            
+            var cfiLast  = ReadiumSDK.reader.getLastVisibleCfi();
+            console.log(cfiLast);
+            
+        } catch (error) {
+            //ignore
+        }
+        
+        setTimeout(function() {
+            try {
+                ReadiumSDK._DEBUG_CfiNavigationLogic.clearDebugOverlays();
+            } catch (error) {
+                //ignore
+            }
+        }, 2000);
+    };
+    
     // This function will retrieve a package document and load an EPUB
     var loadEbook = function (readerSettings, openPageRequest) {
 
@@ -349,6 +452,12 @@ Helpers){
         {
             Globals.logEvent("PAGINATION_CHANGED", "ON", "EpubReader.js");
             
+            if (_debugBookmarkData_goto) {
+                
+                debugBookmarkData(_debugBookmarkData_goto);
+                _debugBookmarkData_goto = undefined;
+            }
+            
             savePlace();
             updateUI(pageChangeData);
 
@@ -547,7 +656,7 @@ Helpers){
         screenfull.toggle();
     }
 
-      var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
+    var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
               && chrome.app.window && chrome.app.window.current; // a bit redundant?
 
     if (isChromeExtensionPackagedApp) {
@@ -672,6 +781,44 @@ Helpers){
     };
 
     var installReaderEventHandlers = function(){
+
+        if (isChromeExtensionPackagedApp) {
+            $('.icon-shareUrl').css("display", "none");
+        } else {
+            $(".icon-shareUrl").on("click", function () {
+                
+                var urlParams = Helpers.getURLQueryParams();
+                var ebookURL = urlParams['epub'];
+                if (!ebookURL) return;
+                
+                var bookmark = readium.reader.bookmarkCurrentPage();
+                bookmark = JSON.parse(bookmark);
+                
+                var cfi = new BookmarkData(bookmark.idref, bookmark.contentCFI);
+                debugBookmarkData(cfi);
+                
+                bookmark.elementCfi = bookmark.contentCFI;
+                bookmark.contentCFI = undefined;
+                bookmark = JSON.stringify(bookmark);
+                
+                ebookURL = ensureUrlIsRelativeToApp(ebookURL);
+
+                var url = Helpers.buildUrlQueryParameters(undefined, {
+                    epub: ebookURL,
+                    epubs: " ",
+                    embedded: " ",
+                    goto: bookmark
+                });
+                
+                //showModalMessage
+                //showErrorWithDetails
+                Dialogs.showModalMessageEx(Strings.share_url, $('<p id="share-url-dialog-input-label">'+Strings.share_url_label+'</p><input id="share-url-dialog-input-id" aria-labelledby="share-url-dialog-input-label" type="text" value="'+url+'" readonly="readonly" style="width:100%" />'));
+                
+                setTimeout(function(){
+                    $('#share-url-dialog-input-id').focus().select();
+                }, 500);
+            });
+        }
 
         // Set handlers for click events
         $(".icon-annotations").on("click", function () {
@@ -899,6 +1046,7 @@ Helpers){
                 readiumOptions.useSimpleLoader = true;
             }
 
+            _debugBookmarkData_goto = undefined;
             var openPageRequest;
             if (settings[ebookURL_filepath]){
                 var bookmark = JSON.parse(JSON.parse(settings[ebookURL_filepath]));
@@ -927,6 +1075,9 @@ Helpers){
                             openPageRequest_ = {idref: gotoObj.idref, spineItemPageIndex: gotoObj.spineItemPageIndex};
                         }
                         else if (gotoObj.elementCfi) {
+                                        
+                            _debugBookmarkData_goto = new BookmarkData(gotoObj.idref, gotoObj.elementCfi);
+                            
                             openPageRequest_ = {idref: gotoObj.idref, elementCfi: gotoObj.elementCfi};
                         }
                         else {
@@ -1224,7 +1375,8 @@ Helpers){
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
         unloadUI : unloadReaderUI,
-        tooltipSelector : tooltipSelector
+        tooltipSelector : tooltipSelector,
+        ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp 
     };
 
 });
