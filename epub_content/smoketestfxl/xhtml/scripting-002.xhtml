@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:foo="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+
+    </head>
+    <body>
+    	<div class="fxl_content" > 
+	    	<section id="script-rso">
+	    		<h2>readingSystemObject</h2>
+	    		<p>This section contains tests for the <a
+	    			href="http://idpf.org/epub/30/spec/epub30-contentdocs.html#app-epubReadingSystem"
+	    			>epubReadingSystemObject</a>.</p>
+	    		
+	    		<section id="rso-010" class="otest">
+	    			<h3><span class="nature">[OPTIONAL]</span> <span class="test-id">rso-010</span> Defined</h3>
+	    			<p class="desc">Tests whether the <code>navigator.epubReadingSystem</code> field is
+	    				defined.</p>
+	    			<p id="rso-010-result">FAIL</p>
+	    			<p class="eval">If the preceding paragraph reads "PASS", the test passes.</p>
+	    			<p class="conditional">If the preceding paragraph reads FAIL, none of the remaining tests in this section
+	    				(<code>rso-*</code>) apply and should be given the result <code>Not Supported</code>.</p>
+	    		</section>
+	    		
+	    		<section id="rso-020" class="ctest">
+	    			<h3><span class="nature">[REQUIRED]</span> <span class="test-id">rso-020</span> The <code>name</code> property</h3>
+	    			<p class="desc">Tests whether the readingSystem object <code>name</code> field is
+	    				defined.</p>
+	    			<!-- this assumes no one creates an RS with the name "FAIL" which would be kinda cool -->
+	    			<p id="rso-020-result">FAIL</p>
+	    			<p class="eval">If the preceding paragraph does not read "FAIL", the test passes.</p>
+	    		</section>
+	    		
+	    		<section id="rso-030" class="ctest">
+	    			<h3><span class="nature">[REQUIRED]</span> <span class="test-id">rso-030</span> The <code>version</code> property</h3>
+	    			<p class="desc">Tests whether the readingSystem object <code>version</code> field is
+	    				defined.</p>
+	    			<p id="rso-030-result">FAIL</p>
+	    			<p class="eval">If the preceding paragraph does not read "FAIL", the test passes.</p>
+	    		</section>
+	    		
+	    		<section id="rso-040" class="ctest">
+	    			<h3><span class="nature">[REQUIRED]</span> <span class="test-id">rso-040</span> The <code>layoutStyle</code> property</h3>
+	    			<p class="desc">Test whether the readingSystem object <code>layoutStyle</code> field is
+	    				defined.</p>
+	    			<p id="rso-040-result">FAIL</p>
+	    			<p class="eval">If the preceding paragraph does not read "FAIL", the test passes.</p>
+	    		</section>
+	    		
+	    	</section>
+       	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/> 
+		<script  type="text/javascript" src="../scripts/rso.js"> </script>
+    </body>
+</html>

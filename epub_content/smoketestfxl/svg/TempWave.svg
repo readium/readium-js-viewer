@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+
+<!-- Generator: LiveMotion 1.0x64 on DevBranch - SVG Library: 1.0x73 on MainBranch -->
+<svg   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="576" height="1024" viewBox="0 0 800 600" 
+		preserveAspectRatio="xMinYMin" xml:space="preserve" onload="on_load(evt)" style="overflow:visible" >
+
+	<script type="text/javascript" xlink:href="../scripts/TempWave.js" />
+
+	<!-- animate id="Deefd00" xlink:href="#Ceefd00" attributeName="x"  dur="0s" from="0" to="0"/ -->
+	<defs>
+		<rect id="Beefd00" width="600" height="800"/> 
+	</defs>
+	<use xlink:href="#Beefd00"  id="Ueefd00" />
+
+	<g transform="rotate(-90) translate(-800 0)">
+	
+	<g id="PG_Profile" transform="matrix(5.0 0 0 25.0 162 76)">
+		<polyline id="P_Profile" style="fill:none;stroke-width:0.5;stroke:#FF0000;" stroke-linecap="butt" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth0" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth0" style="fill:none;stroke-width:0.5;stroke:#FF00FF;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth1" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth1" style="fill:none;stroke-width:0.5;stroke:#40FF00;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth2" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth2" style="fill:none;stroke-width:0.5;stroke:#80FF00;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth3" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth3" style="fill:none;stroke-width:0.5;stroke:#C0FF00;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth4" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth4" style="fill:none;stroke-width:0.5;stroke:#FFFF00;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth5" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth5" style="fill:none;stroke-width:0.5;stroke:#FFD000;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth6" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth6" style="fill:none;stroke-width:0.5;stroke:#FFB000;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth7" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth7" style="fill:none;stroke-width:0.5;stroke:#FF9000;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth8" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth8" style="fill:none;stroke-width:0.5;stroke:#FF5000;" points="0,0 0,0" />
+	</g>
+	<g id="P_Depth9" transform="matrix(3.5714 0 0 -5.0 112 460)">
+		<polyline id="B_Depth9" style="fill:none;stroke-width:0.5;stroke:#FF0000;" points="0,0 0,0" />
+	</g>
+
+	<g id="P629a4f0" transform="matrix(1 0 0 1 162 201)">
+		<defs>
+			<rect id="B629a0f0" transform="matrix(1 0 0 1 -99 -125)" style="fill:none;stroke-width:2;" width="198" height="250"/> 
+		</defs>
+		<use xlink:href="#B629a0f0"  id="U629d9b0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P6299290" transform="matrix(1 0 0 1 412 460)">
+		<defs>
+			<rect id="B629ae60" transform="matrix(1 0 0 1 -299 -99)" style="fill:none;stroke-width:2;" width="598" height="198"/> 
+		</defs>
+		<use xlink:href="#B629ae60"  id="U629b9c0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P628f260" transform="matrix(7.044875e-016 -1 1 7.044875e-016 311 191)">
+		<defs>
+			<text id="B6294cb0" transform="matrix(1.0546 0 0 1 -42 4)" style="font-family:'Verdana-Bold'; font-size:13;">Depth (m)</text>
+		</defs>
+		<use xlink:href="#B6294cb0"  id="U6298ae0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P6294f10" transform="matrix(1 0 0 1 267 76)">
+		<defs>
+			<rect id="B6294b10" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B6294b10"  id="U62964c0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P6292f10" transform="matrix(1 0 0 1 267 126)">
+		<defs>
+			<rect id="B6292b10" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B6292b10"  id="U62944d0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P6291d90" transform="matrix(1 0 0 1 267 176)">
+		<defs>
+			<rect id="B6291990" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B6291990"  id="U62924e0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P628d4b0" transform="matrix(1 0 0 1 267 226)">
+		<defs>
+			<rect id="B628d0f0" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B628d0f0"  id="U62831f0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P628b4c0" transform="matrix(1 0 0 1 267 276)">
+		<defs>
+			<rect id="B628b0e0" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B628b0e0"  id="U628e660" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P62894b0" transform="matrix(1 0 0 1 267 326)">
+		<defs>
+			<rect id="B62890a0" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B62890a0"  id="U628c670" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P6288160" transform="matrix(1 0 0 1 282 76)">
+		<defs>
+			<text id="B6289d40" transform="matrix(1.0191 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">0</text>
+		</defs>
+		<use xlink:href="#B6289d40"  id="U628a2b0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P627d320" transform="matrix(1 0 0 1 282 126)">
+		<defs>
+			<text id="B6278230" transform="matrix(1.1184 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">2</text>
+		</defs>
+		<use xlink:href="#B6278230"  id="U6286d10" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P62834a0" transform="matrix(1 0 0 1 282 176)">
+		<defs>
+			<text id="B6283090" transform="matrix(1.0676 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">4</text>
+		</defs>
+		<use xlink:href="#B6283090"  id="U62863d0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P62814b0" transform="matrix(1 0 0 1 282 326)">
+		<defs>
+			<text id="B62810a0" transform="matrix(1.0491 0 0 1 -9 4)" style="font-family:'Verdana'; font-size:12;">10</text>
+		</defs>
+		<use xlink:href="#B62810a0"  id="U6284630" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P6280170" transform="matrix(1 0 0 1 282 226)">
+		<defs>
+			<text id="B6281d40" transform="matrix(1.0191 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">6</text>
+		</defs>
+		<use xlink:href="#B6281d40"  id="U62822b0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P627d4f0" transform="matrix(1 0 0 1 282 276)">
+		<defs>
+			<text id="B627d0f0" transform="matrix(1.0676 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">8</text>
+		</defs>
+		<use xlink:href="#B627d0f0"  id="U62762f0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P627b4e0" transform="matrix(1 0 0 1 63 71)">
+		<defs>
+			<rect id="B627b0e0" transform="matrix(1 0 0 1 0 -4)" style="fill:none;stroke-width:2;" width="0" height="8"/> 
+		</defs>
+		<use xlink:href="#B627b0e0"  id="U627e700" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P62794f0" transform="matrix(1 0 0 1 113 70)">
+		<defs>
+			<rect id="B62790f0" transform="matrix(1 0 0 1 0 -4)" style="fill:none;stroke-width:2;" width="0" height="8"/> 
+		</defs>
+		<use xlink:href="#B62790f0"  id="U627c710" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P6279f70" transform="matrix(1 0 0 1 163 70)">
+		<defs>
+			<rect id="B6279bd0" transform="matrix(1 0 0 1 0 -4)" style="fill:none;stroke-width:2;" width="0" height="8"/> 
+		</defs>
+		<use xlink:href="#B6279bd0"  id="U627a720" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P6275f30" transform="matrix(1 0 0 1 213 70)">
+		<defs>
+			<rect id="B6275b30" transform="matrix(1 0 0 1 0 -4)" style="fill:none;stroke-width:2;" width="0" height="8"/> 
+		</defs>
+		<use xlink:href="#B6275b30"  id="U62774e0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P62724b0" transform="matrix(1 0 0 1 261 70)">
+		<defs>
+			<rect id="B62720a0" transform="matrix(1 0 0 1 0 -4)" style="fill:none;stroke-width:2;" width="0" height="8"/> 
+		</defs>
+		<use xlink:href="#B62720a0"  id="U62754f0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P6272f70" transform="matrix(1 0 0 1 163 56)">
+		<defs>
+			<text id="B6272bd0" transform="matrix(1.0191 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">0</text>
+		</defs>
+		<use xlink:href="#B6272bd0"  id="U62736e0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P626e4b0" transform="matrix(1 0 0 1 113 56)">
+		<defs>
+			<text id="B626e0a0" transform="matrix(1.1056 0 0 1 -8 4)" style="font-family:'Verdana'; font-size:12;">-10</text>
+		</defs>
+		<use xlink:href="#B626e0a0"  id="U62701c0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P626c4a0" transform="matrix(1 0 0 1 63 56)">
+		<defs>
+			<text id="B626c090" transform="matrix(1.0383 0 0 1 -12 4)" style="font-family:'Verdana'; font-size:12;">-20</text>
+		</defs>
+		<use xlink:href="#B626c090"  id="U625f450" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P626a5a0" transform="matrix(1 0 0 1 213 56)">
+		<defs>
+			<text id="B626a190" transform="matrix(0.9894 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">10</text>
+		</defs>
+		<use xlink:href="#B626a190"  id="U626d8f0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P6269460" transform="matrix(1 0 0 1 263 56)">
+		<defs>
+			<text id="B6269050" transform="matrix(1.0491 0 0 1 -9 4)" style="font-family:'Verdana'; font-size:12;">20</text>
+		</defs>
+		<use xlink:href="#B6269050"  id="U626bb50" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P625f040" transform="matrix(1 0 0 1 166 31)">
+		<defs>
+			<text id="B6263230" transform="matrix(1.0595 0 0 1 -85 4)" style="font-family:'Verdana-Bold'; font-size:13;">Temperature (deg C)</text>
+		</defs>
+		<use xlink:href="#B6263230"  id="U6268be0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P62634a0" transform="matrix(1 0 0 1 543 30)">
+		<defs>
+			<image width="389" height="41" id="B6263090" xlink:href="../images/title.png"  transform="matrix(1 0 0 1 -194 -20)"/>
+		</defs>
+		<use xlink:href="#B6263090"  id="U6266440"/>
+	</g>
+	<g id="P62614f0" transform="matrix(7.044875e-016 -1 1 7.044875e-016 56 457)">
+		<defs>
+			<text id="B62610f0" transform="matrix(1.0595 0 0 1 -85 4)" style="font-family:'Verdana-Bold'; font-size:13;">Temperature (deg C)</text>
+		</defs>
+		<use xlink:href="#B62610f0"  id="U62646d0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P6261f70" transform="matrix(1 0 0 1 107 361)">
+		<defs>
+			<rect id="B6261bd0" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B6261bd0"  id="U6262720" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P625d4e0" transform="matrix(1 0 0 1 107 411)">
+		<defs>
+			<rect id="B625d0e0" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B625d0e0"  id="U6254220" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P625b4f0" transform="matrix(1 0 0 1 107 511)">
+		<defs>
+			<rect id="B625b0f0" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B625b0f0"  id="U625e890" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P62594e0" transform="matrix(1 0 0 1 107 461)">
+		<defs>
+			<rect id="B62590e0" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B62590e0"  id="U625c8a0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P6258180" transform="matrix(1 0 0 1 107 559)">
+		<defs>
+			<rect id="B6259d60" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#B6259d60"  id="U625a8b0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="P62544b0" transform="matrix(1 0 0 1 89 411)">
+		<defs>
+			<text id="B62540a0" transform="matrix(1.1184 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">10</text>
+		</defs>
+		<use xlink:href="#B62540a0"  id="U6246360" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P6252560" transform="matrix(1 0 0 1 89 361)">
+		<defs>
+			<text id="B6252150" transform="matrix(1.0491 0 0 1 -9 4)" style="font-family:'Verdana'; font-size:12;">20</text>
+		</defs>
+		<use xlink:href="#B6252150"  id="U62558e0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P6251420" transform="matrix(1 0 0 1 89 461)">
+		<defs>
+			<text id="B6251010" transform="matrix(1.0191 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">0</text>
+		</defs>
+		<use xlink:href="#B6251010"  id="U6253b10" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P6226140" transform="matrix(1 0 0 1 89 511)">
+		<defs>
+			<text id="B623e3a0" transform="matrix(1.1056 0 0 1 -8 4)" style="font-family:'Verdana'; font-size:12;">-10</text>
+		</defs>
+		<use xlink:href="#B623e3a0"  id="U6250e80" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P624c670" transform="matrix(1 0 0 1 89 561)">
+		<defs>
+			<text id="B624c260" transform="matrix(1.0383 0 0 1 -12 4)" style="font-family:'Verdana'; font-size:12;">-20</text>
+		</defs>
+		<use xlink:href="#B624c260"  id="U624fbd0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf31d30" transform="matrix(1 0 0 1 550 120)">
+		<defs>
+			<text id="Bf33680" transform="matrix(1.0053 0 0 1 -194 -53)" style="font-family:'Verdana'; font-size:12;">This demonstrates a simple animation of the transmission <tspan x="0pt" y="12pt">of temperature from the air into the ground.  Heat is conducted</tspan><tspan x="0pt" y="24pt">from the air into the ground and diffuses downward. As the</tspan><tspan x="0pt" y="36pt">heat diffuses downwards, the amplitude of the wave decreases</tspan><tspan x="0pt" y="48pt">until at some depth there is no perceptible variation over the</tspan><tspan x="0pt" y="60pt">time period being examined.</tspan><tspan x="0pt" y="72pt"></tspan><tspan x="0pt" y="84pt">The simulation can be started, paused, stopped and restarted </tspan><tspan x="0pt" y="96pt">with the buttons below.</tspan></text>
+		</defs>
+		<use xlink:href="#Bf33680"  id="Uf2a030" style="fill:#FFFFFF;"/>
+	</g>
+	
+
+	<g id="Pf214a0" transform="matrix(1 0 0 1 475 293)">
+		<defs>
+			<text id="Bf21090" transform="matrix(1.0458 0 0 1 -101 4)" style="font-family:'Verdana-Bold'; font-size:13;">Current Air Temperature:</text>
+		</defs>
+		<use xlink:href="#Bf21090"  id="Uf24610" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf20180" transform="matrix(1 0 0 1 601 293)">
+		<defs>
+			<text id="B_AirTemp" transform="matrix(1.0565 0 0 1 -11 4)" style="font-family:'Verdana-Bold'; font-size:13;">10</text>
+		</defs>
+		<use xlink:href="#B_AirTemp"  id="Uf22290" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf1c4b0" transform="matrix(1 0 0 1 649 293)">
+		<defs>
+			<text id="Bf1c0a0" transform="matrix(1.0506 0 0 1 -26 4)" style="font-family:'Verdana-Bold'; font-size:13;">deg C.</text>
+		</defs>
+		<use xlink:href="#Bf1c0a0"  id="Uf161e0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf1a640" transform="matrix(1 0 0 1 554 316)">
+		<defs>
+			<text id="Bf1a230" transform="matrix(1.0525 0 0 1 -22 4)" style="font-family:'Verdana-Bold'; font-size:13;">Date:</text>
+		</defs>
+		<use xlink:href="#Bf1a230"  id="Uf1d880" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf19500" transform="matrix(1 0 0 1 616 316)">
+		<defs>
+			<text id="B_Date" transform="matrix(1.0614 0 0 1 -25 4)" style="font-family:'Verdana-Bold'; font-size:13;">1 July</text>
+		</defs>
+		<use xlink:href="#B_Date"  id="Uf1b420" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf00140" transform="matrix(1 0 0 1 716 361)">
+		<defs>
+			<rect id="Bf14400" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#Bf14400"  id="Uf18ea0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="Pf14670" transform="matrix(1 0 0 1 716 411)">
+		<defs>
+			<rect id="Bf14260" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#Bf14260"  id="Uf17c10" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="Pf12680" transform="matrix(1 0 0 1 716 511)">
+		<defs>
+			<rect id="Bf12280" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#Bf12280"  id="Uf15c20" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="Pf11500" transform="matrix(1 0 0 1 716 461)">
+		<defs>
+			<rect id="Bf110f0" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#Bf110f0"  id="Uf13c30" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="Pf04e90" transform="matrix(1 0 0 1 716 559)">
+		<defs>
+			<rect id="Bf0ca80" transform="matrix(1 0 0 1 -4 0)" style="fill:none;stroke-width:2;" width="8" height="0"/> 
+		</defs>
+		<use xlink:href="#Bf0ca80"  id="Uf10ef0" style="fill:none;stroke:#FFFFFF;"/>
+	</g>
+	<g id="Pf0ccf0" transform="matrix(1 0 0 1 733 411)">
+		<defs>
+			<text id="Bf0c8e0" transform="matrix(1.1184 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">10</text>
+		</defs>
+		<use xlink:href="#Bf0c8e0"  id="Uf0e050" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf0af10" transform="matrix(1 0 0 1 733 361)">
+		<defs>
+			<text id="Bf0ab00" transform="matrix(1.0491 0 0 1 -9 4)" style="font-family:'Verdana'; font-size:12;">20</text>
+		</defs>
+		<use xlink:href="#Bf0ab00"  id="Uf0df10" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf09dd0" transform="matrix(1 0 0 1 733 461)">
+		<defs>
+			<text id="Bf099d0" transform="matrix(1.0191 0 0 1 -5 4)" style="font-family:'Verdana'; font-size:12;">0</text>
+		</defs>
+		<use xlink:href="#Bf099d0"  id="Uf0a4e0" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pef7030" transform="matrix(1 0 0 1 733 511)">
+		<defs>
+			<text id="Beffc10" transform="matrix(1.1056 0 0 1 -8 4)" style="font-family:'Verdana'; font-size:12;">-10</text>
+		</defs>
+		<use xlink:href="#Beffc10"  id="Uf06840" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf04d10" transform="matrix(1 0 0 1 733 561)">
+		<defs>
+			<text id="Bf04900" transform="matrix(1.0383 0 0 1 -12 4)" style="font-family:'Verdana'; font-size:12;">-20</text>
+		</defs>
+		<use xlink:href="#Bf04900"  id="Uf06030" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="Pf014a0" transform="matrix(7.044875e-016 -1 1 7.044875e-016 771 457)">
+		<defs>
+			<text id="Bf01090" transform="matrix(1.0595 0 0 1 -85 4)" style="font-family:'Verdana-Bold'; font-size:13;">Temperature (deg C)</text>
+		</defs>
+		<use xlink:href="#Bf01090"  id="Uf05f10" style="fill:#FFFFFF;"/>
+	</g>
+	<g id="P69a2c50" transform="matrix(1 0 0 1 530 584)">
+		<defs>
+			<text id="B69a3b20" transform="matrix(1 0 0 1 -257 4)" style="font-family:'Verdana-Bold'; font-size:12;">Created with LiveMotion by Ric Wright.</text>
+		</defs>
+		<use xlink:href="#B69a3b20"  id="U69a1c00" style="fill:#aaaa00;"/>
+	</g>
+
+	
+	<g id="playbutton" transform="matrix(1 0 0 1 408 236)" onmousedown="OnPlayButton(evt)">
+		<rect width="55" height="31" rx="4" style="fill:green;stroke:black" />
+		<text  transform="matrix(1 0 0 1 27.5 15.5)" style="font-family:'Verdana'; font-size:12;fill:black;dominant-baseline:central;" text-anchor="middle">Play</text>
+	</g>
+	
+	<g id="pausebutton" transform="matrix(1 0 0 1 484 236)" onmousedown="OnPauseButton(evt)">
+		<rect width="55" height="31" rx="4" style="fill:yellow;stroke:black" />
+		<text  transform="matrix(1 0 0 1 27.5 15.5)" style="font-family:'Verdana'; font-size:12;fill:black;dominant-baseline:central;" text-anchor="middle">Pause</text>
+	</g>
+	
+	<g id="stopbutton" transform="matrix(1 0 0 1 561 236)" onmousedown="OnStopButton(evt)">
+		<rect width="55" height="31" rx="4" style="fill:red;stroke:black" />
+		<text  transform="matrix(1 0 0 1 27.5 15.5)" style="font-family:'Verdana'; font-size:12;fill:black;dominant-baseline:central;pointer-events:none;" text-anchor="middle">Stop</text>
+	</g>
+	
+	<g id="restartbutton" transform="matrix(1 0 0 1 639 236)" onmousedown="OnRestartButton(evt)">
+		<rect width="55" height="31" rx="4" style="fill:magenta;stroke:black" />
+		<text  transform="matrix(1 0 0 1 27.5 15.5)" style="font-family:'Verdana'; font-size:12;fill:black;dominant-baseline:central;" text-anchor="middle">Restart</text>
+	</g>
+	
+	</g>	
+</svg>

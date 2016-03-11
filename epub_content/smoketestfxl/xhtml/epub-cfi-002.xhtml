@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:foo="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+    </head>
+    <body>
+    	<div class="fxl_content" >    
+	 		<section id="epubcfi-010" class="ctest">
+				<h2><span class="nature">[REQUIRED]</span>
+					<span class="test-id">epubcfi-010</span> Path Resolution</h2>
+				
+				<p class="desc">Tests whether basic EPUB CFI path resolution is supported.</p>
+				
+				<p><a href="../content.opf#epubcfi(/6/122!/4/2/2/1)">Click to test path</a></p>
+				
+				<p class="eval">If clicking on the preceding link jumps the publication to the heading "Intra-Publication Linking", the test passes.</p>
+				
+				<p class="conditional">If this test fails, EPUB CFIs are not supported and all subsequent tests should be marked <code>Not Supported</code>.</p>
+			</section>
+			<section id="epubcfi-110" class="otest">
+				<h3><span class="nature">[OPTIONAL]</span>
+					<span class="test-id">epubcfi-110</span> Publication on the web</h3>
+				
+				<p class="desc">Tests whether linking into a web-based publication is supported.</p>
+				
+				<p><a href="https://epub-samples.googlecode.com/files/moby-dick-20120118.epub#epubcfi('/6/14!/4/2/2/2/2/1')">Link to Chapter 1 of Moby Dick</a></p>
+				
+				<p class="eval">If clicking on the preceding link loads the Moby Dick sample publication to chapter one, the test passes.</p>
+			</section>
+			
+       	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>

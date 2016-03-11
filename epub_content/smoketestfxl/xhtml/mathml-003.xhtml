@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:foo="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+    </head>
+    <body>
+    	<div class="fxl_content" > 
+			<h2 id="mathml">MathML</h2>
+            <section id="mathml-025" class="ctest">
+                <h2><span class="nature">[REQUIRED]</span>
+                    <span class="test-id">mathml-025</span>Testing <code>mtable</code> with <code>colspan</code> and <code>rowspan</code> attributes, Hebrew and Script fonts</h2>
+
+                <p class="desc">Tests whether <code>mtable</code> with <code>colspan</code> and <code>mspace</code> attributes (colum and row spanning) are supported; uses Hebrew and Script alphabets.</p>
+
+                <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="">
+                  <mrow>
+                    <mtable>
+                      <mtr>
+                        <mtd columnspan="2" />
+                        <mtd>
+                          <mo>cov</mo>
+                          <mfenced>
+                            <mi>&#x2112;</mi>
+                          </mfenced>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <mo>non</mo>
+                          <mfenced>
+                            <mi>&#x1D4A6;</mi>
+                          </mfenced>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <mo>cof</mo>
+                          <mfenced>
+                            <mi>&#x1D4A6;</mi>
+                          </mfenced>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <mo>cof</mo>
+                          <mfenced>
+                            <mi>&#x2112;</mi>
+                          </mfenced>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <msup>
+                            <mn>2</mn>
+                            <msub>
+                              <mi>&#x2135;</mi>
+                              <mn>0</mn>
+                            </msub>
+                          </msup>
+                        </mtd>
+                      </mtr>
+                      <mtr>
+                        <mtd columnspan="2" />
+                        <mtd rowspan="3">
+                          <mo>&#x2191;</mo>
+                        </mtd>
+                        <mtd />
+                        <mtd>
+                          <mo>&#x2191;</mo>
+                        </mtd>
+                        <mtd />
+                        <mtd>
+                          <mo>&#x2191;</mo>
+                        </mtd>
+                        <mtd />
+                        <mtd rowspan="3">
+                          <mo>&#x2191;</mo>
+                        </mtd>
+                        <mtd columnspan="2" />
+                      </mtr>
+                      <mtr>
+                        <mtd columnspan="4" />
+                        <mtd>
+                          <mi>&#x1D51F;</mi>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <mi>&#x1D521;</mi>
+                        </mtd>
+                        <mtd columnspan="5" />
+                      </mtr>
+                      <mtr>
+                        <mtd columnspan="4" />
+                        <mtd>
+                          <mo>&#x2191;</mo>
+                        </mtd>
+                        <mtd />
+                        <mtd>
+                          <mo>&#x2191;</mo>
+                        </mtd>
+                        <mtd columnspan="5" />
+                      </mtr>
+                      <mtr>
+                        <mtd>
+                          <msub>
+                            <mi>&#x2135;</mi>
+                            <mn>1</mn>
+                          </msub>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <mo>add</mo>
+                          <mfenced>
+                            <mi>&#x2112;</mi>
+                          </mfenced>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <mo>add</mo>
+                          <mfenced>
+                            <mi>&#x1D4A6;</mi>
+                          </mfenced>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <mo>cov</mo>
+                          <mfenced>
+                            <mi>&#x1D4A6;</mi>
+                          </mfenced>
+                        </mtd>
+                        <mtd>
+                          <mo>&#x27F6;</mo>
+                        </mtd>
+                        <mtd>
+                          <mo>non</mo>
+                          <mfenced>
+                            <mi>&#x2112;</mi>
+                          </mfenced>
+                        </mtd>
+                        <mtd columnspan="2" />
+                      </mtr>
+                    </mtable>
+                  </mrow>
+                </math>
+
+                <p class="eval">The test passes if the rendering looks like <a href="http://en.wikipedia.org/wiki/Cicho%C5%84's_diagram">Cichoń's Diagram</a>: <img src="../images/cichons_diagram.png" alt="rendering of Cichoń's diagram."/>.</p>
+
+            </section>			
+			
+           <section id="mathml-026" class="ctest">
+                <h2><span class="nature">[REQUIRED]</span>
+                    <span class="test-id">mathml-026</span>BiDi, RTL and Arabic alphabets</h2>
+
+                <p class="desc">Tests whether right-to-left and Arabic alphabets are supported.</p>
+
+                <math xmlns="http://www.w3.org/1998/Math/MathML" dir="rtl" display="block" alttext="">
+                      <mrow>
+                        <mrow>
+                          <mi>د</mi>
+                          <mo>⁡</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mi>س</mi>
+                            <mo>)</mo>
+                          </mrow>
+                        </mrow>
+                        <mo>=</mo>
+                        <mrow>
+                          <mo>{</mo>
+                          <mtable>
+                            <mtr>
+                              <mtd>
+                                <mrow>
+                                  <munderover>
+                                    <mo movablelimits="false">∑</mo>
+                                    <mrow>
+                                      <mi>ٮ</mi>
+                                      <mo>=</mo>
+                                      <mn>1</mn>
+                                    </mrow>
+                                    <mi>ص</mi>
+                                  </munderover>
+                                  <mo>⁡</mo>
+                                  <msup>
+                                    <mi>س</mi>
+                                    <mi>ٮ</mi>
+                                  </msup>
+                                </mrow>
+                              </mtd>
+                              <mtd>
+                                <mrow>
+                                  <mtext>إذاكان </mtext>
+                                  <mi>س</mi>
+                                  <mo>&gt;</mo>
+                                  <mn>0</mn>
+                                </mrow>
+                              </mtd>
+                            </mtr>
+                            <mtr>
+                              <mtd>
+                                <mrow>
+                                  <msubsup>
+                                    <mo>∫</mo>
+                                    <mn>1</mn>
+                                    <mi>ص</mi>
+                                  </msubsup>
+                                  <mo>⁡</mo>
+                                  <mrow>
+                                    <msup>
+                                      <mi>س</mi>
+                                      <mi>ٮ</mi>
+                                    </msup>
+                                    <mo>⁢</mo>
+                                    <mi>ء</mi>
+                                    <mo>⁡</mo>
+                                    <mi>س</mi>
+                                  </mrow>
+                                </mrow>
+                              </mtd>
+                              <mtd>
+                                <mrow>
+                                  <mtext>إذاكان </mtext>
+                                  <mi>س</mi>
+                                  <mo>∈</mo>
+                                  <mi>م</mi>
+                                </mrow>
+                              </mtd>
+                            </mtr>
+                            <mtr>
+                              <mtd>
+                                <mrow>
+                                  <mi>طا</mi>
+                                  <mo>⁡</mo>
+                                  <mi>π</mi>
+                                </mrow>
+                              </mtd>
+                              <mtd>
+                                <mrow>
+                                  <mtext>غيرذلك </mtext>
+                                  <mrow>
+                                    <mo>(</mo>
+                                    <mtext>مع</mtext>
+                                    <mi>π</mi>
+                                    <mo>≃</mo>
+                                    <mn>3,141</mn>
+                                    <mo>)</mo>
+                                  </mrow>
+                                </mrow>
+                              </mtd>
+                            </mtr>
+                          </mtable>
+                        </mrow>
+                      </mrow>
+                    </math>
+
+
+                <p class="eval">The test passes if the rendering looks like the following image: <img src="../images/Maghreb1.png" alt="a piecewise defined function in Maghreb-style notation"/>.</p>
+
+            </section>
+
+       	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>

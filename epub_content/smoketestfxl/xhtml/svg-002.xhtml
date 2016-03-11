@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:foo="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+    </head>
+    <body>
+    	<div class="fxl_content" >    
+     		<section id="svg-010" class="ctest">
+    			<h4><span class="nature">[REQUIRED]</span> <span class="test-id">svg-010</span> Circle</h4>
+    			<p class="desc">Tests whether an SVG element can be simply embedded into the HTML markup.</p>
+    			<svg width="100" height="100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    				<circle cx="50" cy="50" r="40" style="fill:orange"/>
+    			</svg>
+    			
+    			<p class="eval">If an orange circle is rendered before this paragraph, the test passes.</p>
+    		</section>
+ 			<section id="svg-410" class="ctest">
+				<h4><span class="nature">[REQUIRED]</span> <span class="test-id">svg-410</span> <code>img</code></h4>
+				<p class="desc">Tests whether SVG is supported in <code>img</code> elements.</p>
+				<img src="../svg/circle.svg" alt="a grey circle" />
+				<p class="eval">If a grey circle is rendered before this paragraph, the test passes.</p>
+			</section>
+			
+			<section id="svg-420" class="ctest">
+				<h4><span class="nature">[REQUIRED]</span> <span class="test-id">svg-420</span> <code>object</code></h4>
+				<p class="desc">Tests whether SVG is supported in <code>object</code> elements.</p>
+				<object type="image/svg+xml" data="../svg/circle.svg">
+					<p>FAIL</p>
+				</object>
+				<p class="eval">If a circle is rendered before this paragraph, the test passes.</p>
+			</section>      	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>

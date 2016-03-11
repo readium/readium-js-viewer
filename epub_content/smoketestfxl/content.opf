@@ -1,0 +1,269 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id" version="3.0" 
+      prefix="rendition: http://www.idpf.org/vocab/rendition/#">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:dcterms="http://purl.org/dc/terms/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:opf="http://www.idpf.org/2007/opf">
+   	    <dc:title>Smoke Test FXL</dc:title>
+		<dc:creator id="creator1">Markus Gylling</dc:creator>
+		<dc:creator id="creator2">Vincent Gros</dc:creator>
+		<dc:creator id="creator3">Toshiaki Koike</dc:creator>
+		<dc:creator id="creator4">Marisa DeMeglio</dc:creator>
+		<dc:creator id="creator5">Matt Garrish</dc:creator>
+		<dc:creator id="creator6">Ori Idan</dc:creator>
+   	    <dc:creator>Ric Wright</dc:creator>
+   	    <dc:date>2014-02-27</dc:date>
+   	    <dc:subject>Smoke Test</dc:subject>
+   	    <dc:language>en</dc:language>
+   	    <dc:coverage>The Ether</dc:coverage>
+   	    <dc:rights>Public Domain</dc:rights>
+   	    <dc:publisher>Readium</dc:publisher>
+   	    <dc:identifier id="pub-id">urn:uuid:36d5078e-ff7d-468e-a5f3-f47c14b91f2f</dc:identifier>
+   	    <meta property="dcterms:modified">2016-03-11T12:12:16Z</meta>
+   	    <!--  layout metadata  -->
+	    <meta property="rendition:layout">pre-paginated</meta>
+	    <meta property="rendition:orientation">portrait</meta>
+	    <meta property="rendition:spread">auto</meta>
+	    <!-- cover -->
+   	    <meta name="cover" content="cover-image" />
+   	
+   	    <meta property="media:duration" refines="#smil-1">00:01:24.687</meta>
+        <meta property="media:duration" refines="#smil-10">00:01:29.369</meta>
+        <meta property="media:duration" refines="#smil-11">00:06:27.604</meta>
+        <meta property="media:duration">00:34:27.145</meta>
+    	
+</metadata>
+ <manifest>
+ 	<!--  images  -->
+  	<item id="readium_logo" href="images/readiumlogo_smoke.png" media-type="image/png"/>
+  	<item id="epub_logo" href="images/epub_logo.jpeg" media-type="image/jpeg" />
+  	<item id="skype_logo" href="images/Skype_logo.png" media-type="image/png"/>
+	<item href="images/check.png" id="img-007" media-type="image/png"/>
+	<item href="images/check.gif" id="img-008" media-type="image/gif"/>
+	<item href="images/check.jpg" id="img-009" media-type="image/jpeg"/>
+	<item href="images/Readium-Logo-Page.jpg" id="Readium-Logo-Page-JPEG" media-type="image/jpeg" fallback="jpeg-spine-fallback"/>
+	<item href="images/Readium-Logo-Page.png" id="Readium-Logo-Page-PNG" media-type="image/png" fallback="png-spine-fallback"/>
+	<item href="images/Readium-Logo-Page.gif" id="Readium-Logo-Page-GIF" media-type="image/gif" fallback="gif-spine-fallback"/>
+	<item href="images/cichons_diagram.png" id="img-011" media-type="image/png"/>
+	<item href="images/Maghreb1.png" id="img-012" media-type="image/png"/>
+	<item href="images/ElementaryMathExample.png" id="img-013" media-type="image/png"/>
+	<item href="images/multiscripts_and_greek_alphabet.png" id="img-014" media-type="image/png"/>
+	<item href="images/title.png" id="TWtitle" media-type="image/png"/>
+	<item id="img-005" href="images/nonimage.xyz" media-type="image/xyz" fallback="img-006"/>
+	<item href="images/fallback.png" id="img-006" media-type="image/png"/>
+ 	<item href="images/EPUB-Logo-Smoke.png" id="EPUB-Logo-Smoke" media-type="image/png"  properties="cover-image"/>
+ 	<item href="images/spatial.png" id="spatial" media-type="image/png"/>
+  	<!-- frontmatter -->
+  	<item id="nav" href="xhtml/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+  	<item id="titlepage" href="xhtml/titlepage.xhtml" media-type="application/xhtml+xml"/>
+   	<!--  CSS -->
+  	<item id="fixed-css" href="css/fixed.css" media-type="text/css"/>
+ 	<item id="base-css" href="css/base.css" media-type="text/css"/>
+ 	<item id="svg-css" href="css/svg.css" media-type="text/css"/>
+  	<item id="math-css" href="css/math.css" media-type="text/css"/>
+  	<item id="fonts-css" href="css/fonts.css" media-type="text/css"/>
+   	<item id="nested-css" href="css/nested.css" media-type="text/css"/>
+   	<item id="media-css" href="css/media.css" media-type="text/css"/>
+  	<!-- scripts -->
+  	<item id="TempWaveJS" href="scripts/TempWave.js" media-type="text/javascript"/>
+  	<item id="rso-js" href="scripts/rso.js" media-type="text/javascript"/>
+ 	<!--  SVG --> 
+   	<item id="spine-images-002" href="svg/spine-images-002.svg" media-type="image/svg+xml"/>
+   	<item id="spine-images-003" href="svg/spine-images-003.svg" media-type="image/svg+xml"/>
+	<item id="svg-circle" href="svg/circle.svg" media-type="image/svg+xml"/>
+	<item id="TempWave" href="svg/TempWave.svg" media-type="image/svg+xml"  properties="scripted"/>
+	<!--  Media Overlays -->
+	<item id="smil-1" href="mo/basic_tests.smil" media-type="application/smil+xml"/>
+    <item id="smil-10" href="mo/skippability.smil" media-type="application/smil+xml"/>
+    <item id="smil-11" href="mo/escapability.smil" media-type="application/smil+xml"/>
+	<!-- fonts -->
+	<item id="font-ttf" href="fonts/OldStandard-Regular.ttf" media-type="application/vnd.ms-opentype"/>
+  <item id="sandome-ttf" href="fonts/sandome.ttf" media-type="application/vnd.ms-opentype"/>
+  <item id="sandome-ttf-adb" href="fonts/sandome.adb.ttf" media-type="application/vnd.ms-opentype"/>
+	<item id="sandome-ttf-obf" href="fonts/sandome.obf.ttf" media-type="application/vnd.ms-opentype"/>
+	<item id="zantroke" href="fonts/Zantroke.otf" media-type="application/vnd.ms-opentype"/>
+	<item id="zantroke-obf" href="fonts/Zantroke.obf.otf" media-type="application/vnd.ms-opentype"/>
+	<item id="zantroke-adb" href="fonts/Zantroke.adb.otf" media-type="application/vnd.ms-opentype"/>
+	<item id="rozel-cut-cut" href="fonts/cut-cut.woff" media-type="application/font-woff"/>
+	<item id="rozel-cut-cut-obf" href="fonts/cut-cut.obf.woff" media-type="application/font-woff"/>
+	<item id="rozel-cut-cut-adb" href="fonts/cut-cut.adb.woff" media-type="application/font-woff"/>
+  	<!--  Chapter 1 XHTML --> 
+  	<item id="xhtml-01" href="xhtml/xhtml-001.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="xhtml-02" href="xhtml/xhtml-002.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="xhtml-02-inset" href="xhtml/xhtml-002-inset.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="xhtml-03" href="xhtml/xhtml-003.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="xhtml-04" href="xhtml/xhtml-004.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="xhtml-05" href="xhtml/xhtml-005.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="xhtml-06" href="xhtml/xhtml-006.xhtml" media-type="application/xhtml+xml"/>
+    <item id="xhtml-07" href="xhtml/xhtml-007.xhtml" media-type="application/xhtml+xml"/>
+  	<!--  Chapter 2 Multimedia -->
+   	<item id="multimedia-01" href="xhtml/multimedia-001.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="multimedia-02" href="xhtml/multimedia-002.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="multimedia-03" href="xhtml/multimedia-003.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="multimedia-04" href="xhtml/multimedia-004.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="multimedia-05" href="xhtml/multimedia-005.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="multimedia-06" href="xhtml/multimedia-006.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="multimedia-07" href="xhtml/multimedia-007.xhtml" media-type="application/xhtml+xml"/>
+ 	<item id="multimedia-08" href="xhtml/multimedia-008.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="multimedia-09" href="xhtml/multimedia-009.xhtml" media-type="application/xhtml+xml"/>
+ 	<!--  Chapter 3 Images in the Spine --> 
+	<item id="spine-images-001" href="xhtml/spine-images-001.xhtml"  media-type="application/xhtml+xml"/>
+  	<item id="jpeg-spine-fallback" href="xhtml/jpeg-spine-fallback.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="png-spine-fallback" href="xhtml/png-spine-fallback.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="gif-spine-fallback" href="xhtml/gif-spine-fallback.xhtml" media-type="application/xhtml+xml"/>
+  	<!--  Chapter 4 MathML --> 
+  	<item id="mathml-001" href="xhtml/mathml-001.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="mathml-002" href="xhtml/mathml-002.xhtml" media-type="application/xhtml+xml" properties="mathml"/>
+  	<item id="mathml-003" href="xhtml/mathml-003.xhtml" media-type="application/xhtml+xml" properties="mathml"/>
+  	<item id="mathml-004" href="xhtml/mathml-004.xhtml" media-type="application/xhtml+xml" properties="mathml"/>
+ 	<item id="mathml-005" href="xhtml/mathml-005.xhtml" media-type="application/xhtml+xml" properties="mathml"/>
+  	<!--  Chapter 5 SVG in the Page -->  
+  	<item id="svg-001" href="xhtml/svg-001.xhtml" media-type="application/xhtml+xml"/>
+  	<item id="svg-002" href="xhtml/svg-002.xhtml" media-type="application/xhtml+xml" properties="svg"/>
+  	<item id="svg-003" href="xhtml/svg-003.xhtml" media-type="application/xhtml+xml" properties="svg"/>
+  	<item id="svg-004" href="xhtml/svg-004.xhtml" media-type="application/xhtml+xml" properties="svg"/>
+  	<item id="svg-005" href="xhtml/svg-005.xhtml" media-type="application/xhtml+xml" properties="svg"/>
+  	<item id="svg-006" href="xhtml/svg-006.xhtml" media-type="application/xhtml+xml" properties="svg"/>
+  	<item id="svg-007" href="xhtml/svg-007.xhtml" media-type="application/xhtml+xml" properties="svg"/>
+  	<!--  Chapter 6 Fallbacks --> 
+  	<item id="fallbacks-001" href="xhtml/fallbacks-001.xhtml" media-type="application/xhtml+xml" />
+   	<item id="fallbacks-002" href="xhtml/fallbacks-002.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="fallbacks-003" href="xhtml/fallbacks-003.xhtml" media-type="application/xhtml+xml" properties="switch mathml"/>
+ 	<!--  Chapter 7- Fonts --> 
+   	<item id="fonts-xhtml-001" href="xhtml/fonts-xhtml-001.xhtml" media-type="application/xhtml+xml" />
+   	<item id="fonts-xhtml-002" href="xhtml/fonts-xhtml-002.xhtml" media-type="application/xhtml+xml" />
+   	<item id="fonts-xhtml-003" href="xhtml/fonts-xhtml-003.xhtml" media-type="application/xhtml+xml" />
+   	<item id="fonts-xhtml-004" href="xhtml/fonts-xhtml-004.xhtml" media-type="application/xhtml+xml" />
+   	<item id="fonts-svg-001" href="xhtml/fonts-svg-001.xhtml" media-type="application/xhtml+xml"  properties="svg"/>
+    <item id="fonts-svg-002" href="xhtml/fonts-svg-002.xhtml" media-type="application/xhtml+xml"  properties="svg"/>
+    <item id="fonts-svg-003" href="xhtml/fonts-svg-003.xhtml" media-type="application/xhtml+xml"  properties="svg"/>
+ 	<!--  Chapter 8 -  Scripts --> 
+   	<item id="scripting-001" href="xhtml/scripting-001.xhtml" media-type="application/xhtml+xml" />
+   	<item id="scripting-002" href="xhtml/scripting-002.xhtml" media-type="application/xhtml+xml"  properties="scripted"/>
+   	<item id="scripting-003" href="xhtml/scripting-003.xhtml" media-type="application/xhtml+xml"  properties="scripted"/>
+   	<item id="scripting-004" href="xhtml/scripting-004.xhtml" media-type="application/xhtml+xml"  properties="scripted"/>
+   	<item id="scripting-005" href="xhtml/scripting-005.xhtml" media-type="application/xhtml+xml"  properties="scripted"/>
+    <item id="scripting-005-inset" href="xhtml/scripting-005-inset.xhtml" media-type="application/xhtml+xml"  properties="scripted"/>
+ 	<!--  Chapter 9 - Media Overlays --> 
+   	<item id="media-overlays-001" href="xhtml/media-overlays-001.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="media-overlays-002" href="xhtml/media-overlays-002.xhtml" media-type="application/xhtml+xml"  media-overlay="smil-1"/>
+   	<item id="media-overlays-003" href="xhtml/media-overlays-003.xhtml" media-type="application/xhtml+xml"  media-overlay="smil-1"/>
+   	<item id="media-overlays-004" href="xhtml/media-overlays-004.xhtml" media-type="application/xhtml+xml"  media-overlay="smil-10"/>
+   	<item id="media-overlays-005" href="xhtml/media-overlays-005.xhtml" media-type="application/xhtml+xml"  media-overlay="smil-11"/>
+    <item id="media-overlays-006" href="xhtml/media-overlays-006.xhtml" media-type="application/xhtml+xml"  media-overlay="smil-11"/>
+    <item id="media-overlays-007" href="xhtml/media-overlays-007.xhtml" media-type="application/xhtml+xml"  media-overlay="smil-11"/>
+ 	<!--  Chapter 10 - EPUB CFI --> 
+   	<item id="epub-cfi-001" href="xhtml/epub-cfi-001.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-cfi-002" href="xhtml/epub-cfi-002.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-cfi-003" href="xhtml/epub-cfi-003.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-cfi-004" href="xhtml/epub-cfi-004.xhtml" media-type="application/xhtml+xml"/>
+ 	<!--  Chapter 11 - Navigation --> 
+   	<item id="epub-nav-001" href="xhtml/epub-nav-001.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-nav-002" href="xhtml/epub-nav-002.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-nav-002b" href="xhtml/epub-nav-002b.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-nav-003" href="xhtml/epub-nav-003.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-nav-004" href="xhtml/epub-nav-004.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-nav-005" href="xhtml/epub-nav-005.xhtml" media-type="application/xhtml+xml"/>
+ 	<!--  Chapter 12 - Layout --> 
+   	<item id="epub-layout-001" href="xhtml/epub-layout-001.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-layout-002" href="xhtml/epub-layout-002.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-layout-003" href="xhtml/epub-layout-003.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-layout-004" href="xhtml/epub-layout-004.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-layout-005" href="xhtml/epub-layout-005.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-layout-006" href="xhtml/epub-layout-006.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-layout-007" href="xhtml/epub-layout-007.xhtml" media-type="application/xhtml+xml"/>
+   	<item id="epub-layout-008" href="xhtml/epub-layout-008.xhtml" media-type="application/xhtml+xml"/>
+
+ 	<!-- audio -->
+	<item id="mp2-1" href="audio/allison64.mp3" media-type="audio/mpeg"/>
+	<item id="mp4-1" href="audio/allison64.mp4" media-type="audio/mp4"/>
+    <item id="mp3-1" href="audio/basic_tests.mp3" media-type="audio/mpeg"/>
+    <item id="mp3-16" href="audio/skippability.mp3" media-type="audio/mpeg"/>
+    <item id="mp3-17" href="audio/escapability.mp3" media-type="audio/mpeg"/>
+ 	<!-- video -->
+	<item id="webm-1" href="video/screencast.webm" media-type="audio/mpeg"/>
+	<item id="mp4-2" href="video/screencast.mp4" media-type="audio/mp4"/>
+	<item id="vtt-2" href="video/tracks/screencast.vtt" media-type="text/vtt"/>
+	<item id="ttml-2" href="video/tracks/screencast.ttml" media-type="application/ttml+xml"/>
+	<item href="bindings/slideshow.xml" id="slideshow" media-type="application/x-demo-slideshow"/>
+ </manifest>
+ <spine>
+  	<itemref idref="nav" linear="yes"/>
+  	<itemref idref="titlepage"/>
+  	<itemref idref="xhtml-01" properties="page-spread-left"/>
+  	<itemref idref="xhtml-02"/>
+  	<itemref idref="xhtml-03"/>
+  	<itemref idref="xhtml-04"/>
+   	<itemref idref="xhtml-05"/>
+   	<itemref idref="xhtml-06"/>
+   	<itemref idref="xhtml-07"/>
+  	<itemref idref="multimedia-01" properties="page-spread-left"/>
+  	<itemref idref="multimedia-02"/>
+  	<itemref idref="multimedia-03"/>
+  	<itemref idref="multimedia-04"/>
+  	<itemref idref="multimedia-05"/>
+  	<itemref idref="multimedia-06"/>
+  	<itemref idref="multimedia-07"/>
+  	<itemref idref="multimedia-08" />
+  	<itemref idref="multimedia-09"/>
+   	<itemref idref="spine-images-001" properties="page-spread-left"/>
+  	<itemref idref="spine-images-002" />
+  	<itemref idref="spine-images-003" />
+  	<itemref idref="Readium-Logo-Page-JPEG" />
+  	<itemref idref="Readium-Logo-Page-PNG" />
+  	<itemref idref="Readium-Logo-Page-GIF" />
+  	<itemref idref="mathml-001"  properties="page-spread-left"/>
+  	<itemref idref="mathml-002" />
+  	<itemref idref="mathml-003" />
+  	<itemref idref="mathml-004" />
+  	<itemref idref="mathml-005" />
+  	<itemref idref="svg-001"  properties="page-spread-left"/>
+  	<itemref idref="svg-002" />
+  	<itemref idref="svg-003" properties="rendition:orientation-landscape"/>
+  	<itemref idref="svg-004"/>
+  	<itemref idref="svg-005"/>
+  	<itemref idref="svg-006"/>
+  	<itemref idref="svg-007"/>
+  	<itemref idref="fallbacks-001"  properties="page-spread-left"/>
+  	<itemref idref="fallbacks-002"/>
+  	<itemref idref="fallbacks-003"/>
+  	<itemref idref="fonts-xhtml-001"  properties="page-spread-left"/>
+  	<itemref idref="fonts-xhtml-002"/>
+  	<itemref idref="fonts-xhtml-003"/>
+  	<itemref idref="fonts-xhtml-004"/>
+  	<itemref idref="fonts-svg-001"/>
+  	<itemref idref="fonts-svg-002"/>
+  	<itemref idref="fonts-svg-003"/>
+  	<itemref idref="scripting-001"  properties="page-spread-left"/>
+  	<itemref idref="scripting-002"/>
+  	<itemref idref="scripting-003"/>
+  	<itemref idref="scripting-004"/>
+  	<itemref idref="scripting-005"/>
+  	<itemref idref="media-overlays-001"  properties="page-spread-left"/>
+  	<itemref idref="media-overlays-002"/>
+  	<itemref idref="media-overlays-003"/>
+  	<itemref idref="media-overlays-004"/>
+  	<itemref idref="media-overlays-005"/>
+  	<itemref idref="media-overlays-006"/>
+  	<itemref idref="media-overlays-007"/>
+  	<itemref idref="epub-cfi-001"  properties="page-spread-left"/>
+  	<itemref idref="epub-cfi-002"/>
+  	<itemref idref="epub-cfi-003"/>
+  	<itemref idref="epub-cfi-004"  properties="rendition:spread-none rendition:layout-reflowable"/>
+  	<itemref idref="epub-nav-001"  properties="page-spread-left"/>
+   	<itemref idref="epub-nav-002"/>
+   	<itemref idref="epub-nav-002b"  linear="no" properties="rendition:spread-none rendition:layout-reflowable rendition:flow-scrolled-doc "/>
+   	<itemref idref="epub-nav-003"/>
+   	<itemref idref="epub-nav-004"/>
+   	<itemref idref="epub-nav-005" linear="no"/>
+   	<itemref idref="epub-layout-001"  properties="page-spread-left"/>
+   	<itemref idref="epub-layout-002"/>
+  	<itemref idref="epub-layout-003"/>
+   	<itemref idref="epub-layout-004" properties="rendition:spread-both page-spread-left"/>
+   	<itemref idref="epub-layout-005" properties="rendition:spread-both page-spread-right"/>
+   	<itemref idref="epub-layout-006" properties="rendition:page-spread-center"/>
+   	<itemref idref="epub-layout-007" properties="rendition:layout-reflowable"/>
+   	<itemref idref="epub-layout-008" properties="rendition:spread-none"/>
+ </spine>
+</package>

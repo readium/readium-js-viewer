@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+    </head>
+    <body>
+    	<div class="fxl_content" >    
+	    	<section id="fonts-xhtml">
+	    		<h2>XHTML - IDPF Obfuscation</h2>
+
+	    		
+	   			<section id="fonts-040" class="ctest">
+	    			<h3><span class="nature">[REQUIRED]</span> <span class="test-id">fonts-040</span> TTF Obfuscated</h3>
+	    			<p class="desc">Tests whether embedded obfuscated fonts using the OpenType format with TrueType
+	    				outlines are supported.</p>
+	    			<p class="sandome-obf">If this sentence is rendered in a different font than the preceding sentence,
+	    				the test passes. 
+	                </p>
+	    		</section>
+	    		
+	    		<section id="fonts-050" class="ctest">
+	    			<h3><span class="nature">[REQUIRED]</span> <span class="test-id">fonts-050</span> OTF Obfuscated</h3>
+	    			<p class="desc">Tests whether embedded obfuscated fonts using the OpenType format with PostScript
+	    				outlines (also called OpenType-CFF) are supported.</p>
+	    			<p class="Zantroke-obf">If this sentence is rendered in a different font than the preceding sentence,
+	    				the test passes. 
+	                </p>
+	    		</section>	 
+	    		
+		    	<section id="fonts-060" class="ctest">
+	    			<h3><span class="nature">[REQUIRED]</span> <span class="test-id">fonts-060</span> WOFF Obfuscated</h3>
+	    			<p class="desc">Tests whether embedded obfuscated fonts using the WOFF format are supported.</p>
+	    			<p class="rozel-cut-obf">If this sentence is rendered in a different font than the preceding sentence,
+	    				the test passes. 
+	                </p>
+	    		</section>
+	    		
+	    		<section id="fonts-070" class="ctest">
+	    			<h3><span class="nature">[REQUIRED]</span> <span class="test-id">fonts-070</span> Unicode-range (TTF)</h3>
+	    			<p class="desc">Tests whether the CSS Fonts Level 3 <code>unicode-range</code> property is supported (using a TTF embedded font).</p>
+	    			<ul>
+	    				<li>ABἔψιλονCD</li>
+	    				<li class="unicode-range">ABἔψιλονCD</li>
+	    			</ul>            
+	    			<p class="eval">If both entries in the preceding list are in a different font, the test passes.</p>
+	    		</section>   		
+	    	</section>
+       	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>

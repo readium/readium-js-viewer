@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+/* Media Queries */
+@media all
+  {p.media-all {display:none;}}
+@media screen
+  {p.media-screen {display:none;}}
+@media handheld
+  {p.media-handheld {display:none;}}
+@media tv
+  {p.media-tv {display:none;}}
+ 
+@media (orientation:landscape)
+  {p.orientation-landscape {display:none;}}
+@media (orientation:portrait)
+  {p.orientation-portrait {display:none;}}
+  
+@media (min-width:200px)
+  {p.min-width-200 {display:none;}}
+@media (max-width:2000px)
+  {p.max-width-2000 {display:none;}}
+  
+@media (min-device-width:200px)
+  {p.min-device-width-200 {display:none;}}
+@media (max-device-width:2000px)
+  {p.max-device-width-2000 {display:none;}}
+  

@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+@namespace m "http://www.w3.org/1998/Math/MathML";
+
+m|math.basic {
+	border: 1px dashed rgb(190,0,0);
+	background-color: rgb(255,255,224);
+	padding: 0.2em;
+}
+
+m|math.basic mo.test {
+	font-size: 150%;
+}
+
+m|math.basic mi.test {
+	font-weight: bold;
+	color: rgb(0,0,250);
+}
+
+m|math.basic mn.test {
+	font-style: italic;
+	color: rgb(0,0,250);
+}

@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+	<meta name="viewport" content="width=576, height=1024"/>
+  </head>
+  <body>
+  		<h1 id="mo-1">Skippability</h1>
+
+        <section id="mo-skip-010" class="otest"><h2><span class="nature">[OPTIONAL]</span> <span class="test-id">mo-skip-010</span> <span id="mo-010-1">Section Skippability - Basic</span></h2>
+
+        	<p class="desc" id="mo-1-67">Tests whether basic skippability is supported.</p>
+
+			<p id="mo-010-2">As Media Overlays (MO) are playing, and assuming that the 'skippability' option is enabled by the reading system, the following document fragment (with a green background) should be automatically skipped (ignored).</p>
+
+			<p id="mo-010-3" epub:type="pagebreak" class="skippable">This is a skippable element, identified by the <code>epub:type="pagebreak"</code> attribute (other values should also be supported, this is for illustration purposes only).</p>
+			
+			<p id="mo-010-4">This is a normal paragraph, immediately following a skippable document fragment.</p>
+			
+        	<p class="eval" id="mo-2">If MO playback skips the element with a green background, and continues immediately after it, the test passes.</p>
+        </section><section id="mo-skip-020" class="otest"><h2><span class="nature">[OPTIONAL]</span> <span class="test-id">mo-skip-020</span> <span id="mo-020-1">Section Skippability - Contiguous</span></h2>
+
+        	<p class="desc" id="mo-3">Tests whether playback behaviour with contiguous skippable elements is correct.</p>
+
+			<p id="mo-020-2">As Media Overlays (MO) are playing, and assuming that the 'skippability' option is enabled by the reading system, the following two document fragments (with green backgrounds) should be automatically skipped (ignored).</p>
+
+			<p id="mo-020-3" epub:type="pagebreak" class="skippable">This is a skippable element, identified by the <code>epub:type="pagebreak"</code> attribute (other values should also be supported, this is for illustration purposes only).</p>
+
+			<p id="mo-020-4" epub:type="pagebreak" class="skippable">This is another skippable element.</p>
+			
+			<p id="mo-020-5">This is a normal paragraph, immediately following two consecutive skippable document fragments.</p>
+
+        	<p class="eval" id="mo-4">If MO playback skips both elements with green backgrounds, and continues immediately after them, the test passes.</p>
+        </section>
+	</body>
+</html>

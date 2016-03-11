@@ -1,0 +1,138 @@
+<smil xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://www.w3.org/ns/SMIL" version="3.0">
+  <body epub:textref="../xhtml/media-overlays-005.xhtml">
+    <par>
+      <text src="../xhtml/media-overlays-005.xhtml#mo-1"/>
+      <audio src="../audio/escapability.mp3" clipBegin="00:00:00.000" clipEnd="00:00:01.061"/>
+    </par>
+    <seq epub:textref="../xhtml/media-overlays-005.xhtml#mo-esc-010">
+      <par>
+        <text src="../xhtml/media-overlays-005.xhtml#mo-010-1"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:00:01.061" clipEnd="00:00:03.412"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-005.xhtml#mo-1-75"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:00:03.412" clipEnd="00:00:06.359"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-005.xhtml#mo-010-2"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:00:06.359" clipEnd="00:00:17.258"/>
+      </par>
+      <seq epub:textref="../xhtml/media-overlays-005.xhtml#esc1" epub:type="glossary">
+        <par>
+          <text src="../xhtml/media-overlays-005.xhtml#mo-010-3"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:00:17.258" clipEnd="00:00:40.687"/>
+        </par>
+        <par>
+          <text src="../xhtml/media-overlays-005.xhtml#mo-010-4"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:00:40.687" clipEnd="00:00:48.679"/>
+        </par>
+        <par>
+          <text src="../xhtml/media-overlays-005.xhtml#mo-010-5"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:00:48.679" clipEnd="00:01:20.618"/>
+        </par>
+      </seq>
+      <par>
+        <text src="../xhtml/media-overlays-005.xhtml#mo-010-6"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:01:20.618" clipEnd="00:01:25.790"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-005.xhtml#mo-2"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:01:25.790" clipEnd="00:01:33.131"/>
+      </par>
+    </seq>
+    <seq epub:textref="../xhtml/media-overlays-006.xhtml#mo-esc-020">
+      <par>
+        <text src="../xhtml/media-overlays-006.xhtml#mo-020-1"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:01:33.131" clipEnd="00:01:35.751"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-006.xhtml#mo-3"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:01:35.751" clipEnd="00:01:40.510"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-006.xhtml#mo-020-2"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:01:40.510" clipEnd="00:01:51.742"/>
+      </par>
+      <seq epub:textref="../xhtml/media-overlays-006.xhtml#esc2" epub:type="glossary">
+        <par>
+          <text src="../xhtml/media-overlays-006.xhtml#mo-020-3"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:01:51.742" clipEnd="00:02:16.288"/>
+        </par>
+        <par>
+          <text src="../xhtml/media-overlays-006.xhtml#mo-020-4"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:02:16.288" clipEnd="00:02:24.281"/>
+        </par>
+        <par>
+          <text src="../xhtml/media-overlays-006.xhtml#mo-020-5"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:02:24.281" clipEnd="00:02:56.219"/>
+        </par>
+      </seq>
+      <par epub:type="glossary">
+        <text src="../xhtml/media-overlays-006.xhtml#mo-020-6"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:02:56.219" clipEnd="00:03:18.264"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-006.xhtml#mo-020-7"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:03:18.264" clipEnd="00:03:23.436"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-006.xhtml#mo-4"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:03:23.436" clipEnd="00:03:33.843"/>
+      </par>
+    </seq>
+    <seq epub:textref="../xhtml/media-overlays-007.xhtml#mo-esc-030">
+      <par>
+        <text src="../xhtml/media-overlays-007.xhtml#mo-030-1"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:03:33.843" clipEnd="00:03:36.144"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-007.xhtml#mo-5"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:03:36.144" clipEnd="00:03:39.060"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-007.xhtml#mo-030-2"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:03:39.060" clipEnd="00:03:55.366"/>
+      </par>
+      <seq epub:textref="../xhtml/media-overlays-007.xhtml#esc3" epub:type="glossary">
+        <par>
+          <text src="../xhtml/media-overlays-007.xhtml#mo-030-3"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:03:55.366" clipEnd="00:04:09.137"/>
+        </par>
+        <seq epub:textref="../xhtml/media-overlays-007.xhtml#esc4" epub:type="glossary">
+          <par>
+            <text src="../xhtml/media-overlays-007.xhtml#mo-030-4"/>
+            <audio src="../audio/escapability.mp3" clipBegin="00:04:09.137" clipEnd="00:04:28.563"/>
+          </par>
+          <par>
+            <text src="../xhtml/media-overlays-007.xhtml#mo-030-5"/>
+            <audio src="../audio/escapability.mp3" clipBegin="00:04:28.563" clipEnd="00:04:36.912"/>
+          </par>
+          <par>
+            <text src="../xhtml/media-overlays-007.xhtml#mo-030-6"/>
+            <audio src="../audio/escapability.mp3" clipBegin="00:04:36.912" clipEnd="00:05:08.848"/>
+          </par>
+        </seq>
+        <par>
+          <text src="../xhtml/media-overlays-007.xhtml#mo-030-7"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:05:08.848" clipEnd="00:05:25.727"/>
+        </par>
+        <par>
+          <text src="../xhtml/media-overlays-007.xhtml#mo-030-8"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:05:25.727" clipEnd="00:05:34.290"/>
+        </par>
+        <par>
+          <text src="../xhtml/media-overlays-007.xhtml#mo-030-9"/>
+          <audio src="../audio/escapability.mp3" clipBegin="00:05:34.290" clipEnd="00:06:06.225"/>
+        </par>
+      </seq>
+      <par>
+        <text src="../xhtml/media-overlays-007.xhtml#mo-030-10"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:06:06.225" clipEnd="00:06:11.924"/>
+      </par>
+      <par>
+        <text src="../xhtml/media-overlays-007.xhtml#mo-6"/>
+        <audio src="../audio/escapability.mp3" clipBegin="00:06:11.924" clipEnd="00:06:29.047"/>
+      </par>
+    </seq>
+  </body>
+</smil>

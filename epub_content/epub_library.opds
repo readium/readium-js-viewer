@@ -127,4 +127,11 @@
         <link type="image/jpeg" href="producing-oss/OEBPS/producing-oss.jpg" rel="http://opds-spec.org/image/thumbnail"/>
         <link type="application/epub" href="producing-oss" rel="http://opds-spec.org/acquisition"/>
     </entry>
-</feed>
+    <entry>
+        <title>SmokeTest FXL</title>
+        <author>
+            <name>Markus Gylling et. al.</name>
+        </author>
+        <link type="image/png" href="smoketestfxl/images/EPUB-Logo-Smoke.png" rel="http://opds-spec.org/image/thumbnail"/>
+        <link type="application/epub" href="smoketestfxl" rel="http://opds-spec.org/acquisition"/>
+    </entry></feed>

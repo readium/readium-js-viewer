@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+h1 { 
+	color: rgb(0,90,156); 
+	font-variant:small-caps;
+}
+h2 { font-size: 140%; }
+h3 { font-size: 130%; }
+h4 { font-size: 120%; }
+
+.ctest h2, .ctest h3, .ctest h4, .ctest h5, .otest h2, .otest h3, .otest h4, .otest h5 {
+	font-size: 120%;
+	color: rgb(0,0,0);
+}
+
+body {
+    font-family: arial, helvetica, sans-serif;
+    color: black;
+    background: white;        
+}
+
+.test-id, .demo-ctest {    
+    font-size: 80%;
+    font-style: normal;    
+    color:gray;
+    margin-right: 1em;    
+    padding: 0.3em;
+}
+
+.ctest, .otest {
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+
+.ctest {
+    border: 1px solid gray;
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+
+.otest {
+    border: 1px dotted gray;
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+
+.nature {
+	display: block;
+	padding-right: 1em;
+	padding-left: 0.5em;
+	font-size: 50%;
+}
+
+.ctest .nature {
+	color: rgb(255,0,0);
+}
+
+.otest .nature {
+	color: rgb(0,0,255);
+}
+
+dl.info dt {
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.toc {
+	line-height:200%;
+}
+
+nav#toc ol  {
+    list-style-type: none;
+}
+
+nav a {
+	text-decoration:none;
+	color:black;
+}
+
+.eval {
+	font-weight:bold;
+}
+
+.eval:before {
+	content:"→ ";
+}
+
+.conditional {
+	font-style: italic;
+}
+
+.skippable {
+    background-color: green;
+    color: white;
+	padding: 0.6em;
+}
+
+.escapable1 {
+	border: 4px solid blue;
+	padding: 0.6em;
+}
+
+.escapable2 {
+	border: 8px solid magenta;
+	padding: 0.6em;
+}
+
+.-epub-media-overlay-active {
+    background-color: pink !important;
+    color: black !important;
+}
+
+.-epub-media-overlay-playback-active .mo-playing {
+    background-color: green !important;
+    color: white !important;
+}

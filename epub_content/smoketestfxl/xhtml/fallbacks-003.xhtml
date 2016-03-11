@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+<head>
+	<title>Chapter 1</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
+	<link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+
+	<meta name="viewport" content="width=576, height=1024"/>
+</head>
+<body>
+<div class="fxl_content" >
+	<section id="fallbacks">
+ 		<h2>Fallbacks</h2>
+       	<section id="fallbacks-intrinsic">
+        		<h3>Intrinsic</h3>
+        		
+        		<section id="fallback-040" class="ctest">
+        			<h4><span class="nature">[REQUIRED]</span> <span class="test-id">fallback-040</span> Object fallbacks</h4>
+        			
+        			<p class="desc">Tests whether <code>object</code>'s intrinsic fallback mechanism for non-core media types is supported.</p>
+        			
+        			<object data="../images/nonimage.xyz" type="image/xyz">
+        				<object data="../images/nonimage.xyz" type="image/xyz">
+        					<p>PASS</p>
+        				</object>
+        			</object>
+        			
+        			<p class="eval">If the preceding paragraph reads "PASS", the test passes.</p>
+        		</section>
+        	</section>
+     </section>
+       <section id="epub-switch">
+        	<h3><code>epub:switch</code></h3>
+        	
+        	<section id="switch-010" class="ctest">
+        		<h4><span class="nature">[REQUIRED]</span> <span class="test-id">switch-010</span> Support</h4>
+        		
+        		<p class="desc">Tests whether the <code><a
+        			href="http://idpf.org/epub/30/spec/epub30-contentdocs.html#sec-xhtml-content-switch"
+        			>epub:switch</a></code> element is supported.</p>            
+        		
+        		<epub:switch>
+        			<epub:case required-namespace="http://www.example.com/unsupported/namespace">
+        				<p>
+        					FAIL
+        				</p>
+        			</epub:case>
+        			<epub:default>
+        				<p id="fallback">
+        					PASS
+        				</p>
+        			</epub:default>
+        		</epub:switch>
+        		
+        		<p class="eval">If only the word "PASS" is rendered before this paragraph, the test passes. If both "PASS" and "FAIL" are rendered, or neither
+        			"PASS" nor "FAIL" is rendered, the test fails.</p>
+        		
+        	</section>
+        	
+        	<section id="switch-020" class="otest">
+        		<h4><span class="nature">[OPTIONAL]</span>
+        			<span class="test-id">switch-020</span>
+        			MathML Embedding</h4>
+        		
+        		<p class="desc">Tests whether the MathML namespace is recognized when used in an <code><a
+        			href="http://idpf.org/epub/30/spec/epub30-contentdocs.html#sec-xhtml-epub-case"
+        			>epub:case</a></code> element.</p>
+        		
+        		<epub:switch id="mathmlSwitch">
+        			<epub:case required-namespace="http://www.w3.org/1998/Math/MathML">
+        				<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" alttext="">
+        					<m:mrow>
+        						<m:mn>2</m:mn>
+        						<m:mo> &#x2061;<!--INVISIBLE TIMES--></m:mo>
+        						<m:mi>x</m:mi>
+        					</m:mrow>
+        					<m:mrow>
+        						<m:mo>+</m:mo>
+        						<m:mi>y</m:mi>
+        						<m:mo>-</m:mo>
+        						<m:mi>z</m:mi>
+        					</m:mrow>
+        				</m:math>
+        			</epub:case>
+        			
+        			<epub:default>
+        				<p>FAIL</p>
+        			</epub:default>
+        		</epub:switch>
+        		
+        		<p class="eval">If a MathML equation is rendered before this paragraph, the test passes.</p>
+        		
+        		<p class="conditional">If test <code>switch-010</code> did not pass, this test should be marked <code>Not Supported</code>.</p>
+        		
+        	</section>
+        </section>     
+</div>	
+<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>
+</body>
+</html>

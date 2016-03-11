@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:foo="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+    </head>
+    <body>
+    	<div class="fxl_content" > 
+			<h2 id="mathml">MathML</h2>
+    		<section id="mathml-010" class="ctest">
+    			<h2><span class="nature">[REQUIRED]</span>
+    				<span class="test-id">mathml-010</span> Rendering</h2>
+
+    			<p class="desc">Tests whether MathML equation rendering is supported.</p>
+    	   
+				<math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="">
+    				<msubsup>
+    					<mo>&#x222B;<!-- ∫ --></mo>
+    					<mrow class="MJX-TeXAtom-ORD">
+    						<mo>&#x2212;<!-- − --></mo>
+    						<mi mathvariant="normal">&#x221E;<!-- ∞ --></mi>
+    					</mrow>
+    					<mrow class="MJX-TeXAtom-ORD">
+    						<mi mathvariant="normal">&#x221E;<!-- ∞ --></mi>
+    					</mrow>
+    				</msubsup>
+    				<msup>
+    					<mi>e</mi>
+    					<mrow class="MJX-TeXAtom-ORD">
+    						<mo>&#x2212;<!-- − --></mo>
+    						<msup>
+    							<mi>x</mi>
+    							<mn>2</mn>
+    						</msup>
+    					</mrow>
+    				</msup>
+    				<mspace width="thinmathspace" />
+    				<mi>d</mi>
+    				<mi>x</mi>
+    				<mo>=</mo>
+    				<msqrt>
+    					<mi>&#x03C0;<!-- π --></mi>
+    				</msqrt>
+    			</math>
+    			<math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="">
+    				<munderover>
+    					<mo>&#x2211;<!-- ∑ --></mo>
+    					<mrow class="MJX-TeXAtom-ORD">
+    						<mi>n</mi>
+    						<mo>=</mo>
+    						<mn>1</mn>
+    					</mrow>
+    					<mrow class="MJX-TeXAtom-ORD">
+    						<mi mathvariant="normal">&#x221E;<!-- ∞ --></mi>
+    					</mrow>
+    				</munderover>
+    				<mfrac>
+    					<mn>1</mn>
+    					<msup>
+    						<mi>n</mi>
+    						<mn>2</mn>
+    					</msup>
+    				</mfrac>
+    				<mo>=</mo>
+    				<mfrac>
+    					<msup>
+    						<mi>&#x03C0;<!-- π --></mi>
+    						<mn>2</mn>
+    					</msup>
+    					<mn>6</mn>
+    				</mfrac>
+    			</math>
+    			<math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="">
+    				<mi>x</mi>
+    				<mo>=</mo>
+    				<mfrac>
+    					<mrow>
+    						<mo>&#x2212;<!-- − --></mo>
+    						<mi>b</mi>
+    						<mo>&#x00B1;<!-- ± --></mo>
+    						<msqrt>
+    							<msup>
+    								<mi>b</mi>
+    								<mn>2</mn>
+    							</msup>
+    							<mo>&#x2212;<!-- − --></mo>
+    							<mn>4</mn>
+    							<mi>a</mi>
+    							<mi>c</mi>
+    						</msqrt>
+    					</mrow>
+    					<mrow>
+    						<mn>2</mn>
+    						<mi>a</mi>
+    					</mrow>
+    				</mfrac>
+    			</math>
+
+    			<p class="eval">If the preceding equations are not presented as linear text<br/> (e.g., x=-b±b2-4ac2a),
+    				the test passes.</p>
+    		</section>
+    		<section id="mathml-020" class="otest">
+    			<h2><span class="nature">[OPTIONAL]</span>
+    				<span class="test-id">mathml-020</span> CSS Styling of the <code>math</code> element</h2>
+
+    			<p class="desc">Tests whether basic CSS styling of MathML is supported on the <code>math</code> element.</p>
+
+    			<math class="basic" xmlns="http://www.w3.org/1998/Math/MathML" alttext="">
+    				<mrow>
+    					<mn>2</mn>
+    					<mo> &#x2061;<!--INVISIBLE TIMES--></mo>
+    					<mi>x</mi>
+    				</mrow>
+    				<mrow>
+    					<mo>+</mo>
+    					<mi>y</mi>
+    					<mo>-</mo>
+    					<mi>z</mi>
+    				</mrow>
+    			</math>
+
+    			<p class="eval">The test passes if the equation has a yellow background and a dashed border.</p>
+
+    			<p class="conditional">If the reading system does not have a viewport, or does not support
+    				CSS styles, this test should be marked <code>Not Supported</code>.</p>
+    		</section>   
+    	
+            <section id="mathml-021" class="otest">
+                <h2><span class="nature">[OPTIONAL]</span>
+                    <span class="test-id">mathml-021</span> CSS Styling of the <code>mo</code> element</h2>
+
+                <p class="desc">Tests whether basic CSS styling of MathML is supported on the <code>mo</code> element.</p>
+
+                <math class="basic" xmlns="http://www.w3.org/1998/Math/MathML" alttext="">
+                    <mrow>
+                        <mn>2</mn>
+                        <mo class="test"> &#x2061;<!--INVISIBLE TIMES--></mo>
+                        <mi>x</mi>
+                    </mrow>
+                    <mrow>
+                        <mo class="test">+</mo>
+                        <mi>y</mi>
+                        <mo class="test">-</mo>
+                        <mi>z</mi>
+                    </mrow>
+                </math>
+
+                <p class="eval">The test passes if the operators are enlarged relative to the other symbols and numbers.</p>
+
+                <p class="conditional">If the reading system does not have a viewport, or does not support
+                    CSS styles, this test should be marked <code>Not Supported</code>.</p>
+            </section>
+    		    	
+    	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>

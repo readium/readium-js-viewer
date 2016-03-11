@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>SmokeTestFXL</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.geofx.epubcrude.builder</name>
+			<arguments>
+				<dictionary>
+					<key>ePubFileName</key>
+					<value>SmokeTestFXL.epub</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.geofx.epubcrude.plugin.nature</nature>
+	</natures>
+</projectDescription>

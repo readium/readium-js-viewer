@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:foo="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+    </head>
+    <body>
+    	<div class="fxl_content" >    
+			<h2><code>toc nav</code></h2>
+			<section id="epub-nav">
+				<section id="epubnav-010" class="ctest">
+					<h3><span class="nature">[REQUIRED]</span>
+						<span class="test-id">epubnav-010</span> Access</h3>
+					
+					<p class="desc">Tests whether the <code>toc nav</code> can be accessed.</p>
+					
+					<p class="eval">If the Reading System provides a means to access the table of contents, the test passes.</p>
+					
+					<p class="conditional">If this test fails, all subsequent tests for the <code>toc-nav</code> should be marked <code>Not Supported</code>.</p>
+				</section>
+				
+				<section id="epubnav-020" class="ctest">
+					<h3><span class="nature">[REQUIRED]</span>
+						<span class="test-id">epubnav-020</span> Document-level linking</h3>
+					
+					<p class="desc">Tests whether linking to Content Documents from the <code>toc nav</code> is possible.</p>
+					
+					<p>To complete this test, first bring up the table of contents. Find the "Test Links" section at the bottom and
+						activate the "Hamlet" link.</p>
+					
+					<p class="eval">If a document with Hamlet's soliloquy is loaded, the test passes.</p>
+				</section>
+				
+				<section id="epubnav-030" class="ctest">
+					<h3><span class="nature">[REQUIRED]</span>
+						<span class="test-id">epubnav-030</span> Fragment-level linking</h3>
+					
+					<p class="desc">Tests whether linking to fragments within Content Documents from the <code>toc nav</code> is possible.</p>
+					
+					<p>To complete this test, first bring up the table of contents. Find the "Test Links" section at the bottom and
+						activate the "Check" link.</p>
+					
+					<p class="eval">If a bitmap check appears below Hamlet's soliloquy, the test passes.</p>
+				</section>
+			</section>
+			
+       	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>

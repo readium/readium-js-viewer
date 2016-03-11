@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:ev="http://www.w3.org/2001/xml-events" xml:lang="en" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+    	<style type="text/css">
+    		div.trigger-ctrl {
+    			margin-top: 0.5em;
+    		}
+    		div.trigger-ctrl span {
+    			font-weight: bold;
+    			text-align: center;
+    			background-color: rgb(250,250,250);
+    			border: solid 2px blue;
+    			padding: 0.2em;
+    			display: block;
+    			width: 4em;
+    			float: left;
+    			margin-left: 0.5em;
+    		}
+    		br {
+    			clear: both;
+    		}
+    	</style>
+    </head>
+    <body>
+     	<div class="fxl_content" >    
+        <section>
+        	<h3 id="trigger"><code>epub:trigger</code></h3>
+        	<section id="trigger-010" class="ctest">
+        		<h4><span class="nature">[REQUIRED]</span> <span class="test-id">trigger-010</span> The <code>trigger</code> element: play</h4>
+
+        		<p class="desc">Tests whether playback of multimedia content by <code>epub:trigger</code> elements is supported.</p>
+
+        		<audio controls="" src="../audio/allison64.mp3" id="audio01">
+        			If this text is rendered, the audio element is not supported and the test fails.
+        		</audio>
+
+        		<epub:trigger
+        			ev:observer="play-button"
+        			ev:event="click"
+        			action="play"
+        			ref="audio01"/>
+
+        		<div class="trigger-ctrl">
+        			<span
+        				id="play-button"
+        				aria-controls="audio01"
+        				role="button"
+        				tabindex="0">play</span>
+        			<br/>
+        		</div>
+
+        		<p class="eval">If the "play" button initiates playback of the audio clip from 00:00:00, including when pressed during playback
+        			or after pausing, the test passes.</p>
+        	</section>
+
+        	<section id="trigger-020" class="ctest">
+        		<h4><span class="nature">[REQUIRED]</span> <span class="test-id">trigger-020</span> The <code>trigger</code> element: pause/resume</h4>
+
+        		<p class="desc">Tests whether pausing and resumption of multimedia content by <code>epub:trigger</code> elements is supported.</p>
+
+        		<audio controls="" src="../audio/allison64.mp3" id="audio02">
+        			If this text is rendered, the audio element is not supported and the test fails.
+        		</audio>
+
+        		<epub:trigger
+        			ev:observer="pause-button"
+        			ev:event="click"
+        			action="pause"
+        			ref="audio02"/>
+
+        		<epub:trigger
+        			ev:observer="resume-button"
+        			ev:event="click"
+        			action="resume"
+        			ref="audio02"/>
+
+        		<div class="trigger-ctrl">
+        			<span
+        				id="resume-button"
+        				aria-controls="audio02"
+        				role="button"
+        				tabindex="0">resume</span>
+        			<span
+        				id="pause-button"
+        				aria-controls="audio02"
+        				role="button"
+        				tabindex="0">pause</span>
+        			<br/>
+        		</div>
+
+        		<p class="eval">If the "resume" button (re)starts playback of the audio clip and the "pause" button halts it, the test passes.</p>
+        	</section>
+
+ 
+
+        </section>
+    	</div>
+  		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>

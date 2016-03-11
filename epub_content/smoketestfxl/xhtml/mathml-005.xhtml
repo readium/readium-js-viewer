@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:foo="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+    </head>
+    <body>
+    	<div class="fxl_content" > 
+			<h2 id="mathml">MathML</h2>
+ 
+
+            <section id="mathml-028" class="ctest">
+                <h2><span class="nature">[REQUIRED]</span>
+                    <span class="test-id">mathml-028</span>Multiscripts, Greek and Gothic alphabets</h2>
+
+                <p class="desc">Tests whether <code>mmultiscript</code> elements as well as Greek and Gothic alphabets are supported.</p>
+
+                <math xmlns="http://www.w3.org/1998/Math/MathML" style="font-size: 24pt" display="block" alttext="">
+                  <mrow>
+                    <munderover>
+                      <mmultiscripts>
+                        <mo>&#x220F;</mo>
+                        <mmultiscripts>
+                          <mi>&#x1D508;</mi>
+                          <mi>&#x3C5;</mi>
+                          <mi>&#x3C4;</mi>
+                          <mprescripts />
+                          <mi>&#x3C1;</mi>
+                          <mi>&#x3C3;</mi>
+                        </mmultiscripts>
+                        <mmultiscripts>
+                          <mi>&#x1D507;</mi>
+                          <mi>&#x3C0;</mi>
+                          <mi>&#x3BF;</mi>
+                          <mprescripts />
+                          <mi>&#x3BD;</mi>
+                          <mi>&#x3BE;</mi>
+                        </mmultiscripts>
+                        <mprescripts />
+                        <mmultiscripts>
+                          <mi>&#x1D504;</mi>
+                          <mi>&#x3B4;</mi>
+                          <mi>&#x3B3;</mi>
+                          <mprescripts />
+                          <mi>&#x3B1;</mi>
+                          <mi>&#x3B2;</mi>
+                        </mmultiscripts>
+                        <mmultiscripts>
+                          <mi>&#x1D505;</mi>
+                          <mi>&#x3B8;</mi>
+                          <mi>&#x3B7;</mi>
+                          <mprescripts />
+                          <mi>&#x3B5;</mi>
+                          <mi>&#x3B6;</mi>
+                        </mmultiscripts>
+                      </mmultiscripts>
+                      <mmultiscripts>
+                        <mi>&#x1D509;</mi>
+                        <mi>&#x3C9;</mi>
+                        <mi>&#x3C8;</mi>
+                        <mprescripts />
+                        <mi>&#x3D5;</mi>
+                        <mi>&#x3C7;</mi>
+                      </mmultiscripts>
+                      <mmultiscripts>
+                        <mi>&#x212D;</mi>
+                        <mi>&#x3BC;</mi>
+                        <mi>&#x3BB;</mi>
+                        <mprescripts />
+                        <mi>&#x3B9;</mi>
+                        <mi>&#x3BA;</mi>
+                      </mmultiscripts>
+                    </munderover>
+                  </mrow>
+                </math>
+
+
+                <p class="eval">The test passes if the rendering looks like the following image: <img src="../images/multiscripts_and_greek_alphabet.png" alt="a large capital Pi with Gothic characters as multiscripts which in turn have Greek multiscripts"/>.</p>
+
+            </section>
+       	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>

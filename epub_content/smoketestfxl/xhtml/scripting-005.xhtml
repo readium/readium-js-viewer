@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:foo="http://www.w3.org/2000/svg" xml:lang="en" lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+		<meta name="viewport" content="width=576, height=1024"/>
+        <script type="text/javascript">  
+            <![CDATA[
+            // test entry point
+            results = function () {
+                document.getElementById('scr-010-result').innerHTML = 'PASS';
+            };
+            //]]>
+        </script>
+    </head>
+    <body onload="results()">
+    	<div class="fxl_content" > 
+		   	<section id="script-scr">
+	    		<h2>Scripting Contexts</h2>
+	    		<p>This section contains tests for scripting contexts.</p>
+	    		
+	    		<section id="scr-010" class="otest">
+	    			<h3><span class="nature">[OPTIONAL]</span> <span class="test-id">scr-010</span> Spine-level scripts</h3>
+	    			<p class="desc">Tests whether spine-level scripts are supported.</p>
+	    			<p id="scr-010-result">FAIL</p>
+	    			<p class="eval">If the preceding paragraph reads "PASS", the test passes.</p>
+	    		</section>
+	    		
+	    		<section id="scr-020" class="otest">
+	    			<h3><span class="nature">[OPTIONAL]</span> <span class="test-id">scr-020</span> Container-constrained scripts</h3>
+	    			<p class="desc">Tests whether container-constrained scripts are supported.</p>
+	    			<iframe src="scripting-005-inset.xhtml"/>
+	    			<p class="eval">If the preceding paragraph reads "PASS", the test passes.</p>
+	    		</section>
+	    	</section>	    	
+       	</div>
+ 		<div id="left"/><div id="right"/><div id="top"/><div id="bottom"/>       
+    </body>
+</html>
