@@ -150,10 +150,13 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 updateSliderLabels($marginSlider, readerSettings.columnGap, readerSettings.columnGap + "px", Strings.i18n_margins);
 
                 var maxVal = Number($columnMaxWidthSlider.attr("max"));
-
-                var columnMaxWidth_text = (readerSettings.columnMaxWidth >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (readerSettings.columnMaxWidth + "px");
-                $columnMaxWidthSlider.val(readerSettings.columnMaxWidth);
-                updateSliderLabels($columnMaxWidthSlider, readerSettings.columnMaxWidth, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
+                
+                var columnMaxWidth = readerSettings.columnMaxWidth;
+                if (columnMaxWidth >= maxVal) columnMaxWidth = maxVal;
+                
+                var columnMaxWidth_text = (columnMaxWidth >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (columnMaxWidth + "px");
+                $columnMaxWidthSlider.val(columnMaxWidth);
+                updateSliderLabels($columnMaxWidthSlider, columnMaxWidth, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
 
                 if (readerSettings.syntheticSpread == "double"){
                     $('#two-up-option input').prop('checked', true);
@@ -206,11 +209,15 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
         var save = function(){
 
+            var maxVal = Number($columnMaxWidthSlider.attr("max"));
+            var columnMaxWidth = Number($columnMaxWidthSlider.val());
+            if (columnMaxWidth >= maxVal) columnMaxWidth = 99999; // really big pixel distance
+                
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
                 syntheticSpread: "auto",
                 columnGap: Number($marginSlider.val()),
-                columnMaxWidth: Number($columnMaxWidthSlider.val()),
+                columnMaxWidth: columnMaxWidth,
                 scroll: "auto"
             };
 
