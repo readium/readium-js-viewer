@@ -1,9 +1,0 @@
-@charset "UTF-8";
-@import "fonts.css";
-@namespace "http://www.w3.org/1999/xhtml";
-@namespace epub "http://www.idpf.org/2007/ops";
-
-.nested {  
-    font-family: 'OldStandard', serif;  
-	color:magenta; 
-}
