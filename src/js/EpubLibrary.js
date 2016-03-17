@@ -123,6 +123,21 @@ Helpers){
         });
 
         $('.details-dialog .modal-body').html(bodyStr);
+        
+        
+        $('#buttEpubDetailsDelete').on('keydown',function(evt) {
+            if(evt.which === 9 && !(evt.shiftKey | evt.ctrlKey | evt.metaKey | evt.altKey)) { // TAB pressed
+              evt.preventDefault();
+              $('#closeEpubDetailsCross').focus();
+            }
+        });
+        $('#closeEpubDetailsCross').on('keydown',function(evt) {
+            if(evt.which === 9 && evt.shiftKey) { // shift-TAB pressed
+              evt.preventDefault();
+              $('#buttEpubDetailsDelete').focus();
+            }
+        });
+        
         $('.details-dialog .delete').on('click', function(){
             $('.details-dialog').modal('hide');
             var success = function(){
@@ -159,7 +174,7 @@ Helpers){
         $('.details-dialog').off('shown.bs.modal');
 
         $('#app-container').append(detailsDialogStr);
-
+        
         $('#details-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
 
