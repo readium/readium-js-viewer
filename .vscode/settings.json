@@ -1,13 +1,9 @@
-// Place your settings in this file to overwrite default and user settings.
 {
-	//-------- Files configuration --------
-
-	// Configure glob patterns for excluding files and folders.
-	"files.exclude": {
+    "files.exclude": {
         
-		"**/.git": true,
-		"**/.DS_Store": true,
-		"**/.vscode": true,
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/.vscode": true,
         "**/.github": true,
         "**/.gitignore": true,
         "**/.gitmodules": true,
@@ -16,58 +12,42 @@
         "**/http_app.log": true,
         "**/http_app-ebooks.log": true,
         "**/http_ebooks.log": true,
-		"**/build-output": true,
-		"**/dist": true,
-		"**/epub_content": true,
-		"**/api-docs": true,
-		"**/node_modules": true,
-		"**/bower_components": true
-	},
-	
-	// Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the file.exclude setting.
-	"search.exclude": {
-	},
+        "**/build-output": true,
+        "**/dist": true,
+        "**/epub_content": true,
+        "**/api-docs": true,
+        "**/node_modules": true,
+        "**/bower_components": true
+    },
     
-	// Is git enabled
-	"git.enabled": false,
-
-	// Enable crash reports to be sent to Microsoft.
-	// This option requires restart of VSCode to take effect.
-	"telemetry.enableCrashReporter": false,
-
-	// Enable usage data and errors to be sent to Microsoft.
-	"telemetry.enableTelemetry": false,
-
-	// Controls if selections have rounded corners
-	"editor.roundedSelection": false,
+    "search.exclude": {
+    },
     
-	// Controls after how many characters the editor will wrap to the next line. Setting this to 0 turns on viewport width wrapping
-	"editor.wrappingColumn": 0,
-	
-	// Controls if quick suggestions should show up or not while typing
-	"editor.quickSuggestions": false,
+    "git.enabled": false,
 
-	// Controls if the editor should automatically close brackets after opening them
-	"editor.autoClosingBrackets": false,
+    "telemetry.enableCrashReporter": false,
 
-	// Controls if the editor will scroll beyond the last line
-	"editor.scrollBeyondLastLine": false,
+    "telemetry.enableTelemetry": false,
 
-	// Controls if the editor should automatically format the line after typing
-	"editor.formatOnType": false,
+    "editor.roundedSelection": false,
+    
+    "editor.wrappingColumn": 0,
+    
+    "editor.quickSuggestions": false,
 
-	// Controls if suggestions should automatically show up when typing trigger characters
-	"editor.suggestOnTriggerCharacters": false,
+    "editor.autoClosingBrackets": false,
 
-	// Controls how folders are being reopened after a restart. Select 'none' to never reopen a folder, 'one' to reopen the last folder you worked on or 'all' to reopen all folders of your last session.
-	"window.reopenFolders": "none",
+    "editor.scrollBeyondLastLine": false,
 
-	// Controls whether the editor has code folding enabled
-	"editor.folding": false,
+    "editor.formatOnType": false,
 
-	// Controls whether the editor should render whitespace characters
-	"editor.renderWhitespace": true,
+    "editor.suggestOnTriggerCharacters": false,
 
-	// Controls the rendering size of tabs in characters. Accepted values: "auto", 2, 4, 6, etc. If set to "auto", the value will be guessed when a file is opened.
-	"editor.tabSize": "4"
+    "window.reopenFolders": "none",
+
+    "editor.folding": false,
+
+    "editor.renderWhitespace": true,
+
+    "editor.tabSize": "4"
 }
