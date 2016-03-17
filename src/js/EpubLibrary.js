@@ -439,12 +439,26 @@ Helpers){
         var $appContainer = $('#app-container');
         $appContainer.empty();
         SettingsDialog.initDialog();
+        
         $appContainer.append(AddEpubDialog({
             canHandleUrl : libraryManager.canHandleUrl(),
             canHandleDirectory : libraryManager.canHandleDirectory(),
             strings: Strings
         }));
 
+        $('#buttCancelAddEpub').on('keydown',function(evt) {
+            if(evt.which === 9 && !(evt.shiftKey | evt.ctrlKey | evt.metaKey | evt.altKey)) { // TAB pressed
+              evt.preventDefault();
+              $('#closeAddEpubCross').focus();
+            }
+        });
+        $('#closeAddEpubCross').on('keydown',function(evt) {
+            if(evt.which === 9 && evt.shiftKey) { // shift-TAB pressed
+              evt.preventDefault();
+              $('#buttCancelAddEpub').focus();
+            }
+        });
+        
         Versioning.getVersioningInfo(function(version){
             $appContainer.append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dateTimeString: version.dateTimeString, viewerJs: version.readiumJsViewer, readiumJs: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
         });
