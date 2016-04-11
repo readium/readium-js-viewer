@@ -134,7 +134,7 @@ devDependencies:
     # "libxmljs" node-gyp python < v3 :(
     #"jquery-xpath": 'latest'
 
-    "mathjax-single-file": 'pkra/MathJax-single-file'
+    "mathjax-single-file": 'danielweck/MathJax-single-file'
 
     "bootstrap": '3.x'
 

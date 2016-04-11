@@ -117,7 +117,7 @@
             dist/chrome-app/images/
         &&
         npm run cpy
-            node_modules/mathjax-single-file/dist/MathJax.js
+            node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js
             dist/chrome-app/scripts/mathjax
         &&
         npm run ncp

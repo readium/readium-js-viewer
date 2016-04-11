@@ -123,6 +123,21 @@ Helpers){
         });
 
         $('.details-dialog .modal-body').html(bodyStr);
+        
+        
+        $('#buttEpubDetailsDelete').on('keydown',function(evt) {
+            if(evt.which === 9 && !(evt.shiftKey | evt.ctrlKey | evt.metaKey | evt.altKey)) { // TAB pressed
+              evt.preventDefault();
+              $('#closeEpubDetailsCross').focus();
+            }
+        });
+        $('#closeEpubDetailsCross').on('keydown',function(evt) {
+            if(evt.which === 9 && evt.shiftKey) { // shift-TAB pressed
+              evt.preventDefault();
+              $('#buttEpubDetailsDelete').focus();
+            }
+        });
+        
         $('.details-dialog .delete').on('click', function(){
             $('.details-dialog').modal('hide');
             var success = function(){
@@ -159,7 +174,7 @@ Helpers){
         $('.details-dialog').off('shown.bs.modal');
 
         $('#app-container').append(detailsDialogStr);
-
+        
         $('#details-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
 
@@ -441,12 +456,26 @@ Helpers){
         var $appContainer = $('#app-container');
         $appContainer.empty();
         SettingsDialog.initDialog();
+        
         $appContainer.append(AddEpubDialog({
             canHandleUrl : libraryManager.canHandleUrl(),
             canHandleDirectory : libraryManager.canHandleDirectory(),
             strings: Strings
         }));
 
+        $('#buttCancelAddEpub').on('keydown',function(evt) {
+            if(evt.which === 9 && !(evt.shiftKey | evt.ctrlKey | evt.metaKey | evt.altKey)) { // TAB pressed
+              evt.preventDefault();
+              $('#closeAddEpubCross').focus();
+            }
+        });
+        $('#closeAddEpubCross').on('keydown',function(evt) {
+            if(evt.which === 9 && evt.shiftKey) { // shift-TAB pressed
+              evt.preventDefault();
+              $('#buttCancelAddEpub').focus();
+            }
+        });
+        
         Versioning.getVersioningInfo(function(version){
             $appContainer.append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dateTimeString: version.dateTimeString, viewerJs: version.readiumJsViewer, readiumJs: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
         });
