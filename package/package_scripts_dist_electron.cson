@@ -112,7 +112,7 @@
             dist/electron/images/
         &&
         npm run cpy
-            node_modules/MathJax-grunt-concatenator/MathJax.js
+            node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js
             dist/electron/scripts/mathjax
         &&
         npm run ncp
