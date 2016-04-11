@@ -50,7 +50,8 @@ define(['../ModuleConfig', 'readium_js/epub-fetch/encryption_handler'], function
                 callback(data);
             }
         },
-
+        
+        // TODO: some duplicate code, see Readium.js _contentDocumentTextPreprocessor
         _transformXhtml : function(contentDocumentHtml){
 
             var mathJaxUrl = moduleConfig.mathJaxUrl,
@@ -66,8 +67,15 @@ define(['../ModuleConfig', 'readium_js/epub-fetch/encryption_handler'], function
                 scripts += "<script type=\"text/javascript\" src=\"" + mathJaxUrl + "\"><\/script>";
             }
 
-            var mangledContent = scripts ? contentDocumentHtml.replace(/(<head[\s\S]*?>)/, "$1" + scripts) : contentDocumentHtml;
-            return mangledContent;
+            if (scripts) {
+                contentDocumentHtml = contentDocumentHtml.replace(/(<head[\s\S]*?>)/, "$1" + scripts);
+            }
+                
+            contentDocumentHtml = contentDocumentHtml.replace(/(<iframe[\s\S]+?)src[\s]*=[\s]*(["'])[\s]*(.*)[\s]*(["'])([\s\S]*?>)/g, '$1data-src=$2$3$4$5');
+
+            contentDocumentHtml = contentDocumentHtml.replace(/(<iframe[\s\S]+?)data-src[\s]*=[\s]*(["'])[\s]*(http[s]?:\/\/.*)[\s]*(["'])([\s\S]*?>)/g, '$1src=$2$3$4$5');
+            
+            return contentDocumentHtml;
         }
     }
 
