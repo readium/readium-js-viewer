@@ -1,7 +1,7 @@
+api-docs
 build-output
 dist
 .idea
-.settings
 .DS_Store
 .divshot-cache
 node_modules
@@ -14,4 +14,3 @@ http.log
 http_ebooks.log
 http_app.log
 http_app-ebooks.log
-.vscode

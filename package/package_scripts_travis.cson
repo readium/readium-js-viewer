@@ -15,7 +15,7 @@
         &&
         cd dist/cloud-reader
         &&
-        zip -r ../Readium_cloud-reader.zip . -x "epub_content\*"
+        zip -r ../Readium_cloud-reader.zip . -x epub_content\*
         &&
         cd ../..
         &&
@@ -28,8 +28,6 @@
         cd ../..
         &&
         npm run deploy:cloudReader:copy:epub_content
-        &&
-        npm run deploy:cloudReader:copy:epub_testsuite
     '
 # npm run deploy:chromeApp:copy:sourcemap
 
@@ -51,21 +49,19 @@
     '
 
 #=====================
-    'deploy:cloudReader:copy:epub_testsuite': '
-
-        node build-config/createTestLibrary.js
-    '
-
-#=====================
     'deploy:cloudReader:copy:sourcemap': '
 
         npm run ncp
             dist/cloud-reader_sourcemap/
             dist/cloud-reader/scripts/
         &&
+        (
         npm run ncp
             dist/zip_sourcemap/
             dist/cloud-reader/scripts/zip/
+        ||
+        echo "=== SUCCESS [ignore previous error]: no sourcemaps were generated for zip web-worker, deflate, inflate (no uglification)."
+        )
     '
 
 #=====================
@@ -75,9 +71,13 @@
             dist/cloud-reader-lite_sourcemap/
             dist/cloud-reader-lite/scripts/
         &&
+        (
         npm run ncp
             dist/zip_sourcemap/
             dist/cloud-reader-lite/scripts/zip/
+        ||
+        echo "=== SUCCESS [ignore previous error]: no sourcemaps were generated for zip web-worker, deflate, inflate (no uglification)."
+        )
     '
 
 #=====================

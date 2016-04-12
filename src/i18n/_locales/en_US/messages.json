@@ -24,6 +24,12 @@
   "highlight_selection" : {
     "message" : "Highlight Selected Text"
   },
+  "share_url" : {
+    "message" : "Share reader bookmark..."
+  },
+  "share_url_label" : {
+    "message" : "Use your clipboard to copy/paste this shareable link:"
+  },
   "toc" : {
     "message" : "Table of Contents"
   },
@@ -239,6 +245,12 @@
   },
   "i18n_margins" : {
     "message" : "MARGINS"
+  },
+  "i18n_pageMaxWidth" : {
+    "message" : "PAGE WIDTH"
+  },
+  "i18n_pageMaxWidth_Disabled" : {
+    "message" : "Disabled (no maximum)"
   },
   "i18n_text_and_background_color" : {
     "message" : "TEXT AND BACKGROUND COLOR"
