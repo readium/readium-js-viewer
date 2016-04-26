@@ -291,17 +291,30 @@ console.log(config.browser.browserName);
 
     });
 
-    it('test margins', function(){
+    // it('test margins', function(){
+    //   return browser
+    //           .openSettingsDialog()
+    //           .elementByCss('#tab-butt-layout')
+    //           .click()
+    //           .elementByCss('#margin-size-input')
+    //           .isDisplayed()
+    //           .should.eventually.be.true
+    //           .elementByCss('#margin-size-input')
+    //           .getValue()
+    //           .should.become('60');
+
+    // });
+    it('test page width', function(){
       return browser
               .openSettingsDialog()
               .elementByCss('#tab-butt-layout')
               .click()
-              .elementByCss('#margin-size-input')
+              .elementByCss('#column-max-width-input')
               .isDisplayed()
               .should.eventually.be.true
-              .elementByCss('#margin-size-input')
+              .elementByCss('#column-max-width-input')
               .getValue()
-              .should.become('60');
+              .should.become('550');
 
     });
 

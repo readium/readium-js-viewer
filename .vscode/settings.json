@@ -1,0 +1,53 @@
+{
+    "files.exclude": {
+        
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/.vscode": true,
+        "**/.github": true,
+        "**/.gitignore": true,
+        "**/.gitmodules": true,
+        "**/.idea": true,
+        "**/firebase_from_divshot.json": true,
+        "**/http_app.log": true,
+        "**/http_app-ebooks.log": true,
+        "**/http_ebooks.log": true,
+        "**/build-output": true,
+        "**/dist": true,
+        "**/epub_content": true,
+        "**/api-docs": true,
+        "**/node_modules": true,
+        "**/bower_components": true
+    },
+    
+    "search.exclude": {
+    },
+    
+    "git.enabled": false,
+
+    "telemetry.enableCrashReporter": false,
+
+    "telemetry.enableTelemetry": false,
+
+    "editor.roundedSelection": false,
+    
+    "editor.wrappingColumn": 0,
+    
+    "editor.quickSuggestions": false,
+
+    "editor.autoClosingBrackets": false,
+
+    "editor.scrollBeyondLastLine": false,
+
+    "editor.formatOnType": false,
+
+    "editor.suggestOnTriggerCharacters": false,
+
+    "window.reopenFolders": "none",
+
+    "editor.folding": false,
+
+    "editor.renderWhitespace": true,
+
+    "editor.tabSize": "4"
+}
