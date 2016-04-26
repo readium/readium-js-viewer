@@ -569,7 +569,7 @@ BookmarkData){
     
                 _tocLinkActivated = true;
     
-                var tocHref = currentPackageDocument.getTocHref();
+                var tocHref = currentPackageDocument.getToc();
     
                 readium.reader.openContentUrl(href, tocHref, undefined);
     
