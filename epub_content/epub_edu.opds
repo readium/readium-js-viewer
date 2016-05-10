@@ -1,5 +1,5 @@
 <feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
-<updated>2016-02-12T09:12:10.591Z</updated>
+<updated>2016-03-09T07:37:21.491Z</updated>
 <id>READIUM_OPDS_https___github.com_IDPF_education_tree_master_samples</id>
 <title>Readium CloudReader OPDS feed for [ https://github.com/IDPF/education/tree/master/samples ]</title>
 <link rel="self" href="epub_content/epub_edu.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
@@ -12,7 +12,7 @@
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/education/master/samples/English-Language-GCSE-for-AQA" rel="http://opds-spec.org/acquisition"/>
 <link type="image/jpg" href="https://cdn.rawgit.com/IDPF/education/master/samples/English-Language-GCSE-for-AQA/EPUB/content.opf/../Images/9781107453005frcvr.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<updated>2016-02-12T09:12:10.591Z</updated>
+<updated>2016-03-09T07:37:21.491Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_education_master_samples_English-Language-GCSE-for-AQA</id>
 </entry>
 <entry>
@@ -22,7 +22,7 @@
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/education/master/samples/English-Literature-GCSE-for-AQA" rel="http://opds-spec.org/acquisition"/>
 <link type="image/jpg" href="https://cdn.rawgit.com/IDPF/education/master/samples/English-Literature-GCSE-for-AQA/EPUB/content.opf/../Images/9781107454729frcvr.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<updated>2016-02-12T09:12:10.591Z</updated>
+<updated>2016-03-09T07:37:21.491Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_education_master_samples_English-Literature-GCSE-for-AQA</id>
 </entry>
 <entry>
@@ -31,7 +31,7 @@
   <name>IDPF/education (master) - samples/WCAG-ch1</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/education/master/samples/WCAG-ch1" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:12:10.591Z</updated>
+<updated>2016-03-09T07:37:21.491Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_education_master_samples_WCAG-ch1</id>
 </entry>
 <entry>
@@ -40,17 +40,17 @@
   <name>IDPF/education (master) - samples/linear-algebra</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/education/master/samples/linear-algebra" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:12:10.591Z</updated>
+<updated>2016-03-09T07:37:21.491Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_education_master_samples_linear-algebra</id>
 </entry>
 <entry>
-<title>EDUPUB Structure Sample</title>
+<title>Education Structure Sample</title>
 <author>
   <name>IDPF/education (master) - samples/structure-sample-01</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/education/master/samples/structure-sample-01" rel="http://opds-spec.org/acquisition"/>
 <link type="image/jpg" href="https://cdn.rawgit.com/IDPF/education/master/samples/structure-sample-01/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<updated>2016-02-12T09:12:10.591Z</updated>
+<updated>2016-03-09T07:37:21.491Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_education_master_samples_structure-sample-01</id>
 </entry>
 <entry>
@@ -59,7 +59,7 @@
   <name>snaekobbi/braille-rendition-epub (samples) - edupub/samples/WCAG-ch1</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/snaekobbi/braille-rendition-epub/samples/edupub/samples/WCAG-ch1" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:12:13.559Z</updated>
+<updated>2016-03-09T07:37:28.202Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_snaekobbi_braille-rendition-epub_samples_edupub_samples_WCAG-ch1</id>
 </entry>
 </feed>

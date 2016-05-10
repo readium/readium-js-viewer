@@ -257,6 +257,12 @@
   "i18n_margins" : {
     "message" : "MARGINS"
   },
+  "i18n_pageMaxWidth" : {
+    "message" : "PAGE WIDTH"
+  },
+  "i18n_pageMaxWidth_Disabled" : {
+    "message" : "Disabled (no maximum)"
+  },
   "i18n_text_and_background_color" : {
     "message" : "TEXT AND BACKGROUND COLOR"
   },

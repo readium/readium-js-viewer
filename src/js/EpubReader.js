@@ -82,6 +82,59 @@ FullTextSearch){
         return 'nav *[title], #readium-page-btns *[title]';
     };
    
+    var ensureUrlIsRelativeToApp = function(ebookURL) {
+
+        if (!ebookURL) {
+            return ebookURL;
+        }
+        
+        if (ebookURL.indexOf("http") != 0) {
+            return ebookURL;
+        }
+            
+        var isHTTPS = (ebookURL.indexOf("https") == 0);
+    
+        var CORS_PROXY_HTTP_TOKEN = "/http://";
+        var CORS_PROXY_HTTPS_TOKEN = "/https://";
+        
+        // Ensures URLs like http://crossorigin.me/http://domain.com/etc
+        // do not end-up loosing the double forward slash in http://domain.com
+        // (because of URI.absoluteTo() path normalisation)
+        var CORS_PROXY_HTTP_TOKEN_ESCAPED = "%2Fhttp%3A%2F%2F";
+        var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "%2Fhttps%3A%2F%2F";
+        
+        // case-insensitive regexp for percent-escapes
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("%2F(http[s]?)%3A%2F%2F", "gi");
+        
+        var appUrl =
+        window.location ? (
+            window.location.protocol
+            + "//"
+            + window.location.hostname
+            + (window.location.port ? (':' + window.location.port) : '')
+            + window.location.pathname
+        ) : undefined;
+        
+        if (appUrl) {
+            console.log("EPUB URL absolute: " + ebookURL);
+            console.log("App URL: " + appUrl);
+            
+            ebookURL = ebookURL.replace(CORS_PROXY_HTTP_TOKEN, CORS_PROXY_HTTP_TOKEN_ESCAPED);
+            ebookURL = ebookURL.replace(CORS_PROXY_HTTPS_TOKEN, CORS_PROXY_HTTPS_TOKEN_ESCAPED);
+            
+            ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
+            if (ebookURL.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
+                ebookURL = (isHTTPS ? "https:" : "http:") + ebookURL;
+            }
+            
+            ebookURL = ebookURL.replace(regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED, "/$1://");
+            
+            console.log("EPUB URL relative to app: " + ebookURL);
+        }
+        
+        return ebookURL;
+    };
+
     function setBookTitle(title) {
     
         var $titleEl = $('.book-title-header');
@@ -752,22 +805,7 @@ FullTextSearch){
                 bookmark.contentCFI = undefined;
                 bookmark = JSON.stringify(bookmark);
                 
-                if (ebookURL.indexOf("http") == 0) {  
-                    var appUrl =
-                    window.location ? (
-                        window.location.protocol
-                        + "//"
-                        + window.location.hostname
-                        + (window.location.port ? (':' + window.location.port) : '')
-                        + window.location.pathname
-                    ) : undefined;
-                    
-                    if (appUrl) {
-                        console.log("EPUB URL absolute:" + ebookURL);
-                        ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
-                        console.log("EPUB URL relative to app:" + ebookURL);
-                    }
-                }
+                ebookURL = ensureUrlIsRelativeToApp(ebookURL);
 
                 var url = Helpers.buildUrlQueryParameters(undefined, {
                     epub: ebookURL,
@@ -1341,7 +1379,8 @@ FullTextSearch){
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
         unloadUI : unloadReaderUI,
-        tooltipSelector : tooltipSelector
+        tooltipSelector : tooltipSelector,
+        ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp 
     };
 
 });

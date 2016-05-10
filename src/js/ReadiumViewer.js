@@ -110,33 +110,21 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
         if (epub && (typeof epub !== "string")) {
             epub = ebookURL_filepath;
         }
-
-        if (ebookURL_filepath.indexOf("http") == 0) {  
-            var appUrl =
-            window.location ? (
-                window.location.protocol
-                + "//"
-                + window.location.hostname
-                + (window.location.port ? (':' + window.location.port) : '')
-                + window.location.pathname
-            ) : undefined;
-            
-            if (appUrl) {
-                console.log("EPUB URL absolute:" + ebookURL_filepath);
-                ebookURL_filepath = new URI(ebookURL_filepath).relativeTo(appUrl).toString();
-                console.log("EPUB URL relative to app:" + ebookURL_filepath);
-            }
-        }
-
+        
+        ebookURL_filepath = EpubReader.ensureUrlIsRelativeToApp(ebookURL_filepath);
+        
+        var epubs = eventPayload.epubs;
+        epubs = EpubReader.ensureUrlIsRelativeToApp(epubs);
+        
         var urlState = Helpers.buildUrlQueryParameters(undefined, {
             epub: ebookURL_filepath,
-            epubs: (eventPayload.epubs ? eventPayload.epubs : undefined),
+            epubs: (epubs ? epubs : undefined),
             embedded: (eventPayload.embedded ? eventPayload.embedded : undefined)
         });
         
         var func = _initialLoad ? replaceState : pushState;
         func(
-            {epub: epub, epubs: eventPayload.epubs},
+            {epub: epub, epubs: epubs},
             "Readium Viewer",
             urlState
         );
@@ -155,6 +143,8 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
         } else { //File/Blob
             importEPUB = eventPayload;
         }
+        
+        libraryURL = EpubReader.ensureUrlIsRelativeToApp(libraryURL);
         
         var urlState = Helpers.buildUrlQueryParameters(undefined, {
             epubs: (libraryURL ? libraryURL : undefined),

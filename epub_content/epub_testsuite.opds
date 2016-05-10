@@ -1,5 +1,5 @@
 <feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___github.com_IDPF_epub-testsuite_tree_master_content_30</id>
 <title>Readium CloudReader OPDS feed for [ https://github.com/IDPF/epub-testsuite/tree/master/content/30 ]</title>
 <link rel="self" href="epub_content/epub_testsuite.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
@@ -11,7 +11,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0100</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0100" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0100</id>
 </entry>
 <entry>
@@ -20,7 +20,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0101</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0101" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0101</id>
 </entry>
 <entry>
@@ -29,7 +29,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0102</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0102" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0102</id>
 </entry>
 <entry>
@@ -38,7 +38,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0103</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0103" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0103</id>
 </entry>
 <entry>
@@ -47,7 +47,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0110</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0110" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0110</id>
 </entry>
 <entry>
@@ -56,7 +56,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0111</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0111" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0111</id>
 </entry>
 <entry>
@@ -65,7 +65,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0112</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0112" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0112</id>
 </entry>
 <entry>
@@ -74,7 +74,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0120</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0120" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0120</id>
 </entry>
 <entry>
@@ -84,7 +84,7 @@
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0130" rel="http://opds-spec.org/acquisition"/>
 <link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0130/EPUB/package.opf/../img/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0130</id>
 </entry>
 <entry>
@@ -93,7 +93,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0140</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0140" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0140</id>
 </entry>
 <entry>
@@ -102,7 +102,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0150</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0150" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0150</id>
 </entry>
 <entry>
@@ -111,7 +111,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0201</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0201" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0201</id>
 </entry>
 <entry>
@@ -120,7 +120,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0202</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0202" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0202</id>
 </entry>
 <entry>
@@ -129,7 +129,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0203</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0203" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0203</id>
 </entry>
 <entry>
@@ -138,7 +138,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0204</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0204" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0204</id>
 </entry>
 <entry>
@@ -147,7 +147,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0205</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0205" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0205</id>
 </entry>
 <entry>
@@ -156,7 +156,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0206</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0206" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0206</id>
 </entry>
 <entry>
@@ -165,7 +165,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0207</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0207" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0207</id>
 </entry>
 <entry>
@@ -174,7 +174,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0208</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0208" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0208</id>
 </entry>
 <entry>
@@ -183,7 +183,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0209</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0209" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0209</id>
 </entry>
 <entry>
@@ -192,7 +192,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0210</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0210" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0210</id>
 </entry>
 <entry>
@@ -201,7 +201,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0211</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0211" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0211</id>
 </entry>
 <entry>
@@ -210,7 +210,7 @@
   <name>IDPF/epub-testsuite (master) - content/30/epub30-test-0220</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-testsuite/master/content/30/epub30-test-0220" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-02-12T09:04:43.077Z</updated>
+<updated>2016-03-09T07:35:53.283Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub-testsuite_master_content_30_epub30-test-0220</id>
 </entry>
 </feed>
