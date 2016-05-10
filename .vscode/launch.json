@@ -1,0 +1,25 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "(1) Launch Readium cloud reader (dev no-optimize RequireJS config)",
+			"type": "chrome",
+			"request": "launch",
+			"file": "${workspaceRoot}/dev/index_RequireJS_no-optimize.html"
+		},
+		{
+			"name": "(2) Launch Readium cloud reader (dev no-optimize RequireJS config)",
+			"type": "chrome",
+			"request": "launch",
+			"url": "http://127.0.0.1:8080/dev/index_RequireJS_no-optimize.html",
+			"sourceMaps": false,
+			"webRoot": "${workspaceRoot}"
+		},
+		{
+			"name": "Attach (--remote-debugging-port=9222)",
+			"type": "chrome",
+			"request": "attach",
+			"port": 9222
+		}
+	]
+}
