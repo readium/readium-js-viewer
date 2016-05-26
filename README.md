@@ -141,6 +141,8 @@ Mocha-driven UI tests via Selenium (not PhantomJS, but actual installed browsers
 
 `npm run test` (runs all of the above)
 
+PS: you may need to install the Chrome WebDriver from https://sites.google.com/a/chromium.org/chromedriver/downloads
+
 Via SauceLabs:
 
 * `npm run test:sauce:firefox`
