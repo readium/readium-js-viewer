@@ -3,6 +3,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
     // change these values to affec the default state of the application's preferences at first-run.
     var defaultSettings = {
         fontSize: 100,
+        fontSelection: 0, //0 is the index of default for our purposes.
         syntheticSpread: "auto",
         scroll: "auto",
         columnGap: 60,
@@ -94,6 +95,17 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
         });
 
+        var $fontSelectionlist = $("#font-selection-input");
+        $fontSelectionList.on('change', function(){
+            var fontSelection = Number($fontSelectionList.attr("id").split("-", 1)[0]); //Id's for the combo are of the form 1-font-option
+
+            if(fontSelection == 0)
+                $previewText.css({fontFace: ""});
+            else
+                $previewText.css({fontFace: settings.fonts[fontSelection].machineName});
+            
+        });
+
         $('#tab-butt-main').on('click', function(){
             $("#tab-keyboard").attr('aria-expanded', "false");
             $("#tab-main").attr('aria-expanded', "true");
@@ -140,6 +152,8 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                     }
                 }
 
+                $fontSizeSlider.val(readerSettings.fontSize);
+                //to do: Add to the combo each font, and change!
                 $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
 
@@ -215,6 +229,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
+                fontSelection: Number($fontSelectionList.val()),
                 syntheticSpread: "auto",
                 columnGap: Number($marginSlider.val()),
                 columnMaxWidth: columnMaxWidth,
