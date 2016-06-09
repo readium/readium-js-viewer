@@ -72,11 +72,17 @@ require.config({
             'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js',
 
             'fonts': [
-            {
-                "name": "open dyslexic",
-                "url": HTTPServerRootFolder + "/src/fonts/OpenDyslexic/OpenDyslexic.css"
-            }
-        ],
+                {
+                    displayName: "Open Dyslexic",
+                    name: "OpenDyslexic",
+                    url: HTTPServerRootFolder + "/src/fonts/OpenDyslexic/OpenDyslexic.css"
+                },
+                {
+                    displayName: "verdana",
+                    name: "verdana"
+                    // Showcasing a font with no url.
+                }
+            ],
 
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 

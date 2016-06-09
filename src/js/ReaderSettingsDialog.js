@@ -1,3 +1,4 @@
+debugs = undefined;
 define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
 
     // change these values to affec the default state of the application's preferences at first-run.
@@ -95,16 +96,20 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
         });
 
-        var $fontSelectionlist = $("#font-selection-input");
-        $fontSelectionList.on('change', function(){
-            var fontSelection = Number($fontSelectionList.attr("id").split("-", 1)[0]); //Id's for the combo are of the form 1-font-option
-
-            if(fontSelection == 0)
-                $previewText.css({fontFace: ""});
-            else
-                $previewText.css({fontFace: settings.fonts[fontSelection].machineName});
-            
-        });
+        var $fontSelectionList = $("#font-selection-input");
+        $fontSelectionList.change(function(){
+            //Id's for the options are of the form 0-font, 1-font, 2-font ...
+            var fontSelection = $fontSelectionList.find("option:selected").attr("id").split("-", 1);
+            if(fontSelection == 0){
+                $previewText.css({fontFamily: ""});
+        } else {
+                var font = moduleConfig.fonts[fontSelection-1].name;
+                console.log(font);
+                $previewText.css({fontFamily: font});
+        }
+        console.log("I wish, I wish");
+    });
+    
 
         $('#tab-butt-main').on('click', function(){
             $("#tab-keyboard").attr('aria-expanded', "false");
@@ -153,9 +158,20 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 }
 
                 $fontSizeSlider.val(readerSettings.fontSize);
-                //to do: Add to the combo each font, and change!
-                $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
+                var loadedUrls = []; //contains the URL's for fonts. If it exists already, we won't load it again.
+                $.each(moduleConfig.fonts, function(index, fontObj){
+                    var curName = fontObj.displayName;
+                    if(fontObj.url){ //No url, no problem so long as there's a font that works.
+                        var fontPayload  = '<link id="fontStyle" rel="stylesheet" type="text/css" href="'+fontObj.url+'"/>';
+                        if(!loadedUrls.includes(fontPayload)){
+                            $("head").append(fontPayload);
+                        }
+                    }
+                    index++;
+                    var curOption = '<option   id="'+index+'-font" aria-label="'+curName+'" title="'+curName+'">'+curName+'</option>';
+                    $fontSelectionList.append(curOption);
+                });
 
                 // reset column gap top default, as page width control is now used (see readerSettings.columnMaxWidth) 
                 readerSettings.columnGap = defaultSettings.columnGap;
