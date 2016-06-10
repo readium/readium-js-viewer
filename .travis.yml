@@ -79,7 +79,7 @@ script:
 - cd ../../..
 - pwd
 - git status
-- npm run test:travis
+- npm run pretest:travis
 - git status
 - cd readium-js
 - git status
