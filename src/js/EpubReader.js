@@ -1,5 +1,6 @@
 define([
 "readium_shared_js/globalsSetup",
+ "readium_shared_js/globals",
 './ModuleConfig',
 'jquery',
 'bootstrap',
@@ -22,10 +23,12 @@ define([
 './gestures',
 './versioning/ReadiumVersioning',
 'readium_js/Readium',
-'readium_shared_js/helpers'],
+'readium_shared_js/helpers',
+'readium_shared_js/models/bookmark_data'],
 
 function (
 globalSetup,
+Globals,
 moduleConfig,
 $,
 bootstrap,
@@ -48,7 +51,8 @@ EpubReaderBackgroundAudioTrack,
 GesturesHandler,
 Versioning,
 Readium,
-Helpers){
+Helpers,
+BookmarkData){
 
     // initialised in initReadium()
     var readium = undefined;
@@ -72,6 +76,63 @@ Helpers){
     // (bad naming convention, hard to find usages of "el")
     var el = document.documentElement;
 
+    var tooltipSelector = function() {
+        return 'nav *[title], #readium-page-btns *[title]';
+    };
+   
+    var ensureUrlIsRelativeToApp = function(ebookURL) {
+
+        if (!ebookURL) {
+            return ebookURL;
+        }
+        
+        if (ebookURL.indexOf("http") != 0) {
+            return ebookURL;
+        }
+            
+        var isHTTPS = (ebookURL.indexOf("https") == 0);
+    
+        var CORS_PROXY_HTTP_TOKEN = "/http://";
+        var CORS_PROXY_HTTPS_TOKEN = "/https://";
+        
+        // Ensures URLs like http://crossorigin.me/http://domain.com/etc
+        // do not end-up loosing the double forward slash in http://domain.com
+        // (because of URI.absoluteTo() path normalisation)
+        var CORS_PROXY_HTTP_TOKEN_ESCAPED = "%2Fhttp%3A%2F%2F";
+        var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "%2Fhttps%3A%2F%2F";
+        
+        // case-insensitive regexp for percent-escapes
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("%2F(http[s]?)%3A%2F%2F", "gi");
+        
+        var appUrl =
+        window.location ? (
+            window.location.protocol
+            + "//"
+            + window.location.hostname
+            + (window.location.port ? (':' + window.location.port) : '')
+            + window.location.pathname
+        ) : undefined;
+        
+        if (appUrl) {
+            console.log("EPUB URL absolute: " + ebookURL);
+            console.log("App URL: " + appUrl);
+            
+            ebookURL = ebookURL.replace(CORS_PROXY_HTTP_TOKEN, CORS_PROXY_HTTP_TOKEN_ESCAPED);
+            ebookURL = ebookURL.replace(CORS_PROXY_HTTPS_TOKEN, CORS_PROXY_HTTPS_TOKEN_ESCAPED);
+            
+            ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
+            if (ebookURL.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
+                ebookURL = (isHTTPS ? "https:" : "http:") + ebookURL;
+            }
+            
+            ebookURL = ebookURL.replace(regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED, "/$1://");
+            
+            console.log("EPUB URL relative to app: " + ebookURL);
+        }
+        
+        return ebookURL;
+    };
+
     function setBookTitle(title) {
     
         var $titleEl = $('.book-title-header');
@@ -82,6 +143,54 @@ Helpers){
         }
     };
 
+    var _debugBookmarkData_goto = undefined;
+    var debugBookmarkData = function(cfi) {
+            
+        var DEBUG = true; // change this to visualize the CFI range
+        if (!DEBUG) return;
+                
+        if (!readium) return;
+            
+        var paginationInfo = readium.reader.getPaginationInfo();
+        console.log(JSON.stringify(paginationInfo));
+        
+        if (paginationInfo.isFixedLayout) return;
+    
+        try {
+            ReadiumSDK._DEBUG_CfiNavigationLogic.clearDebugOverlays();
+            
+        } catch (error) {
+            //ignore
+        }
+        
+        try {
+            console.log(cfi);
+            
+            var range = readium.reader.getDomRangeFromRangeCfi(cfi);
+            console.log(range);
+            
+            var res = ReadiumSDK._DEBUG_CfiNavigationLogic.drawDebugOverlayFromDomRange(range);
+            console.log(res);
+        
+            var cfiFirst = ReadiumSDK.reader.getFirstVisibleCfi();
+            console.log(cfiFirst);
+            
+            var cfiLast  = ReadiumSDK.reader.getLastVisibleCfi();
+            console.log(cfiLast);
+            
+        } catch (error) {
+            //ignore
+        }
+        
+        setTimeout(function() {
+            try {
+                ReadiumSDK._DEBUG_CfiNavigationLogic.clearDebugOverlays();
+            } catch (error) {
+                //ignore
+            }
+        }, 2000);
+    };
+    
     // This function will retrieve a package document and load an EPUB
     var loadEbook = function (readerSettings, openPageRequest) {
 
@@ -124,7 +233,12 @@ Helpers){
                 }));
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
-    
+                $("#left-page-btn").mouseleave(function() {
+                  $(tooltipSelector()).tooltip('destroy');
+                });
+                $("#right-page-btn").mouseleave(function() {
+                  $(tooltipSelector()).tooltip('destroy');
+                });
             },
             openPageRequest
         );
@@ -184,6 +298,12 @@ Helpers){
         if (hide){
             $appContainer.removeClass('toc-visible');
 
+            // clear tabindex off of any previously focused ToC item
+            var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
+            if (existsFocusable.length > 0){
+              existsFocusable[0].setAttribute("tabindex", "-1");
+            }
+            /* end of clear focusable tab item */
             setTimeout(function(){ $('#tocButt')[0].focus(); }, 100);
         }
         else{
@@ -271,6 +391,24 @@ Helpers){
                     $toc[0].setAttributeNS("http://www.w3.org/1999/xhtml", "dir", "rtl");
                     $toc[0].style.direction = "rtl"; // The CSS stylesheet property does not trigger :(
                 }
+
+                // remove default focus from anchor elements in TOC after added to #readium-toc-body
+                var $items = $('#readium-toc-body li >a');
+                $items.each(function(){
+                  $(this).attr("tabindex", "-1");
+                   $(this).on("focus", function(event){
+                    //console.log("toc item focus: " + event.target);
+                    // remove tabindex from previously focused
+                    var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
+                    if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
+                      //console.log("previous focus: " + $prevFocus[0]);
+                      $prevFocus.attr("tabindex","-1");
+                    }
+                    // add to newly focused
+                    event.target.setAttribute("tabindex", "60");
+                  });
+                });
+
             }
 
         } else {
@@ -284,10 +422,15 @@ Helpers){
         var lastIframe = undefined,
             wasFixed;
 
-        readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, setScaleDisplay);
+        readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, function() {
+            Globals.logEvent("FXL_VIEW_RESIZED", "ON", "EpubReader.js");
+            setScaleDisplay();
+        });
+        
         readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem)
         {
-
+            Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "EpubReader.js [ " + spineItem.href + " ]");
+            
             var isFixed = readium.reader.isCurrentViewFixedLayout();
 
             // TODO: fix the pan-zoom feature!
@@ -307,6 +450,14 @@ Helpers){
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData)
         {
+            Globals.logEvent("PAGINATION_CHANGED", "ON", "EpubReader.js");
+            
+            if (_debugBookmarkData_goto) {
+                
+                debugBookmarkData(_debugBookmarkData_goto);
+                _debugBookmarkData_goto = undefined;
+            }
+            
             savePlace();
             updateUI(pageChangeData);
 
@@ -328,7 +479,7 @@ Helpers){
                     //bookmark.idref; //manifest item
                     if (pageChangeData.spineItem)
                     {
-                        element = readium.reader.getElementByCfi(pageChangeData.spineItem, bookmark.contentCFI,
+                        element = readium.reader.getElementByCfi(pageChangeData.spineItem.idref, bookmark.contentCFI,
                             ["cfi-marker", "mo-cfi-highlight"],
                             [],
                             ["MathJax_Message"]);
@@ -378,12 +529,15 @@ Helpers){
                     iframe = lastIframe;
                 }
 
+
+/* Remove because is removing focus from the toc
                 if (iframe)
                 {
                     //var doc = ( iframe.contentWindow || iframe.contentDocument ).document;
                     var toFocus = iframe; //doc.body
                     setTimeout(function(){ toFocus.focus(); }, 50);
                 }
+*/
             }
             catch (e)
             {
@@ -432,7 +586,68 @@ Helpers){
             */
             return false;
         })
-    }
+//        var KEY_ENTER = 0x0D;
+//        var KEY_SPACE = 0x20;
+        var KEY_END = 0x23;
+        var KEY_HOME = 0x24;
+//        var KEY_LEFT = 0x25;
+        var KEY_UP = 0x26;
+//        var KEY_RIGHT = 0x27;
+        var KEY_DOWN = 0x28;
+
+        $('#readium-toc-body').keydown( function(event){
+            var next = null;
+            var blurNode = event.target;
+            switch (event.which) {
+              case KEY_HOME:
+                  //find first li >a
+                  next = $('#readium-toc-body li >a')[0];
+              break;
+
+              case KEY_END:
+              // find last a within toc
+                next = $('#readium-toc-body a').last()[0];
+              break;
+
+              case KEY_DOWN:
+                if (blurNode.tagName == "BUTTON") {
+                    var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
+                    if (existsFocusable.length > 0) {
+                      next = existsFocusable[0];
+                    } else {
+                      // go to first entry
+                      next = $('#readium-toc-body li >a')[0];
+                    }
+                } else {
+                  // find all the a elements, find previous focus (tabindex=60) then get next
+                  var $items = $('#readium-toc-body a');
+                  var index = $('a[tabindex="60"]').index('#readium-toc-body a');
+                  //var index = $('a[tabindex="60"]').index($items); // not sure why this won't work?
+                  if (index > -1 && index < $items.length-1) {
+                    next = $items.get(index+1);
+                  } 
+                }
+              break;
+
+              case KEY_UP:
+                // find all the a elements, find previous focus (tabindex=60) then get previous
+                var $items = $('#readium-toc-body a');
+                var index = $('a[tabindex="60"]').index('#readium-toc-body a');
+                if (index > -1 && index > 0 ) {
+                  next = $items.get(index-1);
+                } 
+              break;
+
+              default:
+                return;
+            }
+            if (next) {
+              event.preventDefault();
+              setTimeout(next.focus(), 5);
+            }
+          return;
+      }); // end of onkeyup
+    } // end of loadToc
 
     var toggleFullScreen = function(){
 
@@ -441,7 +656,7 @@ Helpers){
         screenfull.toggle();
     }
 
-      var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
+    var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
               && chrome.app.window && chrome.app.window.current; // a bit redundant?
 
     if (isChromeExtensionPackagedApp) {
@@ -507,6 +722,8 @@ Helpers){
             return;  
         } 
 
+        $(tooltipSelector()).tooltip('destroy');
+
         $(document.body).addClass('hide-ui');
     }
 
@@ -528,7 +745,7 @@ Helpers){
             hideUI();
         }
         else{
-            hideTimeoutId = window.setTimeout(hideUI, 4000);
+            hideTimeoutId = window.setTimeout(hideUI, 8000);
         }
     }
 
@@ -565,9 +782,47 @@ Helpers){
 
     var installReaderEventHandlers = function(){
 
+        if (isChromeExtensionPackagedApp) {
+            $('.icon-shareUrl').css("display", "none");
+        } else {
+            $(".icon-shareUrl").on("click", function () {
+                
+                var urlParams = Helpers.getURLQueryParams();
+                var ebookURL = urlParams['epub'];
+                if (!ebookURL) return;
+                
+                var bookmark = readium.reader.bookmarkCurrentPage();
+                bookmark = JSON.parse(bookmark);
+                
+                var cfi = new BookmarkData(bookmark.idref, bookmark.contentCFI);
+                debugBookmarkData(cfi);
+                
+                bookmark.elementCfi = bookmark.contentCFI;
+                bookmark.contentCFI = undefined;
+                bookmark = JSON.stringify(bookmark);
+                
+                ebookURL = ensureUrlIsRelativeToApp(ebookURL);
+
+                var url = Helpers.buildUrlQueryParameters(undefined, {
+                    epub: ebookURL,
+                    epubs: " ",
+                    embedded: " ",
+                    goto: bookmark
+                });
+                
+                //showModalMessage
+                //showErrorWithDetails
+                Dialogs.showModalMessageEx(Strings.share_url, $('<p id="share-url-dialog-input-label">'+Strings.share_url_label+'</p><input id="share-url-dialog-input-id" aria-labelledby="share-url-dialog-input-label" type="text" value="'+url+'" readonly="readonly" style="width:100%" />'));
+                
+                setTimeout(function(){
+                    $('#share-url-dialog-input-id').focus().select();
+                }, 500);
+            });
+        }
+
         // Set handlers for click events
         $(".icon-annotations").on("click", function () {
-            readium.reader.plugins.annotations.addSelectionHighlight(Math.floor((Math.random()*1000000)), "highlight");
+            readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "test-highlight");
         });
 
         var isWithinForbiddenNavKeysArea = function()
@@ -753,10 +1008,13 @@ Helpers){
 
         //because we reinitialize the reader we have to unsubscribe to all events for the previews reader instance
         if(readium && readium.reader) {
+            
+            Globals.logEvent("__ALL__", "OFF", "EpubReader.js");
             readium.reader.off();
         }
 
         if (window.ReadiumSDK) {
+            Globals.logEvent("PLUGINS_LOADED", "OFF", "EpubReader.js");
             ReadiumSDK.off(ReadiumSDK.Events.PLUGINS_LOADED);
         }
 
@@ -788,29 +1046,78 @@ Helpers){
                 readiumOptions.useSimpleLoader = true;
             }
 
+            _debugBookmarkData_goto = undefined;
             var openPageRequest;
             if (settings[ebookURL_filepath]){
                 var bookmark = JSON.parse(JSON.parse(settings[ebookURL_filepath]));
+                //console.log("Bookmark restore: " + JSON.stringify(bookmark));
                 openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
+                console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
             }
 
+            var urlParams = Helpers.getURLQueryParams();
+            var goto = urlParams['goto'];
+            if (goto) {
+                console.log("Goto override? " + goto);
+                
+                try {
+                    var gotoObj = JSON.parse(goto);
+                    
+                    var openPageRequest_ = undefined;
+                    
+                    
+                    // See ReaderView.openBook()
+                    // e.g. with accessible_epub_3:
+                    // &goto={"contentRefUrl":"ch02.xhtml%23_data_integrity","sourceFileHref":"EPUB"}
+                    // or: {"idref":"id-id2635343","elementCfi":"/4/2[building_a_better_epub]@0:10"} (the legacy spatial bookmark is wrong here, but this is fixed in intel-cfi-improvement feature branch)
+                    if (gotoObj.idref) {
+                        if (gotoObj.spineItemPageIndex) {
+                            openPageRequest_ = {idref: gotoObj.idref, spineItemPageIndex: gotoObj.spineItemPageIndex};
+                        }
+                        else if (gotoObj.elementCfi) {
+                                        
+                            _debugBookmarkData_goto = new BookmarkData(gotoObj.idref, gotoObj.elementCfi);
+                            
+                            openPageRequest_ = {idref: gotoObj.idref, elementCfi: gotoObj.elementCfi};
+                        }
+                        else {
+                            openPageRequest_ = {idref: gotoObj.idref};
+                        }
+                    }
+                    else if (gotoObj.contentRefUrl && gotoObj.sourceFileHref) {
+                        openPageRequest_ = {contentRefUrl: gotoObj.contentRefUrl, sourceFileHref: gotoObj.sourceFileHref};
+                    }
+                    
+                    
+                    if (openPageRequest_) {
+                        openPageRequest = openPageRequest_;
+                        console.debug("Open request (goto): " + JSON.stringify(openPageRequest));
+                    }
+                } catch(err) {
+                    console.error(err);
+                }
+            }
 
             readium = new Readium(readiumOptions, readerOptions);
 
             window.READIUM = readium;
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
+                Globals.logEvent("PLUGINS_LOADED", "ON", "EpubReader.js");
                 
                 console.log('PLUGINS INITIALIZED!');
-                
-                if (!readium.reader.plugins.annotations) {   
+
+                if (!readium.reader.plugins.highlights) {
                     $('.icon-annotations').css("display", "none");
                 } else {
-                    readium.reader.plugins.annotations.initialize({annotationCSSUrl: readerOptions.annotationCSSUrl});
-                    
-                    readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
+
+                    readium.reader.plugins.highlights.initialize({
+                        annotationCSSUrl: readerOptions.annotationCSSUrl
+                    });
+
+                    readium.reader.plugins.highlights.on("annotationClicked", function(type, idref, cfi, id) {
         console.debug("ANNOTATION CLICK: " + id);
-                        readium.reader.plugins.annotations.removeHighlight(id);
+                        readium.reader.plugins.highlights.removeHighlight(id);
                     });
                 }
     
@@ -920,6 +1227,8 @@ Helpers){
             Keyboard.on(Keyboard.NightTheme, 'reader', toggleNightTheme);
 
             readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function($iframe, spineItem) {
+                Globals.logEvent("CONTENT_DOCUMENT_LOAD_START", "ON", "EpubReader.js [ " + spineItem.href + " ]");
+                
                 spin(true);
             });
 
@@ -1065,7 +1374,9 @@ Helpers){
 
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
-        unloadUI : unloadReaderUI
+        unloadUI : unloadReaderUI,
+        tooltipSelector : tooltipSelector,
+        ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp 
     };
 
 });

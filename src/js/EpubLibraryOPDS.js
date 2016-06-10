@@ -22,6 +22,9 @@ URI){
         var CORS_PROXY_HTTP_TOKEN_ESCAPED = "%2Fhttp%3A%2F%2F";
         var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "%2Fhttps%3A%2F%2F";
         
+        // case-insensitive regexp for percent-escapes
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("%2F(http[s]?)%3A%2F%2F", "gi");
+        
         var xOriginProxy = undefined;
         
         var origin = window.location.origin; 
@@ -97,7 +100,7 @@ URI){
                     
                     if (hasAcquisition) {
                         if (t) {
-                            if (t.indexOf("application/epub+zip") >= 0) {
+                            if (t.indexOf("application/epub") >= 0) {
                                 rootUrl_EPUBAcquisition = href;
                             }
                             if (t.indexOf("text/html") >= 0) {
@@ -109,7 +112,7 @@ URI){
                             }
                         }
                     } else {
-                        if (t && t.indexOf("application/epub+zip") >= 0) {
+                        if (t && t.indexOf("application/epub") >= 0) {
                             rootUrl_EPUBAcquisition = href;
                         }
                     }
@@ -220,8 +223,7 @@ URI){
                     
                     if (xOriginProxy) {
                         if (!isExternalLink) {
-                            rootUrl = rootUrl.replace(CORS_PROXY_HTTP_TOKEN_ESCAPED, CORS_PROXY_HTTP_TOKEN);
-                            rootUrl = rootUrl.replace(CORS_PROXY_HTTPS_TOKEN_ESCAPED, CORS_PROXY_HTTPS_TOKEN);
+                            rootUrl = rootUrl.replace(regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED, "/$1://");
                         }
                     }
                     

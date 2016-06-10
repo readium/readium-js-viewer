@@ -1,0 +1,20 @@
+{
+  "firebase": "readium",
+  "public": "./dist/cloud-reader",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ],
+  "headers": [
+    {
+      "source": "epub_content/**",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
+  ]
+}

@@ -107,12 +107,33 @@ var createRelease = function(){
         //req.end();
     };
     
+    
+    
+    var releaseDate = new Date().toUTCString();
+    console.log("BUILD DATE/TIME: "+releaseDate);
+    
+    console.log("BUILD tag: "+version);
+    
+    console.log("TRAVIS_BRANCH: "+process.env.TRAVIS_BRANCH);
+    console.log("TRAVIS_COMMIT: "+process.env.TRAVIS_COMMIT);
+    
+    console.log("TRAVIS_JOB_NUMBER: "+process.env.TRAVIS_JOB_NUMBER);
+    console.log("TRAVIS_BUILD_ID: "+process.env.TRAVIS_BUILD_ID);
+    console.log("TRAVIS_BUILD_NUMBER: "+process.env.TRAVIS_BUILD_NUMBER);
+    
+    var releaseTitle = "Pre-release v" + version + " ('develop' branch)";
+    var releaseDescription = "Automated build on " + releaseDate + "\n" +
+    "TravisCI ["+process.env.TRAVIS_BUILD_NUMBER+"] https://travis-ci.org/readium/readium-js-viewer/builds/" + process.env.TRAVIS_BUILD_ID + "\n" +
+    "\n\n\nCloud / web reader app (main deployment at Firebase):\nhttps://readium.firebaseapp.com\n\nCloud / web reader app (secondary deployment at Surge):\nhttps://readium.surge.sh/?epubs=https%3A%2F%2Freadium.firebaseapp.com%2Fepub_content%2Fepub_library.opds\n\n\nDO NOT DOWNLOAD THE SOURCE CODE LINKS BELOW (ZIP AND TAR.GZ files), AS GITHUB DOES NOT INCLUDE SUBMODULES!";
+    
+    
     var releaseData = {
         tag_name: version,
         //target_commitish: process.env.TRAVIS_COMMIT,
         owner: owner,
         repo: repo,
-        name: 'Automated build on ' + new Date().toString(),
+        name: releaseTitle,
+        body: releaseDescription,
         prerelease: true
     };
     
