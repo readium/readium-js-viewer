@@ -71,6 +71,19 @@ require.config({
 
             'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js',
 
+            'fonts': [
+                {
+                    displayName: "Open Dyslexic",
+                    name: "OpenDyslexic",
+                    url: HTTPServerRootFolder + "/src/fonts/OpenDyslexic/OpenDyslexic.css"
+                },
+                {
+                    displayName: "verdana",
+                    name: "verdana"
+                    // Showcasing a font with no url.
+                }
+            ],
+
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
             'jsLibRoot': HTTPServerRootFolder + '/readium-js/node_modules/zip-js/WebContent/',

@@ -3,6 +3,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
     // change these values to affec the default state of the application's preferences at first-run.
     var defaultSettings = {
         fontSize: 100,
+        fontSelection: 0, //0 is the index of default for our purposes.
         syntheticSpread: "auto",
         scroll: "auto",
         columnGap: 60,
@@ -94,6 +95,19 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
         });
 
+        var $fontSelectionList = $("#font-selection-input");
+        $fontSelectionList.change(function(){
+            //Id's for the options are of the form 0-font, 1-font, 2-font ...
+            var fontSelection = Number($fontSelectionList.find("option:selected").val());
+            if(fontSelection === 0){
+                $previewText.css({fontFamily: ""});
+        } else {
+                var font = moduleConfig.fonts[fontSelection-1].name;
+                $previewText.css({fontFamily: font});
+        }
+    });
+    
+
         $('#tab-butt-main').on('click', function(){
             $("#tab-keyboard").attr('aria-expanded', "false");
             $("#tab-main").attr('aria-expanded', "true");
@@ -142,6 +156,27 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
                 $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
+
+                var loadedUrls = []; //contains the URL's for fonts. If it exists already, we won't load it again.
+                if($fontSelectionList[0].childElementCount == 1){ 
+                    //If this settings dialog has been created before, (If the user loaded the settings dialog for example) the combo box isn't destroyed on save. Therefore, we must only populate it on the first instance.
+                    $.each(moduleConfig.fonts, function(index, fontObj){
+                        var curName = fontObj.displayName;
+                        if(fontObj.url){ //No url, no problem so long as there's a font that works.
+                            var fontPayload  = '<link id="fontStyle" rel="stylesheet" type="text/css" href="'+fontObj.url+'"/>';
+                            if(!loadedUrls.includes(fontPayload)){
+                                $("head").append(fontPayload);
+                                loadedUrls.push(fontPayload)
+                            }
+                        }
+                        index++;
+                        var isSelected = (readerSettings.fontSelection === index ? "selected" : "");
+                        console.log(isSelected, "at", index);
+                        var curOption = '<option   '+isSelected+' value="'+index+'" aria-label="'+curName+'" title="'+curName+'">'+curName+'</option>';
+                        $fontSelectionList.append(curOption);
+                            
+                    });
+                }
 
                 // reset column gap top default, as page width control is now used (see readerSettings.columnMaxWidth) 
                 readerSettings.columnGap = defaultSettings.columnGap;
@@ -215,6 +250,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
+                fontSelection: Number($fontSelectionList.val()),
                 syntheticSpread: "auto",
                 columnGap: Number($marginSlider.val()),
                 columnMaxWidth: columnMaxWidth,

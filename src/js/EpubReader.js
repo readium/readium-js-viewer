@@ -444,6 +444,9 @@ BookmarkData){
             //TODO not picked-up by all screen readers, so for now this short description will suffice
             $iframe.attr("title", "EPUB");
             $iframe.attr("aria-label", "EPUB");
+            // Initialize the font we have selected if not default.
+            Settings.get("reader", function(){});
+			 '<link id="fontStyle" rel="stylesheet" type="text/css" href="/fonts/OpenDyslexic/OpenDyslexic.css"/>';
 
             lastIframe = $iframe[0];
         });
@@ -1378,5 +1381,17 @@ BookmarkData){
         tooltipSelector : tooltipSelector,
         ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp 
     };
+    
+    var addFontToFrame = function(settings){
+        /* Adds the current font to the iframe with the epub. */
+        var fontSelection = settings.fontSelection;
+        if(fontSelection == 0){
+            iframe.css({fontFamily: ""});
+        }
+        else
+        {
+            //iframe.css({fontFamily: moduleConfig.});
+        }
+    }
 
 });
