@@ -97,15 +97,14 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
         var $fontSelectionList = $("#font-selection-input");
         $fontSelectionList.change(function(){
-            //Id's for the options are of the form 0-font, 1-font, 2-font ...
             var fontSelection = Number($fontSelectionList.find("option:selected").val());
             if(fontSelection === 0){
                 $previewText.css({fontFamily: ""});
-        } else {
-                var font = moduleConfig.fonts[fontSelection-1].name;
+			} else {
+                var font = moduleConfig.fonts[fontSelection-1].fontFamily;
                 $previewText.css({fontFamily: font});
-        }
-    });
+			}
+		});
     
 
         $('#tab-butt-main').on('click', function(){

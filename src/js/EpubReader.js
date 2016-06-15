@@ -445,8 +445,6 @@ BookmarkData){
             $iframe.attr("title", "EPUB");
             $iframe.attr("aria-label", "EPUB");
             // Initialize the font we have selected if not default.
-            Settings.get("reader", function(){});
-			 '<link id="fontStyle" rel="stylesheet" type="text/css" href="/fonts/OpenDyslexic/OpenDyslexic.css"/>';
 
             lastIframe = $iframe[0];
         });
@@ -1038,6 +1036,7 @@ BookmarkData){
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
                 mathJaxUrl : moduleConfig.mathJaxUrl,
+                fonts : moduleConfig.fonts
             };
 
             var readiumOptions = {

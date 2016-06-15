@@ -74,15 +74,11 @@ require.config({
             'fonts': [
                 {
                     displayName: "Open Dyslexic",
-                    name: "OpenDyslexic",
+                    fontFamily: "OpenDyslexic",
                     url: HTTPServerRootFolder + "/src/fonts/OpenDyslexic/OpenDyslexic.css"
-                },
-                {
-                    displayName: "verdana",
-                    name: "verdana"
-                    // Showcasing a font with no url.
                 }
-            ],
+            ]
+,
 
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
