@@ -78,7 +78,7 @@
        npm run genPluginsConfig
     '
 
-#=====================
+#====================
     'build:scripts': '
 
         npm run versioning

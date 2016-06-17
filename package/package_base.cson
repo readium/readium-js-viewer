@@ -130,6 +130,8 @@ devDependencies:
     #"jquery-xpath": 'latest'
 
     "mathjax-single-file": 'danielweck/MathJax-single-file'
+    
+    "OpenDyslexicFont-Readium": 'benetech/OpenDyslexicFont-Readium'
 
     "bootstrap": '3.x'
 
