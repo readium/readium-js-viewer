@@ -22,6 +22,8 @@
         npm run dist:cloudReaderLite:css
         &&
         npm run dist:cloudReaderLite:js
+        &&
+        npm run dist:cloudReaderLite:fonts
     '
 
 #=====================
@@ -108,3 +110,16 @@
 #build-output/_single-bundle/readium-js-viewer_all_LITE.js.map
 #--
 #build-output/_single-bundle/readium-js-viewer_all_LITE.js
+
+
+    'dist:cloudReaderLite:fonts': '
+        npm run mkdirp
+            dist/cloud-reader-lite/fonts/
+        &&
+        npm run mkdirp
+            dist/cloud-reader-lite/fonts/OpenDyslexic/
+        &&
+        npm run ncp
+            node_modules/open-dyslexic-font-readium/OpenDyslexic
+            dist/cloud-reader-lite/fonts/OpenDyslexic/
+    '

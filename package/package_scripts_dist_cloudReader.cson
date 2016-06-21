@@ -68,7 +68,7 @@
     '
 
 #=====================
-'dist:cloudReader:css': '
+    'dist:cloudReader:css': '
 
         npm run mkdirp
             dist/cloud-reader/css
@@ -111,42 +111,13 @@
 #    build-output/_single-bundle/readium-js-viewer_all.js
 
     'dist:cloudReader:fonts': '
-
         npm run mkdirp
             dist/cloud-reader/fonts/
         &&
         npm run mkdirp
-            dist/cloud-reader/fonts/OpenDyslexic
+            dist/cloud-reader/fonts/OpenDyslexic/
         &&
-        npm run cpy
+        npm run ncp
             node_modules/open-dyslexic-font-readium/OpenDyslexic
-            dist/cloud-reader/fonts/
-        &&
-        npm run cpy
-            build-output/z-worker.js
-            dist/cloud-reader/scripts/zip
-        &&
-        npm run cpy
-            build-output/deflate.js
-            dist/cloud-reader/scripts/zip
-        &&
-        npm run cpy
-            build-output/inflate.js
-            dist/cloud-reader/scripts/zip
-        &&
-        npm run ncp
-            src/images/
-            dist/cloud-reader/images/
-        &&
-        npm run cpy
-            node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js
-            dist/cloud-reader/scripts/mathjax
-        &&
-        npm run ncp
-            node_modules/bootstrap/fonts/
-            dist/cloud-reader/fonts/
-        &&
-        npm run cpy
-            src/css/annotations.css
-            dist/cloud-reader/css/
+            dist/cloud-reader/fonts/OpenDyslexic/
     '

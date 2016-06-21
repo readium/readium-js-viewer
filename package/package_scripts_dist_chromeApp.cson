@@ -64,6 +64,8 @@
         npm run dist:chromeApp:css
         &&
         npm run dist:chromeApp:js
+        &&
+        npm run dist:chromeApp:fonts
     '
 
 #=====================
@@ -199,3 +201,16 @@
             --private-key tests/test.pem
     '
 
+
+    'dist:chromeApp:fonts': '
+        npm run mkdirp
+            dist/chrome-app/fonts/
+        &&
+        npm run mkdirp
+            dist/chrome-app/fonts/OpenDyslexic/
+        &&
+        npm run ncp
+            node_modules/open-dyslexic-font-readium/OpenDyslexic/
+            dist/chrome-app/fonts/OpenDyslexic/
+    '
+    
