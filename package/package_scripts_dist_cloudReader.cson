@@ -18,11 +18,11 @@
 
         npm run dist:cloudReader:copy
         &&
+        npm run dist:cloudReader:copy:fonts
+        &&
         npm run dist:cloudReader:css
         &&
         npm run dist:cloudReader:js
-        &&
-        npm run dist:cloudReader:fonts
     '
 
 #=====================
@@ -68,6 +68,13 @@
     '
 
 #=====================
+    'dist:cloudReader:copy:fonts': '
+        npm run ncp
+            src/fonts/OpenDyslexic/
+            dist/cloud-reader/fonts/OpenDyslexic/
+    '
+
+#=====================
     'dist:cloudReader:css': '
 
         npm run mkdirp
@@ -109,15 +116,3 @@
 #    build-output/_single-bundle/readium-js-viewer_all.js.map
 #    --
 #    build-output/_single-bundle/readium-js-viewer_all.js
-
-    'dist:cloudReader:fonts': '
-        npm run mkdirp
-            dist/cloud-reader/fonts/
-        &&
-        npm run mkdirp
-            dist/cloud-reader/fonts/OpenDyslexic/
-        &&
-        npm run ncp
-            node_modules/open-dyslexic-font-readium/OpenDyslexic
-            dist/cloud-reader/fonts/OpenDyslexic/
-    '
