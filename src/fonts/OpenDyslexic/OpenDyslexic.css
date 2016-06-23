@@ -4,10 +4,10 @@
 		local('OpenDyslexic'),
 		local('OpenDyslexic Regular'),
 		local('OpenDyslexic-Regular'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Regular.eot') format('embedded-opentype'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Regular.woff') format('woff'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Regular.ttf') format('truetype'),
-		url('/srcfonts/OpenDyslexic/OpenDyslexic-Regular.svg') format('svg');
+		url('OpenDyslexic-Regular.eot') format('embedded-opentype'),
+		url('OpenDyslexic-Regular.woff') format('woff'),
+		url('OpenDyslexic-Regular.ttf') format('truetype'),
+		url('OpenDyslexic-Regular.svg') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -16,10 +16,10 @@
 	src:
 		local('OpenDyslexic Italic'),
 		local('OpenDyslexic-Italic'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Italic.eot') format('embedded-opentype'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Italic.woff') format('woff'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Italic.ttf') format('truetype'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Italic.svg') format('svg');
+		url('OpenDyslexic-Italic.eot') format('embedded-opentype'),
+		url('OpenDyslexic-Italic.woff') format('woff'),
+		url('OpenDyslexic-Italic.ttf') format('truetype'),
+		url('OpenDyslexic-Italic.svg') format('svg');
 	font-weight: normal;
 	font-weight: normal;
 	font-style: italic;
@@ -29,10 +29,10 @@
 	src:
 		local('OpenDyslexic Bold'),
 		local('OpenDyslexic-Bold'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Bold.eot') format('embedded-opentype'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Bold.woff') format('woff'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Bold.ttf') format('truetype'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-Bold.svg') format('svg');
+		url('OpenDyslexic-Bold.eot') format('embedded-opentype'),
+		url('OpenDyslexic-Bold.woff') format('woff'),
+		url('OpenDyslexic-Bold.ttf') format('truetype'),
+		url('OpenDyslexic-Bold.svg') format('svg');
 	font-weight: normal;
 	font-weight: bold;
 	font-style: normal;
@@ -42,10 +42,10 @@
 	src:
 		local('OpenDyslexic Bold Italic'),
 		local('OpenDyslexic-BoldItalic'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.eot') format('embedded-opentype'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.woff') format('woff'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.ttf') format('truetype'),
-		url('/src/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.svg') format('svg');
+		url('OpenDyslexic-BoldItalic.eot') format('embedded-opentype'),
+		url('OpenDyslexic-BoldItalic.woff') format('woff'),
+		url('OpenDyslexic-BoldItalic.ttf') format('truetype'),
+		url('OpenDyslexic-BoldItalic.svg') format('svg');
 	font-weight: normal;
 	font-weight: bold;
 	font-style: italic;
