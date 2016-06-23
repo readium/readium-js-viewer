@@ -163,7 +163,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                         var curName = fontObj.displayName;
                         if(fontObj.url){ //No url, no problem so long as there's a font that works.
                             var fontPayload  = '<link id="fontStyle" rel="stylesheet" type="text/css" href="'+fontObj.url+'"/>';
-                            if(!loadedUrls.includes(fontPayload)){
+                            if(!loadedUrls.indexOf(fontPayload) > 0){
                                 $("head").append(fontPayload);
                                 loadedUrls.push(fontPayload)
                             }
