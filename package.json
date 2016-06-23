@@ -53,7 +53,6 @@
     "keymaster": "danielweck/keymaster",
     "jath": "danielweck/jath",
     "mathjax-single-file": "danielweck/MathJax-single-file",
-    "OpenDyslexicFont-Readium": "benetech/OpenDyslexicFont-Readium",
     "bootstrap": "3.x",
     "bootstrap-accessibility-plugin": "latest",
     "hammerjs": "latest",
