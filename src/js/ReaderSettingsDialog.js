@@ -1,3 +1,4 @@
+var foo=5;
 define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
 
     // change these values to affec the default state of the application's preferences at first-run.
@@ -163,17 +164,22 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                         var curName = fontObj.displayName;
                         if(fontObj.url){ //No url, no problem so long as there's a font that works.
                             var fontPayload  = '<link id="fontStyle" rel="stylesheet" type="text/css" href="'+fontObj.url+'"/>';
-                            if(!loadedUrls.indexOf(fontPayload) > 0){
-                                $("head").append(fontPayload);
+                            if(!loadedUrls.indexOf(fontPayload) >= 0){
+                                var item = $("head").append(fontPayload);
+                                foo=item;
                                 loadedUrls.push(fontPayload)
                             }
                         }
                         index++;
                         var isSelected = (readerSettings.fontSelection === index ? "selected" : "");
-                        console.log(isSelected, "at", index);
                         var curOption = '<option   '+isSelected+' value="'+index+'" aria-label="'+curName+'" title="'+curName+'">'+curName+'</option>';
                         $fontSelectionList.append(curOption);
-                            
+                        if(isSelected) {
+                            //Works because if it's not selected, it's the empty string.
+                            $previewText.css({
+                                fontFamily : fontObj.fontFamily
+                            });
+                        }
                     });
                 }
 
