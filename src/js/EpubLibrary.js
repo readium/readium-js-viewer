@@ -245,6 +245,8 @@ Helpers){
             if (epub.isSubLibraryLink) {
                 noCoverBackground = moduleConfig.imagePathPrefix + 'images/covers/cover2.jpg';
             }
+
+
             
             var createLibraryItem = function() {
 
@@ -286,6 +288,18 @@ Helpers){
             }
         };
         processEpub(epubs, 0);
+
+        //proof of concept of links to hide / show the library items based on 
+        //their categories
+        $("#categoryLinks a").click(function(e) {
+            e.preventDefault();
+            $(".library-item").hide();
+            $("#categoryLinks a").removeClass("active");
+            $(this).addClass("active");
+            categoryName = $(this).attr("href");
+            console.log("hiding .library-item ." + categoryName);
+            $(".library-item." + categoryName).show();
+        });
     }
 
     var readClick = function(e){

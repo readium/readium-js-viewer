@@ -1,0 +1,12 @@
+<books>
+    <book>
+        <rootDirAsId>1467945021952771</rootDirAsId>
+        <category>adventure</category>
+        <category>classics</category>
+    </book>
+    <book>
+        <rootDirAsId>1467929934370328</rootDirAsId>
+        <category>horror</category>
+        <category>classics</category>
+    </book>
+</books>
