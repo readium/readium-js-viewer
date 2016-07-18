@@ -153,6 +153,9 @@
   "i18n_details" : {
     "message" : "Details"
   },
+  "i18n_categories" : {
+    "message" : "Categories"
+  },
   "i18n_read" : {
     "message" : "Read"
   },

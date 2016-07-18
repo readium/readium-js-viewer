@@ -1,0 +1,15 @@
+<div id="{{dialogName}}-dialog" class="modal fade {{dialogName}}-dialog" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      {{#header}}
+      <div class="modal-header" style="display:none">
+      </div>
+      {{/header}}
+      {{^header}}{{/header}}
+      <div class="modal-body">
+        <p>Loading {{dialogName}}...</p>
+        <progress></progress>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

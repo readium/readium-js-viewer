@@ -11,11 +11,13 @@ define([
 'hgn!readium_js_viewer_html_templates/library-body.html',
 'hgn!readium_js_viewer_html_templates/empty-library.html',
 'hgn!readium_js_viewer_html_templates/library-item.html',
-'hgn!readium_js_viewer_html_templates/details-dialog.html',
+'hgn!readium_js_viewer_html_templates/dialog.html',
 'hgn!readium_js_viewer_html_templates/about-dialog.html',
 'hgn!readium_js_viewer_html_templates/details-body.html',
 'hgn!readium_js_viewer_html_templates/add-epub-dialog.html',
+'hgn!readium_js_viewer_html_templates/categories-dialog-body.html',
 './ReaderSettingsDialog',
+'./CategoriesDialog',
 './Dialogs',
 './workers/Messages',
 'Analytics',
@@ -36,11 +38,13 @@ LibraryNavbar,
 LibraryBody,
 EmptyLibrary,
 LibraryItem,
-DetailsDialog,
+Dialog,
 AboutDialog,
 DetailsBody,
 AddEpubDialog,
+CategoriesDialogBody,
 SettingsDialog,
+CategoriesDialogController,
 Dialogs,
 Messages,
 Analytics,
@@ -48,7 +52,12 @@ Keyboard,
 Versioning,
 Helpers){
 
-    var detailsDialogStr = DetailsDialog({strings: Strings});
+
+    //to add a header section to the Dialog, add header: "true" property
+    var pageDialogsHtmlString = { 
+        details    : Dialog({ dialogName: "details"    }),
+        categories : Dialog({ dialogName: "categories" })
+                        };
 
     var heightRule,
         noCoverRule;
@@ -116,6 +125,31 @@ Helpers){
         //maxHeightRule.style.width = imgWidth + 'px';
     };
 
+    /**
+     * Loads the categories dialog to add / remove and view current category tags for the book
+     */
+    var loadCategoriesDialog = function() {
+
+        //pull categories from current HTML
+        var categoriesCommaSeparated = $(this).attr('data-categories');
+        
+        //unique identifier - root directory
+        var rootDir = $(this).attr('data-root-dir');
+        var categories = categoriesCommaSeparated.split(",");
+
+        //there is an extra category b/c the mustache template will generate an extra 
+        //comma, so remove that. 
+        categories.pop();
+        
+
+        //load the categories template as a string
+        bodyStr = CategoriesDialogBody({string: Strings, categories: categories,rootDir:rootDir});
+
+        showDialog("categories");
+        $('.categories-dialog .modal-body').html(bodyStr);
+        CategoriesDialogController.initDialog('oon');
+    };//var loadCategoriesDialog = function() {
+
     var showDetailsDialog = function(details){
         var bodyStr = DetailsBody({
             data: details,
@@ -157,8 +191,21 @@ Helpers){
         });
     }
 
+
     var showError = function(errorCode, data){
         Dialogs.showError(errorCode, data);
+    }
+
+
+    /**
+     * Shows a modal dialog box 
+     * @param   dialogName  The name of the box being loaded
+     */
+    var showDialog = function(dialogName)
+    {
+        $('.'+dialogName+'-dialog').remove();
+        $('#app-container').append(pageDialogsHtmlString[dialogName]);
+        $('.'+dialogName+'-dialog').modal();
     }
 
     var loadDetails = function(e){
@@ -173,7 +220,7 @@ Helpers){
         $('.details-dialog').off('hidden.bs.modal');
         $('.details-dialog').off('shown.bs.modal');
 
-        $('#app-container').append(detailsDialogStr);
+        $('#app-container').append(pageDialogsHtmlString.details);
         
         $('#details-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
@@ -234,10 +281,16 @@ Helpers){
             return;
         }
         
+        /**
+         * Recursive function to process all epubs. 
+         */
         var processEpub = function(epubs, count) {
             var epub = epubs[count];
-            if (!epub) { // count >= epubs.length
+
+            //On last epub
+            if (!epub) { // count >= epubs.length, eg epub[count] = null
                 $('.details').on('click', loadDetails);
+                $('.categories').on('click', loadCategoriesDialog );
                 return;
             }
 
