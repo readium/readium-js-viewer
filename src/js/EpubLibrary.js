@@ -147,8 +147,8 @@ Helpers){
 
         showDialog("categories");
         $('.categories-dialog .modal-body').html(bodyStr);
-        CategoriesDialogController.initDialog('oon');
-    };//var loadCategoriesDialog = function() {
+        CategoriesDialogController.initDialog(loadLibraryItems);
+    };//var loadCategoriesDialog = function() 
 
     var showDetailsDialog = function(details){
         var bodyStr = DetailsBody({

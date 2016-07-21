@@ -124,6 +124,10 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                 StorageManager.deleteFile(libraryItem.rootDir, success, error);
             }, error);
         },
+        _updateEpubWithIndex : function(i, epubObject, success, error){
+            this.libraryData[i] = epubObject;
+            this._saveLibraryIndex(success,error);
+        },
         _loadFileAsString : function(path, callback, fileIsOptional){
             var error = this.callbacks.error,
                 fileReader = new FileReader();
@@ -189,6 +193,16 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
 
             });
             //self.client.storeFile(self._getMimeType(entry.filename),  '/' + entry.filename, this.result);
+        },
+        updateEpubWithId : function(id, epubObject,success, error){
+            for (var i = 0; i < this.libraryData.length && this.libraryData[i].rootDir != id; i++);
+
+            if (i < this.libraryData.length){
+                this._updateEpubWithIndex(i, epubObject, success, error);
+            }
+            else{
+                success();
+            }
         },
         deleteEpubWithId : function(id, success, error){
             for (var i = 0; i < this.libraryData.length && this.libraryData[i].rootDir != id; i++);
@@ -324,6 +338,14 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                     var id = data.id;
                     StorageManager.initStorage(function(){
                         writer.deleteEpubWithId(id, success, error);
+                    }, error);
+                    break;
+                case Messages.UPDATE_EPUB:
+                    writer.libraryData = data.libraryItems;
+                    var id = data.id;
+                    var epubObject = data.epubObject;
+                    StorageManager.initStorage(function(){
+                        writer.updateEpubWithId(id, epubObject, success, error);
                     }, error);
                     break;
                 case Messages.IMPORT_DIR:

@@ -11,6 +11,7 @@ define(function(){
         MIGRATE: 7,
         OVERWRITE_SIDE_BY_SIDE: 8,
         CONTINUE_IMPORT_ZIP: 9,
+        UPDATE_EPUB : 10,
 
         // worker -> window messages
         SUCCESS : 100,

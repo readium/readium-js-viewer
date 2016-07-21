@@ -1,8 +1,9 @@
 define(['./ModuleConfig',
 'StorageManager',
-        'hgn!readium_js_viewer_html_templates/categories-dialog-body.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard'], function(moduleConfig,StorageManager,  CategoriesDialogController, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+'./EpubLibraryManager',
+        'hgn!readium_js_viewer_html_templates/categories-dialog-body.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard'], function(moduleConfig,StorageManager, LibraryManager,  CategoriesDialogController, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
 
-    var initDialog = function(whatever) {
+    var initDialog = function(loadLibraryItems) {
 
         //ADD CATEGORY HANDLER
         $(".addCategory").on("click", function() {
@@ -16,26 +17,31 @@ define(['./ModuleConfig',
                 var categoryToAdd = $(this).html();
             }
 
-            //load the xml data
-            jQuery.get(StorageManager.getPathUrl("/categories.xml"), function(xmlData) {
-                //get category XML data as traversable/parsed jQuery object
-                xmlDoc = $.parseXML(xmlData);
-                categoriesXml = $(xmlDoc);
+            //get the book's unique identifier
+            var rootDir = $("#rootDirHolder").attr("value");
 
-                //get the book's unique identifier
-                var rootDir = $("#rootDirHolder").attr("value");
+            function addCategoryThenUpdateLibrary(epubObject){
+                //if the categories array doesn't already exist
+                if (!epubObject.hasOwnProperty("categories")) {
+                    epubObject.categories = [];
+                }
+                //if the category isn't in the array already
+                if ($.inArray(categoryToAdd,epubObject.categories) == -1)
+                {
+                    epubObject.categories.push(categoryToAdd);
+                    LibraryManager.updateEpubWithId(rootDir,epubObject,updateCategoryDialog,function(){});
+                }
+                else
+                {
+                    //TODO - handle this with a message to the user
+                    console.log("there was already such a category");
+                }
+            }//function addCategoryThenUpdateLibrary(epubObject)
 
-                //find the book in the xml
-                var justTheBookWereLookingFor = categoriesXml.find("rootDirAsId:contains("+rootDir+")").parent();
 
-                //add the category node 
-                justTheBookWereLookingFor.append("<category>" +categoryToAdd +" </category>")
-                var serializer = new XMLSerializer();
-
-                //save the newly created xml
-                StorageManager.saveFile("/categories.xml",serializer.serializeToString(xmlDoc));
-
-                //update the current views to reflect the new category
+            function updateCategoryDialog() {
+                //update the current views to reflect the new category 
+                //TODO - handle this in the general library view
                 $("#bookCurrentCategories").append("<li data-category='"+categoryToAdd+"'>"+categoryToAdd+"<span class='removeCategory'>&times;</span></li>");
 
                 //we want to bind the newly shown category, but don't want a double bind. 
@@ -44,8 +50,11 @@ define(['./ModuleConfig',
                 $(".removeCategory").click(function() {
                     removeCategory($(this));
                 });
-            });
-
+                //reload the library to reflect the new changes
+                LibraryManager.retrieveAvailableEpubs(loadLibraryItems);
+            }
+            //start the whole updating epub process 
+            LibraryManager.getEpubWithId(rootDir, addCategoryThenUpdateLibrary);
         });
 
         /**
@@ -55,29 +64,32 @@ define(['./ModuleConfig',
         function removeCategory(removeCategoryButton) {
             var categoryToRemove = removeCategoryButton.parent().attr("data-category");
 
-            //load XML data
-            jQuery.get(StorageManager.getPathUrl("/categories.xml"), function(xmlData) {
-                //get category XML data as traversable/parsed jQuery object
-                xmlDoc = $.parseXML(xmlData);
-                categoriesXml = $(xmlDoc);
+            //get the book's unique identifier
+            var rootDir = $("#rootDirHolder").attr("value");
 
-                //get the book's unique identifier
-                var rootDir = $("#rootDirHolder").attr("value");
-                var justTheBookWereLookingFor = categoriesXml.find("rootDirAsId:contains("+rootDir+")").parent();
-                //find the category node we are removing and remove it
-                var theCategoryNode = justTheBookWereLookingFor.find("category:contains(\""+categoryToRemove +"\")");
-                theCategoryNode.remove();
-                var serializer = new XMLSerializer();
+            //start the removal process
+            LibraryManager.getEpubWithId(rootDir, removeCategoryThenUpdateLibrary);
 
+            function removeCategoryThenUpdateLibrary(epubObject){
 
-                //save changes
-                StorageManager.saveFile("/categories.xml",serializer.serializeToString(xmlDoc));
-                
+                //remove the category from the epub's categories array
+                epubObject.categories.splice($.inArray(categoryToRemove,epubObject.categories),1);
+                //update the library with this new epub info
+                LibraryManager.updateEpubWithId(
+                        rootDir,
+                        epubObject,
+                        updateCategoryDialogCategoryRemoved,
+                        function(){}
+                        );
+            }
+            function updateCategoryDialogCategoryRemoved() {
                 //remove that category item from the HTML
                 $("#bookCurrentCategories li[data-category=\""+categoryToRemove+"\"]").remove();
-            });
-        }
+                //reload the library to reflect the new changes
+                LibraryManager.retrieveAvailableEpubs(loadLibraryItems);
+            }
 
+        }
         //bind remove category buttons
         $(".removeCategory").click(function() {
             console.log("clicked a remove category button");

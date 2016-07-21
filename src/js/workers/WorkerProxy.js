@@ -114,6 +114,9 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
         deleteEpub : function(id, libraryItems, callbacks){
             doWork({msg: Messages.DELETE_EPUB, id: id, libraryItems:libraryItems}, callbacks);
         },
+        updateEpub : function(id, libraryItems, epubObject, callbacks){
+            doWork({msg: Messages.UPDATE_EPUB, id: id, libraryItems:libraryItems,epubObject: epubObject, }, callbacks);
+        },
         migrateOldBooks : function(callbacks){
             doWork({msg: Messages.MIGRATE}, callbacks);
         }
