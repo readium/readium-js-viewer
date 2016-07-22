@@ -182,6 +182,7 @@ Helpers){
         });
         $('#details-dialog').on('shown.bs.modal', function(){
             Keyboard.scope('details');
+            setTimeout(function(){ $('#closeEpubDetailsCross')[0].focus(); }, 1000);
         });
 
 
