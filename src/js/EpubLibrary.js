@@ -374,37 +374,83 @@ Helpers){
         });
     };
 
-    var handleFileSelect = function(evt){
-        $('#add-epub-dialog').modal('hide');
-        
-        var file = evt.target.files[0];
-        importZippedEpub(file);
-    }
-
-    var handleDirSelect = function(evt){
-        var files = evt.target.files;
-        $('#add-epub-dialog').modal('hide');
-        Dialogs.showModalProgress(Strings.import_dlg_title, Strings.import_dlg_message);
-        libraryManager.handleDirectoryImport({
-            files: files,
-            overwrite: promptForReplace,
-            success: handleLibraryChange,
-            progress: Dialogs.updateProgress,
-            error: showError
-        });
+    var stageAddEpubInfo = function(type, data){
+      this.type = type;
+      this.epubData = data;
     }
     
-    var handleUrlSelect = function(){
-        var url = $('#url-upload').val();
-        $('#add-epub-dialog').modal('hide');
-        Dialogs.showModalProgress(Strings.import_dlg_title, Strings.import_dlg_message);
-        libraryManager.handleUrlImport({
-            url: url,
-            overwrite: promptForReplace,
-            success: handleLibraryChange,
-            progress: Dialogs.updateProgress,
-            error: showError
-        });
+    var addEpubInfo = null;
+    
+    var addEpubInputSelector = function() {
+      return '#add-epub-dialog input';
+    };
+    
+    var stageEpubAdd = function(evt) {
+      var type = evt.target.id;
+      var data = null;
+      var disableSelectors = "";
+      switch(type) {
+        case "epub-upload":
+          data=evt.target.files[0];
+          if (data) {
+            disableSelectors = "#dir-upload, #url-upload";
+          }
+        break;
+        case "dir-upload":
+          data = evt.target.files;
+          if (data && data.length > 0) {
+            disableSelectors = "#epub-upload, #url-upload";
+          }
+        break;
+        case "url-upload":
+          data = $('#url-upload').val();
+          if (data && data.length > 0) {
+            disableSelectors = "#epub-upload, #dir-upload";
+          }
+        break;
+        default:
+          $(".add-book").prop('disable', true);
+      }
+      if (disableSelectors.length > 0) {
+        addEpubInfo = new stageAddEpubInfo(type, data);
+        $(disableSelectors).prop('disabled', true);
+        $(".add-book").prop('disabled', false);
+      } else {
+        $(addEpubInputSelector()).prop('disabled',false);
+        $(".add-book").prop('disabled', true);
+      }
+    }
+    
+    var handleEpubAdd  = function(evt) {
+      $('#add-epub-dialog').modal('hide');
+      if (addEpubInfo) {
+        switch (addEpubInfo.type){
+          case "epub-upload":
+            importZippedEpub(addEpubInfo.epubData);
+          break;
+          case "dir-upload":
+          Dialogs.showModalProgress(Strings.import_dlg_title, Strings.import_dlg_message);
+          libraryManager.handleDirectoryImport({
+              files: addEpubInfo.epubData,
+              overwrite: promptForReplace,
+              success: handleLibraryChange,
+              progress: Dialogs.updateProgress,
+              error: showError
+          });
+          break;
+          case "url-upload":
+          Dialogs.showModalProgress(Strings.import_dlg_title, Strings.import_dlg_message);
+          libraryManager.handleUrlImport({
+              url: addEpubInfo.epubData,
+              overwrite: promptForReplace,
+              success: handleLibraryChange,
+              progress: Dialogs.updateProgress,
+              error: showError
+          });
+          break;
+        }
+      }
+      addEpubInfo = null;
     }
 
     var importEpub = function(ebook) {
@@ -464,6 +510,9 @@ Helpers){
 
         $('#add-epub-dialog').on('hidden.bs.modal', function () {
             Keyboard.scope('library');
+            //reset the input controls back to enabled
+            $(addEpubInputSelector()).prop('disabled', false);
+            $(".add-book").prop('disabled',true);
 
             setTimeout(function(){ $("#addbutt").focus(); }, 50);
         });
@@ -474,16 +523,21 @@ Helpers){
 
             setTimeout(function(){ $('#closeAddEpubCross')[0].focus(); }, 1000);
         });
-        $('#url-upload').on('keyup', function(){
-            var val = $(this).val();
-            if (val && val.length){
-                $('#add-epub-dialog .add-book').prop('disabled', false);
-            }
-            else{
-                $('#add-epub-dialog .add-book').prop('disabled', true);
-            }
-        });
-        $('.add-book').on('click', handleUrlSelect);
+
+        var timerid;	
+	    	$("#url-upload").on("input",function(e){
+          var value = $(this).val();
+          if($(this).data("lastval")!= value){
+            $(this).data("lastval",value);
+            
+            clearTimeout(timerid);
+            timerid = setTimeout(function() {
+              stageEpubAdd(e);
+            },1000);
+          };
+	    	});
+        
+        $('.add-book').on('click', handleEpubAdd);
         $('nav').empty();
         $('nav').attr("aria-label", Strings.i18n_toolbar);
         $('nav').append(LibraryNavbar({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
@@ -515,8 +569,8 @@ Helpers){
 
         setAppSize();
         $(document.body).on('click', '.read', readClick);
-        $('#epub-upload').on('change', handleFileSelect);
-        $('#dir-upload').on('change', handleDirSelect);
+        $('#epub-upload').on('change', stageEpubAdd);
+        $('#dir-upload').on('change', stageEpubAdd);
 
         document.title = Strings.i18n_readium_library;
 
