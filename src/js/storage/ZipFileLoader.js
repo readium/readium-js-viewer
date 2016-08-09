@@ -84,7 +84,7 @@ define(['zip', '../workers/Messages', 'inflate'], function(zip, Messages){
                 }
                 else if (count <= (startAtIndex + concurrent))
                 {
-                    console.log('starting: ' + entry.filename);
+//console.log('starting: ' + entry.filename);
                     inflateAndProcess(entry);
                 }
                 else{

@@ -54,7 +54,7 @@
     "jath": "danielweck/jath",
     "mathjax-single-file": "danielweck/MathJax-single-file",
     "bootstrap": "3.x",
-    "bootstrap-accessibility-plugin": "latest",
+    "bootstrap-accessibility-plugin": "paypal/bootstrap-accessibility-plugin",
     "hammerjs": "latest",
     "jquery-hammerjs": "latest",
     "screenfull": "latest",

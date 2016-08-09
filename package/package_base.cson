@@ -133,7 +133,7 @@ devDependencies:
 
     "bootstrap": '3.x'
 
-    "bootstrap-accessibility-plugin": 'latest'
+    "bootstrap-accessibility-plugin": 'paypal/bootstrap-accessibility-plugin'
 
     "hammerjs": 'latest'
 
