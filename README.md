@@ -184,6 +184,16 @@ config : {
 });
 ```
 
+:point_right: **Note**: It is **STRONGLY RECOMMENDED** that when deploying the CloudReader that you do not try to load packed (i.e. still zipped) EPUBs.  This is because there are (so far) insurmountable reasons why the loading of large resources (e.g. videos, etc.) will be so slow as to be unacceptable or even time out.  Instead, deployers should:
+
+- Unpack / unzip EPUBs in remote storage, instead of serving the actual EPUB files, which will allow the assets to be streamed in the normal fashion
+- De-obfuscate fonts on the server
+
+For more info, see the document [here](https://docs.google.com/document/d/1bwv89vSmLbUs4tHOwiqyeV546k5CG3RCJ1S6_-4wvvc/edit#)
+
+The issues associated with transmitting unencrypted fonts can be mitigated using HTTPS, HTTP_REFERER, and other web techniques designed to protect content ( e.g. http://blog.typekit.com/2009/07/21/serving-and-protecting-fonts-on-the-web )
+
+
 The `cloud-reader-lite` distribution does not feature an ebook library, so EPUBs must be specified via the URL parameter (HTTP GET), for example:
 `http://domain.com/index.html?epub=http://otherdomain.com/ebook.epub` (assuming both HTTP servers are suitably configured with CORS),
 or for example `http://domain.com/index.html?epub=EPUBs/ebook.epub` (assuming a folder named `EPUBs/` exists as a sibling of `index.html`,

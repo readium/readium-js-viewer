@@ -280,7 +280,7 @@ console.debug("WW postMessage: PARSE_PACKAGE");
 
             var success = function(){
 console.debug("WW postMessage: SUCCESS");
-                postMessage({msg: Messages.SUCCESS, library: writer.libraryData});
+                postMessage({msg: Messages.SUCCESS, libraryItems: writer.libraryData});
             }
             var progress = function(percent, type, data){
 console.debug("WW postMessage: PROGRESS");

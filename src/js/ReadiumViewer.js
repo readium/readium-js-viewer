@@ -137,7 +137,6 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
     });
 
     $(window).on('loadlibrary', function(e, eventPayload){
-
         var libraryURL = undefined;
         var importEPUB = undefined;
         if (typeof eventPayload === "string") { 
@@ -214,21 +213,28 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
             fileDragNDropHTMLArea.removeClass("fileDragHover");
             
             var files = ev.target.files || ev.originalEvent.dataTransfer.files;
+
             if (files.length) {
-                var file = files[0];
-                console.log("File drag-n-drop:");
-                console.log(file.name);
-                console.log(file.type);
-                console.log(file.size);
-                
-                if (file.type == "application/epub+zip" || (/\.epub$/.test(file.name))) {
+
+                if (isChromeExtensionPackagedApp || isElectron) {
+
+                    var filesArray = []; // files is a FileList, we prefer a more "primitive" array type
+                    for (var i=0; i<files.length; i++) {
+                        filesArray.push(files[i]); // files.item(i) 
+                    }
+                    var arr = [];
+                    arr.push(filesArray); // because jQuery triggerHandler() optionally takes a parameter Array!
+                    $(window).triggerHandler('loadlibrary', arr);
+                } else {
+
+                    var file = files[0];
+                    console.log("File drag-n-drop:");
+                    console.log(file.name);
+                    console.log(file.type);
+                    console.log(file.size);
                     
-                    if (isChromeExtensionPackagedApp || isElectron) {
-                        
-                        $(window).triggerHandler('loadlibrary', file);
-                                
-                    } else {
-                        
+                    if (file.type == "application/epub+zip" || (/\.epub$/.test(file.name))) {
+
                         var urlParams = Helpers.getURLQueryParams();
                         //var ebookURL = urlParams['epub'];
                         var libraryURL = urlParams['epubs'];
@@ -237,17 +243,18 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
                         var eventPayload = {embedded: embedded, epub: file, epubs: libraryURL};
                         $(window).triggerHandler('readepub', eventPayload);
                     }
-                    
-                    // var reader = new FileReader();
-                    // reader.onload = function(e) {
-                        
-                    //     console.log(e.target.result);
-                        
-                    //     var ebookURL = e.target.result;
-                    //     $(window).triggerHandler('readepub', ...);
-                    // }
-                    // reader.readAsDataURL(file);
                 }
+
+                // var reader = new FileReader();
+                // reader.onload = function(e) {
+                    
+                //     console.log(e.target.result);
+                    
+                //     var ebookURL = e.target.result;
+                //     $(window).triggerHandler('readepub', ...);
+                // }
+                // reader.readAsDataURL(file);
+
             }
         });
     }
