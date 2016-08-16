@@ -177,18 +177,6 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             $("#tab-main").attr('aria-expanded', "false");
             $("#tab-keyboard").attr('aria-expanded', "true");
         });
-        $('#buttSave').on('keydown',function(evt) {
-            if(evt.which === 9 && !(evt.shiftKey | evt.ctrlKey | evt.metaKey | evt.altKey)) { // TAB pressed
-              evt.preventDefault();
-              $('#closeSettingsCross').focus();
-            }
-        });
-        $('#closeSettingsCross').on('keydown',function(evt) {
-            if(evt.which === 9 && evt.shiftKey) { // shift-TAB pressed
-              evt.preventDefault();
-              $('#buttSave').focus();
-            }
-        });
 
         $('#settings-dialog').on('hide.bs.modal', function(){ // IMPORTANT: not "hidden.bs.modal"!! (because .off() in
 

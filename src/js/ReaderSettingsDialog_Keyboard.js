@@ -289,6 +289,7 @@ define(['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'i18
     var saveKeys = function()
     {
         var atLeastOneChanged = false;
+        var atLeastOneInvalidOrDuplicate = false;
         var keys = {};
 
         checkKeyboardShortcuts();
@@ -306,6 +307,7 @@ define(['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'i18
             {
                 // if (original === val) return true; // continue (effectively resets to the default valid value)
                 val = original;
+                atLeastOneInvalidOrDuplicate = true;
             }
 
             if (!val.length) return true; // continue
@@ -319,12 +321,19 @@ define(['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'i18
                 keys[id] = val;
             }
         });
-        if (atLeastOneChanged)
+        if (atLeastOneChanged || atLeastOneInvalidOrDuplicate)
         {
             // TODO: anything more elegant than alert() ?
             //alert(Strings.i18n_keyboard_reload);
-
-            Dialogs.showModalMessage("Readium - " + Strings.i18n_keyboard_shortcuts, Strings.i18n_keyboard_reload);
+            var body = "";
+            if (atLeastOneChanged)
+            { 
+              body = "<p>" + Strings.i18n_keyboard_reload + "</p>";
+            }
+            if (atLeastOneInvalidOrDuplicate) {
+              body += "<p>" + Strings.i18n_keyboard_onerror_reset + "</p>";
+            }
+            Dialogs.showModalMessageEx("Readium - " + Strings.i18n_keyboard_shortcuts, body);
         }
 
         return keys;
