@@ -5,7 +5,6 @@
 define(['module'], function(module) {
 
         var config = module.config();
-        console.log(config);
         return {
             'imagePathPrefix': config.imagePathPrefix || "",
             
