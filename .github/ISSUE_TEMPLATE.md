@@ -1,84 +1,47 @@
-**Please use a short, but meaningful title.**
+*General Instructions*
 
-*Make sure to fill-in as much information as possible in the sections below:*
+- *Please use a short, but meaningful title.*
+- *Delete everything in italics before submitting issue*
+- *Make sure to fill in as much information as possible*
 
-### This issue is a:
+#### This issue is a Bug|Feature Request|Enhancement|Question|Task|Other
+*(choose ONE from the above list and delete the others)*
 
-*(choose an option)*
+#### Related issue(s) and/or pull request(s)
+*Example: See also #NUMBER*
 
-* Bug report
-* Feature request
-* Enhancement suggestion
-* Question
-* Other?
+#### Expected Behaviour
+*What you expected Readium to do...*
 
-### Related issue(s), pull request(s)
+#### Observed behaviour
+*Instead, Readium does...*
 
-See also #NUMBER
-
-### Expected behaviour
-
-Should do...
-
-### Observed behaviour
-
-Instead, does...
-
-### Steps to reproduce
-
-1. Step 1
-2. Step 2
+#### Steps to reproduce
+1. First, do this
+2. Then do this
 3. etc.
 
-### Test file(s)
-
-*(if relevant, please indicate public EPUB URL(s), or whether you can share ebook(s) privately)*
+#### Test file(s)
+*If relevant, please indicate public EPUB URL(s), or whether you can share ebook(s) privately.  It is often next to impossible to reproduce bugs without the original file.*
 
 ### Product
-
-*(choose appropriately)*
+*Choose one of the following (and delete the others)*
 
 * Readium Chrome extension
-  * latest official version available from the Chrome Web Store
-  * custom build
+  * latest official version available from the Chrome Web Store 
+  * Version of the Chrome browser
+  * OS and version
 * Readium cloud reader app
-  * latest development build uploaded at https://readium.firebaseapp.com
-  * custom integration (public deployment URL?)
-* Native application (ReadiumSDK C++)
-  * official "launcher" sample
-  * proprietary app
+  * latest development build uploaded at https://readium.firebaseapp.com OR a custom integration (list public deployment URL, if any)
+  * Browser and version
+  * OS and version
+* Native application (Readium SDK C++)
+  * official "launcher" sample OR propietary app
+  * OS and version
 * Hybrid app (ReadiumJS)
-  * Electron
-  * Apache Cordova
+  * Electron OR Apache Cordova OR ?
+  * OS and version
 * Other?
 
-### Web browser
-
-*(choose appropriately)*
-
-**Please indicate version if possible** 
-
-* Chrome
-* Firefox
-* Internet Explorer
-* Edge
-* Opera
-* Other?
-
-### Operating system
-
-*(choose appropriately)*
-
-**Please indicate OS version** 
-
-* Windows
-* OSX
-* Linux
-* iOS
-* Android
-* Other?
-
-
-### Additional information
-
-...
+#### Additional information
+*Please list any additional information that might help us*

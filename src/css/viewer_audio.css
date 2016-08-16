@@ -228,7 +228,8 @@
 #time-range-slider,
 #rate-range-slider,
 #font-size-input,
-#margin-size-input
+#margin-size-input,
+#column-max-width-input
 {
     -webkit-appearance: slider-horizontal;
     -webkit-appearance: none;
@@ -244,7 +245,8 @@
 #time-range-slider::-moz-range-track,
 #rate-range-slider::-moz-range-track,
 #font-size-input::-moz-range-track,
-#margin-size-input::-moz-range-track
+#margin-size-input::-moz-range-track,
+#column-max-width-input::-moz-range-track
 {    
     background-color: #484848;
     border-radius: 8px;
@@ -257,7 +259,8 @@
 #time-range-slider:active,
 #rate-range-slider:active,
 #font-size-input:active,
-#margin-size-input:active
+#margin-size-input:active,
+#column-max-width-input:active
 {
     -webkit-appearance: none;
     
@@ -268,7 +271,8 @@
 #time-range-slider::-webkit-slider-thumb,
 #rate-range-slider::-webkit-slider-thumb,
 #font-size-input::-webkit-slider-thumb,
-#margin-size-input::-webkit-slider-thumb
+#margin-size-input::-webkit-slider-thumb,
+#column-max-width-input::-webkit-slider-thumb
 {
     -webkit-appearance: none;
 
@@ -284,7 +288,8 @@
 #time-range-slider::-moz-range-thumb,
 #rate-range-slider::-moz-range-thumb,
 #font-size-input::-moz-range-thumb,
-#margin-size-input::-moz-range-thumb
+#margin-size-input::-moz-range-thumb,
+#column-max-width-input::-moz-range-thumb
 {
     background-color: #ddd;
     

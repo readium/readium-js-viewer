@@ -10,9 +10,9 @@
            <button type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
 
            <ul class="nav nav-tabs" role="tablist" aria-owns="tab-butt-style tab-butt-layout tab-butt-keys">
-             <li class="active" role="presentation"><button id="tab-butt-style"  title="{{strings.style}}" aria-label="{{strings.style}}" role='tab' aria-controls="tab-style" data-toggle="tab" data-target="#tab-style">{{strings.style}}</button></li>
-             <li role="presentation"><button id="tab-butt-layout"  title="{{strings.layout}}" aria-label="{{strings.layout}}" role='tab' aria-controls="tab-layout" data-toggle="tab" data-target="#tab-layout">{{strings.layout}}</button></li>
-             <li role="presentation"><button id="tab-butt-keys"  title="{{strings.i18n_keyboard_shortcuts}}" aria-label="{{strings.i18n_keyboard_shortcuts}}" role='tab' aria-controls="tab-keyboard" data-toggle="tab" data-target="#tab-keyboard">{{strings.i18n_keyboard_shortcuts}}</button></li>
+             <li class="active" role="presentation"><button id="tab-butt-style"  title="{{strings.style}}" aria-label="{{strings.style}}" role='tab' aria-controls="tab-style" data-toggle="tab" data-target="#tab-style" tabindex="0">{{strings.style}}</button></li>
+             <li role="presentation"><button id="tab-butt-layout"  title="{{strings.layout}}" aria-label="{{strings.layout}}" role='tab' aria-controls="tab-layout" data-toggle="tab" data-target="#tab-layout" tabindex="-1">{{strings.layout}}</button></li>
+             <li role="presentation"><button id="tab-butt-keys"  title="{{strings.i18n_keyboard_shortcuts}}" aria-label="{{strings.i18n_keyboard_shortcuts}}" role='tab' aria-controls="tab-keyboard" data-toggle="tab" data-target="#tab-keyboard" tabindex="-1">{{strings.i18n_keyboard_shortcuts}}</button></li>
            </ul>
 
 
@@ -59,8 +59,9 @@
                 </div>
                 <div id="tab-layout" class="tab-pane" role="tabpanel">
 
-                    <h5 id="setting-header-margins-legend" class="setting-header">{{strings.i18n_margins}}</h5>
-                     <div class="row">
+                    <!-- disabled: replaced with setting-header-column-max-width-legend (see below) -->
+                    <h5 style="display:none;" id="setting-header-margins-legend" class="setting-header">{{strings.i18n_margins}}</h5>
+                    <div style="display:none;" class="row">
                         <div class="col-xs-2 icon-scale-down">
                             <img style="height: 32px;" src="{{{imagePathPrefix}}}images/margin1_off.png" alt="" aria-hidden="true">
                         </div>
@@ -69,6 +70,19 @@
                         </div>
                         <div class="col-xs-2">
                             <img style="height: 32px;" src="{{{imagePathPrefix}}}images/margin4_off.png" alt="" aria-hidden="true">
+                        </div>
+                    </div>
+                    
+                    <h5 id="setting-header-column-max-width-legend" class="setting-header">{{strings.i18n_pageMaxWidth}}</h5>
+                     <div class="row">
+                        <div class="col-xs-2">
+                            <img style="height: 32px;" src="{{{imagePathPrefix}}}images/margin4_off.png" alt="" aria-hidden="true">
+                        </div>
+                        <div class="col-xs-8">
+                            <input  type="range" role="slider" aria-labelledby="setting-header-column-max-width-legend" id="column-max-width-input" min="500" aria-value-min="500" aria-valuemin="500" step="50" max="2000" aria-value-max="2000" aria-valuemax="2000" value="700" aria-valuenow="700" aria-value-now="700" aria-valuetext="700" aria-value-text="700" title="{{strings.i18n_pageMaxWidth}}" aria-label="{{strings.i18n_pageMaxWidth}}"/>
+                        </div>
+                        <div class="col-xs-2 icon-scale-down">
+                            <img style="height: 32px;" src="{{{imagePathPrefix}}}images/margin1_off.png" alt="" aria-hidden="true">
                         </div>
                     </div>
 
