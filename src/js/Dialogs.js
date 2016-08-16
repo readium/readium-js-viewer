@@ -27,7 +27,20 @@ define(['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium
         }
 
         if ($currentModal.is(':hidden')){
-            $('#managed-dialog').modal('show');
+            
+            if (dismissable) {
+                $('#managed-dialog').modal({
+                    backdrop: true,
+                    keyboard: true,
+                    show: true
+                });
+            } else {
+                $('#managed-dialog').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+            }
         }
 
     };
@@ -129,6 +142,8 @@ define(['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium
             handlers = [onCancel, onOk];
             Dialogs.showModalPromptEx(title, message, buttons, handlers);
         },
+
+        // UNUSED!
         showReplaceConfirm : function(title, message, okLabel, cancelLabel, keepBothLabel, onOk, onCancel, onKeepBoth){
             var buttons = [
 
@@ -152,12 +167,31 @@ define(['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium
             handlers = [onCancel, onOk, onKeepBoth];
             Dialogs.showModalPromptEx(title, message, buttons, handlers);
         },
-        showModalProgress : function(title, message){
+
+        showModalProgress : function(title, message, onCancel){
             var data = {
                 message: message
             }
             lastTitle = title;
-            showModalDialog(false, title, ProgressDialog(data), '');
+
+            var buttons = ButtonTemplate({
+                buttons : [
+                    {
+                        //dismiss : true,
+                        text : Strings.i18n_cancel,
+                        classes : ['cancel-button', 'btn-primary']
+                    }
+                ]
+            });
+
+            showModalDialog(false, title, ProgressDialog(data), onCancel ? buttons : '');
+
+            if (onCancel) {
+                $('#managed-dialog .cancel-button').on('click', onCancel);
+            }
+        },
+        updateModalProgressTitle : function(title){
+            $('#managed-label').text(title);
         },
         updateProgress : function(percent, type, data, noForce){
 
