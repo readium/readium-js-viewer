@@ -277,7 +277,7 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
                 msg = data.msg;
 
             var success = function(){
-                postMessage({msg: Messages.SUCCESS, library: writer.libraryData});
+                postMessage({msg: Messages.SUCCESS, libraryItems: writer.libraryData});
             }
             var progress = function(percent, type, data){
                 postMessage({msg: Messages.PROGRESS, percent: percent, progressType: type, progressData: data});

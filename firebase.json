@@ -1,4 +1,6 @@
 {
+"hosting":
+{
   "firebase": "readium",
   "public": "./dist/cloud-reader",
   "ignore": [
@@ -17,4 +19,5 @@
       ]
     }
   ]
+}
 }
