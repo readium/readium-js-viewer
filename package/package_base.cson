@@ -42,7 +42,7 @@
 
 name: "readium-js-viewer"
 
-version: "0.24.0-alpha"
+version: "0.25.0-alpha"
 
 engines:
     node: ">=0.12"
@@ -133,7 +133,7 @@ devDependencies:
 
     "bootstrap": '3.x'
 
-    "bootstrap-accessibility-plugin": 'latest'
+    "bootstrap-accessibility-plugin": 'paypal/bootstrap-accessibility-plugin'
 
     "hammerjs": 'latest'
 
