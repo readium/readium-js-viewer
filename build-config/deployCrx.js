@@ -45,7 +45,8 @@ var deleteOldRelease = function(error, response){
         console.error(JSON.stringify(error));
         return;
     }
-    github.releases.listReleases({owner: owner, repo: repo}, function(error, releases){
+    
+    github.repos.getReleases({user: owner, repo: repo}, function(error, releases){
         for (var i = 0; i < releases.length; i++){
             if (releases[i].tag_name == version){
                 break;
@@ -53,7 +54,7 @@ var deleteOldRelease = function(error, response){
         }
         if (i < releases.length){
             console.log('found existing release, deleting');
-            github.releases.deleteRelease({owner: owner, repo: repo, id: releases[i].id}, function(error, response){
+            github.repos.deleteRelease({user: owner, repo: repo, id: releases[i].id}, function(error, response){
                 if (error){
                     console.error(JSON.stringify(error));
                     return;
@@ -130,14 +131,14 @@ var createRelease = function(){
     var releaseData = {
         tag_name: version,
         //target_commitish: process.env.TRAVIS_COMMIT,
-        owner: owner,
+        user: owner,
         repo: repo,
         name: releaseTitle,
         body: releaseDescription,
         prerelease: true
     };
     
-    github.releases.createRelease(releaseData, function(error, result){
+    github.repos.createRelease(releaseData, function(error, result){
         if (error){
             console.error(JSON.stringify(error));
             return;
