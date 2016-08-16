@@ -1,4 +1,4 @@
-sudo: false
+esudo: false
 branches:
   only:
   - develop
@@ -79,7 +79,7 @@ script:
 - cd ../../..
 - pwd
 - git status
-- npm run test:travis
+- npm run pretest:travis
 - git status
 - cd readium-js
 - git status
@@ -90,9 +90,9 @@ script:
 - cd ../../../
 - cat build-output/version.json
 after_success:
-- '[ ${MODE} = "firefox" ] && npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh'
-- '[ ${MODE} = "firefox" ] && npm install firebase-tools && firebase deploy --token "$FIREBASE_TOKEN"'
-- '[ ${MODE} = "chromeApp" ] && node build-config/deployCrx.js'
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${MODE} = "firefox" ] && npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh'
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${MODE} = "firefox" ] && npm install firebase-tools && firebase version && firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project "project-1351855251145549090"'
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${MODE} = "chromeApp" ] && node build-config/deployCrx.js'
 after_failure: cat ./sauce_connect.log
 env:
   global:
