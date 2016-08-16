@@ -20,7 +20,7 @@
                 <div id="epub-upload-div" class="form-group">
                     <label id="add2" class="control-label col-sm-5">{{strings.i18n_from_local_file}}</label>
                     <div class="col-sm-7">
-                        <input tabindex="1000" type="file" id="epub-upload" class="form-control" aria-labelledby="add2">
+                        <input tabindex="1000" type="file" multiple="multiple" id="epub-upload" class="form-control" aria-labelledby="add2">
                     </div>
                 </div>
                 {{#canHandleDirectory}}
@@ -34,9 +34,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="buttAddEpub" tabindex="1000" type="button" class="btn btn-default add-book" data-dismiss="modal" disabled="disabled">{{strings.i18n_add_book}}</button>
+                <button tabindex="1000" type="button" class="btn btn-default add-book" data-dismiss="modal" disabled="disabled">{{strings.i18n_add_book}}</button>
                 
-                <button id="buttCancelAddEpub" tabindex="1000" type="button" class="btn btn-primary" data-dismiss="modal">{{strings.i18n_cancel}}</button>
+                <button tabindex="1000" type="button" class="btn btn-primary" data-dismiss="modal">{{strings.i18n_cancel}}</button>
             </div>
         </div>
         <!-- /.modal-content --> 
