@@ -43,7 +43,7 @@
 name: "readium-js-viewer"
 productName: "Readium web reader"
 
-version: "0.24.0-alpha"
+version: "0.25.0-alpha"
 
 engines:
     node: ">=0.12"
