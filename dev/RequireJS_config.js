@@ -71,6 +71,7 @@ require.config({
 
             'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js',
 
+//          'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
             'jsLibRoot': HTTPServerRootFolder + '/readium-js/node_modules/zip-js/WebContent/',
@@ -78,9 +79,10 @@ require.config({
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
-            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
+            'epubLibraryPath': "../epub_content/epub_library.json",
+            //'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
 
-            'imagePathPrefix': '/src/',
+            'imagePathPrefix': '/readium-js-viewer/src/',
 
             'canHandleUrl' : false,
             'canHandleDirectory' : false,

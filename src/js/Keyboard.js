@@ -387,6 +387,10 @@ define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings
         },
         i18n:
         {
+            FullTextSearch: Strings.full_text_search,
+            FullTextSearchBackwards: Strings.search_backwards,
+            FullTextSearchForwards: Strings.search_forwards,
+
             ShowSettingsModal: Strings.settings,
 
             SettingsModalSave: Strings.settings + " - " + Strings.i18n_save_changes,
@@ -434,9 +438,15 @@ define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings
         },
         defaultOptions:  {},
         accesskeys: {}, // single key strokes are dynamically populated, based on the full shortcuts below:
+
+        FullTextSearch: 'f', //accesskey'ed
+        FullTextSearchBackwards: '4',
+        FullTextSearchForwards: '3',
+
+
         ShowSettingsModal: 'o', //accesskey'ed
 
-        SettingsModalSave: 's', //accesskey'ed
+        SettingsModalSave: 'i', //accesskey'ed
         SettingsModalClose: 'c', //accesskey'ed
 
         PagePrevious: 'left', // ALT BELOW

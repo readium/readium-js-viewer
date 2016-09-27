@@ -24,7 +24,8 @@ define([
 './versioning/ReadiumVersioning',
 'readium_js/Readium',
 'readium_shared_js/helpers',
-'readium_shared_js/models/bookmark_data'],
+'readium_shared_js/models/bookmark_data',
+'./FullTextSearch'],
 
 function (
 globalSetup,
@@ -52,7 +53,8 @@ GesturesHandler,
 Versioning,
 Readium,
 Helpers,
-BookmarkData){
+BookmarkData,
+FullTextSearch){
 
     // initialised in initReadium()
     var readium = undefined;
@@ -239,6 +241,8 @@ BookmarkData){
                 $("#right-page-btn").mouseleave(function() {
                   $(tooltipSelector()).tooltip('destroy');
                 });
+    
+                new FullTextSearch(readium, options.metadata.title).init();
             },
             openPageRequest
         );

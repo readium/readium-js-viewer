@@ -2,7 +2,15 @@
   "gitHasLocalChanges": {
     "message": "with local changes"
   },
-
+  "search_forwards": {
+    "message": "Search forwards"
+  },
+  "search_backwards": {
+    "message": "Search backwards"
+  },
+  "full_text_search": {
+    "message": "Full text search"
+  },
   "chrome_extension_name": {
     "message": "Readium"
   },
@@ -86,6 +94,9 @@
   },
   "storing_file" : {
     "message": "Storing file"
+  },
+  "enter_text" : {
+      "message": "First enter text please."
   },
   "err_unknown" : {
     "message": "Unknown error. Check console for more details."
