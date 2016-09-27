@@ -7,7 +7,7 @@ Note:
 ## Running demo
 Not present at the moment 
 
-##  usage
+## Usage
 
 1. install [epub-full-text-search](https://github.com/larsvoigt/epub-full-text-search)
 2. Checkout this branch https://github.com/larsvoigt/readium-js-viewer/tree/feature/new_full_text_search
@@ -15,7 +15,7 @@ Not present at the moment
 4.  ```npm run build```
 5.  ``` npm run dist:cloudReader ```
 
-## troubleshooting 
+## Troubleshooting 
 
-Maybe configurate the correct [host](https://github.com/larsvoigt/readium-js-viewer/blob/feature/new_full_text_search/src/js/FullTextSearch.js#L32) for [epub-full-text-search](https://github.com/larsvoigt/epub-full-text-search) in feature module and run  ``` npm run dist:cloudReader ``` again.
+Maybe configurate the correct [host](https://github.com/larsvoigt/readium-js-viewer/blob/feature/new_full_text_search/src/js/FullTextSearch.js#L32) for [epub-full-text-search](https://github.com/larsvoigt/epub-full-text-search) and run  ``` npm run dist:cloudReader ``` again.
  
