@@ -151,14 +151,6 @@ devDependencies:
 
     "spin.js": 'latest'
     
-    "epub-full-text-search": 'latest'
-    
-    "express": 'latest'
-    
-    "body-parser": 'latest'
-    
-    "ncp": 'latest'
-    
     "jquery-ui": 'jquery/jquery-ui#1-11-stable'
     
 # Below dependencies are only used in build tasks (above are runtime deps):
