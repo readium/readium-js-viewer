@@ -34,9 +34,9 @@
 #=====================
     'test:travis': '
 
-        parallelshell
-            \"npm run http:travis\"
-            \"npm run mocha\"
+        run-p
+            \"http:travis\"
+            \"mocha\"
     '
 
 
