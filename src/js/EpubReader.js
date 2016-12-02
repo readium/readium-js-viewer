@@ -754,9 +754,25 @@ BookmarkData){
                 var bookmark = readium.reader.bookmarkCurrentPage();
                 bookmark = JSON.parse(bookmark);
                 
-                var cfi = new BookmarkData(bookmark.idref, bookmark.contentCFI);
-                debugBookmarkData(cfi);
-                
+                var bookmarkData = new BookmarkData(bookmark.idref, bookmark.contentCFI);
+                debugBookmarkData(bookmarkData);
+
+                // TODO: remove dependency on highlighter plugin (selection DOM range convert to BookmarkData)
+                if (readium.reader.plugins.highlights) {
+                    var tempId = Math.floor((Math.random()*1000000));
+                    //BookmarkData
+                    var bookmarkDataSelection = readium.reader.plugins.highlights.addSelectionHighlight(tempId, "temp-highlight");
+                    if (bookmarkDataSelection) {
+                        setTimeout(function(){
+                            readium.reader.plugins.highlights.removeHighlight(tempId);
+                        }, 500);
+
+                        console.log("Selection shared bookmark:");
+                        debugBookmarkData(bookmarkDataSelection);
+                        bookmark.contentCFI = bookmarkDataSelection.contentCFI;
+                    }
+                }
+
                 bookmark.elementCfi = bookmark.contentCFI;
                 bookmark.contentCFI = undefined;
                 bookmark = JSON.stringify(bookmark);

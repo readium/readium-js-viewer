@@ -9,7 +9,6 @@ if (versionJson.readiumJsViewer.branch !== "develop") {
     return;
 }
 
-
 if (!process.env.GITHUB_TOKEN)//process.env.MODE == 'chromeApp')
 {
     console.log("process.env.GITHUB_TOKEN not defined => skipping upload CRX, etc. to GitHub release.");
@@ -21,7 +20,10 @@ var repo = 'readium-js-viewer';
 
 console.log('deploying crx to github');
 
+// https://mikedeboer.github.io/node-github
+// https://developer.github.com/v3/git/
 var GitHubApi = require("github");
+
 var https = require('https');
 
 var github = new GitHubApi({
@@ -37,7 +39,7 @@ var version = packageObj.version;
 var oauthToken = process.env.GITHUB_TOKEN;
 github.authenticate({
     type: "oauth",
-    token: oauthToken//process.env.GITHUB_TOKEN
+    token: oauthToken
 });
 
 var deleteOldRelease = function(error, response){
@@ -46,7 +48,7 @@ var deleteOldRelease = function(error, response){
         return;
     }
     
-    github.repos.getReleases({user: owner, repo: repo}, function(error, releases){
+    github.repos.getReleases({owner: owner, repo: repo}, function(error, releases){
         for (var i = 0; i < releases.length; i++){
             if (releases[i].tag_name == version){
                 break;
@@ -54,7 +56,7 @@ var deleteOldRelease = function(error, response){
         }
         if (i < releases.length){
             console.log('found existing release, deleting');
-            github.repos.deleteRelease({user: owner, repo: repo, id: releases[i].id}, function(error, response){
+            github.repos.deleteRelease({owner: owner, repo: repo, id: releases[i].id}, function(error, response){
                 if (error){
                     console.error(JSON.stringify(error));
                     return;
@@ -131,7 +133,7 @@ var createRelease = function(){
     var releaseData = {
         tag_name: version,
         //target_commitish: process.env.TRAVIS_COMMIT,
-        user: owner,
+        owner: owner,
         repo: repo,
         name: releaseTitle,
         body: releaseDescription,
@@ -168,22 +170,40 @@ var createRelease = function(){
 };
 
 var tagRef = {
-    user: owner,
+    owner: owner,
     repo: repo,
     ref: 'tags/' + version
 };
 
-github.gitdata.getReference(tagRef, function(error, result){
+github.gitdata.getReference(tagRef, function(error, result) {
 
-    var func;
     tagRef.sha = process.env.TRAVIS_COMMIT;
-    if (error){
-        console.log(version + ' tag does not exist, creating.');
+
+    if (error) {
+        //console.error(JSON.stringify(error));
+
         tagRef.ref = 'refs/' + tagRef.ref;
+
+        console.log(version + ' tag does not exist, creating.');
         github.gitdata.createReference(tagRef, deleteOldRelease);
     }
-    else{
-        console.log('updating previous "' + version + '" release tag');
-        github.gitdata.updateReference(tagRef, deleteOldRelease);
+    else {
+        //console.log(JSON.stringify(result));
+
+        //console.log('updating previous "' + version + '" release tag');
+        //github.gitdata.updateReference(tagRef, deleteOldRelease);
+
+        console.log('deleting previous "' + version + '" release tag');
+        github.gitdata.deleteReference(tagRef, function(error, response) {
+            if (error){
+                console.error(JSON.stringify(error));
+                return;
+            }
+
+            tagRef.ref = 'refs/' + tagRef.ref;
+
+            console.log(version + ' tag re-creating.');
+            github.gitdata.createReference(tagRef, deleteOldRelease);
+        });
     }
 });
