@@ -252,16 +252,6 @@
   "i18n_fonttype-default" : {
     "message" : "Default"
   },
-    "i18n_fonttype-odf" : {
-    "message" : "Open Dyslexic Font"
-  },
-    "i18n_font_test-label" : {
-    "message" : "Font Testing Ground"
-  },
-    "i18n_font_test" : {
-    "message" : "This is a test of the font you picked. If you like it, then it is the font for you to read with."
-  },
-
 
   "i18n_margins" : {
     "message" : "MARGINS"
