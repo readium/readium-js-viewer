@@ -76,9 +76,18 @@ require.config({
                     displayName: "Open Dyslexic",
                     fontFamily: "OpenDyslexic",
                     url: HTTPServerRootFolder + "/src/fonts/OpenDyslexic/OpenDyslexic.css"
+                },
+                {
+                    displayName: "Noto+Serif (Google web font)",
+                    fontFamily: "Noto Serif",
+                    url: "https://fonts.googleapis.com/css?family=Noto+Serif"
+                },
+                {
+                    displayName: "Bitter (Google web font)",
+                    fontFamily: "Bitter",
+                    url: "https://fonts.googleapis.com/css?family=Bitter"
                 }
-            ]
-,
+            ],
 
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
