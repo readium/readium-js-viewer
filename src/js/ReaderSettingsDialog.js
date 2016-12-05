@@ -148,15 +148,16 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 if($fontSelectionList[0].childElementCount == 1){ 
                     //If this settings dialog has been created before, (If the user loaded the settings dialog for example) the combo box isn't destroyed on save. Therefore, we must only populate it on the first instance.
                     $.each(moduleConfig.fonts, function(index, fontObj){
+                        index++;
                         var curName = fontObj.displayName;
                         if(fontObj.url){ //No url, no problem so long as there's a font that works.
-                            var fontPayload  = '<link id="fontStyle" rel="stylesheet" type="text/css" href="'+fontObj.url+'"/>';
-                            if(!loadedUrls.indexOf(fontPayload) >= 0){
+                            var fontPayload  = '<link id="fontStyle_'+index+'" rel="stylesheet" type="text/css" href="'+fontObj.url+'"/>';
+                            if(loadedUrls.indexOf(fontObj.url) < 0){
                                 var item = $("head").append(fontPayload);
-                                loadedUrls.push(fontPayload)
+                                loadedUrls.push(fontObj.url)
                             }
                         }
-                        index++;
+                        
                         var isSelected = (readerSettings.fontSelection === index ? "selected" : "");
                         var curOption = '<option   '+isSelected+' value="'+index+'" aria-label="'+curName+'" title="'+curName+'">'+curName+'</option>';
                         $fontSelectionList.append(curOption);
