@@ -1354,4 +1354,5 @@ BookmarkData){
         tooltipSelector : tooltipSelector,
         ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp 
     };
+
 });
