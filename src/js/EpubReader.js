@@ -145,50 +145,9 @@ BookmarkData){
 
     var _debugBookmarkData_goto = undefined;
     var debugBookmarkData = function(cfi) {
-            
-        var DEBUG = true; // change this to visualize the CFI range
-        if (!DEBUG) return;
                 
         if (!readium) return;
-            
-        var paginationInfo = readium.reader.getPaginationInfo();
-        console.log(JSON.stringify(paginationInfo));
-        
-        if (paginationInfo.isFixedLayout) return;
-    
-        try {
-            ReadiumSDK._DEBUG_CfiNavigationLogic.clearDebugOverlays();
-            
-        } catch (error) {
-            //ignore
-        }
-        
-        try {
-            console.log(cfi);
-            
-            var range = readium.reader.getDomRangeFromRangeCfi(cfi);
-            console.log(range);
-            
-            var res = ReadiumSDK._DEBUG_CfiNavigationLogic.drawDebugOverlayFromDomRange(range);
-            console.log(res);
-        
-            var cfiFirst = ReadiumSDK.reader.getFirstVisibleCfi();
-            console.log(cfiFirst);
-            
-            var cfiLast  = ReadiumSDK.reader.getLastVisibleCfi();
-            console.log(cfiLast);
-            
-        } catch (error) {
-            //ignore
-        }
-        
-        setTimeout(function() {
-            try {
-                ReadiumSDK._DEBUG_CfiNavigationLogic.clearDebugOverlays();
-            } catch (error) {
-                //ignore
-            }
-        }, 2000);
+        readium.reader.debugBookmarkData(cfi);
     };
     
     // This function will retrieve a package document and load an EPUB
@@ -1051,6 +1010,7 @@ BookmarkData){
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
                 mathJaxUrl : moduleConfig.mathJaxUrl,
+                fonts : moduleConfig.fonts
             };
 
             var readiumOptions = {

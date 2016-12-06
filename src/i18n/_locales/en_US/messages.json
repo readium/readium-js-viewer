@@ -246,6 +246,13 @@
   "i18n_font_size" : {
     "message" : "FONT SIZE"
   },
+  "i18n_font_selection" : {
+    "message" : "FONT FACE"
+  },
+  "i18n_fonttype-default" : {
+    "message" : "Default"
+  },
+
   "i18n_margins" : {
     "message" : "MARGINS"
   },

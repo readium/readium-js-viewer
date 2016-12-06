@@ -39,6 +39,14 @@ require.config({
         'readium_js_viewer/ModuleConfig' : {
 
             'mathJaxUrl': self.location.origin + '/scripts/mathjax/MathJax.js',
+            
+            'fonts': [
+                {
+                    displayName: "Open Dyslexic",
+                    fontFamily: "OpenDyslexic",
+                    url: self.location.origin + "/fonts/OpenDyslexic/OpenDyslexic.css"
+                }
+            ],
 
             'annotationCSSUrl': self.location.origin + '/css/annotations.css',
 

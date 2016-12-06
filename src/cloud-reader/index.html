@@ -84,6 +84,24 @@ require.config({
         'readium_js_viewer/ModuleConfig' : {
 
             'mathJaxUrl': HTTPServerRootFolder + '/scripts/mathjax/MathJax.js',
+            
+            'fonts': [
+                {
+                    displayName: "Open Dyslexic",
+                    fontFamily: "OpenDyslexic",
+                    url: HTTPServerRootFolder + "/fonts/OpenDyslexic/OpenDyslexic.css"
+                },
+                {
+                    displayName: "Noto+Serif (Google web font)",
+                    fontFamily: "Noto Serif",
+                    url: "https://fonts.googleapis.com/css?family=Noto+Serif"
+                },
+                {
+                    displayName: "Bitter (Google web font)",
+                    fontFamily: "Bitter",
+                    url: "https://fonts.googleapis.com/css?family=Bitter"
+                }
+            ],
 
             'annotationCSSUrl': HTTPServerRootFolder + '/css/annotations.css',
 

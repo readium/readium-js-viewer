@@ -19,6 +19,8 @@
 
         npm run dist:cloudReaderLite:copy
         &&
+        npm run dist:cloudReaderLite:copy:fonts
+        &&
         npm run dist:cloudReaderLite:css
         &&
         npm run dist:cloudReaderLite:js
@@ -64,6 +66,13 @@
         npm run cpy
             src/css/annotations.css
             dist/cloud-reader-lite/css/
+    '
+
+#=====================
+    'dist:cloudReaderLite:copy:fonts': '
+        npm run ncp
+            src/fonts/OpenDyslexic/
+            dist/cloud-reader-lite/fonts/OpenDyslexic/
     '
 
 #=====================

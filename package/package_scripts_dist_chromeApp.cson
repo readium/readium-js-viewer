@@ -59,6 +59,8 @@
 
         npm run dist:chromeApp:copy
         &&
+        npm run dist:chromeApp:copy:fonts
+        &&
         node build-config/updateChromeManifest.js
         &&
         npm run dist:chromeApp:css
@@ -126,6 +128,13 @@
         npm run cpy
             src/chrome-app/manifest.json
             dist/chrome-app/
+    '
+
+#=====================
+    'dist:chromeApp:copy:fonts': '
+        npm run ncp
+            src/fonts/OpenDyslexic/
+            dist/chrome-app/fonts/OpenDyslexic/
     '
 
 #        &&
@@ -198,4 +207,3 @@
             --output dist/Readium.crx
             --private-key tests/test.pem
     '
-
