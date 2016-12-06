@@ -724,6 +724,8 @@ BookmarkData){
     }
 
     var savePlace = function(){
+        // Note: automatically JSON.stringify's the passed value!
+        // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
         Settings.put(ebookURL_filepath, readium.reader.bookmarkCurrentPage(), $.noop);
     }
 
@@ -1006,6 +1008,28 @@ BookmarkData){
 
         Settings.getMultiple(['reader', ebookURL_filepath], function(settings){
 
+            // Note that unlike Settings.get(), Settings.getMultiple() returns raw string values (from the key/value store), not JSON.parse'd ! 
+
+            // Ensures default settings are saved from the start (as the readium-js-viewer defaults can differ from the readium-shared-js).
+            if (!settings.reader)
+            {
+                settings.reader = {};
+            } else {
+                settings.reader = JSON.parse(settings.reader);
+            }
+            for (prop in SettingsDialog.defaultSettings)
+            {
+                if (SettingsDialog.defaultSettings.hasOwnProperty(prop))
+                {
+                    if (!settings.reader.hasOwnProperty(prop) || !settings.reader[prop]) {
+                        settings.reader[prop] = SettingsDialog.defaultSettings[prop];
+                    }
+                }
+            }
+            // Note: automatically JSON.stringify's the passed value!
+            Settings.put('reader', settings.reader);
+
+
             var readerOptions =  {
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
@@ -1025,7 +1049,10 @@ BookmarkData){
             _debugBookmarkData_goto = undefined;
             var openPageRequest;
             if (settings[ebookURL_filepath]){
-                var bookmark = JSON.parse(JSON.parse(settings[ebookURL_filepath]));
+                // JSON.parse() *first* because Settings.getMultiple() returns raw string values from the key/value store (unlike Settings.get()) 
+                var bookmark = JSON.parse(settings[ebookURL_filepath]);
+                // JSON.parse() a *second time* because the stored value is readium.reader.bookmarkCurrentPage(), which is JSON.toString'ed
+                bookmark = JSON.parse(bookmark);
                 //console.log("Bookmark restore: " + JSON.stringify(bookmark));
                 openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
                 console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
@@ -1165,7 +1192,7 @@ BookmarkData){
 
             var readerSettings;
             if (settings.reader){
-                readerSettings = JSON.parse(settings.reader);
+                readerSettings = settings.reader;
             }
             if (!embedded){
                 readerSettings = readerSettings || SettingsDialog.defaultSettings;
@@ -1193,6 +1220,7 @@ BookmarkData){
                         var isNight = json.theme === "night-theme";
                         json.theme = isNight ? "author-theme" : "night-theme";
 
+                        // Note: automatically JSON.stringify's the passed value!
                         Settings.put('reader', json);
 
                         SettingsDialog.updateReader(readium.reader, json);

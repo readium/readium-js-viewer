@@ -239,7 +239,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             var maxVal = Number($columnMaxWidthSlider.attr("max"));
             var columnMaxWidth = Number($columnMaxWidthSlider.val());
             if (columnMaxWidth >= maxVal) columnMaxWidth = 99999; // really big pixel distance
-                
+            
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
                 fontSelection: Number($fontSelectionList.val()),
@@ -310,6 +310,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 //     }
                 // }
 
+                // Note: automatically JSON.stringify's the passed value!
                 Settings.put('reader', json);
 
                 setTimeout(function()
@@ -330,7 +331,8 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
                     var isNight = json.theme === "night-theme";
                     json.theme = isNight ? "author-theme" : "night-theme";
-
+                    
+                    // Note: automatically JSON.stringify's the passed value!
                     Settings.put('reader', json);
 
                     if (reader) updateReader(reader, json);

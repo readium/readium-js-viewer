@@ -34,6 +34,8 @@ define(function(){
                 callback();
             }
         },
+        
+        // Note that compared to getMultiple(), here the callback function parameter gets a JSON.parse'd value (not the raw string from the key/value store)
         get : function(key, callback){
             if (!isLocalStorageEnabled()) {
                 if (callback) callback(null);
@@ -49,6 +51,8 @@ define(function(){
             }
             
         },
+
+        // Note that compared to get(), here the callback function parameter does not get JSON.parse'd values (instead: raw string from the key/value store)
         getMultiple : function(keys, callback){
             if (!isLocalStorageEnabled()) {
                 if (callback) callback({});
