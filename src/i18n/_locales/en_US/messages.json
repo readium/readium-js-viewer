@@ -249,7 +249,7 @@
   "i18n_font_selection" : {
     "message" : "FONT FACE"
   },
-  "i18n_fonttype-default" : {
+  "i18n_fonttype_default" : {
     "message" : "Default"
   },
 
