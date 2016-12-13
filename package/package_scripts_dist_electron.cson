@@ -71,6 +71,8 @@
 
         npm run dist:electron:copy
         &&
+        npm run dist:electron:copy:fonts
+        &&
         npm run dist:electron:css
         &&
         npm run dist:electron:js
@@ -147,7 +149,14 @@
 #        npm run cpy
 #            src/chrome-app/manifest.json
 #            dist/electron/
-            
+
+#=====================
+    'dist:electron:copy:fonts': '
+        npm run ncp
+            src/fonts/
+            dist/electron/font-faces/
+    '
+
 #=====================
     'dist:electron:css': '
 
