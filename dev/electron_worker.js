@@ -8,6 +8,7 @@ self.importScripts('../readium-js/readium-shared-js/readium-cfi-js/build-config/
 self.importScripts('../build-config/RequireJS_config_common.js');
 //self.importScripts('../readium-js/readium-shared-js/build-config/RequireJS_config_plugins.js');
 
+//self.importScripts('../src/fonts/fonts.js'); // not needed in the worker (font faces)
 self.importScripts('./electron_requirejs-config.js');
 
 require(

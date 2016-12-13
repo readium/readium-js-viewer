@@ -60,6 +60,10 @@ console.log(HTTPServerRootFolder);
 
 console.debug(process._RJS_rootDir(3));
 
+var fontsArray = [];
+if (typeof getFontFaces != "undefined") { // defined externally
+    fontsArray = getFontFaces(HTTPServerRootFolder + "/src/fonts/");
+}
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
@@ -80,6 +84,8 @@ require.config({
         'readium_js_viewer/ModuleConfig' : {
 
             'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js',
+
+            'fonts': fontsArray,
 
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
