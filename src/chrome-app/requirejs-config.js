@@ -29,26 +29,8 @@ console.log(currentURL);
 console.log(self.location.origin);
 
 var fontsArray = [];
-// [
-//     {
-//         displayName: "Open Dyslexic",
-//         fontFamily: "OpenDyslexic",
-//         url: self.location.origin + "/font-faces/OpenDyslexic/OpenDyslexic.css"
-//     }
-// ];
-if (typeof fontFaces != "undefined") { // defined externally
-    for (var i = 0; i < fontFaces.length; i++) {
-        var fontFace = fontFaces[i];
-        
-        var font = {};
-        font.displayName = fontFace.displayName;
-        font.fontFamily = fontFace.fontFamily;
-        
-        var isOnlineWebFont = (fontFace.url.indexOf("http://") == 0) || (fontFace.url.indexOf("https://") == 0);
-        font.url = isOnlineWebFont ? fontFace.url : (self.location.origin + "/font-faces/" + fontFace.url);
-
-        fontsArray.push(font);
-    }
+if (typeof getFontFaces != "undefined") { // defined externally
+    fontsArray = getFontFaces(self.location.origin + "/font-faces/");
 }
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
