@@ -70,8 +70,8 @@
 #=====================
     'dist:cloudReader:copy:fonts': '
         npm run ncp
-            src/fonts/OpenDyslexic/
-            dist/cloud-reader/fonts/OpenDyslexic/
+            src/fonts/
+            dist/cloud-reader/font-faces/
     '
 
 #=====================

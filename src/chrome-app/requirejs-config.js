@@ -28,6 +28,28 @@ console.log(currentURL);
 
 console.log(self.location.origin);
 
+var fontsArray = [];
+// [
+//     {
+//         displayName: "Open Dyslexic",
+//         fontFamily: "OpenDyslexic",
+//         url: self.location.origin + "/font-faces/OpenDyslexic/OpenDyslexic.css"
+//     }
+// ];
+if (typeof fontFaces != "undefined") { // defined externally
+    for (var i = 0; i < fontFaces.length; i++) {
+        var fontFace = fontFaces[i];
+        
+        var font = {};
+        font.displayName = fontFace.displayName;
+        font.fontFamily = fontFace.fontFamily;
+        
+        var isOnlineWebFont = (fontFace.url.indexOf("http://") == 0) || (fontFace.url.indexOf("https://") == 0);
+        font.url = isOnlineWebFont ? fontFace.url : (self.location.origin + "/font-faces/" + fontFace.url);
+
+        fontsArray.push(font);
+    }
+}
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
@@ -40,13 +62,7 @@ require.config({
 
             'mathJaxUrl': self.location.origin + '/scripts/mathjax/MathJax.js',
             
-            'fonts': [
-                {
-                    displayName: "Open Dyslexic",
-                    fontFamily: "OpenDyslexic",
-                    url: self.location.origin + "/fonts/OpenDyslexic/OpenDyslexic.css"
-                }
-            ],
+            'fonts': fontsArray,
 
             'annotationCSSUrl': self.location.origin + '/css/annotations.css',
 

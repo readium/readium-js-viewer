@@ -11,6 +11,8 @@
 
     <script type="text/javascript" src="scripts/readium-js-viewer_all_LITE.js"> </script>
 
+    <script type="text/javascript" src="font-faces/fonts.js"> </script>
+
 <script type="text/javascript">
 
 var path = (window.location && window.location.pathname) ? window.location.pathname : ''; 
@@ -35,6 +37,38 @@ window.location ? (
 
 console.log(HTTPServerRootFolder);
 
+var fontsArray = [];
+// [
+//     {
+//         displayName: "Open Dyslexic",
+//         fontFamily: "OpenDyslexic",
+//         url: HTTPServerRootFolder + "/font-faces/OpenDyslexic/OpenDyslexic.css"
+//     },
+//     {
+//         displayName: "Noto+Serif (Google web font)",
+//         fontFamily: "Noto Serif",
+//         url: "https://fonts.googleapis.com/css?family=Noto+Serif"
+//     },
+//     {
+//         displayName: "Bitter (Google web font)",
+//         fontFamily: "Bitter",
+//         url: "https://fonts.googleapis.com/css?family=Bitter"
+//     }
+// ]
+if (typeof fontFaces != "undefined") { // defined externally
+    for (var i = 0; i < fontFaces.length; i++) {
+        var fontFace = fontFaces[i];
+        
+        var font = {};
+        font.displayName = fontFace.displayName;
+        font.fontFamily = fontFace.fontFamily;
+        
+        var isOnlineWebFont = (fontFace.url.indexOf("http://") == 0) || (fontFace.url.indexOf("https://") == 0);
+        font.url = isOnlineWebFont ? fontFace.url : (HTTPServerRootFolder + "/font-faces/" + fontFace.url);
+
+        fontsArray.push(font);
+    }
+}
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
@@ -47,23 +81,7 @@ require.config({
 
             'mathJaxUrl': HTTPServerRootFolder + '/scripts/mathjax/MathJax.js',
             
-            'fonts': [
-                {
-                    displayName: "Open Dyslexic",
-                    fontFamily: "OpenDyslexic",
-                    url: HTTPServerRootFolder + "/fonts/OpenDyslexic/OpenDyslexic.css"
-                },
-                {
-                    displayName: "Noto+Serif (Google web font)",
-                    fontFamily: "Noto Serif",
-                    url: "https://fonts.googleapis.com/css?family=Noto+Serif"
-                },
-                {
-                    displayName: "Bitter (Google web font)",
-                    fontFamily: "Bitter",
-                    url: "https://fonts.googleapis.com/css?family=Bitter"
-                }
-            ],
+            'fonts': fontsArray,
 
             'annotationCSSUrl': HTTPServerRootFolder + '/css/annotations.css',
 

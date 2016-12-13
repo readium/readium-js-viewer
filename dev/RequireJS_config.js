@@ -60,6 +60,39 @@ var getURLQueryParams = function() {
 
 var urlParams = getURLQueryParams();
 
+var fontsArray = [];
+//  [
+//     {
+//         displayName: "Open Dyslexic",
+//         fontFamily: "OpenDyslexic",
+//         url: HTTPServerRootFolder + "/src/fonts/OpenDyslexic/OpenDyslexic.css"
+//     },
+//     {
+//         displayName: "Noto+Serif (Google web font)",
+//         fontFamily: "Noto Serif",
+//         url: "https://fonts.googleapis.com/css?family=Noto+Serif"
+//     },
+//     {
+//         displayName: "Bitter (Google web font)",
+//         fontFamily: "Bitter",
+//         url: "https://fonts.googleapis.com/css?family=Bitter"
+//     }
+// ]
+if (typeof fontFaces != "undefined") { // defined externally
+    for (var i = 0; i < fontFaces.length; i++) {
+        var fontFace = fontFaces[i];
+        
+        var font = {};
+        font.displayName = fontFace.displayName;
+        font.fontFamily = fontFace.fontFamily;
+        
+        var isOnlineWebFont = (fontFace.url.indexOf("http://") == 0) || (fontFace.url.indexOf("https://") == 0);
+        font.url = isOnlineWebFont ? fontFace.url : (HTTPServerRootFolder + "/src/fonts/" + fontFace.url);
+
+        fontsArray.push(font);
+    }
+}
+
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
@@ -71,23 +104,7 @@ require.config({
 
             'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js',
 
-            'fonts': [
-                {
-                    displayName: "Open Dyslexic",
-                    fontFamily: "OpenDyslexic",
-                    url: HTTPServerRootFolder + "/src/fonts/OpenDyslexic/OpenDyslexic.css"
-                },
-                {
-                    displayName: "Noto+Serif (Google web font)",
-                    fontFamily: "Noto Serif",
-                    url: "https://fonts.googleapis.com/css?family=Noto+Serif"
-                },
-                {
-                    displayName: "Bitter (Google web font)",
-                    fontFamily: "Bitter",
-                    url: "https://fonts.googleapis.com/css?family=Bitter"
-                }
-            ],
+            'fonts': fontsArray,
 
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 

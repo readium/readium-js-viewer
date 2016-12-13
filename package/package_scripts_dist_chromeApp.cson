@@ -133,8 +133,8 @@
 #=====================
     'dist:chromeApp:copy:fonts': '
         npm run ncp
-            src/fonts/OpenDyslexic/
-            dist/chrome-app/fonts/OpenDyslexic/
+            src/fonts/
+            dist/chrome-app/font-faces/
     '
 
 #        &&
