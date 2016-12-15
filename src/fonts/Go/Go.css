@@ -1,0 +1,42 @@
+@font-face {
+	font-family: 'Go';
+	src: url('GoMedium-Italic.woff') format('woff');
+	font-weight: 500;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Go';
+	src: url('Go-Italic.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Go';
+	src: url('Go-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Go';
+	src: url('GoMedium.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Go';
+	src: url('Go-BoldItalic.woff') format('woff');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Go';
+	src: url('GoRegular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+

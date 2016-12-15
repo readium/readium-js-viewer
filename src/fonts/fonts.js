@@ -6,22 +6,32 @@ var _fontFaces =
         url: "OpenDyslexic/OpenDyslexic.css"
     },
     {
-        displayName: "Open Sans (Google web font)",
+        displayName: "Go (sans-serif)",
+        fontFamily: "Go",
+        url: "Go/Go.css"
+    },
+    {
+        displayName: "Go Mono (serif)",
+        fontFamily: "Go Mono",
+        url: "Go/GoMono.css"
+    },
+    {
+        displayName: "Open Sans (sans-serif) [online]",
         fontFamily: "Open Sans",
         url: "https://fonts.googleapis.com/css?family=Open+Sans"
     },
     {
-        displayName: "Old Standard TT (Google web font)",
+        displayName: "Old Standard TT (serif) [online]",
         fontFamily: "Old Standard TT",
         url: "https://fonts.googleapis.com/css?family=Old+Standard+TT"
     },
     {
-        displayName: "Noto+Serif (Google web font)",
+        displayName: "Noto Serif (serif) [online]",
         fontFamily: "Noto Serif",
         url: "https://fonts.googleapis.com/css?family=Noto+Serif"
     },
     {
-        displayName: "Bitter (Google web font)",
+        displayName: "Bitter (serif) [online]",
         fontFamily: "Bitter",
         url: "https://fonts.googleapis.com/css?family=Bitter"
     }
