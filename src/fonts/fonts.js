@@ -30,12 +30,12 @@ var _fontFaces_ONLINE =
         url: "https://fonts.googleapis.com/css?family=Bitter"
     },
     {
-        displayName: "Alegreya",
+        displayName: "Alegreya (serif) [online]",
         fontFamily: "Alegreya",
         url: "https://fonts.googleapis.com/css?family=Alegreya"
     },
     {
-        displayName: "Roboto Mono",
+        displayName: "Roboto Mono (sans-serif) [online]",
         fontFamily: "Roboto Mono",
         url: "https://fonts.googleapis.com/css?family=Roboto+Mono"
     }
