@@ -25,10 +25,10 @@
     "message" : "標注所選文字"
   },
   "share_url" : {
-    "message" : "分享閱讀器網址..."
+    "message" : "分享閱讀器網址…"
   },
   "share_url_label" : {
-    "message" : "使用你的剪貼簿剪貼分享連結："
+    "message" : "使用你的剪貼簿分享連結："
   },
   "toc" : {
     "message" : "目錄"
@@ -61,13 +61,13 @@
     "message" : "正在刪除"
   },
   "delete_progress_message" : {
-    "message" : "刪除中"
+    "message" : "正在刪除"
   },
   "migrate_dlg_title" : {
     "message" : "移動書籍中"
   },
   "migrate_dlg_message" : {
-    "message" : "載入資料⋯"
+    "message" : "載入資料…"
   },
   "migrating" : {
     "message" : "移動中"
@@ -82,7 +82,7 @@
     "message": "輸入EPUB"
   },
   "import_dlg_message" : {
-    "message": "檢查EPUB內容⋯"
+    "message": "檢查EPUB內容…"
   },
   "storing_file" : {
     "message": "儲存檔案中"
@@ -172,13 +172,13 @@
     "message" : "來源："
   },
   "i18n_pub_date" : {
-    "message" : "出版日期"
+    "message" : "出版日期："
   },
   "i18n_modified_date" : {
-    "message" : "更新日期"
+    "message" : "更新日期："
   },
   "i18n_id" : {
-    "message" : "ID："
+    "message" : "ID: "
   },
   "i18n_epub_version" : {
     "message" : "EPUB版本："
@@ -246,6 +246,12 @@
   "i18n_font_size" : {
     "message" : "文字尺寸"
   },
+  "i18n_font_selection" : {
+    "message" : "字體"
+  },
+  "i18n_fonttype_default" : {
+    "message" : "預設"
+  },
   "i18n_margins" : {
     "message" : "頁緣餘白"
   },
@@ -294,9 +300,8 @@
   "i18n_scroll_mode_continuous" : {
     "message" : "持續顯示"
   },
-
   "i18n_page_transition" : {
-    "message" : "頁面效果"
+    "message" : "翻頁效果"
   },
   "i18n_page_transition_none" : {
     "message" : "關閉"
@@ -339,10 +344,10 @@
     "message" : "暫停背景音軌"
   },
   "i18n_audio_previous" : {
-    "message" : "下一個音效片段"
+    "message" : "上ㄧ一個音效片段"
   },
   "i18n_audio_next" : {
-    "message" : "前一個音效片段"
+    "message" : "下一個音效片段"
   },
   "i18n_audio_volume" : {
     "message" : "音量"
@@ -351,7 +356,7 @@
     "message" : "增加音量"
   },
   "i18n_audio_volume_decrease" : {
-    "message" : "降低音量Decrease audio volume"
+    "message" : "降低音量"
   },
   "i18n_audio_time" : {
     "message" : "聲音時間指摽"
@@ -389,7 +394,6 @@
   "i18n_audio_skip_enable" : {
     "message" : "開啟跳過功能"
   },
-
   "i18n_auto_page_turn_enable" : {
     "message" : "開啟自動翻頁"
   },
@@ -426,13 +430,13 @@
     "message" : "字"
   },
   "i18n_audio_sync_sentence" : {
-    "message" : "詞"
+    "message" : "句"
   },
   "i18n_audio_sync_paragraph" : {
     "message" : "段落"
   },
   "i18n_page_previous" : {
-    "message" : "前一頁"
+    "message" : "上一頁"
   },
   "i18n_page_next" : {
     "message" : "下一頁"
@@ -441,7 +445,7 @@
     "message" : "頁面導覽"
   },
   "chrome_accept_languages": {
-    "message": "$CHROME$ accepts $languages$ languages",
+    "message": "$CHROME$ 接受 $languages$ 等語言",
     "placeholders": {
       "chrome": {
         "content": "Chrome",
