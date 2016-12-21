@@ -1,18 +1,121 @@
 {
+  "gitHasLocalChanges": {
+    "message": "有Local修改"
+  },
+
   "chrome_extension_name": {
     "message": "Readium"
   },
+  "about" : {
+    "message" : "關於"
+  },
+  "preview" : {
+    "message" : "預覽"
+  },
+  "list_view" : {
+    "message" : "列表檢視"
+  },
+  "thumbnail_view" : {
+    "message" : "縮圖檢視"
+  },
+  "view_library": {
+    "message" : "圖書櫃"
+  },
+  "highlight_selection" : {
+    "message" : "標注所選文字"
+  },
+  "share_url" : {
+    "message" : "分享閱讀器網址…"
+  },
+  "share_url_label" : {
+    "message" : "使用你的剪貼簿分享連結："
+  },
+  "toc" : {
+    "message" : "目錄"
+  },
+  "settings" : {
+    "message" : "設定"
+  },
+  "layout" : {
+    "message" : "版面"
+  },
+  "style" : {
+    "message" : "樣式"
+  },
+  "enter_fullscreen" : {
+    "message" : "進入全螢幕"
+  },
+  "exit_fullscreen" : {
+    "message" : "離開全螢幕"
+  },
   "chrome_extension_description": {
-    "message": "EPUB3電子書閱讀器"
+    "message": "EPUB3電子書閱讀器。"
+  },
+  "ok" : {
+    "message" : "確定"
+  },
+  "delete_dlg_title" : {
+    "message" : "確認刪除"
+  },
+  "delete_progress_title" : {
+    "message" : "正在刪除"
+  },
+  "delete_progress_message" : {
+    "message" : "正在刪除"
+  },
+  "migrate_dlg_title" : {
+    "message" : "移動書籍中"
+  },
+  "migrate_dlg_message" : {
+    "message" : "載入資料…"
+  },
+  "migrating" : {
+    "message" : "移動中"
+  },
+  "replace_dlg_title" : {
+    "message": "偵測到衝突"
+  },
+  "replace_dlg_message": {
+    "message": "如果要繼續，所選的EPUB將會被你輸入的檔案覆蓋"
+  },
+  "import_dlg_title" : {
+    "message": "輸入EPUB"
+  },
+  "import_dlg_message" : {
+    "message": "檢查EPUB內容…"
+  },
+  "storing_file" : {
+    "message": "儲存檔案中"
+  },
+  "err_unknown" : {
+    "message": "未知的錯誤。請透過網頁檢視器確認細節。"
+  },
+  "err_storage" : {
+    "message": "無法存取儲存空間"
+  },
+  "err_epub_corrupt" : {
+    "message": "EPUB封裝錯誤或者損壞"
+  },
+  "err_ajax": {
+    "message": "AJAX要求錯誤"
+  },
+  "err_dlg_title" : {
+    "message": "非預期的錯誤"
+  },
+  "replace" : {
+    "message": "取代"
+  },
+  "gethelp" : {
+    "message" : "如果你遇到任何錯誤或有問題，或想要打聲招呼，請拜訪<a href=\"http://idpf.org/forums/readium\">我們的討論區</a>"
   },
   "i18n_readium_library" : {
-    "message" : "Readium書櫃"
+    "message" : "Readium圖書櫃"
   },
   "i18n_loading" : {
-    "message" : "Loading Library"
+    "message" : "載入圖書櫃"
   },
   "i18n_readium_options" : {
-    "message" : "Readium設定:"
+    "message" : "Readium設定："
   },
   "i18n_save_changes" : {
     "message" : "儲存變更"
@@ -20,11 +123,32 @@
   "i18n_close" : {
     "message" : "關閉"
   },
+  "i18n_keyboard_shortcuts" : {
+    "message" : "快速鍵"
+  },
+  "i18n_keyboard_reload" : {
+    "message" : "請重新載入本頁讓快速鍵生效。"
+  },
+  "i18n_keyboard_onerror_reset" : {
+    "message" : "請注意：任何重複或無效的快速鍵都會被重置回初始設定。"
+  },
+  "i18n_reset_key" : {
+    "message" : "重設按鍵"
+  },
+  "i18n_reset_key_all" : {
+    "message" : "重設所有快速鍵"
+  },
+  "i18n_duplicate_keyboard_shortcut" : {
+    "message" : "重複"
+  },
+  "i18n_invalid_keyboard_shortcut" : {
+    "message" : "無效"
+  },
   "i18n_paginate_all" : {
-    "message" : "分頁呈現所有文字順走型的EPUB內容"
+    "message" : "將所有文字重排EPUB內容分頁顯示"
   },
   "i18n_automatically" : {
-    "message" : "自動以Readium開啟任何以.epub結尾的網址"
+    "message" : "自動使用Readium開啟任何副檔名為.epub的網址"
   },
   "i18n_show_warning" : {
     "message" : "解壓縮EPUB檔案時顯示警告訊息"
@@ -54,7 +178,7 @@
     "message" : "更新日期："
   },
   "i18n_id" : {
-    "message" : "ID："
+    "message" : "ID: "
   },
   "i18n_epub_version" : {
     "message" : "EPUB版本："
@@ -72,22 +196,22 @@
     "message" : "未知"
   },
   "i18n_sorry" : {
-    "message" : "目前的EPUB內容並不包含朗讀聲音"
+    "message" : "抱歉，這個EPUB內容不包含朗讀聲音"
   },
   "i18n_add_items" : {
-    "message" : "按下這裡加入新書"
+    "message" : "按下這裡加入新書！"
   },
   "i18n_extracting" : {
-    "message" : "解壓縮中："
+    "message" : "解壓縮："
   },
   "i18n_are_you_sure" : {
-    "message" : "你確定要永久刪除 "
+    "message" : "你確定要永久刪除"
   },
   "i18n_add_book_to_readium_library" : {
     "message" : "將書籍加入Readium書櫃："
   },
   "i18n_add_book" : {
-    "message" : "加入書籍"
+    "message" : "加入圖書櫃"
   },
   "i18n_cancel" : {
     "message" : "取消"
@@ -105,7 +229,7 @@
     "message" : "未壓縮目錄："
   },
   "i18n_validate" : {
-    "message" : "檢證："
+    "message" : "檢查："
   },
   "i18n_confirm_that_this_book" : {
     "message" : "確認這本書是否符合EPUB標準"
@@ -122,35 +246,206 @@
   "i18n_font_size" : {
     "message" : "文字尺寸"
   },
+  "i18n_font_selection" : {
+    "message" : "字體"
+  },
+  "i18n_fonttype_default" : {
+    "message" : "預設"
+  },
   "i18n_margins" : {
     "message" : "頁緣餘白"
+  },
+  "i18n_pageMaxWidth" : {
+    "message" : "頁面寬度"
+  },
+  "i18n_pageMaxWidth_Disabled" : {
+    "message" : "關閉（不設最大值）"
   },
   "i18n_text_and_background_color" : {
     "message" : "文字與背景色彩"
   },
+  "i18n_author_theme" : {
+    "message" : "預設（原書樣式）"
+  },
   "i18n_black_and_white" : {
-    "message" : "黑底與白字"
+    "message" : "黑底白字"
   },
   "i18n_arabian_nights" : {
-    "message" : "阿拉伯之夜"
+    "message" : "阿拉伯夜"
   },
   "i18n_sands_of_dune" : {
-    "message" : "砂丘之黃砂"
+    "message" : "砂丘黃砂"
   },
   "i18n_ballard_blues" : {
-    "message" : "抒情曲藍調"
+    "message" : "抒情藍調"
   },
   "i18n_vancouver_mist" : {
-    "message" : "溫哥華之霧"
+    "message" : "溫哥華霧"
   },
   "i18n_display_format" : {
     "message" : "顯示格式"
   },
+  "i18n_spread_auto" : {
+     "message" : "自動"
+  },
+  "i18n_scroll_mode" : {
+    "message" : "捲軸模式"
+  },
+  "i18n_scroll_mode_auto" : {
+    "message" : "自動"
+  },
+  "i18n_scroll_mode_doc" : {
+    "message" : "文件分割"
+  },
+  "i18n_scroll_mode_continuous" : {
+    "message" : "持續顯示"
+  },
+  "i18n_page_transition" : {
+    "message" : "翻頁效果"
+  },
+  "i18n_page_transition_none" : {
+    "message" : "關閉"
+  },
+  "i18n_page_transition_fade" : {
+    "message" : "漸退"
+  },
+  "i18n_page_transition_slide" : {
+    "message" : "投影片"
+  },
+  "i18n_page_transition_swoosh" : {
+    "message" : "捲動"
+  },
+  "i18n_page_transition_butterfly" : {
+    "message" : "蝴蝶"
+  },
+
   "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>是由是International Digital Publishing Forum (IDPF)與技術協助者們共同開發的專案，是供EPUB&reg; 出版品使用的開放原始碼參考系統與排版引擎。要了解更多訊息，請前往<a href=\"http://readium.org/\">專案網頁</a>。迄今為止，本專案持續由<a href=\"http://evidentpoint.com/\">Evident Point</a>和<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>所主導。若想協助開發，請前往<a href=\"https://github.com/readium/readium-js-viewer\">GitHub專案</a>"
+    "message" : "Readium for Chrome是ReadiumJS的Chrome瀏覽器附加套件配置，Readium JS是開放原始碼的閱讀程式，以及讓瀏覽器能夠顯示EPUB&reg; 出版品的JavaScript程式庫。Readium JS是Readium基金會(Readium.org)的計畫，想要了解更多或者貢獻，請前往<a id=\"aboutFirst Focusable\" href=\"http://readium.org/projects/readiumjs\">計畫首頁</a>"
+  },
+  "i18n_toolbar" : {
+    "message" : "工具列"
+  },
+  "i18n_toolbar_show" : {
+    "message" : "顯示工具列"
+  },
+  "i18n_toolbar_hide" : {
+    "message" : "隱藏工具列"
+  },
+  "i18n_audio_play" : {
+    "message" : "播放"
+  },
+  "i18n_audio_pause" : {
+    "message" : "暫停"
+  },
+  "i18n_audio_play_background" : {
+    "message" : "播放背景音軌"
+  },
+  "i18n_audio_pause_background" : {
+    "message" : "暫停背景音軌"
+  },
+  "i18n_audio_previous" : {
+    "message" : "上ㄧ一個音效片段"
+  },
+  "i18n_audio_next" : {
+    "message" : "下一個音效片段"
+  },
+  "i18n_audio_volume" : {
+    "message" : "音量"
+  },
+  "i18n_audio_volume_increase" : {
+    "message" : "增加音量"
+  },
+  "i18n_audio_volume_decrease" : {
+    "message" : "降低音量"
+  },
+  "i18n_audio_time" : {
+    "message" : "聲音時間指摽"
+  },
+  "i18n_audio_mute" : {
+    "message" : "靜音"
+  },
+  "i18n_audio_unmute" : {
+    "message" : "關閉靜音"
+  },
+  "i18n_audio_expand" : {
+    "message" : "顯示進階聲音控制"
+  },
+  "i18n_audio_collapse" : {
+    "message" : "關閉進階聲音控制"
+  },
+  "i18n_audio_esc" : {
+    "message" : "跳出現在的音訊序列"
+  },
+  "i18n_audio_rate" : {
+    "message" : "音訊播放速度"
+  },
+  "i18n_audio_rate_increase" : {
+    "message" : "加快播放速度"
+  },
+  "i18n_audio_rate_decrease" : {
+    "message" : "減慢播放速度"
+  },
+  "i18n_audio_rate_reset" : {
+    "message" : "將播放重設到一般速度"
+  },
+  "i18n_audio_skip_disable" : {
+    "message" : "關閉跳過功能"
+  },
+  "i18n_audio_skip_enable" : {
+    "message" : "開啟跳過功能"
+  },
+  "i18n_auto_page_turn_enable" : {
+    "message" : "開啟自動翻頁"
+  },
+  "i18n_auto_page_turn_disable" : {
+    "message" : "關閉自動翻頁"
+  },
+
+  "i18n_playback_scroll_enable" : {
+    "message" : "開啟播放時捲動"
+  },
+  "i18n_playback_scroll_disable" : {
+    "message" : "關閉播放時捲動"
+  },
+
+  "i18n_audio_touch_enable" : {
+    "message" : "開啟點按播放"
+  },
+  "i18n_audio_touch_disable" : {
+    "message" : "關閉點按播放"
+  },
+  "i18n_audio_highlight_default" : {
+    "message" : "預設"
+  },
+  "i18n_audio_highlight" : {
+    "message" : "音效色彩"
+  },
+  "i18n_audio_sync" : {
+    "message" : "微調文字/聲音同步"
+  },
+  "i18n_audio_sync_default" : {
+    "message" : "預設"
+  },
+  "i18n_audio_sync_word" : {
+    "message" : "字"
+  },
+  "i18n_audio_sync_sentence" : {
+    "message" : "句"
+  },
+  "i18n_audio_sync_paragraph" : {
+    "message" : "段落"
+  },
+  "i18n_page_previous" : {
+    "message" : "上一頁"
+  },
+  "i18n_page_next" : {
+    "message" : "下一頁"
+  },
+  "i18n_page_navigation" : {
+    "message" : "頁面導覽"
   },
   "chrome_accept_languages": {
-    "message": "$CHROME$ accepts $languages$ languages",
+    "message": "$CHROME$ 接受 $languages$ 等語言",
     "placeholders": {
       "chrome": {
         "content": "Chrome",
