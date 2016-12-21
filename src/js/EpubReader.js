@@ -786,25 +786,60 @@ BookmarkData){
                     embedded: " ",
                     goto: bookmark
                 });
-                
+
+                var injectCoverImageURI = function(uri) {
+                    var style = 'margin-top: 1em; margin-bottom: 0.5em; height:400px; width:100%; background-repeat: no-repeat; background-size: contain; background-position: center; background-attachment: scroll; background-clip: content-box; background-origin: content-box; box-sizing: border-box; background-image: url('+uri+');';
+
+                    var $div = $("#readium_book_cover_image");
+                    if ($div && $div[0]) {
+                        $div.attr("style", style);
+                    }
+
+                    return style;
+                };
+
                 var ebookCoverImageURL = undefined;
                 try {
-                    var coverPath = readium.getCurrentPublicationFetcher().convertPathRelativeToPackageToRelativeToBase(currentPackageDocument.getMetadata().cover_href);
-                    ebookCoverImageURL = readium.getCurrentPublicationFetcher().getEbookURL_FilePath() + "/" + coverPath;
+                    var fetcher = readium.getCurrentPublicationFetcher();
+
+                    var coverHref = currentPackageDocument.getMetadata().cover_href;
+                    if (coverHref) {
+                        var coverPath = fetcher.convertPathRelativeToPackageToRelativeToBase(coverHref);
+                        var relPath = "/" + coverPath; //  "/META-INF/container.xml"
+
+                        if (fetcher.shouldConstructDomProgrammatically()) {
+
+                            fetcher.relativeToPackageFetchFileContents(relPath, 'blob', function (res) {
+                                if(res) {
+                                    try {
+                                        var blobURI = window.URL.createObjectURL(res);
+                                        injectCoverImageURI(blobURI);
+                                    } catch (err) {
+                                        // ignore
+                                        console.error(err);
+                                    }
+                                }
+                            }, function (err) {
+                                // ignore
+                                console.error(err);
+                            });
+                        } else {
+                            ebookCoverImageURL = fetcher.getEbookURL_FilePath() + relPath;
+                        }
+                    }
                 } catch(err) {
                     // ignore
+                    console.error(err);
                 }
                 
-                var htmladdon = undefined;
+                var styleAttr = "";
                 if (ebookCoverImageURL) {
-                    htmladdon = '<div style="margin-top: 1em; margin-bottom: 0.5em; height:400px; width:100%; background-repeat: no-repeat; background-size: contain; background-position: center; background-attachment: scroll; background-clip: content-box; background-origin: content-box; box-sizing: border-box; background-image: url('+ebookCoverImageURL+');"> </div>';
-                    
-                    //Dialogs.showModalMessageEx(coverPath, $(htmladdon));
+                    styleAttr = ' style="' + injectCoverImageURI(ebookCoverImageURL) + '" ';
                 }
 
                 //showModalMessage
                 //showErrorWithDetails
-                Dialogs.showModalMessageEx(Strings.share_url, $('<p id="share-url-dialog-input-label">'+Strings.share_url_label+'</p><input id="share-url-dialog-input-id" aria-labelledby="share-url-dialog-input-label" type="text" value="'+url+'" readonly="readonly" style="width:100%" />' + (htmladdon ? htmladdon : "")));
+                Dialogs.showModalMessageEx(Strings.share_url, $('<p id="share-url-dialog-input-label">'+Strings.share_url_label+'</p><input id="share-url-dialog-input-id" aria-labelledby="share-url-dialog-input-label" type="text" value="'+url+'" readonly="readonly" style="width:100%" /><div id="readium_book_cover_image" '+styleAttr+'> </div>'));
                 
                 setTimeout(function(){
                     $('#share-url-dialog-input-id').focus().select();
