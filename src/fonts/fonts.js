@@ -6,38 +6,38 @@ var _fontFaces_BUILT_IN =
         url: "OpenDyslexic/OpenDyslexic.css"
     },
     {
-        displayName: "Go (sans-serif)",
-        fontFamily: "Go",
-        url: "Go/Go.css"
+        displayName: "Open Sans",
+        fontFamily: "Open Sans",
+        url: "Open-Sans/Open-Sans.css"
     },
     {
-        displayName: "Go Mono (serif)",
-        fontFamily: "Go Mono",
-        url: "Go/GoMono.css"
+        displayName: "Noto Serif",
+        fontFamily: "Noto Serif",
+        url: "Noto-Serif/Noto-Serif.css"
     }
 ];
 
 var _fontFaces_ONLINE =
 [
     {
-        displayName: "Open Sans (sans-serif) [online]",
-        fontFamily: "Open Sans",
-        url: "https://fonts.googleapis.com/css?family=Open+Sans"
-    },
-    {
         displayName: "Old Standard TT (serif) [online]",
         fontFamily: "Old Standard TT",
         url: "https://fonts.googleapis.com/css?family=Old+Standard+TT"
     },
     {
-        displayName: "Noto Serif (serif) [online]",
-        fontFamily: "Noto Serif",
-        url: "https://fonts.googleapis.com/css?family=Noto+Serif"
-    },
-    {
         displayName: "Bitter (serif) [online]",
         fontFamily: "Bitter",
         url: "https://fonts.googleapis.com/css?family=Bitter"
+    },
+    {
+        displayName: "Alegreya",
+        fontFamily: "Alegreya",
+        url: "https://fonts.googleapis.com/css?family=Alegreya"
+    },
+    {
+        displayName: "Roboto Mono",
+        fontFamily: "Roboto Mono",
+        url: "https://fonts.googleapis.com/css?family=Roboto+Mono"
     }
 ];
 
