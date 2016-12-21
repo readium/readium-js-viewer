@@ -50,8 +50,7 @@ var _fontFaces_ONLINE =
 var _fontFaces = _fontFaces_BUILT_IN;
 
 // Due to CSP, Chrome Packaged Apps cannot include references to online web fonts
-var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app;
-//&& chrome.app.window && chrome.app.window.current; // a bit redundant?
+var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app && chrome.app.window && chrome.app.window.current; // a bit redundant?
 
 if (!isChromeExtensionPackagedApp) {
     for (var i = 0; i < _fontFaces_ONLINE.length; i++) {
