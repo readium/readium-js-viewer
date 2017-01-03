@@ -19,7 +19,7 @@ See [license.txt](./license.txt).
 
 ## Prerequisites
 
-* A decent terminal. On Windows, GitShell works great ( http://git-scm.com ), GitBash works too ( https://msysgit.github.io ), and Cygwin adds useful commands ( https://www.cygwin.com ).
+* A decent terminal. On Windows, GitBash works great ( https://msysgit.github.io or https://git-for-windows.github.io or https://git-scm.com/download/win ), and optionally Cygwin adds useful commands ( https://www.cygwin.com ).
 * NodeJS ( https://nodejs.org ) **v4+** (Note that NodeJS v6+ and NPM v3+ are now supported)
 
 
