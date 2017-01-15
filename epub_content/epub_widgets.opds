@@ -1,5 +1,5 @@
 <feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
-<updated>2016-03-09T07:36:49.558Z</updated>
+<updated>2016-11-25T10:46:11.627Z</updated>
 <id>READIUM_OPDS_https___github.com_IDPF_scriptable-components_tree_master_Samples_1-basic_component_embedded</id>
 <title>Readium CloudReader OPDS feed for [ https://github.com/IDPF/scriptable-components/tree/master/Samples/1-basic_component/embedded ]</title>
 <link rel="self" href="epub_content/epub_widgets.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
@@ -12,7 +12,7 @@
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/master/Samples/1-basic_component/embedded/basic_template" rel="http://opds-spec.org/acquisition"/>
 <link type="image/jpg" href="https://cdn.rawgit.com/IDPF/scriptable-components/master/Samples/1-basic_component/embedded/basic_template/EPUB/package.opf/../img/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<updated>2016-03-09T07:36:49.558Z</updated>
+<updated>2016-11-25T10:46:11.627Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_master_Samples_1-basic_component_embedded_basic_template</id>
 </entry>
 <entry>
@@ -21,7 +21,7 @@
   <name>IDPF/scriptable-components (master) - Samples/1-basic_component/packaged/basic_template</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/master/Samples/1-basic_component/packaged/basic_template" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:36:52.279Z</updated>
+<updated>2016-11-25T10:46:12.986Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_master_Samples_1-basic_component_packaged_basic_template</id>
 </entry>
 <entry>
@@ -30,7 +30,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/tempwave-demo/embedded/tempwave-demo</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/tempwave-demo/embedded/tempwave-demo" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:36:54.221Z</updated>
+<updated>2016-11-25T10:46:14.344Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_tempwave-demo_embedded_tempwave-demo</id>
 </entry>
 <entry>
@@ -39,7 +39,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/tempwave-demo/packaged/tw-controls</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/tempwave-demo/packaged/tw-controls" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:36:56.815Z</updated>
+<updated>2016-11-25T10:46:15.634Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_tempwave-demo_packaged_tw-controls</id>
 </entry>
 <entry>
@@ -48,7 +48,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/tempwave-demo/packaged/tw-model</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/tempwave-demo/packaged/tw-model" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:36:56.815Z</updated>
+<updated>2016-11-25T10:46:15.634Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_tempwave-demo_packaged_tw-model</id>
 </entry>
 <entry>
@@ -57,7 +57,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/tempwave-demo/packaged/tw-profile</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/tempwave-demo/packaged/tw-profile" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:36:56.815Z</updated>
+<updated>2016-11-25T10:46:15.634Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_tempwave-demo_packaged_tw-profile</id>
 </entry>
 <entry>
@@ -66,7 +66,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/tempwave-demo/packaged/tw-series</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/tempwave-demo/packaged/tw-series" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:36:56.815Z</updated>
+<updated>2016-11-25T10:46:15.634Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_tempwave-demo_packaged_tw-series</id>
 </entry>
 <entry>
@@ -75,7 +75,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/tempwave-demo/packaged/tw-status</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/tempwave-demo/packaged/tw-status" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:36:56.815Z</updated>
+<updated>2016-11-25T10:46:15.634Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_tempwave-demo_packaged_tw-status</id>
 </entry>
 <entry>
@@ -84,7 +84,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/logger-demo/packaged/logger</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/logger-demo/packaged/logger" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:37:02.043Z</updated>
+<updated>2016-11-25T10:46:19.817Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_logger-demo_packaged_logger</id>
 </entry>
 <entry>
@@ -93,7 +93,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/logger-demo/embedded/logger-demo-2</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/logger-demo/embedded/logger-demo-2" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:37:04.831Z</updated>
+<updated>2016-11-25T10:46:21.756Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_logger-demo_embedded_logger-demo-2</id>
 </entry>
 <entry>
@@ -102,7 +102,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/logger-demo/embedded/logger-demo</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/logger-demo/embedded/logger-demo" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:37:04.831Z</updated>
+<updated>2016-11-25T10:46:21.756Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_logger-demo_embedded_logger-demo</id>
 </entry>
 <entry>
@@ -111,7 +111,7 @@
   <name>IDPF/scriptable-components (feature/logger-widget) - Samples/readium/TinyLog</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/feature/logger-widget/Samples/readium/TinyLog" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:37:07.971Z</updated>
+<updated>2016-11-25T10:46:23.706Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_feature_logger-widget_Samples_readium_TinyLog</id>
 </entry>
 <entry>
@@ -121,7 +121,7 @@
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/PubCoder/Samples/1-basic_component/embedded/PubCoder/Gallery&amp;Coloring" rel="http://opds-spec.org/acquisition"/>
 <link type="image/jpg" href="https://cdn.rawgit.com/IDPF/scriptable-components/PubCoder/Samples/1-basic_component/embedded/PubCoder/Gallery&amp;Coloring/OEBPS/content.opf/../assets/images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<updated>2016-03-09T07:37:13.530Z</updated>
+<updated>2016-11-25T10:46:26.507Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_PubCoder_Samples_1-basic_component_embedded_PubCoder_Gallery&amp;Coloring</id>
 </entry>
 <entry>
@@ -130,7 +130,7 @@
   <name>IDPF/scriptable-components (PubCoder) - Samples/1-basic_component/packaged/PubCoder/ColoringGame</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/PubCoder/Samples/1-basic_component/packaged/PubCoder/ColoringGame" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:37:17.360Z</updated>
+<updated>2016-11-25T10:46:27.909Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_PubCoder_Samples_1-basic_component_packaged_PubCoder_ColoringGame</id>
 </entry>
 <entry>
@@ -139,7 +139,7 @@
   <name>IDPF/scriptable-components (PubCoder) - Samples/1-basic_component/packaged/PubCoder/ImageGallery</name>
 </author>
 <link type="application/epub" href="https://cdn.rawgit.com/IDPF/scriptable-components/PubCoder/Samples/1-basic_component/packaged/PubCoder/ImageGallery" rel="http://opds-spec.org/acquisition"/>
-<updated>2016-03-09T07:37:17.360Z</updated>
+<updated>2016-11-25T10:46:27.909Z</updated>
 <id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_scriptable-components_PubCoder_Samples_1-basic_component_packaged_PubCoder_ImageGallery</id>
 </entry>
 </feed>

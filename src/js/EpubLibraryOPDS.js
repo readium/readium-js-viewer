@@ -107,7 +107,7 @@ URI){
                                 rootUrl_EPUBAcquisitionIndirect = href;
                             }
                         } else {
-                            if (/\.epub$/.test(href)) {
+                            if (/\.epub[3?]$/.test(href)) {
                                 rootUrl_EPUBAcquisition = href;
                             }
                         }

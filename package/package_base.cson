@@ -101,7 +101,11 @@ files: [
 #####################################################################
 dependencies:
 
-    "parallelshell": 'latest'
+    #"parallelshell": 'latest'
+    "concurrently": 'latest'
+
+    "npm-run-all": 'latest'
+
 
     "opener": 'latest'
 

@@ -3,6 +3,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
     // change these values to affec the default state of the application's preferences at first-run.
     var defaultSettings = {
         fontSize: 100,
+        fontSelection: 0, //0 is the index of default for our purposes.
         syntheticSpread: "auto",
         scroll: "auto",
         columnGap: 60,
@@ -15,9 +16,17 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         var $previewText = $('.preview-text');
         setPreviewTheme($previewText, theme);
         var previewStyle = window.getComputedStyle($previewText[0]);
-        var bookStyles = [{selector: 'body', declarations: {
+        var bookStyles = [{
+            selector: 'body', // or "html", or "*", or "", or undefined (styles applied to whole document)
+            declarations: {
             backgroundColor: isAuthorTheme ? "" : previewStyle.backgroundColor,
             color: isAuthorTheme ? "" : previewStyle.color
+        }},
+        {
+            selector: 'a', // so that hyperlinks stand out (otherwise they are invisible, and we do not have a configured colour scheme for each theme (TODO? add hyperlinks colours in addition to basic 2x params backgroundColor and color?).
+            declarations: {
+            backgroundColor: isAuthorTheme ? "" : previewStyle.color,
+            color: isAuthorTheme ? "" : previewStyle.backgroundColor
         }}];
         return bookStyles;
     }
@@ -169,6 +178,18 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
         });
 
+        var $fontSelectionList = $("#font-selection-input");
+        $fontSelectionList.change(function(){
+            var fontSelection = Number($fontSelectionList.find("option:selected").val());
+            if(fontSelection === 0){
+                $previewText.css({fontFamily: ""});
+			} else {
+                var font = moduleConfig.fonts[fontSelection-1].fontFamily;
+                $previewText.css({fontFamily: font});
+			}
+		});
+    
+
         $('#tab-butt-main').on('click', function(){
             $("#tab-keyboard").attr('aria-expanded', "false");
             $("#tab-main").attr('aria-expanded', "true");
@@ -205,6 +226,32 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
                 $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
+
+                var loadedUrls = []; //contains the URL's for fonts. If it exists already, we won't load it again.
+                if($fontSelectionList[0].childElementCount == 1){ 
+                    //If this settings dialog has been created before, (If the user loaded the settings dialog for example) the combo box isn't destroyed on save. Therefore, we must only populate it on the first instance.
+                    $.each(moduleConfig.fonts, function(index, fontObj){
+                        index++;
+                        var curName = fontObj.displayName;
+                        if(fontObj.url){ //No url, no problem so long as there's a font that works.
+                            var fontPayload  = '<link id="fontStyle_'+index+'" rel="stylesheet" type="text/css" href="'+fontObj.url+'"/>';
+                            if(loadedUrls.indexOf(fontObj.url) < 0){
+                                var item = $("head").append(fontPayload);
+                                loadedUrls.push(fontObj.url)
+                            }
+                        }
+                        
+                        var isSelected = (readerSettings.fontSelection === index ? "selected" : "");
+                        var curOption = '<option   '+isSelected+' value="'+index+'" aria-label="'+curName+'" title="'+curName+'">'+curName+'</option>';
+                        $fontSelectionList.append(curOption);
+                        if(isSelected) {
+                            //Works because if it's not selected, it's the empty string.
+                            $previewText.css({
+                                fontFamily : fontObj.fontFamily
+                            });
+                        }
+                    });
+                }
 
                 // reset column gap top default, as page width control is now used (see readerSettings.columnMaxWidth) 
                 readerSettings.columnGap = defaultSettings.columnGap;
@@ -277,9 +324,10 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             var maxVal = Number($columnMaxWidthSlider.attr("max"));
             var columnMaxWidth = Number($columnMaxWidthSlider.val());
             if (columnMaxWidth >= maxVal) columnMaxWidth = 99999; // really big pixel distance
-                
+            
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
+                fontSelection: Number($fontSelectionList.val()),
                 syntheticSpread: "auto",
                 columnGap: Number($marginSlider.val()),
                 columnMaxWidth: columnMaxWidth,
@@ -387,6 +435,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 //     }
                 // }
 
+                // Note: automatically JSON.stringify's the passed value!
                 Settings.put('reader', json);
 
                 setTimeout(function()
@@ -416,7 +465,8 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
                     var isNight = json.theme === "night-theme";
                     json.theme = isNight ? "author-theme" : "night-theme";
-
+                    
+                    // Note: automatically JSON.stringify's the passed value!
                     Settings.put('reader', json);
 
                     if (reader) updateReader(reader, json);
