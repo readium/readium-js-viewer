@@ -165,6 +165,8 @@ devDependencies:
     "gift": 'latest'
 
     "clean-css": 'latest'
+    "clean-css-cli": 'latest'
+    
     "uglify-js": 'latest'
 
     #"nodeunit": 'latest'

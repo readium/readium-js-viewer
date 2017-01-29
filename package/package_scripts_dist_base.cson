@@ -6,7 +6,7 @@
 #=====================
     'dist:cssoptimize': '
 
-        node node_modules/clean-css/bin/cleancss
+        node node_modules/clean-css-cli/bin/cleancss
             --skip-rebase
             --skip-advanced
             --skip-aggressive-merging
