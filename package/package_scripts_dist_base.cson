@@ -4,15 +4,17 @@
 #
 
 #=====================
+# removed config params
+# https://www.npmjs.com/package/clean-css-cli#important-40-breaking-changes
+# --skip-aggressive-merging
+# --skip-media-merging
+# --skip-restructuring
+# --skip-shorthand-compacting
     'dist:cssoptimize': '
-
         node node_modules/clean-css-cli/bin/cleancss
             --skip-rebase
             --skip-advanced
-            --skip-aggressive-merging
-            --skip-media-merging
-            --skip-restructuring
-            --skip-shorthand-compacting
+            --level 0
             "node_modules/bootstrap/dist/css/bootstrap.css"
             "node_modules/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css"
             "src/css/sourcesanspro.css"

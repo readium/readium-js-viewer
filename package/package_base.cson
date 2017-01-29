@@ -164,7 +164,8 @@ devDependencies:
     # versionsMaker.js
     "gift": 'latest'
 
-    "clean-css": 'latest'
+    # Automatically included with the CLI
+    # "clean-css": 'latest'
     "clean-css-cli": 'latest'
     
     "uglify-js": 'latest'
