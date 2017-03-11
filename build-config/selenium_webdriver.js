@@ -39,6 +39,9 @@ child.on('exit', function() {
             {encoding: 'utf-8'},
             function(err, fileContents) {
                 if (!err) {
+
+                    fileContents = fileContents.replace("// installed as module or locally?", "if (true) { } else ");
+                    
                     var func = eval("( function(){"+fileContents+"; return {start: start, stop: stop}; } )");
                     var api = func();
 
