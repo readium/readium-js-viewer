@@ -40,7 +40,8 @@ child.on('exit', function() {
             function(err, fileContents) {
                 if (!err) {
 
-                    fileContents = fileContents.replace("// installed as module or locally?", "if (true) { } else ");
+                    // See https://github.com/readium/readium-js-viewer/issues/566
+                    // fileContents = fileContents.replace("// installed as module or locally?", "if (true) { } else ");
                     
                     var func = eval("( function(){"+fileContents+"; return {start: start, stop: stop}; } )");
                     var api = func();

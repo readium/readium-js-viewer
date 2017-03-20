@@ -70,7 +70,7 @@
     "mocha": "latest",
     "wd": "latest",
     "phantomjs-prebuilt": "latest",
-    "grunt-selenium-webdriver": "latest",
+    "grunt-selenium-webdriver": "levexis/grunt-selenium-webdriver",
     "crx": "latest",
     "chai": "latest",
     "chai-as-promised": "latest",
