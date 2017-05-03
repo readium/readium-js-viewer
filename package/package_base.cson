@@ -42,7 +42,7 @@
 
 name: "readium-js-viewer"
 
-version: "0.25.0"
+version: "0.26.0-alpha"
 
 engines:
     node: ">=0.12"
@@ -178,7 +178,7 @@ devDependencies:
     "phantomjs-prebuilt": 'latest'
 
     #"grunt": 'latest'
-    "grunt-selenium-webdriver": 'latest'
+    "grunt-selenium-webdriver": 'levexis/grunt-selenium-webdriver'
     #"selenium-webdriver": 'latest'
 
     "crx": 'latest'
