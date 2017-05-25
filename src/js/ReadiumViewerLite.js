@@ -75,8 +75,7 @@ define(['jquery', './EpubReader', 'readium_shared_js/helpers'], function($, Epub
                 console.log(file.type);
                 console.log(file.size);
                 
-                if (file.type == "application/epub+zip" || (/\.epub$/.test(file.name))) {
-                    
+                if (file.type == "application/epub+zip" || (/\.epub[3?]$/.test(file.name))) {
                       EpubReader.loadUI({epub: file});
                 }
             }
