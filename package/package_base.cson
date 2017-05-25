@@ -42,11 +42,12 @@
 
 name: "readium-js-viewer"
 
-version: "0.25.0-alpha"
+version: "0.27.0-alpha"
 
 engines:
-    node: ">=0.12"
-    npm: ">2.10"
+    node: ">=4"
+    npm: ">=2"
+    yarn: ">=0.23"
 
 description: "Readium web app - online cloud reader, offline Chrome extension/app"
 
@@ -164,7 +165,10 @@ devDependencies:
     # versionsMaker.js
     "gift": 'latest'
 
-    "clean-css": 'latest'
+    # Automatically included with the CLI
+    # "clean-css": 'latest'
+    "clean-css-cli": 'latest'
+    
     "uglify-js": 'latest'
 
     #"nodeunit": 'latest'
@@ -175,7 +179,7 @@ devDependencies:
     "phantomjs-prebuilt": 'latest'
 
     #"grunt": 'latest'
-    "grunt-selenium-webdriver": 'latest'
+    "grunt-selenium-webdriver": 'levexis/grunt-selenium-webdriver'
     #"selenium-webdriver": 'latest'
 
     "crx": 'latest'

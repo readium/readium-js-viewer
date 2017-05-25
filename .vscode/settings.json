@@ -31,7 +31,7 @@
 
     "editor.roundedSelection": false,
     
-    "editor.wrappingColumn": 0,
+    "editor.wordWrap": "off",
     
     "editor.quickSuggestions": false,
 
@@ -47,7 +47,7 @@
 
     "editor.folding": false,
 
-    "editor.renderWhitespace": true,
+    "editor.renderWhitespace": "all",
 
-    "editor.tabSize": "4"
+    "editor.tabSize": 4
 }
