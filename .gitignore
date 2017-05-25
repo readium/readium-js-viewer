@@ -8,9 +8,9 @@ node_modules
 .surgeignore
 epub_content/x
 build.txt
-local_test_data
 npm-debug.log
 http.log
 http_ebooks.log
 http_app.log
 http_app-ebooks.log
+

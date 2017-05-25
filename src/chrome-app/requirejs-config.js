@@ -28,6 +28,10 @@ console.log(currentURL);
 
 console.log(self.location.origin);
 
+var fontsArray = [];
+if (typeof getFontFaces != "undefined") { // defined externally
+    fontsArray = getFontFaces(self.location.origin + "/font-faces/");
+}
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
@@ -39,6 +43,8 @@ require.config({
         'readium_js_viewer/ModuleConfig' : {
 
             'mathJaxUrl': self.location.origin + '/scripts/mathjax/MathJax.js',
+            
+            'fonts': fontsArray,
 
             'annotationCSSUrl': self.location.origin + '/css/annotations.css',
 

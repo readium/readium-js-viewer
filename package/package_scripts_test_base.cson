@@ -49,7 +49,7 @@
 #=====================
     'test:chromeApp': '
 
-        parallelshell
+        concurrently --raw --kill-others
             \"node build-config/selenium_webdriver.js
             -a 127.0.0.1
             -p 8080
@@ -69,7 +69,7 @@
 #=====================
     'test:chrome': '
 
-        parallelshell
+        concurrently --raw --kill-others
             \"node build-config/selenium_webdriver.js
             -a 127.0.0.1
             -p 8080
@@ -87,7 +87,7 @@
 #=====================
     'test:firefox': '
 
-        parallelshell
+        concurrently --raw --kill-others
             \"node build-config/selenium_webdriver.js
             -a 127.0.0.1
             -p 8080

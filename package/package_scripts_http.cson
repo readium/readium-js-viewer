@@ -9,11 +9,11 @@
 
         echo > open_webbrowser.js
         &&
-        parallelshell
-            \"npm run dowatch\"
-            \"npm run http:app_ebooks\"
+        run-p
+            \"dowatch\"
+            \"http:app_ebooks\"
     '
-#    \"npm run live-reload\"
+#    \"live-reload\"
 
 #=====================
 #### BLOCKING! (CTRL-C) [watch][live-reload][http]
@@ -21,11 +21,11 @@
 
         echo > open_webbrowser.js
         &&
-        parallelshell
-            \"npm run dowatch:plugins\"
-            \"npm run http:app_ebooks\"
+        run-p
+            \"dowatch:plugins\"
+            \"http:app_ebooks\"
     '
-#    \"npm run live-reload\"
+#    \"live-reload\"
 
 #=====================
 #### BLOCKING! (CTRL-C) [http]
@@ -40,12 +40,12 @@
 
         echo > open_webbrowser.js
         &&
-        parallelshell
-            \"npm run dowatch\"
-            \"npm run http:ebooks\"
-            \"npm run http:app\"
+        run-p
+            \"dowatch\"
+            \"http:ebooks\"
+            \"http:app\"
     '
-#    \"npm run live-reload\"
+#    \"live-reload\"
 
 #=====================
 #### BLOCKING! (CTRL-C) [watch][live-reload][http]
@@ -53,20 +53,20 @@
 
         echo > open_webbrowser.js
         &&
-        parallelshell
-            \"npm run dowatch:plugins\"
-            \"npm run http:ebooks\"
-            \"npm run http:app\"
+        run-p
+            \"dowatch:plugins\"
+            \"http:ebooks\"
+            \"http:app\"
     '
-#    \"npm run live-reload\"
+#    \"live-reload\"
 
 #=====================
 #### BLOCKING! (CTRL-C) [http]
     'http2:nowatch': '
 
-        parallelshell
-            \"npm run http:ebooks\"
-            \"npm run http:app\"
+        run-p
+            \"http:ebooks\"
+            \"http:app\"
     '
 
 #=====================
