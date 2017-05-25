@@ -231,7 +231,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
                     console.log(file.type);
                     console.log(file.size);
                     
-                    if (file.type == "application/epub+zip" || (/\.epub$/.test(file.name))) {
+                    if (file.type == "application/epub+zip" || (/\.epub[3?]$/.test(file.name))) {
 
 						var launch = function(epub) {
 							var urlParams = Helpers.getURLQueryParams();

@@ -534,7 +534,10 @@ Helpers){
         Dialogs.showModalProgress(Strings.migrate_dlg_title, Strings.migrate_dlg_message);
         libraryManager.handleMigration({
             success: function(){
+                
+                // Note: automatically JSON.stringify's the passed value!
                 Settings.put('needsMigration', false, $.noop);
+
                 handleLibraryChange();
             },
             progress: Dialogs.updateProgress,
@@ -679,6 +682,7 @@ Helpers){
         });
     };
     window.setReplaceByDefault = function(replace){
+        // Note: automatically JSON.stringify's the passed value!
         Settings.put('replaceByDefault', String(replace));
     }
     return {

@@ -19,6 +19,8 @@ define([],function(){
             obj[key] = JSON.stringify(val);
             chrome.storage.local.set(obj, callback);
         },
+        
+        // Note that compared to getMultiple(), here the callback function parameter gets a JSON.parse'd value (not the raw string from the key/value store)
         get : function(key, callback){
             chrome.storage.local.get(key, function(val){
                 if (val[key]){
@@ -29,6 +31,8 @@ define([],function(){
                 }
             });
         },
+        
+        // Note that compared to get(), here the callback function parameter does not get JSON.parse'd values (instead: raw string from the key/value store)
         getMultiple : function(keys, callback){
             chrome.storage.local.get(keys, function(val){
                 callback(val);
