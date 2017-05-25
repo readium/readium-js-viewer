@@ -45,6 +45,10 @@ fs.readFile(
     {encoding: 'utf-8'},
     function(err, fileContents) {
         if (!err) {
+
+            // See https://github.com/readium/readium-js-viewer/issues/566
+            // fileContents = fileContents.replace("// installed as module or locally?", "if (true) { } else ");
+            
             var func = eval("( function(){"+fileContents+"; return {start: start, stop: stop}; } )");
             var api = func();
 
@@ -60,6 +64,9 @@ fs.readFile(
                 phantomPort: 8181
             };
             
+            //        http://127.0.0.1:4444/selenium -server/driver/?cmd=shutDownSeleniumServer
+            //        http://127.0.0.1:4444/wd/hub
+
             api.start (
                 function(){console.log("SELENIUM arguments:");console.log(arguments);} ,
 
@@ -94,3 +101,4 @@ fs.readFile(
 
 
 console.log("SELENIUM ...");
+

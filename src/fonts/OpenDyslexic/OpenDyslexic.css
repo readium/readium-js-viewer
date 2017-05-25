@@ -4,10 +4,7 @@
 		local('OpenDyslexic'),
 		local('OpenDyslexic Regular'),
 		local('OpenDyslexic-Regular'),
-		url('OpenDyslexic-Regular.eot') format('embedded-opentype'),
-		url('OpenDyslexic-Regular.woff') format('woff'),
-		url('OpenDyslexic-Regular.ttf') format('truetype'),
-		url('OpenDyslexic-Regular.svg') format('svg');
+		url('OpenDyslexic-Regular.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -16,10 +13,7 @@
 	src:
 		local('OpenDyslexic Italic'),
 		local('OpenDyslexic-Italic'),
-		url('OpenDyslexic-Italic.eot') format('embedded-opentype'),
-		url('OpenDyslexic-Italic.woff') format('woff'),
-		url('OpenDyslexic-Italic.ttf') format('truetype'),
-		url('OpenDyslexic-Italic.svg') format('svg');
+		url('OpenDyslexic-Italic.woff') format('woff');
 	font-weight: normal;
 	font-weight: normal;
 	font-style: italic;
@@ -29,10 +23,7 @@
 	src:
 		local('OpenDyslexic Bold'),
 		local('OpenDyslexic-Bold'),
-		url('OpenDyslexic-Bold.eot') format('embedded-opentype'),
-		url('OpenDyslexic-Bold.woff') format('woff'),
-		url('OpenDyslexic-Bold.ttf') format('truetype'),
-		url('OpenDyslexic-Bold.svg') format('svg');
+		url('OpenDyslexic-Bold.woff') format('woff');
 	font-weight: normal;
 	font-weight: bold;
 	font-style: normal;
@@ -42,10 +33,7 @@
 	src:
 		local('OpenDyslexic Bold Italic'),
 		local('OpenDyslexic-BoldItalic'),
-		url('OpenDyslexic-BoldItalic.eot') format('embedded-opentype'),
-		url('OpenDyslexic-BoldItalic.woff') format('woff'),
-		url('OpenDyslexic-BoldItalic.ttf') format('truetype'),
-		url('OpenDyslexic-BoldItalic.svg') format('svg');
+		url('OpenDyslexic-BoldItalic.woff') format('woff');
 	font-weight: normal;
 	font-weight: bold;
 	font-style: italic;

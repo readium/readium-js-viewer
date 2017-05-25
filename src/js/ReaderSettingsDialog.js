@@ -16,9 +16,17 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         var $previewText = $('.preview-text');
         setPreviewTheme($previewText, theme);
         var previewStyle = window.getComputedStyle($previewText[0]);
-        var bookStyles = [{selector: 'body', declarations: {
+        var bookStyles = [{
+            selector: 'body', // or "html", or "*", or "", or undefined (styles applied to whole document)
+            declarations: {
             backgroundColor: isAuthorTheme ? "" : previewStyle.backgroundColor,
             color: isAuthorTheme ? "" : previewStyle.color
+        }},
+        {
+            selector: 'a', // so that hyperlinks stand out (otherwise they are invisible, and we do not have a configured colour scheme for each theme (TODO? add hyperlinks colours in addition to basic 2x params backgroundColor and color?).
+            declarations: {
+            backgroundColor: isAuthorTheme ? "" : previewStyle.color,
+            color: isAuthorTheme ? "" : previewStyle.backgroundColor
         }}];
         return bookStyles;
     }
