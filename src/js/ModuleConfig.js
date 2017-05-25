@@ -1,3 +1,7 @@
+/* 
+* ModuleConfig.js: Module that contains configuration options for Readium-js-viewer.
+*/
+
 define(['module'], function(module) {
 
         var config = module.config();
@@ -17,6 +21,9 @@ define(['module'], function(module) {
             'annotationCSSUrl': config.annotationCSSUrl || "/ANNOTATIONS.css",
             'mathJaxUrl': config.mathJaxUrl || "/MATHJAX.js",
             'jsLibRoot': config.jsLibRoot || "/ZIPJS/",
+
+            //Fonts is a list of font objects. 
+            'fonts': config.fonts || [],
 
             'useSimpleLoader': config.useSimpleLoader || false
 
