@@ -55,7 +55,7 @@
     "JSON2": "latest",
     "bootstrap": "3.x",
     "bootstrap-accessibility-plugin": "paypal/bootstrap-accessibility-plugin",
-    "chai": "latest",
+    "chai": "3.x",
     "chai-as-promised": "latest",
     "clean-css-cli": "latest",
     "crx": "latest",
