@@ -1,54 +1,83 @@
-define(['jath'], function(Jath){
-    Jath.resolver = function( prefix ) {
+
+define(['jquery', 'jxpath'], function($, JXPath){
+    var resolver = function( prefix ) {
             var mappings = { 
                 def: "http://www.idpf.org/2007/opf",
                     dc: "http://purl.org/dc/elements/1.1/"
             };
             return mappings[ prefix ];
-    }
-
-    var jathTemplate = {
-
-        metadata:  { 
-                id: "//def:metadata/dc:identifier",
-                epub_version: "//def:package/@version",
-                title: "//def:metadata/dc:title",
-                author: "//def:metadata/dc:creator",
-                publisher: "//def:metadata/dc:publisher",
-                description: "//def:metadata/dc:description",
-                rights: "//def:metadata/dc:rights",
-                language: "//def:metadata/dc:language",
-                pubdate: "//def:metadata/dc:date",
-                modified_date: "//def:metadata/def:meta[@property='dcterms:modified']",
-                layout: "//def:metadata/def:meta[@property='rendition:layout']",
-                spread: "//def:metadata/def:meta[@property='rendition:spread']",
-                orientation: "//def:metadata/def:meta[@property='rendition:orientation']",
-                ncx: "//def:spine/@toc",
-                page_prog_dir: "//def:spine/@page-progression-direction",
-                active_class: "//def:metadata/def:meta[@property='media:active-class']"
-         },
-
-        manifest: [ "//def:item", { 
-                id: "@id",
-                href: "@href",
-                media_type: "@media-type",
-                properties: "@properties",
-        media_overlay: "@media-overlay"
-        } ],
-                                                 
-        spine: [ "//def:itemref", { idref: "@idref", properties: "@properties", linear: "@linear" } ],
-
-        bindings: ["//def:bindings/def:mediaType", { 
-                handler: "@handler",
-                media_type: "@media-type"
-        } ]
-        
     };
 
     PackageParser = {
         parsePackageDom : function(data){
-            var jsonObj = Jath.parse(jathTemplate, data);
+            
+            var jsonObj = {
+
+                metadata:  { 
+                        id: $.xpath(data, "//def:metadata/dc:identifier", resolver).text(),
+                        epub_version: $.xpath(data, "//def:package/@version", resolver).val(),
+                        title: $.xpath(data, "//def:metadata/dc:title", resolver).text(),
+                        author: $.xpath(data, "//def:metadata/dc:creator", resolver).text(),
+                        publisher: $.xpath(data, "//def:metadata/dc:publisher", resolver).text(),
+                        description: $.xpath(data, "//def:metadata/dc:description", resolver).text(),
+                        rights: $.xpath(data, "//def:metadata/dc:rights", resolver).text(),
+                        language: $.xpath(data, "//def:metadata/dc:language", resolver).text(),
+                        pubdate: $.xpath(data, "//def:metadata/dc:date", resolver).text(),
+                        modified_date: $.xpath(data, "//def:metadata/def:meta[@property='dcterms:modified']", resolver).text(),
+                        layout: $.xpath(data, "//def:metadata/def:meta[@property='rendition:layout']", resolver).text(),
+                        spread: $.xpath(data, "//def:metadata/def:meta[@property='rendition:spread']", resolver).text(),
+                        orientation: $.xpath(data, "//def:metadata/def:meta[@property='rendition:orientation']", resolver).text(),
+                        ncx: $.xpath(data, "//def:spine/@toc", resolver).val(),
+                        page_prog_dir: $.xpath(data, "//def:spine/@page-progression-direction", resolver).val(),
+                        active_class: $.xpath(data, "//def:metadata/def:meta[@property='media:active-class']", resolver).text()
+                 }
+/* UNUSED
+                manifest:
+                (function() {
+                    var array = [];
+                    $.xpath(data, "//def:item", resolver).each(function(item) {
+                        array.push({
+                            id: $.xpath(item, "@id", resolver).val(),
+                            href: $.xpath(item, "@href", resolver).val(),
+                            media_type: $.xpath(item, "@media-type", resolver).val(),
+                            properties: $.xpath(item, "@properties", resolver).val(),
+                            media_overlay: $.xpath(item, "@media-overlay", resolver).val()
+                        });
+                    });
+                    return array;
+                })(),
+                
+                spine:
+                (function() {
+                    var array = [];
+                    $.xpath(data, "//def:itemref", resolver).each(function(item) {
+                        array.push({
+                            idref: $.xpath(item, "@idref", resolver).val(),
+                            properties: $.xpath(item, "@properties", resolver).val(),
+                            linear: $.xpath(item, "@linear", resolver).val()
+                        });
+                    });
+                    return array;
+                })(),
+                
+                bindings:
+                (function() {
+                    var array = [];
+                    $.xpath(data, "//def:bindings/def:mediaType", resolver).each(function(item) {
+                        array.push({
+                            handler: $.xpath(item, "@handler", resolver).val(),
+                            media_type: $.xpath(item, "@media-type", resolver).val()
+                        });
+                    });
+                    return array;
+                })()
+*/
+            };
+    
             jsonObj = jsonObj.metadata;
+
+//console.debug(JSON.stringify(jsonObj));
+            
             jsonObj.coverHref = PackageParser.getCoverHref(data);
             return jsonObj;
         },

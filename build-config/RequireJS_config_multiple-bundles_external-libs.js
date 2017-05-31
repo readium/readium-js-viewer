@@ -23,7 +23,7 @@ require.config({
         {
             name: "readium-external-libs",
             create: true,
-            include: ["jath", "bootstrap", "bootstrapA11y", "hammerjs", "hogan", "jquery_hammer", "keymaster", "screenfull", "spin",
+            include: ["jxpath", "bootstrap", "bootstrapA11y", "hammerjs", "hogan", "jquery_hammer", "keymaster", "screenfull", "spin",
             "mime-types", "zip", "zip-ext", "zip-fs", "cryptoJs/sha1", "cryptoJs/core",
             'jquery',
             'underscore', 'URIjs', 'punycode', 'SecondLevelDomains', 'IPv6',

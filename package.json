@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "keymaster": "danielweck/keymaster",
-    "jath": "danielweck/jath",
+    "jquery-xpath": "latest",
     "mathjax-single-file": "danielweck/MathJax-single-file",
     "bootstrap": "3.x",
     "bootstrap-accessibility-plugin": "paypal/bootstrap-accessibility-plugin",

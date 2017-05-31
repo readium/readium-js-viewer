@@ -130,9 +130,12 @@ devDependencies:
     "keymaster": 'danielweck/keymaster'
 
     #"jath": 'latest'
-    "jath": 'danielweck/jath'
+    #"jath": 'danielweck/jath'
+    
     # "libxmljs" node-gyp python < v3 :(
-    #"jquery-xpath": 'latest'
+    
+    "jquery-xpath": 'latest'
+    #"jquery-xpath": 'ilinsky/jquery-xpath'
 
     "mathjax-single-file": 'danielweck/MathJax-single-file'
 

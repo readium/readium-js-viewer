@@ -56,8 +56,8 @@ require.config({
         'hogan':
             process._RJS_rootDir(3) + '/node_modules/hogan.js/dist/hogan-3.0.2.amd',// version number in file name! :(
 
-        'jath':
-            process._RJS_rootDir(3) + '/node_modules/jath/jath',
+        'jxpath':
+            process._RJS_rootDir(3) + '/node_modules/jquery-xpath/jquery.xpath',
 
         'spin':
             process._RJS_rootDir(3) + '/node_modules/spin.js/spin',
@@ -103,8 +103,8 @@ require.config({
         keymaster : {
             exports: 'key'
         },
-        jath : {
-            exports: 'Jath'
+        jxpath : {
+            exports: 'JXPath'
         },
         spin : {
             exports: 'Spinner'
