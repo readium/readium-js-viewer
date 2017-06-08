@@ -4,7 +4,7 @@ branches:
   - develop
 language: node_js
 node_js:
-- '7'
+- '8.1.x'
 before_install:
 - git submodule update --init --recursive
 #
