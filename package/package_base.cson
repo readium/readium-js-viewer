@@ -184,7 +184,8 @@ devDependencies:
 
     "crx": 'latest'
 
-    "chai": 'latest'
+    # https://github.com/domenic/chai-as-promised/issues/184
+    "chai": '3.x'
     "chai-as-promised": 'latest'
 
     "github": 'latest'
