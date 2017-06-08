@@ -1071,7 +1071,7 @@ BookmarkData){
             {
                 if (SettingsDialog.defaultSettings.hasOwnProperty(prop))
                 {
-                    if (!settings.reader.hasOwnProperty(prop) || !settings.reader[prop]) {
+                    if (!settings.reader.hasOwnProperty(prop) || (typeof settings.reader[prop] == "undefined")) {
                         settings.reader[prop] = SettingsDialog.defaultSettings[prop];
                     }
                 }
