@@ -143,7 +143,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 readerSettings = readerSettings || defaultSettings;
                 for (prop in defaultSettings)
                 {
-                    if (defaultSettings.hasOwnProperty(prop) && !readerSettings.hasOwnProperty(prop) && !readerSettings[prop])
+                    if (defaultSettings.hasOwnProperty(prop) && (!readerSettings.hasOwnProperty(prop) || (typeof readerSettings[prop] == "undefined")))
                     {
                         readerSettings[prop] = defaultSettings[prop];
                     }
