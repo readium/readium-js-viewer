@@ -394,13 +394,13 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
 
 ecstatic@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/ecstatic/-/ecstatic-2.1.0.tgz#477a4a6b25cecb112f697dbd2c7fa354154ea6be"
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/ecstatic/-/ecstatic-2.2.1.tgz#b5087fad439dd9dd49d31e18131454817fe87769"
   dependencies:
-    he "^0.5.0"
+    he "^1.1.1"
     mime "^1.2.11"
     minimist "^1.1.0"
-    url-join "^1.0.0"
+    url-join "^2.0.2"
 
 end-of-stream@^1.0.0:
   version "1.4.0"
@@ -647,9 +647,9 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
-he@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/he/-/he-0.5.0.tgz#2c05ffaef90b68e860f3fd2b54ef580989277ee2"
+he@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
 hoek@2.x.x:
   version "2.16.3"
@@ -792,12 +792,6 @@ jath@danielweck/jath:
   version "0.0.3"
   resolved "https://codeload.github.com/danielweck/jath/tar.gz/ed637b98dda03f763346b044b33f17f7bf6ab64c"
 
-jodid25519@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
-  dependencies:
-    jsbn "~0.1.0"
-
 jquery-hammerjs@latest:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/jquery-hammerjs/-/jquery-hammerjs-2.0.0.tgz#08b518fa25fb1e8ce8fe3212c387da53bbe14048"
@@ -937,8 +931,8 @@ lodash@^4.0.0, lodash@^4.5.1, lodash@^4.8.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 lru-cache@^4.0.1:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.0.2.tgz#1d17679c069cda5d040991a09dbc2c0db377e55e"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.0.tgz#59be49a683b8d986a939f1ca60fdb6989f4b2046"
   dependencies:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
@@ -1212,14 +1206,14 @@ readable-stream@^1.1.8:
     string_decoder "~0.10.x"
 
 readable-stream@^2.0.0, readable-stream@^2.0.5:
-  version "2.2.10"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.10.tgz#effe72bb7c884c0dd335e2379d526196d9d011ee"
+  version "2.2.11"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.11.tgz#0796b31f8d7688007ff0b93a8088d34aa17c0f72"
   dependencies:
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
     process-nextick-args "~1.0.6"
-    safe-buffer "^5.0.1"
+    safe-buffer "~5.0.1"
     string_decoder "~1.0.0"
     util-deprecate "~1.0.1"
 
@@ -1244,8 +1238,8 @@ remotestoragejs@latest:
     xhr2 "^0.1.3"
 
 remove-trailing-separator@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.0.1.tgz#615ebb96af559552d4bf4057c8436d486ab63cc4"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.0.2.tgz#69b062d978727ad14dc6b56ba4ab772fd8d70511"
 
 request-progress@~2.0.1:
   version "2.0.1"
@@ -1290,9 +1284,9 @@ rx@2.3.24:
   version "2.3.24"
   resolved "https://registry.yarnpkg.com/rx/-/rx-2.3.24.tgz#14f950a4217d7e35daa71bbcbe58eff68ea4b2b7"
 
-safe-buffer@^5.0.1:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.0.tgz#fe4c8460397f9eaaaa58e73be46273408a45e223"
+safe-buffer@~5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
 sax@>=0.6.0:
   version "1.2.2"
@@ -1372,8 +1366,8 @@ sprintf-js@^1.0.3:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.1.tgz#36be78320afe5801f6cea3ee78b6e5aab940ea0c"
 
 sshpk@^1.7.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.13.0.tgz#ff2a3e4fd04497555fed97b39a0fd82fafb3a33c"
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.13.1.tgz#512df6da6287144316dc4c18fe1cf1d940739be3"
   dependencies:
     asn1 "~0.2.3"
     assert-plus "^1.0.0"
@@ -1382,7 +1376,6 @@ sshpk@^1.7.0:
   optionalDependencies:
     bcrypt-pbkdf "^1.0.0"
     ecc-jsbn "~0.1.1"
-    jodid25519 "^1.0.0"
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
 
@@ -1409,10 +1402,10 @@ string_decoder@~0.10.x:
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
 
 string_decoder@~1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.1.tgz#62e200f039955a6810d8df0a33ffc0f013662d98"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.2.tgz#b29e1f4e1125fa97a10382b8a533737b7491e179"
   dependencies:
-    safe-buffer "^5.0.1"
+    safe-buffer "~5.0.1"
 
 stringstream@~0.0.4:
   version "0.0.5"
@@ -1539,9 +1532,9 @@ union@~0.4.3:
   dependencies:
     qs "~2.3.3"
 
-url-join@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/url-join/-/url-join-1.1.0.tgz#741c6c2f4596c4830d6718460920d0c92202dc78"
+url-join@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/url-join/-/url-join-2.0.2.tgz#c072756967ad24b8b59e5741551caac78f50b8b7"
 
 util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
