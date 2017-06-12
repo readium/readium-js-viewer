@@ -42,11 +42,12 @@
 
 name: "readium-js-viewer"
 
-version: "0.26.0"
+version: "0.27.0-alpha"
 
 engines:
-    node: ">=0.12"
-    npm: ">2.10"
+    node: ">=4"
+    npm: ">=2"
+    yarn: ">=0.23"
 
 description: "Readium web app - online cloud reader, offline Chrome extension/app"
 
@@ -183,7 +184,8 @@ devDependencies:
 
     "crx": 'latest'
 
-    "chai": 'latest'
+    # https://github.com/domenic/chai-as-promised/issues/184
+    "chai": '3.x'
     "chai-as-promised": 'latest'
 
     "github": 'latest'

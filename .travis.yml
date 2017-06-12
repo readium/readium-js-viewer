@@ -4,7 +4,7 @@ branches:
   - develop
 language: node_js
 node_js:
-- '6'
+- '8'
 before_install:
 - git submodule update --init --recursive
 #
@@ -68,12 +68,12 @@ before_install:
 #
 - cd ../../../
 install:
-- npm run prepare
+- yarn run prepare:yarn:all
 before_script:
 - pwd
 script:
 - cd readium-js/readium-shared-js/readium-cfi-js
-#- npm run prepare
+#- yarn run prepare:yarn:all
 - npm run build
 - npm run test:travis
 - cd ../../..

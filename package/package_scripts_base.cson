@@ -18,7 +18,7 @@ scripts:
     '
 
 #=====================
-    'prepare': '
+    'prepare:all': '
 
         npm run
             prepare:submodule
@@ -30,12 +30,42 @@ scripts:
 #=====================
     'prepare:local': '
 
-        npm outdated
+        npm outdated || echo outdated
         &&
-        npm install
+        npm install --no-save --only=prod
         &&
-        npm update
+        npm install --no-save --only=dev
         &&
+        npm update --no-save
+        &&
+        npm run prepare:local:common
+    '
+
+#=====================
+    'prepare:yarn:all': '
+
+        yarn run
+            prepare:yarn:submodule
+        &&
+        yarn run
+            prepare:yarn:local
+    '
+
+#=====================
+    'prepare:yarn:local': '
+
+        yarn outdated || echo outdated
+        &&
+        yarn install
+        &&
+        yarn upgrade
+        &&
+        yarn run prepare:local:common
+    '
+
+#=====================
+    'prepare:local:common': '
+
         node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/gitHubForksUpdater.js
     '
 
@@ -44,7 +74,19 @@ scripts:
 
         cd readium-js
         &&
-        npm run prepare
+        npm run prepare:all
+        &&
+        cd ..
+        &&
+        ls
+    '
+
+#=====================
+    'prepare:yarn:submodule': '
+
+        cd readium-js
+        &&
+        yarn run prepare:yarn:all
         &&
         cd ..
         &&
