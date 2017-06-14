@@ -293,14 +293,14 @@ circular-json@^0.3.1:
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
 
 clean-css-cli@latest:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/clean-css-cli/-/clean-css-cli-4.1.4.tgz#6bc61550ab9c62faf205e2182f858cba1f9cee77"
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/clean-css-cli/-/clean-css-cli-4.1.5.tgz#4a02b71fee439fe0cf1a25881008f84f372c26e3"
   dependencies:
-    clean-css "^4.1.3"
+    clean-css "^4.1.4"
     commander "2.x"
     glob "7.x"
 
-clean-css@^4.1.3:
+clean-css@^4.1.4:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.4.tgz#eec8811db27457e0078d8ca921fa81b72fa82bf4"
   dependencies:
