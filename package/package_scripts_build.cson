@@ -6,6 +6,8 @@
 #=====================
     clean: '
 
+        (yarn --version || echo noyarn)
+        &&
         node --version
         &&
         npm --version
