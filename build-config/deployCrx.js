@@ -49,14 +49,19 @@ var deleteOldRelease = function(error, response){
     }
     
     github.repos.getReleases({owner: owner, repo: repo}, function(error, releases){
-        for (var i = 0; i < releases.length; i++){
-            if (releases[i].tag_name == version){
+        // console.log("----");
+        // console.log(releases);
+        // console.log("----");
+        for (var i = 0; i < releases.data.length; i++){
+            // console.log(releases.data[i].tag_name);
+            // console.log(version);
+            if (releases.data[i].tag_name == version){
                 break;
             }
         }
-        if (i < releases.length){
+        if (i < releases.data.length){
             console.log('found existing release, deleting');
-            github.repos.deleteRelease({owner: owner, repo: repo, id: releases[i].id}, function(error, response){
+            github.repos.deleteRelease({owner: owner, repo: repo, id: releases.data[i].id}, function(error, response){
                 if (error){
                     console.error(JSON.stringify(error));
                     return;
