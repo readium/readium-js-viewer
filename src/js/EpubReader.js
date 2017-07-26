@@ -724,9 +724,33 @@ BookmarkData){
     }
 
     var savePlace = function(){
+
+        var urlParams = Helpers.getURLQueryParams();
+        var ebookURL = urlParams['epub'];
+        if (!ebookURL) return;
+
+        var bookmark = readium.reader.bookmarkCurrentPage();
+
         // Note: automatically JSON.stringify's the passed value!
         // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
-        Settings.put(ebookURL_filepath, readium.reader.bookmarkCurrentPage(), $.noop);
+        Settings.put(ebookURL_filepath, bookmark, $.noop);
+
+        bookmark = JSON.parse(bookmark);
+
+        bookmark.elementCfi = bookmark.contentCFI;
+        bookmark.contentCFI = undefined;
+        bookmark = JSON.stringify(bookmark);
+
+        ebookURL = ensureUrlIsRelativeToApp(ebookURL);
+
+        var url = Helpers.buildUrlQueryParameters(undefined, {
+            epub: ebookURL,
+            epubs: " ",
+            embedded: " ",
+            goto: bookmark
+        });
+
+        history.replaceState({}, "", url);
     }
 
     var nextPage = function () {
