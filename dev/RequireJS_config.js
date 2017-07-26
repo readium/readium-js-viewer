@@ -66,7 +66,8 @@ if (typeof getFontFaces != "undefined") { // defined externally
 }
 
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
-require.config({
+
+(window._readium_js ? _readium_js.require.config : require.config)({
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
     waitSeconds: 0,
 
