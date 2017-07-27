@@ -1041,6 +1041,19 @@ BookmarkData){
         $('#zoom-custom a').on('click', enableCustom);
         $('.zoom-wrapper input').on('change', setCustom);
 
+        // UI tweaks for Hypothesis
+        window.hypothesisConfig = function () {
+            return {
+                onLayoutChange: function(state) {
+                    var $rightPageButton = $('#right-page-btn');
+                    $rightPageButton.css('right', state.width);
+                    if (!state.expanded) {
+                        $('nav').css('margin-right', state.width);
+                    }
+                }
+            };
+        };
+
         spin(true);
     }
 
