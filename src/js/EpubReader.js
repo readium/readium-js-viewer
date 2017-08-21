@@ -1041,19 +1041,6 @@ BookmarkData){
         $('#zoom-custom a').on('click', enableCustom);
         $('.zoom-wrapper input').on('change', setCustom);
 
-        // UI tweaks for Hypothesis
-        window.hypothesisConfig = function () {
-            return {
-                onLayoutChange: function(state) {
-                    var $rightPageButton = $('#right-page-btn');
-                    $rightPageButton.css('right', state.width);
-                    if (!state.expanded) {
-                        $('nav').css('margin-right', state.width);
-                    }
-                }
-            };
-        };
-
         spin(true);
     }
 
@@ -1214,6 +1201,17 @@ BookmarkData){
                 if (readium.reader.plugins.example) {
                     readium.reader.plugins.example.on("exampleEvent", function(message) {
                         alert(message);
+                    });
+                }
+
+                if (readium.reader.plugins.hypothesis) {
+                    // Respond to requests for UI controls to make space for the Hypothesis sidebar
+                    readium.reader.plugins.hypothesis.on("offsetPageButton", function (offset) {
+                        var $rightPageButton = $('#right-page-btn');
+                        $rightPageButton.css('right', offset);
+                    });
+                    readium.reader.plugins.hypothesis.on("offsetNavBar", function (offset) {
+                        $('nav').css('margin-right', offset);
                     });
                 }
             });
