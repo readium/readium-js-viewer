@@ -735,23 +735,31 @@ BookmarkData){
         // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
         Settings.put(ebookURL_filepath, bookmark, $.noop);
 
-        bookmark = JSON.parse(bookmark);
+        if (!isChromeExtensionPackagedApp // History API is disabled in packaged apps
+              && window.history && window.history.replaceState) {
 
-        bookmark.elementCfi = bookmark.contentCFI;
-        bookmark.contentCFI = undefined;
-        bookmark = JSON.stringify(bookmark);
+            bookmark = JSON.parse(bookmark);
 
-        ebookURL = ensureUrlIsRelativeToApp(ebookURL);
+            bookmark.elementCfi = bookmark.contentCFI;
+            bookmark.contentCFI = undefined;
+            bookmark = JSON.stringify(bookmark);
 
-        var url = Helpers.buildUrlQueryParameters(undefined, {
-            epub: ebookURL,
-            epubs: " ",
-            embedded: " ",
-            goto: bookmark
-        });
+            ebookURL = ensureUrlIsRelativeToApp(ebookURL);
 
-        history.replaceState({}, "", url);
-    }
+            var url = Helpers.buildUrlQueryParameters(undefined, {
+                epub: ebookURL,
+                epubs: " ",
+                embedded: " ",
+                goto: bookmark
+            });
+
+            history.replaceState(
+                {epub: ebookURL, epubs: undefined},
+                "Readium Viewer",
+                url
+            );
+        }
+    };
 
     var nextPage = function () {
 
