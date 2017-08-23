@@ -724,10 +724,42 @@ BookmarkData){
     }
 
     var savePlace = function(){
+
+        var urlParams = Helpers.getURLQueryParams();
+        var ebookURL = urlParams['epub'];
+        if (!ebookURL) return;
+
+        var bookmark = readium.reader.bookmarkCurrentPage();
+
         // Note: automatically JSON.stringify's the passed value!
         // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
-        Settings.put(ebookURL_filepath, readium.reader.bookmarkCurrentPage(), $.noop);
-    }
+        Settings.put(ebookURL_filepath, bookmark, $.noop);
+
+        if (!isChromeExtensionPackagedApp // History API is disabled in packaged apps
+              && window.history && window.history.replaceState) {
+
+            bookmark = JSON.parse(bookmark);
+
+            bookmark.elementCfi = bookmark.contentCFI;
+            bookmark.contentCFI = undefined;
+            bookmark = JSON.stringify(bookmark);
+
+            ebookURL = ensureUrlIsRelativeToApp(ebookURL);
+
+            var url = Helpers.buildUrlQueryParameters(undefined, {
+                epub: ebookURL,
+                epubs: " ",
+                embedded: " ",
+                goto: bookmark
+            });
+
+            history.replaceState(
+                {epub: ebookURL, epubs: undefined},
+                "Readium Viewer",
+                url
+            );
+        }
+    };
 
     var nextPage = function () {
 
@@ -1177,6 +1209,17 @@ BookmarkData){
                 if (readium.reader.plugins.example) {
                     readium.reader.plugins.example.on("exampleEvent", function(message) {
                         alert(message);
+                    });
+                }
+
+                if (readium.reader.plugins.hypothesis) {
+                    // Respond to requests for UI controls to make space for the Hypothesis sidebar
+                    readium.reader.plugins.hypothesis.on("offsetPageButton", function (offset) {
+                        var $rightPageButton = $('#right-page-btn');
+                        $rightPageButton.css('right', offset);
+                    });
+                    readium.reader.plugins.hypothesis.on("offsetNavBar", function (offset) {
+                        $('nav').css('margin-right', offset);
                     });
                 }
             });
