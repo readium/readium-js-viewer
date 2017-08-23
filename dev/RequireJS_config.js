@@ -74,7 +74,7 @@ require.config({
 
         'readium_js_viewer/ModuleConfig' : {
 
-            'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/readium/MathJax.js',
+            'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MathMLCommonHTMLTeX/MathJax.js',
 
             'fonts': fontsArray,
 

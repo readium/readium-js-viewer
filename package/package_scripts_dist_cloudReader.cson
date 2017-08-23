@@ -55,7 +55,7 @@
             dist/cloud-reader/images/
         &&
         npm run cpy
-            node_modules/mathjax-single-file/dist/readium/MathJax.js
+            node_modules/mathjax-single-file/dist/MathMLCommonHTMLTeX/MathJax.js
             dist/cloud-reader/scripts/mathjax
         &&
         npm run ncp
