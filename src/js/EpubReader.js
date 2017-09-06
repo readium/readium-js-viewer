@@ -102,7 +102,7 @@ BookmarkData){
         var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "/https%3A%2F%2F";
         
         // case-insensitive regexp for percent-escapes
-        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("/(http[s]?)%3A%2F%2F", "gi");
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("/(http[s]?):%2F%2F", "gi");
         
         var appUrl =
         window.location ? (
@@ -120,10 +120,14 @@ BookmarkData){
             ebookURL = ebookURL.replace(CORS_PROXY_HTTP_TOKEN, CORS_PROXY_HTTP_TOKEN_ESCAPED);
             ebookURL = ebookURL.replace(CORS_PROXY_HTTPS_TOKEN, CORS_PROXY_HTTPS_TOKEN_ESCAPED);
             
+            // console.log("EPUB URL absolute 1: " + ebookURL);
+
             ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
             if (ebookURL.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
                 ebookURL = (isHTTPS ? "https:" : "http:") + ebookURL;
             }
+            
+            // console.log("EPUB URL absolute 2: " + ebookURL);
             
             ebookURL = ebookURL.replace(regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED, "/$1://");
             

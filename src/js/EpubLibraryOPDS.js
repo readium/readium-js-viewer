@@ -23,7 +23,7 @@ URI){
         var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "/https%3A%2F%2F";
         
         // case-insensitive regexp for percent-escapes
-        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("/(http[s]?)%3A%2F%2F", "gi");
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("/(http[s]?):%2F%2F", "gi");
         
         var xOriginProxy = undefined;
         
