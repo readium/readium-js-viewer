@@ -19,11 +19,11 @@ URI){
         // Ensures URLs like http://crossorigin.me/http://domain.com/etc
         // do not end-up loosing the double forward slash in http://domain.com
         // (because of URI.absoluteTo() path normalisation)
-        var CORS_PROXY_HTTP_TOKEN_ESCAPED = "%2Fhttp%3A%2F%2F";
-        var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "%2Fhttps%3A%2F%2F";
+        var CORS_PROXY_HTTP_TOKEN_ESCAPED = "/http%3A%2F%2F";
+        var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "/https%3A%2F%2F";
         
         // case-insensitive regexp for percent-escapes
-        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("%2F(http[s]?)%3A%2F%2F", "gi");
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("/(http[s]?)%3A%2F%2F", "gi");
         
         var xOriginProxy = undefined;
         
