@@ -750,15 +750,17 @@ BookmarkData){
 
             ebookURL = ensureUrlIsRelativeToApp(ebookURL);
 
+            var epubs = urlParams['epubs'];
+
             var url = Helpers.buildUrlQueryParameters(undefined, {
                 epub: ebookURL,
-                epubs: " ",
+                epubs: (epubs ? epubs : " "),
                 embedded: " ",
                 goto: bookmark
             });
 
             history.replaceState(
-                {epub: ebookURL, epubs: undefined},
+                {epub: ebookURL, epubs: (epubs ? epubs : undefined)},
                 "Readium Viewer",
                 url
             );
