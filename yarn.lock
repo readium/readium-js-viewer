@@ -600,8 +600,8 @@ gift@latest:
     underscore "1.x.x"
 
 github@latest:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/github/-/github-10.1.0.tgz#cfa4ebaccfa67635032d7e6e578bb75ed2b2bd96"
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/github/-/github-11.0.0.tgz#edb32df5efb33cad004ebf0bdd2a4b30bb63a854"
   dependencies:
     follow-redirects "0.0.7"
     https-proxy-agent "^1.0.0"
