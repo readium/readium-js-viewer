@@ -389,7 +389,15 @@ BookmarkData){
             Globals.logEvent("FXL_VIEW_RESIZED", "ON", "EpubReader.js");
             setScaleDisplay();
         });
-        
+
+
+        readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function ($iframe, spineItem)
+        {
+            Globals.logEvent("CONTENT_DOCUMENT_LOAD_START", "ON", "EpubReader.js [ " + spineItem.href + " ]");
+            savePlace();
+        });
+
+
         readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem)
         {
             Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "EpubReader.js [ " + spineItem.href + " ]");
@@ -742,9 +750,9 @@ BookmarkData){
         if (!isChromeExtensionPackagedApp // History API is disabled in packaged apps
               && window.history && window.history.replaceState) {
 
-            bookmark = JSON.parse(bookmark);
+            bookmark = JSON.parse(bookmark) || {};
 
-            bookmark.elementCfi = bookmark.contentCFI;
+            bookmark.elementCfi = bookmark ? bookmark.contentCFI : null;
             bookmark.contentCFI = undefined;
             bookmark = JSON.stringify(bookmark);
 
@@ -1141,9 +1149,11 @@ BookmarkData){
                 var bookmark = JSON.parse(settings[ebookURL_filepath]);
                 // JSON.parse() a *second time* because the stored value is readium.reader.bookmarkCurrentPage(), which is JSON.toString'ed
                 bookmark = JSON.parse(bookmark);
-                //console.log("Bookmark restore: " + JSON.stringify(bookmark));
-                openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
-                console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
+                if (bookmark && bookmark.idref) {
+                    //console.log("Bookmark restore: " + JSON.stringify(bookmark));
+                    openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
+                    console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
+                }
             }
 
             var urlParams = Helpers.getURLQueryParams();
