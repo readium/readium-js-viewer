@@ -637,8 +637,8 @@ BookmarkData){
             }
         };
     }
-    var oldOnChange = screenfull.onchange;
-    screenfull.onchange = function(e){
+
+    screenfull.onchange(function(e){
         var titleText;
 
         if (screenfull.isFullscreen)
@@ -657,8 +657,8 @@ BookmarkData){
             $('#buttFullScreenToggle').attr('aria-label', titleText);
             $('#buttFullScreenToggle').attr('title', titleText);
         }
-        oldOnChange.call(this, e);
-    }
+    });
+
     var unhideUI = function(){
         hideLoop();
     }
