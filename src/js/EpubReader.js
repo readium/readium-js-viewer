@@ -1231,11 +1231,15 @@ BookmarkData){
                 if (readium.reader.plugins.hypothesis) {
                     // Respond to requests for UI controls to make space for the Hypothesis sidebar
                     readium.reader.plugins.hypothesis.on("offsetPageButton", function (offset) {
-                        var $rightPageButton = $('#right-page-btn');
-                        $rightPageButton.css('right', offset);
+                        if (offset == 0) {
+                            $('#right-page-btn').css('right', offset);
+                        } else {
+                            $('#right-page-btn').css('right', offset - $('#right-page-btn').width()); // 40px
+                        }
                     });
                     readium.reader.plugins.hypothesis.on("offsetNavBar", function (offset) {
-                        $('nav').css('margin-right', offset);
+                        $('#app-navbar').css('margin-right', offset);
+                        $('#reading-area').css('right', offset); // epub-reader-container
                     });
                 }
             });
