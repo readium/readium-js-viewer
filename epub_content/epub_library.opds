@@ -48,12 +48,12 @@
 
 
 <entry>
-<title>A First Course in Linear Algebra...</title>
+<title>A First Course in Linear Algebra</title>
 <author>
-  <name>Robert A. Beezer</name>
+  <name>Robert A Beezer</name>
 </author>
 <link type="application/epub" href="linear-algebra" rel="http://opds-spec.org/acquisition"/>
-<link type="image/jpeg" href="linear-algebra/EPUB/images/FirstCourse-Beezer.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<link type="image/jpeg" href="linear-algebra/EPUB/images/FirstCourse-Beezer.jpeg" rel="http://opds-spec.org/image/thumbnail"/>
 <updated>2016-02-12T00:00:00Z</updated>
 <id>READIUM_OPDS_0123456789_4</id>
 
