@@ -69,7 +69,7 @@
     <name>Readium</name>
   </author>
   <link type="application/epub" href="epubReadingSystem" rel="http://opds-spec.org/acquisition"/>
-  <link type="image/png" href="epubReadingSystem/EPUB/img/cover.png" rel="http://opds-spec.org/image/thumbnail"/>        
+  <link type="image/png" href="epubReadingSystem_EX/img/cover.png" rel="http://opds-spec.org/image/thumbnail"/>        
   <updated>2016-02-12T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_5</id>
 </entry>
@@ -80,7 +80,7 @@
         <name>Readium</name>
     </author>
     <link type="application/epub+zip" href="epubReadingSystem.epub" rel="http://opds-spec.org/acquisition"/>
-    <link type="image/png" href="epubReadingSystem_EX/img/cover.png" rel="http://opds-spec.org/image/thumbnail"/>        
+    <link type="image/png" href="epubReadingSystem/EPUB/img/cover.png" rel="http://opds-spec.org/image/thumbnail"/>        
     <updated>2016-02-12T00:00:00Z</updated>
     <id>READIUM_OPDS_0123456789_6</id>
 </entry>
