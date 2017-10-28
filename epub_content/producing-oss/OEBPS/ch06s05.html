@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>No Conversations in the Bug Tracker</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="No Conversations in the Bug Tracker"><div class="titlepage"><div><div><h1 class="title"><a id="bug-tracker-usage"/>No Conversations in the Bug Tracker</h1></div></div></div><p>In any project that's making active use of its bug tracker,
+there is always a danger of the tracker turning into a discussion
+forum itself, even though the mailing lists would really be better.
+Usually it starts off innocently enough: someone annotates an issue
+with, say, a proposed solution, or a partial patch.  Someone else sees
+this, realizes there are problems with the solution, and attaches
+another annotation pointing out the problems.  The first person
+responds, again by appending to the issue...and so it goes.</p><p>The problem with this is, first, that the bug tracker is a
+pretty cumbersome place to have a discussion, and second, that other
+people may not be paying attention—after all, they expect
+development discussion to happen on the development mailing list, so
+that's where they look for it.  They may not be subscribed to the
+issue changes list at all, and even if they are, they may not follow it
+very closely.</p><p>But exactly where in the process did something go wrong?  Was it
+when the original person attached her solution to the
+issue—should she have posted it to the list instead?  Or was it
+when the second person responded in the issue, instead of on the
+list?</p><p>There isn't one right answer, but there is a general principle:
+if you're just adding data to an issue, then do it in the tracker, but
+if you're starting a <span class="emphasis"><em>conversation</em></span>, then do it on
+the mailing list.  You may not always be able to tell which is the
+case, but just use your best judgement.  For example, when attaching a
+patch that contains a potentially controversial solution, you might be
+able to anticipate that people are going to have questions about it.
+So even though you would normally attach the patch to the issue
+(assuming you don't want to or can't commit the change directly), in
+this case you might choose to post it to a mailing list instead.  At
+any rate, there eventually will come a point in the exchange where one
+party or the other can tell that it is about to go from mere appending
+of data to an actual conversation—in the example that started
+this section, that would be the second respondent, who on realizing
+that there were problems with the patch, could predict that a real
+conversation is about to ensue, and therefore that it should be held
+in the appropriate medium.</p><p>To use a mathematical analogy, if the information looks like it
+will be quickly convergent, then put it directly in the bug tracker;
+if it looks like it will be divergent, then a mailing list or IRC
+channel would be a better place.</p><p>This doesn't mean there should never be any exchanges in the
+bug tracker.  Asking for more details of the reproduction recipe
+from the original reporter tends to be a highly convergent process,
+for instance.  The person's response is unlikely to raise new issues;
+it's simply going to flesh out information already filed.  There's no
+need to distract the mailing list with that process; by all means,
+take care of it with a series of comments in the tracker.  Likewise,
+if you're fairly sure that the bug has been misreported (i.e., is not
+a bug), then you can simply say so right in the issue.  Even pointing
+out a minor problem with a proposed solution is fine, assuming the
+problem is not a showstopper for the entire solution.</p><p>On the other hand, if you're raising philosophical issues about
+the bug's scope or the software's proper behavior, you can be pretty
+sure other developers will want to be involved.  The discussion is
+likely to diverge for a while before it converges, so do it on the
+mailing list.</p><p>Always link to the mailing list thread from the issue, when you
+choose to post to the mailing list.  It's still important for someone
+following the issue to be able to reach the discussion, even if the
+issue itself isn't the forum of discussion.  The person who starts the
+thread may find this laborious, but open source is fundamentally a
+writer-responsible culture: it's much more important to make things
+easy for the tens or hundreds of people who may read the bug than for
+the three or five people writing about it.</p><p>It's fine to take important conclusions or summaries from the
+list discussion and paste them into the issue, if that will make
+things convenient for readers.  A common idiom is to start a list
+discussion, put a link to the thread in the issue, and then when the
+discussion finishes, paste the final summary into the issue (along
+with a link to the message containing that summary), so someone
+browsing the issue can easily see what conclusion was reached without
+having to click to somewhere else.  Note that the usual "two masters"
+data duplication problem does not exist here, because both archives
+and issue comments are usually static, unchangeable data
+anyway.</p></div></body></html>

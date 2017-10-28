@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Contracting</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Contracting"><div class="titlepage"><div><div><h1 class="title"><a id="contracting"/>Contracting</h1></div></div></div><p>Contracted work needs to be handled carefully in free software
+projects.  Ideally, you want a contractor's work to be accepted by the
+community and folded into the public distribution.  In theory, it
+wouldn't matter who the contractor is, as long as his work is good and
+meets the project's guidelines.  Theory and practice can sometimes
+match, too: a complete stranger who shows up with a good patch
+<span class="emphasis"><em>will</em></span> generally be able to get it into the
+software.  The trouble is, it's very hard to produce a good patch for
+a non-trivial enhancement or new feature while truly being a complete
+stranger; one must first discuss it with the rest of the project.  The
+duration of that discussion cannot be precisely predicted.  If the
+contractor is paid by the hour, you may end up paying more than you
+expected; if he is paid a flat sum, he may end up doing more work
+than he can afford.</p><p>There are two ways around this.  The preferred way is to make an
+educated guess about the length of the discussion process, based on
+past experience, add in some padding for error, and base the contract
+on that.  It also helps to divide the problem into as many small,
+independent chunks as possible, to increase the predictability of each
+chunk.  The other way is to contract solely for delivery of a patch,
+and treat the patch's acceptance into the public project as a separate
+matter.  Then it becomes much easier to write the contract, but you're
+stuck with the burden of maintaining a private patch for as long as
+you depend on the software, or at least for as long as it takes you to
+get that patch or equivalent functionality into the mainline.  Of
+course, even with the preferred way, the contract itself cannot
+require that the patch be accepted into the code, because that would
+involve selling something that's not for sale.  (What if the rest of
+the project unexpectedly decides not to support the feature?)
+However, the contract can require a <span class="foreignphrase"><em class="foreignphrase">bona
+fide</em></span> effort to get the change accepted by the
+community, and that it be committed to the repository if the community
+agrees with it.  For example, if the project has written standards
+regarding code changes, the contract can reference those standards and
+specify that the work must meet them.  In practice, this usually works
+out the way everyone hopes.</p><p>The best tactic for successful contracting is to hire one of the
+project's developers—preferably a committer—as the
+contractor.  This may seem like a form of purchasing influence, and,
+well, it is.  But it's not as corrupt as it might seem.  A developer's
+influence in the project is due mainly to the quality of his code and
+to his interactions with other developers.  The fact that he has a
+contract to get certain things done doesn't raise his status in any
+way, and doesn't lower it either, though it may make people scrutinize
+him more carefully.  Most developers would not risk their long-term
+position in the project by backing an inappropriate or widely disliked
+new feature.  In fact, part of what you get, or should get, when you
+hire such a contractor is advice about what sorts of changes are
+likely to be accepted by the community.  You also get a slight shift
+in the project's priorities.  Because prioritization is just a matter
+of who has time to work on what, when you pay for someone's time, you
+cause their work to move up in the priority queue a bit.  This is a
+well-understood fact of life among experienced open source developers,
+and at least some of them will devote attention to the contractor's
+work simply because it looks like it's going to <span class="emphasis"><em>get
+done</em></span>, so they want to help it get done right.  Perhaps they
+won't write any of the code, but they'll still discuss the design and
+review the code, both of which can be very useful.  For all these
+reasons, the contractor is best drawn from the ranks of those already
+involved with the project.</p><p>This immediately raises two questions: Should contracts ever be
+private?  And when they're not, should you worry about creating
+tensions in the community by the fact that you've contracted with some
+developers and not others?</p><p>It's best to be open about contracts, when you can.  Otherwise,
+the contractor's behavior may seem strange to others in the
+community—perhaps he's suddenly giving inexplicably high
+priority to features he's never shown interest in the past.  When
+people ask him why he wants them now, how can he answer convincingly
+if he can't talk about the fact that he's been contracted to write
+them?</p><p>At the same time, neither you nor the contractor should act as
+though others should treat your arrangement as a big deal.  Too often
+I've seen contractors waltz onto a development list with the attitude
+that their posts should be taken more seriously simply because they're
+being paid.  That kind of attitude signals to the rest of the project
+that the contractor regards the fact of the contract—as opposed
+to the code <span class="emphasis"><em>resulting</em></span> from the contract—to
+be the important thing.  But from the other developers' point of view,
+only the code matters.  At all times, the focus of attention should be
+kept on technical issues, not on the details of who is paying whom.
+For example, one of the developers in the Subversion community handles
+contracting in a particularly graceful way.  While discussing his code
+changes in IRC, he'll mention as an aside (often in a private remark,
+an IRC <em class="firstterm">privmsg</em>, to one of the other committers)
+that he's being paid for his work on this particular bug or feature.
+But he also consistently gives the impression that he'd want to be
+working on that change anyway, and that he's happy the money is making
+it possible for him to do that.  He may or may not reveal his
+customer's identity, but in any case he doesn't dwell on the contract.
+His remarks about it are just an ornament to an otherwise technical
+discussion about how to get something done.</p><p>That example shows another reason why it's good to be open about
+contracts.  There may be multiple organizations sponsoring contracts
+on a given open source project, and if each knows what the others are
+trying to do, they may be able to pool their resources.  In the above
+case, the project's largest funder (CollabNet) is not involved in any
+way with these piecework contracts, but knowing that someone else is
+sponsoring certain bug fixes allows CollabNet to redirect its
+resources to other bugs, resulting in greater efficiency for the
+project as a whole.</p><p>Will other developers resent that some are paid for working on
+the project?  In general, no, particularly when those who are paid are
+established, well-respected members of the community anyway.  No one
+expects contract work to be distributed equally among all the
+committers.  People understand the importance of long-term
+relationships: the uncertainties involved in contracting are such that
+once you find someone you can work reliably with, you would be
+reluctant to switch to a different person just for the sake of
+evenhandedness.  Think of it this way: the first time you hire, there
+will be no complaints, because clearly you had to pick
+<span class="emphasis"><em>someone</em></span>—it's not your fault you can't hire
+everyone.  Later, when you hire the same person a second time, that's
+just common sense: you already know him, the last time was
+successful, so why take unnecessary risks?  Thus, it's perfectly
+natural to have one or two go-to people in the community, instead of
+spreading the work around evenly.</p><div class="sect2" title="Review and Acceptance of Changes"><div class="titlepage"><div><div><h2 class="title"><a id="community-review-acceptance"/>Review and Acceptance of Changes</h2></div></div></div><p>The community is still important to the success of contract
+work.  Their involvement in the design and review process for sizeable
+changes cannot be an afterthought.  It must be considered part of the
+work, and fully embraced by the contractor.  Don't think of community
+scrutiny as an obstacle to be overcome—think of it as a free
+design board and QA department.  It is a benefit to be aggressively
+pursued, not merely endured.</p><div class="sect3" title="Case study: the CVS password-authentication protocol"><div class="titlepage"><div><div><h3 class="title"><a id="cvs-pserver"/>Case study: the CVS password-authentication protocol</h3></div></div></div><p>In 1995, I was one half of a partnership that provided support
+and enhancements for CVS (the Concurrent Versions System; see <a class="ulink" href="http://www.cvshome.org/">http://www.cvshome.org/</a>).  My partner Jim and I were,
+informally, the maintainers of CVS by that point.  But we'd never
+thought carefully about how we ought to relate to the existing, mostly
+volunteer CVS development community.  We just assumed that they'd send
+in patches, and we'd apply them, and that was pretty much how it
+worked.</p><p>Back then, networked CVS could be done only over a remote login
+program such as <code class="literal">rsh</code>.  Using the same password for
+CVS access as for login access was an obvious security risk, and many
+organizations were put off by it.  A major investment bank hired us to
+add a new authentication mechanism, so they could safely use networked
+CVS with their remote offices.</p><p>Jim and I took the contract and sat down to design the new
+authentication system.  What we came up with was pretty simple (the
+United States had export controls on cryptographic code at the time,
+so the customer understood that we couldn't implement strong
+authentication), but as we were not experienced in designing such
+protocols, we still made a few gaffes that would have been obvious to
+an expert.  These mistakes would easily have been caught had we taken
+the time to write up a proposal and run it by the other developers for
+review.  But we never did so, because it didn't occur to us to think
+of the development list as a resource to be used.  We knew that people
+were probably going to accept whatever we committed, and—because
+we didn't know what we didn't know—we didn't bother to do the
+work in a visible way, e.g., posting patches frequently, making small,
+easily digestible commits to a special branch, etc.  The resulting
+authentication protocol was not very good, and of course, once it
+became established, it was difficult to improve, because of
+compatibility concerns.</p><p>The root of the problem was not lack of experience; we could
+easily have learned what we needed to know.  The problem was our
+attitude toward the volunteer development community.  We regarded
+acceptance of the changes as a hurdle to leap, rather than as a
+process by which the quality of the changes could be improved.  Since
+we were confident that almost anything we did would be accepted (as it
+was), we made little effort to get others involved.</p></div><p>Obviously, when you're choosing a contractor, you want someone
+with the right technical skills and experience for the job.  But it's
+also important to choose someone with a track record of constructive
+interaction with the other developers in the community.  That way
+you're getting more than just a single person; you're getting an agent
+who will be able to draw on a network of expertise to make sure the
+work is done in a robust and maintainable way.</p></div></div></body></html>

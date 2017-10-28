@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Marketing</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Marketing"><div class="titlepage"><div><div><h1 class="title"><a id="marketing"/>Marketing</h1></div></div></div><p>Although most open source developers would probably hate to
+admit it, marketing works.  A good marketing campaign
+<span class="emphasis"><em>can</em></span> create buzz around an open source product,
+even to the point where hardheaded coders find themselves having
+vaguely positive thoughts about the software for reasons they can't
+quite put their finger on.  It is not my place here to dissect the
+arms-race dynamics of marketing in general.  Any corporation involved
+in free software will eventually find itself considering how to market
+themselves, the software, or their relationship to the
+software.  The advice below is about how to avoid common pitfalls in
+such an effort; see also
+<a class="xref" href="ch06s06.html" title="Publicity">the section called “Publicity”</a><span> in
+<a class="xref" href="ch06.html" title="Chapter 6. Communications">Chapter 6, <em>Communications</em></a></span>.</p><div class="sect2" title="Remember That You Are Being Watched"><div class="titlepage"><div><div><h2 class="title"><a id="goldfish-bowl"/>Remember That You Are Being Watched</h2></div></div></div><p>For the sake of keeping the volunteer developer community on
+your side, it is <span class="emphasis"><em>very</em></span> important not to say
+anything that isn't demonstrably true.  Audit all claims carefully
+before making them, and give the public the means to check your claims
+on their own.  Independent fact checking is a major part of open
+source, and it applies to more than just the code.</p><p>Naturally no one would advise companies to make unverifiable
+claims anyway.  But with open source activities, there is an unusually
+high quantity of people with the expertise to verify
+claims—people who are also likely to have high-bandwidth
+Internet access and the right social contacts to publicize their
+findings in a damaging way, should they choose to.  When Global
+Megacorp Chemical Industries pollutes a stream, that's verifiable, but
+only by trained scientists, who can then be refuted by Global
+Megacorp's scientists, leaving the public scratching their heads and
+wondering what to think.  On the other hand, your behavior in the open
+source world is not only visible and recorded; it is also easy for many
+people to check it independently, come to their own conclusions, and
+spread those conclusions by word of mouth.  These communications
+networks are already in place; they are the essence of how open source
+operates, and they can be used to transmit any sort of information.
+Refutation is usually difficult, if not impossible, especially when
+what people are saying is true.</p><p>For example, it's okay to refer to your organization as having
+"founded project X" if you really did.  But don't refer to yourself as
+the "makers of X" if most of the code was written by outsiders.
+Conversely, don't claim to have a deeply involved volunteer developer
+community if anyone can look at your repository and see that there are
+few or no code changes coming from outside your organization.</p><p>Not too long ago, I saw an announcement by a very well-known
+computer company, stating that they were releasing an important
+software package under an open source license.  When the initial
+announcement came out, I took a look at their now-public version
+control repository and saw that it contained only three revisions.  In
+other words, they had done an initial import of the source code, but
+hardly anything had happened since then.  That in itself was not
+worrying—they'd just made the announcement, after all.  There
+was no reason to expect a lot of development activity right
+away.</p><p>Some time later, they made another announcement.  Here is what
+it said, with the name and release number replaced by pseudonyms:</p><div class="blockquote"><blockquote class="blockquote"><p><span class="emphasis"><em>We are pleased to announce that following
+    rigorous testing by the Singer Community, Singer 5 for Linux
+    and Windows are now ready for production use.</em></span></p></blockquote></div><p>Curious to know what the community had uncovered in "rigorous
+testing," I went back to the repository to look at its recent change
+history.  The project was still on revision 3.  Apparently, they
+hadn't found a <span class="emphasis"><em>single</em></span> bug worth fixing before the
+release!  Thinking that the results of the community testing must have
+been recorded elsewhere, I next examined the bug tracker.  There were
+exactly six open issues, four of which had been open for several months
+already.</p><p>This beggars belief, of course.  When testers pound on a large
+and complex piece of software for any length of time, they will find
+bugs.  Even if the fixes for those bugs don't make it into the
+upcoming release, one would still expect some version control activity
+as a result of the testing process, or at least some new issues.  Yet
+to all appearances, nothing had happened between the announcement of
+the open source license and the first open source release.</p><p>The point is not that the company was lying about the community
+testing.  I have no idea if they were or not.  But they were oblivious
+to how much it <span class="emphasis"><em>looked</em></span> like they were lying.
+Since neither the version control repository nor the issue tracker
+gave any indication that the alleged rigorous testing had occurred,
+the company should either not have made the claim in the first place,
+or provided a clear link to some tangible result of that testing ("We
+found 278 bugs; click here for details").  The latter would have
+allowed anyone to get a handle on the level of community activity very
+quickly.  As it was, it only took me a few minutes to determine that
+whatever this community testing was, it had not left traces in any of
+the usual places.  That's not a lot of effort, and I'm sure I'm not
+the only one who took the trouble.</p><p>Transparency and verifiability are also an important part of
+accurate crediting, of course.  See
+<a class="xref" href="ch08s05.html" title="Credit">the section called “Credit”</a><span> in
+<a class="xref" href="ch08.html" title="Chapter 8. Managing Volunteers">Chapter 8, <em>Managing Volunteers</em></a></span> for more on this.</p></div><div class="sect2" title="Don't Bash Competing Open Source Products"><div class="titlepage"><div><div><h2 class="title"><a id="competing-products"/>Don't Bash Competing Open Source Products</h2></div></div></div><p>Refrain from giving negative opinions about competing open
+source software.  It's perfectly okay to give negative
+<span class="emphasis"><em>facts</em></span>—that is, easily confirmable
+assertions of the sort often seen in good comparison charts.  But
+negative characterizations of a less rigorous nature are best avoided,
+for two reasons.  First, they are liable to start flame wars that
+detract from productive discussion.  Second, and more importantly,
+some of the volunteer developers in <span class="emphasis"><em>your</em></span> project
+may turn out to work on the competing project as well.  This is more
+likely than it at first might seem: the projects are already in the
+same domain (that's why they're in competition), and developers with
+expertise in that domain may make contributions wherever their
+expertise is applicable.  Even when there is no direct developer
+overlap, it is likely that developers on your project are at least
+acquainted with developers on related projects.  Their ability to
+maintain constructive personal ties could be hampered by
+overly negative marketing messages.</p><p>Bashing competing closed-source products seems to be more widely
+accepted in the open source world, especially when those products are
+made by Microsoft.  Personally, I deplore this tendency (though again,
+there's nothing wrong with straightforward factual comparisons), not
+merely because it's rude, but also because it's dangerous for a
+project to start believing its own hype and thereby ignore the ways in
+which the competition may actually be superior.  In general, watch out
+for the effect that marketing statements can have on your own
+development community.  People may be so excited at being backed by
+marketing dollars that they lose objectivity about their software's
+true strengths and weaknesses.  It is normal, and even expected, for a
+company's developers to exhibit a certain detachment toward marketing
+statements, even in public forums.  Clearly, they should not come out
+and contradict the marketing message directly (unless it's actually
+wrong, though one hopes that sort of thing would have been caught
+earlier).  But they may poke fun at it from time to time, as a way of
+bringing the rest of the development community back down to
+earth.</p></div></div></body></html>

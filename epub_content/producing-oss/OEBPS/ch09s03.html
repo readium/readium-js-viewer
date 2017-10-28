@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>The GPL and License Compatibility</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="The GPL and License Compatibility"><div class="titlepage"><div><div><h1 class="title"><a id="license-compatibility"/>The GPL and License Compatibility</h1></div></div></div><p>By far the sharpest dividing line in licensing is that between
+proprietary-incompatible and proprietary-compatible licenses, that is,
+between the GNU General Public License and everything else.  Because
+the primary goal of the GPL's authors is the promotion of free
+software, they deliberately crafted the license to make it impossible
+to mix GPLed code into proprietary programs.  Specifically, among the
+GPL's requirements (see
+<a class="ulink" href="http://www.fsf.org/licensing/licenses/gpl.html">http://www.fsf.org/licensing/licenses/gpl.html</a> for its
+full text) are these two:</p><div class="orderedlist"><ol class="orderedlist"><li class="listitem"><p>Any derivative work—that is, any work
+            containing a nontrivial amount of GPLed code—must
+            itself be distributed under the GPL.</p></li><li class="listitem"><p>No additional restrictions may be placed on the
+            redistribution of either the original work or a derivative
+            work.  (The exact language is: "You may not impose any
+            further restrictions on the exercise of the rights granted
+            or affirmed under this License.")</p></li></ol></div><p>With these conditions, the GPL succeeds in making freedom
+contagious.  Once a program is copyrighted under the GPL, its terms of
+redistribution are <em class="firstterm">viral</em>—they are passed
+on to anything else the code gets incorporated into, making it
+effectively impossible to use GPLed code in closed-source programs.
+However, these same clauses also make the GPL incompatible with
+certain other free licenses.  The usual way this happens is that the
+other license imposes a requirement—for example, a credit clause
+requiring the original authors to be mentioned in some way—that
+is incompatible with the GPL's "You may not impose any further
+restrictions..." language.  From the point of view of the Free
+Software Foundation, these second-order consequences are desirable, or
+at least not regrettable.  The GPL not only keeps your software free,
+but effectively makes your software an agent in pushing
+<span class="emphasis"><em>other</em></span> software to enforce freedom as well.</p><p>The question of whether or not this is a good way to
+promote free software is one of the most persistent holy wars on the
+Internet (see <a class="xref" href="ch06s02.html#holy-wars" title="Avoid Holy Wars">the section called “Avoid Holy Wars”</a><span>
+in <a class="xref" href="ch06.html" title="Chapter 6. Communications">Chapter 6, <em>Communications</em></a></span>), and we won't
+investigate it here.  What's important for our purposes is that
+GPL compatibility is an important issue when choosing a license.  The
+GPL is by far the most popular open source license; at one point
+Freecode had it at 68%, with the next highest license at 6%
+<sup>[<a id="idp8796176" href="#ftn.idp8796176" class="footnote">30</a>]</sup>.
+If you want your code to be able to be
+mixed freely with GPLed code—and there's a lot of GPLed code out
+there—then you should pick a GPL-compatible license.  Most of
+the GPL-compatible open source licenses are also
+proprietary-compatible: that is, code under such a license can be used
+in a GPLed program, and it can be used in a proprietary program.  Of
+course, the <span class="emphasis"><em>results</em></span> of these mixings would not be
+compatible with each other, since one would be under the GPL and the
+other would be under a closed-source license.  But that concern
+applies only to the derivative works, not to the code you distribute
+in the first place.</p><p>Fortunately, the Free Software Foundation maintains a list
+showing which licenses are compatible with the GPL and which are not,
+at <a class="ulink" href="http://www.gnu.org/licenses/license-list.html">http://www.gnu.org/licenses/license-list.html</a>.  All
+of the licenses discussed in this chapter are present on that list, on
+one side or the other.</p><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp8796176" href="#idp8796176" class="para">30</a>] </sup>License statistics used to be available from
+Freecode.com, back when it was called Freshmeat.net, but in 2008 they
+switched to a freeform method of tagging projects that made it harder
+to generate reliable license statistics.  See <a class="ulink" href="http://help.freecode.com/discussions/questions/187-where-did-the-license-statistics-page-go">http://help.freecode.com/discussions/questions/187-where-did-the-license-statistics-page-go</a>
+for a discussion of possible restoration of those stats.</p></div></div></div></body></html>

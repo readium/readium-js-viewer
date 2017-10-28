@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Testing and Releasing</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Testing and Releasing"><div class="titlepage"><div><div><h1 class="title"><a id="testing-and-releasing"/>Testing and Releasing</h1></div></div></div><p>Once the source tarball is produced from the stabilized release
+branch, the public part of the release process begins.  But before the
+tarball is made available to the world at large, it should be tested
+and approved by some minimum number of developers, usually three or
+more.  Approval is not simply a matter of inspecting the release for
+obvious flaws; ideally, the developers download the tarball, build and
+install it onto a clean system, run the regression test suite (see
+<a class="xref" href="ch08.html#automated-testing" title="Automated testing">the section called “Automated testing”</a>)<span> in
+<a class="xref" href="ch08.html" title="Chapter 8. Managing Volunteers">Chapter 8, <em>Managing Volunteers</em></a></span>, and do some
+manual testing.  Assuming it passes these checks, as well as any other
+release checklist criteria the project may have, the developers then
+digitally sign the tarball using GnuPG
+(<a class="ulink" href="http://www.gnupg.org/">http://www.gnupg.org/</a>), PGP
+(<a class="ulink" href="http://www.pgpi.org/">http://www.pgpi.org/</a>), or some other program capable
+of producing PGP-compatible signatures.</p><p>In most projects, the developers just use their personal digital
+signatures, instead of a shared project key, and as many developers as
+want to may sign (i.e., there is a minimum number, but not a maximum).
+The more developers sign, the more testing the release undergoes, and
+also the greater the likelihood that a security-conscious user can
+find a digital trust path from herself to the tarball.</p><p>Once approved, the release (that is, all tarballs, zip files,
+and whatever other formats are being distributed) should be placed
+into the project's download area, accompanied by the digital
+signatures, and by MD5/SHA1 checksums (see <a class="ulink" href="http://en.wikipedia.org/wiki/Cryptographic_hash_function">http://en.wikipedia.org/wiki/Cryptographic_hash_function</a>).
+There are various standards for doing this.  One way is to accompany
+each released package with a file giving the corresponding digital
+signatures, and another file giving the checksum.  For example, if one
+of the released packages is <code class="filename">scanley-2.5.0.tar.gz</code>,
+place in the same directory a file
+<code class="filename">scanley-2.5.0.tar.gz.asc</code> containing the digital
+signature for that tarball, another file
+<code class="filename">scanley-2.5.0.tar.gz.md5</code> containing its MD5
+checksum, and optionally another,
+<code class="filename">scanley-2.5.0.tar.gz.sha1</code>, containing the SHA1
+checksum.  A different way to provide checking is to collect all the
+signatures for all the released packages into a single file,
+<code class="filename">scanley-2.5.0.sigs</code>; the same may be done with the
+checksums.</p><p>It doesn't really matter which way you do it.  Just keep to a
+simple scheme, describe it clearly, and be consistent from release to
+release.  The purpose of all this signing and checksumming is to give
+users a way to verify that the copy they receive has not been
+maliciously tampered with.  Users are about to run this code on their
+computers—if the code has been tampered with, an attacker could
+suddenly have a back door to all their data.  See
+<a class="xref" href="ch07s06.html#security-releases" title="Security Releases">the section called “Security Releases”</a><span>
+later in this chapter</span> for more about paranoia.</p><div class="sect2" title="Candidate Releases"><div class="titlepage"><div><div><h2 class="title"><a id="candidate-releases"/>Candidate Releases</h2></div></div></div><p>For important releases containing many changes, many projects
+prefer to put out <em class="firstterm">release candidates</em> first,
+e.g., <code class="filename">scanley-2.5.0-beta1</code> before
+<code class="filename">scanley-2.5.0</code>.  The purpose of a candidate is to
+subject the code to wide testing before blessing it as an official
+release.  If problems are found, they are fixed on the release branch
+and a new candidate release is rolled out
+(<code class="filename">scanley-2.5.0-beta2</code>).  The cycle continues until
+no unacceptable bugs are left, at which point the last candidate
+release becomes the official release—that is, the only
+difference between the last candidate release and the real release
+is the removal of the qualifier from the version number.</p><p>In most other respects, a candidate release should be treated
+the same as a real release.  The <span class="emphasis"><em>alpha</em></span>,
+<span class="emphasis"><em>beta</em></span>, or <span class="emphasis"><em>rc</em></span> qualifier is
+enough to warn conservative users to wait until the real release, and
+of course the announcement emails for the candidate releases should
+point out that their purpose is to solicit feedback.  Other than
+that, give candidate releases the same amount of care as regular
+releases.  After all, you want people to use the candidates, because
+exposure is the best way to uncover bugs, and also because you never
+know which candidate release will end up becoming the official
+release.</p></div><div class="sect2" title="Announcing Releases"><div class="titlepage"><div><div><h2 class="title"><a id="release-announcement"/>Announcing Releases</h2></div></div></div><p>Announcing a release is like announcing any other event, and
+should use the procedures described in
+<a class="xref" href="ch06s06.html" title="Publicity">the section called “Publicity”</a><span> in
+<a class="xref" href="ch06.html" title="Chapter 6. Communications">Chapter 6, <em>Communications</em></a></span>.  There are a few
+specific things to do for releases, though.</p><p>Whenever you give the URL to the downloadable release tarball,
+make sure to also give the MD5/SHA1 checksums and pointers to the
+digital signatures file.  Since the announcement happens in multiple
+forums (mailing list, news page, etc.), this means users can get the
+checksums from multiple sources, which gives the most
+security-conscious among them extra assurance that the checksums
+themselves have not been tampered with.  Giving the link to the
+digital signature files multiple times doesn't make those signatures
+more secure, but it does reassure people (especially those who don't
+follow the project closely) that the project takes security
+seriously.</p><p>In the announcement email, and on news pages that contain more
+than just a blurb about the release, make sure to include the relevant
+portion of the CHANGES file, so people can see why it might be in
+their interests to upgrade.  This is as important with candidate
+releases as with final releases; the presence of bugfixes and new
+features is important in tempting people to try out a candidate
+release.</p><p>Finally, don't forget to thank the development team, the
+testers, and all the people who took the time to file good bug
+reports.  Don't single out anyone by name, though, unless there's
+someone who is individually responsible for a huge piece of work,
+the value of which is widely recognized by everyone in the
+project.  Just be wary of sliding down the slippery slope of credit
+inflation (see <a class="xref" href="ch08s05.html" title="Credit">the section called “Credit”</a><span>
+in <a class="xref" href="ch08.html" title="Chapter 8. Managing Volunteers">Chapter 8, <em>Managing Volunteers</em></a></span>).</p></div></div></body></html>

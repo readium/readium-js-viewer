@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE ncx PUBLIC
+     "-//NISO//DTD ncx 2005-1//EN"
+     "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+
+<ncx version="2005-1"
+     xml:lang="en"
+     xmlns="http://www.daisy.org/z3986/2005/ncx/">
+
+  <head>
+    <!-- The following four metadata items are required for all
+        NCX documents, including those conforming to the relaxed
+        constraints of OPS 2.0 -->
+
+    <meta name="dtb:uid" content="a2e4e23c-cb2e-11e5-84b0-4c72b9252ec6"/>
+
+    <meta name="dtb:depth" content="1"/>
+
+    <meta name="dtb:totalPageCount" content="0"/>
+
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+
+ <docTitle>
+   <text>The Emerald City of Oz</text>
+ </docTitle>
+
+ <docAuthor>
+   <text>Baum, Lyman Frank</text>
+ </docAuthor>
+
+    <navMap>
+
+    <navPoint class="titlepage" id="level1-titlepage" playOrder="1">
+      <navLabel><text>Title</text></navLabel>
+      <content src="title.xhtml"/>
+    </navPoint>
+
+    <navPoint class="about" id="level1-about" playOrder="2">
+      <navLabel><text>About</text></navLabel>
+      <content src="about.xhtml"/>
+    </navPoint>
+        
+
+
+
+
+
+
+
+<navPoint class="section" id="sec10196" playOrder="3">
+  <navLabel><text>Author&#39;s Note</text></navLabel>
+  
+    <content src="main0.xhtml"/>
+  
+    
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10198" playOrder="4">
+  <navLabel><text>Chapter 1 - How the Nome King Became Angry</text></navLabel> 
+  <content src="main1.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10200" playOrder="5">
+  <navLabel><text>Chapter 2 - How Uncle Henry Got Into Trouble</text></navLabel> 
+  <content src="main2.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10202" playOrder="6">
+  <navLabel><text>Chapter 3 - How Ozma Granted Dorothy&#39;s Request</text></navLabel> 
+  <content src="main3.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10204" playOrder="7">
+  <navLabel><text>Chapter 4 - How The Nome King Planned Revenge</text></navLabel> 
+  <content src="main4.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10206" playOrder="8">
+  <navLabel><text>Chapter 5 - How Dorothy Became a Princess</text></navLabel> 
+  <content src="main5.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10208" playOrder="9">
+  <navLabel><text>Chapter 6 - How Guph Visited the Whimsies</text></navLabel> 
+  <content src="main6.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10210" playOrder="10">
+  <navLabel><text>Chapter 7 - How Aunt Em Conquered the Lion</text></navLabel> 
+  <content src="main7.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10212" playOrder="11">
+  <navLabel><text>Chapter 8 - How the Grand Gallipoot Joined The Nomes</text></navLabel> 
+  <content src="main8.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10214" playOrder="12">
+  <navLabel><text>Chapter 9 - How the Wogglebug Taught Athletics</text></navLabel> 
+  <content src="main9.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10216" playOrder="13">
+  <navLabel><text>Chapter 10 - How the Cuttenclips Lived</text></navLabel> 
+  <content src="main10.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10218" playOrder="14">
+  <navLabel><text>Chapter 11 - How the General Met the First and Foremost</text></navLabel> 
+  <content src="main11.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10220" playOrder="15">
+  <navLabel><text>Chapter 12 - How they Matched the Fuddles</text></navLabel> 
+  <content src="main12.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10222" playOrder="16">
+  <navLabel><text>Chapter 13 - How the General Talked to the King</text></navLabel> 
+  <content src="main13.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10224" playOrder="17">
+  <navLabel><text>Chapter 14 - How the Wizard Practiced Sorcery</text></navLabel> 
+  <content src="main14.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10226" playOrder="18">
+  <navLabel><text>Chapter 15 - How Dorothy Happened to Get Lost</text></navLabel> 
+  <content src="main15.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10228" playOrder="19">
+  <navLabel><text>Chapter 16 - How Dorothy Visited Utensia</text></navLabel> 
+  <content src="main16.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10230" playOrder="20">
+  <navLabel><text>Chapter 17 - How They Came to Bunbury</text></navLabel> 
+  <content src="main17.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10232" playOrder="21">
+  <navLabel><text>Chapter 18 - How Ozma Looked into the Magic Picture</text></navLabel> 
+  <content src="main18.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10234" playOrder="22">
+  <navLabel><text>Chapter 19 - How Bunnybury Welcomed the Strangers</text></navLabel> 
+  <content src="main19.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10236" playOrder="23">
+  <navLabel><text>Chapter 20 - How Dorothy Lunched With a King</text></navLabel> 
+  <content src="main20.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10238" playOrder="24">
+  <navLabel><text>Chapter 21 - How the King Changed His Mind</text></navLabel> 
+  <content src="main21.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10240" playOrder="25">
+  <navLabel><text>Chapter 22 - How the Wizard Found Dorothy</text></navLabel> 
+  <content src="main22.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10242" playOrder="26">
+  <navLabel><text>Chapter 23 - How They Encountered the Flutterbudgets</text></navLabel> 
+  <content src="main23.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10244" playOrder="27">
+  <navLabel><text>Chapter 24 - How the Tin Woodman Told the Sad News</text></navLabel> 
+  <content src="main24.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10246" playOrder="28">
+  <navLabel><text>Chapter 25 - How the Scarecrow Displayed His Wisdom</text></navLabel> 
+  <content src="main25.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10248" playOrder="29">
+  <navLabel><text>Chapter 26 - How Ozma Refused to Fight for Her Kingdom</text></navLabel> 
+  <content src="main26.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10250" playOrder="30">
+  <navLabel><text>Chapter 27 - How the Fierce Warriors Invaded Oz</text></navLabel> 
+  <content src="main27.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10252" playOrder="31">
+  <navLabel><text>Chapter 28 - How They Drank at the Forbidden Fountain</text></navLabel> 
+  <content src="main28.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10254" playOrder="32">
+  <navLabel><text>Chapter 29 - How Glinda Worked a Magic Spell</text></navLabel> 
+  <content src="main29.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+<navPoint class="chapter" id="chap10256" playOrder="33">
+  <navLabel><text>Chapter 30 - How the Story of Oz Came to an End</text></navLabel> 
+  <content src="main30.xhtml"/>
+    
+  
+    
+    
+  
+</navPoint>
+
+
+
+  </navMap>
+
+
+</ncx>
