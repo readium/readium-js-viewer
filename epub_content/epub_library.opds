@@ -91,6 +91,7 @@
     <name>Readium</name>
   </author>
   <link type="application/epub+zip" href="internal_link.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="image/png" href="internal_link.png" rel="http://opds-spec.org/image/thumbnail"/>        
   <updated>2016-02-12T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_7</id>
 </entry>
