@@ -208,4 +208,15 @@
   <updated>2017-19-28T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_17</id>        
 </entry>
+
+<entry>
+  <title>SVG Animation</title>
+  <author>
+    <name>Ric Wright</name>
+  </author>
+  <link type="image/jpeg" href="SVG_Animation.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub+zip" href="SVG_Animation.epub" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-19-28T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_18</id>        
+</entry>
 </feed>
