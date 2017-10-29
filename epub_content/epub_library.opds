@@ -209,7 +209,7 @@
   <id>READIUM_OPDS_0123456789_17</id>        
 </entry>
 
-<!-- entry>
+<entry>
   <title>SVG Animation</title>
   <author>
     <name>Ric Wright</name>
@@ -229,5 +229,5 @@
   <link type="application/epub+zip" href="NeHe-EPUB-1-16.epub" rel="http://opds-spec.org/acquisition"/>
   <updated>2017-19-28T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_19</id>        
-</entry -->
+</entry>
 </feed>
