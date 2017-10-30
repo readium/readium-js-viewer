@@ -111,7 +111,7 @@ dependencies:
     "opener": 'latest'
 
     #"http-server": 'latest'
-    "http-server": 'danielweck/http-server'
+    "http-server": 'github:danielweck/http-server'
     # SEE: https://github.com/indexzero/http-server/issues/154
 
 
@@ -127,18 +127,18 @@ devDependencies:
 # "requirejs", "almond", "jquery"
 
     #"keymaster": 'latest'
-    "keymaster": 'danielweck/keymaster'
+    "keymaster": 'github:danielweck/keymaster'
 
     #"jath": 'latest'
-    "jath": 'danielweck/jath'
+    "jath": 'github:danielweck/jath'
     # "libxmljs" node-gyp python < v3 :(
     #"jquery-xpath": 'latest'
 
-    "mathjax-single-file": 'danielweck/MathJax-single-file'
+    "mathjax-single-file": 'github:danielweck/MathJax-single-file'
 
     "bootstrap": '3.x'
 
-    "bootstrap-accessibility-plugin": 'paypal/bootstrap-accessibility-plugin'
+    "bootstrap-accessibility-plugin": 'github:paypal/bootstrap-accessibility-plugin'
 
     "hammerjs": 'latest'
 
@@ -179,7 +179,7 @@ devDependencies:
     "phantomjs-prebuilt": 'latest'
 
     #"grunt": 'latest'
-    "grunt-selenium-webdriver": 'levexis/grunt-selenium-webdriver'
+    "grunt-selenium-webdriver": 'github:levexis/grunt-selenium-webdriver'
     #"selenium-webdriver": 'latest'
 
     "crx": 'latest'
