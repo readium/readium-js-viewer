@@ -112,14 +112,13 @@
   <author>
     <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30.epub</name>
   </author>
-  <link type="application/epub+zip" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="application/epub+zip" href="http://www.idpf.org/epub/31/docs/epub31-v30-20170105.epub" rel="http://opds-spec.org/acquisition"/>
   <link type="image/png" href="EPUB-Spec-Zipped.png" rel="http://opds-spec.org/image/thumbnail"/>        
-  <updated>2016-02-12T00:00:00Z</updated>
+  <updated>2016-11-01T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_8</id>
-
 </entry>
 
-<entry>
+<!-- entry>
   <title>IDPF EPUB 3.1 specification (unzipped)</title>
   <author>
     <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30</name>
@@ -129,7 +128,7 @@
   <updated>2016-02-12T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_9</id>
 
-</entry>
+</entry -->
 
 <entry>
   <title>IDPF EPUB Test Suite</title>
@@ -209,7 +208,7 @@
   <id>READIUM_OPDS_0123456789_17</id>        
 </entry>
 
-<entry>
+<!-- entry>
   <title>SVG Animation</title>
   <author>
     <name>Ric Wright</name>
@@ -230,4 +229,16 @@
   <updated>2017-19-28T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_19</id>        
 </entry>
+
+<entry>
+  <title>Tiny Three.js Loader</title>
+  <author>
+    <name>Ric Wright</name>
+  </author>
+  <link type="image/jpeg" href="epub_threejs_logo.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub+zip" href="Tiny-Loader.epub" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-11-01T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_20</id>        
+</entry -->
+
 </feed>
