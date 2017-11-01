@@ -110,7 +110,7 @@
 <entry>
   <title>IDPF EPUB 3.1 specification (zipped)</title>
   <author>
-    <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30.epub</name>
+    <name>Markus Gylling et. al.</name>
   </author>
   <link type="application/epub+zip" href="http://www.idpf.org/epub/31/docs/epub31-v30-20170105.epub" rel="http://opds-spec.org/acquisition"/>
   <link type="image/png" href="EPUB-Spec-Zipped.png" rel="http://opds-spec.org/image/thumbnail"/>        
@@ -129,51 +129,6 @@
   <id>READIUM_OPDS_0123456789_9</id>
 
 </entry -->
-
-<entry>
-  <title>IDPF EPUB Test Suite</title>
-  <author>
-    <name>https://github.com/IDPF/epub-testsuite</name>
-  </author>
-  <link type="image/png" href="epub_testsuite.png" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_testsuite.opds"/>
-  
-  <updated>2016-02-12T00:00:00Z</updated>
-  <id>READIUM_OPDS_0123456789_10</id>
-
-<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
-
-</entry>
-
-<entry>
-  <title>IDPF EPUB Samples</title>
-  <author>
-    <name>https://github.com/IDPF/epub3-samples</name>
-  </author>
-<link type="image/png" href="idpf_samples.png" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="idpf_samples.opds"/>
-  
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_11</id>
-
-<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
-
-</entry>
-
-<entry>
-  <title>DAISY EPUB Accessibility Tests</title>
-  <author>
-    <name>https://github.com/daisy/epub-accessibility-tests</name>
-  </author>
-  <link type="image/png" href="epub_tests_a11y.png" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_tests_a11y.opds"/>
-  
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_14</id>
-
-<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
-
-</entry>
 
 <entry>
   <title>Cyclones</title>
@@ -240,5 +195,46 @@
   <updated>2017-11-01T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_20</id>        
 </entry -->
+
+<entry>
+  <title>IDPF EPUB Test Suite</title>
+  <author>
+    <name>https://github.com/IDPF/epub-testsuite</name>
+  </author>
+  <link type="image/png" href="epub_testsuite.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_testsuite.opds"/>
+  
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_10</id>
+
+<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
+
+</entry>
+
+<entry>
+  <title>IDPF EPUB Samples</title>
+  <author>
+    <name>https://github.com/IDPF/epub3-samples</name>
+  </author>
+  <link type="image/png" href="idpf_samples.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="idpf_samples.opds"/> 
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_11</id>
+<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
+
+</entry>
+
+<entry>
+  <title>DAISY EPUB Accessibility Tests</title>
+  <author>
+    <name>https://github.com/daisy/epub-accessibility-tests</name>
+  </author>
+  <link type="image/png" href="epub_tests_a11y.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_tests_a11y.opds"/>  
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_14</id>
+<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
+
+</entry>
 
 </feed>
