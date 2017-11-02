@@ -172,7 +172,7 @@
   <link type="application/epub+zip" href="SVG_Animation.epub" rel="http://opds-spec.org/acquisition"/>
   <updated>2017-19-28T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_18</id>        
-</entry>
+</entry -->
 
 <entry>
   <title>NeHe WebGL three.js 1-16</title>
@@ -180,10 +180,10 @@
     <name>Ric Wright</name>
   </author>
   <link type="image/jpeg" href="NeHe-EPUB-1-16.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/epub+zip" href="NeHe-EPUB-1-16.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="application/epub" href="NeHe-EPUB-1-16" rel="http://opds-spec.org/acquisition"/>
   <updated>2017-19-28T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_19</id>        
-</entry -->
+</entry>
 
 <entry>
   <title>Tiny Three.js Loader - zipped</title>
