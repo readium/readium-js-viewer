@@ -112,7 +112,7 @@
   <author>
     <name>Markus Gylling et. al.</name>
   </author>
-  <link type="application/epub+zip" href="http://www.idpf.org/epub/31/docs/epub31-v30-20170105.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="application/epub+zip" href="https%3A%2F%2Frawgit.com%2Fw3c%2Fpubl-epub-revision%2Fcbee05c2ab6fb2dba821c94984d7203d91f5a97d%2Fbuild%2F31%2Fdocs%2Fepub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
   <link type="image/png" href="EPUB-Spec-Zipped.png" rel="http://opds-spec.org/image/thumbnail"/>        
   <updated>2016-11-01T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_8</id>
@@ -183,7 +183,7 @@
   <link type="application/epub+zip" href="NeHe-EPUB-1-16.epub" rel="http://opds-spec.org/acquisition"/>
   <updated>2017-19-28T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_19</id>        
-</entry>
+</entry -->
 
 <entry>
   <title>Tiny Three.js Loader</title>
@@ -191,10 +191,10 @@
     <name>Ric Wright</name>
   </author>
   <link type="image/jpeg" href="epub_threejs_logo.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/epub+zip" href="Tiny-Loader.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="application/epub" href="Tiny-Loader" rel="http://opds-spec.org/acquisition"/>
   <updated>2017-11-01T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_20</id>        
-</entry -->
+</entry>
 
 <entry>
   <title>IDPF EPUB Test Suite</title>
