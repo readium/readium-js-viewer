@@ -1,0 +1,424 @@
+<feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___github.com_IDPF_epub3-samples_tree_master_30</id>
+<title>Readium CloudReader OPDS feed for [ https://github.com/IDPF/epub3-samples/tree/master/30 ]</title>
+<link rel="self" href="epub_content/epub_samples.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="start" href="epub_content/epub_samples.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+
+<entry>
+<title>Guide Hachette des Vins 2011</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/GhV-oeb-page</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/GhV-oeb-page" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/GhV-oeb-page/EPUB/content.opf/../Image/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_GhV-oeb-page</id>
+</entry>
+<entry>
+<title>World Cultures and Geography</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/WCAG</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/WCAG" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_WCAG</id>
+</entry>
+<entry>
+<title>Accessible EPUB 3</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/accessible_epub_3</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/accessible_epub_3" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/accessible_epub_3/EPUB/package.opf/../covers/9781449328030_lrg.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_accessible_epub_3</id>
+</entry>
+<entry>
+<title>Creative Commons - A Shared Culture</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/cc-shared-culture</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/cc-shared-culture" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/cc-shared-culture/EPUB/package.opf/../images/326261902_3fa36f548d.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_cc-shared-culture</id>
+</entry>
+<entry>
+<title>Children&apos;s Literature</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/childrens-literature</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/childrens-literature" rel="http://opds-spec.org/acquisition"/>
+<link type="image/png" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/childrens-literature/EPUB/package.opf/../images/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_childrens-literature</id>
+</entry>
+<entry>
+<title>Abroad</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/childrens-media-query</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/childrens-media-query" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_childrens-media-query</id>
+</entry>
+<entry>
+<title>Thomas Cole - The Voyage of Life</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/cole-voyage-of-life-tol</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/cole-voyage-of-life-tol" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/cole-voyage-of-life-tol/EPUB/cole.opf/../images/portrait.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_cole-voyage-of-life-tol</id>
+</entry>
+<entry>
+<title>Thomas Cole - The Voyage of Life</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/cole-voyage-of-life</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/cole-voyage-of-life" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/cole-voyage-of-life/EPUB/cole.opf/../images/portrait.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_cole-voyage-of-life</id>
+</entry>
+<entry>
+<title>EPUB 3.0 Specification</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/epub30-spec</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/epub30-spec" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/epub30-spec/EPUB/package.opf/../img/epub_logo_color.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_epub30-spec</id>
+</entry>
+<entry>
+<title>EPUB Figure Gallery</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/figure-gallery-bindings</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/figure-gallery-bindings" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/figure-gallery-bindings/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_figure-gallery-bindings</id>
+</entry>
+<entry>
+<title>Georgia</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/georgia-cfi</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/georgia-cfi" rel="http://opds-spec.org/acquisition"/>
+<link type="image/png" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/georgia-cfi/EPUB/package.opf/../images/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_georgia-cfi</id>
+</entry>
+<entry>
+<title>Georgia</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/georgia-pls-ssml</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/georgia-pls-ssml" rel="http://opds-spec.org/acquisition"/>
+<link type="image/png" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/georgia-pls-ssml/EPUB/package.opf/../images/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_georgia-pls-ssml</id>
+</entry>
+<entry>
+<title>ハルコさんの彼氏</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/haruko-ahl</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/haruko-ahl" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_haruko-ahl</id>
+</entry>
+<entry>
+<title>ハルコさんの彼氏</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/haruko-html-jpeg</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/haruko-html-jpeg" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_haruko-html-jpeg</id>
+</entry>
+<entry>
+<title>ハルコさんの彼氏</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/haruko-jpeg</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/haruko-jpeg" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_haruko-jpeg</id>
+</entry>
+<entry>
+<title>Hefty Water</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/hefty-water</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/hefty-water" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_hefty-water</id>
+</entry>
+<entry>
+<title>Indexing for Editors and Authors: A Practical Guide to Understanding Indexes</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/indexing-for-eds-and-auths-3f</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/indexing-for-eds-and-auths-3f" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/indexing-for-eds-and-auths-3f/EPUB/package.opf/../images/9781573878296.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_indexing-for-eds-and-auths-3f</id>
+</entry>
+<entry>
+<title>Indexing for Editors and Authors: A Practical Guide to Understanding Indexes</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/indexing-for-eds-and-auths-3md</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/indexing-for-eds-and-auths-3md" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/indexing-for-eds-and-auths-3md/EPUB/package.opf/../images/9781573878296.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_indexing-for-eds-and-auths-3md</id>
+</entry>
+<entry>
+<title>IDに漢字などを使用したサンプル</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/internallinks</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/internallinks" rel="http://opds-spec.org/acquisition"/>
+<link type="image/png" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/internallinks/OEBPS/package.opf/../cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_internallinks</id>
+</entry>
+<entry>
+<title>מפליגים בישראל</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/israelsailing</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/israelsailing" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/israelsailing/OEBPS/content.opf/../israelsailing.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_israelsailing</id>
+</entry>
+<entry>
+<title>Requirements for Japanese Text Layout</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/jlreq-in-english</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/jlreq-in-english" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_jlreq-in-english</id>
+</entry>
+<entry>
+<title>日本語組版処理の要件（日本語版）</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/jlreq-in-japanese</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/jlreq-in-japanese" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_jlreq-in-japanese</id>
+</entry>
+<entry>
+<title>草枕</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/kusamakura-japanese-vertical-writing</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/kusamakura-japanese-vertical-writing" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_kusamakura-japanese-vertical-writing</id>
+</entry>
+<entry>
+<title>草枕</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/kusamakura-preview-embedded</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/kusamakura-preview-embedded" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_kusamakura-preview-embedded</id>
+</entry>
+<entry>
+<title>草枕</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/kusamakura-preview</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/kusamakura-preview" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_kusamakura-preview</id>
+</entry>
+<entry>
+<title>A First Course in Linear Algebra</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/linear-algebra</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/linear-algebra" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_linear-algebra</id>
+</entry>
+<entry>
+<title>महाभारत</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/mahabharata</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/mahabharata" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/mahabharata/EPUB/mahabharata.opf/../img/mahabharata.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_mahabharata</id>
+</entry>
+<entry>
+<title>Moby-Dick</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/moby-dick-mo</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/moby-dick-mo" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/moby-dick-mo/OPS/package.opf/../images/9780316000000.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_moby-dick-mo</id>
+</entry>
+<entry>
+<title>Moby-Dick</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/moby-dick</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/moby-dick" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/moby-dick/OPS/package.opf/../images/9780316000000.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_moby-dick</id>
+</entry>
+<entry>
+<title>ガリ版の話</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/mymedia_lite</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/mymedia_lite" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/mymedia_lite/OEBPS/mymedia_lite.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_mymedia_lite</id>
+</entry>
+<entry>
+<title>Page Blanche (bitmaps directly in spine)</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/page-blanche-bitmaps-in-spine</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/page-blanche-bitmaps-in-spine" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_page-blanche-bitmaps-in-spine</id>
+</entry>
+<entry>
+<title>Page Blanche</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/page-blanche</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/page-blanche" rel="http://opds-spec.org/acquisition"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_page-blanche</id>
+</entry>
+<entry>
+<title>Basic Quiz</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/quiz-bindings</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/quiz-bindings" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/quiz-bindings/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_quiz-bindings</id>
+</entry>
+<entry>
+<title>Le Vrai Régime anti-cancer</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/regime-anticancer-arabic</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/regime-anticancer-arabic" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/regime-anticancer-arabic/EPUB/package.opf/../Image/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_regime-anticancer-arabic</id>
+</entry>
+<entry>
+<title>Sous le vent</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/sous-le-vent</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/sous-le-vent" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/sous-le-vent/EPUB/package.opf/../Image/9782709641609_Couv.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_sous-le-vent</id>
+</entry>
+<entry>
+<title>Sous le vent (SVG directly in spine)</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/sous-le-vent_svg-in-spine</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/sous-le-vent_svg-in-spine" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/sous-le-vent_svg-in-spine/EPUB/package.opf/../Image/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_sous-le-vent_svg-in-spine</id>
+</entry>
+<entry>
+<title>SVG in Spine</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/svg-in-spine</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/svg-in-spine" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpeg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/svg-in-spine/OPS/content.opf/../Images/cover.svg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_svg-in-spine</id>
+</entry>
+<entry>
+<title>Trees</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/trees</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/trees" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/trees/EPUB/package.opf/../cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_trees</id>
+</entry>
+<entry>
+<title>The Waste Land</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/wasteland-otf-obf</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland-otf-obf" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland-otf-obf/EPUB/wasteland.opf/../wasteland-cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_wasteland-otf-obf</id>
+</entry>
+<entry>
+<title>The Waste Land</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/wasteland-otf</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland-otf" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland-otf/EPUB/wasteland.opf/../wasteland-cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_wasteland-otf</id>
+</entry>
+<entry>
+<title>The Waste Land</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/wasteland-woff-obf</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland-woff-obf" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland-woff-obf/EPUB/wasteland.opf/../wasteland-cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_wasteland-woff-obf</id>
+</entry>
+<entry>
+<title>The Waste Land</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/wasteland-woff</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland-woff" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland-woff/EPUB/wasteland.opf/../wasteland-cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_wasteland-woff</id>
+</entry>
+<entry>
+<title>The Waste Land</title>
+<author>
+  <name>IDPF/epub3-samples (master) - 30/wasteland</name>
+</author>
+<link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.rawgit.com/IDPF/epub3-samples/master/30/wasteland/EPUB/wasteland.opf/../wasteland-cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2016-11-25T10:45:51.807Z</updated>
+<id>READIUM_OPDS_https___cdn.rawgit.com_IDPF_epub3-samples_master_30_wasteland</id>
+</entry>
+</feed>

@@ -98,11 +98,11 @@ BookmarkData){
         // Ensures URLs like http://crossorigin.me/http://domain.com/etc
         // do not end-up loosing the double forward slash in http://domain.com
         // (because of URI.absoluteTo() path normalisation)
-        var CORS_PROXY_HTTP_TOKEN_ESCAPED = "%2Fhttp%3A%2F%2F";
-        var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "%2Fhttps%3A%2F%2F";
+        var CORS_PROXY_HTTP_TOKEN_ESCAPED = "/http%3A%2F%2F";
+        var CORS_PROXY_HTTPS_TOKEN_ESCAPED = "/https%3A%2F%2F";
         
         // case-insensitive regexp for percent-escapes
-        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("%2F(http[s]?)%3A%2F%2F", "gi");
+        var regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED = new RegExp("/(http[s]?):%2F%2F", "gi");
         
         var appUrl =
         window.location ? (
@@ -120,10 +120,14 @@ BookmarkData){
             ebookURL = ebookURL.replace(CORS_PROXY_HTTP_TOKEN, CORS_PROXY_HTTP_TOKEN_ESCAPED);
             ebookURL = ebookURL.replace(CORS_PROXY_HTTPS_TOKEN, CORS_PROXY_HTTPS_TOKEN_ESCAPED);
             
+            // console.log("EPUB URL absolute 1: " + ebookURL);
+
             ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
             if (ebookURL.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
                 ebookURL = (isHTTPS ? "https:" : "http:") + ebookURL;
             }
+            
+            // console.log("EPUB URL absolute 2: " + ebookURL);
             
             ebookURL = ebookURL.replace(regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED, "/$1://");
             
@@ -385,7 +389,15 @@ BookmarkData){
             Globals.logEvent("FXL_VIEW_RESIZED", "ON", "EpubReader.js");
             setScaleDisplay();
         });
-        
+
+
+        readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOAD_START, function ($iframe, spineItem)
+        {
+            Globals.logEvent("CONTENT_DOCUMENT_LOAD_START", "ON", "EpubReader.js [ " + spineItem.href + " ]");
+            savePlace();
+        });
+
+
         readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function ($iframe, spineItem)
         {
             Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "EpubReader.js [ " + spineItem.href + " ]");
@@ -625,8 +637,8 @@ BookmarkData){
             }
         };
     }
-    var oldOnChange = screenfull.onchange;
-    screenfull.onchange = function(e){
+
+    screenfull.onchange(function(e){
         var titleText;
 
         if (screenfull.isFullscreen)
@@ -645,8 +657,8 @@ BookmarkData){
             $('#buttFullScreenToggle').attr('aria-label', titleText);
             $('#buttFullScreenToggle').attr('title', titleText);
         }
-        oldOnChange.call(this, e);
-    }
+    });
+
     var unhideUI = function(){
         hideLoop();
     }
@@ -724,10 +736,44 @@ BookmarkData){
     }
 
     var savePlace = function(){
+
+        var urlParams = Helpers.getURLQueryParams();
+        var ebookURL = urlParams['epub'];
+        if (!ebookURL) return;
+
+        var bookmark = readium.reader.bookmarkCurrentPage();
+
         // Note: automatically JSON.stringify's the passed value!
         // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
-        Settings.put(ebookURL_filepath, readium.reader.bookmarkCurrentPage(), $.noop);
-    }
+        Settings.put(ebookURL_filepath, bookmark, $.noop);
+
+        if (!isChromeExtensionPackagedApp // History API is disabled in packaged apps
+              && window.history && window.history.replaceState) {
+
+            bookmark = JSON.parse(bookmark) || {};
+
+            bookmark.elementCfi = bookmark ? bookmark.contentCFI : null;
+            bookmark.contentCFI = undefined;
+            bookmark = JSON.stringify(bookmark);
+
+            ebookURL = ensureUrlIsRelativeToApp(ebookURL);
+
+            var epubs = urlParams['epubs'];
+
+            var url = Helpers.buildUrlQueryParameters(undefined, {
+                epub: ebookURL,
+                epubs: (epubs ? epubs : " "),
+                embedded: " ",
+                goto: bookmark
+            });
+
+            history.replaceState(
+                {epub: ebookURL, epubs: (epubs ? epubs : undefined)},
+                "Readium Viewer",
+                url
+            );
+        }
+    };
 
     var nextPage = function () {
 
@@ -1103,9 +1149,11 @@ BookmarkData){
                 var bookmark = JSON.parse(settings[ebookURL_filepath]);
                 // JSON.parse() a *second time* because the stored value is readium.reader.bookmarkCurrentPage(), which is JSON.toString'ed
                 bookmark = JSON.parse(bookmark);
-                //console.log("Bookmark restore: " + JSON.stringify(bookmark));
-                openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
-                console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
+                if (bookmark && bookmark.idref) {
+                    //console.log("Bookmark restore: " + JSON.stringify(bookmark));
+                    openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
+                    console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
+                }
             }
 
             var urlParams = Helpers.getURLQueryParams();
@@ -1177,6 +1225,21 @@ BookmarkData){
                 if (readium.reader.plugins.example) {
                     readium.reader.plugins.example.on("exampleEvent", function(message) {
                         alert(message);
+                    });
+                }
+
+                if (readium.reader.plugins.hypothesis) {
+                    // Respond to requests for UI controls to make space for the Hypothesis sidebar
+                    readium.reader.plugins.hypothesis.on("offsetPageButton", function (offset) {
+                        if (offset == 0) {
+                            $('#right-page-btn').css('right', offset);
+                        } else {
+                            $('#right-page-btn').css('right', offset - $('#right-page-btn').width()); // 40px
+                        }
+                    });
+                    readium.reader.plugins.hypothesis.on("offsetNavBar", function (offset) {
+                        $('#app-navbar').css('margin-right', offset);
+                        $('#reading-area').css('right', offset); // epub-reader-container
                     });
                 }
             });

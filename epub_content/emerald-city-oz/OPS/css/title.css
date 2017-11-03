@@ -1,0 +1,32 @@
+@import "page.css";
+
+body {
+  font-family: serif;
+  oeb-column-number: 1;
+  padding: 0;}
+
+div.logo {
+  text-align: left;
+  padding-top: 2%;}
+
+h1 {
+  font-size: larger;
+  text-align: center;
+  padding-top: 15%;}
+
+h2 {
+  font-size: small;
+  text-align: center;}
+
+div.infos {
+  font-size: smaller;
+  padding-top: 15%;}
+
+p {
+  text-indent: 0.0em;
+  margin-top: 0.0em;
+  margin-bottom: 0.0em;}
+
+a {
+  color: #000000;
+  text-decoration: none;}

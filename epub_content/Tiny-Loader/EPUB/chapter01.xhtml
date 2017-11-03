@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>Chapter 1</title>
+    <meta name="viewport" content="width=768, height=1024"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+	<script src="js/three.js"></script>
+	<script src="js/Detector.js"></script>
+
+</head>
+<body>
+<script type="text/javascript"> <![CDATA[
+// Globals (used in the animation callback)
+var scene;
+var renderer;
+var camera;
+var xRotation = 0.0;
+var yRotation = 0.0;
+var zRotation = 0.0;
+var cubeMesh;
+
+initializeScene();
+
+animateScene();
+
+/**
+ * Initialize the scene.
+ */
+function initializeScene(){
+    // Check whether the browser supports WebGL. Almost always true in 2017
+    if (Detector.webgl)
+        renderer = new THREE.WebGLRenderer({antialias:true});
+     else
+        Detector.addGetWebGLMessage();
+
+    // Set the background color of the renderer to black, with full opacity
+    renderer.setClearColor(0x000000, 1);
+
+    canvasWidth = 768;
+    canvasHeight = 1024;
+
+    // Set the renderers size to the content area's size
+    renderer.setSize(canvasWidth, canvasHeight);
+
+    var container = document.createElement( 'div' );
+    document.body.appendChild( container );
+    container.appendChild(renderer.domElement);
+
+    // Create the scene, in which all objects are stored (e. g. camera, lights, geometries, ...)
+    scene = new THREE.Scene();
+
+    camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 100);
+    camera.position.set(0, 0, 15);
+    camera.lookAt(scene.position);
+    scene.add(camera);
+
+    /*
+    var material = new THREE.MeshBasicMaterial({ color:"#0000ff" });
+    var geometry = new THREE.BoxGeometry(1.0, 1.0, 1.0);
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(2.0, 0.0, 2.0);
+    scene.add(mesh);
+    */
+    
+    // Load an image as texture
+    loadTexture();
+}
+
+function oldLoadTexture() {
+    var neheTexture = THREE.ImageUtils.loadTexture("images/NeHe.jpg");
+
+    var cubeMaterial = new THREE.MeshLambertMaterial({
+        map:neheTexture,
+        side:THREE.DoubleSide
+    });
+
+    var cubeGeometry = new THREE.BoxGeometry(2.0, 2.0, 2.0);
+
+    cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cubeMesh.position.set(0.0, 0.0, 4.0);
+    scene.add(cubeMesh);
+}
+
+function loadTexture () {
+    var loader = new THREE.TextureLoader();
+
+    loader.load( 'images/NeHe.jpg', function ( texture ) {
+        var cubeMaterial = new THREE.MeshBasicMaterial({
+            map:texture,
+            side:THREE.DoubleSide
+        });
+
+        var cubeGeometry = new THREE.BoxGeometry(2.0, 2.0, 2.0);
+
+        cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cubeMesh.position.set(0.0, 0.0, 4.0);
+        scene.add(cubeMesh);
+    });
+}
+
+/**
+ * Animate the scene and call rendering.
+ */
+function animateScene() {
+
+    if (cubeMesh !== undefined) {
+        // Increase the x, y and z rotation of the cube
+        xRotation += 0.03;
+        yRotation += 0.02;
+        zRotation += 0.04;
+        cubeMesh.rotation.set(xRotation, yRotation, zRotation);
+    }
+    // Define the function which is called by the browser supported timer loop.
+    requestAnimationFrame(animateScene);
+
+    // Map the 3D scene down to the 2D screen (render the frame)
+    renderer.render(scene, camera);
+}
+
+]]> </script>
+</body>
+</html>

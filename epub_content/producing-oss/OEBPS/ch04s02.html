@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Consensus-based Democracy</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Consensus-based Democracy"><div class="titlepage"><div><div><h1 class="title"><a id="consensus-democracy"/>Consensus-based Democracy</h1></div></div></div><p>As projects get older, they tend to move away from the
+benevolent dictatorship model and toward more openly democratic
+systems.  This is not necessarily out of dissatisfaction with a
+particular BD.  It's simply that group-based governance is more
+"evolutionarily stable", to borrow a biological metaphor.  Whenever a
+benevolent dictator steps down, or attempts to spread decision-making
+responsibility more evenly, it is an opportunity for the group to
+settle on a new, non-dictatorial system—establish a
+constitution, as it were.  The group may not take this opportunity the
+first time, or the second, but eventually they will; once they do,
+the decision is unlikely ever to be reversed.  Common sense explains
+why: if a group of N people were to vest one person with special
+power, it would mean that N - 1 people were each agreeing to
+decrease their individual influence.  People usually don't want to do
+that.  Even if they did, the resulting dictatorship would still be
+conditional: the group anointed the BD, clearly the group could depose
+the BD.  Therefore, once a project has moved from leadership by a
+charismatic individual to a more formal, group-based system, it rarely
+moves back.</p><p>The details of how these systems work vary widely, but there are
+two common elements: one, the group works by consensus most of the
+time; two, there is a formal voting mechanism to fall back on when
+consensus cannot be reached.</p><p><em class="firstterm">Consensus</em> merely means an agreement that
+everyone is willing to live with.  It is not an ambiguous state: a
+group has reached consensus on a given question when someone proposes
+that consensus has been reached, and no one contradicts the assertion.
+The person proposing consensus should, of course, state specifically
+what the consensus is, and what actions would be taken in consequence
+of it, if they're not obvious.</p><p>Most conversation in a project is on technical topics, such as
+the right way to fix a certain bug, whether or not to add a feature,
+how strictly to document interfaces, etc.  Consensus-based governance
+works well because it blends seamlessly with the technical discussion
+itself.  By the end of a discussion, there is often general agreement
+on what course to take.  Someone will usually make a concluding post,
+which is simultaneously a summary of what has been decided and an
+implicit proposal of consensus.  This provides a last chance for
+someone else to say "Wait, I didn't agree to that.  We need to hash
+this out some more."</p><p>For small, uncontroversial decisions, the proposal of consensus
+is implicit.  For example, when a developer spontaneously commits a
+bugfix, the commit itself is a proposal of consensus: "I assume we all
+agree that this bug needs to be fixed, and that this is the way to fix
+it."  Of course, the developer does not actually say that; she just
+commits the fix, and the others in the project do not bother to state
+their agreement, because silence is consent.  If someone commits a
+change that turns out <span class="emphasis"><em>not</em></span> to have consensus, the
+result is simply for the project to discuss the change as though it
+had not already been committed.  The reason this works is the topic of
+the next section.</p><div class="sect2" title="Version Control Means You Can Relax"><div class="titlepage"><div><div><h2 class="title"><a id="version-control-relaxation"/>Version Control Means You Can Relax</h2></div></div></div><p>The fact that the project's source code is kept under version
+control means that most decisions can be easily unmade.  The most
+common way this happens is that someone commits a change mistakenly
+thinking everyone would be happy with it, only to be met with
+objections after the fact.  It is typical for such objections to start
+out with an obligatory apology for having missed out on prior
+discussion, though this may be omitted if the objector finds no record
+of such a discussion in the mailing list archives.  Either way, there
+is no reason for the tone of the discussion to be different after the
+change has been committed than before.  Any change can be reverted, at
+least until dependent changes are introduced (i.e., new code that
+would break if the original change were suddenly removed).  The
+version control system gives the project a way to undo the effects of
+bad or hasty judgement.  This, in turn, frees people to trust their
+instincts about how much feedback is necessary before doing
+something.</p><p>This also means that the process of establishing consensus need
+not be very formal.  Most projects handle it by feel.  Minor changes
+can go in with no discussion, or with minimal discussion followed by a
+few nods of agreement.  For more significant changes, especially ones
+with the potential to destabilize a lot of code, people should wait a
+day or two before assuming there is consensus, the rationale being
+that no one should be marginalized in an important conversation simply
+because he didn't check email frequently enough.</p><p>Thus, when someone is confident he knows what needs to be done,
+he should just go ahead and do it.  This applies not only to software
+fixes, but to web site updates, documentation changes, and anything
+else unlikely to be controversial.  Usually there will be only a few
+instances where an action needs to be undone, and these can be handled on
+a case-by-case basis.  Of course, one shouldn't encourage people to be
+headstrong.  There is still a psychological difference between a
+decision under discussion and one that has already taken effect, even
+if it is technically reversible.  People always feel that momentum is
+allied to action, and will be slightly more reluctant to revert a
+change than to prevent it in the first place.  If a developer abuses
+this fact by committing potentially controversial changes too quickly,
+however, people can and should complain, and hold that developer to a
+stricter standard until things improve.</p></div><div class="sect2" title="When Consensus Cannot Be Reached, Vote"><div class="titlepage"><div><div><h2 class="title"><a id="voting"/>When Consensus Cannot Be Reached, Vote</h2></div></div></div><p>Inevitably, some debates just won't consense.  When all other
+means of breaking a deadlock fail, the solution is to vote.  But
+before a vote can be taken, there must be a clear set of choices on
+the ballot.  Here, again, the normal process of technical discussion
+blends serendipitously with the project's decision-making procedures.
+The kinds of questions that come to a vote often involve complex,
+multifaceted issues.  In any such complex discussion, there are
+usually one or two people playing the role of <em class="firstterm">honest
+broker</em>: posting periodic summaries of the various
+arguments and keeping track of where the core points of disagreement
+(and agreement) lie.  These summaries help everyone measure how much
+progress has been made, and remind everyone of what issues remain to
+be addressed.  Those same summaries can serve as prototypes for a
+ballot sheet, should a vote become necessary.  If the honest brokers
+have been doing their job well, they will be able to credibly call for
+a vote when the time comes, and the group will be willing to use a
+ballot sheet based on their summary of the issues.  The brokers
+themselves may be participants in the debate; it is not necessary for
+them to remain above the fray, as long as they can understand and
+fairly represent others' views, and not let their partisan sentiments
+prevent them from summarizing the state of the debate in a neutral
+fashion.</p><p>The actual content of the ballot is usually not controversial.
+By the time matters reach a vote, the disagreement has usually boiled
+down to a few key issues, with recognizable labels and brief
+descriptions.  Occasionally a developer will object to the form of the
+ballot itself.  Sometimes his concern is legitimate, for example,
+that an important choice was left off or not described accurately.
+But other times a developer may be merely trying to stave off the
+inevitable, perhaps knowing that the vote probably won't go his way.
+See <a class="xref" href="ch06s03.html" title="Difficult People">the section called “Difficult People”</a><span>
+in <a class="xref" href="ch06.html" title="Chapter 6. Communications">Chapter 6, <em>Communications</em></a></span> for how to deal with
+this sort of obstructionism.</p><p>Remember to specify the voting system, as there are many
+different kinds, and people might make wrong assumptions about which
+procedure is being used.  A good choice in most cases is
+<em class="firstterm">approval voting</em>, whereby each voter can vote
+for as many of the choices on the ballot as he likes.  Approval
+voting is simple to explain and to count, and unlike some other
+methods, it only involves one round of voting.  See <a class="ulink" href="http://en.wikipedia.org/wiki/Voting_system#List_of_systems">http://en.wikipedia.org/wiki/Voting_system#List_of_systems</a> for
+more details about approval voting and other voting systems, but try
+to avoid getting into a long debate about which voting system to use
+(because, of course, you will then find yourself in a debate about
+which voting system to use to decide the voting system!).  One reason
+approval voting is a good choice is that it's very hard for anyone to
+object to—it's about as fair as a voting system can be.</p><p>Finally, conduct votes in public.  There is no need for secrecy
+or anonymity in a vote on matters that have been debated publicly
+anyway.  Have each participant post her votes to the project mailing
+list, so that any observer can tally and check the results for
+herself, and so that everything is recorded in the archives.</p></div><div class="sect2" title="When To Vote"><div class="titlepage"><div><div><h2 class="title"><a id="when-to-vote"/>When To Vote</h2></div></div></div><p>The hardest thing about voting is determining when to do it.  In
+general, taking a vote should be very rare—a last resort for
+when all other options have failed.  Don't think of voting as a great
+way to resolve debates.  It isn't.  It ends discussion, and thereby
+ends creative thinking about the problem.  As long as discussion
+continues, there is the possibility that someone will come up with a
+new solution everyone likes.  This happens surprisingly often: a
+lively debate can produce a new way of thinking about the problem, and
+lead to a proposal that eventually satisfies everyone.  Even when no
+new proposal arises, it's still usually better to broker a compromise
+than to hold a vote.  After a compromise, everyone is a little bit
+unhappy, whereas after a vote, some people are unhappy while others
+are happy.  From a political standpoint, the former situation is
+preferable: at least each person can feel he extracted a price for his
+unhappiness.  He may be dissatisfied, but so is everyone else.</p><p>Voting's main advantage is that it finally settles a question so
+everyone can move on.  But it settles it by a head count, instead of
+by rational dialogue leading everyone to the same conclusion.  The
+more experienced people are with open source projects, the less eager
+I find them to be to settle questions by vote.  Instead they will try
+to explore previously unconsidered solutions, or compromise more
+severely than they'd originally planned.  Various techniques are
+available to prevent a premature vote.  The most obvious is simply to
+say "I don't think we're ready for a vote yet," and explain why not.
+Another is to ask for an informal (non-binding) show of hands.  If the
+response clearly tends toward one side or another, this will make some
+people suddenly more willing to compromise, obviating the need for a
+formal vote.  But the most effective way is simply to offer a new
+solution, or a new viewpoint on an old suggestion, so that people
+re-engage with the issues instead of merely repeating the same
+arguments.</p><p>In certain rare cases, everyone may agree that all the
+compromise solutions are worse than any of the non-compromise ones.
+When that happens, voting is less objectionable, both because it is
+more likely to lead to a superior solution and because people will not
+be overly unhappy no matter how it turns out.  Even then, the vote
+should not be rushed.  The discussion leading up to a vote is what
+educates the electorate, so stopping that discussion early can lower
+the quality of the result.</p><p>(Note that this advice to be reluctant to call votes does not
+apply to the change-inclusion voting described in
+<a class="xref" href="ch07s03.html" title="Stabilizing a Release">the section called “Stabilizing a Release”</a><span>
+in <a class="xref" href="ch07.html" title="Chapter 7. Packaging, Releasing, and Daily Development">Chapter 7, <em>Packaging, Releasing, and Daily Development</em></a></span>.  There, voting
+is more of a communications mechanism, a means of registering one's
+involvement in the change review process so that everyone can tell how
+much review a given change has received.)</p></div><div class="sect2" title="Who Votes?"><div class="titlepage"><div><div><h2 class="title"><a id="electorate"/>Who Votes?</h2></div></div></div><p>Having a voting system raises the question of electorate: who
+gets to vote?  This has the potential to be a sensitive issue, because
+it forces the project to officially recognize some people as being
+more involved, or as having better judgement, than others.</p><p>The best solution is to simply take an existing distinction,
+commit access, and attach voting privileges to it.  In projects that
+offer both full and partial commit access, the question of whether
+partial committers can vote largely depends on the process by which
+partial commit access is granted.  If the project hands it out
+liberally, for example as a way of maintaining many third-party
+contributed tools in the repository, then it should be made clear that
+partial commit access is really just about committing, not voting.
+The reverse implication naturally holds as well: since full committers
+<span class="emphasis"><em>will</em></span> have voting privileges, they must be chosen
+not only as programmers, but as members of the electorate.  If someone
+shows disruptive or obstructionist tendencies on the mailing list, the
+group should be very cautious about making him a committer, even if
+the person is technically skilled.</p><p>The voting system itself should be used to choose new
+committers, both full and partial.  But here is one of the rare
+instances where secrecy is appropriate.  You can't have votes about
+potential committers posted to a public mailing list, because the
+candidate's feelings (and reputation) could be hurt.  Instead, the
+usual way is that an existing committer posts to a private mailing
+list consisting only of the other committers, proposing that someone
+be granted commit access.  The other committers speak their minds
+freely, knowing the discussion is private.  Often there will be no
+disagreement, and therefore no vote necessary.  After waiting a few
+days to make sure every committer has had a chance to respond, the
+proposer mails the candidate and offers him commit access.  If there
+is disagreement, discussion ensues as for any other question, possibly
+resulting in a vote.  For this process to be open and frank, the mere
+fact that the discussion is taking place at all should be secret.  If
+the person under consideration knew it was going on, and then were
+never offered commit access, he could conclude that he had lost
+the vote, and would likely feel hurt.  Of course, if someone
+explicitly asks for commit access, then there is no choice but to
+consider the proposal and explicitly accept or reject him.  If the
+latter, then it should be done as politely as possible, with a clear
+explanation: "We liked your patches, but haven't seen enough of them
+yet," or "We appreciate all your patches, but they required
+considerable adjustments before they could be applied, so we don't
+feel comfortable giving you commit access yet.  We hope that this will
+change over time, though."  Remember, what you're saying could come as
+a blow, depending on the person's level of confidence.  Try to see it
+from their point of view as you write the mail.</p><p>Because adding a new committer is more consequential than most
+other one-time decisions, some projects have special requirements for
+the vote.  For example, they may require that the proposal receive at
+least <span class="emphasis"><em>n</em></span> positive votes and no negative votes, or
+that a supermajority vote in favor.  The exact parameters are not
+important; the main idea is to get the group to be careful about
+adding new committers.  Similar, or even stricter, special requirements
+can apply to votes to <span class="emphasis"><em>remove</em></span> a committer, though
+hopefully that will never be necessary.  See <a class="xref" href="ch08s04.html" title="Committers">the section called “Committers”</a><span> in
+<a class="xref" href="ch08.html" title="Chapter 8. Managing Volunteers">Chapter 8, <em>Managing Volunteers</em></a></span> for more on the
+non-voting aspects of adding and removing committers.</p></div><div class="sect2" title="Polls Versus Votes"><div class="titlepage"><div><div><h2 class="title"><a id="polls"/>Polls Versus Votes</h2></div></div></div><p>For certain kinds of votes, it may be useful to expand the
+electorate. For example, if the developers simply can't figure out
+whether a given interface choice matches the way people actually use
+the software, one solution is to ask to all the subscribers of the
+project's mailing lists to vote.  These are really
+<em class="firstterm">polls</em> rather than votes, but the developers may
+choose to treat the result as binding.  As with any poll, be sure to
+make it clear to the participants that there's a write-in option: if
+someone thinks of a better option not offered in the poll questions,
+her response may turn out to be the most important result of the
+poll.</p></div><div class="sect2" title="Vetoes"><div class="titlepage"><div><div><h2 class="title"><a id="veto"/>Vetoes</h2></div></div></div><p>Some projects allow a special kind of vote known as a
+<em class="firstterm">veto</em>.  A veto is a way for a developer to put a
+halt to a hasty or ill-considered change, at least long enough for
+everyone to discuss it more.  Think of a veto as somewhere between a
+very strong objection and a filibuster.  Its exact meaning varies from
+one project to another.  Some projects make it very difficult to
+override a veto; others allow them to be overridden by regular
+majority vote, perhaps after an enforced delay for more discussion.
+Any veto should be accompanied by a thorough explanation; a veto
+without such an explanation should be considered invalid on
+arrival.</p><p>With vetoes comes the problem of veto abuse.  Sometimes
+developers are too eager to raise the stakes by casting a veto, when
+really all that was called for was more discussion.  You can prevent
+veto abuse by being very reluctant to use vetoes yourself, and by
+gently calling it out when someone else uses her veto too often.  If
+necessary, you can also remind the group that vetoes are binding for
+only as long as the group agrees they are—after all, if a
+clear majority of developers wants X, then X is going to happen one
+way or another.  Either the vetoing developer will back down, or the
+group will decide to weaken the meaning of a veto.</p><p>You may see people write "-1" to express a veto.  This usage
+comes from the Apache Software Foundation, which has a highly
+structured voting and veto process, described at <a class="ulink" href="http://www.apache.org/foundation/voting.html">http://www.apache.org/foundation/voting.html</a>.  The Apache
+standards have spread to other projects, and you will see their
+conventions used to varying degrees in a lot of places in the open
+source world.  Technically, "-1" does not always indicate a formal
+veto even according to the Apache standards, but informally it is
+usually taken to mean a veto, or at least a very strong
+objection.</p><p>Like votes, vetoes can apply retroactively.  It's not okay to
+object to a veto on the grounds that the change in question has
+already been committed, or the action taken (unless it's something
+irrevocable, like putting out a press release).  On the other hand, a
+veto that arrives weeks or months late isn't likely to be taken very
+seriously, nor should it be.</p></div></div></body></html>

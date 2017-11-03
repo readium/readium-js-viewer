@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Web Site</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Web Site"><div class="titlepage"><div><div><h1 class="title"><a id="web-site"/>Web Site</h1></div></div></div><p>There is not much to say about setting up the project web site
+from a technical point of view: setting up a web server and writing
+web pages are fairly simple tasks, and most of the important things to
+say about layout and arrangement were covered in the previous chapter.
+The web site's main function is to present a clear and welcoming
+overview of the project, and to bind together the other tools (the
+version control system, bug tracker, etc.).  If you don't have the
+expertise to set up a web server yourself, it's usually not hard to
+find someone who does and is willing to help out.  Nonetheless, to
+save time and effort, people often prefer to use one of the canned
+hosting sites.</p><div class="sect2" title="Canned Hosting"><div class="titlepage"><div><div><h2 class="title"><a id="canned-hosting"/>Canned Hosting</h2></div></div></div><p>There are two main advantages to using a canned site.  The first
+is server capacity and bandwidth: their servers are beefy boxes sitting
+on really fat pipes.  No matter how successful your project gets,
+you're not going to run out of disk space or swamp the network
+connection.  The second advantage is simplicity.  They have already
+chosen a bug tracker, a version control system, a mailing list manager,
+an archiver, and everything else you need to run a site.  They've
+configured the tools, and are taking care of backups for all the data
+stored in the tools.  You don't need to make many decisions.  All you
+have to do is fill in a form, press a button, and suddenly you've got
+a project web site.</p><p>These are pretty significant benefits.  The disadvantage, of
+course, is that you must accept <span class="emphasis"><em>their</em></span> choices and
+configurations, even if something different would be better for your
+project.  Usually canned sites are adjustable within certain narrow
+parameters, but you will never get the fine-grained control you would
+have if you set up the site yourself and had full administrative
+access to the server.</p><p>A perfect example of this is the handling of generated files.
+Certain project web pages may be generated files—for example,
+there are systems for keeping FAQ data in an easy-to-edit master
+format, from which HTML, PDF, and other presentation formats can be
+generated.  As explained in
+<a class="xref" href="ch03s03.html#version-everything" title="Version everything">the section called “Version everything”</a><span>
+earlier in this chapter</span>,
+you wouldn't want to version the generated formats, only the master
+file.  But when your web site is hosted on someone else's server, it
+may be impossible to set up a custom hook to regenerate the online
+HTML version of the FAQ whenever the master file is changed.  The only
+workaround is to version the generated formats too, so that they show
+up on the web site.</p><p>There can be larger consequences as well.  You may not have as
+much control over presentation as you would wish.  Some of the canned
+hosting sites allow you to customize your web pages, but the site's
+default layout usually ends up showing through in various awkward
+ways.  For example, some projects that host themselves at SourceForge
+have completely customized home pages, but still point developers to
+their "SourceForge page" for more information.  The SourceForge page
+is what would be the project's home page, had the project not used a
+custom home page.  The SourceForge page has links to the bug tracker,
+the CVS repository, downloads, etc.  Unfortunately, a SourceForge page
+also contains a great deal of extraneous noise.  The top is a banner
+ad, often an animated image.  The left side is a vertical arrangement
+of links of little relevance to someone interested in the project.
+The right side is often another advertisement.  Only the center of the
+page is devoted to truly project-specific material, and even that is
+arranged in a confusing way that often makes visitors unsure of what
+to click on next.</p><p>Behind every individual aspect of SourceForge's design, there is
+no doubt a good reason—good from SourceForge's point of view,
+such as the advertisements.  But from an individual project's point of
+view, the result can be a less-than-ideal web page.  I don't mean to
+pick on SourceForge; similar concerns apply to many of the canned
+hosting sites.  The point is that there's a tradeoff.  You get relief
+from the technical burdens of running a project site, but only at the
+price of accepting someone else's way of running it.</p><p>Only you can decide whether canned hosting is best for your
+project.  If you choose a canned site, leave open the option of
+switching to your own servers later, by using a custom domain name for
+the project's "home address".  You can forward the URL to the canned
+site, or have a fully customized home page at the public URL and hand
+users off to the canned site for sophisticated functionality.  Just
+make sure to arrange things such that if you later decide to use a
+different hosting solution, the project's address doesn't need to
+change.</p><div class="sect3" title="Choosing a canned hosting site"><div class="titlepage"><div><div><h3 class="title"><a id="canned-hosting-choosing"/>Choosing a canned hosting site</h3></div></div></div><p>There are now (as of early 2011) an established Big Three of
+free canned hosting sites.  All three offer free-of-charge hosting for
+projects released under open source licenses.  They provide version
+control, bug tracking, and wikis (some also offer other features, such
+as binary downloads):</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://github.com/">GitHub</a>
+     Version control is Git only—but if you're using
+     Git anyway, this is probably the right place for your project.
+     GitHub has become the center of the universe for Git projects,
+     and has integrated all their services with Git.  GitHub also
+     offers a full <a class="ulink" href="http://develop.github.com/">API</a> for interacting programmatically with their service.
+     It does not provide mailing lists; however, they are available so
+     many other places that it shouldn't matter much.
+     </p></li><li class="listitem"><p><a class="ulink" href="http://code.google.com/hosting/">Google Code Hosting</a>
+     Offers Subversion and Mercurial version control systems (no Git,
+     at least not yet), wikis, a downloads area, and a rather nice bug
+     tracker.  It also comes with APIs: the version control systems
+     are naturally their own API; the issue tracker has 
+     <a class="ulink" href="http://code.google.com/p/support/wiki/IssueTrackerAPI">its own API</a>; the wiki content is offered <a class="ulink" href="http://code.google.com/p/support/wiki/WikiFAQ#How_do_I_edit_a_wiki_page_directly_through_subversion?">directly in the version control system</a> and is thus
+     editable by scripts; and the downloads area offers <a class="ulink" href="http://code.google.com/p/support/wiki/ScriptedUploads">scripted uploads</a>, in other words, an API.
+     Mailing lists are provided via <a class="ulink" href="http://groups.google.com/">Google Groups</a> (then
+     again, the same statement could be made of any hosting site).
+     </p></li><li class="listitem"><p><a class="ulink" href="http://sourceforge.net/">SourceForge</a>
+     This is the oldest, and by some measures still the largest, of
+     the free hosting sites.  It provides all the features the others
+     do, and its interface is quite usable; however, some people find
+     the advertising blocks on project pages to be distracting.  It
+     appears to be the only one of the Big Three that offers all the
+     major version control systems (Git, Subversion, Mercurial, and
+     CVS) right now.  SourceForge also provides its own mailing lists,
+     though you could of course use some other mailing list service.
+     </p></li></ul></div><p>A few organizations, for example the <a class="ulink" href="http://www.apache.org/">Apache Software Foundation</a>, also
+offer free hosting to open source projects that fit well with their
+missions and their community of existing projects.</p><p>If you're in doubt about where to host, I strongly recommend
+just going with one of the big three.  If you want even more guidance:
+use GitHub if your project uses Git for version control, otherwise use
+Google Code Hosting.  SourceForge is also perfectly acceptable, but at
+this point it has no significant advantage over the others, and the
+advertising can be annoying.</p><p>Many people have observed that free project hosting sites
+themselves often do not make all the software that runs the site
+avialble under a free software license (some that do are <a class="ulink" href="http://launchpad.net">Launchpad</a>, <a class="ulink" href="http://gitorious.org/">Gitorious</a> and <a class="ulink" href="http://savannah.gnu.org/">GNU Savannah</a>).  My feeling is
+that while it would be ideal to have access to all the code that runs
+the site, the crucial thing is to have a way export your data, and to
+be able to interact with your data in an automated way.  Such a site
+can never truly lock you in, and will even be extensible to a degree,
+through the programmatic interface.  While there is some value in
+having all the code that runs a hosting site available under open
+source terms, in practice, the demands of actually deploying that code
+in a production environment are prohibitive for most users.  These
+sites need multiple servers, customized networks, and full-time staffs
+to keep them running; merely having the code would not be sufficient
+to duplicate or "fork" the service anyway.  The main thing is just to
+make sure your data isn't trapped.</p><p>Wikipedia has a thorough <a class="ulink" href="http://en.wikipedia.org/wiki/Comparison_of_open_source_software_hosting_facilities">comparison of hosting facilities</a>; it's the first place to
+look for up-to-date, comprehensive information on open source project
+hosting options.  Haggen So also did a thorough evaluation of various
+canned hosting sites, as part of the research for his Ph.D. thesis,
+<em class="citetitle">Construction of an Evaluation Model for Free/Open Source
+Project Hosting (FOSPHost) sites</em>.  Although it was done in
+2005, he appears to have updated it as recently as 2007, and his
+criteria are likely to remain valid for a long time.  His results are
+at <a class="ulink" href="http://www.ibiblio.org/fosphost/">http://www.ibiblio.org/fosphost/</a>, and see especially
+the very readable comparison chart at <a class="ulink" href="http://www.ibiblio.org/fosphost/exhost.htm">http://www.ibiblio.org/fosphost/exhost.htm</a>.</p></div><div class="sect3" title="Anonymity and involvement"><div class="titlepage"><div><div><h3 class="title"><a id="anonymity"/>Anonymity and involvement</h3></div></div></div><p>A problem that is not strictly limited to the canned sites, but
+is most often found there, is the abuse of user login functionality.
+The functionality itself is simple enough: the site allows each
+visitor to register herself with a username and password.  From
+then on it keeps a profile for that user, and project administrators
+can assign the user certain permissions, for example, the right to
+commit to the repository.</p><p>This can be extremely useful, and in fact it's one of the prime
+advantages of canned hosting.  The problem is that sometimes user
+login ends up being required for tasks that ought to be permitted to
+unregistered visitors, specifically the ability to file issues in the
+bug tracker, and to comment on existing issues.  By requiring a
+logged-in username for such actions, the project raises the
+involvement bar for what should be quick, convenient tasks.  Of
+course, one wants to be able to contact someone who's entered data
+into the issue tracker, but having a field where she can enter her
+email address (if she wants to) is sufficient.  If a new user spots a
+bug and wants to report it, she'll only be annoyed at having to fill
+out an account creation form before she can enter the bug into the
+tracker.  She may simply decide not to file the bug at all.</p><p>The advantages of user management generally outweigh the
+disadvantages.  But if you can choose which actions can be done
+anonymously, make sure not only that <span class="emphasis"><em>all</em></span>
+read-only actions are permitted to non-logged-in visitors, but also
+some data entry actions, especially in the bug tracker and, if you
+have them, wiki pages.</p></div></div></div></body></html>

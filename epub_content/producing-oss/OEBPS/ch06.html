@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 6. Communications</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="chapter" title="Chapter 6. Communications"><div class="titlepage"><div><div><h1 class="title"><a id="communications"/>Chapter 6. Communications</h1></div></div></div><div class="simplesect"><div class="titlepage"/><p>The ability to write clearly is perhaps the most important skill
+one can have in an open source environment.  In the long run it
+matters more than programming talent.  A great programmer with lousy
+communications skills can get only one thing done at a time, and even
+then may have trouble convincing others to pay attention.  But a lousy
+programmer with good communications skills can coordinate and persuade
+many people to do many different things, and thereby have a
+significant effect on a project's direction and momentum.</p><p>There does not seem to be much correlation, in either direction,
+between the ability to write good code and the ability to communicate
+with one's fellow human beings.  There is some correlation between
+programming well and describing technical issues well, but describing
+technical issues is only a tiny part of the communications in a
+project.  Much more important is the ability to empathize with one's
+audience, to see one's own posts and comments as others see them, and
+to cause others to see their own posts with similar objectivity.
+Equally important is noticing when a given medium or communications
+method is no longer working well, perhaps because it doesn't scale as
+the number of users increases, and taking the time to do something
+about it.</p><p>All of which is obvious in theory—what makes it hard in
+practice is that free software development environments are
+bewilderingly diverse both in audiences and in communications
+mechanisms.  Should a given thought be expressed in a post to the
+mailing list, as an annotation in the bug tracker, or as a comment
+in the code?  When answering a question in a public forum, how much
+knowledge can you assume on the part of the reader, given that "the
+reader" is not only the one who asked the question in the first place,
+but all those who might see your response?  How can the developers
+stay in constructive contact with the users, without getting swamped
+by feature requests, spurious bug reports, and general chatter?  How
+do you tell when a medium has reached the limits of its capacity, and
+what do you do about it?</p><p>Solutions to these problems are usually partial, because any
+particular solution is eventually made obsolete by project growth or
+changes in project structure.  They are also often <span class="foreignphrase"><em class="foreignphrase">ad
+hoc</em></span>, because they're improvised responses to dynamic
+situations.  All participants need to be aware of when and how
+communications can become bogged down, and be involved in
+solutions.  Helping people do this is a big part of managing an open
+source project.  The sections that follow discuss both how to conduct
+your own communications, and how to make maintenance of communications
+mechanisms a priority for everyone in the project.<sup>[<a id="idp6928384" href="#ftn.idp6928384" class="footnote">21</a>]</sup></p></div><div class="sect1" title="You Are What You Write"><div class="titlepage"><div><div><h1 class="title"><a id="you-are-what-you-write"/>You Are What You Write</h1></div></div></div><p>Consider this: the only thing anyone knows about you on the
+Internet comes from what you write, or what others write about you.
+You may be brilliant, perceptive, and charismatic in person—but
+if your emails are rambling and unstructured, people will assume
+that's the real you.  Or perhaps you really are rambling and
+unstructured in person, but no one need ever know it, if your posts
+are lucid and informative.</p><p>Devoting some care to your writing will pay off hugely.
+Long-time free software hacker Jim Blandy tells the following
+story:</p><div class="blockquote"><blockquote class="blockquote"><p>Back in 1993, I was working for the Free Software Foundation,
+  and we were beta-testing version 19 of GNU Emacs.  We'd make a beta
+  release every week or so, and people would try it out and send us
+  bug reports.  There was this one guy whom none of us had met in
+  person but who did great work: his bug reports were always clear and
+  led us straight to the problem, and when he provided a fix himself,
+  it was almost always right.  He was top-notch.</p><p>Now, before the FSF can use code written by someone else, we
+  have them do some legal paperwork to assign their copyright interest
+  to that code to the FSF.  Just taking code from complete strangers
+  and dropping it in is a recipe for legal disaster.</p><p>So I emailed the guy the forms, saying, "Here's some paperwork
+  we need, here's what it means, you sign this one, have your employer
+  sign that one, and then we can start putting in your fixes.  Thanks
+  very much."</p><p>He sent me back a message saying, "I don't have an
+  employer."</p><p>So I said, "Okay, that's fine, just have your university sign
+  it and send it back."</p><p>After a bit, he wrote me back again, and said, "Well,
+  actually...  I'm thirteen years old and I live with my
+  parents."</p></blockquote></div><p>Because that kid didn't write like a thirteen-year-old, no one
+knew that's what he was.  Following are some ways to make your writing
+give a good impression too.</p><div class="sect2" title="Structure and Formatting"><div class="titlepage"><div><div><h2 class="title"><a id="structure-and-formatting"/>Structure and Formatting</h2></div></div></div><p>Don't fall into the trap of writing everything as though it were
+a cell phone text message.  Write in complete sentences, capitalizing
+the first word of each sentence, and use paragraph breaks where
+needed.  This is most important in emails and other composed writings.
+In IRC or similarly ephemeral forums, it's generally okay to leave out
+capitalization, use compressed forms of common expressions, etc.  Just
+don't carry those habits over into more formal, persistent forums.
+Emails, documentation, bug reports, and other pieces of writing that
+are intended to have a permanent life should be written using standard
+grammar and spelling, and have a coherent narrative structure.  This
+is not because there's anything inherently good about following
+arbitrary rules, but rather that these rules are
+<span class="emphasis"><em>not</em></span> arbitrary: they evolved into their present
+forms because they make text more readable, and you should adhere to
+them for that reason.  Readability is desirable not only because it
+means more people will understand what you write, but because it makes
+you look like the sort of person who takes the time to communicate
+clearly: that is, someone worth paying attention to.</p><p>For email in particular, experienced open source developers have
+settled on certain conventions:</p><p>Send plain text mails only, not HTML, RichText, or other formats
+that might be opaque to text-only mail readers.  Format your lines to
+be around 72 columns long.  Don't exceed 80 columns, which has become
+the <span class="foreignphrase"><em class="foreignphrase">de facto</em></span> standard terminal width
+(that is, some people may use wider terminals, but no one uses a
+narrower one).  By making your lines a little
+<span class="emphasis"><em>less</em></span> than 80 columns, you leave room for a few
+levels of quoting characters to be added in others' replies without
+forcing a rewrapping of your text.</p><p><span class="emphasis"><em>Use real line breaks.</em></span> Some mailers do a
+kind of fake line wrapping, whereby when you're composing an email,
+the display shows line breaks that aren't actually there.  When the
+mail goes out, it may not have the line breaks you thought it had, and
+it will wrap awkwardly on some people's screens.  If your mailer might
+use fake line breaks, look for a setting you can tweak to make it show
+the true line breaks as you compose.</p><p>When including screen output, snippets of code, or other
+preformatted text, offset it clearly, so that even a lazy eye can
+easily see the boundaries between your prose and the material you're
+quoting.  (I never expected to write that advice when I started this
+book, but on a number of open source mailing lists lately, I've seen
+people mix texts from different sources without making it clear which
+is which.  The effect is very frustrating.  It makes their posts
+significantly harder to understand, and frankly makes those people
+look a little bit disorganized.)</p><p>When quoting someone else's mail, insert your responses where
+they're most appropriate, at several different places if necessary,
+and trim off the parts of their mail you didn't use.  If you're
+writing a quick comment that applies to their entire post, it's okay
+to <em class="firstterm">top-post</em> (that is, to put your response
+above the quoted text of their mail); otherwise, you should quote
+the relevant portion of the original text first, followed by your
+response.</p><p>Construct the subject lines of new mails carefully.  It's the
+most important line in your mail, because it allows each other person
+in the project to decide whether or not to read more.  Modern
+mail reading software organizes groups of related messages into
+threads, which can be defined not only by a common subject, but by
+various other headers (which are sometimes not displayed).  It follows
+that if a thread starts to drift to a new topic, you can—and
+should—adjust the subject line accordingly when replying.  The
+thread's integrity will be preserved, due to those other headers, but
+the new subject will help people looking at an overview of the thread
+know that the topic has drifted.  Likewise, if you really want to
+start a new topic, do it by posting a fresh mail, not by replying to
+an existing mail and changing the subject.  Otherwise, your mail would
+still be grouped in to the same thread as what you're replying to, and
+thus fool people into thinking it's about something it's not.  Again,
+the penalty would not only be the waste of their time, but the slight
+dent in your credibility as someone fluent in using communications
+tools.</p></div><div class="sect2" title="Content"><div class="titlepage"><div><div><h2 class="title"><a id="writing-content"/>Content</h2></div></div></div><p>Well-formatted mails attract readers, but content keeps them.
+No set of fixed rules can guarantee good content, of course, but there
+are some principles that make it more likely.</p><p>Make things easy for your readers.  There's a ton of information
+floating around in any active open source project, and readers cannot
+be expected to be familiar with most of it—indeed, they cannot
+always be expected to know how to become familiar.  Wherever possible,
+your posts should provide information in the form most convenient for
+readers.  If you have to spend an extra two minutes to dig up the URL
+to a particular thread in the mailing list archives, in order to save
+your readers the trouble of doing so, it's worth it.  If you have to
+spend an extra 5 or 10 minutes summarizing the conclusions so far
+of a complex thread, in order to give people context in which to
+understand your post, then do so.  Think of it this way: the more
+successful a project, the higher the reader-to-writer ratio in any
+given forum.  If every post you make is seen by <span class="emphasis"><em>n</em></span>
+people, then as <span class="emphasis"><em>n</em></span> rises, the worthwhileness of
+expending extra effort to save those people time rises with it.  And
+as people see you imposing this standard on yourself, they will work
+to match it in their own communications.  The result is, ideally, an
+increase in the global efficiency of the project: when there is a
+choice between <span class="emphasis"><em>n</em></span> people making an effort and one
+person doing so, the project prefers the latter.</p><p>Don't engage in hyperbole.  Exaggerating in online posts is a
+classic arms race.  For example, a person reporting a bug may worry
+that the developers will not pay sufficient attention, so he'll
+describe it as a severe, showstopper problem that is preventing him
+(and all his friends/coworkers/cousins) from using the software
+productively, when it's actually only a mild annoyance.  But
+exaggeration is not limited to users—programmers often do the
+same thing during technical debates, particularly when the
+disagreement is over a matter of taste rather than correctness:</p><div class="blockquote"><blockquote class="blockquote"><p>"Doing it that way would make the code totally
+     unreadable.  It'd be a maintenance nightmare, compared to
+     J. Random's proposal..."</p></blockquote></div><p>The same sentiment actually becomes
+<span class="emphasis"><em>stronger</em></span> when phrased less sharply:</p><div class="blockquote"><blockquote class="blockquote"><p>"That works, but it's less than ideal in terms of
+     readability and maintainability, I think.  J. Random's proposal
+     avoids those problems because it..."</p></blockquote></div><p>You will not be able to get rid of hyperbole completely, and in
+general it's not necessary to do so.  Compared to other forms of
+miscommunication, hyperbole is not globally damaging—it hurts
+mainly the perpetrator.  The recipients can compensate, it's just that
+the sender loses a little more credibility each time.  Therefore, for
+the sake of your own influence in the project, try to err on the side
+of moderation.  That way, when you <span class="emphasis"><em>do</em></span> need to
+make a strong point, people will take you seriously.</p><p>Edit twice.  For any message longer than a medium-sized
+paragraph, reread it from top to bottom before sending it but after
+you think it's done the first time.  This is familiar advice to anyone
+who's taken a composition class, but it's especially important in
+online discussion.  Because the process of online composition tends to
+be highly discontinuous (in the course of writing a message, you may
+need to go back and check other mails, visit certain web pages, run a
+command to capture its debugging output, etc.), it's especially easy to
+lose your sense of narrative place.  Messages that were composed
+discontinuously and not checked before being sent are often
+recognizable as such, much to the chagrin (or so one would hope) of
+their authors.  Take the time to review what you send.  The more your
+posts hold together structurally, the more they will be read.</p></div><div class="sect2" title="Tone"><div class="titlepage"><div><div><h2 class="title"><a id="writing-tone"/>Tone</h2></div></div></div><p>After writing thousands of messages, you will probably find your
+style tending toward the terse.  This seems to be the norm in most
+technical forums, and there's nothing wrong with it per se.  A degree
+of terseness that would be unacceptable in normal social interactions
+is simply the default for free software hackers.  Here's a response I
+once drew on a mailing list about some free content management
+software, quoted in full:</p><pre class="screen">
+Can you possibly elaborate a bit more on exactly what problems
+you ran into, etc?
+
+Also:
+
+What version of Slash are you using? I couldn't tell from your
+original message.
+
+Exactly how did you build the apache/mod_perl source?
+
+Did you try the Apache 2.0 patch that was posted about on
+slashcode.com?
+
+  Shane
+</pre><p>Now <span class="emphasis"><em>that's</em></span> terse!  No greeting, no sign-off
+other than his name, and the message itself is just a series of
+questions phrased as compactly as possible.  His one declarative
+sentence was an implicit criticism of my original message.  And yet, I
+was happy to see Shane's mail, and didn't take his terseness as a sign
+of anything other than him being a busy person.  The mere fact that he
+was asking questions, instead of ignoring my post, meant that he was
+willing to spend some time on my problem.</p><p>Will all readers react positively to this style?  Not
+necessarily; it depends on the person and the context.  For example,
+if someone has just posted acknowledging that she made a mistake
+(perhaps she wrote a bug), and you know from past experience that
+this person tends to be a bit insecure, then while you may still write
+a compact response, you should make sure to leaven it with some sort
+of acknowledgment of her feelings.  The bulk of your response might
+be a brief, engineer's-eye analysis of the situation, as terse as you
+want.  But at the end, sign off with something indicating that your
+terseness is not to be taken as coldness.  For example, if you've just
+given reams of advice about exactly how the person should fix the bug,
+then sign off with "Good luck, &lt;your name here&gt;" to indicate
+that you wish them well and are not mad.  A strategically placed
+smiley face or other emoticlue can often be enough to reassure an
+interlocutor, too.</p><p>It may seem odd to focus as much on the participant's feelings
+as on the surface of what they say, but to put it baldly, feelings
+affect productivity.  Feelings are important for other reasons too,
+but even confining ourselves to purely utilitarian grounds, we may
+note that unhappy people write worse software, and less of it.  Given
+the restricted nature of most electronic media, though, there will
+often be no overt clue as to how a person is feeling.  You will have
+to make an educated guess based on a) how most people would feel in
+that situation, and b) what you know of this particular person from
+past interactions.  Some people prefer a more hands-off attitude, and
+simply deal with everyone at face value, the idea being that if a
+participant doesn't say outright that she feels a particular way, then
+one has no business treating her as though she does.  I don't buy this
+approach, for a couple of reasons.  One, people don't behave that way
+in real life, so why would they online?  Two, since most interactions
+take place in public forums, people tend to be even more restrained in
+expressing emotions than they might be in private.  To be more
+precise, they are often willing to express emotions directed at
+others, such as gratitude or outrage, but not emotions directed
+inwardly, such as insecurity or pride.  Yet most humans work better
+when they know that others are aware of their state of mind.  By
+paying attention to small clues, you can usually guess right most of
+the time, and motivate people to stay involved to a greater degree
+than they otherwise might.</p><p>I don't mean, of course, that your role is to be a group
+therapist, constantly helping everyone to get in touch with their
+feelings.  But by paying careful attention to long-term patterns in
+people's behavior, you will begin to get a sense of them as
+individuals even if you never meet them face-to-face.  And by being
+sensitive to the tone of your own writing, you can have a surprising
+amount of influence over how others feel, to the ultimate benefit of
+the project.</p></div><div class="sect2" title="Recognizing Rudeness"><div class="titlepage"><div><div><h2 class="title"><a id="rudeness"/>Recognizing Rudeness</h2></div></div></div><p>One of the defining characteristics of open source culture is
+its distinctive notions of what does and does not constitute rudeness.
+While the conventions described below are not unique to free software
+development, nor even to software in general—they would be
+familiar to anyone working in mathematics, the hard sciences, or
+engineering disciplines—free software, with its porous
+boundaries and constant influx of newcomers, is an environment where
+these conventions are especially likely to be encountered by people
+unfamiliar with them.</p><p>Let's start with the things that are <span class="emphasis"><em>not</em></span>
+rude:</p><p>Technical criticism, even when direct and unpadded, is not rude.
+Indeed, it can be a form of flattery: the critic is saying, by
+implication, that the target is worth taking seriously, and is worth
+spending some time on.  That is, the more viable it would have been to
+simply ignore someone's post, the more of a compliment it becomes to
+take the time to criticize it (unless the critique descends into an
+<span class="foreignphrase"><em class="foreignphrase">ad hominem</em></span> attack or some other form of
+obvious rudeness, of course).</p><p>Blunt, unadorned questions, such as Shane's questions to me in
+the previously quoted email, are not rude either.  Questions that in
+other contexts might seem cold, rhetorical, or even mocking, are often
+intended seriously, and have no hidden agenda other than eliciting
+information as quickly as possible.  The famous technical support
+question "Is your computer plugged in?" is a classic example of this.
+The support person really does need to know if your computer is
+plugged in, and after the first few days on the job, has gotten tired
+of prefixing her question with polite blandishments ("I beg your
+pardon, I just want to ask a few simple questions to rule out some
+possibilities.  Some of these might seem pretty basic, but bear with
+me...").  At this point, she doesn't bother with the padding anymore,
+she just asks straight out: is it plugged in or not?  Equivalent
+questions are asked all the time on free software mailing lists.  The
+intent is not to insult the recipient, but to quickly rule out the
+most obvious (and perhaps most common) explanations.  Recipients who
+understand this and react accordingly win points for taking a
+broad-minded view without prompting.  But recipients who react badly
+should not be reprimanded, either.  It's just a collision of cultures,
+not anyone's fault.  Explain amiably that your question (or criticism)
+had no hidden meanings; it was just meant to get (or transmit)
+information as efficiently as possible, nothing more.</p><p>So what is rude?</p><p>By the same principle under which detailed technical criticism
+is a form of flattery, failure to provide quality criticism can be a
+kind of insult.  I don't mean simply ignoring someone's work, be it
+proposal, code change, new issue filing, or whatever.  Unless you
+explicitly promised a detailed reaction in advance, it's usually okay
+to simply not react at all.  People will assume you just didn't have
+time to say anything.  But if you <span class="emphasis"><em>do</em></span> react, don't
+skimp: take the time to really analyze things, provide concrete
+examples where appropriate, dig around in the archives to find related
+posts from the past, etc.  Or if you don't have time to put in that
+kind of effort, but still need to write some sort of brief response,
+then state the shortcoming openly in your message ("I think there's an
+issue filed for this, but unfortunately didn't have time to search for
+it, sorry").  The main thing is to recognize the existence of the
+cultural norm, either by fulfilling it or by openly acknowledging
+that one has fallen short this time.  Either way, the norm is
+strengthened.  But failing to meet that norm, while at the same time
+not explaining <span class="emphasis"><em>why</em></span> you failed to meet it, is like
+saying the topic (and those participating in it) was not worth much
+of your time.  Better to show that your time is valuable by being
+terse than by being lazy.</p><p>There are many other forms of rudeness, of course, but most of
+them are not specific to free software development, and common sense
+is a good enough guide to avoid them.  See also
+<a class="xref" href="ch02s03.html#prevent-rudeness" title="Nip Rudeness in the Bud">the section called “Nip Rudeness in the Bud”</a><span> in
+<a class="xref" href="ch02.html" title="Chapter 2. Getting Started">Chapter 2, <em>Getting Started</em></a></span>, if you haven't
+already.</p></div><div class="sect2" title="Face"><div class="titlepage"><div><div><h2 class="title"><a id="face"/>Face</h2></div></div></div><p>There is a region in the human brain devoted specifically to
+recognizing faces.  It is known informally as the "fusiform face
+area," and its capabilities are mostly inborn, not learned.  It turns
+out that recognizing individual people is such a crucial survival
+skill that we have evolved specialized hardware to do it.</p><p>Internet-based collaboration is therefore psychologically odd,
+because it involves tight cooperation between human beings who almost
+never get to identify each other by the most natural, intuitive
+methods: facial recognition first of all, but also sound of voice,
+posture, etc.  To compensate for this, try to use a consistent
+<em class="firstterm">screen name</em> everywhere.  It should be the front
+part of your email address (the part before the @-sign), your IRC
+username, your repository committer name, your issue tracker username,
+and so on.  This name is your online "face": a short identifying
+string that serves some of the same purpose as your real face,
+although it does not, unfortunately, stimulate the same built-in
+hardware in the brain.</p><p>The screen name should be some intuitive permutation of your
+real name (mine, for example, is "kfogel").  In some situations it
+will be accompanied by your full name anyway, for example in mail
+headers:</p><pre class="screen">
+From: "Karl Fogel" &lt;kfogel@whateverdomain.com&gt;
+</pre><p>Actually, there are two things going on in that example.  As
+mentioned earlier, the screen name matches the real name in an
+intuitive way.  But also, the real name is <span class="emphasis"><em>real</em></span>.
+That is, it's not some made-up appellation like:</p><pre class="screen">
+From: "Wonder Hacker" &lt;wonderhacker@whateverdomain.com&gt;
+</pre><p>There's a famous cartoon by Paul Steiner, from the July 5, 1993
+issue of <em class="citetitle">The New Yorker</em>, that shows one dog
+logged into a computer terminal, looking down and telling another
+conspiratorially: "On the Internet, nobody knows you're a dog."  This
+kind of thought probably lies behind a lot of the self-aggrandizing,
+meant-to-be-hip online identities people give themselves—as if
+calling oneself "Wonder Hacker" will actually cause people to believe
+one <span class="emphasis"><em>is</em></span> a wonderful hacker.  But the fact remains:
+even if no one knows you're a dog, you're still a dog.  A fantastical
+online identity never impresses readers.  Instead, it makes them think
+you're more into image than substance, or that you're simply insecure.
+Use your real name for all interactions, or if for some reason you
+require anonymity, then make up a name that sounds like a perfectly
+normal real name, and use it consistently.</p><p>In addition to keeping your online face consistent, there are
+some things you can do to make it more attractive.  If you have an
+official title (e.g., "doctor", "professor", "director"), don't flaunt
+it, nor even mention it except when it's directly relevant to the
+conversation.  Hackerdom in general, and free software culture in
+particular, tends to view title displays as exclusionary and a sign of
+insecurity.  It's okay if your title appears as part of a standard
+signature block at the end of every mail you send, just don't ever use
+it as a tool to bolster your position in a discussion—the
+attempt is guaranteed to backfire.  You want folks to respect the
+person, not the title.</p><p>Speaking of signature blocks: keep them small and tasteful, or
+better yet, nonexistent.  Avoid large legal disclaimers tacked on to
+the end of every mail, especially when they express sentiments
+incompatible with participation in a free software project.  For
+example, the following classic of the genre appears at the end of
+every post a particular user makes to a public mailing list I'm
+on:</p><pre class="screen">
+IMPORTANT NOTICE
+
+If you have received this e-mail in error or wish to read our e-mail
+disclaimer statement and monitoring policy, please refer to the
+statement below or contact the sender.
+
+This communication is from Deloitte &amp; Touche LLP.  Deloitte &amp;
+Touche LLP is a limited liability partnership registered in England
+and Wales with registered number OC303675.  A list of members' names
+is available for inspection at Stonecutter Court, 1 Stonecutter
+Street, London EC4A 4TR, United Kingdom, the firm's principal place of
+business and registered office.  Deloitte &amp; Touche LLP is
+authorised and regulated by the Financial Services Authority.
+
+This communication and any attachments contain information which is
+confidential and may also be privileged.  It is for the exclusive use
+of the intended recipient(s).  If you are not the intended
+recipient(s) please note that any form of disclosure, distribution,
+copying or use of this communication or the information in it or in
+any attachments is strictly prohibited and may be unlawful.  If you
+have received this communication in error, please return it with the
+title "received in error" to IT.SECURITY.UK@deloitte.co.uk then delete
+the email and destroy any copies of it.
+
+E-mail communications cannot be guaranteed to be secure or error free,
+as information could be intercepted, corrupted, amended, lost,
+destroyed, arrive late or incomplete, or contain viruses.  We do not
+accept liability for any such matters or their consequences.  Anyone
+who communicates with us by e-mail is taken to accept the risks in
+doing so.
+
+When addressed to our clients, any opinions or advice contained in
+this e-mail and any attachments are subject to the terms and
+conditions expressed in the governing Deloitte &amp; Touche LLP client
+engagement letter.
+
+Opinions, conclusions and other information in this e-mail and any
+attachments which do not relate to the official business of the firm
+are neither given nor endorsed by it.
+</pre><p>For someone who's just showing up to ask a question now and
+then, that huge disclaimer looks a bit silly but probably doesn't do
+any lasting harm.  However, if this person wanted to participate
+actively in the project, that legal boilerplate would start to have a
+more insidious effect.  It would send at least two potentially
+destructive signals: first, that this person doesn't have full control
+over his tools—he's trapped inside some corporate mailer that
+tacks an annoying message to the end of every email, and he hasn't got
+any way to route around it—and second, that he has little or no
+organizational support for his free software activities.  True, the
+organization has clearly not banned him outright from posting to
+public lists, but it has made his posts look distinctly unwelcoming,
+as though the risk of letting out confidential information must trump
+all other priorities.</p><p>If you work for an organization that insists on adding such
+signature blocks to all outgoing mail, then consider getting a free
+email account from, for example, <a class="ulink" href="http://gmail.google.com/">gmail.google.com</a>, <a class="ulink" href="http://www.hotmail.com/">www.hotmail.com</a>, or <a class="ulink" href="http://www.yahoo.com/">www.yahoo.com</a>, and using that as your address for the
+project.</p></div></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp6928384" href="#idp6928384" class="para">21</a>] </sup>There
+has been some interesting academic research on this topic; for example,
+see <em class="citetitle">Group Awareness in Distributed Software
+Development</em> by Gutwin, Penner, and Schneider.  This paper
+was online for a while, then unavailable, then online again at <a class="ulink" href="http://www.st.cs.uni-sb.de/edu/empirical-se/2006/PDFs/gutwin04.pdf">http://www.st.cs.uni-sb.de/edu/empirical-se/2006/PDFs/gutwin04.pdf</a>.
+So try there first, but be prepared to use a search engine if it moves
+again.</p></div></div></div></body></html>

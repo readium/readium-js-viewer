@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Handling Growth</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Handling Growth"><div class="titlepage"><div><div><h1 class="title"><a id="growth"/>Handling Growth</h1></div></div></div><p>The price of success is heavy in the open source world.  As your
+software gets more popular, the number of people who show up looking
+for information increases dramatically, while the number of people
+able to provide information increases much more slowly.  Furthermore,
+even if the ratio were evenly balanced, there is still a fundamental
+scalability problem with the way most open source projects handle
+communications.  Consider mailing lists, for example.  Most projects
+have a mailing list for general user questions—sometimes the
+list's name is "users", "discuss", "help", or something else.
+Whatever its name, the purpose of the list is always the same: to
+provide a place where people can get their questions answered, while
+others watch and (presumably) absorb knowledge from observing these
+exchanges.</p><p>These mailing lists work very well up to a few thousand users
+and/or a couple of hundred posts a day.  But somewhere after that, the
+system starts to break down, because every subscriber sees every post;
+if the number of posts to the list begins to exceed what any
+individual reader can process in a day, the list becomes a burden to
+its members.  Imagine, for instance, if Microsoft had such a mailing
+list for Windows XP.  Windows XP has hundreds of millions of users; if
+even one-tenth of one percent of them had questions in a given
+twenty-four hour period, then this hypothetical list would get
+hundreds of thousands of posts per day!  Such a list could never
+exist, of course, because no one would stay subscribed to it.
+This problem is not limited to mailing lists; the same logic applies
+to IRC channels, online discussion forums, indeed to any system in
+which a group hears questions from individuals.  The implications are
+ominous: the usual open source model of massively parallelized support
+simply does not scale to the levels needed for world
+domination.</p><p>There will be no explosion when forums reach the breaking point.
+There is just a quiet negative feedback effect: people unsubscribe
+from the lists, or leave the IRC channel, or at any rate stop
+bothering to ask questions, because they can see they won't be heard
+in all the noise.  As more and more people make this highly rational
+choice, the forum's activity will seem to stay at a manageable level.
+But it is staying manageable precisely because the rational (or at
+least experienced) people have started looking elsewhere for
+information—while the inexperienced people stay behind and
+continue posting.  In other words, one side effect of continuing to
+use unscalable communications models as the project grows is that the
+average quality of both questions and answers tends to go down, which
+makes it look like new users are dumber than they used to be, when in
+fact they're probably not.  It's just that the benefit/cost ratio of
+using those high-population forums goes down, so naturally those with
+the experience to do so start to look elsewhere for answers first.
+Adjusting communications mechanisms to cope with project growth
+therefore involves two related strategies:</p><div class="orderedlist"><ol class="orderedlist"><li class="listitem"><p>Recognizing when particular parts of a forum are
+            <span class="emphasis"><em>not</em></span> suffering unbounded growth, even
+            if the forum as a whole is, and separating those parts
+            off into new, more specialized forums (i.e., don't let
+            the good be dragged down by the bad).</p></li><li class="listitem"><p>Making sure there are many automated sources
+            of information available, and that they are kept
+            organized, up-to-date, and easy to find.</p></li></ol></div><p>Strategy (1) is usually not too hard.  Most projects start out
+with one main forum: a general discussion mailing list, on which
+feature ideas, design questions, and coding problems can all be hashed
+out.  Everyone involved with the project is on the list.  After a
+while, it usually becomes clear that the list has evolved into several
+distinct topic-based sublists.  For example, some threads are clearly
+about development and design; others are user questions of the "How do
+I do X?" variety; maybe there's a third topic family centered around
+processing bug reports and enhancement requests; and so on.  A given
+individual, of course, might participate in many different thread
+types, but the important thing is that there is not a lot of overlap
+between the types themselves.  They could be divided into separate
+lists without causing any harmful balkanization, because the threads
+rarely cross topic boundaries.</p><p>Actually doing this division is a two-step process.  You create
+the new list (or IRC channel, or whatever it is to be), and then you
+spend whatever time is necessary gently nagging and reminding people
+to <span class="emphasis"><em>use</em></span> the new forums appropriately.  That latter
+step can last for weeks, but eventually people will get the idea.  You
+simply have to make a point of always telling the sender when a post
+is sent to the wrong destination, and do so visibly, so that other
+people are encouraged to help out with routing.  It's also useful to
+have a web page providing a guide to all the lists available; your
+responses can simply reference that web page and, as a bonus, the
+recipient may learn something about looking for guidelines before
+posting.</p><p>Strategy (2) is an ongoing process, lasting the lifetime of the
+project and involving many participants.  Of course it is partly a
+matter of having up-to-date documentation (see
+<a class="xref" href="ch02.html#documentation" title="Documentation">the section called “Documentation”</a><span> in
+<a class="xref" href="ch02.html" title="Chapter 2. Getting Started">Chapter 2, <em>Getting Started</em></a></span>) and making sure to
+point people there.  But it is also much more than that; the sections
+that follow discuss this strategy in detail.</p><div class="sect2" title="Conspicuous Use of Archives"><div class="titlepage"><div><div><h2 class="title"><a id="using-archives"/>Conspicuous Use of Archives</h2></div></div></div><p>Typically, all communications in an open source project (except
+sometimes IRC conversations) are archived.  The archives are public
+and searchable, and have referential stability: that is, once a given
+piece of information is recorded at a particular address, it stays at
+that address forever.</p><p>Use those archives as much as possible, and as conspicuously as
+possible.  Even when you know the answer to some question off the top
+of your head, if you think there's a reference in the archives that
+contains the answer, spend the time to dig it up and present it.
+Every time you do that in a publicly visible way, some people learn
+for the first time that the archives are there, and that searching in
+them can produce answers.  Also, by referring to the archives instead
+of rewriting the advice, you reinforce the social norm against
+duplicating information.  Why have the same answer in two different
+places?  When the number of places it can be found is kept to a
+minimum, people who have found it before are more likely to remember
+what to search for to find it again.  Well-placed references also
+contribute to the quality of search results in general, because they
+strengthen the targeted resource's ranking in Internet search
+engines.</p><p>There are times when duplicating information makes sense,
+however.  For example, suppose there's a response already in the
+archives, not from you, saying:</p><pre class="screen">
+It appears that your Scanley indexes have become frobnicated.  To
+unfrobnicate them, run these steps:
+
+1. Shut down the Scanley server.
+2. Run the 'defrobnicate' program that ships with Scanley.
+3. Start up the server.
+</pre><p>Then, months later, you see another post indicating that
+someone's indexes have become frobnicated.  You search the archives
+and come up with the old response above, but you realize it's missing
+some steps (perhaps by mistake, or perhaps because the software has
+changed since that post was written).  The classiest way to handle
+this is to post a new, more complete set of instructions, and
+explicitly obsolete the old post by mentioning it:</p><pre class="screen">
+It appears that your Scanley indexes have become frobnicated.  We
+saw this problem back in July, and J. Random posted a solution at
+http://blahblahblah/blah.  Below is a more complete description of
+how to unfrobnicate your indexes, based on J. Random's instructions
+but extending them a bit:
+
+1. Shut down the Scanley server.
+2. Become the user the Scanley server normally runs as.
+3. As that user, run the 'defrobnicate' program on the indexes.
+4. Run Scanley by hand to see if the indexes work now.
+5. Restart the server.
+</pre><p>(In an ideal world, it would be possible to attach a note to the
+old post, saying that there is newer information available and
+pointing to the new post.  However, I don't know of any archiving
+software that offers an "obsoleted by" feature, perhaps because it
+would be mildly tricky to implement in a way that doesn't violate the
+archives' integrity as a verbatim record.  This is another reason why
+creating dedicated web pages with answers to common questions is a
+good idea.)</p><p>Archives are probably most often searched for answers to
+technical questions, but their importance to the project goes well
+beyond that.  If a project's formal guidelines are its statutory law,
+the archives are its common law: a record of all decisions made and
+how they were arrived at.  In any recurring discussion, it's pretty
+much obligatory nowadays to start with an archive search.  This allows
+you to begin the discussion with a summary of the current state of
+things, anticipate objections, prepare rebuttals, and possibly
+discover angles you hadn't thought of.  Also, the other participants
+will <span class="emphasis"><em>expect</em></span> you to have done an archive search.
+Even if the previous discussions went nowhere, you should include
+pointers to them when you re-raise the topic, so people can see for
+themselves a) that they went nowhere, and b) that you did your
+homework, and therefore are probably saying something now that has not
+been said before.</p><div class="sect3" title="Treat all resources like archives"><div class="titlepage"><div><div><h3 class="title"><a id="all-as-archives"/>Treat all resources like archives</h3></div></div></div><p>All of the preceding advice applies to more than just mailing
+list archives.  Having particular pieces of information at stable,
+conveniently findable addresses should be an organizing principle for
+all of the project's information.  Let's take the project FAQ as a
+case study.</p><p>How do people use a FAQ?</p><div class="orderedlist"><ol class="orderedlist"><li class="listitem"><p>They want to search in it for specific words and phrases.</p></li><li class="listitem"><p>They want to browse it, soaking up information without
+          necessarily looking for answers to specific questions.</p></li><li class="listitem"><p>They expect search engines such as Google to know about the
+          FAQ's content, so that searches can result in FAQ entries.</p></li><li class="listitem"><p>They want to be able to refer other people directly to specific
+          items in the FAQ.</p></li><li class="listitem"><p>They want to be able to add new material to the FAQ, but
+          note that this happens much less often than answers are
+          looked up—FAQs are far more often read from than
+          written to.</p></li></ol></div><p>Point 1 implies that the FAQ should be available in some sort of
+textual format.  Points 2 and 3 imply that the FAQ should be available
+as an HTML page, with point 2 additionally indicating that the HTML
+should be designed for readability (i.e., you'll want some control
+over its look and feel), and should have a table of contents.  Point 4
+means that each individual entry in the FAQ should be assigned an HTML
+<em class="firstterm">named anchor</em>, a tag that allows people to reach
+a particular location on the page.  Point 5 means the source files for
+the FAQ should be available in a convenient way (see <a class="xref" href="ch03s03.html#version-everything" title="Version everything">the section called “Version everything”</a><span> in
+<a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span>), in a format
+that's easy to edit.</p><div class="sidebar" title="Named Anchors and ID Attributes"><a id="html-named-anchors-and-ids"/><div class="titlepage"><div><div><p class="title"><strong>Named Anchors and ID Attributes</strong></p></div></div></div><p>There are two ways to get a browser to jump to a specific
+  location within a web page: named anchors and id attributes.</p><p>A <em class="firstterm">named anchor</em> is just a normal HTML
+  anchor element (<code class="literal">&lt;a&gt;...&lt;/a&gt;</code>), but with
+  a "name" attribute:</p><pre class="screen">&lt;a name="mylabel"&gt;...&lt;/a&gt;</pre><p>More recent versions of HTML support a generic <em class="firstterm">id
+  attribute</em>, which can be attached to any HTML element,
+  not just to <code class="literal">&lt;a&gt;</code>.  For example:</p><pre class="screen">&lt;p id="mylabel"&gt;...&lt;/p&gt;</pre><p>Both named anchors and id attributes are used in the same
+  way.  One appends a hash mark and the label to a URL, to cause the
+  browser to jump straight to that spot in the page:</p><pre class="screen">http://myproject.example.com/faq.html#mylabel</pre><p>Virtually all browsers support named anchors; most modern
+  browsers support the id attribute.  To play it safe, I would
+  recommend using either named anchors alone, or named anchors
+  <span class="emphasis"><em>and</em></span> id attributes together (with the same label
+  for both in a given pair, of course).  Named anchors cannot be
+  self-closing—even if there's no text inside the element, you
+  must still write it in two-sided form:</p><pre class="screen">&lt;a name="mylabel"&gt;&lt;/a&gt;</pre><p>...though normally there would be some text, such as the title
+  of a section.</p><p>Whether you use a named anchor, or an id attribute, or both,
+  remember that the label will not be visible to someone who browses
+  to that location without using the label.  But such a person might
+  want to discover the label for a particular location, so they can
+  mail the URL for a FAQ answer to a friend, for example.  To help
+  them do this, add a <em class="firstterm">title attribute</em> to the
+  same element(s) where you added the "name" and/or "id" attribute,
+  for example:</p><pre class="screen">&lt;a name="mylabel" title="#mylabel"&gt;...&lt;/a&gt;</pre><p>When the mouse pointer is held over the text inside the
+  title-attributed element, most browsers will pop up a tiny box
+  showing the title.  I usually include the hash-sign, to remind the
+  user that this is what she would put at the end of the URL to jump
+  straight to this location next time.</p></div><p>Formatting the FAQ like this is just one example of how to make
+a resource presentable.  The same properties—direct
+searchability, availability to major Internet search engines,
+browsability, referential stability, and (where applicable)
+editability—apply to other web pages, the source code tree, the
+bug tracker, etc.  It just happens that most mailing list archiving
+software long ago recognized the importance of these properties, which
+is why mailing lists tend to have this functionality natively, while
+other formats may require some extra effort on the maintainer's part
+(<a class="xref" href="ch08.html" title="Chapter 8. Managing Volunteers">Chapter 8, <em>Managing Volunteers</em></a> discusses how to spread
+that maintenance burden across many volunteers).</p></div></div><div class="sect2" title="Codifying Tradition"><div class="titlepage"><div><div><h2 class="title"><a id="codifying-tradition"/>Codifying Tradition</h2></div></div></div><p>As a project acquires history and complexity, the amount of data
+each incoming participant must absorb increases.  Those who have been
+with the project a long time were able to learn, and invent, the
+project's conventions as they went along.  They will often not be
+consciously aware of what a huge body of tradition has accumulated, and
+may be surprised at how many missteps recent newcomers seem to make.
+Of course, the issue is not that the newcomers are of any lower
+quality than before; it's that they face a bigger acculturation burden
+than newcomers did in the past.</p><p>The traditions a project accumulates are as much about how to
+communicate and preserve information as they are about coding
+standards and other technical minutae.  We've already looked at both
+sorts of standards, in
+<a class="xref" href="ch02.html#developer-documentation" title="Developer documentation">the section called “Developer documentation”</a><span> 
+in <a class="xref" href="ch02.html" title="Chapter 2. Getting Started">Chapter 2, <em>Getting Started</em></a></span> and
+<a class="xref" href="ch04s03.html" title="Writing It All Down">the section called “Writing It All Down”</a><span> in
+<a class="xref" href="ch04.html" title="Chapter 4. Social and Political Infrastructure">Chapter 4, <em>Social and Political Infrastructure</em></a></span> respectively, and
+examples are given there.  What this section is about is how to keep
+such guidelines up-to-date as the project evolves, especially
+guidelines about how communications are managed, because those are the
+ones that change the most as the project grows in size and
+complexity.</p><p>First, watch for patterns in how people get confused.  If you
+see the same situations coming up over and over, especially with new
+participants, chances are there is a guideline that needs to be
+documented but isn't.  Second, don't get tired of saying the same
+things over and over again, and don't <span class="emphasis"><em>sound</em></span> like
+you're tired of saying them.  You and other project veterans will have
+to repeat yourselves often; this is an inevitable side effect of the
+arrival of newcomers.</p><p>Every web page, every mailing list message, and every IRC channel
+should be considered advertising space—not for commercial
+advertisements, but for ads about your project's own resources.  What
+you put in that space depends on the demographics of those likely to
+read it.  An IRC channel for user questions, for example, is likely to
+get people who have never interacted with the project
+before—often someone who has just installed the software, and
+has a question he'd like answered immediately (after all, if it
+could wait, he'd have sent it to a mailing list instead, which would
+probably use less of his total time, although it would take longer
+for an answer to come back).  People usually don't make a permanent
+investment in the IRC channel; they'll show up, ask their question,
+and leave.</p><p>Therefore, the channel topic should be aimed at people looking
+for technical answers about the software <span class="emphasis"><em>right
+now</em></span>, rather than at, say, people who might get involved
+with the project in a long term way and for whom community interaction
+guidelines might be more appropriate.  Here's how a really busy
+channel handles it (compare this with the earlier example in
+<a class="xref" href="ch03s05.html" title="IRC / Real-Time Chat Systems">the section called “IRC / Real-Time Chat Systems”</a><span> in
+<a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span>):</p><pre class="screen">
+You are now talking on #linuxhelp
+
+Topic for #linuxhelp is Please READ
+http://www.catb.org/~esr/faqs/smart-questions.html &amp;&amp;
+http://www.tldp.org/docs.html#howto BEFORE asking questions | Channel
+rules are at http://www.nerdfest.org/lh_rules.html | Please consult
+http://kerneltrap.org/node/view/799 before asking about upgrading to a
+2.6.x kernel | memory read possible: http://tinyurl.com/4s6mc -&gt;
+update to 2.6.8.1 or 2.4.27 | hash algo disaster: http://tinyurl.com/6w8rf
+| reiser4 out
+</pre><p>With mailing lists, the "ad space" is a tiny footer appended to
+every message.  Most projects put subscription/unsubscription
+instructions there, and perhaps a pointer to the project's home page
+or FAQ page as well.  You might think that anyone subscribed to the
+list would know where to find those things, and they probably
+do—but many more people than just subscribers see those mailing
+list messages.  An archived post may be linked to from many places;
+indeed, some posts become so widely known that they eventually have
+more readers off the list than on it.</p><p>Formatting can make a big difference.  For example, in the
+Subversion project, we were having limited success using the
+bug-filtering technique described in
+<a class="xref" href="ch03s04.html#bug-filtering" title="Pre-Filtering the Bug Tracker">the section called “Pre-Filtering the Bug Tracker”</a><span> in
+<a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span>.  Many bogus
+bug reports were still being filed by inexperienced people, and each
+time it happened, the filer had to be educated in exactly the same way
+as the 500 people before him.  One day, after one of our developers had
+finally gotten to the end of his rope and flamed some poor user who
+didn't read the issue tracker guidelines carefully enough, another
+developer decided this pattern had gone on long enough.  He suggested
+that we reformat the issue tracker front page so that the most
+important part, the injunction to discuss the bug on the mailing lists
+or IRC channels before filing, would stand out in huge, bold red
+letters, on a bright yellow background, centered prominently above
+everything else on the page.  We did so (you can see the results at
+<a class="ulink" href="http://subversion.tigris.org/project_issues.html">http://subversion.tigris.org/project_issues.html</a>), and
+the result was a noticeable drop in the rate of bogus issue filings.
+We still get them, of course—we always will—but the rate
+has slowed considerably, even as the number of users increases.  The
+outcome is not only that the bug database contains less junk, but that
+those who respond to issue filings stay in a better mood, and are more
+likely to remain friendly when responding to one of the now-rare bogus
+filings.  This improves both the project's image and the mental health
+of its volunteers.</p><p>The lesson for us was that merely writing up the guidelines was
+not enough.  We also had to put them where they'd be seen by those who
+need them most, and format them in such a way that their status as
+introductory material would be immediately clear to people unfamiliar
+with the project.</p><p>Static web pages are not the only venue for advertising the
+project's customs.  A certain amount of interactive policing (in the
+friendly-reminder sense, not the handcuffs-and-jail sense) is also
+required.  All peer review, even the commit reviews described in
+<a class="xref" href="ch02s03.html#code-review" title="Practice Conspicuous Code Review">the section called “Practice Conspicuous Code Review”</a><span> in
+<a class="xref" href="ch02.html" title="Chapter 2. Getting Started">Chapter 2, <em>Getting Started</em></a></span>, should include review
+of people's conformance or non-conformance with project norms,
+especially with regard to communications conventions.</p><p>Another example from the Subversion project: we settled on a
+convention of "r12908" to mean "revision 12908 in the version control
+repository."  The lower-case "r" prefix is easy to type, and because
+it's half the height of the digits, it makes an easily-recognizable
+block of text when combined with the digits.  Of course, settling on
+the convention doesn't mean that everyone will begin using it
+consistently right away.  Thus, when a commit mail comes in with a log
+message like this:</p><pre class="screen">
+------------------------------------------------------------------------
+r12908 | qsimon | 2005-02-02 14:15:06 -0600 (Wed, 02 Feb 2005) | 4 lines
+
+Patch from J. Random Contributor &lt;jrcontrib@gmail.com&gt;
+
+* trunk/contrib/client-side/psvn/psvn.el:
+  Fixed some typos from revision 12828.
+------------------------------------------------------------------------
+</pre><p>...part of reviewing that commit is to say "By the way, please
+use 'r12828', not 'revision 12828' when referring to past changes."
+This isn't just pedantry; it's important as much for automatic
+parsability as for human readership.</p><p>By following the general principle that there should be
+canonical referral methods for common entities, and that these
+referral methods should be used consistently everywhere, the project
+in effect exports certain standards.  Those standards enable people to
+write tools that present the project's communications in more useable
+ways—for example, a revision formatted as "r12828" could be
+transformed into a live link into the repository browsing system.
+This would be harder to do if the revision were written as "revision
+12828", both because that form could be divided across a line break,
+and because it's less distinct (the word "revision" will often appear
+alone, and groups of numbers will often appear alone, whereas the
+combination "r12828" can only mean a revision number).  Similar
+concerns apply to issue numbers, FAQ items (hint: use a URL with a
+named anchor, as described in
+<a class="xref" href="ch06s04.html#html-named-anchors-and-ids" title="Named Anchors and ID Attributes">Named Anchors and ID Attributes</a>), etc.</p><p>Even for entities where there is not an obvious short, canonical
+form, people should still be encouraged to provide key pieces of
+information consistently.  For example, when referring to a mailing
+list message, don't just give the sender and subject; also give the
+archive URL <span class="emphasis"><em>and</em></span> the Message-ID header.  The last
+allows people who have their own copy of the mailing list (people
+sometimes keep offline copies, for example to use on a laptop while
+traveling) to unambiguously identify the right message even if they
+don't have access to the archives.  The sender and subject wouldn't be
+enough, because the same person might make several posts in the same
+thread, even on the same day.</p><p>The more a project grows, the more important this sort of
+consistency becomes.  Consistency means that everywhere people look,
+they see the same patterns being followed, so they know to follow
+those patterns themselves.  This, in turn, reduces the number of
+questions they need to ask.  The burden of having a million readers is
+no greater than that of having one; scalability problems start to
+arise only when a certain percentage of those readers ask questions.
+As a project grows, therefore, it must reduce that percentage by
+increasing the density and accessibility of information, so that any
+given person is more likely to find what he needs without having to
+ask.</p></div></div></body></html>
