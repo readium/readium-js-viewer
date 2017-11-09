@@ -32,11 +32,11 @@ scripts:
 
         (npm outdated || echo outdated)
         &&
-        npm install --no-save --only=prod
+        npm install --only=prod
         &&
-        npm install --no-save --only=dev
+        npm install --only=dev
         &&
-        npm update --no-save
+        npm update
         &&
         npm run prepare:local:common
     '
