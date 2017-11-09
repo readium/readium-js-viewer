@@ -69,7 +69,7 @@ GFX.Scene = function ( parameters ) {
 };
 
 // the scene's parameters from the values JSON object
-// lifted from MrDoob's implementation in three.js
+// lifted from MrDoob's implementation in three.three-js
 GFX.setParameters = function( object, values ) {
 
     if ( values === undefined ) return;
@@ -167,7 +167,7 @@ GFX.Scene.prototype = {
 			this.canvasHeight = container.clientHeight;
 		}
 	
-		// allocate the THREE.js renderer
+		// allocate the THREE.three-js renderer
 		this.renderer = new THREE.WebGLRenderer({antialias:true, alpha: this.alphaBuffer});
 		this.renderer.autoClear = this.autoClear;
 

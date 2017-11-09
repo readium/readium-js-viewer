@@ -22984,7 +22984,7 @@
 
 		};
 
-		// Map three.js constants to WebGL constants
+		// Map three.three-js constants to WebGL constants
 
 		function paramThreeToGL( p ) {
 
@@ -36086,7 +36086,7 @@
 
 				} catch ( e ) {
 
-					console.warn( 'THREE.FontLoader: typeface.js support is being deprecated. Use typeface.json instead.' );
+					console.warn( 'THREE.FontLoader: typeface.three-js support is being deprecated. Use typeface.json instead.' );
 					json = JSON.parse( text.substring( 65, text.length - 2 ) );
 
 				}
@@ -41532,7 +41532,7 @@
 	 *
 	 *	- shows frustum, line of sight and up of the camera
 	 *	- suitable for fast updates
-	 * 	- based on frustum visualization in lightgl.js shadowmap example
+	 * 	- based on frustum visualization in lightgl.three-js shadowmap example
 	 *		http://evanw.github.com/lightgl.js/tests/shadowmap.html
 	 */
 
@@ -41984,7 +41984,7 @@
 	 - http://ideone.com/NoEbVM
 
 	This CubicPoly class could be used for reusing some variables and calculations,
-	but for three.js curve use, it could be possible inlined and flatten into a single function call
+	but for three.three-js curve use, it could be possible inlined and flatten into a single function call
 	which can be placed in CurveUtils.
 	*/
 
@@ -43686,7 +43686,7 @@
 
 	function Projector() {
 
-		console.error( 'THREE.Projector has been moved to /examples/js/renderers/Projector.js.' );
+		console.error( 'THREE.Projector has been moved to /examples/three-js/renderers/Projector.js.' );
 
 		this.projectVector = function ( vector, camera ) {
 
@@ -43714,7 +43714,7 @@
 
 	function CanvasRenderer() {
 
-		console.error( 'THREE.CanvasRenderer has been moved to /examples/js/renderers/CanvasRenderer.js' );
+		console.error( 'THREE.CanvasRenderer has been moved to /examples/three-js/renderers/CanvasRenderer.js' );
 
 		this.domElement = document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
 		this.clear = function () {};
