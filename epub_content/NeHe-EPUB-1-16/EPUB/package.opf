@@ -7,7 +7,7 @@
         <dc:creator>Ric Wright</dc:creator>
         <dc:publisher>Geo-F/X</dc:publisher>
  		<dc:date>2016-02-12T20:21:44Z</dc:date>
-   	    <meta property="dcterms:modified">2017-11-02T15:20:39Z</meta>
+   	    <meta property="dcterms:modified">2017-11-09T09:18:32Z</meta>
 		<dc:language>en-US</dc:language>
 		<dc:identifier id="bookid">urn:uuid:29d919dd-24f5-4384-be78-b447c9dc299b</dc:identifier>
 		<!--layout options-->
@@ -44,22 +44,21 @@
 		<item id="prism-css" href="css/prism.css" media-type="text/css"/>
 
  		<!-- scripts -->
- 		<item id="detector" href="js/Detector.js" media-type="text/javascript"/>
- 		<item id="threejs" href="js/three.js" media-type="text/javascript"/>
- 		<item id="jquery" href="js/jquery-1.9.1.js" media-type="text/javascript"/>
+ 		<item id="detector" href="three-js/Detector.js" media-type="text/javascript"/>
+ 		<item id="threejs" href="three-js/three.js" media-type="text/javascript"/>
+ 		<item id="jquery" href="three-js/jquery-1.9.1.js" media-type="text/javascript"/>
   		<item id="OrbitControls-Touch-Ortho" href="gfx/OrbitControls-Touch-Ortho.js" media-type="text/javascript"/>
  		<item id="gfxScene" href="gfx/gfx-scene.js" media-type="text/javascript"/>
- 		<item id="Stats" href="js/stats.js" media-type="text/javascript"/>
-		<item id="prism" href="js/prism.js" media-type="text/javascript"/>
+ 		<item id="Stats" href="three-js/stats.js" media-type="text/javascript"/>
+		<item id="dat.gui" href="three-js/dat.gui.min.js" media-type="text/javascript"/>
+		<item id="prism" href="three-js/prism.js" media-type="text/javascript"/>
 		<item id="world" href="lesson10/Data/World.js" media-type="text/javascript"/>
 
- 		<!-- fonts-js -->	
- 		<item id="gentilis-bold" href="fonts/gentilis_bold.typeface.js" media-type="text/javascript"/>		
- 		<item id="gentilis-regular" href="fonts/gentilis_regular.typeface.js" media-type="text/javascript"/>		
- 		<item id="helvetiker-bold-italic" href="fonts/helvetiker_bold_italic.typeface.js" media-type="text/javascript"/>
- 		<item id="helvetiker-bold" href="fonts/helvetiker_bold.typeface.js" media-type="text/javascript"/>
- 		<item id="helvetiker-italic" href="fonts/helvetiker_italic.typeface.js" media-type="text/javascript"/>
- 		<item id="helvetiker-regular" href="fonts/helvetiker_regular.typeface.js" media-type="text/javascript"/>
+ 		<!-- fonts-three-js -->
+ 		<item id="gentilis-bold" href="fonts/gentilis_bold.typeface.json" media-type="text/javascript"/>
+ 		<item id="gentilis-regular" href="fonts/gentilis_regular.typeface.json" media-type="text/javascript"/>
+ 		<item id="helvetiker-bold" href="fonts/helvetiker_bold.typeface.json" media-type="text/javascript"/>
+ 		<item id="helvetiker-regular" href="fonts/helvetiker_regular.typeface.json" media-type="text/javascript"/>
  		<item id="LICENSE" href="fonts/LICENSE" media-type="application/plain"/>
 
 		<!-- front matter -->

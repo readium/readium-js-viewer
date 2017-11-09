@@ -10,194 +10,166 @@
         <link rel="stylesheet" type="text/css" href="../css/NeHe.css" />
 
 		<!-- Include the necessary libs -->
-		<script src="../js/three.js" type="text/javascript"></script>
-		<script src="../js/Detector.js" type="text/javascript"></script>
+		<script src="../three-js/three.js" type="text/javascript"></script>
+	    <script src="../three-js/Detector.js" type="text/javascript"></script>
+	    <script src="../three-js/dat.gui.min.js" type="text/javascript"></script>
         <script src="../gfx/gfx-scene.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<!-- Create a DIV element, which will be shown over the WebGL canvas. The last line
-		("Renderer: ") will be completed either by "WebGL Renderer" or by "Canvas Renderer". -->
-		<div id="overlaytext" style="position: absolute; top: 10px; left: 10px">
-			'F': Loop through the three texture filters (only for WebGL renderer)<br/>
-			'L': Toggle light (only for WebGL renderer)<br/>
-			'B': Toggle blending<br/>
-			Cursor left / right: Control y rotation speed<br/>
-			Cursor up / down: Control x rotation speed<br/>
-			Page up / down: Move along z axis<br/>
-            <p>Min Filter: <span id="minFilterType">Linear</span><br/>
-                Mag Filter: <span id="magFilterType">Linear</span></p>
-			Renderer:
-		</div>
 
+	<!-- This JavaScript block encloses the Three.js commands -->
+	<script type="text/javascript">
+        var X_DELTA = 0.002;
+        var Y_DELTA = 0.003;
+        var Z_DELTA = 0.004;
 
-		<!-- This JavaScript block encloses the Three.js commands -->
-		<script type="text/javascript"> <![CDATA[
-            var ambientLight, directionalLight;
+        var xRotation = 0;
+        var yRotation = 0;
+        var zRotation = 0;
 
-            // allocate the Scene object, and set the camera position
-            var gfxScene = new GFX.Scene( { cameraPos:[0,0,6],
-            	canvasWidth : 768,
-            	canvasHeight : 1024});
+        // Texture and flag for current texture filter
+        var glassTexture;
+        var textureFilter = 0;
 
-            ambientLight = gfxScene.ambientLights[0];
-            directionalLight = gfxScene.directionalLights[0];
+        var filter = [
+            THREE.NearestFilter,
+            THREE.LinearFilter,
+            THREE.NearestMipMapNearestFilter,
+            THREE.LinearMipMapLinearFilter
+        ];
 
-			// x and y rotation
-			var xRotation = 0.0;
-			var yRotation = 0.0;
+        var filterType = [
+            "Nearest",
+            "Linear",
+            "NearestMipMapNearest",
+            "LinearMipMapLinear"
+        ];
 
-			// Rotation speed around x and y axis
-			var xSpeed = 0.0;
-			var ySpeed = 0.0;
+        // Global mesh object of the cube
+        var cubeMesh;
+        var options = setupDatGUI();
 
-			// Translation along the z axis
-			var zTranslation = 0.0;
+        // allocate the Scene object, and set the camera position
+        var gfxScene = new GFX.Scene( {
+            cameraPos:[0,0,6],
+            canvasWidth : 768,
+            canvasHeight : 1024 });
 
-			// Texture and flag for current texture filter
-			var glassTexture;
-			var textureFilter = 0;
+        var directionalLight = gfxScene.directionalLights[0];
+        var ambientLight = gfxScene.ambientLights[0];
 
-            var filter = [
-                THREE.NearestFilter,
-                THREE.LinearFilter,
-                THREE.NearestMipMapNearestFilter,
-                THREE.LinearMipMapLinearFilter ];
+        initializeDemo();
 
-            var filterType = [
-                "Nearest",
-                "Linear",
-                "NearestMipMapNearest",
-                "LinearMipMapLinear" ];
+        animateScene();
 
-			// Global mesh object of the cube
-			var cubeMesh;
+        /**
+         *  Initialize the demo's local aspects, i.e not the scene.
+         */
+        function initializeDemo() {
+            // Create the cube
+            var cubeGeometry = new THREE.BoxGeometry(2.0, 2.0, 2.0);
 
-			// Initialize the demo
-			initializeDemo();
+            // Load an image as texture
+            glassTexture = THREE.ImageUtils.loadTexture("images/Glass.jpg");
 
-			// Animate the scene
-			animateScene();
+            // Create a material, which contains the texture
+            var cubeMaterial = new THREE.MeshLambertMaterial({
+                map:glassTexture,
+                depthWrite: false,
+                transparent: true,
+                opacity: 0.75,
+                side:THREE.DoubleSide,
+                combine: THREE.MixOperation
+            });
 
-			/**
-			 *  Initialize the demo's local aspects, i.e not the scene.
-			 */
-			function initializeDemo() {
-				// Create the cube
-				var cubeGeometry = new THREE.BoxGeometry(2.0, 2.0, 2.0);
+            // Create a mesh and insert the geometry and the material. Translate the
+            // whole mesh by 'zTranslation' units on the z axis. Finally add the mesh
+            // to the scene.
+            cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+            gfxScene.add(cubeMesh);
+        }
 
-				// Load an image as texture
-				glassTexture = THREE.ImageUtils.loadTexture("images/Glass.jpg");
+        /**
+         *
+         */
+        function setupDatGUI() {
+            var options = [];
 
-				// Create a material, which contains the texture
-				var cubeMaterial = new THREE.MeshLambertMaterial({
-					map:glassTexture,
-					depthWrite: false,
-					transparent: true,
-					opacity: 0.75,
-					side:THREE.DoubleSide,
-					combine: THREE.MixOperation
-				});
+            options.rotating = false;
+            options.blending = true;
+            options.light = true;
 
-				// Create a mesh and insert the geometry and the material. Translate the
-				// whole mesh by 'zTranslation' units on the z axis. Finally add the mesh
-				// to the scene.
-				cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
-				cubeMesh.position.set(0.0, 0.0, zTranslation);
-				gfxScene.add(cubeMesh);
+            options.nFilter = 0;
+            options.textureFilter = filterType[options.nFilter];
 
-                // Add a listener for 'keydown' events. There's another event type: 'keypress',
-                // but it will report only the visible characters like 'a', but not the function keys
-                // like 'cursor up'.
-                document.addEventListener("keydown", onDocumentKeyDown, false);
-			}
+            gui = new dat.GUI();
 
-			/**
-			 * This function is called, when a key is pushed down.
-			 */
-			function onDocumentKeyDown(event){
+            gui.add( options, 'rotating' ).onChange(function() {
+                if (options.rotating === false) {
+                    xRotation = 0;
+                    yRotation = 0;
+                    zRotation = 0;
+                }
+            });
 
-				var keyCode = event.which;      // Get the key code of the pressed key
+            gui.add( options, 'blending' ).onChange(function() {
+                if (cubeMesh.material.depthWrite === false) {
+                    cubeMesh.material.depthWrite = true;
+                    cubeMesh.material.opacity = 1.0;
+                    cubeMesh.material.combine = THREE.MultiplyOperation;
+                }
+                else {
+                    cubeMesh.material.depthWrite = false;
+                    cubeMesh.material.transparent = true;
+                    cubeMesh.material.opacity = 0.5;
+                    cubeMesh.material.combine = THREE.MixOperation;
+                }
+                updateFilter();
+            });
 
-				if (keyCode === 70) {            // 'F' - Toggle through the texture filters
-                    updateFilter();
+            gui.add( options, 'light' ).onChange(function() {
+                ambientLight.intensity = ambientLight.intensity > 0 ? 0 : 1;
+                directionalLight.intensity = directionalLight.intensity > 0 ? 0 : 1;
+            });
 
-				}
-                else if (keyCode === 76) {       // 'L' - Toggle light
-                    // Just toggle the intensity to turn lights on and off
-                    ambientLight.intensity = ambientLight.intensity > 0 ? 0 : 1;
-                    directionalLight.intensity = directionalLight.intensity > 0 ? 0 : 1;
-				}
-                else if (keyCode === 66){        // 'B' - Toggle blending
-					if (cubeMesh.material.depthWrite === false) {
-						cubeMesh.material.depthWrite = true;
-						cubeMesh.material.opacity = 1.0;
-						cubeMesh.material.combine = THREE.MultiplyOperation;
-					}
-                    else {
-						cubeMesh.material.depthWrite = false;
-						cubeMesh.material.transparent = true;
-						cubeMesh.material.opacity = 0.5;
-						cubeMesh.material.combine = THREE.MixOperation;
-					}
-                    updateFilter();
-					cubeMesh.material.needsUpdate = true;
-				}
-                else if(keyCode === 38) {        // Cursor up
-					xSpeed -= 0.01;
-				}
-                else if(keyCode === 40) {        // Cursor down
-					xSpeed += 0.01;
-				}
-                else if(keyCode === 37) {        // Cursor left
-					ySpeed -= 0.01;
-				}
-                else if(keyCode === 39) {        // Cursor right
-					ySpeed += 0.01;
-				}
-                else if(keyCode === 33) {        // Page up
-					zTranslation -= 0.2;
-				}
-                else if(keyCode === 34) {        // Page down
-					zTranslation += 0.2;
-				}
+            gui.add(options, "textureFilter", [ filterType[0], filterType[1], filterType[2], filterType[3]  ]).onChange(function() {
 
-				// need to stop propagation of the event or the Reading System will probably take back the focus
-				event.stopPropagation();
-			}
+                options.nFilter = filterType.indexOf(options.textureFilter);
+                updateFilter();
+            });
 
-			/**
-			 *  Just update the filters and the labels
-			 */
-			function updateFilter() {
-				textureFilter = ++textureFilter % 4;
+            return options;
+        }
 
-				cubeMesh.material.map.minFilter = filter[textureFilter];
-				cubeMesh.material.map.magFilter = filter[textureFilter % 2];
-				cubeMesh.material.map.needsUpdate = true;
+        /**
+         *  Just update the filters and the labels
+         */
+        function updateFilter() {
+            cubeMesh.material.map.minFilter = filter[textureFilter];
+            cubeMesh.material.map.magFilter = filter[textureFilter % 2];
+            cubeMesh.material.map.needsUpdate = true;
+        }
 
-				document.getElementById("minFilterType").innerHTML = filterType[textureFilter];
-				document.getElementById("magFilterType").innerHTML = filterType[textureFilter % 2];
-			}
+        /**
+         * Animate the scene and call rendering.
+         */
+        function animateScene(){
+            // Update and set the rotation around the axes
+            if (options.rotating) {
+                xRotation += X_DELTA;
+                yRotation += Y_DELTA;
+                zRotation += Z_DELTA;
+            }
 
-			/**
-			 * Animate the scene and call rendering.
-			 */
-			function animateScene(){
-				// Update and set the rotation around x and y axis
-				xRotation += xSpeed;
-				yRotation += ySpeed;
-				cubeMesh.rotation.set(xRotation, yRotation, 0.0);
+            cubeMesh.rotation.set(xRotation, yRotation, zRotation);
 
-				// Apply the the translation along the z axis
-				cubeMesh.position.z = zTranslation;
+            // Tell the browser to call this function back
+            requestAnimationFrame(animateScene);
 
-				// Tell the browser to call this function back
-				requestAnimationFrame(animateScene);
+            // Map the 3D scene down to the 2D screen (render the frame)
+            gfxScene.renderScene();
+        }
 
-                // Map the 3D scene down to the 2D screen (render the frame)
-                gfxScene.renderScene();
-			}
-
-		]]> </script>
+	</script>
 	</body>
 </html>
