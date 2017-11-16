@@ -733,7 +733,25 @@ BookmarkData){
             $("#right-page-btn").show();
         else
             $("#right-page-btn").hide();
-    }
+    };
+
+    var generateQueryParamCFI = function (bookmark) {
+        if (!bookmark.idref) {
+            return;
+        }
+
+        var contentCFI = bookmark.contentCFI;
+        if (!contentCFI) {
+            contentCFI = "/0"; // "null" CFI step
+        }
+
+        var spineItemPackageCFI = readium.reader.spine().getItemById(bookmark.idref).cfi;
+        var completeCFI = 'epubcfi(' + spineItemPackageCFI + contentCFI + ')';
+
+        // encodeURI is used instead of encodeURIComponent to not excessively encode all characters
+        // characters '/', '!', '@', and ':' are allowed in the query component of a URI as per RFC 3986 section 3.4
+        return encodeURI(completeCFI);
+    };
 
     var savePlace = function(){
 
@@ -741,30 +759,23 @@ BookmarkData){
         var ebookURL = urlParams['epub'];
         if (!ebookURL) return;
 
-        var bookmark = readium.reader.bookmarkCurrentPage();
-
+        var bookmarkString = readium.reader.bookmarkCurrentPage();
         // Note: automatically JSON.stringify's the passed value!
         // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
-        Settings.put(ebookURL_filepath, bookmark, $.noop);
+        Settings.put(ebookURL_filepath, bookmarkString, $.noop);
 
         if (!isChromeExtensionPackagedApp // History API is disabled in packaged apps
               && window.history && window.history.replaceState) {
 
-            bookmark = JSON.parse(bookmark) || {};
-
-            bookmark.elementCfi = bookmark ? bookmark.contentCFI : null;
-            bookmark.contentCFI = undefined;
-            bookmark = JSON.stringify(bookmark);
-
             ebookURL = ensureUrlIsRelativeToApp(ebookURL);
-
+            var bookmark = JSON.parse(bookmarkString) || {};
             var epubs = urlParams['epubs'];
 
             var url = Helpers.buildUrlQueryParameters(undefined, {
                 epub: ebookURL,
                 epubs: (epubs ? epubs : " "),
                 embedded: " ",
-                goto: bookmark
+                goto: {value: generateQueryParamCFI(bookmark), verbatim: true}
             });
 
             history.replaceState(
@@ -798,11 +809,7 @@ BookmarkData){
                 var ebookURL = urlParams['epub'];
                 if (!ebookURL) return;
                 
-                var bookmark = readium.reader.bookmarkCurrentPage();
-                bookmark = JSON.parse(bookmark);
-                
-                var bookmarkData = new BookmarkData(bookmark.idref, bookmark.contentCFI);
-                debugBookmarkData(bookmarkData);
+                var bookmark = JSON.parse(readium.reader.bookmarkCurrentPage()) || {};
 
                 // TODO: remove dependency on highlighter plugin (selection DOM range convert to BookmarkData)
                 if (readium.reader.plugins.highlights) {
@@ -819,10 +826,6 @@ BookmarkData){
                         bookmark.contentCFI = bookmarkDataSelection.contentCFI;
                     }
                 }
-
-                bookmark.elementCfi = bookmark.contentCFI;
-                bookmark.contentCFI = undefined;
-                bookmark = JSON.stringify(bookmark);
                 
                 ebookURL = ensureUrlIsRelativeToApp(ebookURL);
 
@@ -830,7 +833,7 @@ BookmarkData){
                     epub: ebookURL,
                     epubs: " ",
                     embedded: " ",
-                    goto: bookmark
+                    goto: {value: generateQueryParamCFI(bookmark), verbatim: true}
                 });
 
                 var injectCoverImageURI = function(uri) {
@@ -1162,11 +1165,19 @@ BookmarkData){
                 console.log("Goto override? " + goto);
                 
                 try {
-                    var gotoObj = JSON.parse(goto);
-                    
+                    var gotoObj;
                     var openPageRequest_ = undefined;
-                    
-                    
+
+                    if (goto.match(/^epubcfi\(.*?\)$/)) {
+                        var gotoCfiComponents = goto.slice(8, -1).split('!'); //unwrap and split at indirection step
+                        gotoObj = {
+                            spineItemCfi: gotoCfiComponents[0],
+                            elementCfi: gotoCfiComponents[1]
+                        };
+                    } else {
+                        gotoObj = JSON.parse(goto);
+                    }
+
                     // See ReaderView.openBook()
                     // e.g. with accessible_epub_3:
                     // &goto={"contentRefUrl":"ch02.xhtml%23_data_integrity","sourceFileHref":"EPUB"}
@@ -1176,9 +1187,9 @@ BookmarkData){
                             openPageRequest_ = {idref: gotoObj.idref, spineItemPageIndex: gotoObj.spineItemPageIndex};
                         }
                         else if (gotoObj.elementCfi) {
-                                        
+
                             _debugBookmarkData_goto = new BookmarkData(gotoObj.idref, gotoObj.elementCfi);
-                            
+
                             openPageRequest_ = {idref: gotoObj.idref, elementCfi: gotoObj.elementCfi};
                         }
                         else {
@@ -1188,7 +1199,9 @@ BookmarkData){
                     else if (gotoObj.contentRefUrl && gotoObj.sourceFileHref) {
                         openPageRequest_ = {contentRefUrl: gotoObj.contentRefUrl, sourceFileHref: gotoObj.sourceFileHref};
                     }
-                    
+                    else if (gotoObj.spineItemCfi) {
+                        openPageRequest_ = {spineItemCfi: gotoObj.spineItemCfi, elementCfi: gotoObj.elementCfi};
+                    }
                     
                     if (openPageRequest_) {
                         openPageRequest = openPageRequest_;
