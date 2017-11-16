@@ -36,8 +36,6 @@ scripts:
         &&
         npm install --only=dev
         &&
-        npm update
-        &&
         npm run prepare:local:common
     '
 
@@ -57,8 +55,6 @@ scripts:
         (yarn outdated || echo outdated)
         &&
         yarn install
-        &&
-        yarn upgrade
         &&
         yarn run prepare:local:common
     '
