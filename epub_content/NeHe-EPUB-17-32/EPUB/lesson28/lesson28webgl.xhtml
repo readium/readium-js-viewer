@@ -1,0 +1,152 @@
+<!DOCTYPE html>	<!-- Tells the browser that the page uses the HTML5 standard -->
+<html  xmlns="http://www.w3.org/1999/xhtml" >
+	<head>
+		<!--
+  			Roughly based (or inspired by) NeHe Tutorial 28
+  			Original:  http://nehe.gamedev.net/tutorial/bezier_patches__fullscreen_fix/18003/
+  
+  			@author: rkwright@geofx.com
+		 -->
+		<title>NEHE Lesson 28</title>
+		<meta charset="UTF-8"/>
+
+		<!-- Set the viewport size to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024, initial-scale=1"/>
+		<link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+
+		<!-- Include several libraries from THREE.js and the Scene class  -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+        <script src="../three-js/libs/Mirror.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+		<script src="../three-js/stats.js" type="text/javascript"></script>
+		<script src="../three-js/libs/NURBSCurve.js"></script>
+		<script src="../three-js/libs/NURBSSurface.js"></script>
+		<script src="../three-js/libs/NURBSUtils.js"></script>
+		<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+        <script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	</head>
+	<body>	
+		<script type="text/javascript"><![CDATA[
+
+			// allocate the Scene object, request orbitControls, some of 3D axes 10 units high and the stats
+			var gfxScene = new GFX.Scene( {
+			    cameraPos : [2, 8, 10],
+                canvasWidth : 768,
+                canvasHeight : 1024,
+                axesHeight:10,
+                controls:true,
+                displayStats:true
+            });
+
+            // then initialize our demo's stuff
+			initializeDemo();
+	
+			// Animate the scene
+			animateScene();
+	
+			/**
+			 * Initialize the Demo.  
+			 */
+			function initializeDemo() {
+
+                createSurface();
+
+			}
+
+			function createSurface() {
+
+                // NURBS surface
+                var nsControlPoints = [
+                    [
+                        new THREE.Vector4 ( -2, -2, 1, 1 ),
+                        new THREE.Vector4 ( -2, -1, -2, 1 ),
+                        new THREE.Vector4 ( -2, 1, 2.5, 1 ),
+                        new THREE.Vector4 ( -2, 2, -1, 1 )
+                    ],
+                    [
+                        new THREE.Vector4 ( 0, -2, 0, 1 ),
+                        new THREE.Vector4 ( 0, -1, -1, 0.5 ),
+                        new THREE.Vector4 ( 0, 1, 1.5, 0.5 ),
+                        new THREE.Vector4 ( 0, 2, 0, 1 )
+                    ],
+                    [
+                        new THREE.Vector4 ( 2, -2, -1, 1 ),
+                        new THREE.Vector4 ( 2, -1, 2, 1 ),
+                        new THREE.Vector4 ( 2, 1, -2.5, 1 ),
+                        new THREE.Vector4 ( 2, 2, 1, 1 )
+                    ]
+                ];
+
+                var degree1 = 2;
+                var degree2 = 3;
+                var knots1 = [0, 0, 0, 1, 1, 1];
+                var knots2 = [0, 0, 0, 0, 1, 1, 1, 1];
+                var nurbsSurface = new THREE.NURBSSurface(degree1, degree2, knots1, knots2, nsControlPoints);
+
+                var map = new THREE.TextureLoader().load( 'images/UV_Grid_Sm.jpg' );
+                map.wrapS = map.wrapT = THREE.RepeatWrapping;
+                map.anisotropy = 4;
+
+                var getSurfacePoint = function(u, v) {
+                    return nurbsSurface.getPoint(u, v);
+                };
+
+                var geometry = new THREE.ParametricBufferGeometry(getSurfacePoint, 20, 20);
+                var material = new THREE.MeshLambertMaterial({map: map, side: THREE.DoubleSide});
+                var mesh = new THREE.Mesh(geometry, material);
+
+                gfxScene.add(mesh);
+
+                // create the control points
+                for ( var i=0; i<3; i++ ) {
+                    for (var j=0; j<4; j++ ) {
+
+                        var cpGeom = new THREE.SphereGeometry(0.1);
+                        var cpMat = new THREE.MeshLambertMaterial({color: 0xff0000});
+                        var cpMesh = new THREE.Mesh(cpGeom, cpMat);
+
+                        cpMesh.position.set(nsControlPoints[i][j].x, nsControlPoints[i][j].y, nsControlPoints[i][j].z);
+                        gfxScene.add(cpMesh);
+                    }
+                }
+
+                // connect the control points
+                for ( var k=0; k<3; k++ ) {
+                    var verts = new THREE.Geometry();
+                    for (var n=0; n<4; n++ ) {
+                        verts.vertices.push( new THREE.Vector3(nsControlPoints[k][n].x, nsControlPoints[k][n].y, nsControlPoints[k][n].z));
+                    }
+                    var line = new THREE.Line( verts, new THREE.LineBasicMaterial( { color: 0xffff80 } ) );
+                    gfxScene.add(line);
+                }
+
+                for (var p=0; p<4; p++ ) {
+                    var verts2 = new THREE.Geometry();
+                    for ( var q=0; q<3; q++ ) {
+                        verts2.vertices.push( new THREE.Vector3(nsControlPoints[q][p].x, nsControlPoints[q][p].y, nsControlPoints[q][p].z));
+                    }
+                    var line2 = new THREE.Line( verts2, new THREE.LineBasicMaterial( { color: 0xffff80 } ) );
+                    gfxScene.add(line2);
+                }
+            }
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene() {
+
+                // Tell the browser to call this function when page is visible
+				requestAnimationFrame(animateScene);
+
+                // Map the 3D scene down to the 2D screen (render the frame)
+				gfxScene.renderScene();
+			}
+
+		]]></script>
+
+		<!-- Create a DIV element, which will be shown over the WebGL canvas. -->
+		<div style="position: absolute; top: 10px; left: 10px;color:white">
+		<br/>
+        </div>
+	</body>
+</html>

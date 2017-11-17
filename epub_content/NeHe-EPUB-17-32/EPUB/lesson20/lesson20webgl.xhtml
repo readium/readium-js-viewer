@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+	<head>
+		<title>NeHe - Lesson 20 - Alpha Masks</title>
+		<meta charset="utf-8"/>
+
+		<!-- The following meta line optimizes the site for mobile devices. It sets the viewport size
+		to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+
+		<!-- Include the necessary libs -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+        <script src="../three-js/stats.js" type="text/javascript"></script>
+		<script src="../three-js/dat.gui.min.js" type="text/javascript"></script>
+		<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+        <script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+
+	</head>
+	<body>
+		<script type="text/javascript">
+            // the global var (ick!) for the cube's mesh
+            var mesh;
+
+            // allocate the Scene object, and set the camera position
+            var gfxScene = new GFX.Scene( {
+				cameraPos : [3, 5, 10],
+                canvasWidth : 768,
+                canvasHeight : 1024,
+                controls : true,
+				axesHeight:10,
+				displayStats:true
+            });
+
+            setupDatGUI();
+
+			// Initialize the demo
+			initializeDemo();
+
+			// Animate the scene
+			animateScene();
+
+			/**
+			 *  Initialize the demo's local aspects, i.e not the scene.
+			 */
+			function initializeDemo() {
+                makeMesh( 1 );
+			}
+
+			/**
+             *  Rebuild the mesh completely and add it to the scene.  We need to do
+             *  because you can't refresh textures or alpha-Maps without rebuilding
+             *  the mesh.
+             */
+			function makeMesh( number ) {
+
+			    gfxScene.remove(mesh);
+
+                var geom = new THREE.BoxGeometry( 2, 2, 2 );
+
+                var texture = new THREE.ImageUtils.loadTexture("images/image" + number + ".jpg");
+                var mask = new THREE.ImageUtils.loadTexture("images/mask" + number + ".jpg");
+
+                var material = new THREE.MeshBasicMaterial( { map:texture, alphaMap:mask, side:THREE.DoubleSide, transparent:true } );
+
+                mesh = new THREE.Mesh( geom, material );
+
+                gfxScene.add(mesh);
+            }
+
+            /**
+             * Set up the parameters and user interface
+             */
+            function setupDatGUI() {
+                var maskList = [ "Lattice", "Flowers" ];
+                var options = [];
+
+                options.mask = maskList[0];
+
+                var gui = new dat.GUI();
+
+                gui.add(options, "mask", [ maskList[0], maskList[1] ]).onChange(function() {
+
+                    options.mask = maskList.indexOf(options.mask) + 1;
+                    makeMesh( options.mask );
+                });
+            }
+
+            /**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene() {
+
+				// Tell the browser to call this function back
+				requestAnimationFrame(animateScene);
+
+                // Map the 3D scene down to the 2D screen (render the frame)
+                gfxScene.renderScene();
+			}
+
+		</script>
+	</body>
+</html>

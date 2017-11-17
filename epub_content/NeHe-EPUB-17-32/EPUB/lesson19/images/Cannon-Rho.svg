@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Cannon-Rho" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 176 185.0894" enable-background="new 0 0 176 185.0894" xml:space="preserve">
+<line fill="none" stroke="#717171" stroke-width="3" stroke-linejoin="round" stroke-miterlimit="10" x1="0" y1="183.5894" x2="176" y2="183.5894"/>
+<line fill="none" stroke="#717171" stroke-width="3" stroke-linejoin="round" stroke-miterlimit="10" x1="29.6667" y1="183.5894" x2="67.4872" y2="79.2294"/>
+<line fill="none" stroke="#717171" stroke-width="3" stroke-linejoin="round" stroke-miterlimit="10" x1="151.4872" y1="183.5894" x2="113.6667" y2="79.2294"/>
+<line fill="none" stroke="#717171" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="67" y1="78.5894" x2="114" y2="78.5894"/>
+<g>
+	<g>
+		<line fill="none" stroke="#717171" stroke-width="3" stroke-linejoin="round" x1="8.5" y1="184.0894" x2="8.5" y2="19.0894"/>
+		<g>
+			<polygon fill="#717171" points="8.5,8.0894 14.5981,23.0132 8.5,19.4719 2.4033,23.0132 			"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 15.6665 12.0892)" fill="#717171" font-family="'Verdana'" font-size="14">+Y</text>
+<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="90.5" y1="183.5894" x2="113.3427" y2="77.3451"/>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" stroke-width="0.5" stroke-linejoin="round" d="M99.6906,149.0966
+			c17.7461,0.8882,31.9533,15.095,32.8422,32.8409"/>
+		<g>
+			<polygon points="97.9255,149.0525 100.3585,150.1928 99.8202,149.148 100.4608,148.1629 			"/>
+		</g>
+		<g>
+			<polygon points="132.5769,183.7039 131.4366,181.2709 132.4814,181.8092 133.4665,181.1686 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" x1="90.5" y1="183.5894" x2="113.2044" y2="12.8629"/>
+		<g>
+			<path d="M114,6.8804c0.6702,2.9539,1.9878,6.6837,3.5876,9.0997L113.1,13.6479l-4.9402,1.0784
+				C110.3354,12.8123,112.5821,9.5566,114,6.8804z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" stroke-width="0.5" stroke-linejoin="round" d="M85.1592,138.45
+			c3.0017-0.6098,6.1288-0.8275,9.3181-0.6033"/>
+		<g>
+			<polygon points="96.2346,138.0145 93.6742,138.8291 94.3436,137.8631 93.8364,136.8031 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" stroke-width="0.5" stroke-linejoin="round" d="M101.869,138.5302
+			c3.5701,0.6661,6.9191,1.8638,9.9754,3.4991"/>
+		<g>
+			<polygon points="100.1259,138.25 102.392,139.6937 101.9926,138.5883 102.7546,137.6938 			"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 103.5918 135.2876)" font-family="'Verdana'" font-size="6">∆Rho</text>
+<text transform="matrix(1 0 0 1 103.5919 169.9427)" font-family="'Verdana'" font-size="6">MinRho</text>
+</svg>

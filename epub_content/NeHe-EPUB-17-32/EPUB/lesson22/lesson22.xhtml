@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bump Mapping</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+
+<h2>Lesson 22 - Bump Mapping</h2>
+<p></p>
+<h4>Introduction</h4>
+<p>This lesson is an introduction to bump mapping. Bump mapping was invented by Jim Blinn in 1978 as part of his work for the visualization of the Voyrager space-probe project. Bump mapping is a technique in computer graphics for simulating bumps and wrinkles on the surface of an object. This is achieved by perturbing the surface normals of the object and using the perturbed normal during lighting calculations. The result is an apparently bumpy surface rather than a smooth surface although the surface of the underlying object is not changed.
+    (We'll look at actual height-mapping in lesson 34 in Volume 3).</p>
+<h4>How Does It Work?</h4>
+<p>Three.js uses the height map for simulating the surface displacementwhich yields the modified normal. How does this work? Before a lighting calculation is performed for each visible point (or pixel) on the object's surface:</p>
+<ul>
+  <li>Look up the height in the heightmap that corresponds to the position on the surface</li>
+  <li>Calculate the surface normal of the heightmap</li>
+  <li>Combine the surface normal from step two with the true (&quot;geometric&quot;) surface normal so that the combined normal points in a new direction</li>
+  <li>Calculate the interaction of the new &quot;bumpy&quot; surface with lights in the scene using, typically, the Phong reflection model</li>
+</ul>
+
+<p>But how is the &quot;height map&quot; calculated? The answer is that the height map is a second texture or image (usually monochrome) whose values are treated a range of values.</p>
+<p>or example, the original image (there are now two you can switch between) was</p>
+<br/>
+
+<p><img src="images/flower.jpg" width="256" height="256" alt=""/></p>
+<p></p>
+<p>The height map for that image is:</p>
+<br/>
+<p><img src="images/flower-bump.jpg" width="256" height="256" alt=""/> </p>
+<br/>
+
+<p>The lighter the tone, the &quot;lower&quot; it is simulated as and vice versa. </p>
+<h4>Using a Bump Map</h4>
+<p>The actual code is very simple. We initialize the GFXScene same as always. Then the bump mapping is very simple as three.js does all the work:</p>
+<pre><code class="language-javascript">function makeMesh( bumped, image ) {
+
+    gfxScene.remove(mesh);
+
+    var geom = new THREE.CubeGeometry( 2, 2, 2 );
+
+    var texture = new THREE.ImageUtils.loadTexture("images/" + image + ".jpg");
+    var bumpName = &quot;images/&quot; + image + &quot;-bump.jpg&quot;;
+    var bump = bumped === true ? new THREE.ImageUtils.loadTexture(bumpName) : null;
+    var scale = bumped === true ? 0.2 : 0;
+
+    var mat = new THREE.MeshPhongMaterial( { map:texture, bumpMap:bump, bumpScale:scale } );
+
+    mesh = new THREE.Mesh( geom, mat );
+  
+    gfxScene.add(mesh);
+}</code></pre>
+<p>We  create a 2-unit cube centered on the origin. First load the texture, then check if &quot;bumping&quot; is currently requested (pressing the 'b' key, default is true). If bumping is on, then load the &quot;bump&quot; texture.  Then create the material, passing in the bump-map if requested. The value of the scale is arbitrary, but large values don't really make a difference.</p>
+
+<p>And that's it!  Click on <a href="lesson22webgl.xhtml" title="Lesson 20" target="_self">this link</a> to see the actual rendered demo in all it's bumpy glory!</p>
+<p>As always, the original sources are on github <a href="https://github.com/rkwright/nehe-three-js" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+</body>
+</html>

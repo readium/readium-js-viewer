@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Cannon-Theta" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 477.2534 473.2578" enable-background="new 0 0 477.2534 473.2578" xml:space="preserve">
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="237.0386" y1="22.1406" x2="237.0386" y2="451.1406"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="22.5386" y1="236.6406" x2="451.5386" y2="236.6406"/>
+<text transform="matrix(1 0 0 1 226.0768 12.0894)" font-family="'Verdana'" font-size="14">-Z</text>
+<text transform="matrix(1 0 0 1 226.0767 469.0122)" font-family="'Verdana'" font-size="14">+Z</text>
+<text transform="matrix(1 0 0 1 456.2053 240.1661)" font-family="'Verdana'" font-size="14">+X</text>
+<text transform="matrix(1 0 0 1 0.0001 240.166)" font-family="'Verdana'" font-size="14">-X</text>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="237.0386" y1="236.6406" x2="143.5571" y2="78.0995"/>
+		<g>
+			<polygon points="136.3847,65.9355 153.4954,78.9464 144.0932,79.0089 139.4892,87.205 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M186.8584,137.6511c15.1034-7.6807,32.1971-12.0105,50.302-12.0105
+			c58.9969,0,107.2553,45.9763,110.9007,104.0541"/>
+		<g>
+			<polygon points="180.674,141.0481 191.359,139.8889 187.348,137.4369 187.4901,132.7386 			"/>
+		</g>
+		<g>
+			<polygon points="348.2822,236.7624 343.8297,226.9803 347.9846,229.1799 351.9533,226.6615 			"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 301.7691 135.8073)" font-family="'Verdana'" font-size="14">Theta</text>
+</svg>
