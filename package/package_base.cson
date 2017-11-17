@@ -103,12 +103,11 @@ files: [
 dependencies:
 
     #"parallelshell": 'latest'
-    "concurrently": 'latest'
+    "concurrently": '^3.5.0'
 
-    "npm-run-all": 'latest'
+    "npm-run-all": '^4.1.2'
 
-
-    "opener": 'latest'
+    "opener": '^1.4.3'
 
     #"http-server": 'latest'
     "http-server": 'github:danielweck/http-server'
@@ -140,21 +139,21 @@ devDependencies:
 
     "bootstrap-accessibility-plugin": 'github:paypal/bootstrap-accessibility-plugin'
 
-    "hammerjs": 'latest'
+    "hammerjs": '^2.0.8'
 
-    "jquery-hammerjs": 'latest'
+    "jquery-hammerjs": '^2.0.0'
 
-    "screenfull": 'latest'
+    "screenfull": '^3.3.2'
 
-    "JSON2": 'latest'
+    "JSON2": '^0.1.0'
 
-    "hogan": 'latest'
+    "hogan": '^1.0.2'
 
-    "requirejs-hogan-plugin": 'latest'
+    "requirejs-hogan-plugin": '^0.3.1'
 
-    "remotestoragejs": 'latest'
+    "remotestoragejs": '^1.0.1'
 
-    "spin.js": 'latest'
+    "spin.js": '^2.3.2'
 
 # Below dependencies are only used in build tasks (above are runtime deps):
 
@@ -163,39 +162,39 @@ devDependencies:
 
     # see readium-build-tools (in readium-cfi-js)
     # versionsMaker.js
-    "gift": 'latest'
+    "gift": '^0.10.1'
 
     # Automatically included with the CLI
     # "clean-css": 'latest'
-    "clean-css-cli": 'latest'
+    "clean-css-cli": '^4.1.10'
     
-    "uglify-js": 'latest'
+    "uglify-js": '^3.1.9'
 
     #"nodeunit": 'latest'
-    "mocha": 'latest'
+    "mocha": '^4.0.1'
 
-    "wd": 'latest'
+    "wd": '^1.4.1'
 
-    "phantomjs-prebuilt": 'latest'
+    "phantomjs-prebuilt": '^2.1.16'
 
     #"grunt": 'latest'
     "grunt-selenium-webdriver": 'github:levexis/grunt-selenium-webdriver'
     #"selenium-webdriver": 'latest'
 
-    "crx": 'latest'
+    "crx": '^3.2.1'
 
     # https://github.com/domenic/chai-as-promised/issues/184
     "chai": '3.x'
-    "chai-as-promised": 'latest'
+    "chai-as-promised": '^7.1.1'
 
-    "github": 'latest'
+    "github": '^12.0.2'
 
-    "hogan.js": 'latest'
+    "hogan.js": '^3.0.2'
 
-    "httpreq": 'latest'
+    "httpreq": '^0.4.24'
 
-    "xml2js": 'latest'
+    "xml2js": '^0.4.19'
 
-    "decompress-zip": 'latest'
+    "decompress-zip": '^0.3.0'
 
     #"unzip": 'latest'
