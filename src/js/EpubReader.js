@@ -771,11 +771,13 @@ BookmarkData){
             var bookmark = JSON.parse(bookmarkString) || {};
             var epubs = urlParams['epubs'];
 
+            var gotoParam = generateQueryParamCFI(bookmark);
+
             var url = Helpers.buildUrlQueryParameters(undefined, {
                 epub: ebookURL,
                 epubs: (epubs ? epubs : " "),
                 embedded: " ",
-                goto: {value: generateQueryParamCFI(bookmark), verbatim: true}
+                goto: {value: gotoParam ? gotoParam : " ", verbatim: true}
             });
 
             history.replaceState(
