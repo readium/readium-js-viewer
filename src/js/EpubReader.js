@@ -630,35 +630,37 @@ BookmarkData){
     var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
               && chrome.app.window && chrome.app.window.current; // a bit redundant?
 
-    if (isChromeExtensionPackagedApp) {
-        screenfull.onchange = function(e) {
-            if (chrome.app.window.current().isFullscreen()) {
-                chrome.app.window.current().restore();
+    if (screenfull.enabled) {
+        if (isChromeExtensionPackagedApp) {
+            screenfull.onchange = function(e) {
+                if (chrome.app.window.current().isFullscreen()) {
+                    chrome.app.window.current().restore();
+                }
+            };
+        }
+
+        screenfull.onchange(function(e){
+            var titleText;
+
+            if (screenfull.isFullscreen)
+            {
+                titleText = Strings.exit_fullscreen+ ' [' + Keyboard.FullScreenToggle + ']';
+                $('#buttFullScreenToggle span').removeClass('glyphicon-resize-full');
+                $('#buttFullScreenToggle span').addClass('glyphicon-resize-small');
+                $('#buttFullScreenToggle').attr('aria-label', titleText);
+                $('#buttFullScreenToggle').attr('title', titleText);
             }
-        };
+            else
+            {
+                titleText = Strings.enter_fullscreen + ' [' + Keyboard.FullScreenToggle + ']';
+                $('#buttFullScreenToggle span').removeClass('glyphicon-resize-small');
+                $('#buttFullScreenToggle span').addClass('glyphicon-resize-full');
+                $('#buttFullScreenToggle').attr('aria-label', titleText);
+                $('#buttFullScreenToggle').attr('title', titleText);
+            }
+        });
     }
-
-    screenfull.onchange(function(e){
-        var titleText;
-
-        if (screenfull.isFullscreen)
-        {
-            titleText = Strings.exit_fullscreen+ ' [' + Keyboard.FullScreenToggle + ']';
-            $('#buttFullScreenToggle span').removeClass('glyphicon-resize-full');
-            $('#buttFullScreenToggle span').addClass('glyphicon-resize-small');
-            $('#buttFullScreenToggle').attr('aria-label', titleText);
-            $('#buttFullScreenToggle').attr('title', titleText);
-        }
-        else
-        {
-            titleText = Strings.enter_fullscreen + ' [' + Keyboard.FullScreenToggle + ']';
-            $('#buttFullScreenToggle span').removeClass('glyphicon-resize-small');
-            $('#buttFullScreenToggle span').addClass('glyphicon-resize-full');
-            $('#buttFullScreenToggle').attr('aria-label', titleText);
-            $('#buttFullScreenToggle').attr('title', titleText);
-        }
-    });
-
+    
     var unhideUI = function(){
         hideLoop();
     }
@@ -950,10 +952,14 @@ BookmarkData){
             if (!isWithinForbiddenNavKeysArea()) nextPage();
         });
 
-        Keyboard.on(Keyboard.FullScreenToggle, 'reader', toggleFullScreen);
-
-        $('#buttFullScreenToggle').on('click', toggleFullScreen);
-
+        if (screenfull.enabled) {
+            Keyboard.on(Keyboard.FullScreenToggle, 'reader', toggleFullScreen);
+            $('#buttFullScreenToggle').on('click', toggleFullScreen);
+        } else {
+            $('#buttFullScreenToggle').css('display', 'none');
+            // $('#buttFullScreenToggle')[0].style.display = 'none';
+        }
+        
         var loadlibrary = function()
         {
             $("html").attr("data-theme", "library");
