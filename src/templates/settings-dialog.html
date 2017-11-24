@@ -54,19 +54,41 @@
                     <div role="group" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="row">
 
                         <button role="button" data-theme="author-theme"  title="{{strings.i18n_author_theme}}" aria-label="{{strings.i18n_author_theme}}" class="col-xs-8 col-xs-offset-2 theme-option author-theme clickable">{{strings.i18n_author_theme}}</button>
-
-                        <button role="button" data-theme="default-theme"  title="{{strings.i18n_black_and_white}}" aria-label="{{strings.i18n_black_and_white}}" class="col-xs-8 col-xs-offset-2 theme-option default-theme clickable">{{strings.i18n_black_and_white}}</button>
-
                         <button role="button" data-theme="night-theme"  title="{{strings.i18n_arabian_nights}} [{{keyboard.NightTheme}}]" aria-label="{{strings.i18n_arabian_nights}} [{{keyboard.NightTheme}}]" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable" >{{strings.i18n_arabian_nights}}</button> <!-- accesskey="{{keyboard.accesskeys.NightTheme}}" -->
-
                         <button role="button" data-theme="parchment-theme"  title="{{strings.i18n_sands_of_dune}}" aria-label="{{strings.i18n_sands_of_dune}}" class="col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable">{{strings.i18n_sands_of_dune}}</button>
-
-                        <button role="button" data-theme="ballard-theme"  title="{{strings.i18n_ballard_blues}}" aria-label="{{strings.i18n_ballard_blues}}" class="col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable">{{strings.i18n_ballard_blues}}</button>
-
-                        <button role="button" data-theme="vancouver-theme"  title="{{strings.i18n_vancouver_mist}}" aria-label="{{strings.i18n_vancouver_mist}}" class="col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable">{{strings.i18n_vancouver_mist}}</button>
                     </div>
                 </div>
                 <div id="tab-layout" class="tab-pane" role="tabpanel">
+
+                    <h5 id="setting-header-text-align" class="setting-header">{{strings.i18n_text_alignment}}</h5>
+                    <div role="radiogroup" class="row" style="width:100%;text-align:center;" aria-labelledby="setting-header-text-align">
+
+                        <div role="radio" id="text-align-default-option"
+                             style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
+                            <input style=""  name="text-align" value="single" type="radio" id="text-align-default-radio"/>
+                            <label style="" for="text-align-default-radio" class="underlinedLabel">
+                                {{strings.i18n_align_auto}}
+                            </label>
+                        </div>
+
+
+                        <div role="radio" id="text-align-justify-option"
+                             style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
+
+                            <input  name="text-align" value="single" type="radio" id="text-align-justify-radio" />
+                            <label for="text-align-justify-radio" class="underlinedLabel">
+                                <img src="{{{imagePathPrefix}}}images/glyphicons-114-justify.png" alt="{{strings.i18n_text_alignment}} {{strings.i18n_align_justify}}"/>
+                            </label>
+                        </div>
+                        <div role="radio" id="text-align-left-option"
+                             style="vertical-align:middle;width:30%;display:inline-block;position:relative;">
+
+                            <input  name="text-align" value="double" type="radio" id="text-align-left-radio" />
+                            <label for="text-align-left-radio" class="underlinedLabel">
+                                <img src="{{{imagePathPrefix}}}images/glyphicons-111-align-left.png" alt="{{strings.i18n_text_alignment}} {{strings.i18n_align_left}}">
+                            </label>
+                        </div>
+                    </div>
 
                     <!-- disabled: replaced with setting-header-column-max-width-legend (see below) -->
                     <h5 style="display:none;" id="setting-header-margins-legend" class="setting-header">{{strings.i18n_margins}}</h5>
@@ -211,6 +233,11 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <div id="publishers-defaults-checkbox" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="publishers-defaults" checked>{{strings.i18n_publishers_defaults}}
+                    </label>
+                </div>
                 <button id="buttClose"  type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{keyboard.SettingsModalClose}}]">{{strings.i18n_close}}</button>
                 <button id="buttSave"  type="button" class="btn btn-primary" data-dismiss="modal" title="{{strings.i18n_save_changes}} [{{keyboard.SettingsModalSave}}]" aria-label="{{strings.i18n_save_changes}} [{{keyboard.SettingsModalSave}}]">{{strings.i18n_save_changes}}</button>
             </div>

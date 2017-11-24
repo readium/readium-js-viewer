@@ -136,6 +136,11 @@
     width: 100%;
 }
 
+#publishers-defaults-checkbox {
+    display: inline-block;
+    float: left;
+}
+
 .theme-option{
   text-align: center;
   -webkit-border-radius: 4px;

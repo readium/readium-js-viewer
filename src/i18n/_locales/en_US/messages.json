@@ -168,6 +168,9 @@
   "i18n_publisher" : {
     "message" : "Publisher: "
   },
+  "i18n_publishers_defaults" : {
+    "message" : "Publisher's defaults"
+  },
   "i18n_source" : {
     "message" : "Source: "
   },
@@ -264,6 +267,18 @@
   },
   "i18n_text_and_background_color" : {
     "message" : "TEXT AND BACKGROUND COLOR"
+  },
+  "i18n_text_alignment" : {
+    "message" : "TEXT ALIGNMENT"
+  },
+  "i18n_align_auto" : {
+    "message" : "Auto"
+  },
+  "i18n_align_justify" : {
+    "message" : "Justify"
+  },
+  "i18n_align_left" : {
+    "message" : "Left"
   },
   "i18n_author_theme" : {
     "message" : "Default (author styles)"
