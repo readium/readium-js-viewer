@@ -49,14 +49,14 @@
     "concurrently": "^3.5.0",
     "npm-run-all": "^4.1.2",
     "opener": "^1.4.3",
-    "http-server": "github:danielweck/http-server"
+    "http-server": "github:danielweck/http-server#master"
   },
   "devDependencies": {
-    "keymaster": "github:danielweck/keymaster",
-    "jath": "github:danielweck/jath",
-    "mathjax-single-file": "github:danielweck/MathJax-single-file",
+    "keymaster": "github:danielweck/keymaster#master",
+    "jath": "github:danielweck/jath#master",
+    "mathjax-single-file": "github:danielweck/MathJax-single-file#master",
     "bootstrap": "3.x",
-    "bootstrap-accessibility-plugin": "github:paypal/bootstrap-accessibility-plugin",
+    "bootstrap-accessibility-plugin": "github:paypal/bootstrap-accessibility-plugin#master",
     "hammerjs": "^2.0.8",
     "jquery-hammerjs": "^2.0.0",
     "screenfull": "^3.3.2",
@@ -71,7 +71,7 @@
     "mocha": "^4.0.1",
     "wd": "^1.4.1",
     "phantomjs-prebuilt": "^2.1.16",
-    "grunt-selenium-webdriver": "github:levexis/grunt-selenium-webdriver",
+    "grunt-selenium-webdriver": "github:levexis/grunt-selenium-webdriver#master",
     "crx": "^3.2.1",
     "chai": "3.x",
     "chai-as-promised": "^7.1.1",
