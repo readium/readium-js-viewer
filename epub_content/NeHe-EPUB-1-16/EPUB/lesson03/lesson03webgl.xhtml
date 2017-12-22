@@ -17,17 +17,17 @@
 			}
 		</style>
 		<!-- Include two libraries
-		1. Three.js (core library)
-		2. Detector.js (checks the browsers WebGL capabilities) -->
-		<script src="../js/three.js"></script>
-		<script src="../js/Detector.js"></script>
+		1. Three.three-js (core library)
+		2. Detector.three-js (checks the browsers WebGL capabilities) -->
+		<script src="../three-js/three.js"></script>
+		<script src="../three-js/Detector.js"></script>
 	</head>
 	<body>
 		<!-- This is the DIV element which will contain the WebGL canvas. To be identifiable later on,
 		the id 'WebGLCanvas' is applied to it. -->
 		<div id="WebGLCanvas">
 
-		<!-- This JavaScript block encloses the Three.js commands -->
+		<!-- This JavaScript block encloses the Three.three-js commands -->
 		<script>
 			// Global scene object
 			var scene;
@@ -80,7 +80,7 @@
 				scene = new THREE.Scene();
 
 				// Now that we have a scene, we want to look into it. Therefore we need a camera.
-				// Three.js offers three camera types:
+				// Three.three-js offers three camera types:
 				//  - PerspectiveCamera (perspective projection)
 				//  - OrthographicCamera (parallel projection)
 				//  - CombinedCamera (allows to switch between perspective / parallel projection
@@ -91,7 +91,7 @@
 				// ... aspect ratio (usually set to the quotient of canvas width to canvas height)
 				// ... near and
 				// ... far.
-				// Near and far define the cliping planes of the view frustum. Three.js provides an
+				// Near and far define the cliping planes of the view frustum. Three.three-js provides an
 				// example (http://mrdoob.github.com/three.js/examples/
 				// -> canvas_camera_orthographic2.html), which allows to play around with these
 				// parameters.

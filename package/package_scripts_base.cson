@@ -32,11 +32,9 @@ scripts:
 
         (npm outdated || echo outdated)
         &&
-        npm install --no-save --only=prod
+        npm install --only=prod
         &&
-        npm install --no-save --only=dev
-        &&
-        npm update --no-save
+        npm install --only=dev
         &&
         npm run prepare:local:common
     '
@@ -57,8 +55,6 @@ scripts:
         (yarn outdated || echo outdated)
         &&
         yarn install
-        &&
-        yarn upgrade
         &&
         yarn run prepare:local:common
     '

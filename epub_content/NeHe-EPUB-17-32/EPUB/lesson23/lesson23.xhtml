@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Texture Atlases</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+
+<h2>Lesson 23 - Sphere Mapping Quadrics</h2>
+<p></p>
+<h4>Introduction</h4>
+
+
+<p>In computer graphics, sphere mapping (or spherical environment mapping) is a type of reflection mapping that approximates reflective surfaces by considering the environment to be an infinitely far-away spherical wall. This environment is stored as a texture (image) depicting what a mirrored sphere would look like if it were placed in that environment This texture  contains reflective data for the entire environment, except for the spot directly behind the sphere. (For one example of such an object, see Escher's drawing <a href="https://en.wikipedia.org/wiki/Hand_with_Reflecting_Sphere" title="Hand with Reflecting Sphere" target="_blank">Hand with Reflecting Sphere</a>.</p>
+<p>To use this data, the surface normal of the object, view direction from the object to the camera, and/or reflected direction from the object to the environment is used to calculate a texture coordinate to look up in the aforementioned texture map. The result appears like the environment is reflected in the surface of the object that is being rendered.</p>
+<h4>Creating the Spherical Map</h4>
+<p>If you want to create your own sphere map, there is an explanation of how to do this in Photoshop, posted on the NeHe site <a href="http://nehe.gamedev.net/tutorial/sphere_mapping_quadrics_in_opengl/15005/" title="Creating a Sphere Map" target="_blank">here</a>. There are two textures involved here. The first is the spherized image that will be wrapped around the sphere. What PhotoShop does is apply a filter that distorts the image into a &quot;shape&quot; like this:</p>
+<p><img src="images/Spherize.png" width="256" height="256" alt=""/></p>
+<p>First here is the &quot;background&quot; image from which the spherized image was derived:</p>
+<p><img src="images/ElCapitanSquare.jpg" width="400" height="400" alt=""/></p>
+<p>Here is the spherized image:</p>
+<p><img src="images/ElCapitanSphere.jpg" width="400" height="400" alt=""/></p>
+<p>So how does this magic happen? Once again, three.js does almost all the heavy lifting, but there are a few interesting wrinkles.</p>
+<h4>Creating the Sphere</h4>
+<p>The instantiation of the GFXScene is much the same as usual and the actual creation of the quadrics (i.e. the sphere, box and cylinder) is much the same as lesson 18. </p>
+<p>Here is the creation of the material:</p>
+<pre><code class="language-javascript">quadMat = new THREE.MeshPhongMaterial({
+    map:quadTexture,
+    color: 0xffffff,
+    specular: 0x050505,
+    shininess: 50
+});</code></pre>
+
+<p>Very straightforward. The interesting part is the mapping of the material onto the quadric by modifying the texture verticies (UVs):
+</p>
+<pre><code class="language-javascript">quadGeometry = new THREE.SphereGeometry(2.0, 32, 32);
+                        
+var faceVertexUvs = quadGeometry.faceVertexUvs[ 0 ];
+for ( i = 0; i &lt; faceVertexUvs.length; i++ ) {
+
+    var uvs = faceVertexUvs[i];
+    var face = quadGeometry.faces[i];
+
+    for ( var j = 0; j &lt; 3; j++ ) {
+
+        uvs[j].x = face.vertexNormals[j].x * 0.5 + 0.5;
+        uvs[j].y = face.vertexNormals[j].y * 0.5 + 0.5; 
+    }
+}</code></pre>
+
+<p>Recall (<a href="../lesson17/lesson17.xhtml" title="Lesson 17" target="_self">Lesson 17</a>) that the UVs tell the renderer which part of the image gets mapped onto which part of the geometry.  So the loop code above is calculating how to modify the UVs for each face so the right part of the image is mapped onto the geometry (Explaining the math is beyond the scope of these lessons).</p>
+<p>Note that there are two other quadrics in the demo, but neither of them has the UV mapping so the texture just gets mapped straight onto the other quadric geometries and looks pretty silly as a result.</p>
+<h4>Rendering the Background</h4>
+<p>The other interesting wrinkle in this lesson is in the background. In this example the background needs to be completely static and not be rotated or changed if the user rotates the sphere. This is accomplished by creating a second scene that has a single plane geometry covering the entire view of the second scene.</p>
+
+<pre><code class="language-javascript">var background = THREE.ImageUtils.loadTexture( 'images/ElCapitanSquare.jpg' );
+var backgroundMesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(2, 2, 0),
+    new THREE.MeshBasicMaterial({
+    map: background
+}));
+
+backgroundMesh .material.depthTest = false;
+backgroundMesh .material.depthWrite = false;
+
+backgroundScene = new THREE.Scene();
+backgroundCamera = new THREE.Camera();
+backgroundScene .add(backgroundCamera );
+backgroundScene .add(backgroundMesh );</code></pre>
+<p>What's happening here is that <span class="inline-code">backgroundMesh</span> is created with a <span class="inline-code">PlaneGeometry</span> of dimension 2x2. By default it is oriented in the X-Y plane, i.e. forming the the background. <span class="inline-code">depthTest</span> and <span class="inline-code">depthWrite</span> are set to false so that the material will effectively be rendered <em>behind</em> everything else.</p>
+<p>Then the background Scene is created as well as a background Camera. Because no parameters are supplied to the camera it defaults to values that map the camera's view to unit space - which means the plane geometry with dimension 2x2 centered on the origin covers the whole view of the camera, but because <span class="inline-code">depthWrite</span> is set to false, the <span class="inline-code">backgroundMesh</span> ends up being behind everything else.</p>
+<p>Finally, in the rendering step we see:</p>
+<pre><code class="language-javascript">gfxScene.renderer.autoClear = false;
+gfxScene.renderer.clear();
+
+gfxScene.renderer.render(backgroundScene , backgroundCamera );
+gfxScene.renderScene();</code></pre>
+<p>Setting <span class="inline-code">autoClear</span> to false means that rendering the second Scene (the foreground scene) won't clear out the view buffer (which would occur normally since <span class="inline-code">autoClear</span> is true by default). Then we explicitly clear the view buffer. Then we render the background scene first so it is overwritten by the foreground Scene. Since <span class="inline-code">autoClear</span> is off, the foreground scene gets layered on top of the background, just as we want.</p>
+<p>Of course this demo only simulates the reflection - and not very realisticallat that since it simply wraps the same image as the background around the sphere. For more realistic reflections one needs to use cube or environmental mapping.</p>
+<p>And that's it!  Click on <a href="lesson23webgl.xhtml" title="Lesson 23" target="_self">this link</a> to see the actual rendered demo in all it's simulated glory!</p>
+
+</body>
+</html>

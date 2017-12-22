@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Scissor Testing ad GPU Queries</title>
+  <meta charset="utf-8"/>
+  <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+  <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+  <script src="../three-js/prism.js"></script>
+</head>
+<body>
+
+<h2>Lesson 24 - Scissor Testing and GPU Queries</h2>
+<p></p>
+<p><em>Note: This is a placeholder. Just some notes on what I may eventually do...</em></p>
+
+
+<p>This lesson demonstrates three aspects of WebGL</p>
+<ul>
+  <li>Querying the WebGL context to get information about the renderer and extensions</li>
+  <li>Writing to a scrollable text sprite in a console-like way.</li>
+  </ul>
+<p>In order to implement all this, it was necessary to </p>
+<p>The general process for this is:</p>
+
+<ul>
+  <li>Create two scenes
+    <ul>
+      <li>One for the scrollable sprite</li>
+      <li>One for the general scene</li>
+      </ul>
+  </li>
+  <li>Create a Canvas that is the desired console width and very tall, e.g. 10x the width</li>
+  <li>Write a bunch of stuff in the canvas</li>
+  <li>Create a texture from the canvas</li>
+  <li>Create a Sprite the size of the canvas</li>
+  <li>Position the Sprite where you want the console to appear</li>
+  <li>Add the sprite to the sprite-scene</li>
+  <li>Do whatever you want in the general scene</li>
+  <li>Turn off autoClear in the renderer</li>
+  <li>In the rendering function
+    <ul>
+      <li>clear the scene</li>
+      <li>render the general scene</li>
+      <li>create a scissorTest rectangle to enclose the console's visible location</li>
+      <li>turn on scissorTest</li>
+      <li>render the console-scene</li>
+      <li>turn off scissor test</li>
+      </ul>
+  </li>
+  </ul>
+<p>I'll get back to this one someday. Perhaps soon, perhaps not.</p>
+
+</body>
+</html>

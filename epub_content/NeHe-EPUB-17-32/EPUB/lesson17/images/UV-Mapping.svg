@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="UV-Mapping" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 536.0435 698.5913" enable-background="new 0 0 536.0435 698.5913" xml:space="preserve">
+<rect x="51.1033" y="22.4997" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="432" height="648"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="267.4751" y1="22.6792" x2="267.4751" y2="670.6792"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="50.9751" y1="232.1792" x2="482.9751" y2="232.1792"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="51.9751" y1="458.1792" x2="483.9751" y2="458.1792"/>
+<text transform="matrix(1 0 0 1 19.693 12.0894)" font-family="'Verdana'" font-size="14">0,1</text>
+<text transform="matrix(1 0 0 1 490.2565 691.7301)" font-family="'Verdana'" font-size="14">1,0</text>
+<text transform="matrix(1 0 0 1 245.9752 12.0894)" font-family="'Verdana'" font-size="14">0.5,1</text>
+<text transform="matrix(1 0 0 1 483.9752 12.0893)" font-family="'Verdana'" font-size="14">1,1</text>
+<text transform="matrix(1 0 0 1 19.6928 691.7303)" font-family="'Verdana'" font-size="14">1,0</text>
+<text transform="matrix(1 0 0 1 490.2567 237.5763)" font-family="'Verdana'" font-size="14">1,0.66</text>
+<text transform="matrix(1 0 0 1 490.2564 460.8583)" font-family="'Verdana'" font-size="14">1,0.33</text>
+<text transform="matrix(1 0 0 1 0 237.5767)" font-family="'Verdana'" font-size="14">0,0.66</text>
+<text transform="matrix(1 0 0 1 0 460.8583)" font-family="'Verdana'" font-size="14">0,0.33</text>
+<text transform="matrix(1 0 0 1 245.9753 694.3459)" font-family="'Verdana'" font-size="14">0.5,0</text>
+</svg>

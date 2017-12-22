@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Loading and Morphing Objects</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+
+<h2>Lesson 25 - Loading and Morphing Objects</h2>
+<p></p>
+<h4>Introduction</h4>
+
+<p>This lesson is a rather simplistic &quot;morphing&quot; demo. Not to exciting and there is nothing new vis a 
+	vis three.js or WebGL, but it is part of the NeHe demos, so I have included it. Basically, the demo consists 
+  of three sets of JavaScript arrays, each of which contains 486 XYZ coordinates. When the user chooses a new 
+  shape, it simply linearly interpolates between the position of each coordinate <span class="inline-code">n</span>
+  in one set of vertexes to the coordinates of vertex <span class="inline-code">n</span> in the next shape.
+ </p>
+<p><em>In theory one could use the morphing capbilities of three.js geometries to implement this, but it was more work than I wanted to get in for this. Perhaps in the future.</em></p>
+ 
+<h4>Creating the Mesh</h4>
+<p>The actual mesh to be displayed is a simple THREE.Geometry whose vertices are the coordinates, either one of the final shapes or the intervening steps. The material for the mesh is a THREE.PointsMaterial where each point is simply a small disk image, colored red. The first shape is the points arranged as a sphere:</p>
+
+<pre><code class="language-javascript">function createVertMesh() {
+
+	  // Create the geometry that will hold all of the vertices
+    var vertGeom = new THREE.Geometry();
+
+    var destRay = vertArray[0];
+
+    // Create the vertices and add them to the particles geometry
+    for ( var p = 0; p &lt; destRay.length; p++ ) {
+       lengthVec[p] = new THREE.Vector3();
+
+        // Create the vertices and add them to the geometry
+        var vertex = new THREE.Vector3(destRay[p][0], destRay[p][1], destRay[p][2]);
+        vertGeom.vertices.push(vertex);
+    }
+
+    // Create the material that will be used to render each vertex of the geometry
+    var vertMaterial = new THREE.PointsMaterial({
+       color: 0xff0000,
+       size: 0.4,
+       map: THREE.ImageUtils.loadTexture("images/ball.png"),
+       blending: THREE.AdditiveBlending,
+       transparent: true
+    });
+
+    vertMesh = new THREE.Points(vertGeom, vertMaterial);
+    gfxScene.add(vertMesh);
+}</code></pre>
+
+
+<h4>Morphing the Mesh</h4>
+<p>Then when the user chooses a new shape, the incremental delta-step for each of 486 vertices in X, Y, and Z is calculated and put in the <span class="inline-code">detlaVec</span> vector:</p>
+
+<pre><code class="language-javascript">function calcDeltas( newVertType ) {
+    srcRay = vertArray[vertType];
+    vertType = newVertType;
+    destRay = vertArray[vertType];
+
+    for ( var n = 0; n &lt; destRay.length; n++ ) {
+       deltaVec[n].x = destRay[n][0] - srcRay[n][0];
+       deltaVec[n].y = destRay[n][1] - srcRay[n][1];
+       deltaVec[n].z = destRay[n][2] - srcRay[n][2];
+   }
+
+   curStep = nStep;
+} </code></pre>
+
+<p>Note that delta is the distance in XYZ from the <em>previous</em> shape to the <em>new</em> shape. Then, which the interpolation from the previous to the new is complete, the mesh is then the new shape. Then curStep is reset to the total number of steps (200). Then for each call to  animateScene we call morphStep:</p>
+
+<pre><code class="language-javascript">function animateScene() {	
+    requestAnimationFrame(animateScene);
+
+		// do a single step of the morphing of the mesh
+    if (curStep > 0)
+	      morphStep();
+
+	  gfxScene.renderScene();
+}</code></pre>
+
+<p> Which performs the morphing of the shape with simple linear interpolation:</p>
+
+<pre><code class="language-javascript">function morphStep() {
+    var verts = vertMesh.geometry.vertices;
+
+    for ( var n = 0; n &lt; destRay.length; n++ ) {
+        verts[n].x = destRay[n][0] - deltaVec[n].x *  (curStep / nStep);
+        verts[n].y = destRay[n][1] - deltaVec[n].y *  (curStep / nStep);
+        verts[n].z = destRay[n][2] - deltaVec[n].z *  (curStep / nStep);
+    }
+    
+    curStep--;
+    vertMesh.geometry.verticesNeedUpdate = true;
+}</code>
+</pre>
+<p>And that's it!  Click on <a href="lesson25webgl.xhtml" title="Lesson 25" target="_self">this link</a>
+  to see the actual rendered demo in all it's shape-shifting glory!
+</p>
+<p>As always, the original sources are on github <a href="https://github.com/rkwright/nehe-three-js" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+</body>
+</html>

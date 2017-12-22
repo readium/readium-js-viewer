@@ -18,7 +18,7 @@
   <li>A little <a href="https://github.com/rkwright/UpdateModTime">Java program</a> was written (and invoked as a jar)
       that updates the OPF, setting the dcterms:modified to the current date and time</li>
   <li>A <a href="https://github.com/readium/readium-test-files/blob/master/util/scripts/zip-epub-check.sh">bash script</a>
-      was written to invoke that jar, zip up all the sources of the Webstorm project and then run them against
+      was written to invoke that jar, properly package (zip) all the sources of the Webstorm project and then run them against
       <a href="https://github.com/IDPF/epubcheck">EPUBCheck</a></li>
   </ul>
 <p>The actual format of the EPUB is fairly straightforward. There are a few aspects that are interesting. First, each
@@ -28,14 +28,14 @@
 <pre>&lt;itemref&#32;idref="lesson02"&#32;/&gt;
 &lt;itemref&#32;idref="lesson02-gl"&#32;properties="rendition:layout-pre-paginated"/&gt;</pre>
 <p>It is done this way because the JavaScript code that is the demo has to have a specific size. Normally, in the
-    browser the JS code fetches the size of the innerWindow, but that doesn't work from inside an EPUB reading system
+    browser, the JS code fetches the size of the innerWindow, but that doesn't work from inside an EPUB reading system
     since it normally wraps the actual page content in a iFrame or other construct. So it works much better to specify
     a fixed size page.</p>
 <p>The other interesting aspect is the use of PrismJS to colorize the JavaScript code for better readability. This requires
     that each block of code to be colorized be wrapped in a &lt;code&gt; element and the language specified as part a
     CSS style, e.g. </p>
 <pre>&lt;code&#32;class="language-javascript"&gt;</pre>
-<p>Finally, all the illegal HTML characters need to be escape (<em>e.g.</em> &amp;lt; <em>etc.</em>). This is a bit of a pain since if the
+<p>Finally, all the illegal HTML characters need to be escaped (<em>e.g.</em> &amp;lt; <em>etc.</em>). This is a bit of a pain since if the
     actual demo code is modified then the example code in the chapter has to be updated. Fortunately, after the first few
     lessons only the JavaScript code is shown in the chapter so it's pretty straightforward.</p>
 </div>

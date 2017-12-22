@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package version="3.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid" prefix="rendition:
+    http://www.idpf.org/vocab/rendition/# ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<meta name="generator" content="WebStorm/Dreamweaver/bash" />
+		<dc:title>NeHe-EPUB-17-32</dc:title>
+        <dc:creator>Ric Wright</dc:creator>
+        <dc:publisher>Geo-F/X</dc:publisher>
+ 		<dc:date>2016-02-12T20:21:44Z</dc:date>
+   	    <meta property="dcterms:modified">2017-11-17T12:17:11Z</meta>
+		<dc:language>en-US</dc:language>
+		<dc:identifier id="bookid">urn:uuid:29d919dd-24f5-4384-be78-b447c9dc299b</dc:identifier>
+		<!--layout options-->
+		<meta property="rendition:layout">reflowable</meta>
+		<meta property="rendition:spread">auto</meta>
+		<meta name="cover" content="nehe-cover.png" />
+	</metadata>
+	<manifest>
+		<!--  images  -->
+  		<item id="webgl_logo" href="images/webgl.jpg" media-type="image/jpeg" />
+        <item id="checkerboard" href="images/checkerboard.jpg" media-type="image/jpeg" />
+
+ 		<item id="nehe-cover.png" href="images/NeHe-17-32.png" media-type="image/png" />
+  		<item id="texture-atlas" href="lesson17/images/texture-atlas.jpg" media-type="image/jpeg" />
+
+		<item id="clouds" href="lesson18/images/clouds.jpg" media-type="image/jpeg" />
+
+		<item id="snowflake" href="lesson19/images/snowflake.png" media-type="image/png" />
+		<item id="snowflake_illus" href="lesson19/images/snowflake_illus.png" media-type="image/png" />
+
+		<item id="image1" href="lesson20/images/Image1.jpg" media-type="image/jpeg" />
+        <item id="image2" href="lesson20/images/Image2.jpg" media-type="image/jpeg" />
+        <item id="mask1" href="lesson20/images/Mask1.jpg" media-type="image/jpeg" />
+        <item id="mask2" href="lesson20/images/Mask2.jpg" media-type="image/jpeg" />
+
+        <item id="engd" href="lesson21/images/Eng_Drawing.png" media-type="image/png" />
+        <item id="ortho" href="lesson21/images/persp_ortho_proj.png" media-type="image/png" />
+        <item id="crate" href="lesson21/images/Crate.jpg" media-type="image/jpeg" />
+        <item id="grey" href="lesson21/images/grey_checkerboard.jpg" media-type="image/jpeg" />
+
+        <item id="flower" href="lesson22/images/flower.jpg" media-type="image/jpeg" />
+        <item id="flower-bump" href="lesson22/images/flower-bump.jpg" media-type="image/jpeg" />
+        <item id="stone" href="lesson22/images/stone.jpg" media-type="image/jpeg" />
+        <item id="stone-bump" href="lesson22/images/stone-bump.jpg" media-type="image/jpeg" />
+
+        <item id="elcap-sphere" href="lesson23/images/ElCapitanSphere.jpg" media-type="image/jpeg" />
+        <item id="elcap-square" href="lesson23/images/ElCapitanSquare.jpg" media-type="image/jpeg" />
+        <item id="spherize" href="lesson23/images/Spherize.png" media-type="image/png" />
+
+        <item id="ball-mask" href="lesson25/images/ball.png" media-type="image/png" />
+
+        <item id="ball-wrapper" href="lesson26/images/ball.png" media-type="image/png" />
+        <item id="env-wall" href="lesson26/images/envwall.png" media-type="image/png" />
+
+        <item id="brick" href="lesson27/images/brick_roughness.jpg" media-type="image/jpeg" />
+        <item id="brick-bump" href="lesson27/images/brick_bump.jpg" media-type="image/jpeg" />
+        <item id="brick-diffuse" href="lesson27/images/brick_diffuse.jpg" media-type="image/jpeg" />
+        <item id="hardwood2" href="lesson27/images/hardwood2_roughness.jpg" media-type="image/jpeg" />
+        <item id="hardwood2-bump" href="lesson27/images/hardwood2_bump.jpg" media-type="image/jpeg" />
+        <item id="hardwood2-diffuse" href="lesson27/images/hardwood2_diffuse.jpg" media-type="image/jpeg" />
+        <item id="land_ocean" href="lesson27/images/land_ocean_ice_cloud_2048.jpg" media-type="image/jpeg" />
+
+        <item id="UV-Mapping" href="lesson28/images/UV_Grid_Sm.jpg" media-type="image/jpeg" />
+
+        <item id="GL" href="lesson29/images/GL.png" media-type="image/png" />
+        <item id="GL-Transp" href="lesson29/images/GL_Transparent.png" media-type="image/png" />
+        <item id="Monitor" href="lesson29/images/Monitor.png" media-type="image/png" />
+
+        <item id="aab" href="lesson30/images/AABB.png" media-type="image/png" />
+        <item id="hardwood2-30" href="lesson30/images/hardwood2_roughness.jpg" media-type="image/jpeg" />
+        <item id="hardwood2-bump-30" href="lesson30/images/hardwood2_bump.jpg" media-type="image/jpeg" />
+        <item id="hardwood2-diffuse-30" href="lesson30/images/hardwood2_diffuse.jpg" media-type="image/jpeg" />
+
+        <item id="hardwood2-32" href="lesson32/images/hardwood2_roughness.jpg" media-type="image/jpeg" />
+        <item id="hardwood2-bump-32" href="lesson32/images/hardwood2_bump.jpg" media-type="image/jpeg" />
+        <item id="hardwood2-diffuse-32" href="lesson32/images/hardwood2_diffuse.jpg" media-type="image/jpeg" />
+
+        <!-- models -->
+        <item id="awd" href="lesson31/models/AWD/simple.awd" media-type="application/xhtml+xml" />
+        <item id="awd-texture" href="lesson31/models/AWD/textures/texture.jpg" media-type="image/jpeg" />
+        <item id="babylon" href="lesson31/models/Babylon/0.jpg" media-type="image/jpeg" />
+        <item id="babylon-rabbit" href="lesson31/models/Babylon/rabbit.babylon" media-type="image/jpeg" />
+        <item id="shark" href="lesson31/models/Collada/Shark.dae" media-type="image/jpeg" />
+        <item id="banana" href="lesson31/models/OBJ/banana.obj" media-type="image/jpeg" />
+        <item id="f117" href="lesson31/models/PLY/F117.ply" media-type="image/jpeg" />
+        <item id="piano" href="lesson31/models/STL/piano.stl" media-type="image/jpeg" />
+        <item id="house" href="lesson31/models/VRML/house.wrl" media-type="image/jpeg" />
+        <item id="bunny" href="lesson31/models/VTK/bunny.vtk" media-type="image/jpeg" />
+
+        <!-- svg -->
+		<item id="UV-Mapping-V" href="lesson17/images/UV-Mapping.svg" media-type="image/svg+xml" />
+		<item id="cannon_rho" href="lesson19/images/Cannon-Rho.svg" media-type="image/svg+xml" />
+		<item id="cannon_theta" href="lesson19/images/Cannon-Theta.svg" media-type="image/svg+xml" />
+		<item id="restitution" href="lesson19/images/Restitution.svg" media-type="image/svg+xml" />
+        <item id="raycaster" href="lesson30/images/raycaster.svg" media-type="image/svg+xml" />
+
+		<!-- css -->
+		<item id="fixed-css" href="css/fixed.css" media-type="text/css"/>
+		<item id="NeHe-EPUB" href="css/NeHe-EPUB.css" media-type="text/css"/>
+		<item id="prism-css" href="css/prism.css" media-type="text/css"/>
+
+ 		<!-- scripts -->
+ 		<item id="detector" href="three-js/Detector.js" media-type="text/javascript"/>
+ 		<item id="threejs" href="three-js/three.js" media-type="text/javascript"/>
+		<item id="Stats" href="three-js/stats.js" media-type="text/javascript"/>
+		<item id="datgui" href="three-js/dat.gui.min.js" media-type="text/javascript"/>
+        <item id="prism" href="three-js/prism.js" media-type="text/javascript"/>
+
+        <item id="ClearPass" href="three-js/postprocess/ClearPass.js"  media-type="text/javascript"/>
+        <item id="MaskPass" href="three-js/postprocess/MaskPass.js"  media-type="text/javascript"/>
+        <item id="ShaderPass" href="three-js/postprocess/ShaderPass.js"  media-type="text/javascript"/>
+        <item id="EffectComposerPass" href="three-js/postprocess/EffectComposer.js"  media-type="text/javascript"/>
+        <item id="RenderPass" href="three-js/postprocess/RenderPass.js"  media-type="text/javascript"/>
+        <item id="TexturePass" href="three-js/postprocess/TexturePass.js"  media-type="text/javascript"/>
+
+        <item id="Additive" href="three-js/shaders/AdditiveBlendShader.js"  media-type="text/javascript"/>
+        <item id="Copy" href="three-js/shaders/CopyShader.js"  media-type="text/javascript"/>
+        <item id="HorizontalBlue" href="three-js/shaders/HorizontalBlurShader.js"  media-type="text/javascript"/>
+        <item id="VerticalBur" href="three-js/shaders/VerticalBlurShader.js"  media-type="text/javascript"/>
+
+		<item id="mirror" href="three-js/libs/Mirror.js" media-type="text/javascript"/>
+		<item id="nurbsc" href="three-js/libs/NURBSCurve.js" media-type="text/javascript"/>
+		<item id="nurbss" href="three-js/libs/NURBSSurface.js" media-type="text/javascript"/>
+		<item id="nurbsu" href="three-js/libs/NURBSUtils.js" media-type="text/javascript"/>
+        <item id="teapot" href="three-js/libs/TeapotBufferGeometry.js" media-type="text/javascript"/>
+
+        <item id="AWD" href="three-js/loaders/AWDLoader.js" media-type="text/javascript"/>
+        <item id="OBJ" href="three-js/loaders/OBJLoader.js" media-type="text/javascript"/>
+        <item id="PVR" href="three-js/loaders/PVRLoader.js" media-type="text/javascript"/>
+        <item id="DDS" href="three-js/loaders/DDSLoader.js" media-type="text/javascript"/>
+		<item id="Collada" href="three-js/loaders/ColladaLoader.js" media-type="text/javascript"/>
+		<item id="Babylon" href="three-js/loaders/BabylonLoader.js" media-type="text/javascript"/>
+		<item id="PDB" href="three-js/loaders/PDBLoader.js" media-type="text/javascript"/>
+		<item id="PLY" href="three-js/loaders/PLYLoader.js" media-type="text/javascript"/>
+		<item id="STL" href="three-js/loaders/STLLoader.js" media-type="text/javascript"/>
+		<item id="VTK" href="three-js/loaders/VTKLoader.js" media-type="text/javascript"/>
+		<item id="VRML" href="three-js/loaders/VRMLLoader.js" media-type="text/javascript"/>
+
+
+		<item id="OrbitControls-Touch-Ortho" href="gfx/OrbitControls-Touch-Ortho.js" media-type="text/javascript"/>
+  		<item id="gfxScene" href="gfx/gfx-scene.js" media-type="text/javascript"/>
+
+ 		<item id="cannon" href="lesson19/js/cannon.js" media-type="text/javascript"/>
+		<item id="beachball" href="lesson19/js/beachball.js" media-type="text/javascript"/>
+		<item id="sphere" href="lesson25/data/Sphere.js" media-type="text/javascript"/>
+		<item id="torus" href="lesson25/data/Torus.js" media-type="text/javascript"/>
+		<item id="tube" href="lesson25/data/Tube.js" media-type="text/javascript"/>
+
+ 		<!-- fonts-js -->	
+ 		<item id="gentilis-bold" href="fonts/gentilis_bold.typeface.json" media-type="text/javascript"/>
+ 		<item id="gentilis-regular" href="fonts/gentilis_regular.typeface.json" media-type="text/javascript"/>
+ 		<item id="helvetiker-bold" href="fonts/helvetiker_bold.typeface.json" media-type="text/javascript"/>
+ 		<item id="helvetiker-regular" href="fonts/helvetiker_regular.typeface.json" media-type="text/javascript"/>
+ 		<item id="LICENSE" href="fonts/LICENSE" media-type="application/plain"/>
+
+		<!-- front matter -->
+		<item id="coverpage" href="frontmatter/cover.xhtml" media-type="application/xhtml+xml" />
+		<item id="toc" href="frontmatter/toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+		<item id="preface" href="frontmatter/preface.xhtml" media-type="application/xhtml+xml" />
+		<item id="colophon" href="frontmatter/colophon.xhtml" media-type="application/xhtml+xml" />
+
+		<!-- the lessons -->
+		<item id="lesson17" href="lesson17/lesson17.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson17-gl" href="lesson17/lesson17webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson18" href="lesson18/lesson18.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson18-gl" href="lesson18/lesson18webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson19" href="lesson19/lesson19.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson19-gl" href="lesson19/lesson19webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson20" href="lesson20/lesson20.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson20-gl" href="lesson20/lesson20webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson21" href="lesson21/lesson21.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson21-gl" href="lesson21/lesson21webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson22" href="lesson22/lesson22.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson22-gl" href="lesson22/lesson22webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson23" href="lesson23/lesson23.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson23-gl" href="lesson23/lesson23webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson24" href="lesson24/lesson24.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson25" href="lesson25/lesson25.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson25-gl" href="lesson25/lesson25webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson26" href="lesson26/lesson26.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson26-gl" href="lesson26/lesson26webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson27" href="lesson27/lesson27.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson27-gl" href="lesson27/lesson27webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson28" href="lesson28/lesson28.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson28-gl" href="lesson28/lesson28webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson29" href="lesson29/lesson29.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson29-gl" href="lesson29/lesson29webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson30" href="lesson30/lesson30.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson30-gl" href="lesson30/lesson30webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson31" href="lesson31/lesson31.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson31-gl" href="lesson31/lesson31webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson32" href="lesson32/lesson32.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="lesson32-gl" href="lesson32/lesson32webgl.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+	</manifest>
+	<spine>
+		<itemref idref="coverpage" />
+		<itemref idref="toc" />
+		<itemref idref="preface" />
+		<itemref idref="lesson17" />
+		<itemref idref="lesson17-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson18" />
+		<itemref idref="lesson18-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson19" />
+		<itemref idref="lesson19-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson20" />
+		<itemref idref="lesson20-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson21" />
+		<itemref idref="lesson21-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson22" />
+		<itemref idref="lesson22-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson23" />
+		<itemref idref="lesson23-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson24" />
+		<itemref idref="lesson25" />
+		<itemref idref="lesson25-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson26" />
+		<itemref idref="lesson26-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson27" />
+		<itemref idref="lesson27-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson28" />
+		<itemref idref="lesson28-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson29" />
+		<itemref idref="lesson29-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson30" />
+		<itemref idref="lesson30-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson31" />
+		<itemref idref="lesson31-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="lesson32" />
+		<itemref idref="lesson32-gl" properties="rendition:layout-pre-paginated"/>
+		<itemref idref="colophon"/>
+	</spine>
+</package>

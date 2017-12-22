@@ -10,12 +10,12 @@
 		<link rel="stylesheet" type="text/css" href="../css/NeHe.css" />
 
 		<!-- Include the needed libs -->
-		<script src="../js/three.js"></script>
-		<script src="../js/Detector.js"></script>
+		<script src="../three-js/three.js"></script>
+		<script src="../three-js/Detector.js"></script>
 		<script src="../gfx/gfx-scene.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<!-- This JavaScript block encloses the Three.js commands -->
+		<!-- This JavaScript block encloses the Three.three-js commands -->
 		<script> <![CDATA[
 			// allocate the Scene object, and set the camera position
 			var gfxScene = new GFX.Scene( { cameraPos:[0,0,18],
@@ -66,7 +66,7 @@
 					// We also set the combine property to mix so the color we specify gets combined 
 					// with white parts of the image we set the initial color of each to white, but 
 					// that gets changed when we animate the stars.
-					// Two excellent examples on blending with three.js:
+					// Two excellent examples on blending with three.three-js:
 					//	 http://www.threejs.org/examples/#webgl_materials_blending_custom 
 					//	 http://www.threejs.org/examples/#webgl_materials_blending
 					var squareMaterial = new THREE.MeshBasicMaterial({
