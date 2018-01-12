@@ -13,7 +13,7 @@
 
 require.config({
 
-    baseUrl: process._RJS_baseUrl(3),
+    baseUrl: process._RJS_baseUrl(2),
 
     // relative to this config file (not baseUrl)
     dir: "../build-output/_multiple-bundles",
@@ -54,6 +54,6 @@ require.config({
     // paths:
     // {
     //     "version":
-    //         process._RJS_rootDir(3) + '/build-output/version',
+    //         process._RJS_rootDir(2) + '/build-output/version',
     // }
 });
