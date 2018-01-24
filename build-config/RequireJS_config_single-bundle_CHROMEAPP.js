@@ -37,7 +37,7 @@ require.config({
             process._RJS_rootDir(2) + '/build-output/version',
 
         "readium-js-viewer_all_CHROMEAPP":
-            process._RJS_rootDir(2) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond',
+            process._RJS_rootDir(2) + '/readium-js/readium-shared-js/node_modules/almond/almond',
 
         "readium_js_viewer_RJS-CONFIG":
             process._RJS_rootDir(2) + '/src/chrome-app/requirejs-config',

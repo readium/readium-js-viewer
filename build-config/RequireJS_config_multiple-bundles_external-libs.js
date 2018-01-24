@@ -25,7 +25,7 @@ require.config({
             create: true,
             include: ["jath", "bootstrap", "bootstrapA11y", "hammerjs", "hogan", "jquery_hammer", "keymaster", "screenfull", "spin",
             "mime-types", "zip", "zip-ext", "zip-fs", "cryptoJs/sha1", "cryptoJs/core",
-            'jquery',
+            'jquery', 'readium_cfi_js',
             'underscore', 'URIjs', 'punycode', 'SecondLevelDomains', 'IPv6',
             'jquerySizes', 'domReady', 'eventEmitter', 'console_shim',
             'rangy', 'rangy-core', 'rangy-textrange', 'rangy-highlighter', 'rangy-cssclassapplier', 'rangy-position']
