@@ -1,9 +1,112 @@
 {
+  "gitHasLocalChanges": {
+    "message": "with local changes" 
+  },
+
   "chrome_extension_name": {
     "message": "Readium"
   },
+  "about" : {
+    "message" : "Readiumとは"
+  },
+  "preview" : {
+    "message" : "プレビュー"
+  },
+  "list_view" : {
+    "message" : "リストビュー"
+  },
+  "thumbnail_view" : {
+    "message" : "サムネイルビュー"
+  },
+  "view_library": {
+    "message" : "ライブラリ"
+  },
+  "highlight_selection" : {
+    "message" : "選択したテキストのハイライト" 
+  },
+  "share_url" : {
+    "message" : "リーダーのブックマークの共有"
+  },
+  "share_url_label" : {
+    "message" : "クリップボードを使用して共有可能なリンクをコピー＆ペーストします"
+  },
+  "toc" : {
+    "message" : "目次"
+  },
+  "settings" : {
+    "message" : "設定"
+  },
+  "layout" : {
+    "message" : "レイアウト"
+  },
+  "style" : {
+    "message" : "スタイル"
+  },
+  "enter_fullscreen" : {
+    "message" : "全画面にする"
+  },
+  "exit_fullscreen" : {
+    "message" : "全画面を終了"
+  },
   "chrome_extension_description": {
     "message": "EPUB3ブックリーダ"
+  },
+"ok" : {
+    "message" : "Ok"
+  },
+  "delete_dlg_title" : {
+    "message" : "削除の確認"
+  },
+  "delete_progress_title" : {
+    "message" : "削除しています..."
+  },
+  "delete_progress_message" : {
+    "message" : "削除中"
+  },
+  "migrate_dlg_title" : {
+    "message" : "本を移動しました"
+  },
+  "migrate_dlg_message" : {
+    "message" : "読み込み中..."
+  },
+  "migrating" : {
+    "message" : "移動中"
+  },
+  "replace_dlg_title" : {
+    "message": "競合が検出されました"
+  },
+  "replace_dlg_message": {
+    "message": "「続ける」を選択すると以下のEPUBはインポートしたファイルに置き換えられます。"
+  },
+  "import_dlg_title" : {
+    "message": "EPUBのインポート"
+  },
+  "import_dlg_message" : {
+    "message": "EPUBの中身をチェックしています..."
+  },
+  "storing_file" : {
+    "message": "ファイルの保存中"
+  },
+  "err_unknown" : {
+    "message": "不明なエラーが発生しました。詳細はコンソールを確認してください。"
+  },
+  "err_storage" : {
+    "message": "ストレージにアクセスできません"
+  },
+  "err_epub_corrupt" : {
+    "message": "EPUBが不正または破損しています"
+  },
+  "err_ajax": {
+    "message": "Ajaxリクエストエラー"
+  },
+  "err_dlg_title" : {
+    "message": "予期せぬエラー"
+  },
+  "replace" : {
+    "message": "置換"
+  },
+  "gethelp" : {
+    "message" : "質問やバグ報告は<a href=\"http://idpf.org/forums/readium\">our forum</a>へ"
   },
   "i18n_readium_library" : {
     "message" : "Readiumライブラリ"
@@ -19,6 +122,27 @@
   },
   "i18n_close" : {
     "message" : "閉じる"
+  },
+  "i18n_keyboard_shortcuts" : {
+    "message" : "キーボードショートカット"
+  },
+  "i18n_keyboard_reload" : {
+    "message" : "キーボードショートカットを有効にするにはページを再読み込みしてください。"
+  },
+  "i18n_keyboard_onerror_reset" : {
+    "message" : "注意：無効なショートカットおよび複製は元の値にリセットされます。"
+  },
+  "i18n_reset_key" : {
+    "message" : "リセットキー"
+  },
+  "i18n_reset_key_all" : {
+    "message" : "すべてのキーボードショートカットをリセットする"
+  },
+  "i18n_duplicate_keyboard_shortcut" : {
+    "message" : "複製"
+  },
+  "i18n_invalid_keyboard_shortcut" : {
+    "message" : "無効"
   },
   "i18n_paginate_all" : {
     "message" : "リフロー可能なEPUBコンテンツをすべてページネートする"
@@ -114,7 +238,7 @@
     "message" : "単ページ"
   },
   "i18n_double_pages" : {
-    "message" : "ダブル"
+    "message" : "見開き"
   },
   "i18n_save_settings" : {
     "message" : "設定を保存する"
@@ -122,6 +246,13 @@
   "i18n_font_size" : {
     "message" : "文字サイズ"
   },
+  "i18n_font_selection" : {
+    "message" : "書体"
+  },
+  "i18n_fonttype_default" : {
+    "message" : "デフォルト"
+  },
+
   "i18n_margins" : {
     "message" : "マージン"
   },
@@ -146,8 +277,168 @@
   "i18n_display_format" : {
     "message" : "表示形式"
   },
+  "i18n_spread_auto" : {
+     "message" : "自動"
+  },
+  "i18n_scroll_mode" : {
+    "message" : "スクロールモード"
+  },
+  "i18n_scroll_mode_auto" : {
+    "message" : "自動"
+  },
+  "i18n_scroll_mode_doc" : {
+    "message" : "Document"
+  },
+  "i18n_scroll_mode_continuous" : {
+    "message" : "Continuous"
+  },
+
+  "i18n_page_transition" : {
+    "message" : "ページ効果"
+  },
+  "i18n_page_transition_none" : {
+    "message" : "無効"
+  },
+  "i18n_page_transition_fade" : {
+    "message" : "フェード"
+  },
+  "i18n_page_transition_slide" : {
+    "message" : "スライド"
+  },
+  "i18n_page_transition_swoosh" : {
+    "message" : "スウォッシュ"
+  },
+  "i18n_page_transition_butterfly" : {
+    "message" : "バタフライ"
+  },
   "i18n_html_readium_tm_a_project" : {
     "message" : "Readium<sup>TM</sup>とは, International Digital Publishing Forum (IDPF) と支援企業によるプロジェクトで, EPUB&reg; 出版のためのシステムとレンダリングエンジンのオープンソースリファレンスです。詳しくは、<a href=\"http://readium.org/\">プロジェクトホームページ</a>をご覧ください。これまでは<a href=\"http://evidentpoint.com/\">Evident Point</a>と<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>がプロジェクト開発をリードしてきました。 コントリビュートするには<a href=\"https://github.com/readium/readium-js-viewer\">githubレポジトリ</a>をご覧ください。"
+  },
+"i18n_alt_about_logos" : {
+    "message" : "HTML5, i d p f, ePUB"
+  },
+  "i18n_toolbar" : {
+    "message" : "ツールバー"
+  },
+  "i18n_toolbar_show" : {
+    "message" : "ツールバーを表示"
+  },
+  "i18n_toolbar_hide" : {
+    "message" : "ツールバーを隠す"
+  },
+  "i18n_audio_play" : {
+    "message" : "再生"
+  },
+  "i18n_audio_pause" : {
+    "message" : "停止"
+  },
+  "i18n_audio_play_background" : {
+    "message" : "バックグラウンドで音声再生"
+  },
+  "i18n_audio_pause_background" : {
+    "message" : "バックグラウンドの音声停止"
+  },
+  "i18n_audio_previous" : {
+    "message" : "前の音声フレーズ"
+  },
+  "i18n_audio_next" : {
+    "message" : "次の音声フレーズ"
+  },
+  "i18n_audio_volume" : {
+    "message" : "音量"
+  },
+  "i18n_audio_volume_increase" : {
+    "message" : "音を大きく"
+  },
+  "i18n_audio_volume_decrease" : {
+    "message" : "音を小さく"
+  },
+  "i18n_audio_time" : {
+    "message" : "Audio time cursor"
+  },
+  "i18n_audio_mute" : {
+    "message" : "ミュート"
+  },
+  "i18n_audio_unmute" : {
+    "message" : "ミュート解除"
+  },
+  "i18n_audio_expand" : {
+    "message" : "拡張音声コントロールの表示"
+  },
+  "i18n_audio_collapse" : {
+    "message" : "拡張音声コントロールを閉じる"
+  },
+  "i18n_audio_esc" : {
+    "message" : "現在の音声コンテキストを抜ける"
+  },
+  "i18n_audio_rate" : {
+    "message" : "音声プレイバックレート"
+  },
+  "i18n_audio_rate_increase" : {
+    "message" : "音声プレイバックレートを上げる"
+  },
+  "i18n_audio_rate_decrease" : {
+    "message" : "音声プレイバックレートを下げる"
+  },
+  "i18n_audio_rate_reset" : {
+    "message" : "音声プレイバックレートを標準速にリセットする"
+  },
+  "i18n_audio_skip_disable" : {
+    "message" : "Disable skippability"
+  },
+  "i18n_audio_skip_enable" : {
+    "message" : "Enable skippability"
+  },
+
+  "i18n_auto_page_turn_enable" : {
+    "message" : "自動ページめくりを有効化"
+  },
+  "i18n_auto_page_turn_disable" : {
+    "message" : "自動ページめくりを無効化"
+  },
+
+  "i18n_playback_scroll_enable" : {
+    "message" : "Enable scroll during playback"
+  },
+  "i18n_playback_scroll_disable" : {
+    "message" : "Disable scroll during playback"
+  },
+
+  "i18n_audio_touch_enable" : {
+    "message" : "Enable touch-to-play"
+  },
+  "i18n_audio_touch_disable" : {
+    "message" : "Disable touch-to-play"
+  },
+  "i18n_audio_highlight_default" : {
+    "message" : "default"
+  },
+  "i18n_audio_highlight" : {
+    "message" : "Audio color"
+  },
+  "i18n_audio_sync" : {
+    "message" : "Text/audio synchronization granularity"
+  },
+  "i18n_audio_sync_default" : {
+    "message" : "デフォルト"
+  },
+  "i18n_audio_sync_word" : {
+    "message" : "単語"
+  },
+  "i18n_audio_sync_sentence" : {
+    "message" : "文"
+  },
+  "i18n_audio_sync_paragraph" : {
+    "message" : "段落"
+  },
+  "i18n_page_previous" : {
+    "message" : "前ページ"
+  },
+  "i18n_page_next" : {
+    "message" : "次ページ"
+  },
+  "i18n_page_navigation" : {
+    "message" : "ページナビゲーション"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
@@ -158,7 +449,7 @@
       },
       "languages": {
         "content": "$1",
-        "example": "en-US,ja,sr,de"
+        "example": "en-US,ja,sr,de,zh_CN"
       }
     }
   }
