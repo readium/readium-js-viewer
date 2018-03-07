@@ -287,10 +287,10 @@
     "message" : "自動"
   },
   "i18n_scroll_mode_doc" : {
-    "message" : "Document"
+    "message" : "文書形式"
   },
   "i18n_scroll_mode_continuous" : {
-    "message" : "Continuous"
+    "message" : "連続形式"
   },
 
   "i18n_page_transition" : {
@@ -381,13 +381,13 @@
     "message" : "音声プレイバックレートを下げる"
   },
   "i18n_audio_rate_reset" : {
-    "message" : "音声プレイバックレートを標準速にリセットする"
+    "message" : "音声プレイバックレートのリセット"
   },
   "i18n_audio_skip_disable" : {
-    "message" : "Disable skippability"
+    "message" : "スキップを無効化"
   },
   "i18n_audio_skip_enable" : {
-    "message" : "Enable skippability"
+    "message" : "スキップを有効化"
   },
 
   "i18n_auto_page_turn_enable" : {
@@ -398,26 +398,26 @@
   },
 
   "i18n_playback_scroll_enable" : {
-    "message" : "Enable scroll during playback"
+    "message" : "再生中のスクロールを有効化"
   },
   "i18n_playback_scroll_disable" : {
-    "message" : "Disable scroll during playback"
+    "message" : "再生中のスクロールを無効化"
   },
 
   "i18n_audio_touch_enable" : {
-    "message" : "Enable touch-to-play"
+    "message" : "タッチ再生を有効化"
   },
   "i18n_audio_touch_disable" : {
-    "message" : "Disable touch-to-play"
+    "message" : "タッチ再生を無効化"
   },
   "i18n_audio_highlight_default" : {
-    "message" : "default"
+    "message" : "デフォルト"
   },
   "i18n_audio_highlight" : {
-    "message" : "Audio color"
+    "message" : "音声のカラー"
   },
   "i18n_audio_sync" : {
-    "message" : "Text/audio synchronization granularity"
+    "message" : "同期の単位"
   },
   "i18n_audio_sync_default" : {
     "message" : "デフォルト"
