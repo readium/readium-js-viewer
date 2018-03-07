@@ -1,6 +1,6 @@
 {
   "gitHasLocalChanges": {
-    "message": "with local changes" 
+    "message": "ローカルの変更を含む" 
   },
 
   "chrome_extension_name": {
@@ -112,7 +112,7 @@
     "message" : "Readiumライブラリ"
   },
   "i18n_loading" : {
-    "message" : "Loading Library"
+    "message" : "ライブラリの読み込み中"
   },
   "i18n_readium_options" : {
     "message" : "Readiumオプション:"
@@ -354,7 +354,7 @@
     "message" : "音を小さく"
   },
   "i18n_audio_time" : {
-    "message" : "Audio time cursor"
+    "message" : "音声タイムライン"
   },
   "i18n_audio_mute" : {
     "message" : "ミュート"
