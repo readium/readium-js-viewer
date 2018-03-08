@@ -5,7 +5,7 @@
   "._": "as this would overwrite / update the JSON, not the master CSON!",
   "*/": "----------------------------------------------------------------------------",
   "name": "readium-js-viewer",
-  "version": "0.29.0",
+  "version": "0.30.0-alpha",
   "engines": {
     "node": ">=4",
     "npm": ">=2",

@@ -757,10 +757,6 @@ BookmarkData){
 
     var savePlace = function(){
 
-        var urlParams = Helpers.getURLQueryParams();
-        var ebookURL = urlParams['epub'];
-        if (!ebookURL) return;
-
         var bookmarkString = readium.reader.bookmarkCurrentPage();
         // Note: automatically JSON.stringify's the passed value!
         // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
@@ -769,6 +765,10 @@ BookmarkData){
         if (!isChromeExtensionPackagedApp // History API is disabled in packaged apps
               && window.history && window.history.replaceState) {
 
+            var urlParams = Helpers.getURLQueryParams();
+            var ebookURL = urlParams['epub'];
+            if (!ebookURL) return;
+        
             ebookURL = ensureUrlIsRelativeToApp(ebookURL);
             var bookmark = JSON.parse(bookmarkString) || {};
             var epubs = urlParams['epubs'];
