@@ -40,8 +40,6 @@ require.config({
 
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-external-libs.js.bundles.js"> </script>
 
-<script type="text/javascript" src="../build-output/_multiple-bundles/readium-cfi-js.js.bundles.js"> </script>
-
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-shared-js.js.bundles.js"> </script>
 
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-plugin-example.js.bundles.js"> </script>
@@ -57,8 +55,6 @@ require.config({
 
 
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-external-libs.js"> </script>
-
-<script type="text/javascript" src="../build-output/_multiple-bundles/readium-cfi-js.js"> </script>
 
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-shared-js.js"> </script>
 
@@ -81,7 +77,7 @@ require.config({
 
 <script type="text/javascript">
 window.process = undefined;
-require(["readium_cfi_js/cfi_API", "readium_shared_js/globalsSetup"], function(){
+require(["readium_shared_js/globalsSetup"], function(){
 require(["jquery"], function(){
 require(["readium_js_viewer/ReadiumViewerLite"], function(){});
 });

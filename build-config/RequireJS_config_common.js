@@ -13,14 +13,14 @@
 
 require.config({
 
-    baseUrl: process._RJS_baseUrl(3),
+    baseUrl: process._RJS_baseUrl(2),
 
     packages: [
 
           {
               name: 'readium_js_viewer',
               location:
-                  process._RJS_rootDir(3) + '/src/js',
+                  process._RJS_rootDir(2) + '/src/js',
 
               main: 'ReadiumViewer'
           },
@@ -28,13 +28,13 @@ require.config({
           {
               name: 'readium_js_viewer_html_templates',
               location:
-                  process._RJS_rootDir(3) + '/src/templates'
+                  process._RJS_rootDir(2) + '/src/templates'
           },
 
           {
               name: 'readium_js_viewer_i18n',
               location:
-                  process._RJS_rootDir(3) + '/src/i18n',
+                  process._RJS_rootDir(2) + '/src/i18n',
 
               main: 'Strings'
           }
@@ -45,54 +45,54 @@ require.config({
         // ------ NPM MODULEs
 
         'keymaster':
-            process._RJS_rootDir(3) + '/node_modules/keymaster/keymaster',
+            process._RJS_rootDir(2) + '/node_modules/keymaster/keymaster',
 
         'screenfull':
-            process._RJS_rootDir(3) + '/node_modules/screenfull/dist/screenfull',
+            process._RJS_rootDir(2) + '/node_modules/screenfull/dist/screenfull',
 
         'hgn':
-            process._RJS_rootDir(3) + '/node_modules/requirejs-hogan-plugin/hgn',
+            process._RJS_rootDir(2) + '/node_modules/requirejs-hogan-plugin/hgn',
 
         'hogan':
-            process._RJS_rootDir(3) + '/node_modules/hogan.js/dist/hogan-3.0.2.amd',// version number in file name! :(
+            process._RJS_rootDir(2) + '/node_modules/hogan.js/dist/hogan-3.0.2.amd',// version number in file name! :(
 
         'jath':
-            process._RJS_rootDir(3) + '/node_modules/jath/jath',
+            process._RJS_rootDir(2) + '/node_modules/jath/jath',
 
         'spin':
-            process._RJS_rootDir(3) + '/node_modules/spin.js/spin',
+            process._RJS_rootDir(2) + '/node_modules/spin.js/spin',
 
         'bootstrap':
-            process._RJS_rootDir(3) + '/node_modules/bootstrap/dist/js/bootstrap',
+            process._RJS_rootDir(2) + '/node_modules/bootstrap/dist/js/bootstrap',
 
         'bootstrapA11y':
-            process._RJS_rootDir(3) + '/node_modules/bootstrap-accessibility-plugin/plugins/js/bootstrap-accessibility',
+            process._RJS_rootDir(2) + '/node_modules/bootstrap-accessibility-plugin/plugins/js/bootstrap-accessibility',
 
         'jquery_hammer':
-            process._RJS_rootDir(3) + '/node_modules/jquery-hammerjs/jquery.hammer',
+            process._RJS_rootDir(2) + '/node_modules/jquery-hammerjs/jquery.hammer',
 
         'hammerjs':
-            process._RJS_rootDir(3) + '/node_modules/hammerjs/hammer',
+            process._RJS_rootDir(2) + '/node_modules/hammerjs/hammer',
 
 
 
 
         'i18nStrings':
-            process._RJS_rootDir(3) + '/src/i18n/Strings',
+            process._RJS_rootDir(2) + '/src/i18n/Strings',
 
         'Settings':
-            process._RJS_rootDir(3) + '/src/js/storage/Settings',
+            process._RJS_rootDir(2) + '/src/js/storage/Settings',
 
         'StorageManager':
-            process._RJS_rootDir(3) + '/src/js/storage/StaticStorageManager',
+            process._RJS_rootDir(2) + '/src/js/storage/StaticStorageManager',
 
         'Analytics':
-            process._RJS_rootDir(3) + '/src/js/analytics/Analytics'
+            process._RJS_rootDir(2) + '/src/js/analytics/Analytics'
 
 
 
         // 'remotestorage':
-        //     process._RJS_rootDir(3) + '/node_modules/remotestoragejs/release/head/remotestorage',
+        //     process._RJS_rootDir(2) + '/node_modules/remotestoragejs/release/head/remotestorage',
     },
 
     shim:

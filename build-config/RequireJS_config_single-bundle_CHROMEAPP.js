@@ -14,7 +14,7 @@
 
 require.config({
 
-    baseUrl: process._RJS_baseUrl(3),
+    baseUrl: process._RJS_baseUrl(2),
 
     name: "readium-js-viewer_all_CHROMEAPP",
 
@@ -34,32 +34,32 @@ require.config({
     paths:
     {
         "version":
-            process._RJS_rootDir(3) + '/build-output/version',
+            process._RJS_rootDir(2) + '/build-output/version',
 
         "readium-js-viewer_all_CHROMEAPP":
-            process._RJS_rootDir(3) + '/readium-js/readium-shared-js/readium-cfi-js/node_modules/almond/almond',
+            process._RJS_rootDir(2) + '/readium-js/readium-shared-js/node_modules/almond/almond',
 
         "readium_js_viewer_RJS-CONFIG":
-            process._RJS_rootDir(3) + '/src/chrome-app/requirejs-config',
+            process._RJS_rootDir(2) + '/src/chrome-app/requirejs-config',
 
         'i18nStrings':
-            process._RJS_rootDir(3) + '/src/chrome-app/i18n/Strings',
+            process._RJS_rootDir(2) + '/src/chrome-app/i18n/Strings',
 
         'Settings':
-            process._RJS_rootDir(3) + '/src/chrome-app/storage/ChromeSettings',
+            process._RJS_rootDir(2) + '/src/chrome-app/storage/ChromeSettings',
 
         'StorageManager':
-            process._RJS_rootDir(3) + '/src/chrome-app/storage/FileSystemStorage',
+            process._RJS_rootDir(2) + '/src/chrome-app/storage/FileSystemStorage',
 
         'Analytics':
-            process._RJS_rootDir(3) + '/src/chrome-app/analytics/ExtensionAnalytics'
+            process._RJS_rootDir(2) + '/src/chrome-app/analytics/ExtensionAnalytics'
     },
 
     packages: [
           {
               name: 'readium_js_viewer_chromeApp',
               location:
-                  process._RJS_rootDir(3) + '/src/chrome-app',
+                  process._RJS_rootDir(2) + '/src/chrome-app',
 
               main: 'background'
           }
