@@ -5,11 +5,11 @@ branches:
 language: node_js
 node_js:
 - '9'
-cache:
-  directories:
-    - node_modules
-    - readium-shared-js/node_modules
-    - readium-shared-js/readium-js/node_modules
+cache: false
+#  directories:
+#    - node_modules
+#    - readium-shared-js/node_modules
+#    - readium-shared-js/readium-js/node_modules
 before_install:
 - npm -g install npm@latest
 - git submodule update --init --recursive
