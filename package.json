@@ -84,7 +84,7 @@
   "scripts": {
     "cson2json": "node ./readium-js/readium-shared-js/readium-build-tools/concat.js \"package/*.cson\" package.cson && node ./readium-js/readium-shared-js/node_modules/cson/bin/cson2json package.cson > package.json && node ./readium-js/readium-shared-js/node_modules/rimraf/bin.js package.cson && node readium-js/readium-shared-js/readium-build-tools/optimizePackageJsonScripts.js",
     "prepare:all": "npm run prepare:submodule && npm run prepare:local",
-    "prepare:local": "(npm outdated || echo outdated) && npm install --only=prod && npm install --only=dev && npm run prepare:local:common",
+    "prepare:local": "(npm outdated || echo outdated) && (npm ci || npm install) && npm run prepare:local:common",
     "prepare:yarn:all": "yarn run prepare:yarn:submodule && yarn run prepare:yarn:local",
     "prepare:yarn:local": "(yarn outdated || echo outdated) && yarn install && yarn run prepare:local:common",
     "prepare:local:common": "node readium-js/readium-shared-js/readium-build-tools/gitHubForksUpdater.js",
