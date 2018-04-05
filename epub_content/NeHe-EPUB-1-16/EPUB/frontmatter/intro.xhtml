@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>NeHe-EPUB-Intro</title>
+	<link rel="stylesheet" type="text/css" href="../css/NeHe-EPUB.css"/>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<div class="body">
+<h1>Introduction</h1>
+<h2> Goal of this Book</h2>
+
+<p>This book is an introduction to the use of WebGL and three.js. It uses the classic NeHe demos as a set of examples
+	with which to demonstrate how to use WebGL and three.js.</p>
+<p>A secondary goal of this book is to demonstrate the use of WebGL within EPUB documents. This is actually
+	straightforward as EPUB is based on the XML serialization of HTML5, so it should “just work”. However, there are
+	a couple of caveats, which will be covered in the first lesson.</p>
+  
+<h2>A Brief History of OpenGL</h2>
+  
+<p>In the 1980s, developing software that could function with a wide range of graphics hardware was a real challenge.
+	Software developers wrote custom interfaces and drivers for each piece of hardware. This was especially true for 3D
+	support, which hampered development of 3D software.</p>
+  
+<p>By the early 1990s, SGI was a leader in 3D graphics for workstations. Their IRIS GL API was considered state-of-the-art
+	and became the de facto industry standard. An alternative was PHIGS, which was supported by Sun, HP and others.
+	However, PHIGS was considered out-dated and hard to use.</p>
+  
+<p>In an effort to influence the market, SGI decided to turn the IrisGL API into an open standard: OpenGL. This was not
+	entirely popular with SGI’s own customers, much less Sun, HP and others.</p>
+  
+<p>One of the restrictions of IrisGL, and OpenGL, was that it only provided access to features supported by the underlying
+	hardware. If the graphics hardware did not support a feature, then the application could not use it. OpenGL tried to
+	fix this by providing software support for the features not supported by hardware. Moreover, the hardware varied across
+	platforms, so OpenGL added profiles to support different capabilities. The result of these two approaches was a
+	bewildering babel of APIs and profiles.</p>
+  
+<p>Nonetheless, OpenGL did provide a somewhat independent way of supporting 3D but clearly some standardization was
+	required. So, in 1992, SGI led the creation of the OpenGL Architecture Review Board (OpenGL ARB), the organization
+	that would maintain and expand the OpenGL specification in the future. </p>
+<p>Meanwhile, Microsoft released Direct3D in
+  1995, which eventually became the main competitor of OpenGL. The two of them battled for years, with DirectX only
+  available on the relatively ubiquitous Windows platform while OpenGL played a minor role on Windows but was the only
+  game in town on all other platforms.  Eventually, in July 2006 the OpenGL Architecture Review Board voted to transfer
+  control of the OpenGL API standard to the Khronos Group. Direct3D has remained restricted to the Windows platform
+  while OpenGL continued to proliferate on all other platforms.</p>
+  
+<p>The early efforts were based on many different hardware platforms, many with dedicated 3D hardware, or specialized
+	CPUs that were used to render the 3D software. However, in the late 90s came the advent of the GPU from NVidia and
+	others. These chips revolutionized 3D rendering. They didn’t consist of one or more central processors. Instead, they
+	were highly parallellized, comprising thousands of processor units that can work in
+	parallel. This immense change led to a major evolution of OpenGL.</p>
+  
+<p>The original architecture of OpenGL was based on relatively high level constructs that were intended to hide the
+	underlying hardware. So one could specify shapes, colors, etc. in a way that made sense to a human. On the other
+	hand, the GPUs were so different that the old way of specifying shapes didn’t map very well to the GPUs. So instead,
+	a new intermediate language arose: the shader language. The original OpenGL was then superseded by the new OpenGL
+	based on shader languages, OpenGL-ES (extended shader language). This was great in one way, but writing programs in
+	shader language was not for the faint-hearted and, because all execution occurred on the GPUs, it was very hard to
+	debug.</p>
+  
+<p>While all this was going on, the Web continued to explode, with HTML5, CSS3 and SVG. And because the cost of GPUs was
+	falling (following Moore’s law) the power of 3D was starting to reach even low-powered, relatively cheap phones and
+	tablets. There was obviously a need for some easier way to use all this power and put it into the hands of <em><strong>web</strong></em> developers who might know JavaScript but had no desire to learn how to program in <em><strong>shader</strong></em> language.  Several efforts
+	have been made to create a JavaScript library that would allow Web developers to access the 3D capabilites. One of
+	the most complete and popular at present is <a href="http://threejs.org/">three.js</a>. Three.js was developed by Ricardo Cabello ( “Mr.Doob”), based
+	on some work originally done for Google.  The work is now open-source, hosted on github. It is listed as “alpha” but
+	there is no official organization or timeline known to the public.</p>
+  
+<p>While all this was going on, there was a lot of development of applications based on OpenGL and lots of experimentation
+	with approaches for using it.  One of the early “open source” efforts was a website, hosted on GameDev.net,  called
+	NeHe (Neon Helium). This was originally started by Jeff Molokee, but many others have contributed over the years.  The
+	demos on the site (now numbering 48) are quite dated and based on the original procedural OpenGL 1.1.   However, while
+	the implementation of the demos is very OpenGL 1.1-oriented, the effects and approaches are still interesting and
+	instructive.  For these reasons, we decided to implement the demos using WebGL and three.js.  This book is the result.</p>
+</div>
+</body>
+</html>

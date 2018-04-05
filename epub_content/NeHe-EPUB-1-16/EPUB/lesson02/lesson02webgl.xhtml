@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!-- The previous line tells the browser that the page uses the HTML5 standard. -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+	<head>
+		<title>Nehe -three.js - Lesson 02</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+		<!-- The following meta line sets the size of the fixed viewport for
+		     a pre-paginated EPUB page -->
+        <meta id="meta-viewport" name="viewport" content="height=1024,width=768" />
+		<style type="text/css">
+			body {
+				/* Set the background color of the HTML page to black */
+				background-color: #000000;
+
+				/* Hide oversized content. This prevents the scroll bars. */
+				overflow: hidden;
+			}
+		</style>
+		<!-- Include two libraries
+		1. Three.three-js (core library)
+		2. Detector.three-js (checks the browsers WebGL capabilities) -->
+		<script src="../three-js/three.js"></script>
+		<script src="../three-js/Detector.js"></script>
+	</head>
+	<body id="page">
+		<!-- This is the DIV element which will contain the WebGL canvas. To be identifiable later on,
+		the id 'WebGLCanvas' is applied to it. -->
+		<div id="WebGLCanvas">
+
+		<!-- This JavaScript block encloses the Three.three-js commands -->
+		<script>
+			// Global objects
+			var scene;
+            var camera;
+            var canvasHeight = 0;
+            var canvasWidth  = 0;
+
+            getMetaViewportHeightandWidth()
+
+			// Initialize the scene
+			initializeScene();
+
+			// Render the scene (map the 3D world to the 2D scene)
+			renderScene();
+
+			// Fetch the height and width from the meta viewport tag
+			function getMetaViewportHeightandWidth() {
+                var content = document.getElementById("meta-viewport").getAttribute("content");
+                var attrs = content.split(",");
+                var w=0,h=1;
+                if (attrs[0].indexOf("width") == -1) {
+                    w = [h, h = w][0];
+                }
+
+                var values = attrs[w].split("=");
+                canvasWidth = parseInt(values[1]);
+                values = attrs[h].split("=");
+                canvasHeight = parseInt(values[1]);
+            }
+
+			/**
+			 * Initialize the scene.
+			 */
+			function initializeScene(){
+				// Check whether the browser supports WebGL. If so, instantiate the hardware accelerated
+				// WebGL renderer. For antialiasing, we have to enable it. The canvas renderer uses
+				// antialiasing by default.
+				// The approach of multiple renderers is quite nice, because your scene can also be
+				// viewed in browsers, which don't support WebGL. The limitations of the canvas renderer
+				// in contrast to the WebGL renderer will be explained in the lessons, when there is a
+				// difference.
+				if(Detector.webgl){
+					renderer = new THREE.WebGLRenderer({antialias:true});
+
+				// If its not supported, instantiate the canvas renderer to support all non WebGL
+				// browsers
+				} else {
+					renderer = new THREE.CanvasRenderer();
+				}
+
+				// Set the background color of the renderer to black, with full opacity
+				renderer.setClearColor(0x000000, 1);
+
+				// Get the size of the inner window (content area) to create a full size renderer
+                // we can't use this for the EPUB as the values aren't available within an EPUB renderer
+				//canvasWidth = window.innerWidth;
+				//canvasHeight = window.innerHeight;
+                //console.log(" window: " + canvasWidth + "," + canvasHeight );
+
+                // Set the renderers size to the content areas size
+				renderer.setSize(canvasWidth, canvasHeight);
+
+				// Get the DIV element from the HTML document by its ID and append the renderers DOM
+				// object to it
+				document.getElementById("WebGLCanvas").appendChild(renderer.domElement);
+
+				// Create the scene, in which all objects are stored (e. g. camera, lights,
+				// geometries, ...)
+				scene = new THREE.Scene();
+
+				// Now that we have a scene, we want to look into it. Therefore we need a camera.
+				// Three.three-js offers three camera types:
+				//  - PerspectiveCamera (perspective projection)
+				//  - OrthographicCamera (parallel projection)
+				//  - CombinedCamera (allows to switch between perspective / parallel projection
+				//    during runtime)
+				// In this example we create a perspective camera. Parameters for the perspective
+				// camera are ...
+				// ... field of view (FOV),
+				// ... aspect ratio (usually set to the quotient of canvas width to canvas height)
+				// ... near and
+				// ... far.
+				// Near and far define the clipping planes of the view frustum. Three.three-js provides an
+				// example (http://mrdoob.github.com/three.js/examples/
+				// -> canvas_camera_orthographic2.html), which allows to play around with these
+				// parameters.
+				// The camera is moved 10 units towards the z axis to allow looking to the center of
+				// the scene.
+				// After definition, the camera has to be added to the scene.
+				camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 100);
+				camera.position.set(0, 0, 15);
+				camera.lookAt(scene.position);
+				scene.add(camera);
+
+				// Create the triangle (or any arbitrary geometry).
+				// 1. Instantiate the geometry object
+				// 2. Add the vertices
+				// 3. Define the faces by setting the vertices indices
+				var triangleGeometry = new THREE.Geometry();
+				triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  1.0, 0.0));
+				triangleGeometry.vertices.push(new THREE.Vector3(-1.0, -1.0, 0.0));
+				triangleGeometry.vertices.push(new THREE.Vector3( 1.0, -1.0, 0.0));
+				triangleGeometry.faces.push(new THREE.Face3(0, 1, 2));
+
+				// To color the surface, a material has to be created. If all faces have the same color,
+				// the THREE.MeshBasicMaterial fits our needs. It offers a lot of attributes (see
+				// https://github.com/mrdoob/three.js/blob/master/src/materials/MeshBasicMaterial.js)
+				// from which we need in this lesson only 'color'.
+
+				// Create a white basic material and activate the 'doubleSided' attribute to force the
+				// rendering of both sides of each face (front and back). This prevents the so called
+				// 'backface culling'. Usually, only the side is rendered, whose normal vector points
+				// towards the camera. The other side is not rendered (backface culling). But this
+				// performance optimization sometimes leads to wholes in the surface. When this happens
+				// in your surface, simply set 'doubleSided' to 'true'.
+				var triangleMaterial = new THREE.MeshBasicMaterial({
+					color:0xFFFFFF,
+					side:THREE.DoubleSide
+				});
+
+				// Create a mesh and insert the geometry and the material. Translate the whole mesh
+				// by -1.5 on the x axis and by 4 on the z axis. Finally add the mesh to the scene.
+				var triangleMesh = new THREE.Mesh(triangleGeometry, triangleMaterial);
+				triangleMesh.position.set(-1.5, 0.0, 4.0);
+				scene.add(triangleMesh);
+
+				// The creation of the square is done in the same way as the triangle, except of the
+				// face definition. except that we
+				// now need two THREE.Face3s.
+				// 1. Instantiate the geometry object
+				// 2. Add the vertices
+				// 3. Define the faces by setting the vertices indices
+				var squareGeometry = new THREE.Geometry();
+				squareGeometry.vertices.push(new THREE.Vector3(-1.0,  1.0, 0.0));
+				squareGeometry.vertices.push(new THREE.Vector3( 1.0,  1.0, 0.0));
+				squareGeometry.vertices.push(new THREE.Vector3( 1.0, -1.0, 0.0));
+				squareGeometry.vertices.push(new THREE.Vector3(-1.0, -1.0, 0.0));
+				squareGeometry.faces.push(new THREE.Face3(0, 1, 2));
+				squareGeometry.faces.push(new THREE.Face3(0, 2, 3));
+
+				// Create a white basic material and activate the 'doubleSided' attribute.
+				var squareMaterial = new THREE.MeshBasicMaterial({
+					color:0xFFFFFF,
+					side:THREE.DoubleSide
+				});
+
+				// Create a mesh and insert the geometry and the material. Translate the whole mesh
+				// by 1.5 on the x axis and by 4 on the z axis and add the mesh to the scene.
+				var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
+				squareMesh.position.set(1.5, 0.0, 4.0);
+				scene.add(squareMesh);
+			}
+
+
+			/**
+			 * Render the scene. Map the 3D world to the 2D screen.
+			 */
+			function renderScene(){
+				renderer.render(scene, camera);
+			}
+		</script>
+	</div>
+	</body>
+</html>

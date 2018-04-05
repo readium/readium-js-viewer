@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-06</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 6 - Texture This!</h2>
+<p>Now that we have added some depth, it's time to move on from simple colors to something a little more exciting. We're going to create a single cube again, but this time, instead of color, we'll apply a texture to it - where the texture is drawn from an image. Three.js does most of the heavy lifting here, so this is a fairly short lesson. </p>
+<p>Again, we instantiate a scene and call <span class="inline-code">initializeScene()</span>where all the work gets done.    </p>
+<p>First  we need to create the cube. This is easy to as three.js provides a BoxGeometry. which takes just the same three parameters:</p>
+
+<pre><code class="language-javascript">var cubeGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);</code></pre>
+
+<p>Note that like most three.js objects, BoxGeometry takes more than 3 parameters, but it's all we need here.</p>
+
+<p>Next we need to load the texture, which is pretty easy</p>
+
+
+<pre><code class="language-javascript">var neheTexture = new THREE.ImageUtils.loadTexture("../images/NeHe.jpg");</code></pre>
+
+<p>Again, there are a LOT more parameters to loading a texture (and displaying it), but we'll come back to those in a later lesson. For now we need to use the texture to create a new material for our cube.</p>
+<pre><code class="language-javascript">var cubeMaterial = new THREE.MeshBasicMaterial({
+    map:neheTexture,
+    side:THREE.DoubleSide
+});</code></pre>
+
+<p>The we just create the mesh, same as before and insert the geometry and the material. Translate the whole mesh
+by  by 4 on the z axis and add the mesh to the scene.</p>
+
+<pre><code class="language-javascript">cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cubeMesh.position.set(1.5, 0.0, 4.0);
+scene.add(cubeMesh);</code></pre>
+  
+<p>Again, we animate them in our animateScene function. This time we want the rotations to be different on each axis (just for fun), so we define 3 variables</p>
+		
+<pre><code class="language-javascript">var xRotation = 0.0;
+var yRotation = 0.0;
+var zRotation = 0.0;</code></pre>
+
+<p>And then we increment each of them separately in our animateScene function.</p>
+
+<pre><code class="language-javascript">xRotation += 0.03;
+yRotation += 0.02;
+zRotation += 0.04;
+cubeMesh.rotation.set(xRotation, yRotation, zRotation);</code></pre>
+           
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its textured glory!</p>
+</body>
+</html>

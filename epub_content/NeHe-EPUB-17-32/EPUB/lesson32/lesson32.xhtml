@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Picking and Testing</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+
+<h2>Lesson 32 - Picking and Testing</h2>
+
+<h4>Introduction</h4>
+
+<p>This lesson is very similar to lesson 30. We once again use the RayCaster, but this time we use it to test what objects may intersect a given spot on the screen in 2D space. The basic set-up and intialization is exactly the same as lesson 30, creating a partially transparent cube with a wooden floor, populated with a number of bouncing objects. All the setup and collision handling is the same as before, so we needn't cover it.</p>
+<p>The goal of the user is to click on the screen and &quot;hit&quot; one of the objects. When the user successfully touches one of the objects, it turns white and slowly fades away. Once wholly transparent it is removed from the scene. When all the objects are gone, a congratulatory phrase appears and the &quot;game&quot; is over.</p>
+<h4>Two 'Casters</h4>
+<p>In this lesson, we set up two <span class="inline-code">RayCasters</span>, one for calculating collisions, the other, pointCaster, we use to look for clicks on the objects. </p>
+
+<pre><code class="language-javascript">var rayCaster   = new THREE.Raycaster();
+var pointCaster = new THREE.Raycaster();</code></pre>
+
+<p>Then we set up a mouse-click handler, which looks like this:</p>
+
+<pre><code class="language-javascript">function onClick ( e ) {
+
+    var vector = new THREE.Vector2();
+
+    vector.set( 2 * (e.clientX / gfxScene.canvasWidth) - 1, 1 - 2 * (e.clientY / gfxScene.canvasHeight ));
+
+    // pass two parameters to RayCaster, where the user clicked and the direction of the camera
+    pointCaster.setFromCamera(vector, gfxScene.camera);
+
+    // get all the objects that the ray instersects
+    var intersects = pointCaster.intersectObjects(objects.children);
+
+    // The first object in the array is the closest to the camera
+    if (intersects.length > 0 ) {
+        // Make the object white, and decrease its opacity
+        intersects[0].object.material.color.setHex(0xffffff);
+        intersects[0].object.material.opacity -= 0.025;
+        intersects[0].object.material.transparent = true;
+    }
+}</code></pre>
+<p>The routine receives the event, which has the coordinates the user clicked on. These are converted to the range <span class="inline-code">-1..1</span> (as expected by three.js). The <span class="inline-code">pointCaster</span> is then initialized by passing the converted coordinate-vector and the camera (which is used to determine the direction of the view). The <span class="inline-code">pointCaster</span> method <span class="inline-code">intersectsObjects</span>() is called and returns a collection of the objects which are intersected.</p>
+<p>If there are objects, then, as before, the first object in the collection is the closest.  So that object's material is set to which and it's transparency is decremented by 0.025.</p>
+<p>Subsequently, at each call to <span class="inline-code">animate()</span>, a call is made to <span class="inline-code">fadeObjects</span>:</p>
+
+<pre><code class="language-javascript">function fadeObjects() {
+    for ( var i = objects.children.length - 1; i >= 0; i-- ) {
+        var ball = objects.children[i];
+
+        if (ball.material.opacity &lt;= 0.999) {
+            if (ball.material.opacity &lt;= 0) {
+                objects.remove(ball);
+            }
+            else {
+                ball.material.opacity -= 0.025;
+                ball.material.needsUpdate = true;
+            }
+        }
+    }
+
+    if (objects.children.length === 0  &amp;&amp; gameOver === false) {
+        createText();
+        gameOver = true;
+    }
+}</code></pre>
+
+
+<p>Here, each object who has previously been touched (and hence has an opacity less than one) has its opacity further decremented by 0.025.  The result is than each object touched disappears in about 2/3 of a second (at 60 fps). When the object's opacity reaches zero it is removed from the sceene. When all the objects have been removed a call is made to createText(), which
+    creates a big text object (see lesson 15 in Volume 1) saying &quot;You Won!&quot; and the game is over...</p>
+<p>And that's it!  Click on <a href="lesson32webgl.xhtml" title="Lesson 32" target="_self">this link</a> to
+  see the actual rendered demo in all it's gaming glory!</p>
+<p>As always, the original sources are on github <a href="https://github.com/rkwright/nehe-three-js" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+</body>
+</html>

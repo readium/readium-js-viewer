@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package version="3.0" xml:lang="en" unique-identifier="uid" prefix="cc: http://creativecommons.org/ns#" xmlns="http://www.idpf.org/2007/opf">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:title id="title">What is Motivic Measure?</dc:title>
+        <dc:identifier id="uid">github.com/pkra/</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:creator>Thomas C. Hales</dc:creator>
+        <meta property="dcterms:modified">2012-08-15T12:47:00Z</meta>
+        <dc:rights>This work is shared with the public using the Creative Commons Attributions License 1.0.</dc:rights>
+        <dc:rights>© 2012 by Thomas C. Hales, converted to epub3 by Peter Krautzberger.</dc:rights>
+        <link rel="cc:license" href="http://creativecommons.org/licenses/by/1.0/"/>
+        <meta property="dcterms:source">http://arxiv.org/abs/math/0312229</meta>
+ 	    <meta name="cover" content="book-cover"/>
+ 	</metadata>
+    <manifest>
+        <item id="css0" href="css/epub.css" media-type="text/css"/>
+        <item id="css7" href="css/commonltr.css" media-type="text/css"/>
+        <item id="css8" href="css/mot_int.css" media-type="text/css"/>
+        <item id="c1" media-type="application/xhtml+xml" href="xhtml/titlepage.html"/>
+        <item id="c2" media-type="application/xhtml+xml" href="xhtml/copyright.html"/>
+        <item id="c4" media-type="application/xhtml+xml" href="xhtml/ch1.html" properties="mathml"/>
+        <item id="c3" media-type="application/xhtml+xml" href="xhtml/nav.html" properties="nav"/>
+        <item id="i1" media-type="image/png" href="img/mot_int0x.png"/>
+        <item id="i2" media-type="image/png" href="img/mot_int1x.png"/>
+        <item id="book-cover" media-type="image/png" href="img/cover.png"/>
+    </manifest>
+    <spine>
+        <itemref idref="c1"/>
+        <itemref idref="c2"/>
+        <itemref idref="c3"/>
+        <itemref idref="c4"/>
+    </spine>
+</package>

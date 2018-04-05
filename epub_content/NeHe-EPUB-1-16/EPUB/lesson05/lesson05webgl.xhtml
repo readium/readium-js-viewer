@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+		<title>Three.js lesson - Lesson 05</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+		<!-- The following meta line optimizes the site for mobile devices. It sets the viewport size
+		to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024"/>
+		<style type="text/css">
+			body {
+				/* Set the background color of the HTML page to black */
+				background-color: #000000;
+
+				/* Hide oversized content. This prevents the scroll bars. */
+				overflow: hidden;
+			}
+		</style>
+		<!-- Include two libraries
+		1. Three.three-js (core library)
+		2. Detector.three-js (checks the browsers WebGL capabilities) -->
+		<script src="../three-js/three.js"></script>
+		<script src="../three-js/Detector.js"></script>
+	</head>
+	<body>
+		<!-- This is the DIV element which will contain the WebGL canvas. To be identifiable later on,
+		the id 'WebGLCanvas' is applied to it. -->
+		<div id="WebGLCanvas">
+
+		<!-- This JavaScript block encloses the Three.three-js commands -->
+		<script type="text/javascript"> //<![CDATA[
+			// Global scene object
+			var scene;
+
+			// Global camera object
+			var camera;
+
+			// Global mesh object of the pyramid
+			var pyramidMesh;
+
+			// Global mesh object of the cube
+			var cubeMesh;
+
+			// Initialize the scene
+			initializeScene();
+
+			// Animate the scene
+			animateScene();
+
+			/**
+			 * Initialize the scene.
+			 */
+			function initializeScene(){
+				// Check whether the browser supports WebGL. If so, instantiate the hardware accelerated
+				// WebGL renderer. For antialiasing, we have to enable it. The canvas renderer uses
+				// antialiasing by default.
+				// The approach of multiplse renderers is quite nice, because your scene can also be
+				// viewed in browsers, which don't support WebGL. The limitations of the canvas renderer
+				// in contrast to the WebGL renderer will be explained in the tutorials, when there is a
+				// difference.
+				if(Detector.webgl){
+					renderer = new THREE.WebGLRenderer({antialias:true});
+
+				// If its not supported, instantiate the canvas renderer to support all non WebGL browsers
+				} else {
+					renderer = new THREE.CanvasRenderer();
+				}
+
+				// Set the background color of the renderer to black, with full opacity
+				renderer.setClearColor(0x000000, 1);
+
+				// Get the size of the inner window (content area) to create a full size renderer
+				canvasWidth = 768;
+				canvasHeight = 1024;
+
+				// Set the renderers size to the content areas size
+				renderer.setSize(canvasWidth, canvasHeight);
+
+				// Get the DIV element from the HTML document by its ID and append the renderers DOM
+				// object to it
+				document.getElementById("WebGLCanvas").appendChild(renderer.domElement);
+
+				// Create the scene, in which all objects are stored (e. g. camera, lights,
+				// geometries, ...)
+				scene = new THREE.Scene();
+
+				// Now that we have a scene, we want to look into it. Therefore we need a camera.
+				// Three.three-js offers three camera types:
+				//  - PerspectiveCamera (perspective projection)
+				//  - OrthographicCamera (parallel projection)
+				//  - CombinedCamera (allows to switch between perspective / parallel projection
+				//    during runtime)
+				// In this example we create a perspective camera. Parameters for the perspective
+				// camera are ...
+				// ... field of view (FOV),
+				// ... aspect ratio (usually set to the quotient of canvas width to canvas height)
+				// ... near and
+				// ... far.
+				// Near and far define the cliping planes of the view frustum. Three.three-js provides an
+				// example (http://mrdoob.github.com/three.js/examples/
+				// -> canvas_camera_orthographic2.html), which allows to play around with these
+				// parameters.
+				// The camera is moved 10 units towards the z axis to allow looking to the center of
+				// the scene.
+				// After definition, the camera has to be added to the scene.
+				camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 100);
+				camera.position.set(0, 0, 15);
+				camera.lookAt(scene.position);
+				scene.add(camera);
+
+				// To create a pyramid, we use THREE.CylinderGeometry. By its five parameters, we are
+				// able to create the geometry of the pyramid (subtype of a cylinder).
+				// Parameter 1 'radiusTop': Controls the radius of the upper end of the cylinder. If we
+				//                          set to to '0', we have a cone.
+				// Parameter 2 'radiusBottom': Controls the radius of the lower end.
+				// Parameter 3 'height': Sets the height of the cylinder.
+				// Parameter 4 'segments': Number of segments, forming the cylindrical shell. To create
+				//                         a pyramid, we choose '4'.
+				// Parameter 5 'openEnded': Allows to have open ends ('true') or closed ends ('false')
+				//                          of the cylinder. Since the pyramid shall have a bottom
+				//                          face, we set it to 'false'.
+				var pyramidGeometry = new THREE.CylinderGeometry(0, 1.5, 1.5, 4, false);
+
+				// The pyramid geometry used to optionally use a Face4, but Face4 was removed in r62C
+				// We just loops through all the faces and set the the three vertex colors.
+				for (var i = 0; i < pyramidGeometry.faces.length; i++) {
+
+					pyramidGeometry.faces[i].vertexColors[0] = new THREE.Color(0xFF0000);
+					pyramidGeometry.faces[i].vertexColors[1] = new THREE.Color(0x00FF00);
+					pyramidGeometry.faces[i].vertexColors[2] = new THREE.Color(0x0000FF);
+
+				}
+
+				// To activate the vertex color, we have to set 'vertexColors' attribute to
+				// 'THREE.VertexColors'. Otherwise they won't be displayed.
+
+				// Create a basic material, supporting vertex colors. Activate the 'doubleSided'
+				// attribute to force the rendering of both sides of each face (front and back).
+				// This prevents the so called 'backface culling'. Usually, only the side is
+				// rendered, whose normal vector points towards the camera. The other side is not
+				// rendered (backface culling). But this performance optimization sometimes leads
+				// to wholes in the surface. When this happens in your surface, simply set
+				// 'doubleSided' to 'true'.
+				var pyramidMaterial = new THREE.MeshBasicMaterial({
+					vertexColors:THREE.VertexColors,
+					side:THREE.DoubleSide
+				});
+
+				// Create a mesh and insert the geometry and the material. Translate the whole mesh
+				// by -1.5 on the x axis and by 4 on the z axis. Finally add the mesh to the scene.
+				pyramidMesh = new THREE.Mesh(pyramidGeometry, pyramidMaterial);
+				pyramidMesh.position.set(-1.5, 0.0, 4.0);
+				scene.add(pyramidMesh);
+
+				// Create the cube
+				// Parameter 1: Width
+				// Parameter 2: Height
+				// Parameter 3: Depth
+				var cubeGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+
+				// Applying different materials to the faces is a more difficult than applying one
+				// material to the whole geometry. We start with creating an array of
+				// THREE.MeshBasicMaterial.
+
+				// Define six colored materials
+				var cubeMaterials = [
+					new THREE.MeshBasicMaterial({color:0xFF0000}),
+					new THREE.MeshBasicMaterial({color:0x00FF00}),
+					new THREE.MeshBasicMaterial({color:0x0000FF}),
+					new THREE.MeshBasicMaterial({color:0xFFFF00}),
+					new THREE.MeshBasicMaterial({color:0x00FFFF}),
+					new THREE.MeshBasicMaterial({color:0xFFFFFF})
+				];
+
+				// Create a MeshFaceMaterial, which allows the cube to have different materials on
+				// each face
+				var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
+
+				// Create a mesh and insert the geometry and the material. Translate the whole mesh
+				// by 1.5 on the x axis and by 4 on the z axis and add the mesh to the scene.
+				cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+				cubeMesh.position.set(1.5, 0.0, 4.0);
+				scene.add(cubeMesh);
+			}
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene(){
+				// Increase the y rotation of the triangle
+				pyramidMesh.rotation.y += 0.1;
+
+				// Decrease the rotation of the cube
+				cubeMesh.rotateOnAxis(new THREE.Vector3(1, 1, 1).normalize(), 0.075);
+
+				// Define the function which is called by the browser supported timer loop. If the
+				// browser tab is not visible, the animation is paused. So 'animateScene()' is called
+				// in a browser controlled loop.
+				requestAnimationFrame(animateScene);
+
+				// Map the 3D scene down to the 2D screen (render the frame)
+				renderScene();
+			}
+
+			/**
+			 * Render the scene. Map the 3D world to the 2D screen.
+			 */
+			function renderScene(){
+				renderer.render(scene, camera);
+			}
+        //]]></script>
+		</div>
+	</body>
+</html>

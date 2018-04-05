@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" >
+	<head>
+		<!--
+  			Roughly based (or inspired by) NeHe Tutorial 25
+  			Original:  http://nehe.gamedev.net/tutorial/morphing__loading_objects_from_a_file/16003/
+  
+  			@author: rkwright@geofx.com
+		 -->
+		<title>Morphing Shapes</title>
+		<meta charset="UTF-8"/>
+
+		<!-- Set the viewport size to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024, initial-scale=1"/>
+		<link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+
+		<!-- Include several libraries from THREE.js and the Scene class  -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+		<script src="../three-js/stats.js" type="text/javascript"></script>
+        <script src="../three-js/dat.gui.min.js" type="text/javascript"></script>
+		<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+        <script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+        <script src="data/Sphere.js" type="text/javascript"></script>
+        <script src="data/Torus.js" type="text/javascript"></script>
+        <script src="data/Tube.js" type="text/javascript"></script>
+	</head>
+	<body>	
+		<script type="text/javascript"><![CDATA[
+	        var vertType = 0;
+	        var vertArray = [Sphere, Torus, Tube];
+	        var vertMesh;
+	        var deltaVec = [Sphere.length];
+	        var srcRay;
+	        var destRay;
+	        var nStep = 200;
+	        var curStep = 0;
+
+			// allocate the Scene object, request orbitControls, some of 3D axes 10 units high and the stats
+			var gfxScene = new GFX.Scene( { cameraPos : [0, 6, 12],
+				                                        axesHeight:10,
+									                    controls:true,
+									                    displayStats:true });
+
+			setupDatGUI();
+
+            // then initialize our demo's stuff
+			initializeDemo();
+	
+			// Animate the scene
+			animateScene();
+	
+			/**
+			 * Initialize the Demo.  
+			 */
+			function initializeDemo() {
+
+                createVertMesh(vertType);
+
+				//document.addEventListener("keypress", onDocumentKeyPress, false);
+			}
+
+			/**
+             * Create the mesh we will be animating and allocate the length
+             * vector.
+             */
+            function createVertMesh() {
+
+                // Create the geometry that will hold all of the vertices
+                var vertGeom = new THREE.Geometry();
+
+                var destRay = vertArray[0];
+
+                // Create the vertices and add them to the particles geometry
+                for ( var p = 0; p < destRay.length; p++ ) {
+
+                    deltaVec[p] = new THREE.Vector3();
+
+                    // Create the vertices and add them to the geometry
+                    var vertex = new THREE.Vector3(destRay[p][0], destRay[p][1], destRay[p][2]);
+                    vertGeom.vertices.push(vertex);
+                }
+
+                // Create the material that will be used to render each vertex of the geometry
+                var vertMaterial = new THREE.PointsMaterial({
+                    color: 0xff0000,
+                    size: 0.4,
+                    map: THREE.ImageUtils.loadTexture("images/ball.png"),
+                    blending: THREE.AdditiveBlending,
+                    transparent: true
+                });
+
+                // Create the particle system
+                vertMesh = new THREE.Points(vertGeom, vertMaterial);
+
+                gfxScene.add(vertMesh);
+            }
+
+            /**
+             * Morph the mesh from the current shape to the new one
+             */
+            function calcDeltas( newVertType ) {
+
+                srcRay = vertArray[vertType];
+                vertType = newVertType;
+                destRay = vertArray[vertType];
+
+                // initialize the length vector
+                for ( var n = 0; n < destRay.length; n++ ) {
+                    deltaVec[n].x = destRay[n][0] - srcRay[n][0];
+                    deltaVec[n].y = destRay[n][1] - srcRay[n][1];
+                    deltaVec[n].z = destRay[n][2] - srcRay[n][2];
+                }
+
+                // set curStep to 200 to start the morphing
+                curStep = nStep;
+            }
+
+            /**
+             * Perform a single step of the morphing
+             */
+            function morphStep() {
+
+                var verts = vertMesh.geometry.vertices;
+
+                for ( var n = 0; n < destRay.length; n++ ) {
+                    verts[n].x = destRay[n][0] - deltaVec[n].x *  (curStep / nStep);
+                    verts[n].y = destRay[n][1] - deltaVec[n].y *  (curStep / nStep);
+                    verts[n].z = destRay[n][2] - deltaVec[n].z *  (curStep / nStep);
+                }
+                curStep--;
+                vertMesh.geometry.verticesNeedUpdate = true;
+            }
+
+            /**
+             * Set up the parameters and interface
+             */
+            function setupDatGUI() {
+                var vertList = ["Sphere", "Torus", "Tube"];
+                var options = [];
+
+                options.shape = vertList[0];
+
+                var gui = new dat.GUI();
+
+                gui.add(options, "shape", [ vertList[0], vertList[1], vertList[2] ]).onChange(function() {
+                    var newVertType = vertList.indexOf( options.shape );
+                    calcDeltas(newVertType);
+                });
+            }
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene() {
+	
+				// Tell the browser to call this function when page is visible
+				requestAnimationFrame(animateScene);
+
+				// do a single step of the morphing of the mesh
+                if (curStep > 0)
+				    morphStep();
+
+				// Map the 3D scene down to the 2D screen (render the frame)
+				gfxScene.renderScene();
+			}
+
+		]]></script>
+	</body>
+</html>

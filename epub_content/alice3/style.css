@@ -1,0 +1,208 @@
+
+@font-face { font-family: "Minion Pro"; src: url(fonts/MinionPro.otf); }
+@font-face { font-family: "Minion Pro"; font-style: italic; src: url(fonts/MinionPro-It.otf); }
+
+body { font-family: "Minion Pro", serif; }
+
+.preface, .dedication, .introduction, .prelude, .letter, .news, .glossary, .appendix{
+	display:block;
+	text-align: left;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	margin-left : 3em;
+	margin-right : 3em;
+}
+.toc{
+	display:block;
+	text-align: left;
+	font-size : 1.2em;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	margin-left : 3em;
+	margin-right : 3em;
+}
+p{
+	text-indent: 2em;
+	display:block;
+	font-size : 0.9em;
+	text-align : justify;
+	line-height : 1.3em;
+	margin-left : 1em;
+	margin-right : 1em;
+	margin-top: 0em;
+	margin-bottom: 0em;
+}
+sup{
+	color : maroon;
+	font-size : 0.8em;
+	font-weight : bold;
+}
+blockquote{
+	font-size : 1.1em;
+	display:block;
+	font-weight : normal;
+	margin-left : 3em;
+	margin-right : 3em;
+	
+}
+.center{
+	text-align : center;
+}
+.right{
+	text-align : right;
+}
+.chapnum{
+	margin-left : 1em;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	text-align : left;
+	font-size : 1.5em;
+	font-weight: normal;
+	color : teal;
+}
+.chaptitle{
+	display : block;
+	margin-left : 1em;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	text-align : left;
+	font-size : 1.4em;
+	font-weight: normal;
+	color : Navy;
+}
+.chapsubtitle{
+	display : block;
+	text-align : left;
+	margin-left : 1em;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	text-align : left;
+	font-size : 1.2em;
+	color : Navy;
+}
+.parttitle{
+	display : block;
+	margin-left : 1em;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	text-align : left;
+	font-size : 1.5em;
+	color : navy;
+}
+.partsubtitle{
+	display : block;
+	margin-left : 1em;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	text-align : left;
+	font-size : 1.2em;
+	color : navy;
+}
+.title{
+	display : block;
+	text-align : center;
+	margin-top : 1em;
+	margin-bottom : 1em;
+}
+.titlepage{
+	display : block;
+	text-align : center;
+}
+.poem, .song{
+	display : block;
+	text-align : left;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	margin-left : 3em;
+	margin-right : 3em;
+	font-style : italic;
+	text-indent: 0em;
+}
+.list, .toc{
+	display : block;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	margin-left : 3em;
+	margin-right : 3em;
+	font-size : 1.2em;
+	font-style : bold;
+}
+.pubinfo{
+	display : block;
+	margin-left : 2em;
+	margin-right : 2em;
+}
+.author{
+	display : block;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	color : maroon;
+}
+.note{
+	display : block;
+	font-style : italic;
+	text-align : left;
+	margin-top : 1em;
+	margin-bottom : 1em;
+}
+.part{
+	display : block;
+	text-align : center;
+	margin-top : 1em;
+	margin-bottom : 1em;
+}
+.partnum{
+	display : block;
+	margin-left : 1em;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	text-align : left;
+	font-size : 1.5em;
+	color : teal;
+}
+.fn{
+	display : block;
+	text-align : left;
+	margin-top : 1.5em;
+	margin-bottom : 1.5em;
+	margin-left : 2em;
+	margin-right : 2em;
+	font-size : 0.8em;
+	font-style : normal;
+	font-family : serif;
+}
+em{
+	display : inline;
+	font-weight : bold;
+	font-style : normal;
+}
+i{
+	display : inline;
+	font-style : italic;
+	font-size : 1.1em;
+}
+.blurb{
+	display : none;
+}
+.endblurb{
+	display : none;
+}
+.acknowledge{
+	display : block;
+	text-align : center;
+	font-size : 0.8em;
+	color : Teal;
+}
+.ibc {
+	text-align:center;
+}
+.il {
+	float: left; margin: 5px;
+}
+.ir {
+	float: right; margin: 5px;
+}
+.wideimg { width: 75%; }
+
+pre { font-family: inherit; }
+

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="bookid">
+<metadata>
+<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" id="bookid">urn:isbn:ISBN: 0-596-00759-0</dc:identifier>
+<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Producing Open Source Software</dc:title>
+<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf" opf:file-as="Fogel, Karl">Karl Fogel</dc:creator>
+<dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">2010</dc:date>
+<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">Copyright © 2005, 2006, 2007, 2008, 2009, 2010 Karl Fogel CreativeCommons Attribution-ShareAlike (3.0) license.</dc:rights>
+<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/">en</dc:language>
+<meta name="cover" content="producing-oss.jpg"/>
+</metadata>
+<manifest>
+  <item id="producing-oss.jpg" href="producing-oss.jpg" media-type="image/jpeg"/>
+<item id="ncxtoc" media-type="application/x-dtbncx+xml" href="toc.ncx"/>
+<item id="htmltoc" media-type="application/xhtml+xml" href="bk01-toc.html"/>
+<item id="idp4564032" href="index.html" media-type="application/xhtml+xml"/>
+<item id="idp79840" href="pr01.html" media-type="application/xhtml+xml"/>
+<item id="idp4727552" href="pr01s02.html" media-type="application/xhtml+xml"/>
+<item id="idp4730896" href="pr01s03.html" media-type="application/xhtml+xml"/>
+<item id="idp4742464" href="pr01s04.html" media-type="application/xhtml+xml"/>
+<item id="idp4757056" href="pr01s05.html" media-type="application/xhtml+xml"/>
+<item id="idp4807552" href="ch01.html" media-type="application/xhtml+xml"/>
+<item id="idp4798784" href="ch01s02.html" media-type="application/xhtml+xml"/>
+<item id="idp5006768" href="ch02.html" media-type="application/xhtml+xml"/>
+<item id="idp5174480" href="ch02s02.html" media-type="application/xhtml+xml"/>
+<item id="idp5195968" href="ch02s03.html" media-type="application/xhtml+xml"/>
+<item id="idp5252144" href="ch02s04.html" media-type="application/xhtml+xml"/>
+<item id="idp5512832" href="ch03.html" media-type="application/xhtml+xml"/>
+<item id="idp5540720" href="ch03s02.html" media-type="application/xhtml+xml"/>
+<item id="idp5680432" href="ch03s03.html" media-type="application/xhtml+xml"/>
+<item id="idp5812096" href="ch03s04.html" media-type="application/xhtml+xml"/>
+<item id="idp5870896" href="ch03s05.html" media-type="application/xhtml+xml"/>
+<item id="idp5909376" href="ch03s06.html" media-type="application/xhtml+xml"/>
+<item id="idp5919632" href="ch03s07.html" media-type="application/xhtml+xml"/>
+<item id="idp5935376" href="ch03s08.html" media-type="application/xhtml+xml"/>
+<item id="idp6414800" href="ch04.html" media-type="application/xhtml+xml"/>
+<item id="idp6412400" href="ch04s02.html" media-type="application/xhtml+xml"/>
+<item id="idp6497696" href="ch04s03.html" media-type="application/xhtml+xml"/>
+<item id="idp6597888" href="ch05.html" media-type="application/xhtml+xml"/>
+<item id="idp6590432" href="ch05s02.html" media-type="application/xhtml+xml"/>
+<item id="idp6596752" href="ch05s03.html" media-type="application/xhtml+xml"/>
+<item id="idp6655392" href="ch05s04.html" media-type="application/xhtml+xml"/>
+<item id="idp6668224" href="ch05s05.html" media-type="application/xhtml+xml"/>
+<item id="idp6683904" href="ch05s06.html" media-type="application/xhtml+xml"/>
+<item id="idp6709408" href="ch05s07.html" media-type="application/xhtml+xml"/>
+<item id="idp6743056" href="ch05s08.html" media-type="application/xhtml+xml"/>
+<item id="idp6926176" href="ch06.html" media-type="application/xhtml+xml"/>
+<item id="idp7010864" href="ch06s02.html" media-type="application/xhtml+xml"/>
+<item id="idp7076128" href="ch06s03.html" media-type="application/xhtml+xml"/>
+<item id="idp7103840" href="ch06s04.html" media-type="application/xhtml+xml"/>
+<item id="idp7196912" href="ch06s05.html" media-type="application/xhtml+xml"/>
+<item id="idp7208768" href="ch06s06.html" media-type="application/xhtml+xml"/>
+<item id="idp7608128" href="ch07.html" media-type="application/xhtml+xml"/>
+<item id="idp7602288" href="ch07s02.html" media-type="application/xhtml+xml"/>
+<item id="idp7694624" href="ch07s03.html" media-type="application/xhtml+xml"/>
+<item id="idp7737376" href="ch07s04.html" media-type="application/xhtml+xml"/>
+<item id="idp7815216" href="ch07s05.html" media-type="application/xhtml+xml"/>
+<item id="idp7845104" href="ch07s06.html" media-type="application/xhtml+xml"/>
+<item id="idp7861408" href="ch07s07.html" media-type="application/xhtml+xml"/>
+<item id="idp8157472" href="ch08.html" media-type="application/xhtml+xml"/>
+<item id="idp8270480" href="ch08s02.html" media-type="application/xhtml+xml"/>
+<item id="idp8333616" href="ch08s03.html" media-type="application/xhtml+xml"/>
+<item id="idp8354208" href="ch08s04.html" media-type="application/xhtml+xml"/>
+<item id="idp8396432" href="ch08s05.html" media-type="application/xhtml+xml"/>
+<item id="idp8410560" href="ch08s06.html" media-type="application/xhtml+xml"/>
+<item id="idp8722544" href="ch09.html" media-type="application/xhtml+xml"/>
+<item id="idp8766816" href="ch09s02.html" media-type="application/xhtml+xml"/>
+<item id="idp8786160" href="ch09s03.html" media-type="application/xhtml+xml"/>
+<item id="idp8800480" href="ch09s04.html" media-type="application/xhtml+xml"/>
+<item id="idp8842496" href="ch09s05.html" media-type="application/xhtml+xml"/>
+<item id="idp8871008" href="ch09s06.html" media-type="application/xhtml+xml"/>
+<item id="idp8716688" href="ch09s07.html" media-type="application/xhtml+xml"/>
+<item id="idp8908368" href="ch09s08.html" media-type="application/xhtml+xml"/>
+<item id="idp9105568" href="apa.html" media-type="application/xhtml+xml"/>
+<item id="idp9274752" href="apb.html" media-type="application/xhtml+xml"/>
+<item id="idp9376752" href="apc.html" media-type="application/xhtml+xml"/>
+<item id="idp9374064" href="apd.html" media-type="application/xhtml+xml"/>
+<item id="idp9424592" href="ape.html" media-type="application/xhtml+xml"/>
+</manifest>
+<spine toc="ncxtoc">
+<itemref idref="htmltoc" linear="yes"/>
+<itemref idref="idp4564032"/>
+<itemref idref="idp79840"/>
+<itemref idref="idp4727552"/>
+<itemref idref="idp4730896"/>
+<itemref idref="idp4742464"/>
+<itemref idref="idp4757056"/>
+<itemref idref="idp4807552"/>
+<itemref idref="idp4798784"/>
+<itemref idref="idp5006768"/>
+<itemref idref="idp5174480"/>
+<itemref idref="idp5195968"/>
+<itemref idref="idp5252144"/>
+<itemref idref="idp5512832"/>
+<itemref idref="idp5540720"/>
+<itemref idref="idp5680432"/>
+<itemref idref="idp5812096"/>
+<itemref idref="idp5870896"/>
+<itemref idref="idp5909376"/>
+<itemref idref="idp5919632"/>
+<itemref idref="idp5935376"/>
+<itemref idref="idp6414800"/>
+<itemref idref="idp6412400"/>
+<itemref idref="idp6497696"/>
+<itemref idref="idp6597888"/>
+<itemref idref="idp6590432"/>
+<itemref idref="idp6596752"/>
+<itemref idref="idp6655392"/>
+<itemref idref="idp6668224"/>
+<itemref idref="idp6683904"/>
+<itemref idref="idp6709408"/>
+<itemref idref="idp6743056"/>
+<itemref idref="idp6926176"/>
+<itemref idref="idp7010864"/>
+<itemref idref="idp7076128"/>
+<itemref idref="idp7103840"/>
+<itemref idref="idp7196912"/>
+<itemref idref="idp7208768"/>
+<itemref idref="idp7608128"/>
+<itemref idref="idp7602288"/>
+<itemref idref="idp7694624"/>
+<itemref idref="idp7737376"/>
+<itemref idref="idp7815216"/>
+<itemref idref="idp7845104"/>
+<itemref idref="idp7861408"/>
+<itemref idref="idp8157472"/>
+<itemref idref="idp8270480"/>
+<itemref idref="idp8333616"/>
+<itemref idref="idp8354208"/>
+<itemref idref="idp8396432"/>
+<itemref idref="idp8410560"/>
+<itemref idref="idp8722544"/>
+<itemref idref="idp8766816"/>
+<itemref idref="idp8786160"/>
+<itemref idref="idp8800480"/>
+<itemref idref="idp8842496"/>
+<itemref idref="idp8871008"/>
+<itemref idref="idp8716688"/>
+<itemref idref="idp8908368"/>
+<itemref idref="idp9105568"/>
+<itemref idref="idp9274752"/>
+<itemref idref="idp9376752"/>
+<itemref idref="idp9374064"/>
+<itemref idref="idp9424592"/>
+</spine>
+<guide>
+<reference href="bk01-toc.html" type="toc" title="Table of Contents"/>
+</guide>
+</package>

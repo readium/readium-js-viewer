@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 8. Managing Volunteers</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="chapter" title="Chapter 8. Managing Volunteers"><div class="titlepage"><div><div><h1 class="title"><a id="managing-volunteers"/>Chapter 8. Managing Volunteers</h1></div></div></div><div class="simplesect"><div class="titlepage"/><p>Getting people to agree on what a project needs, and to work
+together to achieve it, requires more than just a genial atmosphere
+and a lack of obvious dysfunction.  It requires someone, or several
+someones, consciously managing all the people involved.  Managing
+volunteers may not be a technical craft in the same sense as computer
+programming, but it is a craft in the sense that it can be improved
+through study and practice.</p><p>This chapter is a grab-bag of specific techniques for managing
+volunteers.  It draws, perhaps more heavily than previous chapters, on
+the Subversion project as a case study, partly because I was working
+on that project as I wrote this and had all the primary sources close
+at hand, and partly because it's more acceptable to cast critical
+stones into one's own glass house than into others'.  But I have also
+seen in various other projects the benefits of applying—and the
+consequences of not applying—the recommendations that follow;
+when it is politically feasible to give examples from some of those
+other projects, I will do so.</p><p>Speaking of politics, this is as good a time as any to drag that
+much-maligned word out for a closer look.  Many engineers like to
+think of politics as something other people engage in.
+"<span class="emphasis"><em>I'm</em></span> just advocating the best course for the
+project, but <span class="emphasis"><em>she's</em></span> raising objections for
+political reasons."  I believe this distaste for politics (or for what
+is imagined to be politics) is especially strong in engineers because
+engineers are bought into the idea that some solutions are objectively
+superior to others.  Thus, when someone acts in a way that seems
+motivated by outside considerations—say, the maintenance of his
+own position of influence, the lessening of someone else's
+influence, outright horse-trading, or avoiding hurting someone's
+feelings—other participants in the project may get annoyed.  Of
+course, this rarely prevents them from behaving in the same way when
+their own vital interests are at stake.</p><p>If you consider "politics" a dirty word, and hope to keep your
+project free of it, give up right now.  Politics are inevitable
+whenever people have to cooperatively manage a shared resource.  It is
+absolutely rational that one of the considerations going into each
+person's decision-making process is the question of how a given action
+might affect his own future influence in the project.  After all, if
+you trust your own judgement and skills, as most programmers do, then
+the potential loss of future influence has to be considered a
+technical result, in a sense.  Similar reasoning applies to other
+behaviors that might seem, on their face, like "pure" politics.  In
+fact, there is no such thing as pure politics: it is precisely because
+actions have multiple real-world consequences that people become
+politically conscious in the first place.  Politics is, in the end,
+simply an acknowledgment that <span class="emphasis"><em>all</em></span> consequences of
+decisions must be taken into account.  If a particular decision leads
+to a result that most participants find technically satisfying, but
+involves a change in power relationships that leaves key people
+feeling isolated, the latter is just as important a result as the
+former.  To ignore it would not be high-minded, but
+shortsighted.</p><p>So as you read the advice that follows, and as you work with
+your own project, remember that there is <span class="emphasis"><em>no one</em></span>
+who is above politics.  Appearing to be above politics is merely one
+particular political strategy, and sometimes a very useful one, but it
+is never the reality.  Politics is simply what happens when people
+disagree, and successful projects are those that evolve political
+mechanisms for managing disagreement constructively.</p></div><div class="sect1" title="Getting the Most Out of Volunteers"><div class="titlepage"><div><div><h1 class="title"><a id="volunteers"/>Getting the Most Out of Volunteers</h1></div></div></div><p>Why do volunteers work on free software
+projects?<sup>[<a id="idp8164272" href="#ftn.idp8164272" class="footnote">24</a>]</sup></p><p>When asked, many claim they do it because they want to produce
+good software, or want to be personally involved in fixing the bugs
+that matter to them.  But these reasons are usually not the whole
+story.  After all, could you imagine a volunteer staying with a
+project even if no one ever said a word in appreciation of his work,
+or listened to him in discussions?  Of course not.  Clearly, people
+spend time on free software for reasons beyond just an abstract desire
+to produce good code.  Understanding volunteers' true motivations will
+help you arrange things so as to attract and keep them.  The desire to
+produce good software may be among those motivations, along with the
+challenge and educational value of working on hard problems.  But
+humans also have a built-in desire to work with other humans, and to
+give and earn respect through cooperative activities.  Groups engaged
+in cooperative activities must evolve norms of behavior such that
+status is acquired and kept through actions that help the group's
+goals.</p><p>Those norms won't always arise by themselves.  For example, on
+some projects—experienced open source developers can probably
+name several off the tops of their heads—people apparently feel
+that status is acquired by posting frequently and verbosely.  They
+don't come to this conclusion accidentally; they come to it because
+they are rewarded with respect for making long, intricate arguments,
+whether or not that actually helps the project.  Following are some
+techniques for creating an atmosphere in which status-acquiring
+actions are also constructive actions.</p><div class="sect2" title="Delegation"><div class="titlepage"><div><div><h2 class="title"><a id="delegation"/>Delegation</h2></div></div></div><p>Delegation is not merely a way to spread the workload around; it
+is also a political and social tool.  Consider all the effects when
+you ask someone to do something.  The most obvious effect is that, if
+he accepts, he does the task and you don't.  But another effect is
+that he is made aware that you trusted him to handle the task.
+Furthermore, if you made the request in a public forum, then he knows
+that others in the group have been made aware of that trust too.  He
+may also feel some pressure to accept, which means you must ask in a
+way that allows him to decline gracefully if he doesn't really want
+the job.  If the task requires coordination with others in the
+project, you are effectively proposing that he become more involved,
+form bonds that might not otherwise have been formed, and perhaps
+become a source of authority in some subdomain of the project.  The
+added involvement may be daunting, or it may lead him to become
+engaged in other ways as well, from an increased feeling of overall
+commitment.</p><p>Because of all these effects, it often makes sense to ask
+someone else to do something even when you know you could do it faster
+or better yourself.  Of course, there is sometimes a strict economic
+efficiency argument for this anyway: perhaps the opportunity cost of
+doing it yourself would be too high—there might be something
+even more important you could do with that time.  But even when the
+opportunity cost argument doesn't apply, you may
+<span class="emphasis"><em>still</em></span> want to ask someone else to take on the
+task, because in the long run you want to draw that person deeper into
+the project, even if it means spending extra time watching over them
+at first.  The converse technique also applies: if you occasionally
+volunteer for work that someone else doesn't want or have time to do,
+you will gain his good will and respect.  Delegation and
+substitution are not just about getting individual tasks done; they're
+also about drawing people into a closer committment to the
+project.</p><div class="sect3" title="Distinguish clearly between inquiry and assignment"><div class="titlepage"><div><div><h3 class="title"><a id="delegation-assignment"/>Distinguish clearly between inquiry and assignment</h3></div></div></div><p>Sometimes it is fair to expect that a person will accept a
+particular task.  For example, if someone writes a bug into the code,
+or commits code that fails to comply with project guidelines in some
+obvious way, then it is enough to point out the problem and thereafter
+behave as though you assume the person will take care of it.  But
+there are other situations where it is by no means clear that you have
+a right to expect action.  The person may do as you ask, or may not.
+Since no one likes to be taken for granted, you need to be sensitive
+to the difference between these two types of situations, and tailor
+your requests accordingly.</p><p>One thing that almost always causes people instant annoyance is
+being asked to do something in a way that implies that you think it is
+clearly their responsibility to do it, when they feel otherwise.  For
+example, assignment of incoming issues is particularly fertile ground
+for this kind of annoyance.  The participants in a project usually
+know who is expert in what areas, so when a bug report comes in, there
+will often be one or two people whom everyone knows could probably fix
+it quickly.  However, if you assign the issue over to one of those
+people without her prior permission, she may feel she has been
+put into an uncomfortable position.  She senses the pressure of
+expectation, but also may feel that she is, in effect, being
+punished for her expertise.  After all, the way one acquires
+expertise is by fixing bugs, so perhaps someone else should take this
+one!  (Note that issue trackers that automatically assign issues to
+particular people based on information in the bug report are less
+likely to offend, because everyone knows that the assignment was made
+by an automated process, and is not an indication of human
+expectations.)</p><p>While it would be nice to spread the load as evenly as possible,
+there are certain times when you just want to encourage the person who
+can fix a bug the fastest to do so.  Given that you can't afford a
+communications turnaround for every such assignment ("Would you be
+willing to look at this bug?"  "Yes."  "Okay, I'm assigning the issue
+over to you then." "Okay."), you should simply make the assignment in
+the form of an inquiry, conveying no pressure.  Virtually all issue
+trackers allow a comment to be associated with the assignment of an
+issue.  In that comment, you can say something like this:</p><div class="blockquote"><blockquote class="blockquote"><p>Assigning this over to you, jrandom, because you're most
+   familiar with this code.  Feel free to bounce this back if you
+   don't have time to look at it, though.  (And let me know if you'd
+   prefer not to receive such requests in the future.)</p></blockquote></div><p>This distinguishes clearly between the
+<span class="emphasis"><em>request</em></span> for assignment and the
+recipient's <span class="emphasis"><em>acceptance</em></span> of that assignment.  The
+audience here isn't only the assignee, it's everyone: the entire group
+sees a public confirmation of the assignee's expertise, but the
+message also makes it clear that the assignee is free to accept or
+decline the responsibility.</p></div><div class="sect3" title="Follow up after you delegate"><div class="titlepage"><div><div><h3 class="title"><a id="delegation-followup"/>Follow up after you delegate</h3></div></div></div><p>When you ask someone to do something, remember that you have
+done so, and follow up with him no matter what.  Most requests are
+made in public forums, and are roughly of the form "Can you take care
+of X?  Let us know either way; no problem if you can't, just need to
+know."  You may or may not get a response.  If you do, and the
+response is negative, the loop is closed—you'll need to try some
+other strategy for dealing with X.  If there is a positive response,
+then keep an eye out for progress on the issue, and comment on the
+progress you do or don't see (everyone works better when they know
+someone else is appreciating their work).  If there is no response
+after a few days, ask again, or post saying that you got no
+response and are looking for someone else to do it.  Or just do it
+yourself, but still make sure to say that you got no response to the
+initial inquiry.</p><p>The purpose of publicly noting the lack of response is
+<span class="emphasis"><em>not</em></span> to humiliate the person, and your remarks
+should be phrased so as not to have that effect.  The purpose is
+simply to show that you keep track of what you have asked for, and
+that you notice the reactions you get.  This makes people more likely
+to say yes next time, because they will observe (even if only
+unconsciously) that you are likely to notice any work they do, given
+that you noticed the much less visible event of someone failing to
+respond.</p></div><div class="sect3" title="Notice what people are interested in"><div class="titlepage"><div><div><h3 class="title"><a id="delegation-interest"/>Notice what people are interested in</h3></div></div></div><p>Another thing that makes people happy is to have their interests
+noticed—in general, the more aspects of someone's personality
+you notice and remember, the more comfortable he will be, and the
+more he will want to work with groups of which you are a
+part.</p><p>For example, there was a sharp distinction in the Subversion
+project between people who wanted to reach a definitive 1.0 release
+(which we eventually did), and people who mainly wanted to add new
+features and work on interesting problems but who didn't much care
+when 1.0 came out.  Neither of these positions is better or worse than
+the other; they're just two different kinds of developers, and both
+kinds do lots of work on the project.  But we swiftly learned that it
+was important to <span class="emphasis"><em>not</em></span> assume that the excitement
+of the 1.0 drive was shared by everyone.  Electronic media can be very
+deceptive: you may sense an atmosphere of shared purpose when, in fact,
+it's shared only by the people you happen to have been talking to,
+while others have completely different priorities.</p><p>The more aware you are of what people want out of the project,
+the more effectively you can make requests of them.  Even just
+demonstrating an understanding of what they want, without making any
+associated request, is useful, in that it confirms to each person that
+she's not just another particle in an undifferentiated mass.</p></div></div><div class="sect2" title="Praise and Criticism"><div class="titlepage"><div><div><h2 class="title"><a id="praise-and-criticism"/>Praise and Criticism</h2></div></div></div><p>Praise and criticism are not opposites; in many ways, they are
+very similar.  Both are primarily forms of attention, and are most
+effective when specific rather than generic.  Both should be deployed
+with concrete goals in mind.  Both can be diluted by inflation: praise
+too much or too often and you will devalue your praise; the same is
+true for criticism, though in practice, criticism is usually reactive
+and therefore a bit more resistant to devaluation.</p><p>An important feature of technical culture is that detailed,
+dispassionate criticism is often taken as a kind of praise (as
+discussed in <a class="xref" href="ch06.html#rudeness" title="Recognizing Rudeness">the section called “Recognizing Rudeness”</a><span>
+in <a class="xref" href="ch06.html" title="Chapter 6. Communications">Chapter 6, <em>Communications</em></a></span>), because of the
+implication that the recipient's work is worth the time required to
+analyze it.  However, both of those
+conditions—<span class="emphasis"><em>detailed</em></span> and
+<span class="emphasis"><em>dispassionate</em></span>—must be met for this to be
+true.  For example, if someone makes a sloppy change to the code, it
+is useless (and actually harmful) to follow up saying simply "That was
+sloppy."  Sloppiness is ultimately a characteristic of a
+<span class="emphasis"><em>person</em></span>, not of their work, and it's important to
+keep your reactions focused on the work.  It's much more effective to
+describe all the things wrong with the change, tactfully and without
+malice.  If this is the third or fourth careless change in a row by
+the same person, it's appropriate to say that—again without
+anger—at the end of your critique, to make it clear that the
+pattern has been noticed.</p><p>If someone does not improve in response to criticism, the
+solution is not more or stronger criticism.  The solution is for the
+group to remove that person from the position of incompetence, in a
+way that minimizes hurt feelings as much as possible; see
+<a class="xref" href="ch08s03.html" title="Transitions">the section called “Transitions”</a><span> later in
+this chapter</span> for examples.  That is a rare
+occurrence, however.  Most people respond pretty well to criticism
+that is specific, detailed, and contains a clear (even if unspoken)
+expectation of improvement.</p><p>Praise won't hurt anyone's feelings, of course, but that doesn't
+mean it should be used any less carefully than criticism.  Praise is a
+tool: before you use it, ask yourself <span class="emphasis"><em>why</em></span> you
+want to use it.  As a rule, it's not a good idea to praise people for
+doing what they usually do, or for actions that are a normal and
+expected part of participating in the group.  If you were to do that,
+it would be hard to know when to stop: should you praise
+<span class="emphasis"><em>everyone</em></span> for doing the usual things?  After all,
+if you leave some people out, they'll wonder why.  It's much better to
+express praise and gratitude sparingly, in response to unusual or
+unexpected efforts, with the intention of encouraging more such
+efforts.  When a participant seems to have moved permanently into a
+state of higher productivity, adjust your praise threshold for that
+person accordingly.  Repeated praise for normal behavior gradually
+becomes meaningless anyway.  Instead, that person should sense that
+her high level of productivity is now considered normal and natural,
+and only work that goes beyond that should be specially noticed.</p><p>This is not to say that the person's contributions shouldn't be
+acknowledged, of course.  But remember that if the project is set up
+right, everything that person does is already visible anyway, and so
+the group will know (and the person will know that the rest of the
+group knows) everything she does.  There are also ways to acknowledge
+someone's work by means other than direct praise.  You could mention
+in passing, while discussing a related topic, that she has done a lot
+of work in the given area and is the resident expert there; you
+could publicly consult her on some question about the code; or perhaps
+most effectively, you could conspicuously make further use of the work
+she has done, so she sees that others are now comfortable relying on
+the results of her work.  It's probably not necessary to do these
+things in any calculated way.  Someone who regularly makes large
+contributions in a project will know it, and will occupy a position of
+influence by default.  There's usually no need to take explicit steps
+to ensure this, unless you sense that, for whatever reason, a
+contributor is underappreciated.</p></div><div class="sect2" title="Prevent Territoriality"><div class="titlepage"><div><div><h2 class="title"><a id="territoriality"/>Prevent Territoriality</h2></div></div></div><p>Watch out for participants who try to stake out exclusive
+ownership of certain areas of the project, and who seem to want to do
+all the work in those areas, to the extent of aggressively taking over
+work that others start.  Such behavior may even seem healthy at first.
+After all, on the surface it looks like the person is taking on more
+responsibility, and showing increased activity within a given area.
+But in the long run, it is destructive.  When people sense a "no
+trespassing" sign, they stay away.  This results in reduced review in
+that area, and greater fragility, because the lone developer becomes a
+single point of failure.  Worse, it fractures the cooperative,
+egalitarian spirit of the project.  The theory should always be that
+any developer is welcome to help out on any task at any time.  Of
+course, in practice things work a bit differently: people do have
+areas where they are more and less influential, and non-experts
+frequently defer to experts in certain domains of the project.  But
+the key is that this is all voluntary: informal authority is granted
+based on competence and proven judgement, but it should never be
+actively
+<span class="emphasis"><em>taken</em></span>.  Even if the person desiring the authority
+really is competent, it is still crucial that she hold that authority
+informally, through the consensus of the group, and that the authority
+never cause her to exclude others from working in that area.</p><p>Rejecting or editing someone's work for technical reasons is an
+entirely different matter, of course.  There, the decisive factor
+is the content of the work, not who happened to act as gatekeeper.  It
+may be that the same person happens to do most of the reviewing for a
+given area, but as long as he never tries to prevent someone else from
+doing that work too, things are probably okay.</p><p>In order to combat incipient territorialism, or even the
+appearance of it, many projects have taken the step of banning the
+inclusion of author names or designated maintainer names in source
+files.  I wholeheartedly agree with this practice: we follow it in the
+Subversion project, and it is more or less official policy at the
+Apache Software Foundation.  ASF member Sander Striker puts it this
+way:</p><div class="blockquote"><blockquote class="blockquote"><p><span class="emphasis"><em>At the Apache Software foundation we discourage the
+   use of author tags in source code.  There are various reasons for
+   this, apart from the legal ramifications.  Collaborative
+   development is about working on projects as a group and caring for
+   the project as a group.  Giving credit is good, and should be done,
+   but in a way that does not allow for false attribution, even by
+   implication.  There is no clear line for when to add or remove an
+   author tag.  Do you add your name when you change a comment?  When
+   you put in a one-line fix?  Do you remove other author tags when
+   you refactor the code and it looks 95% different?  What do you do
+   about people who go about touching every file, changing just enough
+   to make the virtual author tag quota, so that their name will be
+   everywhere?</em></span></p><p><span class="emphasis"><em>There are better ways to give credit, and our
+   preference is to use those.  From a technical standpoint author
+   tags are unnecessary; if you wish to find out who wrote a
+   particular piece of code, the version control system can be
+   consulted to figure that out.  Author tags also tend to get out of
+   date.  Do you really wish to be contacted in private about a piece
+   of code you wrote five years ago and were glad to have
+   forgotten?</em></span></p></blockquote></div><p>A software project's source code files are the core of its
+identity.  They should reflect the fact that the developer community
+as a whole is responsible for them, and not be divided up into
+little fiefdoms.</p><p>People sometimes argue in favor of author or maintainer tags in
+source files on the grounds that this gives visible credit to those
+who have done the most work there.  There are two problems with this
+argument.  First, the tags inevitably raise the awkward question of
+how much work one must do to get one's own name listed there too.
+Second, they conflate the issue of credit with that of authority:
+having done work in the past does not imply ownership of the area
+where the work was done, but it's difficult if not impossible to avoid
+such an implication when individual names are listed at the tops of
+source files.  In any case, credit information can already be obtained
+from the version control logs and other out-of-band mechanisms like
+mailing list archives, so no information is lost by banning it from
+the source files themselves.<sup>[<a id="idp8213216" href="#ftn.idp8213216" class="footnote">25</a>]</sup></p><p>If your project decides to ban individual names from source
+files, make sure not to go overboard.  For instance, many
+projects have a <code class="filename">contrib/</code> area where small tools and
+helper scripts are kept, often written by people who are otherwise not
+associated with the project.  It's fine for those files to contain
+author names, because they are not really maintained by the project as
+a whole.  On the other hand, if a contributed tool starts getting
+hacked on by other people in the project, eventually you may want to
+move it to a less isolated location and, assuming the original author
+approves, remove the author's name, so that the code looks like any
+other community-maintained resource.  If the author is sensitive about
+this, compromise solutions are acceptable, for example:</p><div class="blockquote"><blockquote class="blockquote"><pre class="programlisting">
+# indexclean.py: Remove old data from a Scanley index.
+#
+# Original Author: K. Maru &lt;kobayashi@yetanotheremailservice.com&gt;
+# Now Maintained By: The Scanley Project &lt;http://www.scanley.org/&gt;
+#                    and K. Maru.
+# 
+# ...
+</pre></blockquote></div><p>But it's better to avoid such compromises, if possible, and most
+authors are willing to be persuaded, because they're happy that their
+contribution is being made a more integral part of the project.</p><p>The important thing is to remember that there is a continuum
+between the core and the periphery of any project.  The main source
+code files for the software are clearly part of the core, and should
+be considered as maintained by the community.  On the other hand,
+companion tools or pieces of documentation may be the work of single
+individuals, who maintain them essentially alone, even though the
+works may be associated with, and even distributed with, the project.
+There is no need to apply a one-size-fits-all rule to every file, as
+long as the principle that community-maintained resources are not
+allowed to become individual territories is upheld.</p></div><div class="sect2" title="The Automation Ratio"><div class="titlepage"><div><div><h2 class="title"><a id="automation"/>The Automation Ratio</h2></div></div></div><p>Try not to let humans do what machines could do instead.  As a
+rule of thumb, automating a common task is worth at least ten times the
+effort a developer would spend doing that task manually one time.  For
+very frequent or very complex tasks, that ratio could easily go up to
+twenty or even higher.</p><p>Thinking of yourself as a "project manager", rather than just
+another developer, may be a useful attitude here.  Sometimes
+individual developers are too wrapped up in low-level work to see the
+big picture and realize that everyone is wasting a lot of effort
+performing automatable tasks manually.  Even those who do realize it
+may not take the time to solve the problem: because each individual
+performance of the task does not feel like a huge burden, no one ever
+gets annoyed enough to do anything about it.  What makes automation
+compelling is that the small burden is multiplied by the number of
+times each developer incurs it, and then <span class="emphasis"><em>that</em></span>
+number is multiplied by the number of developers.</p><p>Here, I am using the term "automation" broadly, to mean not only
+repeated actions where one or two variables change each time, but any
+sort of technical infrastructure that assists humans.  The minimum
+standard automation required to run a project these days was described
+in <a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a>, but each project
+may have its own special problems too.  For example, a group working
+on documentation might want to have a web site displaying the most
+up-to-date versions of the documents at all times.  Since
+documentation is often written in a markup language like XML, there
+may be a compilation step, often quite intricate, involved in creating
+displayable or downloadable documents.  Arranging a web site where
+such compilation happens automatically on every commit can be
+complicated and time-consuming—but it is worth it, even if it
+costs you a day or more to set up.  The overall benefits of having
+up-to-date pages available at all times are huge, even though the cost
+of <span class="emphasis"><em>not</em></span> having them might seem like only a small
+annoyance at any single moment, to any single developer.</p><p>Taking such steps eliminates not merely wasted time, but the
+griping and frustration that ensue when humans make missteps (as they
+inevitably will) in trying to perform complicated procedures manually.
+Multi-step, deterministic operations are exactly what computers were
+invented for; save your humans for more interesting things.</p><div class="sect3" title="Automated testing"><div class="titlepage"><div><div><h3 class="title"><a id="automated-testing"/>Automated testing</h3></div></div></div><p>Automated test runs are helpful for any software project, but
+especially so for open source projects, because automated testing
+(especially regression testing) allows developers to feel comfortable
+changing code in areas they are unfamiliar with, and thus encourages
+exploratory development.  Since detecting breakage is so hard to do by
+hand—one essentially has to guess where one might have broken
+something, and try various experiments to prove that one
+didn't—having automated ways to detect such breakage saves the
+project a <span class="emphasis"><em>lot</em></span> of time.  It also makes people much
+more relaxed about refactoring large swaths of code, and therefore
+contributes to the software's long-term maintainability.</p><div class="sidebar" title="Regression Testing"><a id="regression-testing"/><div class="titlepage"><div><div><p class="title"><strong>Regression Testing</strong></p></div></div></div><p><em class="firstterm">Regression testing</em> means testing for
+  the reappearance of already-fixed bugs.  The purpose of regression
+  testing is to reduce the chances that code changes will break the
+  software in unexpected ways.  As a software project gets bigger and
+  more complicated, the chances of such unexpected side effects
+  increase steadily.  Good design can reduce the rate at which the
+  chances increase, but it cannot eliminate the problem
+  entirely.</p><p>As a result, many projects have a <em class="firstterm">test
+  suite</em>, a separate program that invokes the project's
+  software in ways that have been known in the past to stimulate
+  specific bugs.  If the test suite succeeds in making one of these
+  bugs happen, this is known as a <em class="firstterm">regression</em>,
+  meaning that someone's change unexpectedly unfixed a
+  previously-fixed bug.</p><p>See also
+  <a class="ulink" href="http://en.wikipedia.org/wiki/Regression_testing">http://en.wikipedia.org/wiki/Regression_testing</a>.</p></div><p>Regression testing is not a panacea.  For one thing, it works
+best for programs with batch-style interfaces.  Software that is
+operated primarily through graphical user interfaces is much harder to
+drive programmatically.  Another problem is that the regression test
+suite framework itself can often be quite complex, with a learning
+curve and maintenance burden all its own.  Reducing this complexity is
+one of the most useful things you can do, even though it may take a
+considerable amount of time.  The easier it is to add new tests to the
+suite, the more developers will do so, and the fewer bugs will survive
+to release.  Any effort spent making tests easier to write will be
+paid back manyfold over the lifetime of the project.</p><p>Many projects have a <em class="firstterm">"Don't break the
+build!"</em> rule, meaning: don't commit a change that makes
+the software unable to compile or run.  Being the person who broke the
+build is usually cause for mild embarrassment and ribbing.  Projects
+with regression test suites often have a corollary rule: don't commit
+any change that causes tests to fail.  Such failures are easiest to
+spot if there are automatic nightly runs of the entire test suite,
+with the results mailed out to the development list or to a dedicated
+test-results mailing list; that's another example of a worthwhile
+automation.</p><p>Most volunteer developers are willing to take the extra time to
+write regression tests, when the test system is comprehensible and
+easy to work with.  Accompanying changes with tests is understood to
+be the responsible thing to do, and it's also an easy opportunity for
+collaboration: often two developers will divide up the work for a
+bugfix, with one writing the fix itself, and the other writing the
+test.  The latter developer may often end up with more work, and since
+writing a test is already less satisfying than actually fixing the
+bug, it is imperative that the test suite not make the experience more
+painful than it has to be.</p><p>Some projects go even further, requiring that a new test
+accompany <span class="emphasis"><em>every</em></span> bugfix or new feature.  Whether
+this is a good idea or not depends on many factors: the nature of the
+software, the makeup of the development team, and the difficulty of
+writing new tests.  The CVS (<a class="ulink" href="http://www.cvshome.org/">http://www.cvshome.org/</a>)
+project has long had such a rule.  It is a good policy in theory,
+since CVS is version control software and therefore very risk-averse
+about the possibility of munging or mishandling the user's data.  The
+problem in practice is that CVS's regression test suite is a single
+huge shell script (amusingly named <code class="filename">sanity.sh</code>),
+hard to read and hard to modify or extend.  The difficulty of adding
+new tests, combined with the requirement that patches be accompanied
+by new tests, means that CVS effectively discourages patches.  When I
+used to work on CVS, I sometimes saw people start on and even complete
+a patch to CVS's own code, but give up when told of the requirement to
+add a new test to <code class="filename">sanity.sh</code>.</p><p>It is normal to spend more time writing a new regression test
+than on fixing the original bug.  But CVS carried this phenomenon to
+an extreme: one might spend hours trying to design one's test
+properly, and still get it wrong, because there are just too many
+unpredictable complexities involved in changing a 35,000-line Bourne
+shell script.  Even longtime CVS developers often grumbled when they
+had to add a new test.</p><p>This situation was due to a failure on all our parts to consider
+the automation ratio.  It is true that switching to a real test
+framework—whether custom-built or off-the-shelf—would have
+been a major effort.<sup>[<a id="idp8243840" href="#ftn.idp8243840" class="footnote">26</a>]</sup> But neglecting to do so has
+cost the project much more, over the years.  How many bugfixes and new
+features are <span class="emphasis"><em>not</em></span> in CVS today, because of the
+impediment of an awkward test suite?  We cannot know the exact number,
+but it is surely many times greater than the number of bugfixes or new
+features the developers might forgo in order to develop a new test
+system (or integrate an off-the-shelf system).  That task would only
+take a finite amount of time, while the penalty of using the current
+test suite will continue forever if nothing is done.</p><p>The point is not that having strict requirements to write tests
+is bad, nor that writing your test system as a Bourne shell script is
+necessarily bad.  It might work fine, depending on how you design it
+and what it needs to test.  The point is simply that when the test
+system becomes a significant impediment to development, something must
+be done.  The same is true for any routine process that turns into a
+barrier or a bottleneck.</p></div></div><div class="sect2" title="Treat Every User as a Potential Volunteer"><div class="titlepage"><div><div><h2 class="title"><a id="users-to-volunteers"/>Treat Every User as a Potential Volunteer</h2></div></div></div><p>Each interaction with a user is an opportunity to get a new
+volunteer.  When a user takes the time to post to one of the project's
+mailing lists, or to file a bug report, he has already tagged himself
+as having more potential for involvement than most users (from whom
+the project will never hear at all).  Follow up on that potential: if
+he described a bug, thank him for the report and ask him if he wants
+to try fixing it.  If he wrote to say that an important question was
+missing from the FAQ, or that the program's documentation was
+deficient in some way, then freely acknowledge the problem (assuming
+it really exists) and ask if he's interested in writing the missing
+material himself.  Naturally, much of the time the user will demur.
+But it doesn't cost much to ask, and every time you do, it reminds the
+other listeners in that forum that getting involved in the project is
+something anyone can do.</p><p>Don't limit your goals to acquiring new developers and
+documentation writers.  For example, even training people to write
+good bug reports pays off in the long run, if you don't spend
+<span class="emphasis"><em>too</em></span> much time per person, and if they go on
+to submit more bug reports in the future—which they are more
+likely to do if they got a constructive reaction to their first
+report.  A constructive reaction need not be a fix for the bug,
+although that's always the ideal; it can also be a solicitation for
+more information, or even just a confirmation that the behavior
+<span class="emphasis"><em>is</em></span> a bug.  People want to be listened to.
+Secondarily, they want their bugs fixed.  You may not always be able
+to give them the latter in a timely fashion, but you (or rather, the
+project as a whole) can give them the former.</p><p>A corollary of this is that developers should not express anger
+at people who file well-intended but vague bug reports.  This is one
+of my personal pet peeves; I see developers do it all the time on
+various open source mailing lists, and the harm it does is palpable.
+Some hapless newbie will post a useless report:</p><div class="blockquote"><blockquote class="blockquote"><p>Hi, I can't get Scanley to run.  Every time I start it up, it
+   just errors.  Is anyone else seeing this problem?</p></blockquote></div><p>Some developer—who has seen this kind of report a
+thousand times, and hasn't stopped to think that the newbie has
+not—will respond like this:</p><div class="blockquote"><blockquote class="blockquote"><p>What are we supposed to do with so little information?
+   Sheesh.  Give us at least some details, like the version of
+   Scanley, your operating system, and the error.</p></blockquote></div><p>This developer has failed to see things from the user's point of
+view, and also failed to consider the effect such a reaction might
+have on all the <span class="emphasis"><em>other</em></span> people watching the
+exchange.  Naturally a user who has no programming experience, and no
+prior experience reporting bugs, will not know how to write a bug
+report.  What is the right way to handle such a person?  Educate them!
+And do it in such a way that they come back for more:</p><div class="blockquote"><blockquote class="blockquote"><p>Sorry you're having trouble.  We'll need more information in
+   order to figure out what's happening here.  Please tell us the
+   version of Scanley, your operating system, and the exact text of
+   the error.  The very best thing you can do is send a transcript
+   showing the exact commands you ran, and the output they produced.
+   See http://www.scanley.org/how_to_report_a_bug.html for more.</p></blockquote></div><p>This way of responding is far more effective at
+extracting the needed information from the user, because it is written
+to the user's point of view.  First, it expresses sympathy:
+<span class="emphasis"><em>You had a problem; we feel your pain</em></span>.  (This is
+not necessary in every bug report response; it depends on the severity
+of the problem and how upset the user seemed.)  Second, instead of
+belittling her for not knowing how to report a bug, it tells her how,
+and in enough detail to be actually useful—for example, many
+users don't realize that "show us the error" means "show us the exact
+text of the error, with no omissions or abridgements."  The first time
+you work with such a user, you need to be specific about that.
+Finally, it offers a pointer to much more detailed and complete
+instructions for reporting bugs.  If you have successfully engaged
+with the user, she will often take the time to read that document and
+do what it says.  This means, of course, that you have to have the
+document prepared in advance.  It should give clear instructions about
+what kind of information your development team wants to see in every
+bug report.  Ideally, it should also evolve over time in response to
+the particular sorts of omissions and misreports users tend to make
+for your project.</p><p>The Subversion project's bug reporting instructions are a fairly
+standard example of the form (see <a class="xref" href="apd.html" title="Appendix D. Example Instructions for Reporting Bugs">Appendix D, <em>Example Instructions for Reporting Bugs</em></a>).  Notice how they close with an
+invitation to provide a patch to fix the bug.  This is not because
+such an invitation will lead to a greater patch/report
+ratio—most users who are capable of fixing bugs already know
+that a patch would be welcome, and don't need to be told.  The
+invitation's real purpose is to emphasize to all readers, especially
+those new to the project or new to free software in general, that the
+project runs on volunteer contributions.  In a sense, the project's
+current developers are no more responsible for fixing the bug than is
+the person who reported it.  This is an important point that many new
+users will not be familiar with.  Once they realize it, they're more
+likely to help make the fix happen, if not by contributing code then
+by providing a more thorough reproduction recipe, or by offering to
+test fixes that other people post.  The goal is to make every user
+realize that there is no <span class="emphasis"><em>innate</em></span> difference
+between herself and the people who work on the project—that
+it's a question of how much time and effort one puts in, not a
+question of who one is.</p><p>The admonition against responding angrily does not apply to rude
+users.  Occasionally people post bug reports or complaints that,
+regardless of their informational content, show a sneering contempt at
+the project for some failing.  Often such people are alternately
+insulting and flattering, such as the person who posted this to a
+Subversion mailing list:</p><div class="blockquote"><blockquote class="blockquote"><p>Why is it that after almost 6 days there still aren't any
+binaries posted for the windows platform?!?  It's the same story every
+time and it's pretty frustrating.  Why aren't these things automated
+so that they could be available immediately??  When you post an "RC"
+build, I think the idea is that you want users to test the build, but
+yet you don't provide any way of doing so.  Why even have a soak
+period if you provide no means of testing??</p></blockquote></div><p>Initial response to this rather inflammatory post was
+surprisingly restrained: people pointed out that the project had a
+published policy of not providing official binaries, and said, with
+varying degrees of annoyance, that he ought to volunteer to produce
+them himself if they were so important to him.  Believe it or not, his
+next post started with these lines:</p><div class="blockquote"><blockquote class="blockquote"><p>First of all, let me say that I think Subversion is awesome and
+I really appreciate the efforts of everyone involved.  [...]</p></blockquote></div><p>...and then he went on to berate the project
+<span class="emphasis"><em>again</em></span> for not providing binaries, while
+still not volunteering to do anything about it.  After that, about
+50 people just jumped all over him, and I can't say I really
+minded.  The "zero-tolerance" policy toward rudeness advocated in
+<a class="xref" href="ch02s03.html#prevent-rudeness" title="Nip Rudeness in the Bud">the section called “Nip Rudeness in the Bud”</a><span> in
+<a class="xref" href="ch02.html" title="Chapter 2. Getting Started">Chapter 2, <em>Getting Started</em></a></span> applies to people with
+whom the project has (or would like to have) a sustained interaction.
+But when someone makes it clear from the start that he is going to
+be a fountain of bile, there is no point making him feel welcome.</p><p>Such situations are fortunately quite rare, and they are
+noticeably rarer in projects that make an effort to engage users
+constructively and courteously from their very first
+interaction.</p></div></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp8164272" href="#idp8164272" class="para">24</a>] </sup>This question was studied in detail, with
+interesting results, in a paper by Karim Lakhani and Robert G. Wolf,
+entitled <em class="citetitle">Why Hackers Do What They Do: Understanding
+Motivation and Effort in Free/Open Source Software
+Projects</em>.  See 
+<a class="ulink" href="http://freesoftware.mit.edu/papers/lakhaniwolf.pdf">http://freesoftware.mit.edu/papers/lakhaniwolf.pdf</a>.</p></div><div class="footnote"><p><sup>[<a id="ftn.idp8213216" href="#idp8213216" class="para">25</a>] </sup>But see the mailing list
+thread entitled <em class="citetitle">"having authors names in .py files"</em>
+at <a class="ulink" href="http://groups.google.com/group/sage-devel/browse_thread/thread/e207ce2206f0beee">http://groups.google.com/group/sage-devel/browse_thread/thread/e207ce2206f0beee</a>
+for a good counterargument, particularly the post from William Stein.
+The key in that case, I think, is that many of the authors come from a
+culture (the academic mathematics community) where crediting directly
+at the source is the norm and is highly valued.  In such
+circumstances, it may be preferable to put author names into the
+source files, along with precise descriptions of what each author did,
+since the majority of potential contributors will expect that style of
+acknowledgement.</p></div><div class="footnote"><p><sup>[<a id="ftn.idp8243840" href="#idp8243840" class="para">26</a>] </sup>Note that there would be no need
+to convert all the existing tests to the new framework; the two could
+happily exist side by side, with old tests converted over only as they
+needed to be changed.</p></div></div></div></body></html>

@@ -19,61 +19,61 @@
 # https://github.com/IDPF/scriptable-components/
 #=====================
     genOPDS_IDPF_widgets: '
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components master
             /Samples/1-basic_component/embedded
             FIRST
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components master
             /Samples/1-basic_component/packaged
             APPEND
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components feature/logger-widget
             /Samples/readium/tempwave-demo/embedded
             APPEND
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components feature/logger-widget
             /Samples/readium/tempwave-demo/packaged
             APPEND
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components feature/logger-widget
             /Samples/readium/logger-demo/packaged
             APPEND
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components feature/logger-widget
             /Samples/readium/logger-demo/embedded
             APPEND
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components feature/logger-widget
             /Samples/readium
             APPEND
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components PubCoder
             /Samples/3-messaging_component/embedded/PubCoder
             APPEND
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components PubCoder
             /Samples/1-basic_component/embedded/PubCoder
             APPEND
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_widgets.opds
             IDPF scriptable-components PubCoder
             /Samples/1-basic_component/packaged/PubCoder
@@ -84,12 +84,12 @@
 # https://github.com/snaekobbi/braille-rendition-epub/tree/samples/edupub/samples
 #=====================
     genOPDS_IDPF_edupub: '
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_edu.opds
             IDPF education master /samples
             FIRST
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_edu.opds
             snaekobbi braille-rendition-epub samples
             /edupub/samples
@@ -99,7 +99,7 @@
 # https://github.com/IDPF/epub-testsuite/tree/master/content/30
 #=====================
     genOPDS_IDPF_tests: '
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_testsuite.opds
             IDPF epub-testsuite master /content/30
     '
@@ -107,7 +107,7 @@
 # https://github.com/daisy/epub-accessibility-tests/tree/master/content
 #=====================
     genOPDS_DAISY_tests: '
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_tests_a11y.opds
             daisy epub-accessibility-tests master /content
     '
@@ -115,7 +115,7 @@
 # https://github.com/IDPF/epub3-samples/tree/master/30
 #=====================
     genOPDS_IDPF_samples: '
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/genOPDS.js
+        node ./readium-js/readium-shared-js/readium-build-tools/genOPDS.js
             epub_content/epub_samples.opds
             IDPF epub3-samples master /30
     '

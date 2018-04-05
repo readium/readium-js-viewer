@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-08</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 8 - Blending and Opacity</h2>
+
+
+<p>This is a very simple lesson because again three.js does  all the heavy lifting. Still there are a couple of wrinkles to watch for. And, of course, this lesson just barely touches on the whole area of blending, color models, opacity and so on. We'll go a bit deeper later, but for now we'll just get our toes wet.</p>
+<p>However, this lesson has a little bit more to it since we are going to start refactoring the code by creating a JavaScript object, gfxScene, that encapsulates all that boilerplate about creating the scene, lights, etc. Let's take a look at the new scene object, then the actual blending.</p>
+<p>There are three major parts to the object:</p>
+<ul>
+  <li>The constructor</li>
+  <li>Parsing the parameters</li>
+  <li>Initializing the scene</li>
+</ul>
+<p>The constructor is quite simple, it just declares the member variables, calls the parameter parser then calls initializeScene.</p>
+
+<pre><code class="language-javascript">GFX.Scene = function ( parameters ) {
+	
+	this.scene = null;
+	this.renderer = null;
+	this.camera = null;
+    this.containerID = null;
+
+	this.canvasWidth = 0;
+	this.canvasHeight = 0;
+
+	this.cameraPos = [0,20,40];
+
+	this.controls = false;
+	this.orbitControls = null;
+
+	this.displayStats = false;
+	this.stats = null;
+
+	this.ambientLight = null;
+    this.pointLight = null;
+    this.directionalLight = null;
+
+	this.axisHeight = 0;
+	
+	this.floorRepeat = 0;
+	
+	this.fogType = 'none';	// else 'linear' or 'exponential' 
+	this.fogDensity = 0;
+	this.fogColor = 0xffffff;
+	this.fogNear = 0.015;
+	this.fogFar = 100;
+
+	this.setParameters( parameters );
+    this.initialize();
+};</code></pre>
+
+<p>Don't worry about the axis, floor and fog parameters, we'll cover those in a later lesson. The parameter parsing routine was patterned after MrDoob's (originator of three.js).</p>
+
+<pre><code class="language-javascript">setParameters: function( values ) {
+		if ( values === undefined ) return;
+	
+		for ( var key in values ) {
+			var newValue = values[ key ];
+	
+			if ( newValue === undefined ) {
+				console.warn( "NEHE: '" + key + "' parameter is undefined." );
+				continue;
+			}
+            
+			if ( key in this ) {
+				var currentValue = this[ key ];
+	
+				if ( currentValue instanceof THREE.Color ) {
+					currentValue.set( newValue );
+				}
+                else if ( currentValue instanceof THREE.Vector3
+	                &amp;&amp; newValue instanceof THREE.Vector3 ) {
+					currentValue.copy( newValue );
+				}
+                else if (currentValue instanceof Array) {
+                    this[ key ] = newValue.slice();
+				}
+                else {
+                    this[ key ] = newValue;
+                }
+			}
+		}
+	},</code></pre>
+    
+<p>Nothing magical, just some slick JavaScript that allows us to parse a JSON array that gets passed in as the argument to the constructor. But it allows the parameters to be in any order and only the ones you need.</p>
+<p>Finally, let's take a look at the <span class="inline-code">initialize</span> function. It's a little more complicated than the boilerplate it replaces, mainly because of the flexibility of what needs to be passed (or not) to the constructor. After a quick check that WebGL is supported and allocating the THREE.scene object, we set the size of the renderer. Note that we check if the user passed in a fixed size (i.e. it's a fixed-layout EPUB or some fixed-size illustration on a page). If the user DIDN'T specify a size, we simply fetch the size of the enclosing container.</p>
+
+<pre><code class="language-javascript">if (this.canvasHeight == 0) {
+     this.canvasWidth = window.innerWidth;
+     this.canvasHeight = window.innerHeight;
+
+     var _self = this;
+
+     window.addEventListener('resize', function() {
+         _self.canvasWidth  = window.innerWidth;
+         _self.canvasHeight = window.innerHeight;
+         _self.renderer.setSize( _self.canvasWidth, _self.canvasHeight );
+         _self.camera.aspect = _self.canvasWidth / _self.canvasHeight;
+         _self.camera.updateProjectionMatrix();
+     });
+}</code></pre>
+
+<p></p>
+<p>Note also that have a short function to resize the canvas if the user changes the size of the enclosing container. Also note the little trick with <span class="inline-code">var=_self</span> (thank you, Stackoverflow). This is needed since &quot;this&quot; references the local object, which in the event-handler is the event-handler itself, not our <span class="inline-code">gfxScene</span> class.</p>
+<p>Then we check if the user supplied a container ID in which to host our scene. If they didn't supply a container (or we couldn't find it) then we simply create one and append it to the body element of the HTML. If they DID supply one, we update the canvas size with the dimensions of that container.</p>
+
+<pre><code class="language-javascript">var container;
+if (this.containerID != null &amp;&amp; typeof this.containerID != 'undefined')
+    container = document.getElementById(this.containerID);
+		
+if (container == null || typeof container == 'undefined') {
+    container = document.createElement( 'div' );
+    document.body.appendChild( container );
+}
+else {
+    this.canvasWidth = container.clientWidth;
+    this.canvasHeight = container.clientHeight;
+}</code></pre>
+        
+<p>We then set up the camera. Note that if the user supplied camera position, we use that, else we just point at the center of the scene. Here we are supporting only a PerspectiveCamera. This is by far the most common camera, but we'll add support for user-supplied camera(s) in a later lesson. Finally, we set the size of the renderer and append it's DOM element onto the container/div element.</p>
+
+<pre><code class="language-javascript">this.camera = new THREE.PerspectiveCamera(45, this.canvasWidth / this.canvasHeight, 0.1, 5000);
+if (this.cameraPos == undefined)
+    this.camera.position.set(0, 10, 20);
+else
+    this.camera.position.set(this.cameraPos[0], this.cameraPos[1], this.cameraPos[2]);
+
+this.camera.lookAt(this.scene.position);
+this.scene.add(this.camera);
+	
+this.renderer = new THREE.WebGLRenderer({antialias:true});
+this.renderer.setClearColor(0x000000, 1);
+this.renderer.setSize(this.canvasWidth, this.canvasHeight);
+
+container.appendChild(this.renderer.domElement);</code></pre>
+        
+<p>Lastly, we add three lights: </p>
+<ul>
+  <li>An ambient light, whiappears to come from everywhere and doesn't cast shadows or produce highlights</li>
+  <li>A directional light which emits parallel rays of light as though the light came from a great distance</li>
+  <li>A point light which is emits light in all directions</li>
+</ul>
+<p>We'll cover lights in more detail later as well as adding the ability for the user to define and supply their own lights.</p>
+
+<pre><code class="language-javascript">this.ambientLight = new THREE.AmbientLight(0x404040);
+this.scene.add(this.ambientLight);
+	
+this.directionalLight = new THREE.DirectionalLight(0xffffff);
+this.directionalLight.position.set(5, 20, 12);
+this.scene.add(this.directionalLight);
+
+this.pointLight = new THREE.PointLight(0xffffff, 0.25);
+this.pointLight.position.set(15, -20, -12);
+this.scene.add(this.pointLight);</code>
+</pre>
+<p>And that's it. There's more in the gfxScene object but we'll get to that later. Now on to the lesson itself.</p>
+<p>The lesson is VERY similar to lesson 7 in that we are applying a texture to a cube and using the same keystroke commands for the texture filters and navigation. However, there is only one texture, <span class="inline-code">glass.jpg</span>. And one new command, 'B' which turns on and off the blending.</p>
+<p>First, allocate our <span class="inline-code">gfxScene</span> object.  We leave all the parameters of that object as their defaults except the camera-position. Note that since we have defined our XHTML file as fixed-layout, we just let the <span class="inline-code">gfxScene</span> object get the proper size from the &quot;container&quot;, i.e. the page.</p>
+          
+<pre><code class="language-javascript">var gfxScene = new GFX.Scene( { cameraPos:[0,0,6] });</code></pre>
+
+<p>Then we set up the variables (same as lesson 7) then call <span class="inline-code">initializeDemo()</span>. We call it initialize <em><strong>demo</strong></em> because we don't need to initialize the scene anymore - we can concentrate solely on the demo itself. So let's look at <span class="inline-code">initializeDemo</span>.</p>
+<p>The real crux of this demo is in the instantiation of the cube, particularly the material. We specify that the &quot;mapped&quot; texture is our glass texture.  Then we specify that the transparency is &quot;true&quot;. If this is not specified, nothing will be blended, the cube will be just opaque, even if the opacity is set to less than one and the &quot;combine&quot; property is set to something other than &quot;multiply&quot;. In fact, it is a little more complex than that, but explaining that is beyond the scope of this lesson. Suffice to say, we set the opacity to less than one and the &quot;combine&quot; property to THREE.MixOperation, which results in blending the foreground with the background.</p>
+
+<pre><code class="language-javascript">var cubeGeometry = new THREE.BoxGeometry(2.0, 2.0, 2.0);
+				
+glassTexture = THREE.ImageUtils.loadTexture("Glass.jpg");
+
+var cubeMaterial = new THREE.MeshLambertMaterial({
+				          map : glassTexture,
+					      depthWrite : false,
+					      transparent : true,
+					      opacity : 0.75,
+					      side : THREE.DoubleSide,
+					      combine : THREE.MixOperation
+				   });
+
+cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cubeMesh.position.set(0.0, 0.0, zTranslation);
+gfxScene.add(cubeMesh);</code></pre>
+
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its blended glory!</p>
+</body>
+</html>

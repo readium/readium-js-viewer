@@ -12,10 +12,6 @@
     {
       "name": "readiumSharedJs",
       "path": "../readium-js/readium-shared-js"
-    },
-    {
-      "name": "readiumCfiJs",
-      "path": "../readium-js/readium-shared-js/readium-cfi-js"
     }
   ]
 }

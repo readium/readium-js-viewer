@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 7. Packaging, Releasing, and Daily Development</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="chapter" title="Chapter 7. Packaging, Releasing, and Daily Development"><div class="titlepage"><div><div><h1 class="title"><a id="development-cycle"/>Chapter 7. Packaging, Releasing, and Daily Development</h1></div></div></div><div class="simplesect"><div class="titlepage"/><p>This chapter is about how free software projects package and
+release their software, and how overall development patterns organize
+around those goals.</p><p>A major difference between open source projects and proprietary
+ones is the lack of centralized control over the development team.
+When a new release is being prepared, this difference is especially
+stark: a corporation can ask its entire development team to focus on
+an upcoming release, putting aside new feature development and
+non-critical bug fixing until the release is done.  Volunteer groups
+are not so monolithic.  People work on the project for all sorts of
+reasons, and those not interested in helping with a given release
+still want to continue regular development work while the release is
+going on.  Because development doesn't stop, open source release
+processes tend to take longer, but be less disruptive, than commercial
+release processes.  It's a bit like highway repair.  There are two
+ways to fix a road: you can shut it down completely, so that a repair
+crew can swarm all over it at full capacity until the problem is
+solved, or you can work on a couple of lanes at a time, while leaving the
+others open to traffic.  The first way is very efficient <span class="emphasis"><em>for
+the repair crew</em></span>, but not for anyone else—the road is
+entirely shut down until the job is done.  The second way involves
+much more time and trouble for the repair crew (now they have to work
+with fewer people and less equipment, in cramped conditions, with
+flaggers to slow and direct traffic, etc.), but at least the road
+remains useable, albeit not at full capacity.</p><p>Open source projects tend to work the second way.  In fact, for
+a mature piece of software with several different release lines being
+maintained simultaneously, the project is sort of in a permanent state
+of minor road repair.  There are always a couple of lanes closed; a
+consistent but low level of background inconvenience is always being
+tolerated by the development group as a whole, so that releases get
+made on a regular schedule.</p><p>The model that makes this possible generalizes to more than just
+releases.  It's the principle of parallelizing tasks that are not
+mutually interdependent—a principle that is by no means unique
+to open source development, of course, but one which open source
+projects implement in their own particular way.  They cannot afford to
+annoy either the roadwork crew or the regular traffic too much, but
+they also cannot afford to have people dedicated to standing by the
+orange cones and flagging traffic along.  Thus they gravitate toward
+processes that have flat, constant levels of administrative overhead,
+rather than peaks and valleys.  Volunteers are generally willing to
+work with small but consistent amounts of inconvenience; the
+predictability allows them to come and go without worrying about
+whether their schedule will clash with what's happening in the
+project.  But if the project were subject to a master schedule in
+which some activities excluded other activities, the result would be a
+lot of developers sitting idle a lot of the time—which would be
+not only inefficient but boring, and therefore dangerous, in that a
+bored developer is likely to soon be an ex-developer.</p><p>Release work is usually the most noticeable non-development task
+that happens in parallel with development, so the methods described in
+the following sections are geared mostly toward enabling releases.
+However, note that they also apply to other parallelizable tasks, such
+as translations and internationalization, broad API changes made
+gradually across the entire code base, etc.</p></div><div class="sect1" title="Release Numbering"><div class="titlepage"><div><div><h1 class="title"><a id="release-numbering"/>Release Numbering</h1></div></div></div><p>Before we talk about how to make a release, let's look at how to
+name releases, which requires knowing what releases actually mean to
+users.  A release means that:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Old bugs have been fixed.  This is probably the one
+            thing users can count on being true of every release.</p></li><li class="listitem"><p>New bugs have been added.  This too can usually
+            be counted on, except sometimes in the case of security
+            releases or other one-offs (see
+            <a class="xref" href="ch07s06.html#security-releases" title="Security Releases">the section called “Security Releases”</a><span> later in this chapter</span>).</p></li><li class="listitem"><p>New features may have been added.</p></li><li class="listitem"><p>New configuration options may have been added, or
+            the meanings of old options may have changed subtly.  The
+            installation procedures may have changed slightly since
+            the last release too, though one always hopes not.</p></li><li class="listitem"><p>Incompatible changes may have been introduced, such
+            that the data formats used by older versions of the
+            software are no longer useable without undergoing some
+            sort of (possibly manual) one-way conversion step.</p></li></ul></div><p>As you can see, not all of these are good things.  This is why
+experienced users approach new releases with some trepidation,
+especially when the software is mature and was already mostly doing
+what they wanted (or thought they wanted).  Even the arrival of new
+features is a mixed blessing, in that it may mean the software
+will now behave in unexpected ways.</p><p>The purpose of release numbering, therefore, is twofold:
+obviously the numbers should unambiguously communicate the ordering of
+releases (i.e., by looking at any two releases' numbers, one can know
+which came later), but also they should indicate as compactly as
+possible the degree and nature of the changes in the release.</p><p>All that in a number?  Well, more or less, yes.  Release
+numbering strategies are one of the oldest bikeshed discussions around
+(see <a class="xref" href="ch06s02.html#bikeshed" title="The Softer the Topic, the Longer the Debate">the section called “The Softer the Topic, the Longer the Debate”</a><span> in
+<a class="xref" href="ch06.html" title="Chapter 6. Communications">Chapter 6, <em>Communications</em></a></span>), and the world is
+unlikely to settle on a single, complete standard anytime soon.
+However, a few good strategies have emerged, along with one
+universally agreed-on principle: <span class="emphasis"><em>be consistent</em></span>.
+Pick a numbering scheme, document it, and stick with it.  Your users
+will thank you.</p><div class="sect2" title="Release Number Components"><div class="titlepage"><div><div><h2 class="title"><a id="release-number-components"/>Release Number Components</h2></div></div></div><p>This section describes the formal conventions of release
+numbering in detail, and assumes very little prior knowledge.  It is
+intended mainly as a reference.  If you're already familiar with these
+conventions, you can skip this section.</p><p>Release numbers are groups of digits separated by dots:</p><div class="informalexample"><div class="literallayout"><p>Scanley 2.3<br/>
+Singer 5.11.4</p></div></div><p>...and so on.  The dots are <span class="emphasis"><em>not</em></span> decimal
+points, they are merely separators; "5.3.9" would be followed by
+"5.3.10".  A few projects have occasionally hinted otherwise, most
+famously the Linux kernel with its "0.95", "0.96"... "0.99" sequence
+leading up to Linux 1.0, but the convention that the dots are not
+decimals is now firmly established and should be considered a
+standard.  There is no limit to the number of components (digit
+portions containing no dots), but most projects do not go beyond three
+or four.  The reasons why will become clear later.</p><p>In addition to the numeric components, projects sometimes tack
+on a descriptive label such as "Alpha" or "Beta" (see
+<a class="xref" href="ch02.html#alpha-and-beta" title="Alpha and Beta">Alpha and Beta</a>), for example:</p><div class="informalexample"><div class="literallayout"><p>Scanley 2.3.0 (Alpha)<br/>
+Singer 5.11.4 (Beta)</p></div></div><p>An Alpha or Beta qualifier means that this
+release <span class="emphasis"><em>precedes</em></span> a future release that will have
+the same number without the qualifier.  Thus, "2.3.0 (Alpha)"
+leads eventually to "2.3.0".  In order to allow several such candidate
+releases in a row, the qualifiers themselves can have meta-qualifiers.
+For example, here is a series of releases in the order that they would
+be made available to the public:</p><div class="informalexample"><div class="literallayout"><p>Scanley 2.3.0 (Alpha 1)<br/>
+Scanley 2.3.0 (Alpha 2)<br/>
+Scanley 2.3.0 (Beta 1)<br/>
+Scanley 2.3.0 (Beta 2)<br/>
+Scanley 2.3.0 (Beta 3)<br/>
+Scanley 2.3.0</p></div></div><p>Notice that when it has the "Alpha" qualifier, Scanley "2.3" is
+written as "2.3.0".  The two numbers are equivalent—trailing
+all-zero components can always be dropped for brevity—but when a
+qualifier is present, brevity is out the window anyway, so one might
+as well go for completeness instead.</p><p>Other qualifiers in semi-regular use include "Stable",
+"Unstable", "Development", and "RC" (for "Release Candidate").  The
+most widely used ones are still "Alpha" and "Beta", with "RC" running
+a close third place, but note that "RC" always includes a numeric
+meta-qualifier.  That is, you don't release
+"Scanley 2.3.0 (RC)", you release
+"Scanley 2.3.0 (RC 1)", followed by RC2, etc.</p><p>Those three labels, "Alpha", "Beta", and "RC", are pretty widely
+known now, and I don't recommend using any of the others, even though
+the others might at first glance seem like better choices because they
+are normal words, not jargon.  But people who install software from
+releases are already familiar with the big three, and there's no
+reason to do things gratuitously differently from the way everyone
+else does them.</p><p>Although the dots in release numbers are not decimal points,
+they do indicate place-value significance.  All "0.X.Y" releases
+precede "1.0" (which is equivalent to "1.0.0", of course).  "3.14.158"
+immediately precedes "3.14.159", and non-immediately precedes
+"3.14.160" as well as "3.15.anything", and so.</p><p>A consistent release numbering policy enables a user to look at
+two release numbers for the same piece of software and tell, just from
+the numbers, the important differences between those two releases.  In
+a typical three-component system, the first component is
+the <em class="firstterm">major number</em>, the second is
+the <em class="firstterm">minor number</em>, and the third is the
+<em class="firstterm">micro number</em>.  For example, release
+"2.10.17" is the seventeenth micro release in the tenth minor release
+line within the second major release series.  The words "line" and
+"series" are used informally here, but they mean what one would
+expect.  A major series is simply all the releases that share the same
+major number, and a minor series (or minor line) consists of all the releases
+that share the same minor <span class="emphasis"><em>and</em></span> major number.  That
+is, "2.4.0" and "3.4.1" are not in the same minor series,
+even though they both have "4" for their minor number; on the other
+hand, "2.4.0" and "2.4.2" are in the same minor line, though they are
+not adjacent if "2.4.1" was released between them.</p><p>The meanings of these numbers are exactly what you'd expect: an
+increment of the major number indicates that major changes happened;
+an increment of the minor number indicates minor changes; and an
+increment of the micro number indicates really trivial changes.  Some
+projects add a fourth component, usually called
+the <em class="firstterm">patch number</em>, for especially
+fine-grained control over the differences between their releases
+(confusingly, other projects use "patch" as a synonym for "micro" in a
+three-component system).  There are also projects that use the last
+component as a <em class="firstterm">build number</em>, incremented
+every time the software is built and representing no change other than
+that build.  This helps the project link every bug report with a
+specific build, and is probably most useful when binary packages are
+the default method of distribution.</p><p>Although there are many different conventions for how many
+components to use, and what the components mean, the differences tend
+to be minor—you get a little leeway, but not a lot.  The next
+two sections discuss some of the most widely used conventions.</p></div><div class="sect2" title="The Simple Strategy"><div class="titlepage"><div><div><h2 class="title"><a id="release-number-simple-strategy"/>The Simple Strategy</h2></div></div></div><p>Most projects have rules about what kinds of changes are allowed
+into a release if one is only incrementing the micro number, different
+rules for the minor number, and still different ones for the major
+number.  There is no set standard for these rules yet, but here I will
+describe a policy that has been used successfully by multiple
+projects.  You may want to just adopt this policy in your own
+project, but even if you don't, it's still a good example of the kind
+of information release numbers should convey.  This policy is adapted
+from the numbering system used by the APR project, see
+<a class="ulink" href="http://apr.apache.org/versioning.html">http://apr.apache.org/versioning.html</a>.</p><div class="orderedlist"><ol class="orderedlist"><li class="listitem"><p>Changes to the micro number only (that is, changes
+            within the same minor line) must be both forward- and
+            backward-compatible.  That is, the changes should be bug
+            fixes only, or very small enhancements to existing
+            features.  New features should not be introduced in a
+            micro release.</p></li><li class="listitem"><p>Changes to the minor number (that is, within the
+            same major line) must be backward-compatible, but not
+            necessarily forward-compatible.  It's normal to introduce
+            new features in a minor release, but usually not too many
+            new features at once.</p></li><li class="listitem"><p>Changes to the major number mark compatibility
+            boundaries.  A new major release can be forward- and
+            backward-incompatible.  A major release is expected to
+            have new features, and may even have entire new feature
+            sets.</p></li></ol></div><p>What <em class="firstterm">backward-compatible</em>
+and <em class="firstterm">forward-compatible</em> mean, exactly, depends on
+what your software does, but in context they are usually not open to
+much interpretation.  For example, if your project is a client/server
+application, then "backward-compatible" means that upgrading the
+server to 2.6.0 should not cause any existing 2.5.4 clients to lose
+functionality or behave differently than they did before (except for
+bugs that were fixed, of course).  On the other hand, upgrading one of
+those clients to 2.6.0, along with the server, might
+make <span class="emphasis"><em>new</em></span> functionality available for that client,
+functionality that 2.5.4 clients don't know how to take advantage of.
+If that happens, then the upgrade is <span class="emphasis"><em>not</em></span>
+"forward-compatible": clearly you can't now downgrade that client
+back to 2.5.4 and keep all the functionality it had at 2.6.0, since
+some of that functionality was new in 2.6.0.</p><p>This is why micro releases are essentially for bug fixes only.
+They must remain compatible in both directions: if you upgrade from
+2.5.3 to 2.5.4, then change your mind and downgrade back to 2.5.3, no
+functionality should be lost.  Of course, the bugs fixed in 2.5.4
+would reappear after the downgrade, but you wouldn't lose any
+features, except insofar as the restored bugs prevent the use of some
+existing features.</p><p>Client/server protocols are just one of many possible
+compatibility domains.  Another is data formats: does the software
+write data to permanent storage?  If so, the formats it reads and
+writes need to follow the compatibility guidelines promised by the
+release number policy.  Version 2.6.0 needs to be able to read the
+files written by 2.5.4, but may silently upgrade the format to
+something that 2.5.4 cannot read, because the ability to downgrade is
+not required across a minor number boundary.  If your project
+distributes code libraries for other programs to use, then APIs are a
+compatibility domain too: you must make sure that source and binary
+compatibility rules are spelled out in such a way that the informed
+user need never wonder whether or not it's safe to upgrade in place.
+She will be able to look at the numbers and know instantly.</p><p>In this system, you don't get a chance for a fresh start until
+you increment the major number.  This can often be a real
+inconvenience: there may be features you wish to add, or protocols
+that you wish to redesign, that simply cannot be done while
+maintaining compatibility.  There's no magic solution to this, except
+to try to design things in an extensible way in the first place (a
+topic easily worth its own book, and certainly outside the scope of
+this one).  But publishing a release compatibility policy, and
+adhering to it, is an inescapable part of distributing software.  One
+nasty surprise can alienate a lot of users.  The policy just described
+is good partly because it's already quite widespread, but also because
+it's easy to explain and to remember, even for those not already familiar
+with it.</p><p>It is generally understood that these rules do not apply to
+pre-1.0 releases (although your release policy should probably state
+so explicitly, just to be clear).  A project that is still in initial
+development can release 0.1, 0.2, 0.3, and so on in sequence, until
+it's ready for 1.0, and the differences between those releases can be
+arbitrarily large.  Micro numbers in pre-1.0 releases are optional.
+Depending on the nature of your project and the differences between
+the releases, you might find it useful to have 0.1.0, 0.1.1, etc., or
+you might not.  Conventions for pre-1.0 release numbers are fairly
+loose, mainly because people understand that strong compatibility
+constraints would hamper early development too much, and because early
+adopters tend to be forgiving anyway.</p><p>Remember that all these injunctions only apply to this
+particular three-component system.  Your project could easily come up
+with a different three-component system, or even decide it doesn't
+need such fine granularity and use a two-component system instead.
+The important thing is to decide early, publish exactly what the
+components mean, and stick to it.</p></div><div class="sect2" title="The Even/Odd Strategy"><div class="titlepage"><div><div><h2 class="title"><a id="release-number-even-odd-strategy"/>The Even/Odd Strategy</h2></div></div></div><p>Some projects use the parity of the minor number component to
+indicate the stability of the software: even means stable, odd means
+unstable.  This applies only to the minor number, not the major and
+micro numbers.  Increments in the micro number still indicate bug
+fixes (no new features), and increments in the major number still
+indicate big changes, new feature sets, etc.</p><p>The advantage of the even/odd system, which has been used by the
+Linux kernel project among others, is that it offers a way to release
+new functionality for testing without subjecting production users to
+potentially unstable code.  People can see from the numbers that
+"2.4.21" is okay to install on their live web server, but that "2.5.1"
+should probably stay confined to home workstation experiments.  The
+development team handles the bug reports that come in from the
+unstable (odd-minor-numbered) series, and when things start to settle
+down after some number of micro releases in that series, they
+increment the minor number (thus making it even), reset the micro
+number back to "0", and release a presumably stable package.</p><p>This system preserves, or at least, does not conflict with, the
+compatibility guidelines given earlier.  It simply overloads the minor
+number with some extra information.  This forces the minor number to
+be incremented about twice as often as would otherwise be necessary,
+but there's no great harm in that.  The even/odd system is probably
+best for projects that have very long release cycles, and which by
+their nature have a high proportion of conservative users who value
+stability above new features.  It is not the only way to get new
+functionality tested in the wild, however.
+<a class="xref" href="ch07s03.html" title="Stabilizing a Release">the section called “Stabilizing a Release”</a><span>
+later in this chapter</span> describes another, perhaps more common,
+method of releasing potentially unstable code to the public, marked so
+that people have an idea of the risk/benefit trade-offs immediately on
+seeing the release's name.</p></div></div></div></body></html>

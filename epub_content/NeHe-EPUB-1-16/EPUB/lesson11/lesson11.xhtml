@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-08</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 11 - Animating a Surface</h2>
+
+
+<p>This next lesson is bit more substantial than the previous lessons. This NeHe demo consists of mapping a large image whose underlying structure (i.e. set of triangular mesh) is oscillated, causing the image to &quot;wave&quot;. the original demo was written in C++ and rendered in OpenGL 1.1 using a static library. The demo simply created a 45x45 mesh of GL_QUADS and altered the Z-value for each quad by &quot;rolling&quot; each vertex's Z-value to the next vertex, which caused the texture to wave.</p>
+<p>For amusement, the first attempt in three.js was done in the same fashion, simply creating the mesh consisting of a large (4050!) series triangles and then altering the Z-values to animate the resulting mesh. As expected, the performance was abysmal. Part of te reason was that JavaScript - even with modern just-in-time (JIT) compilers - simply cannot loop that fast. Worse, there was a <em><strong>lot</strong></em> of memory being pushed to the GPU each frame.</p>
+<p>The solution lies in how the memory is passed to the GPU and then subsequently updated, which comes back to how WebGL works and how memory is passed to and used by the GPU. The original method doesn't work well for two reasons:</p>
+<ul>
+  <li>The mesh consists of a very large number of triangles, which are created on the JavaScript side (lots of looping and memory allocation) </li>
+  <li>Animating all those structures is again a <em><strong>lot</strong></em> of looping in JavaScript</li>
+</ul>
+<p>Instead, we use a built-in geometry in three.js, the <span class="inline-code">ParametricGeometry</span>. This object takes some size info and a callback function which defines the parameters for generating the surface as a single mesh. In our case, we pass in a simple sine wave function.</p>
+
+<p>Here is the call to create the parametric geometry, the mesh and add it to the scene.</p>
+
+<pre><code class="language-javascript">var paraGeom = new THREE.ParametricGeometry(sineWave, 45, 45);
+paraMesh = new THREE.Mesh( paraGeom, material);
+gfxScene.add(paraMesh);</code>
+</pre>
+
+<p>This is the simple callback that is called for each vertex</p>
+
+<pre><code class="language-javascript">function sineWave ( u, v ) {
+    var x = u * 9 - 4.5;
+    var y = v * 9 - 4.5;
+    var z = Math.sin(u*Math.PI*2.0);
+				
+    return new THREE.Vector3(x, y, z);
+}</code></pre>
+
+<p>Three.js then iterates over the 45x45 mesh and calls our sine-wave callback for each vertex. The resulting mesh is then a single object - not 4000 objects - and can be passed in a single call to the GPU. </p>
+
+<p>Moreover, the verticies are packed into a vertex-buffer, which is a linear construct of <span class="inline-code">THREE.Vector3</span> objects. So when we want to access the verticies in order to &quot;roll&quot; them along and make the texture wave, we can simply get the list of verticies from the geometry and loop through them once. Note that we need to tell three.js ithas to update the vertices of the geometry. If we don't do that, nothing happens.</p>
+
+<pre><code class="language-javascript">function wiggleTheSurface() {
+    vertices = paraGeom.vertices;
+    var temp = vertices[0].z;
+    for ( var i = 1; i &lt; vertices.length; i++ ) {
+        vertices[i-1].z = vertices[i].z;
+    }
+
+    vertices[vertices.length-1].z = temp;
+    paraMesh.geometry.verticesNeedUpdate = true;
+}</code></pre>
+
+<p>A final note. Some might wonder if this effect couldn't have been achieved also by writing a custom shader. The answer is (AFAIK) no. The effect of waving is achieved by &quot;rolling&quot; the values in the array of vertices from one vertex to the next (and the last vertex to the first). Shaders work atomically on one vertex at a time, with no way to access the values of any other vertex. You could oscillate each vertex back and forth but you couldn't roll them one to the other. And example of oscillating the vertext values can be found <a href="https://github.com/rkwright/nehe-three-js/blob/develop/lesson11/lesson11webgl-S.html" title="Oscillating shader" target="_blank">here</a>.</p>
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its waving glory!</p>
+</body>
+</html>

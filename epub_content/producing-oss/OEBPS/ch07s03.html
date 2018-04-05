@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Stabilizing a Release</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Stabilizing a Release"><div class="titlepage"><div><div><h1 class="title"><a id="stabilizing-a-release"/>Stabilizing a Release</h1></div></div></div><p><em class="firstterm">Stabilization</em> is the process of getting a
+release branch into a releasable state; that is, of deciding which
+changes will be in the release, which will not, and shaping the branch
+content accordingly.</p><p>There's a lot of potential grief contained in that word,
+"deciding".  The last-minute feature rush is a familiar phenomenon in
+collaborative software projects: as soon as developers see that a
+release is about to happen, they scramble to finish their current
+changes, in order not to miss the boat.  This, of course, is the exact
+opposite of what you want at release time.  It would be much better
+for people to work on features at a comfortable pace, and not worry
+too much about whether their changes make it into this release or the
+next one.  The more changes one tries to cram into a release at the
+last minute, the more the code is destabilized, and (usually) the more
+new bugs are created.</p><p>Most software engineers agree in theory on rough criteria for
+what changes should be allowed into a release line during its
+stabilization period.  Obviously, fixes for severe bugs can go in,
+especially for bugs without workarounds.  Documentation updates are
+fine, as are fixes to error messages (except when they are considered
+part of the interface and must remain stable).  Many projects also
+allow certain kinds of low-risk or non-core changes to go in during
+stabilization, and may have formal guidelines for measuring risk.  But
+no amount of formalization can obviate the need for human judgement.
+There will always be cases where the project simply has to make a
+decision about whether a given change can go into a release.  The
+danger is that since each person wants to see their own favorite
+changes admitted into the release, then there will be plenty of people
+motivated to allow changes, and not enough people motivated to bar
+them.</p><p>Thus, the process of stabilizing a release is mostly about
+creating mechanisms for saying "no".  The trick for open source
+projects, in particular, is to come up with ways of saying "no" that
+won't result in too many hurt feelings or disappointed developers, and
+also won't prevent deserving changes from getting into the release.
+There are many different ways to do this.  It's pretty easy to design
+systems that satisfy these criteria, once the team has focused on them
+as the important criteria.  Here I'll briefly describe two of the most
+popular systems, at the extreme ends of the spectrum, but don't let
+that discourage your project from being creative.  Plenty of other
+arrangements are possible; these are just two that I've seen work in
+practice.</p><div class="sect2" title="Dictatorship by Release Owner"><div class="titlepage"><div><div><h2 class="title"><a id="release-owner"/>Dictatorship by Release Owner</h2></div></div></div><p>The group agrees to let one person be the <em class="firstterm">release
+owner</em>.  This person has final say over what changes make
+it into the release.  Of course, it is normal and expected for there
+to be discussions and arguments, but in the end the group must grant
+the release owner sufficient authority to make final decisions.  For
+this system to work, it is necessary to choose someone with the
+technical competence to understand all the changes, and the social
+standing and people skills to navigate the discussions leading up to
+the release without causing too many hurt feelings.</p><p>A common pattern is for the release owner to say "I don't think
+there's anything wrong with this change, but we haven't had enough
+time to test it yet, so it shouldn't go into this release."  It helps
+a lot if the release owner has broad technical knowledge of the
+project, and can give reasons why the change could be potentially
+destabilizing (for example, its interactions with other parts of the
+software, or portability concerns).  People will sometimes ask such
+decisions to be justified, or will argue that a change is not as risky
+as it looks.  These conversations need not be confrontational, as long
+as the release owner is able to consider all the arguments objectively
+and not reflexively dig in his heels.</p><p>Note that the release owner need not be the same person as the
+project leader (in cases where there is a project leader at all; see
+<a class="xref" href="ch04.html#benevolent-dictator" title="Benevolent Dictators">the section called “Benevolent Dictators”</a><span>
+in <a class="xref" href="ch04.html" title="Chapter 4. Social and Political Infrastructure">Chapter 4, <em>Social and Political Infrastructure</em></a></span>).  In fact,
+sometimes it's
+good to make sure they're <span class="emphasis"><em>not</em></span> the same person.
+The skills that make a good development leader are not necessarily the
+same as those that make a good release owner.  In something as
+important as the release process, it may be wise to have someone
+provide a counterbalance to the project leader's judgement.</p><p>Contrast the release owner role with the less dictatorial role
+described in
+<a class="xref" href="ch07s03.html#release-manager" title="Release manager">the section called “Release manager”</a><span> later
+in this chapter</span>.</p></div><div class="sect2" title="Change Voting"><div class="titlepage"><div><div><h2 class="title"><a id="release-voting"/>Change Voting</h2></div></div></div><p>At the opposite extreme from dictatorship by release owner,
+developers can simply vote on which changes to include in the release.
+However, since the most important function of release stabilization is
+to <span class="emphasis"><em>exclude</em></span> changes, it's important to design the
+voting system in such a way that getting a change into the release
+involves positive action by multiple developers.  Including a change
+should need more than just a simple majority (see <a class="xref" href="ch04s02.html#electorate" title="Who Votes?">the section called “Who Votes?”</a><span> in
+<a class="xref" href="ch04.html" title="Chapter 4. Social and Political Infrastructure">Chapter 4, <em>Social and Political Infrastructure</em></a></span>).  Otherwise,
+one vote for and none against a given change would suffice to get it
+into the release, and an
+unfortunate dynamic would be set up whereby each developer would vote
+for her own changes, yet would be reluctant to vote against others'
+changes, for fear of possible retaliation.  To avoid this, the system
+should be arranged such that subgroups of developers must act in
+cooperation to get any change into the release.  This not only means
+that more people review each change, it also makes any individual
+developer less hesitant to vote against a change, because she knows
+that no particular one among those who voted for it would take her
+vote against as a personal affront.  The greater the number of people
+involved, the more the discussion becomes about the change and less
+about the individuals.</p><p>The system we use in the Subversion project seems to have struck
+a good balance, so I'll recommend it here.  In order for a change to
+be applied to the release branch, at least three developers must vote
+in favor of it, and none against.  A single "no" vote is enough to
+stop the change from being included; that is, a "no" vote in a release
+context is equivalent to a veto (see <a class="xref" href="ch04s02.html#veto" title="Vetoes">the section called “Vetoes”</a>).
+Naturally, any such vote must be accompanied by a justification, and
+in theory the veto could be overridden if enough people feel it is
+unreasonable and force a special vote over it.  In practice, this has
+never happened, and I don't expect that it ever will.  People are
+conservative around releases anyway, and when someone feels strongly
+enough to veto the inclusion of a change, there's usually a good
+reason for it.</p><p>Because the release procedure is deliberately biased toward
+conservatism, the justifications offered for vetoes are sometimes
+procedural rather than technical.  For example, a person may feel that
+a change is well-written and unlikely to cause any new bugs, but vote
+against its inclusion in a micro release simply because it's too
+big—perhaps it adds a new feature, or in some subtle way fails
+to fully follow the compatibility guidelines.  I've occasionally even
+seen developers veto something because they simply had a gut feeling
+that the change needed more testing, even though they couldn't spot
+any bugs in it by inspection.  People grumbled a little bit, but the
+vetoes stood and the change was not included in the release (I don't
+remember if any bugs were found in later testing or not,
+though).</p><div class="sect3" title="Managing collaborative release stabilization"><div class="titlepage"><div><div><h3 class="title"><a id="release-stabilization-collaboration"/>Managing collaborative release stabilization</h3></div></div></div><p>If your project chooses a change voting system, it is imperative
+that the physical mechanics of setting up ballots and casting votes be
+as convenient as possible.  Although there is plenty of open source
+electronic voting software available, in practice the easiest thing to
+do is just to set up a text file in the release branch,
+called <code class="filename">STATUS</code> or <code class="filename">VOTES</code> or
+something like that.  This file lists each proposed change—any
+developer can propose a change for inclusion—along with all the
+votes for and against it, plus any notes or comments.  (Proposing a
+change doesn't necessarily mean voting for it, by the way, although
+the two often go together.)  An entry in such a file might look like
+this:</p><pre class="screen">
+* r2401 (issue #49)
+  Prevent client/server handshake from happening twice.
+  Justification:
+    Avoids extra network turnaround; small change and easy to review.
+  Notes:
+    This was discussed in http://.../mailing-lists/message-7777.html
+    and other messages in that thread.
+  Votes:
+    +1: jsmith, kimf
+    -1: tmartin (breaks compatibility with some pre-1.0 servers;
+                 admittedly, those servers are buggy, but why be
+                 incompatible if we don't have to?)
+</pre><p>In this case, the change acquired two positive votes, but was
+vetoed by tmartin, who gave the reason for the veto in a parenthetical
+note.  The exact format of the entry doesn't matter; whatever your
+project settles on is fine—perhaps tmartin's explanation for the
+veto should go up in the "Notes:" section, or perhaps the change
+description should get a "Description:" header to match the other
+sections.  The important thing is that all the information needed to
+evaluate the change be reachable, and that the mechanism for casting
+votes be as lightweight as possible.  The proposed change is referred
+to by its revision number in the repository (in this case a single
+revision, r2401, although a proposed change could just as easily
+consist of multiple revisions).  The revision is assumed to refer to a
+change made on the trunk; if the change were already on the release
+branch, there would be no need to vote on it.  If your version control
+system doesn't have an obvious syntax for referring to individual
+changes, then the project should make one up.  For voting to be
+practical, each change under consideration must be unambiguously
+identifiable.</p><p>Those proposing or voting for a change are responsible for
+making sure it applies cleanly to the release branch, that is, applies
+without conflicts (see <a class="xref" href="ch03s03.html#vc-vocabulary-conflict"><em class="firstterm">conflict</em></a>).
+If there are conflicts, then the entry should either point to an
+adjusted patch that does apply cleanly, or to a temporary branch that
+holds an adjusted version of the change, for example:</p><pre class="screen">
+* r13222, r13223, r13232
+  Rewrite libsvn_fs_fs's auto-merge algorithm
+  Justification:
+    unacceptable performance (&gt;50 minutes for a small commit) in
+    a repository with 300,000 revisions
+  Branch:
+    1.1.x-r13222@13517
+  Votes:
+    +1: epg, ghudson
+</pre><p>That example is taken from real life; it comes from the
+<code class="filename">STATUS</code> file for the Subversion 1.1.4 release
+process.  Notice how it uses the original revisions as canonical
+handles on the change, even though there is also a branch with a
+conflict-adjusted version of the change (the branch also combines the
+three trunk revisions into one, r13517, to make it easier to merge the
+change into the release, should it get approval).  The original
+revisions are provided because they're still the easiest entity to
+review, since they have the original log messages.  The temporary
+branch wouldn't have those log messages; in order to avoid duplication
+of information (see
+<a class="xref" href="ch03s03.html#vc-singularity" title="Singularity of information">the section called “Singularity of information”</a><span> in
+<a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span>), the
+branch's log message for r13517 should simply say "Adjust r13222,
+r13223, and r13232 for backport to 1.1.x branch."  All other
+information about the changes can be chased down at their original
+revisions.</p></div><div class="sect3" title="Release manager"><div class="titlepage"><div><div><h3 class="title"><a id="release-manager"/>Release manager</h3></div></div></div><p>The actual process of merging (see
+<a class="xref" href="ch03s03.html#vc-vocabulary-merge"><em class="firstterm">merge (a.k.a. port)</em></a>) approved changes into the
+release branch can be performed by any developer.  There does not need
+to be one person whose job it is to merge changes; if there are a lot
+of changes, it can be better to spread the burden around.</p><p>However, although both voting and merging happen in a
+decentralized fashion, in practice there are usually one or two people
+driving the release process.  This role is sometimes formally blessed
+as <em class="firstterm">release manager</em>, but it is quite different
+from a release owner (see
+<a class="xref" href="ch07s03.html#release-owner" title="Dictatorship by Release Owner">the section called “Dictatorship by Release Owner”</a><span> earlier
+in this chapter</span>) who has
+final say over the changes.  Release managers keep track of how many
+changes are currently under consideration, how many have been
+approved, how many seem likely to be approved, etc.  If they sense
+that important changes are not getting enough attention, and might be
+left out of the release for lack of votes, they will gently nag other
+developers to review and vote.  When a batch of changes are approved,
+these people will often take it upon themselves to merge them into the
+release branch; it's fine if others leave that task to them, as
+long as everyone understands that they are not obligated to do all the
+work unless they have explicitly committed to it.  When the time comes
+to put the release out the door (see
+<a class="xref" href="ch07s05.html" title="Testing and Releasing">the section called “Testing and Releasing”</a><span>
+later in this chapter</span>), the release managers
+also take care of the logistics of creating the final release
+packages, collecting digital signatures, uploading the packages, and
+making the public announcement.</p></div></div></div></body></html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-08</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 16 - Fog</h2>
+
+
+<p>This final lesson in the first 16 NeHe lessons is very simple. This is because the support for fog in three.js is very simple. There are two types of fog support:</p>
+<ul>
+  <li>Linear Fog - where the density of the fog increases linearly with distance</li>
+  <li>Exponential Fog - where the density of the fog increases exponentially with distance</li>
+</ul>
+<p>In both cases, the fog acts on all objects in the scene and obscures only those objects, i.e. it is not like a particle-system fog or clouds that drift across the landscape on their own.</p>
+<p>Linear fog seems less useful in general since the only real parameter one can set is the color of the fog. It is not very dense, either, so you need to create a large scene or the effects will be hard to discern. Exponential fog, on the other hand, has a density parameter so the density can be varied independent of the scale and position of objects.</p>
+<p>Both can be optimized slightly be setting the near and far parameters, which lowers the computing needs.</p>
+<p>Finally, fog must be set when the scene is created. the only way to change it would be to re-create the whole scene. And you cannot change the type of fog after it is created. However, if you use exponential fog, you can set the density to zero which effectively eliminates it.</p>
+<p>In this demo, we set exponential fog in the constructor of the scene. You can vary the density and color of the fog with the keyboard. So the call to create the scene in this demo is</p>
+
+<pre><code class="language-javascript">var gfxScene = new GFX.Scene( {
+    cameraPos:[2,2,10],
+    canvasWidth : 768,
+    canvasHeight : 1024,
+    controls:true,
+    displayStats:true,
+    floorRepeat:10,
+    fogType : fogType,
+    fogDensity : fogDensity,
+    fogColor: 0xffffff });</code></pre>
+                
+<p>In order to demonstrate the effects of fog we use another feature available in the scene: checkerboard floor. The checkerboard is a simple 256x256 pixel image:</p>
+<blockquote><p><img src="../images/checkerboard.jpg" width="172" height="172" alt=""/></p>
+</blockquote>
+<p>The code that renders this is in gfx-scene.js:</p>
+
+<pre><code class="language-javascript">var image = this.floorImage == null ?
+                    '../images/checkerboard.jpg' : this.floorImage;
+var texture = new THREE.ImageUtils.loadTexture( image );
+texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+texture.repeat.set( this.floorRepeat, this.floorRepeat );
+		
+var floorMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
+var width = this.floorX == 0 ? 10 : this.floorX;
+var height = this.floorZ == 0 ? 10 : this.floorZ;
+
+var floorGeometry = new THREE.PlaneGeometry(width, height, 1, 1);
+var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+floor.position.y = 0.0;
+floor.rotation.x = Math.PI / 2;
+this.scene.add(floor);</code></pre>
+        
+<p>As you can see, the checkerboard is the default, but the user can supply their own image if they wish. <span class="inline-code">floorRepeat</span> is the number of times the texture is repeated (in both X and Y). <span class="inline-code">width</span> and <span class="inline-code">height</span> are the width (in X) and the height (in Z) of the &quot;floor&quot; that is created, in the current coordinate system.</p>
+<p>The mesh is created by creating a PlaneGeometry, which is a flat, planar surface. It is oriented parallel to the X-Z plane at Y=0.</p>
+<p>In order to provide something to demonstrate the fogginess, the demo creates a set of 21 cubes (1x1x1) oriented along the X and Z axes. The cubes use the crate texture.</p>
+<p>You can increase and decrease the density of the (exponential) fog with the '+' and '-' keys and change the color of the fog. The default is white, but you can set red, green, blue or black.</p>
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its foggy glory!</p>
+</body>
+</html>
