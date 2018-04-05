@@ -150,7 +150,7 @@ Note that `npm run http` + `dev` folder is not the only way to test Readium "loc
 ## Cloud reader deployment
 
 The contents of the `cloud-reader` distribution folder (see section above) can be uploaded to an HTTP server as-is (either in the http://domain.com/ root, or any subfolder path http://domain.com/reader/),
-and a child `epub_content/` folder is expected to contain exploded or zipped EPUBs (e.g. http://domain.com/reader/epub_content/ebook.epub or http://domain.com/epub_content/ebook/ for extracted files),
+and a child (of the parent cloud-reader folder) `epub_content/` folder is expected to contain exploded or zipped EPUBs (e.g. http://domain.com/reader/epub_content/ebook.epub or http://domain.com/epub_content/ebook/ for extracted files),
 and the `epub_content/epub_library.opds` file is expected to describe the available ebooks in the online library
 (see the existing examples in `readium-js-viewer` repository). Note that `epub_library.json` is the legacy format, now superseded by OPDS XML (a specialized Atom feed format). Readium supports both formats, but OPDS is recommended. The `epubs` URL query parameter can be used to specify a different location for the OPDS/JSON file that describes the ebook library contents, for example:
 `http://domain.com/index.html?epubs=http://otherdomain.com/ebooks.opds` (assuming both HTTP servers are suitably configured with CORS),
