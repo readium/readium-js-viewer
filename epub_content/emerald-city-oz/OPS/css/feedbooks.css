@@ -1,0 +1,18 @@
+@import "page.css";
+
+body {
+  font-family: serif;
+  padding: 0;
+  oeb-column-number: 1;}
+
+div.logo2 {
+  text-align: center; 
+  padding-top: 30%;}
+
+div.texttitle {
+  text-align: center;
+  font-size: large;}
+
+a {
+  color: #000000;
+  text-decoration: none;}

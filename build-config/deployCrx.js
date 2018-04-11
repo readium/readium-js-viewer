@@ -49,14 +49,19 @@ var deleteOldRelease = function(error, response){
     }
     
     github.repos.getReleases({owner: owner, repo: repo}, function(error, releases){
-        for (var i = 0; i < releases.length; i++){
-            if (releases[i].tag_name == version){
+        // console.log("----");
+        // console.log(releases);
+        // console.log("----");
+        for (var i = 0; i < releases.data.length; i++){
+            // console.log(releases.data[i].tag_name);
+            // console.log(version);
+            if (releases.data[i].tag_name == version){
                 break;
             }
         }
-        if (i < releases.length){
+        if (i < releases.data.length){
             console.log('found existing release, deleting');
-            github.repos.deleteRelease({owner: owner, repo: repo, id: releases[i].id}, function(error, response){
+            github.repos.deleteRelease({owner: owner, repo: repo, id: releases.data[i].id}, function(error, response){
                 if (error){
                     console.error(JSON.stringify(error));
                     return;
@@ -110,7 +115,34 @@ var createRelease = function(){
         //req.end();
     };
     
-    
+    // var uploadInit = function(releaseId) {
+    //     var httpOptions = {
+    //         hostname: 'api.github.com',
+    //         port: 443,
+    //         path: '/repos/'+ owner + '/' + repo + '/releases/' + releaseId,
+    //         method: 'GET',
+    //         headers: {
+    //             'Authorization' : 'token ' + oauthToken
+    //         }
+    //     };
+    //     //console.log(httpOptions);
+
+    //     var req = https.request(httpOptions, function(res){
+    //         if (res.statusCode < 400){
+    //             console.log('release GET successful: ' + res.upload_url);
+    //         }
+    //         else{
+    //             console.log('release GET fail: ' + res.statusCode);
+    //         }
+    //         // res.on('data', (d) => {
+    //         //     process.stdout.write(d);
+    //         // });
+    //     });
+    //     req.on('error', (e) => {
+    //         console.log(e);
+    //     });
+    //     req.end();
+    // };
     
     var releaseDate = new Date().toUTCString();
     console.log("BUILD DATE/TIME: "+releaseDate);
@@ -146,10 +178,12 @@ var createRelease = function(){
             return;
         }
         console.log('release created');
-        //console.log(result);
+        // console.log(result);
 
-        var releaseId = result.id;
+        var releaseId = result.data.id;
         
+        // uploadInit(releaseId);
+
         var fileName = 'Readium.crx';
         var filePath = path.join(process.cwd(), 'dist/' + fileName);
         var contentType = 'application/x-chrome-extension';

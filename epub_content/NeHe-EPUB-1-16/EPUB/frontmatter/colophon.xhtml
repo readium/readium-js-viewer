@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+	<title>NeHe-EPUB-Preface</title>
+	<link rel="stylesheet" type="text/css" href="../css/NeHe-EPUB.css"/>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<div class="body">
+<h1 style="text-align: center">Colophon</h1>
+<p>This book was created using a variety of tools, but the general workflow was as follows:</p>
+<ul>
+  <li>The EPUB was begun by creating the <a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-package-def">OPF</a>,
+      then adding the requisite HTML, CSS and scripts to the OPF and creating those files.</li>
+  <li>Editing of the OPF and other markup was done in <a href="https://www.jetbrains.com/webstorm/">Webstorm</a></li>
+  <li>WYSIWYG editing of the HTML text that forms the chapters was done in <a href="http://www.adobe.com/products/dreamweaver.html">Dreamweaver</a>.
+      An &quot;external tool&quot; shortcut was added to Webstorm to facilitate jumping back and forth.</li>
+  <li>A little <a href="https://github.com/rkwright/UpdateModTime">Java program</a> was written (and invoked as a jar)
+      that updates the OPF, setting the dcterms:modified to the current date and time</li>
+  <li>A <a href="https://github.com/readium/readium-test-files/blob/master/util/scripts/zip-epub-check.sh">bash script</a>
+      was written to invoke that jar, properly package (zip) all the sources of the Webstorm project and then run them against
+      <a href="https://github.com/IDPF/epubcheck">EPUBCheck</a></li>
+  </ul>
+<p>The actual format of the EPUB is fairly straightforward. There are a few aspects that are interesting. First, each
+    chapter or lesson is actually two different spine items. The main part of the chapter is a reflowable spine item.
+    The final page of each chapter is the actual functional WebGL demo. It is a separate spine item which is a fixed-layout
+    page where the itemref in the spine has an override. Thus the second chapter's spine items are</p>
+<pre>&lt;itemref&#32;idref="lesson02"&#32;/&gt;
+&lt;itemref&#32;idref="lesson02-gl"&#32;properties="rendition:layout-pre-paginated"/&gt;</pre>
+<p>It is done this way because the JavaScript code that is the demo has to have a specific size. Normally, in the
+    browser, the JS code fetches the size of the innerWindow, but that doesn't work from inside an EPUB reading system
+    since it normally wraps the actual page content in a iFrame or other construct. So it works much better to specify
+    a fixed size page.</p>
+<p>The other interesting aspect is the use of PrismJS to colorize the JavaScript code for better readability. This requires
+    that each block of code to be colorized be wrapped in a &lt;code&gt; element and the language specified as part a
+    CSS style, e.g. </p>
+<pre>&lt;code&#32;class="language-javascript"&gt;</pre>
+<p>Finally, all the illegal HTML characters need to be escaped (<em>e.g.</em> &amp;lt; <em>etc.</em>). This is a bit of a pain since if the
+    actual demo code is modified then the example code in the chapter has to be updated. Fortunately, after the first few
+    lessons only the JavaScript code is shown in the chapter so it's pretty straightforward.</p>
+</div>
+</body>
+</html>

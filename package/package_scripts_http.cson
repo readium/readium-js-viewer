@@ -75,7 +75,7 @@
 
         npm run watch
             \"npm run genPluginsConfig
-                && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
+                && node readium-js/readium-shared-js/readium-build-tools/webbrowser.js
                 && npm run rimraf
                     open_webbrowser.js\"
             readium-js/readium-shared-js/plugins/
@@ -87,10 +87,10 @@
 
         npm run watch
             \"npm run build
-                && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js
+                && node readium-js/readium-shared-js/readium-build-tools/webbrowser.js
                 && npm run rimraf
                     open_webbrowser.js\"
-            dev/ src/ readium-js/js/ readium-js/readium-shared-js/js/ readium-js/readium-shared-js/plugins/ readium-js/readium-shared-js/readium-cfi-js/js/
+            dev/ src/ readium-js/js/ readium-js/readium-shared-js/js/ readium-js/readium-shared-js/plugins/
     '
     #    nodemon -q
     #    -w build-output/
@@ -101,7 +101,7 @@
     'http:app': '
 
         node
-            readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
+            readium-js/readium-shared-js/readium-build-tools/http-server.js
             
             -LOGFILE
             http_app.log
@@ -119,7 +119,7 @@
     'http:ebooks': '
 
         node
-            readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
+            readium-js/readium-shared-js/readium-build-tools/http-server.js
             
             -LOGFILE
             http_ebooks.log
@@ -137,7 +137,7 @@
     'http:app_ebooks': '
 
         node
-            readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
+            readium-js/readium-shared-js/readium-build-tools/http-server.js
             
             -LOGFILE
             http_app-ebooks.log
@@ -157,7 +157,7 @@
     'http:cloudReaderDist': '
 
         node
-            readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js
+            readium-js/readium-shared-js/readium-build-tools/http-server.js
             
             -LOGFILE
             http_app-ebooks.log

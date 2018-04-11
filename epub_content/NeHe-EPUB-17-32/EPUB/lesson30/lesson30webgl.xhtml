@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<!--
+  			Roughly based (or inspired by) NeHe Tutorial 32
+  			Original:  http://nehe.gamedev.net/tutorial/collision_detection/17005/
+  
+  			@author: rkwright@geofx.com
+		 -->
+		<title>NEHE Lesson 30</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+		<!-- Set the viewport size to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024, initial-scale=1"/>
+		<link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+
+		<!-- Include several libraries from THREE.js and the Scene class  -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+		<script src="../three-js/stats.js" type="text/javascript"></script>
+		<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+        <script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	</head>
+	<body>
+
+    <script type="text/javascript"><![CDATA[
+            var raycaster = new THREE.Raycaster();
+            var walls = new THREE.Object3D();
+            var objects = new THREE.Object3D();
+
+            var OBJ_COUNT  = 20;
+            var OBJ_VEL    = 0.5;
+            var OBJ_SIZE   = 0.5;
+            var OBJ_MASS   = 1;
+            var OBJ_SPIN   = 0.1;
+            var PLANE_SIZE = 20;
+            var WALL_LIMIT = PLANE_SIZE / 2;
+
+			// allocate the Scene object, request orbitControls, some of 3D axes 10 units high and the stats
+			var gfxScene = new GFX.Scene( {
+			    cameraPos : [8, 2, 40],
+                axesHeight: 30,
+                controls:true,
+                displayStats:true
+            });
+
+            // then initialize our demo's stuff
+			initializeDemo();
+	
+			// Animate the scene
+			animateScene();
+	
+			/**
+			 * Initialize the Demo.  
+			 */
+			function initializeDemo() {
+
+                createFloorAndWalls();
+
+                for (var n=0; n<OBJ_COUNT; n++ ) {
+
+                    createBox( n );
+                    createCylinder( n );
+                    createSphere( n );
+                    createIcosahedron( n );
+                }
+
+                gfxScene.add(objects);
+
+                gfxScene.renderScene();
+            }
+
+			function randColor() {
+                return new THREE.Color(parseInt(Math.random()*16777216));
+            }
+
+            function randVel() {
+                return OBJ_VEL * (Math.random()-0.5);
+            }
+
+            function randPos () {
+			    return (PLANE_SIZE-2) * (Math.random()-0.5);
+            }
+
+            function randSpin () {
+                return OBJ_SPIN * (Math.random()- 0.5);
+            }
+
+            function createBox( count ) {
+
+                var geom = new THREE.BoxGeometry(OBJ_SIZE * 2, OBJ_SIZE * 2, OBJ_SIZE * 2);
+                var material = new THREE.MeshLambertMaterial({
+                    color: randColor(),
+                    shading: THREE.FlatShading
+                });
+                var box = new THREE.Mesh(geom, material);
+                box.position.set(randPos(), randPos(), randPos());
+                box.velocity = new THREE.Vector3(randVel(), randVel(), randVel());
+                box.spin = new THREE.Euler(randSpin(), randSpin(), randSpin());
+                box.mass = OBJ_MASS;
+                box.name = "Box " + count;
+                objects.add(box);
+
+                var helper = new THREE.BoxHelper(box, 0xff0000);
+                box.limit = WALL_LIMIT - helper.geometry.boundingSphere.radius;
+            }
+
+            function createSphere( n ) {
+
+                var geom = new THREE.SphereGeometry(OBJ_SIZE, 6, 6);
+                var material = new THREE.MeshLambertMaterial( { color: randColor(), shading: THREE.FlatShading  } );
+                var sphere = new THREE.Mesh( geom, material );
+                sphere.position.set(randPos(), randPos(), randPos());
+                sphere.velocity = new THREE.Vector3(randVel(), randVel(), randVel());
+                sphere.spin = new THREE.Euler(0,0,0);
+                sphere.mass = OBJ_MASS;
+                sphere.name = "Sphere" + n;
+                objects.add(sphere);
+
+                var helper = new THREE.BoxHelper(sphere, 0xff0000);
+                sphere.limit = WALL_LIMIT - helper.geometry.boundingSphere.radius;
+            }
+
+            function createCylinder( n ) {
+
+                var geom = new THREE.CylinderGeometry(OBJ_SIZE, OBJ_SIZE, OBJ_SIZE*2, 8);
+                var material = new THREE.MeshLambertMaterial( { color: randColor(), shading: THREE.FlatShading  } );
+                var cylinder = new THREE.Mesh( geom, material );
+                cylinder.position.set(randPos(), randPos(), randPos());
+                cylinder.velocity = new THREE.Vector3(randVel(), randVel(), randVel());
+                cylinder.spin = new THREE.Euler(randSpin(),randSpin(),randSpin());
+                //cylinder.AABB = createAABBVertices( cylinder );
+                cylinder.name = "Cylinder" + n;
+                cylinder.mass = OBJ_MASS;
+                objects.add(cylinder);
+                var helper = new THREE.BoxHelper(cylinder, 0xff0000);
+                cylinder.limit = WALL_LIMIT - helper.geometry.boundingSphere.radius;
+            }
+
+            function createIcosahedron( n ) {
+
+                var geom = new THREE.IcosahedronGeometry(OBJ_SIZE);
+                var material = new THREE.MeshLambertMaterial( { color: randColor(), shading: THREE.FlatShading  } );
+                var icosahedron = new THREE.Mesh( geom, material );
+                icosahedron.position.set(randPos(), randPos(), randPos());
+                icosahedron.velocity = new THREE.Vector3(randVel(), randVel(), randVel());
+                icosahedron.spin = new THREE.Euler(randSpin(),randSpin(),randSpin());
+                icosahedron.mass = OBJ_MASS;
+                name = "Icosahderon" + n;
+                objects.add(icosahedron);
+                var helper = new THREE.BoxHelper(icosahedron, 0xff0000);
+                icosahedron.limit = WALL_LIMIT - helper.geometry.boundingSphere.radius;
+            }
+
+            /**
+             *  Create a set of vertices that represent the AABB box from BoxHelper
+             *
+             *     5____4
+             *   1/___0/|
+             *   | 6__|_7
+             *   2/___3/
+             *
+             *  0: max.x, max.y, max.z
+             *  1: min.x, max.y, max.z
+             *  2: min.x, min.y, max.z
+             *  3: max.x, min.y, max.z
+             *  4: max.x, max.y, min.z
+             *  5: min.x, max.y, min.z
+             *  6: min.x, min.y, min.z
+             *  7: max.x, min.y, min.z
+             */
+            function createAABBVertices ( mesh ) {
+                var vertices = [];
+                var helper = new THREE.BoundingBoxHelper(mesh, 0xff0000);
+                helper.update();
+                var max = helper.box.max;
+                var min = helper.box.min;
+
+                vertices.push(new THREE.Vector3(max.x, max.y, max.z));
+                vertices.push(new THREE.Vector3(min.x, max.y, max.z));
+                vertices.push(new THREE.Vector3(min.x, min.y, max.z));
+                vertices.push(new THREE.Vector3(max.x, min.y, max.z));
+                vertices.push(new THREE.Vector3(max.x, max.y, min.z));
+                vertices.push(new THREE.Vector3(min.x, max.y, min.z));
+                vertices.push(new THREE.Vector3(min.x, min.y, min.z));
+                vertices.push(new THREE.Vector3(max.x, min.y, min.z));
+
+                return vertices;
+            }
+
+            /**
+             *
+             */
+			function createFloorAndWalls() {
+			    var FLOOR_S = 5;
+			    var FLOOR_T = 5;
+
+                var planeGeo = new THREE.PlaneGeometry( PLANE_SIZE, PLANE_SIZE );
+
+                var floorMat = new THREE.MeshStandardMaterial( {
+                    roughness: 0.8,
+                    color: 0xffffff,
+                    bumpScale: 0.0005
+                });
+
+                var textureLoader = new THREE.TextureLoader();
+                textureLoader.load( "images/hardwood2_diffuse.jpg", function( texture ) {
+                    texture.wrapS = THREE.RepeatWrapping;
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.anisotropy = 4;
+                    texture.repeat.set( FLOOR_S, FLOOR_T );
+                    floorMat.side = THREE.DoubleSide;
+                    floorMat.map = texture;
+                    floorMat.needsUpdate = true;
+                } );
+
+                textureLoader.load( "images/hardwood2_bump.jpg", function( texture ) {
+                    texture.wrapS = THREE.RepeatWrapping;
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.anisotropy = 4;
+                    texture.repeat.set( FLOOR_S, FLOOR_T );
+                    floorMat.side = THREE.DoubleSide;
+                    floorMat.bumpMap = texture;
+                    floorMat.needsUpdate = true;
+                } );
+
+                textureLoader.load( "images/hardwood2_roughness.jpg", function( texture ) {
+                    texture.wrapS = THREE.RepeatWrapping;
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.anisotropy = 4;
+                    texture.repeat.set( FLOOR_S, FLOOR_T );
+                    floorMat.side = THREE.DoubleSide;
+                    floorMat.roughnessMap = texture;
+                    floorMat.needsUpdate = true;
+                } );
+
+                var planeFloor = new THREE.Mesh( planeGeo, floorMat );
+                planeFloor.name = "floor";
+                planeFloor.rotation.x = -Math.PI / 2.0;
+                planeFloor.position.y = -10;
+                walls.add(planeFloor);
+
+                var matTop = new THREE.MeshPhongMaterial( { color: 0xffffff, side:THREE.DoubleSide, opacity:0.3, transparent:true } );
+                var planeTop = new THREE.Mesh( planeGeo, matTop );
+                planeTop.name = "top";
+                planeTop.position.y = 10;
+                planeTop.rotateX( Math.PI / 2 );
+                walls.add(planeTop);
+
+                var matBack = new THREE.MeshPhongMaterial( { color: 0x808080, side:THREE.DoubleSide, opacity:0.3, transparent:true });
+                var planeBack = new THREE.Mesh( planeGeo, matBack );
+                planeBack.name = "back";
+                planeBack.position.z = -10;
+                planeBack.position.y = 0;
+                walls.add(planeBack);
+
+                var matFront = new THREE.MeshPhongMaterial( { color: 0xffffff, side:THREE.DoubleSide, opacity:0.3, transparent:true  } );
+                var planeFront = new THREE.Mesh( planeGeo, matFront );
+                planeFront.name = "front";
+                planeFront.position.z = 10;
+                planeFront.position.y = 0;
+                planeFront.rotateY( Math.PI );
+                walls.add(planeFront);
+
+                var matRight = new THREE.MeshPhongMaterial( { color: 0x00ff00, side:THREE.DoubleSide, opacity:0.3, transparent:true } );
+                var planeRight = new THREE.Mesh( planeGeo, matRight );
+                planeRight.name = "right";
+                planeRight.position.x = 10;
+                planeRight.position.y = 0;
+                planeRight.rotateY( - Math.PI / 2 );
+                walls.add(planeRight);
+
+                var matLeft = new THREE.MeshPhongMaterial( { color: 0xff0000, side:THREE.DoubleSide, opacity:0.3, transparent:true  } );
+                var planeLeft = new THREE.Mesh( planeGeo, matLeft );
+                planeLeft.name = "left";
+                planeLeft.position.x = -10;
+                planeLeft.position.y = 0;
+                planeLeft.rotateY( Math.PI / 2 );
+                walls.add(planeLeft);
+
+                gfxScene.add(walls);
+            }
+
+            function checkWallCollision ( mesh ) {
+
+                if ( mesh.position.x > mesh.limit ) {
+                    mesh.velocity.x = -Math.abs(mesh.velocity.x);
+                } else if (mesh.position.x < -mesh.limit ) {
+                    mesh.velocity.x = Math.abs(mesh.velocity.x);
+                }
+
+                if ( mesh.position.y > mesh.limit ) {
+                    mesh.velocity.y = -Math.abs(mesh.velocity.y);
+                } else if (mesh.position.y < -mesh.limit ) {
+                    mesh.velocity.y = Math.abs(mesh.velocity.y);
+                }
+
+                if ( mesh.position.z > mesh.limit ) {
+                    mesh.velocity.z = -Math.abs(mesh.velocity.z);
+                } else if (mesh.position.z < -mesh.limit ) {
+                    mesh.velocity.z = Math.abs(mesh.velocity.z);
+                }
+
+                if (mesh.position.x > WALL_LIMIT || mesh.position.x < -WALL_LIMIT || mesh.position.y > WALL_LIMIT ||
+                    mesh.position.y < -WALL_LIMIT || mesh.position.z > WALL_LIMIT || mesh.position.z < -WALL_LIMIT)  {
+                    console.log("Yikes!  The object has escaped!! ");
+                    //window.prompt("Copy to clipboard: Ctrl+C, Enter", memLog);
+                    debugger;
+                }
+            }
+
+            function checkObjectCollisions ( mesh ) {
+
+                for ( var vertexIndex = 0; vertexIndex < mesh.geometry.vertices.length; vertexIndex++ )
+                {
+                    var localVertex = mesh.geometry.vertices[vertexIndex].clone();
+                    var globalVertex = localVertex.applyMatrix4( mesh.matrix );
+                    var directionVector = globalVertex.sub( mesh.position );
+                    var angle = mesh.velocity.angleTo( directionVector);
+                    //console.log(" vertex: " + globalVertex.x + ", " + globalVertex.y + ", " + globalVertex.z +" angle; " + angle);
+
+                    if ( angle <= Math.PI/2) {
+
+                        raycaster.set( mesh.position, directionVector.clone().normalize() );
+                        var collisionResults = raycaster.intersectObjects( objects.children );
+
+                        if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) {
+                            handleObjectsCollision( mesh, collisionResults[0] );
+                            break;
+                        }
+                    }
+                }
+            }
+
+            function handleObjectsCollision( meshA, collisionResult ) {
+
+                var meshB = collisionResult.object;
+
+                //console.log("Objects Collided");
+                if (meshA === meshB)
+                    console.log("Appears to be same object");
+
+                /*
+                var collision = new THREE.Vector3();
+                collision.x = ((meshA.position.x * OBJ_SIZE) + (meshB.position.x * OBJ_SIZE)) / (OBJ_SIZE + OBJ_SIZE);
+                collision.y = ((meshA.position.y * OBJ_SIZE) + (meshB.position.y * OBJ_SIZE)) / (OBJ_SIZE + OBJ_SIZE);
+                collision.z = ((meshA.position.z * OBJ_SIZE) + (meshB.position.z * OBJ_SIZE)) / (OBJ_SIZE + OBJ_SIZE);
+				*/
+                var avX = (meshA.velocity.x * (meshA.mass - meshB.mass) + (2 * meshB.mass * meshB.velocity.x)) / (meshA.mass + meshB.mass);
+                var avY = (meshA.velocity.y * (meshA.mass - meshB.mass) + (2 * meshB.mass * meshB.velocity.y)) / (meshA.mass + meshB.mass);
+                var avZ = (meshA.velocity.z * (meshA.mass - meshB.mass) + (2 * meshB.mass * meshB.velocity.z)) / (meshA.mass + meshB.mass);
+                var bvX = (meshB.velocity.x * (meshB.mass - meshA.mass) + (2 * meshA.mass * meshA.velocity.x)) / (meshA.mass + meshB.mass);
+                var bvY = (meshB.velocity.y * (meshB.mass - meshA.mass) + (2 * meshA.mass * meshA.velocity.y)) / (meshA.mass + meshB.mass);
+                var bvZ = (meshB.velocity.z * (meshB.mass - meshA.mass) + (2 * meshA.mass * meshA.velocity.z)) / (meshA.mass + meshB.mass);
+
+                meshA.velocity.set(avX, avY, avZ);
+                meshB.velocity.set(bvX, bvY, bvZ);
+            }
+
+            function updatePositions() {
+
+                for (var i = 0; i < objects.children.length; i++) {
+                    var mesh = objects.children[i];
+
+                    mesh.position.x += mesh.velocity.x;
+                    mesh.position.y += mesh.velocity.y;
+                    mesh.position.z += mesh.velocity.z;
+                    mesh.rotateX(mesh.spin.x);
+                    mesh.rotateY(mesh.spin.y);
+                    mesh.rotateZ(mesh.spin.z);
+                    mesh.updateMatrixWorld();
+                }
+
+                for ( i = 0; i < objects.children.length; i++) {
+                    mesh = objects.children[i];
+
+                    checkWallCollision(mesh);
+                }
+
+                for ( i = 0; i < objects.children.length; i++) {
+                    mesh = objects.children[i];
+
+                    checkObjectCollisions( mesh );
+                }
+            }
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene() {
+
+                // Tell the browser to call this function when page is visible
+				requestAnimationFrame(animateScene);
+
+                // Map the 3D scene down to the 2D screen (render the frame)
+				gfxScene.renderScene();
+
+				updatePositions();
+            }
+
+		]]></script>
+	</body>
+</html>

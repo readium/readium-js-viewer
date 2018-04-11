@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-08</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 14 - Vector Fonts</h2>
+
+
+<p>Lesson 14 in NeHe is about using actual vector fonts - unlike 13 where the fonts were used to generate bitmaps. Instead, the lesson is about using the wgl functions to generate actual 3D fonts with depth and lighting. The wgl functions are gone of course, but three.js does support vector fonts. It's pretty straightforward, but there are a few wrinkles that need to be covered, so let's dive in.</p>
+<p>First, the vector font support in three.js is based on JavaScript fonts as generated from <a href="http://gero3.github.io/facetype.js/" title="FaceType.js" target="_blank">facetype.js</a>, which is an open-source effort hosted on github. the format is not a standard, but it is pretty straightforward. It is apparently specific to three.js, which means it may or may not have continuity, but that's open-source for you!  The internals of the format are not documented anywhere obvious but opening up a font in an editor shows that they are basically like SVG fonts with some metadata about each glyph and then a series of data indicating the moves, quadratic curves, etc.</p>
+<p>Each font in a family (e.g. bold, italic, bold-italic, etc.) is a separate JS file. three.js comes with a number of &quot;standard&quot; fonts corresponding to Helvetica and Times-Roman (i.e. san-serif and serif). You can convert your own fonts at the facetype.js site. However, be warned that it is NOT legal to simply take any font on your computer and convert it. The major font foundries (Monotype, Adobe, etc.) have spent an immense out of money creating the fonts and they are the intellectual property of those firms. Having them installed on your computer (by the OS or an application) is done under strict licensing. The <a href="https://designshack.net/articles/typography/what-is-a-font-license-and-do-i-need-one/" title="Font Licensing" target="_blank">licensing</a> is a relatively complex area (and we don't want to go there) but the net-net is that, in general, you are allowed to view them on your computer, print from them and even create PDFs with them but you cannot <em>legally</em> convert them to some other format, such as JavaScript.</p>
+<p>However, there are lots of open-source fonts available. Check out <a href="https://www.google.com/fonts#" title="Google Fonts" target="_blank">Google fonts</a> (all of which are free of licensing) or  <a href="http://www.fonts101.com/" title="Fonts 101" target="_blank">Fonts101.com.</a> Fonts101 will even  send you a daily font created by an amateur. Almost all of those are free to use as you wish. Some of them are pretty strange though... </p>
+<p>Once you have a font that you can convert, you can navigate to facetype.js and convert it to JavaScript. Choose &quot;JavaScript&quot;, not JSON. Most fonts get converted correctly and work fairly well, but the more complex the font, the more likely that there might be problems when it is rendered. More on this later.</p>
+<p>Actually using the fonts is pretty easy. Let's take a look at the code.</p>
+
+
+<p>First,  one has to specify a <span class="inline-code">Material</span> for both the face and the side of the font.
+				You can use the same material or a different one. However, three.js has some bugs, as does the font-converter software at facetype.js. The converter doesn't always keep the same winding order for nested or adjacent paths and then three.js gets confused. In addition, as of release 69 of three.js, you should not use smooth shading on the face of the font. If you do, you will get some pretty odd artifacts.  Try it and see.
+				 However, the face of the font is flat anyway, so flat shading is fine.
+				In addition, you shouldn't use Phong material on the sides.  Again, you'll get odd
+				 artifacts.
+			    Finally, go easy on the beveling as large bevels tend to look odd.</p>
+<p>In this demo, we specify two different materials, one for the face and one for the sides (bearing in mind the caveats listed above) and put them in an array we'll pass to the font engine.</p>
+                
+<pre><code class="language-javascript">var materialFront = new THREE.MeshPhongMaterial( { color: 0xff0000, shading: THREE.FlatShading } );
+var materialSide = new THREE.MeshLambertMaterial( { color: 0x000088 } );
+var materialArray = [ materialFront, materialSide ];</code></pre>
+
+<p>Then we instantiate a &quot;font loader&quot;. This is a widely used pattern in three.js. There are many types of loaders, but they have the same form, they take the name of the resource being loaded and one to three functions. </p>
+<ul>
+  <li><span class="inline-code">onLoad( font )</span> Called when the resource has been loaded. The argument   is the actual JS object that has been loaded </li>
+  <li><span class="inline-code">onProgress( xhr )</span> Called (if the loading takes long enough) with a float (0..1)indicating load progress</li>
+  <li><span class="inline-code">onError( xhr )</span> Called in case of error.</li>
+</ul>
+<p>In this demo, we don't bother with progress or error handling so we define only the first function.</p>
+<pre><code class="language-javascript">var loader = new THREE.FontLoader();
+loader.load( fontName, function ( font ) {
+    // do something with the font here...
+}</code></pre>
+
+<p>Once the font has been loaded, we then create the <span class="inline-code">TextGeometry</span> and the <span class="inline-code">Mesh</span>. This is the code INSIDE the onLoad method function. Note that all the processing of the font MUST be inside that function because the loading process is asynchronous. If it is not inside that function your code will try to use the font before it is loaded.</p>
+
+<pre><code class="language-javascript">textGeom = new THREE.TextGeometry(text, {
+    size: size,	
+    height: height,	
+    curveSegments: curveSegments,
+    font: font,						
+    bevelThickness: bevelThickness,
+    bevelSize: bevelSize,
+    bevelEnabled: bevelEnabled
+});
+
+var textMaterial = new THREE.MeshFaceMaterial(materialArray);
+var textMesh = new THREE.Mesh(textGeom, textMaterial);</code></pre>
+
+<p>A few notes.  The <span class="inline-code">size</span> parameter is actually the HEIGHT of the font, i.e. the distance from the baseline to the top of the font's character. The badly misnamed parameter <span class="inline-code">height</span> is actually the THICKNESS of the extruded font. <span class="inline-code">curveSegments</span> is effectively undocumented but is, as one would expect, controlling how smooth the curve is. The <span class="inline-code">bevel</span> parameters are also effectively undocumented. Just experiment to see what you want.</p>
+<p>Finally, get the bounding box of the font so the string can be centered, then add it to the scene.</p>
+
+ <pre><code class="language-javascript">textGeom.computeBoundingBox();
+var textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
+textMesh.position.set(-0.5 * textWidth, 0, 0);
+gfxScene.add(textMesh);</code></pre>
+                    
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all 3D textual glory! Wowser!</p>
+</body>
+</html>

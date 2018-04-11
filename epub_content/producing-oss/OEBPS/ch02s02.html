@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Choosing a License and Applying It</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Choosing a License and Applying It"><div class="titlepage"><div><div><h1 class="title"><a id="license-quickstart"/>Choosing a License and Applying It</h1></div></div></div><p>This section is intended to be a very quick, very rough guide to
+choosing a license.  Read <a class="xref" href="ch09.html" title="Chapter 9. Licenses, Copyrights, and Patents">Chapter 9, <em>Licenses, Copyrights, and Patents</em></a> to understand
+the detailed legal implications of the different licenses, and how the
+license you choose can affect people's ability to mix your software
+with other free software.</p><p>There are a great many free software licenses to choose from.
+Most of them we needn't consider here, as they were written to satisfy
+the particular legal needs of some corporation or person, and wouldn't
+be appropriate for your project.  We will restrict ourselves to just
+the most commonly used licenses; in most cases, you will want to
+choose one of them.</p><div class="sect2" title="The &quot;Do Anything&quot; Licenses"><div class="titlepage"><div><div><h2 class="title"><a id="license-quickstart-non-gpl"/>The "Do Anything" Licenses</h2></div></div></div><p>If you're comfortable with your project's code potentially being
+used in proprietary programs, then use
+an <em class="firstterm">MIT/X-style</em> license.  It is the simplest of
+several minimal licenses that do little more than assert nominal
+copyright (without actually restricting copying) and specify that the
+code comes with no warranty.  See
+<a class="xref" href="ch09s04.html#license-choosing-mit-x" title="The MIT / X Window System License">the section called “The MIT / X Window System License”</a> for details.</p></div><div class="sect2" title="The GPL"><div class="titlepage"><div><div><h2 class="title"><a id="license-quickstart-gpl"/>The GPL</h2></div></div></div><p>If you don't want your code to be used in proprietary programs,
+use the GNU General Public License
+(<a class="ulink" href="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</a>).  The GPL is
+probably the most widely recognized free software license in the world
+today.  This is in itself a big advantage, since many potential users
+and contributors will already be familiar with it, and therefore won't
+have to spend extra time to read and understand your license.  See
+<a class="xref" href="ch09s04.html#license-choosing-gpl" title="The GNU General Public License">the section called “The GNU General Public License”</a><span>
+in <a class="xref" href="ch09.html" title="Chapter 9. Licenses, Copyrights, and Patents">Chapter 9, <em>Licenses, Copyrights, and Patents</em></a></span> for details.</p><div class="sidebar"><div class="titlepage"/><p>If users interact with your code primarily over a
+network—that is, the software is usually part of a hosted
+service—then consider using the <em class="firstterm">GNU Affero
+GPL</em> instead.  See
+<a class="xref" href="ch09s04.html#gnu-affero-gpl" title="The GNU Affero GPL: A Version of the GNU GPL for Server-Side Code">The GNU Affero GPL: A Version of the GNU GPL for Server-Side
+  Code</a><span> in
+<a class="xref" href="ch09.html" title="Chapter 9. Licenses, Copyrights, and Patents">Chapter 9, <em>Licenses, Copyrights, and Patents</em></a></span> for more.</p></div></div><div class="sect2" title="How to Apply a License to Your Software"><div class="titlepage"><div><div><h2 class="title"><a id="license-quickstart-applying"/>How to Apply a License to Your Software</h2></div></div></div><p>Once you've chosen a license, you should state it on the
+project's front page.  You don't need to include the actual text of
+the license there; just give the name of the license, and make it link
+to the full license text on another page.</p><p>This tells the public what license you
+<span class="emphasis"><em>intend</em></span> the software to be released under, but
+it's not sufficient for legal purposes.  For that, the software itself
+must contain the license.  The standard way to do this is to put the
+full license text in a file called <code class="filename">COPYING</code> (or
+<code class="filename">LICENSE</code>), and then put a short notice at the top
+of each source file, naming the copyright date, holder, and license,
+and saying where to find the full text of the license.</p><p>There are many variations on this pattern, so we'll look at just
+one example here.  The GNU GPL says to put a notice like this at the
+top of each source file:</p><pre class="screen">
+Copyright (C) &lt;year&gt;  &lt;name of author&gt;
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;
+</pre><p>It does not say specifically that the copy of the license you
+received along with the program is in the file
+<code class="filename">COPYING</code>, but that's where it's usually put.  (You
+could change the above notice to state that directly.)  This template
+also gives a geographical address from which to request a copy of the
+license.  Another common method is to give a link to a web page
+containing the license.  Just use your judgement and point to wherever
+you feel the most permanent copy of the license is maintained, which
+might simply be somewhere on your project's web site.  In general, the
+notice you put in each source file does not have to look exactly like
+the one above, as long as it starts with the same notice of copyright
+holder and date, states the name of the license, and makes it clear
+where to view the full license.</p></div></div></body></html>

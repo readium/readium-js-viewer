@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Committers</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Committers"><div class="titlepage"><div><div><h1 class="title"><a id="committers"/>Committers</h1></div></div></div><p>As the only formally distinct class of people found in all open
+source projects, committers deserve special attention here.
+Committers are an unavoidable concession to discrimination in a system
+which is otherwise as non-discriminatory as possible.  But
+"discrimination" is not meant as a pejorative here.  The function
+committers perform is utterly necessary, and I do not think a project
+could succeed without it.  Quality control requires, well, control.
+There are always many people who feel competent to make changes to a
+program, and some smaller number who actually are.  The project cannot
+rely on people's own judgement; it must impose standards and grant
+commit access only to those who meet them<sup>[<a id="idp8356048" href="#ftn.idp8356048" class="footnote">28</a>]</sup>.  On the other
+hand, having people who can commit changes directly working
+side-by-side with people who cannot sets up an obvious power dynamic.
+That dynamic must be managed so that it does not harm the
+project.</p><p>In <a class="xref" href="ch04s02.html#electorate" title="Who Votes?">the section called “Who Votes?”</a><span>
+in <a class="xref" href="ch04.html" title="Chapter 4. Social and Political Infrastructure">Chapter 4, <em>Social and Political Infrastructure</em></a></span>, we already
+discussed the mechanics of considering new committers.  Here we will
+look at the standards by which potential new committers should be
+judged, and how this process should be presented to the larger
+community.</p><div class="sect2" title="Choosing Committers"><div class="titlepage"><div><div><h2 class="title"><a id="choosing-committers"/>Choosing Committers</h2></div></div></div><p>In the Subversion project, we choose committers primarily on the
+Hippocratic Principle: <span class="emphasis"><em>first, do no harm</em></span>.  Our
+main criterion is not technical skill or even knowledge of the code,
+but merely that the committer show good judgement.  Judgement can mean
+simply knowing what not to take on.  A person might post only small
+patches, fixing fairly simple problems in the code; but if the patches
+apply cleanly, do not contain bugs, and are mostly in accord with the
+project's log message and coding conventions, and there are enough
+patches to show a clear pattern, then an existing committer will
+usually propose that person for commit access.  If at least three
+people say yes, and no one objects, then the offer is made.  True, we
+might have no evidence that the person is able to solve complex
+problems in all areas of the code base, but that does not matter: the
+person has made it clear that he is capable of at least judging
+his own abilities.  Technical skills can be learned (and taught),
+but judgement, for the most part, cannot.  Therefore, it is the one
+thing you want to make sure a person has before you give him commit
+access.</p><p>When a new committer proposal does provoke a discussion, it is
+usually not about technical ability, but rather about the person's
+behavior on the mailing lists or in IRC.  Sometimes someone shows
+technical skill and an ability to work within the project's formal
+guidelines, yet is also consistently belligerent or uncooperative in
+public forums.  That's a serious concern; if the person doesn't
+seem to shape up over time, even in response to hints, then we won't
+add him as a committer no matter how skilled he is.  In a
+volunteer group, social skills, or the ability to "play well in the
+sandbox", are as important as raw technical ability.  Because
+everything is under version control, the penalty for adding a
+committer you shouldn't have is not so much the problems it could
+cause in the code (review would spot those quickly anyway), but that
+it might eventually force the project to revoke the person's commit
+access—an action that is never pleasant and can sometimes be
+confrontational.</p><p>Many projects insist that the potential committer demonstrate a
+certain level of technical expertise and persistence, by submitting
+some number of nontrivial patches—that is, not only do these
+projects want to know that the person will do no harm, they want to
+know that she is likely to do good across the code base.  This is
+fine, but be careful that it doesn't start to turn committership into
+a matter of membership in an exclusive club.  The question to keep in
+everyone's mind should be "What will bring the best results for the
+code?" not "Will we devalue the social status associated with
+committership by admitting this person?"  The point of commit access
+is not to reinforce people's self-worth, it's to allow good changes to
+enter the code with a minimum of fuss.  If you have 100
+committers, 10 of whom make large changes on a regular basis, and the
+other 90 of whom just fix typos and small bugs a few times a year,
+that's still better than having only the 10.</p></div><div class="sect2" title="Revoking Commit Access"><div class="titlepage"><div><div><h2 class="title"><a id="revoking-committers"/>Revoking Commit Access</h2></div></div></div><p>The first thing to be said about revoking commit access is: try
+not to be in that situation in the first place.  Depending on whose
+access is being revoked, and why, the discussions around such an
+action can be very divisive.  Even when not divisive, they will be a
+time-consuming distraction from productive work.</p><p>However, if you must do it, the discussion should be had
+privately among the same people who would be in a position to vote for
+<span class="emphasis"><em>granting</em></span> that person whatever flavor of commit
+access they currently have.  The person herself should not be
+included.  This contradicts the usual injunction against secrecy, but
+in this case it's necessary.  First, no one would be able to speak
+freely otherwise.  Second, if the motion fails, you don't necessarily
+want the person to know it was ever considered, because that could
+open up questions ("Who was on my side?  Who was against me?") that
+lead to the worst sort of factionalism.  In certain rare
+circumstances, the group may want someone to know that revocation of
+commit access is or was being considered, as a warning, but this
+openness should be a decision the group makes.  No one should ever, on
+her own initiative, reveal information from a discussion and ballot
+that others assumed were secret.</p><p>Once someone's access is revoked, that fact is unavoidably
+public (see
+<a class="xref" href="ch08s04.html#commit-access-openness" title="Avoid Mystery">the section called “Avoid Mystery”</a><span>
+later in this chapter</span>), so try to be as tactful as you can in
+how it is presented to the outside world.</p></div><div class="sect2" title="Partial Commit Access"><div class="titlepage"><div><div><h2 class="title"><a id="partial-committers"/>Partial Commit Access</h2></div></div></div><p>Some projects offer gradations of commit access.  For example,
+there might be contributors whose commit access gives them free rein
+in the documentation, but who do not commit to the code itself.
+Common areas for partial commit access include documentation,
+translations, binding code to other programming languages,
+specification files for packaging (e.g., RedHat RPM spec files,
+etc.), and other places where a mistake will not result in a problem for
+the core project.</p><p>Since commit access is not only about committing, but about
+being part of an electorate (see
+<a class="xref" href="ch04s02.html#electorate" title="Who Votes?">the section called “Who Votes?”</a><span> in
+<a class="xref" href="ch04.html" title="Chapter 4. Social and Political Infrastructure">Chapter 4, <em>Social and Political Infrastructure</em></a></span>),
+the question naturally arises: what can the partial committers vote
+on?  There is no one right answer; it depends on what sorts of partial
+commit domains your project has.  In Subversion we've kept things
+fairly simple: a partial committer can vote on matters confined
+exclusively to that committer's domain, and not on anything else.
+Importantly, we do have a mechanism for casting advisory votes
+(essentially, the committer writes "+0" or "+1 (non-binding)"
+instead of just "+1" on the ballot).  There's no reason to silence
+people entirely just because their vote isn't formally binding.</p><p>Full committers can vote on anything, just as they can commit
+anywhere, and only full committers vote on adding new committers of
+any kind.  In practice, though, the ability to add new partial
+committers is usually delegated: any full committer can "sponsor" a
+new partial committer, and partial committers in a domain can often
+essentially choose new committers for that same domain (this is
+especially helpful in making translation work run smoothly).</p><p>Your project may need a slightly different arrangement,
+depending on the nature of the work, but the same general principles
+apply to all projects.  Each committer should be able to vote on
+matters that fall within the scope of her commit access, and not on
+matters outside that, and votes on procedural questions should default
+to the full committers, unless there's some reason (as decided by the
+full committers) to widen the electorate.</p><p>Regarding enforcement of partial commit access: it's often
+best <span class="emphasis"><em>not</em></span> to have the version control system
+enforce partial commit domains, even if it can.  See
+<a class="xref" href="ch03s03.html#vc-authz" title="Authorization">the section called “Authorization”</a><span> in
+<a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span> for the
+reasons why.</p></div><div class="sect2" title="Dormant Committers"><div class="titlepage"><div><div><h2 class="title"><a id="dormant-committers"/>Dormant Committers</h2></div></div></div><p>Some projects automatically remove people's commit access if
+they go a certain amount of time (say, a year) without committing
+anything.  I think this is usually unhelpful and even
+counterproductive, for two reasons.</p><p>First, it may tempt some people into committing acceptable but
+unnecessary changes, just to prevent their commit access from
+expiring.  Second, it doesn't really serve any purpose.  If the
+main criterion for granting commit access is good judgement, then why
+assume someone's judgement would deteriorate just because he's away
+from the project for a while?  Even if he completely vanishes for
+years, not looking at the code or following development discussions,
+when he reappears he'll <span class="emphasis"><em>know</em></span> how out of touch
+he is, and act accordingly.  You trusted his judgement before, so
+why not trust it always?  If high school diplomas do not expire, then
+commit access certainly shouldn't.</p><p>Sometimes a committer may ask to be removed, or to be explicitly
+marked as dormant in the list of committers (see
+<a class="xref" href="ch08s04.html#commit-access-openness" title="Avoid Mystery">the section called “Avoid Mystery”</a><span>
+below</span> for more about that list).  In these cases, the project
+should accede to the person's wishes, of course.</p></div><div class="sect2" title="Avoid Mystery"><div class="titlepage"><div><div><h2 class="title"><a id="commit-access-openness"/>Avoid Mystery</h2></div></div></div><p>Although the discussions around adding any particular new
+committer must be confidential, the rules and procedures themselves
+need not be secret.  In fact, it's best to publish them, so people
+realize that the committers are not some mysterious Star Chamber,
+closed off to mere mortals, but that anyone can join simply by posting
+good patches and knowing how to handle herself in the community.
+In the Subversion project, we put this information right in the
+developer guidelines document, since the people most likely to be
+interested in how commit access is granted are those thinking of
+contributing code to the project.</p><p>In addition to publishing the procedures, publish the
+actual <span class="emphasis"><em>list</em></span> of committers.  The traditional place
+for this is a file called <code class="filename">MAINTAINERS</code>
+or <code class="filename">COMMITTERS</code> in the top level of the project's
+source code tree.  It should list all the full committers first,
+followed by the various partial commit domains and the members of each
+domain.  Each person should be listed by name and email address,
+though the address can be encoded to prevent spam (see
+<a class="xref" href="ch03s02.html#address-hiding" title="Address hiding in archives">the section called “Address hiding in archives”</a><span> in
+<a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span>) if the
+person prefers that.</p><p>Since the distinction between full commit and partial commit
+access is obvious and well defined, it is proper for the list to make
+that distinction too.  Beyond that, the list should not try to
+indicate the informal distinctions that inevitably arise in a project,
+such as who is particularly influential and how.  It is a public
+record, not an acknowledgments file.  List committers either in
+alphabetical order, or in the order in which they arrived.</p></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp8356048" href="#idp8356048" class="para">28</a>] </sup>Note that the
+commit access means something a bit different in decentralized version
+control systems, where anyone can set up a repository that is linked
+into the project, and give themselves commit access to that
+repository.  Nevertheless, the <span class="emphasis"><em>concept</em></span> of commit
+access still applies: "commit access" is shorthand for "the
+right to make changes to the code that will ship in the group's next
+release of the software."  In centralized version control systems,
+this means having direct commit access; in decentralized ones, it
+means having one's changes pulled into the main distribution by
+default.  It is the same idea either way; the mechanics by which it is
+realized are not terribly important.</p></div></div></div></body></html>

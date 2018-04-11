@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Forks</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Forks"><div class="titlepage"><div><div><h1 class="title"><a id="forks"/>Forks</h1></div></div></div><p>In <a class="xref" href="ch04.html#forkability" title="Forkability">the section called “Forkability”</a><span>
+in <a class="xref" href="ch04.html" title="Chapter 4. Social and Political Infrastructure">Chapter 4, <em>Social and Political Infrastructure</em></a></span>, we saw how
+the <span class="emphasis"><em>potential</em></span> to fork has important effects on
+how projects are governed.  But what happens when a fork actually
+occurs?  How should you handle it, and what effects can you expect it
+to have?  Conversely, when should you <span class="emphasis"><em>initiate</em></span> a
+fork?</p><p>The answers depend on what kind of fork it is.  Some forks are
+due to amicable but irreconcilable disagreements about the direction
+of the project; perhaps more are due to both technical disagreements
+and interpersonal conflicts.  Of course, it's not always possible to
+tell the difference between the two, as technical arguments may
+involve personal elements as well.  What all forks have in common is
+that one group of developers (or sometimes even just one developer)
+has decided that the costs of working with some or all of the others
+now outweigh the benefits.</p><p>Once a project forks, there is no definitive answer to the
+question of which fork is the "true" or "original" project.  People
+will colloquially talk of fork F coming out of project P, as though P
+is continuing unchanged down some natural path while F diverges into
+new territory, but this is, in effect, a declaration of how that
+particular observer feels about it.  It is fundamentally a matter of
+perception: when a large enough percentage of observers agree, the
+assertion starts to become true.  It is not the case that there is an
+objective truth from the outset, one that we are only imperfectly able to
+perceive at first.  Rather, the perceptions <span class="emphasis"><em>are</em></span>
+the objective truth, since ultimately a project—or a
+fork—is an entity that exists only in people's minds
+anyway.</p><p>If those initiating the fork feel that they are
+sprouting a new branch off the main project, the perception question
+is resolved immediately and easily.  Everyone, both developers and
+users, will treat the fork as a new project, with a new name (perhaps
+based on the old name, but easily distinguishable from it), a separate
+web site, and a separate philosophy or goal.  Things get messier,
+however, when both sides feel they are the legitimate guardians of the
+original project and therefore have the right to continue using the
+original name.  If there is some organization with trademark rights to
+the name, or legal control over the domain or web pages, that usually
+resolves the issue by fiat: that organization will decide who is the
+project and who is the fork, because it holds all the cards in a
+public relations war.  Naturally, things rarely get that far: since
+everyone already knows what the power dynamics are, they will avoid
+fighting a battle whose outcome is known in advance, and just jump
+straight to the end.</p><p>Fortunately, in most cases there is little doubt as to which is
+the project and which is the fork, because a fork is, in essence, a vote
+of confidence.  If more than half of the developers are in favor of
+whatever course the fork proposes to take, usually there is no need to
+fork—the project can simply go that way itself, unless it is run
+as a dictatorship with a particularly stubborn dictator.  On the other
+hand, if fewer than half of the developers are in favor, the fork is a
+clearly minority rebellion, and both courtesy and common sense
+indicate that it should think of itself as the divergent branch rather
+than the main line.</p><div class="sect2" title="Handling a Fork"><div class="titlepage"><div><div><h2 class="title"><a id="forks-handling"/>Handling a Fork</h2></div></div></div><p>If someone threatens a fork in your project, keep calm and
+remember your long-term goals.  The mere
+<span class="emphasis"><em>existence</em></span> of a fork isn't what hurts a project;
+rather, it's the loss of developers and users.  Your real aim,
+therefore, is not to squelch the fork, but to minimize these harmful
+effects.  You may be mad, you may feel that the fork was unjust and
+uncalled for, but expressing that publicly can only alienate undecided
+developers.  Instead, don't force people to make exclusive choices,
+and be as cooperative as is practicable with the fork.  To start with,
+don't remove someone's commit access in your project just because he
+decided to work on the fork.  Work on the fork doesn't mean that
+person has suddenly lost his competence to work on the original
+project; committers before should remain committers afterward.  Beyond
+that, you should express your desire to remain as compatible as
+possible with the fork, and say that you hope developers will port
+changes between the two whenever appropriate.  If you have
+administrative access to the project's servers, publicly offer the
+forkers infrastructure help at startup time.  For example, offer them
+a complete, deep-history copy of the version control repository, if
+there's no other way for them to get it, so that they don't have to
+start off without historical data (this may not be necessary depending
+on the version control system).  Ask them if there's anything else
+they need, and provide it if you can.  Bend over backward to show
+that you are not standing in the way, and that you want the fork to
+succeed or fail on its own merits and nothing else.</p><p>The reason to do all this—and do it publicly—is not
+to actually help the fork, but to persuade developers that your side
+is a safe bet, by appearing as non-vindictive as possible.  In war it
+sometimes makes sense (strategic sense, if not human sense) to force
+people to choose sides, but in free software it almost never does.  In
+fact, after a fork some developers often openly work on both projects,
+and do their best to keep the two compatible.  These developers help
+keep the lines of communication open after the fork.  They allow your
+project to benefit from interesting new features in the fork (yes, the
+fork may have things you want), and also increase the chances of a
+merger down the road.</p><p>Sometimes a fork becomes so successful that, even though it was
+regarded even by its own instigators as a fork at the outset, it
+becomes the version everybody prefers, and eventually supplants the
+original by popular demand.  A famous instance of this was the
+GCC/EGCS fork.  The <em class="firstterm">GNU Compiler Collection</em>
+(<em class="firstterm">GCC</em>, formerly the <em class="firstterm">GNU C
+Compiler</em>) is the most popular open source native-code
+compiler, and also one of the 
+most portable compilers in the world.  Due to disagreements between the GCC's
+official maintainers and Cygnus Software,<sup>[<a id="idp8427568" href="#ftn.idp8427568" class="footnote">29</a>]</sup> one
+of GCC's most active developer groups, Cygnus created a fork of GCC
+called <em class="firstterm">EGCS</em>.  The fork was deliberately
+non-adversarial: the EGCS developers did not, at any point, try to
+portray their version of GCC as a new official version.  Instead, they
+concentrated on making EGCS as good as possible, incorporating patches
+at a faster rate than the official GCC maintainers.  EGCS gained in
+popularity, and eventually some major operating system distributors
+decided to package EGCS as their default compiler instead of GCC.  At
+this point, it became clear to the GCC maintainers that holding on to
+the "GCC" name while everyone switched to the EGCS fork would burden
+everyone with a needless name change, yet do nothing to prevent the
+switchover.  So GCC adopted the EGCS codebase, and there is once again
+a single GCC, but greatly improved because of the fork.</p><p>This example shows why you cannot always regard a fork as an
+unadulteratedly bad thing.  A fork may be painful and unwelcome at the
+time, but you cannot necessarily know whether it will succeed.
+Therefore, you and the rest of the project should keep an eye on it,
+and be prepared not only to absorb features and code where possible,
+but in the most extreme case to even join the fork if it gains the
+bulk of the project's mindshare.  Of course, you will often be able to
+predict a fork's likelihood of success by seeing who joins it.  If the
+fork is started by the project's biggest complainer and joined by a
+handful of disgruntled developers who weren't behaving constructively
+anyway, they've essentially solved a problem for you by forking, and
+you probably don't need to worry about the fork taking momentum away
+from the original project.  But if you see influential and respected
+developers supporting the fork, you should ask yourself why.  Perhaps
+the project was being overly restrictive, and the best solution is to
+adopt into the mainline project some or all of the actions
+contemplated by the fork—in essence, to avoid the fork by
+becoming it.</p></div><div class="sect2" title="Initiating a Fork"><div class="titlepage"><div><div><h2 class="title"><a id="forks-initiating"/>Initiating a Fork</h2></div></div></div><p>All the advice here assumes that you are forking as a last
+resort.  Exhaust all other possibilities before starting a fork.
+Forking almost always means losing developers, with only an uncertain
+promise of gaining new ones later.  It also means starting out with
+competition for users' attention: everyone who's about to download the
+software has to ask themselves: "Hmm, do I want that one or the other
+one?"  Whichever one you are, the situation is messy, because a
+question has been introduced that wasn't there before.  Some people
+maintain that forks are healthy for the software ecosystem as a whole,
+by a standard natural selection argument: the fittest will survive,
+which means that, in the end, everyone gets better software.  This may
+be true from the ecosystem's point of view, but it's not true from the
+point of view of any individual project.  Most forks do not succeed,
+and most projects are not happy to be forked.</p><p>A corollary is that you should not use the threat of a fork as
+an extremist debating technique—"Do things my way or I'll fork
+the project!"—because everyone is aware that a fork that fails
+to attract developers away from the original project is unlikely to
+survive long.  All observers—not just developers, but users and
+operating system packagers too—will make their own judgement about
+which side to choose.  You should therefore appear extremely reluctant
+to fork, so that if you finally do it, you can credibly claim it was
+the only route left.</p><p>Do not neglect to take <span class="emphasis"><em>all</em></span> factors into
+account in evaluating the potential success of your fork.  For
+example, if many of the developers on a project have the same
+employer, then even if they are disgruntled and privately in favor of
+a fork, they are unlikely to say so out loud if they know that their
+employer is against it.  Many free software programmers like to think
+that having a free license on the code means no one company can
+dominate development.  It is true that the license is, in an ultimate
+sense, a guarantor of freedom—if others want badly enough to
+fork the project, and have the resources to do so, they can.  But in
+practice, some projects' development teams are mostly funded by one
+entity, and there is no point pretending that the entity's support
+doesn't matter.  If it is opposed to the fork, its developers are
+unlikely to take part, even if they secretly want to.</p><p>If you still conclude that you must fork, line up support
+privately first, then announce the fork in a non-hostile tone.  Even
+if you are angry at, or disappointed with, the current maintainers,
+don't say that in the message.  Just dispassionately state what led
+you to the decision to fork, and that you mean no ill will toward the
+project from which you're forking.  Assuming that you do consider it a
+fork (as opposed to an emergency preservation of the original
+project), emphasize that you're forking the code and not the name, and
+choose a name that does not conflict with the project's name.  You can
+use a name that contains or refers to the original name, as long as it
+does not open the door to identity confusion.  Of course it's fine to
+explain prominently on the fork's home page that it descends from the
+original program, and even that it hopes to supplant it.  Just don't
+make users' lives harder by forcing them to untangle an identity
+dispute.</p><p>Finally, you can get things started on the right foot by
+automatically granting all committers of the original project commit
+access to the fork, including even those who openly disagreed with the
+need for a fork.  Even if they never use the access, your message is
+clear: there are disagreements here, but no enemies, and you welcome
+code contributions from any competent source.</p></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp8427568" href="#idp8427568" class="para">29</a>] </sup>Now part of
+RedHat (<a class="ulink" href="http://www.redhat.com/">http://www.redhat.com/</a>).</p></div></div></div></body></html>

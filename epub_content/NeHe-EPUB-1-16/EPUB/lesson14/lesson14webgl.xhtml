@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+	<head>
+		<!--
+  			Roughly based (or inspired by) NeHe Tutorial 14  
+  			Original:  http://nehe.gamedev.net/tutorial/outline_fonts/15004/
+  
+  			@author: rkwright@geofx.com
+		 -->
+		<title>NEHE Tutorial 14</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+		<!-- The following meta line optimizes the site for mobile devices. It sets the viewport size
+		to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024"/>
+		<link rel="stylesheet" type="text/css" href="../css/NeHe.css" />
+
+		<!-- Include several libraries from THREE.three-js and the Scene class  -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+		<script src="../three-js/stats.js" type="text/javascript"></script>
+		<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+		<script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	</head>
+	<body>	
+		<script> <![CDATA[
+			// global variables
+			var     textGeom;
+		
+			var 	size = 1;				// this is actually the HEIGHT of the text. in user-space
+			var 	height = 0.2;			// this is TOTALLY misnamed.  It is the thickness of the extruded text
+			var		curveSegments = 10;		// number of points on "the curve" - which curve?
+			var 	fontName = "../fonts/gentilis_bold.typeface.json";
+
+			var		bevelThickness = 0.05;
+			var		bevelSize = 0.05;
+			var 	bevelEnabled = false;
+
+			var		textMat = 0;
+			var 	extrudeMaterial = 0;
+			var		text= "Wowser";
+
+			// allocate the Scene object, request orbitControls, some of 3D axes 10 units high and the stats
+			var gfxScene = new GFX.Scene( {
+				canvasWidth : 768,
+				canvasHeight : 1024,
+				cameraPos:[2,2,10],
+				axesHeight:10,
+				controls:true,
+				displayStats:true });
+			
+			// then initialize our demo's stuff
+			initializeDemo();
+
+			// Animate the scene
+			animateScene();
+
+			/**
+			 * Initialize the Demo.  
+			 */
+			function initializeDemo() {
+
+				createText();
+			}
+				
+			/**
+			 * Here we actually create the text.  Not too much to it, actually.
+			 */
+			function createText() {
+
+				// Note that one has to create a Material for both the face the side of the font.
+				// Three.three-js has some bugs, as does the font-converter software at typface.three-js
+				// http://typeface.neocracy.org/fonts.html.  The converter doesn't always keep the
+				// same winding order for nested or adjacent paths and then three.three-js gets confused
+				// In addition, with release 69 of three.three-js, you should not use smooth shading on the face
+				// of the font. If you do, you will get some pretty odd artifacts.  Try it and see.
+				// However, the face of the font is flat anyway, so flat shading is fine.
+				// In addition, you shouldn't use Phong material on the sides.  Again, you'll get odd
+				// artifacts.
+				// Finally, go easy on the beveling as large bevels tend to look odd (more bugs?)
+				var materialFront = new THREE.MeshPhongMaterial( { color: 0xff0000, shading: THREE.FlatShading } );
+				var materialSide = new THREE.MeshLambertMaterial( { color: 0x000088 } );
+				var materialArray = [ materialFront, materialSide ];
+
+				var loader = new THREE.FontLoader();
+				loader.load( fontName, function ( font ) {
+
+                    textGeom = new THREE.TextGeometry(text, {
+                        size: size,						// actually the height of the font, in user-space
+                        height: height,					// THICKNESS of the extruded font, in user-space
+                        curveSegments: curveSegments,
+                        font: font,						// the THREE.font object
+                        bevelThickness: bevelThickness,
+                        bevelSize: bevelSize,
+                        bevelEnabled: bevelEnabled
+                    });
+
+                    var textMaterial = new THREE.MeshFaceMaterial(materialArray);
+                    var textMesh = new THREE.Mesh(textGeom, textMaterial);
+
+                    // get the width of the string so we can center it on the origin
+                    textGeom.computeBoundingBox();
+
+                    var textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
+
+                    textMesh.position.set(-0.5 * textWidth, 0, 0);
+                    gfxScene.add(textMesh);
+                });
+			}
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene() {
+
+				// Tell the browser to call this function when page is visible
+				requestAnimationFrame(animateScene);
+				
+				// Map the 3D scene down to the 2D screen (render the frame)
+				gfxScene.renderScene();
+			}
+		]]> </script>
+	</body>
+</html>

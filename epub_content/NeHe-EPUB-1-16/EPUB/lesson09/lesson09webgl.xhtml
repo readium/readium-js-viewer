@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+		<title>Three.js tutorial - Lesson 09</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+		<!-- The following meta line optimizes the site for mobile devices. It sets the viewport size
+		to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024"/>
+		<link rel="stylesheet" type="text/css" href="../css/NeHe.css" />
+
+		<!-- Include the needed libs -->
+		<script src="../three-js/three.js"></script>
+		<script src="../three-js/Detector.js"></script>
+		<script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<!-- This JavaScript block encloses the Three.three-js commands -->
+		<script> <![CDATA[
+			// allocate the Scene object, and set the camera position
+			var gfxScene = new GFX.Scene( { cameraPos:[0,0,18],
+				canvasWidth : 768,
+				canvasHeight : 1024 });
+
+			var num = 32;
+			var star = new Array(num);
+
+			// Initialize the scene
+			initializeDemo();
+
+			// Animate the scene
+			animateScene();
+
+			/**
+			 * Initialze the scene.
+			 */
+			function initializeDemo() {
+
+				// Load an image as texture
+				var starTexture = new THREE.ImageUtils.loadTexture("images/star.jpg");
+
+				for ( var i = 0; i < num; i++){
+					// Create a square mesh to hold the image. As in the first lesson,
+                    // we have to use two triangles and ensure the winding directions
+                    // are correct
+					var squareGeometry = new THREE.Geometry();
+					squareGeometry.vertices.push(new THREE.Vector3(-1, -1, 0));
+					squareGeometry.vertices.push(new THREE.Vector3( 1, -1, 0));
+					squareGeometry.vertices.push(new THREE.Vector3( 1,  1, 0));
+					squareGeometry.vertices.push(new THREE.Vector3(-1,  1, 0));
+					squareGeometry.faces.push(new THREE.Face3(0, 1, 2));
+					squareGeometry.faces.push(new THREE.Face3(0, 2, 3));
+					squareGeometry.faceVertexUvs[0].push([
+						new THREE.Vector2(0.0, 0.0),
+						new THREE.Vector2(1.0, 0.0),
+						new THREE.Vector2(1.0, 1.0)
+					]);
+					squareGeometry.faceVertexUvs[0].push([
+					    new THREE.Vector2(0.0, 0.0),
+					    new THREE.Vector2(1.0, 1.0),
+					    new THREE.Vector2(0.0, 1.0)
+					]); 
+					
+					// Create a material, which contains the texture We use AdditiveBlending and
+					// transparency:true so that the black areas of the star.jpg become transparent
+					// We also set the combine property to mix so the color we specify gets combined 
+					// with white parts of the image we set the initial color of each to white, but 
+					// that gets changed when we animate the stars.
+					// Two excellent examples on blending with three.three-js:
+					//	 http://www.threejs.org/examples/#webgl_materials_blending_custom 
+					//	 http://www.threejs.org/examples/#webgl_materials_blending
+					var squareMaterial = new THREE.MeshBasicMaterial({
+						map:starTexture,
+						transparent: true,
+						combine: THREE.MixOperation,
+						blending: THREE.AdditiveBlending,
+						color:0xFFFFFF
+					});
+
+					var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
+					squareMesh.position.set(0.0, 0.0, 0.0);
+					gfxScene.add(squareMesh);
+
+					// note that the rgb color values must be in the range of 0..1 or the Color 
+					// object will just clamp them to 1, i.e. white
+					star[i] = new Object();
+					star[i].angle = 0.0;
+					star[i].dist  = (i / num) * 5.0;
+					star[i].r     = Math.random();
+					star[i].g     = Math.random();
+					star[i].b     = Math.random();
+					star[i].mesh  = squareMesh;
+				}
+			}
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene()
+			{
+				// Tell the browser to call this routine at the next opportunity
+				requestAnimationFrame(animateScene);
+
+				// Now loop through the stars and update their positions, spin and color
+				var spin = 0;
+				for ( var i = 0; i < num; i++ ) {
+					spin += Math.PI * 2 / num;
+					if (spin > (Math.PI*2))
+							spin = 0;
+
+                    // make the stars spiral inward as they spin
+					star[i].angle += i / num;
+					star[i].dist  -= 0.01;
+					if(star[i].dist < 0.0) {
+						star[i].dist += 5.0;
+						
+						// note that the rgb color values must be in the range of 0..1 or the Color 
+						// object will just clamp them to 1, i.e. white
+						star[i].r    = Math.random();
+						star[i].g    = Math.random();
+						star[i].b    = Math.random();
+					}
+					
+					// we want to translate the star out to the right distance and the rotate it 
+					// around the z-axis so we set the mesh's matrix to that translated value
+					// then rotate a second matrix and concatenate it onto the mesh's matrix.					
+					star[i].mesh.matrix.setPosition(new THREE.Vector3(star[i].dist, 0, 0));
+					var mr = new THREE.Matrix4();
+					mr.makeRotationZ(spin);
+					star[i].mesh.applyMatrix(mr);
+					
+					// then change the color of the mesh
+					star[i].mesh.material.color.setRGB(star[i].r, star[i].g, star[i].b);
+				}
+
+				// Map the 3D scene down to the 2D screen (render the frame)
+				gfxScene.renderScene();
+			}
+		]]> </script>
+	</body>
+</html>

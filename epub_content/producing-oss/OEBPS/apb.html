@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Appendix B. Free Bug Trackers</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="appendix" title="Appendix B. Free Bug Trackers"><div class="titlepage"><div><div><h1 class="title"><a id="bug-trackers"/>Appendix B. Free Bug Trackers</h1></div></div></div><div class="simplesect"><div class="titlepage"/><p>No matter what bug tracker a project uses, some developers
+always like to complain about it.  This seems to be more true of bug
+trackers than of any other standard development tool.  I think it's
+because bug trackers are so visual and so interactive that it's easy
+to imagine the improvements one would make (if one only had the time),
+and to describe those improvements out loud.  Take the inevitable
+complaints with a grain of salt—many of the trackers below are
+pretty good.</p><p>Throughout these listings, the word "issue" is used to refer to
+the items the trackers track.  But remember that each system may have
+its own terminology, in which the corresponding term might be
+"artifact", "bug", "ticket", or something else.</p><p><span class="emphasis"><em>Note: This survey was first done in 2005, and some new
+open source bug trackers have been written since then.  As of late
+2011, I've made a few updates to the material below, but I haven't
+done a broad update of the entire survey.  You might also want to look
+at the <a class="ulink" href="http://en.wikipedia.org/wiki/Comparison_of_issue-tracking_systems">Wikipedia
+Comparison of Issue Tracking Systems</a>, the <a class="ulink" href="http://www.dmoz.org/Computers/Software/Configuration_Management/Bug_Tracking/Free/">DMOZ Bug Tracker survey</a>, or <a class="ulink" href="http://www.webresourcesdepot.com/9-free-and-open-source-bug-tracking-softwares/">this list at WebResourcesDepot</a>.</em></span></p><div class="sect2" title="Redmine — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-redmine"/><span class="bold"><strong>Redmine</strong></span> — <a class="ulink" href="http://www.redmine.org/">http://www.redmine.org/</a></h2></div></div></div><p>Redmine is a relatively recent (as of 2011) and pretty polished
+project tracking system.  It's somewhat more than a bug tracker, since
+it also offers wikis, discussion forums, and other features, but
+bug-tracking seems to be the core of what it does.  It has a fairly
+intuitive Web-based user interface, flexible configuration (multiple
+projects, role-based access control, custom fields, etc), Gantt
+charting, calendaring, bidirectional email interaction, and more.  If
+you're setting up a new project and you can choose any bug tracker you
+want, Redmine is a good choice.</p></div><div class="sect2" title="Bugzilla — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-bugzilla"/><span class="bold"><strong>Bugzilla</strong></span> — <a class="ulink" href="http://www.bugzilla.org/">http://www.bugzilla.org/</a></h2></div></div></div><p>Bugzilla is very popular, actively maintained, and seems to make
+its users pretty happy.  I've been using a modified variant of it in
+my work for four years now, and like it.  It's not highly
+customizable, but in a odd way, that may be one of its features:
+Bugzilla installations tend to look pretty much the same wherever they
+are found, which means many developers are already accustomed to its
+interface and will feel they are in familiar territory.</p></div><div class="sect2" title="GNATS — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-gnats"/><span class="bold"><strong>GNATS</strong></span> — <a class="ulink" href="http://www.gnu.org/software/gnats/">http://www.gnu.org/software/gnats/</a></h2></div></div></div><p>GNU GNATS is one of the oldest open source bug trackers, and is
+widely used.  Its biggest strengths are interface diversity (it can
+be used not just through a web browser, but also through email or
+command-line tools), and plaintext issue storage.  The fact that all
+issue data is stored in text files on disk makes it easier to write
+custom tools to trawl and parse the data (for example, to generate
+statistical reports).  GNATS can also absorb emails automatically by
+various means, and add them to the appropriate issues based on
+patterns in the email headers, which makes logging user/developer
+conversations very easy.</p></div><div class="sect2" title="RequestTracker (RT) — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-rt"/><span class="bold"><strong>RequestTracker (RT)</strong></span> — <a class="ulink" href="http://www.bestpractical.com/rt/">http://www.bestpractical.com/rt/</a></h2></div></div></div><p>RT's web site says "RT is an enterprise-grade ticketing system
+which enables a group of people to intelligently and efficiently
+manage tasks, issues, and requests submitted by a community of users,"
+and that about sums it up.  RT has a fairly polished web interface,
+and seems to have a pretty wide installed base.  The interface is a
+bit visually complex, but that becomes less distracting as you get
+used to it.  RT is licenced under the GNU GPL (for some reason, their
+web site doesn't make this clear).</p></div><div class="sect2" title="Trac — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-trac"/><span class="bold"><strong>Trac</strong></span> — <a class="ulink" href="http://trac.edgewall.com/">http://trac.edgewall.com/</a></h2></div></div></div><p>Trac is a bit more than a bug tracker: it's really an integrated
+wiki and bug tracking system.  It uses wiki linking to connect
+issues, files, version control changesets, and plain wiki pages.  It's
+fairly simple to set up, and integrates with Subversion (see <a class="xref" href="apa.html" title="Appendix A. Free Version Control Systems">Appendix A, <em>Free Version Control Systems</em></a>).</p></div><div class="sect2" title="Roundup — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-roundup"/><span class="bold"><strong>Roundup</strong></span> — <a class="ulink" href="http://roundup.sourceforge.net/">http://roundup.sourceforge.net/</a></h2></div></div></div><p>Roundup is pretty easy to install (only Python 2.1 or higher
+is required), and simple to use.  It has web, email, and
+command-line interfaces.  The issue data templates and web interface
+are customizable, as is some of its state-transition logic.</p></div><div class="sect2" title="Mantis — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-mantis"/><span class="bold"><strong>Mantis</strong></span> — <a class="ulink" href="http://www.mantisbt.org/">http://www.mantisbt.org/</a></h2></div></div></div><p>Mantis is a web-based bug tracking system, written in PHP, and
+using MySQL database for storage.  It has the features you'd expect.
+Personally, I find the web interface clean, intuitive, and easy on the
+eyes.</p></div><div class="sect2" title="Flyspray — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-flyspray"/><span class="bold"><strong>Flyspray</strong></span> — <a class="ulink" href="http://www.flyspray.org/">http://www.flyspray.org/</a></h2></div></div></div><p>Flyspray is a web-based bug tracking system written in PHP.  Its
+web pages describe it as "uncomplicated", and the list of features
+includes: multiple database support (currently MySQL and PGSQL);
+multiple projects; 'watching' tasks, with notification of changes (via
+email or Jabber); comprehensive task history; CSS theming; file
+attachments; advanced search features (though easy to use); RSS/Atom
+feeds; wiki and plaintext input; voting; dependency graphs.</p></div><div class="sect2" title="Scarab — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-scarab"/><span class="bold"><strong>Scarab</strong></span> — <a class="ulink" href="http://scarab.tigris.org/">http://scarab.tigris.org/</a></h2></div></div></div><p>Scarab is meant to be a highly customizable, full-featured bug
+tracker, offering more or less the union of the features offered by
+other bug trackers: data entry, queries, reports, notifications to
+interested parties, collaborative accumulation of comments, and
+dependency tracking.</p><p>It is customizable through administrative web pages.  You can
+have multiple "modules" (projects) active in a single Scarab
+installation.  Within a given module, you can create new issue types
+(defects, enhancements, tasks, support requests, etc.), and add
+arbitrary attributes, to tune the tracker to your project's specific
+requirements.</p><p>As of late 2004, Scarab was getting close to its 1.0
+release.</p></div><div class="sect2" title="Debian Bug Tracking System (DBTS) — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-dbts"/><span class="bold"><strong>Debian Bug Tracking System (DBTS)</strong></span> — <a class="ulink" href="http://www.chiark.greenend.org.uk/~ian/debbugs/">http://www.chiark.greenend.org.uk/~ian/debbugs/</a></h2></div></div></div><p>The Debian Bug Tracking System is unusual in that all input and
+manipulation of issues is done via email: each issue gets its own
+dedicated email address.  The DBTS scales pretty well: <a class="ulink" href="http://bugs.debian.org/">http://bugs.debian.org/</a> has 277,741 issues, for example.</p><p>Since interaction is done via regular mail clients, an
+environment which is familiar and easily accessible to most people,
+the DBTS is good for handling high volumes of incoming reports that
+need quick classification and response.  There are disadvantages too,
+of course.  Developers must invest the time needed to learn the email
+command system, and users must write their bug reports without a
+web form to guide them in choosing what information to write.  There
+are tools available to help users send better bug reports, such as the
+command-line <span class="command"><strong>reportbug</strong></span> program or the
+<code class="systemitem">debbugs-el</code> package for Emacs.  But most
+people won't use these tools; they'll just write email manually, and
+they may or may not follow the bug reporting guidelines posted by your
+project.</p><p>The DBTS has a read-only web interface, for viewing and
+querying issues.</p></div><div class="sect2" title="Trouble-Ticket Trackers"><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-trouble-ticket-trackers"/><span class="bold"><strong>Trouble-Ticket Trackers</strong></span></h2></div></div></div><p>These are more oriented toward help desk ticket tracking than
+software bug tracking.  You'll probably do better with a regular bug
+tracker, but these are listed for the sake of completeness, and
+because there could conceivably be unusual projects for which a
+trouble-ticket system might be more appropriate than a traditional bug
+tracker.</p><p>
+</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><span class="bold"><strong>WebCall</strong></span> — <a class="ulink" href="http://myrapid.com/webcall/">http://myrapid.com/webcall/</a></p></li></ul></div><p>
+</p></div><div class="sect2" title="Bluetail Ticket Tracker (BTT) — "><div class="titlepage"><div><div><h2 class="title"><a id="bugtrackers-bluetail"/><span class="bold"><strong>Bluetail Ticket Tracker (BTT)</strong></span> — <a class="ulink" href="http://btt.sourceforge.net/">http://btt.sourceforge.net/</a></h2></div></div></div><p>BTT is somewhere between a standard trouble-ticket tracker and a
+bug tracker.  It offers privacy features that are somewhat unusual
+among open source bug trackers: users of the system are categorized as
+Staff, Friend, Customer, or Anonymous, and more or less data is
+available depending on one's category.  It offers some email
+integration, a command-line interface, and mechanisms for converting
+emails into tickets.  It also has features for maintaining information
+not associated with any specific ticket, such as internal
+documentation or FAQs.</p></div></div></div></body></html>

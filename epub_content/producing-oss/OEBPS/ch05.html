@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 5. Money</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="chapter" title="Chapter 5. Money"><div class="titlepage"><div><div><h1 class="title"><a id="money"/>Chapter 5. Money</h1></div></div></div><div class="simplesect"><div class="titlepage"/><p>This chapter examines how to bring funding into a free software
+environment.  It is aimed not only at developers who are paid to work
+on free software projects, but also at their managers, who need to
+understand the social dynamics of the development environment.  In the
+sections that follow, the addressee ("you") is presumed to be either a
+paid developer, or one who manages such developers.  The advice will
+often be the same for both; when it's not, the intended audience will
+be made clear from context.</p><p>Corporate funding of free software development is not a new
+phenomenon.  A lot of development has always been informally
+subsidized.  When a system administrator writes a network analysis
+tool to help her do her job, then posts it online and gets bug fixes
+and feature contributions from other system administrators, what's
+happened is that an unofficial consortium has been formed.  The
+consortium's funding comes from the sysadmins' salaries, and its
+office space and network bandwidth are donated, albeit unknowingly, by
+the organizations they work for.  Those organizations benefit from the
+investment, of course, although they may not be institutionally aware
+of it at first.</p><p>The difference today is that many of these efforts are being
+formalized.  Corporations have become conscious of the benefits of
+open source software, and started involving themselves more directly
+in its development.  Developers too have come to expect that really
+important projects will attract at least donations, and possibly even
+long-term sponsors.  While the presence of money has not changed the
+basic dynamics of free software development, it has greatly changed
+the scale at which things happen, both in terms of the number of
+developers and time-per-developer.  It has also had effects on how
+projects are organized, and on how the parties involved in them
+interact.  The issues are not merely about how the money is spent, or
+how return on investment is measured.  They are also about management
+and process: how can the hierarchical command structures of
+corporations and the semi-decentralized volunteer communities of free
+software projects work productively with each other?  Will they even
+agree on what "productively" means?</p><p>Financial backing is, in general, welcomed by open source
+development communities.  It can reduce a project's vulnerability to the
+Forces of Chaos, which sweep away so many projects before they really
+get off the ground, and therefore it can make people more willing to
+give the software a chance—they feel they're investing their
+time into something that will still be around six months from now.
+After all, credibility is contagious, to a point.  When, say, IBM
+backs an open source project, people pretty much assume the project
+won't be allowed to fail, and their resultant willingness to devote
+effort to it can make that a self-fulfilling prophecy.</p><p>However, funding also brings a perception of control.  If not
+handled carefully, money can divide a project into in-group and
+out-group developers.  If the unpaid volunteers get the feeling that
+design decisions or feature additions are simply available to the
+highest bidder, they'll head off to a project that seems more like a
+meritocracy and less like unpaid labor for someone else's benefit.
+They may never complain overtly on the mailing lists.  Instead, there
+will simply be less and less noise from external sources, as the
+volunteers gradually stop trying to be taken seriously.  The buzz of
+small-scale activity will continue, in the form of bug reports and
+occasional small fixes.  But there won't be any large code
+contributions or outside participation in design discussions.  People
+sense what's expected of them, and live up (or down) to those
+expectations.</p><p>Although money needs to be used carefully, that doesn't mean it
+can't buy influence.  It most certainly can.  The trick is that it
+can't buy influence directly.  In a straightforward commercial
+transaction, you trade money for what you want.  If you need a feature
+added, you sign a contract, pay for it, and it gets done.  In an open
+source project, it's not so simple.  You may sign a contract with some
+developers, but they'd be fooling themselves—and you—if
+they guaranteed that the work you paid for would be accepted by the
+development community simply because you paid for it.  The work can
+only be accepted on its own merits and on how it fits into the
+community's vision for the software.  You may have some say in that
+vision, but you won't be the only voice.</p><p>So money can't purchase influence, but it can purchase things
+that <span class="emphasis"><em>lead to</em></span> influence.  The most obvious example
+is programmers.  If good programmers are hired, and they stick around
+long enough to get experience with the software and credibility in the
+community, then they can influence the project by the same means as
+any other member.  They will have a vote, or if there are many of
+them, they will have a voting bloc.  If they are respected in the
+project, they will have influence beyond just their votes.  There is
+no need for paid developers to disguise their motives, either.  After
+all, everyone who wants a change made to the software wants it for a
+reason.  Your company's reasons are no less legitimate than anyone
+else's.  It's just that the weight given to your company's goals will
+be determined by its representatives' status in the project, not by
+the company's size, budget, or business plan.</p></div><div class="sect1" title="Types of Involvement"><div class="titlepage"><div><div><h1 class="title"><a id="types-of-involvement"/>Types of Involvement</h1></div></div></div><p>There are many different reasons open source projects get
+funded.  The items in this list aren't mutually exclusive; often a
+project's financial backing will result from several, or even all, of
+these motivations:</p><div class="variablelist"><dl><dt><span class="term">Sharing the burden</span></dt><dd><p>Separate organizations with related software needs often
+     find themselves duplicating effort, either by redundantly writing
+     similar code in-house, or by purchasing similar products from
+     proprietary vendors.  When they realize what's going on, the
+     organizations may pool their resources and create (or join) an
+     open source project tailored to their needs.  The advantages are
+     obvious: the costs of development are divided, but the benefits
+     accrue to all.  Although this scenario seems most intuitive for
+     nonprofits, it can make strategic sense even for for-profit
+     competitors.</p><p>Examples: <a class="ulink" href="http://www.openadapter.org/">http://www.openadapter.org/</a>,
+     <a class="ulink" href="http://www.koha.org/">http://www.koha.org/</a></p></dd><dt><span class="term">Augmenting services</span></dt><dd><p>When a company sells services which depend on, or are made
+     more attractive by, particular open source programs, it is
+     naturally in that company's interests to ensure those programs
+     are actively maintained.</p><p>Example: <a class="ulink" href="http://www.collab.net/">CollabNet's</a> support of
+     <a class="ulink" href="http://subversion.tigris.org/">http://subversion.tigris.org/</a> (disclaimer: that's
+     my day job, but it's also a perfect example of this model).</p></dd><dt><span class="term">Supporting hardware sales</span></dt><dd><p>The value of computers and computer components is directly
+     related to the amount of software available for them.  Hardware
+     vendors—not just whole-machine vendors, but also makers
+     of peripheral devices and microchips—have found that
+     having high-quality free software to run on their hardware is
+     important to customers.</p></dd><dt><span class="term">Undermining a competitor</span></dt><dd><p>Sometimes companies support a particular open source
+     project as a means of undermining a competitor's product, which
+     may or may not be open source itself.  Eating away at a
+     competitor's market share is usually not the sole reason for
+     getting involved with an open source project, but it can be a
+     factor.</p><p>Example: <a class="ulink" href="http://www.openoffice.org/">http://www.openoffice.org/</a> (no,
+     this isn't the only reason OpenOffice exists, but the software is
+     at least partly a response to Microsoft Office).</p></dd><dt><span class="term">Marketing</span></dt><dd><p>Having your company associated with a popular open source
+     application can be simply good brand management.</p></dd><dt><span class="term">Dual-licensing</span></dt><dd><p><em class="firstterm">Dual-licensing</em> is the practice of
+           offering software under a traditional proprietary license
+           for customers who want to resell it as part of a
+           proprietary application of their own, and simultaneously
+           under a free license for those willing to use it under open
+           source terms (see
+           <a class="xref" href="ch09s06.html" title="Dual Licensing Schemes">the section called “Dual Licensing Schemes”</a><span> in
+           <a class="xref" href="ch09.html" title="Chapter 9. Licenses, Copyrights, and Patents">Chapter 9, <em>Licenses, Copyrights, and Patents</em></a></span>).
+           If the open source developer community is active, the
+           software gets the benefits of wide-area debugging and
+           development, yet the company still gets a royalty stream to
+           support some full-time programmers.</p><p>Two well-known examples are <a class="ulink" href="http://www.mysql.com/">MySQL</a>, makers of the
+           database software of the same name, and <a class="ulink" href="http://www.sleepycat.com/">Sleepycat</a>, which
+           offers distributions and support for the Berkeley Database.
+           It's no coincidence that they're both database companies.
+           Database software tends to be integrated into applications
+           rather than marketed directly to users, so it's very
+           well-suited to the dual-licensing model.</p></dd><dt><span class="term">Donations</span></dt><dd><p>A widely-used project can sometimes get significant
+           contributions, from both individuals and organizations,
+           just by having an online donation button, or sometimes by
+           selling branded merchandise such as coffee mugs, T-shirts,
+           mousepads, etc.  A word of caution: if your project accepts
+           donations, plan out how the money will be used
+           <span class="emphasis"><em>before</em></span> it comes in, and state the
+           plans on the project's web site.  Discussions about how to
+           allocate money tend to go a lot more smoothly when held
+           before there's actual money to spend; and anyway, if there
+           are significant disagreements, it's better to find that out
+           while it's still academic.</p></dd></dl></div><p>A funder's business model is not the only factor in how it
+relates to an open source community.  The historical relationship
+between the two also matters: did the company start the project, or is
+it joining an existing development effort?  In both cases, the funder
+will have to earn credibility, but, not surprisingly, there's a bit
+more earning to be done in the latter case.  The organization needs to
+have clear goals with respect to the project.  Is the company trying
+to keep a position of leadership, or simply trying to be one voice in
+the community, to guide but not necessarily govern the project's
+direction?  Or does it just want to have a couple of committers
+around, able to fix customers' bugs and get the changes into the
+public distribution without any fuss?</p><p>Keep these questions in mind as you read the guidelines that
+follow.  They are meant to apply to any sort of organizational
+involvement in a free software project, but every project is a human
+environment, and therefore no two are exactly alike.  To some degree,
+you will always have to play by ear, but following these principles
+will increase the likelihood of things turning out the way you
+want.</p></div></div></body></html>

@@ -1,0 +1,15 @@
+/*
+ * @author rkwright   /  www.geofx.com
+ */
+ 
+ body {
+	/* Set the background color of the HTML page to black */
+	background-color: #000000;
+
+	/* Hide oversized content. This prevents the scroll bars. */
+	overflow: hidden;
+
+	/* Define the font and the color for the usage, which is an ordinary HTML overlay. */
+	font-family: Monospace;
+	color: white;
+}

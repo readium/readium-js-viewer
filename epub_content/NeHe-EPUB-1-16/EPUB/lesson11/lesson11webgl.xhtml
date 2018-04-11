@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+		<title>NEHE Tutorial #11</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+		<!-- The following meta line optimizes the site for mobile devices. It sets the viewport size
+		to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024"/>
+		<link rel="stylesheet" type="text/css" href="../css/NeHe.css" />
+
+		<!-- Include two libraries from THREE.three-js: Core and the Detector for WebGL -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+	    <script src="../three-js/stats.js" type="text/javascript"></script>
+		<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+		<script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	</head>
+	<body>	
+		<!-- This JavaScript block encloses the Three.three-js commands -->
+		<script> <![CDATA[
+			// allocate the Scene object, request orbitControls and an set of 3D axes 10 units high
+			var gfxScene = new GFX.Scene( {
+                cameraPos : [5, 2, 20],
+				canvasWidth:768,
+				canvasHeight:1024,
+				axesHeight:10,
+				controls:true,
+				displayStats:true });
+			
+			var wiggle_count = 0;		// Counter Used To Control How Fast Flag Waves
+			var texture;
+            var paraGeom;
+            var paraMesh;
+
+			// then initialize our demo's stuff
+			initializeDemo();
+
+			// Animate the scene
+			animateScene();
+
+			/**
+			 * Initialize the Demo.  This is NeHe #11: http://nehe.gamedev.net/tutorial/flag_effect_%28waving_texture%29/16002/
+			 * Create a image mapped texture which is then oscillated (in a sine wave)
+			 */
+			function initializeDemo() {
+				
+				// load the image and create the mesh-material
+				texture = new THREE.ImageUtils.loadTexture("images/Tim.bmp");
+				material = new THREE.MeshBasicMaterial( { map: texture, side:THREE.DoubleSide } );
+				
+				// now go create the mesh
+                createMeshParametric();
+			}
+
+			// this is the simple callback function we pass to the ParametricGeometry
+			// the ParametricGeometry will call this for each slice/stack so that u and v vary from 0..1
+			function sineWave ( u, v ) {
+				var x = u * 9 - 4.5;
+				var y = v * 9 - 4.5;
+				var z = Math.sin(u*Math.PI*2.0);
+				
+				return new THREE.Vector3(x, y, z);
+			}
+			
+			// just create the Parametric geometry and add it to the Scene
+			function createMeshParametric() {
+			    paraGeom = new THREE.ParametricGeometry(sineWave, 45, 45);
+				paraMesh = new THREE.Mesh( paraGeom, material);
+				gfxScene.add(paraMesh);
+			}
+
+            function wiggleTheSurface() {
+
+                vertices = paraGeom.vertices;
+
+                var temp = vertices[0].z;
+                for ( var i = 1; i < vertices.length; i++ ) {
+                    vertices[i-1].z = vertices[i].z;
+                }
+
+                vertices[vertices.length-1].z = temp;
+
+                paraMesh.geometry.verticesNeedUpdate = true;
+             }
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene() {
+
+				// Tell the browser to call this function when page is visible
+				requestAnimationFrame(animateScene);
+
+				// then wiggle the mesh
+                wiggleTheSurface();
+				
+				// Map the 3D scene down to the 2D screen (render the frame)
+				gfxScene.renderScene();
+			}
+		]]> </script>
+	</body>
+</html>
