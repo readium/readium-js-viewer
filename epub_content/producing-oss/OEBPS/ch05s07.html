@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Funding Non-Programming Activities</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Funding Non-Programming Activities"><div class="titlepage"><div><div><h1 class="title"><a id="funding-non-programming"/>Funding Non-Programming Activities</h1></div></div></div><p>Programming is only part of the work that goes on in an open
+source project.  From the point of view of the project's volunteers,
+it's the most visible and glamorous part.  This unfortunately means
+that other activities, such as documentation, formal testing, etc., can
+sometimes be neglected, at least compared to the amount of attention
+they often receive in proprietary software.  Corporate organizations
+are sometimes able to make up for this, by devoting some of their
+internal software development infrastructure to open source
+projects.</p><p>The key to doing this successfully is to translate between the
+company's internal processes and those of the public development
+community.  Such translation is not effortless: often the two are not
+a close match, and the differences can only be bridged via human
+intervention.  For example, the company may use a different bug
+tracker than the public project.  Even if they use the same tracking
+software, the data stored in it will be very different, because the
+bug-tracking needs of a company are very different from those of a
+free software community.  A piece of information that starts in one
+tracker may need to be reflected in the other, with confidential
+portions removed or, in the other direction, added.</p><p>The sections that follow are about how to build and maintain
+such bridges.  The end result should be that the open source project
+runs more smoothly, the community recognizes the company's investment
+of resources, and yet does not feel that the company is
+inappropriately steering things toward its own goals.</p><div class="sect2" title="Quality Assurance (i.e., Professional Testing)"><div class="titlepage"><div><div><h2 class="title"><a id="subsidize-qa"/>Quality Assurance (i.e., Professional Testing)</h2></div></div></div><p>In proprietary software development, it is normal to have teams
+of people dedicated solely to quality assurance: bug hunting,
+performance and scalability testing, interface and documentation
+checking, etc.  As a rule, these activities are not pursued as
+vigorously by the volunteer community on a free software project.
+This is partly because it's hard to get volunteer labor for
+unglamorous work like testing, partly because people tend to assume
+that having a large user community gives the project good testing
+coverage, and, in the case of performance and scalability testing,
+partly because volunteers often don't have access to the necessary
+hardware resources anyway.</p><p>The assumption that having many users is equivalent to having
+many testers is not entirely baseless.  Certainly there's little point
+assigning testers for basic functionality in common environments: bugs
+there will quickly be found by users in the natural course of things.
+But because users are just trying to get work done, they do not
+consciously set out to explore uncharted edge cases in the program's
+functionality, and are likely to leave certain classes of bugs
+unfound.  Furthermore, when they discover a bug with an easy
+workaround, they often silently implement the workaround without
+bothering to report the bug.  Most insidiously, the usage patterns of
+your customers (the people who drive <span class="emphasis"><em>your</em></span>
+interest in the software) may differ in statistically significant ways
+from the usage patterns of the Average User In The Street.</p><p>A professional testing team can uncover these sorts of bugs, and
+can do so as easily with free software as with proprietary software.
+The challenge is to convey the testing team's results back to the
+public in a useful form.  In-house testing departments usually have
+their own way of reporting test results, involving company-specific
+jargon, or specialized knowledge about particular customers and their
+data sets.  Such reports would be inappropriate for the public bug
+tracker, both because of their form and because of confidentiality
+concerns.  Even if your company's internal bug tracking software
+were the same as that used by the public project, management might
+need to make company-specific comments and metadata changes to the
+issues (for example, to raise an issue's internal priority, or
+schedule its resolution for a particular customer).  Usually such
+notes are confidential—sometimes they're not even shown to the
+customer.  But even when they're not confidential, they're of no
+concern to the public project, and therefore the public should not be
+distracted with them.</p><p>Yet the core bug report itself <span class="emphasis"><em>is</em></span> important
+to the public.  In fact, a bug report from your testing department is
+in some ways more valuable than one received from users at large,
+since the testing department probes for things that other users won't.
+Given that you're unlikely to get that particular bug report from any
+other source, you definitely want to preserve it and make it
+available to the public project.</p><p>To do this, either the QA department can file issues directly in
+the public issue tracker, if they're comfortable with that, or an
+intermediary (usually one of the developers) can "translate" the
+testing department's internal reports into new issues in the public
+tracker.  Translation simply means describing the bug in a way that
+makes no reference to customer-specific information (the reproduction
+recipe may use customer data, assuming the customer approves it, of
+course).</p><p>It is somewhat preferable to have the QA department filing
+issues in the public tracker directly.  That gives the public a more
+direct appreciation of your company's involvement with the project:
+useful bug reports add to your organization's credibility just as any
+technical contribution would.  It also gives developers a direct line
+of communication to the testing team.  For example, if the internal QA
+team is monitoring the public issue tracker, a developer can commit a
+fix for a scalability bug (which the developer may not have the
+resources to test herself), and then add a note to the issue asking
+the QA team to see if the fix had the desired effect.  Expect a bit of
+resistance from some of the developers; programmers have a tendency to
+regard QA as, at best, a necessary evil.  The QA team can easily
+overcome this by finding significant bugs and filing comprehensible
+reports; on the other hand, if their reports are not at least as good
+as those coming from the regular user community, then there's no point
+having them interact directly with the development team.</p><p>Either way, once a public issue exists, the original internal
+issue should simply reference the public issue for technical content.
+Management and paid developers may continue to annotate the internal
+issue with company-specific comments as necessary, but use the public
+issue for information that should be available to everyone.</p><p>You should go into this process expecting extra overhead.
+Maintaining two issues for one bug is, naturally, more work than
+maintaining one issue.  The benefit is that many more coders will see
+the report and be able to contribute to a solution.</p></div><div class="sect2" title="Legal Advice and Protection"><div class="titlepage"><div><div><h2 class="title"><a id="subsidize-legal"/>Legal Advice and Protection</h2></div></div></div><p>Corporations, for-profit or nonprofit, are almost the only
+entities that ever pay attention to complex legal issues in free
+software.  Individual developers often understand the nuances of
+various open source licenses, but they generally do not have the time
+or resources to follow copyright, trademark, and patent law in detail.
+If your company has a legal department, it can help a project by
+vetting the copyright status of the code, and helping developers
+understand possible patent and trademark issues.  The exact forms this
+help could take are discussed in <a class="xref" href="ch09.html" title="Chapter 9. Licenses, Copyrights, and Patents">Chapter 9, <em>Licenses, Copyrights, and Patents</em></a>.  The
+main thing is to make sure that communications between the legal
+department and the development community, if they happen at all,
+happen with a mutual appreciation of the very different universes the
+parties are coming from.  On occasion, these two groups talk past each
+other, each side assuming domain-specific knowledge that the other
+does not have.  A good strategy is to have a liaison (usually a
+developer, or else a lawyer with technical expertise) stand in the
+middle and translate for as long as needed.</p></div><div class="sect2" title="Documentation and Usability"><div class="titlepage"><div><div><h2 class="title"><a id="subsidize-documentation-usability"/>Documentation and Usability</h2></div></div></div><p>Documentation and usability are both famous weak spots in open
+source projects, although I think, at least in the case of
+documentation, that the difference between free and proprietary
+software is frequently exaggerated.  Nevertheless, it is empirically
+true that much open source software lacks first-class documentation
+and usability research.</p><p>If your organization wants to help fill these gaps for a
+project, probably the best thing it can do is hire people who
+are <span class="emphasis"><em>not</em></span> regular developers on the project, but
+who will be able to interact productively with the developers.
+Not hiring regular developers is good for two reasons: one, that way
+you don't take development time away from the project; two, those
+closest to the software are usually the wrong people to write
+documentation or investigate usability anyway, because they have
+trouble seeing the software from an outsider's point of view.</p><p>However, it will still be necessary for whoever works on these
+problems to communicate with the developers.  Find people who are
+technical enough to talk to the coding team, but not so expert in the
+software that they can't empathize with regular users anymore.</p><p>A medium-level user is probably the right person to write good
+documentation.  In fact, after the first edition of this book was
+published, I received the following email from an open source
+developer named Dirk Reiners:</p><pre class="screen">
+One comment on Money::Documentation and Usability: when we had some 
+money to spend and decided that a beginner's tutorial was the most 
+critical piece that we needed we hired a medium-level user to write it. 
+He had gone through the induction to the system recently enough to 
+remember the problems, but he had gotten past them so he knew how to 
+describe them. That allowed him to write something that needed only 
+minor fixes by the core developers for the things that he hadn't gotten 
+right, but still covering the 'obvious' stuff devs would have missed.
+
+His case was even better, as it had been his job to introduce a bunch of 
+other people (students) to the system, so he combined the experience of 
+many people, which is something that was just a lucky occurrence and is 
+probably hard to get in most cases.
+</pre></div><div class="sect2" title="Providing Hosting/Bandwidth"><div class="titlepage"><div><div><h2 class="title"><a id="subsidize-hosting"/>Providing Hosting/Bandwidth</h2></div></div></div><p>For a project that's not using one of the free canned hosting
+sites (see
+<a class="xref" href="ch03s08.html#canned-hosting" title="Canned Hosting">the section called “Canned Hosting”</a><span> in
+<a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span>), providing a
+server and network connection—and most importantly, system
+administration help—can be of significant assistance.  Even if
+this is all your organization does for the project, it can be a
+moderately effective way to obtain good public relations karma, though
+it will not bring any influence over the direction of the
+project.</p><p>You can probably expect a banner ad or an acknowledgment on the
+project's home page, thanking your company for providing hosting.  If
+you set up the hosting so that the project's web address is under your
+company's domain name, then you will get some additional association
+just through the URL.  This will cause most users to think of the
+software as having <span class="emphasis"><em>something</em></span> to do with your
+company, even if you don't contribute to development at all.  The
+problem is, the developers are aware of this associative tendency too,
+and may not be very comfortable with having the project in your domain
+unless you're contributing more resources than just bandwidth.  After
+all, there are a lot of places to host these days.  The community may
+eventually feel that the implied misallocation of credit is not worth
+the convenience brought by hosting, and take the project elsewhere.
+So if you want to provide hosting, do so—but either plan to get
+even more involved soon, or be circumspect about how much involvement
+you claim.</p></div></div></body></html>

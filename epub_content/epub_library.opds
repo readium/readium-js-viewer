@@ -8,115 +8,188 @@
 <link rel="start" href="epub_library.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
 
 <entry>
-<title>Accessible EPUB 3</title>
-<author>
-  <name>Matt Garrish</name>
-</author>
-<link type="image/jpeg" href="accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<link type="application/epub" href="accessible_epub_3" rel="http://opds-spec.org/acquisition"/>
-
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_1</id>
-
-</entry>
-
-<entry>
-<title>Page Blanche</title>
-<author>
-  <name>Boulet and Penelope Bagieu</name>
-</author>
-<link type="image/jpeg" href="page-blanche/EPUB/Image/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<link type="application/epub" href="page-blanche" rel="http://opds-spec.org/acquisition"/>
-
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_2</id>
-
-</entry>
-
-<entry>
-<title>Moby Dick</title>
-<author>
-  <name>Herman Melville</name>
-</author>
-<link type="image/jpeg" href="moby_dick/OPS/images/9780316000000.jpg" rel="http://opds-spec.org/image/thumbnail"/>
-<link type="application/epub" href="moby_dick" rel="http://opds-spec.org/acquisition"/>
-
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_3</id>
-
-</entry>
-
-
-<entry>
-<title>A First Course in Linear Algebra</title>
-<author>
-  <name>Robert A. Beezer</name>
-</author>
-<link type="application/epub" href="linear-algebra" rel="http://opds-spec.org/acquisition"/>
-
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_4</id>
-
-</entry>
-
-<entry>
-<title>navigator.epubReadingSystem</title>
-<author>
-  <name>Readium</name>
-</author>
-<link type="application/epub" href="epubReadingSystem" rel="http://opds-spec.org/acquisition"/>
-
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_5</id>
-
-</entry>
-
-<entry>
-<title>navigator.epubReadingSystem (zipped)</title>
-<author>
-  <name>Readium</name>
-</author>
-<link type="application/epub+zip" href="epubReadingSystem.epub" rel="http://opds-spec.org/acquisition"/>
-
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_6</id>
-
-</entry>
-
-<entry>
-<title>internal_link EPUB (zipped)</title>
-<author>
-  <name>Readium</name>
-</author>
-<link type="application/epub+zip" href="internal_link.epub" rel="http://opds-spec.org/acquisition"/>
-
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_7</id>
-
-</entry>
-
-<entry>
-  <title>IDPF EPUB 3.1 specification (zipped)</title>
+  <title>Accessible EPUB 3</title>
   <author>
-    <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30.epub</name>
+    <name>Matt Garrish</name>
   </author>
-  <link type="application/epub+zip" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
-  
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_8</id>
-
+  <link type="image/jpeg" href="accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="accessible_epub_3" rel="http://opds-spec.org/acquisition"/>
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_1</id>
 </entry>
 
 <entry>
-  <title>IDPF EPUB 3.1 specification (unzipped)</title>
+  <title>Page Blanche</title>
   <author>
-    <name>https://github.com/IDPF/epub-revision/tree/master/build/31/docs/epub31-v30</name>
+    <name>Boulet and Penelope Bagieu</name>
   </author>
-  <link type="application/epub" href="https://cdn.rawgit.com/IDPF/epub-revision/master/build/31/docs/epub31-v30" rel="http://opds-spec.org/acquisition"/>
-  
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_9</id>
+  <link type="image/jpeg" href="page-blanche/EPUB/Image/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="page-blanche" rel="http://opds-spec.org/acquisition"/>
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_2</id>
+</entry>
 
+<entry>
+  <title>Moby Dick (styled)</title>
+  <author>
+    <name>Herman Melville</name>
+  </author>
+  <link type="image/jpeg" href="moby_dick/OPS/images/9780316000000.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="moby_dick" rel="http://opds-spec.org/acquisition"/>
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_3</id>
+</entry>
+
+<entry>
+  <title>What is Motivic Measure?</title>
+  <author>
+      <name>Thomas C. Hales</name>
+  </author>
+  <link type="image/png" href="Hales-Motivic-Measure/EPUB/img/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="Hales-Motivic-Measure" rel="http://opds-spec.org/acquisition"/>
+</entry>
+
+<entry>
+  <title>Alice in Wonderland</title>
+  <author>
+      <name>Lewis Carroll</name>
+  </author>
+  <link type="image/gif" href="alice3/images/alice01a.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="alice3" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-10-28T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_5B</id>
+</entry>
+ 
+<entry>
+  <title>navigator.epubReadingSystem</title>
+  <author>
+    <name>Readium</name>
+  </author>
+  <link type="application/epub" href="epubReadingSystem" rel="http://opds-spec.org/acquisition"/>
+  <link type="image/png" href="epubReadingSystem_EX/img/cover.png" rel="http://opds-spec.org/image/thumbnail"/>        
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_5</id>
+</entry>
+
+<entry>
+  <title>navigator.epubReadingSystem</title>
+  <author>
+      <name>Readium</name>
+  </author>
+  <link type="application/epub+zip" href="epubReadingSystem.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="image/png" href="epubReadingSystem/EPUB/img/cover.png" rel="http://opds-spec.org/image/thumbnail"/>        
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_6</id>
+</entry>
+
+<entry>
+  <title>internal_link EPUB (zipped)</title>
+  <author>
+    <name>Readium</name>
+  </author>
+  <link type="application/epub+zip" href="internal_link.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="image/png" href="internal_link.png" rel="http://opds-spec.org/image/thumbnail"/>        
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_7</id>
+</entry>
+
+<entry>
+  <title>IDPF EPUB 3.1 specification</title>
+  <author>
+    <name>Markus Gylling et. al.</name>
+  </author>
+  <link type="application/epub+zip" href="https://rawgit.com/w3c/publ-epub-revision/cbee05c2ab6fb2dba821c94984d7203d91f5a97d/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="image/png" href="EPUB-Spec-Zipped.png" rel="http://opds-spec.org/image/thumbnail"/>        
+  <updated>2016-11-01T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_8</id>
+</entry>
+
+<entry>
+  <title>Cyclones</title>
+  <author>
+    <name>Wikipedia Contributors</name>
+  </author>
+  <link type="image/png" href="cyclones/Cyclone-Cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="cyclones" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-10-28T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_15</id>    
+</entry>
+
+<entry>
+  <title>The Emerald City of Oz</title>
+  <author>
+    <name>Frank Baum</name>
+  </author>
+  <link type="image/png" href="emerald-city-oz/OPS/images/cover.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="emerald-city-oz" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-10-28T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_16</id>       
+</entry>
+
+<entry>
+  <title>Producing OSS Software</title>
+  <author>
+    <name>Karl Fogel</name>
+  </author>
+  <link type="image/jpeg" href="producing-oss/OEBPS/producing-oss.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="producing-oss" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-19-28T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_17</id>        
+</entry>
+
+<!-- entry>
+  <title>SVG Animation</title>
+  <author>
+    <name>Ric Wright</name>
+  </author>
+  <link type="image/jpeg" href="SVG_Animation.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub+zip" href="SVG_Animation.epub" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-19-28T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_18</id>        
+</entry -->
+
+<entry>
+  <title>NeHe WebGL three.js 1-16</title>
+  <author>
+    <name>Ric Wright</name>
+  </author>
+  <link type="image/png" href="NeHe-EPUB-1-16/EPUB/images/NeHe-1-16.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="NeHe-EPUB-1-16" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-19-28T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_19</id>        
+</entry>
+
+<entry>
+  <title>NeHe WebGL three.js 17-32</title>
+  <author>
+    <name>Ric Wright</name>
+  </author>
+  <link type="image/png" href="NeHe-EPUB-17-32/EPUB/images/NeHe-17-32.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="NeHe-EPUB-17-32" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-19-28T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_19b</id>        
+</entry>
+
+<entry>
+  <title>Tiny Three.js Loader - zipped</title>
+  <author>
+    <name>Ric Wright</name>
+  </author>
+  <link type="image/jpeg" href="epub_threejs_logo.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub+zip" href="Tiny-Loader.epub" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-11-01T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_20</id>        
+</entry>
+
+<entry>
+  <title>Tiny Three.js Loader - unzipped</title>
+  <author>
+    <name>Ric Wright</name>
+  </author>
+  <link type="image/jpeg" href="epub_threejs_logo.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/epub" href="Tiny-Loader" rel="http://opds-spec.org/acquisition"/>
+  <updated>2017-11-01T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_20</id>        
 </entry>
 
 <entry>
@@ -124,11 +197,11 @@
   <author>
     <name>https://github.com/IDPF/epub-testsuite</name>
   </author>
-<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="image/png" href="epub_testsuite.png" rel="http://opds-spec.org/image/thumbnail"/>
   <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_testsuite.opds"/>
   
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_10</id>
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_10</id>
 
 <link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
 
@@ -139,42 +212,10 @@
   <author>
     <name>https://github.com/IDPF/epub3-samples</name>
   </author>
-<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_samples.opds"/>
-  
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_11</id>
-
-<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
-
-</entry>
-
-<entry>
-  <title>IDPF EPUB widgets / embedded scriptable components</title>
-  <author>
-    <name>https://github.com/IDPF/scriptable-components</name>
-  </author>
-<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_widgets.opds"/>
-  
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_12</id>
-
-<link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
-
-</entry>
-
-<entry>
-  <title>IDPF EDUPUB Examples</title>
-  <author>
-    <name>https://github.com/IDPF/edupub</name>
-  </author>
-<link type="image/gif" href="http://idpf.org/sites/default/files/epub-logo.gif" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_edu.opds"/>
-  
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_13</id>
-
+  <link type="image/png" href="idpf_samples.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="idpf_samples.opds"/> 
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_11</id>
 <link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
 
 </entry>
@@ -184,12 +225,10 @@
   <author>
     <name>https://github.com/daisy/epub-accessibility-tests</name>
   </author>
-<link type="image/gif" href="http://www.daisy.org/images-site2/logos/daisylogo.gif" rel="http://opds-spec.org/image/thumbnail"/>
-  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_tests_a11y.opds"/>
-  
-<updated>2016-02-12T00:00:00Z</updated>
-<id>READIUM_OPDS_0123456789_14</id>
-
+  <link type="image/png" href="epub_tests_a11y.png" rel="http://opds-spec.org/image/thumbnail"/>
+  <link type="application/atom+xml;profile=opds-catalog;kind=navigation" href="epub_tests_a11y.opds"/>  
+  <updated>2016-02-12T00:00:00Z</updated>
+  <id>READIUM_OPDS_0123456789_14</id>
 <link type="application/noop" href="DUMMY_ACQUISITION" rel="http://opds-spec.org/acquisition"/>
 
 </entry>

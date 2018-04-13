@@ -1,0 +1,82 @@
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/">
+	<navMap>
+		<navPoint>
+			<navLabel>
+				<text>The front page</text>
+			</navLabel>
+			<content src="titlepage.xhtml"/>
+		</navPoint>
+		<navPoint>
+			<navLabel>
+				<text>Tropical Cyclone (Hurricane)</text>
+			</navLabel>
+			<content src="tropical_cyclone/index.xhtml"/>
+			<navPoint>
+				<navLabel>
+					<text>Mechanics of tropical cyclones</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#mechanics"/>
+			</navPoint>
+			<navPoint>
+				<navLabel>
+					<text>Formation</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#formation"/>
+			</navPoint>
+			<navPoint>
+				<navLabel>
+					<text>Movement and track</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#movement"/>
+			</navPoint>
+			<navPoint>
+				<navLabel>
+					<text>Dissipation</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#dissipation"/>
+			</navPoint>
+			<navPoint>
+				<navLabel>
+					<text>Effects</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#effects"/>
+			</navPoint>
+			<navPoint>
+				<navLabel>
+					<text>Long term trends in cyclone activity</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#trends"/>
+			</navPoint>
+			<navPoint>
+				<navLabel>
+					<text>Observation and forecasting</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#observation"/>
+			</navPoint>
+			<navPoint>
+				<navLabel>
+					<text>Classifications, Terminology and Naming</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#naming"/>
+			</navPoint>
+			<navPoint>
+				<navLabel>
+					<text>Other storm systems</text>
+				</navLabel>
+				<content src="tropical_cyclone/index.xhtml#other"/>
+			</navPoint>
+		</navPoint>
+		<navPoint>
+			<navLabel>
+				<text>Extratropical Cyclone</text>
+			</navLabel>
+			<content src="extratropical_cyclone/index.xhtml"/>
+		</navPoint>
+		<navPoint>
+			<navLabel>
+				<text>Subtropical Cyclone</text>
+			</navLabel>
+			<content src="subtropical_cyclone/index.xhtml"/>
+		</navPoint>
+	</navMap>
+</ncx>

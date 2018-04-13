@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+		<!--
+  			Roughly based (or inspired by) NeHe Tutorial 15  
+  			Original:  http://nehe.gamedev.net/tutorial/texture_mapped_outline_fonts/18001/
+  
+  			@author: rkwright@geofx.com
+		 -->
+		<title>NEHE Tutorial 15</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+		<!-- The following meta line optimizes the site for mobile devices. It sets the viewport size
+		to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768,height=1024"/>
+	<link rel="stylesheet" type="text/css" href="../css/NeHe.css" />
+
+	<!-- Include several libraries from THREE.js and the Scene class  -->
+	<script src="../three-js/three.js" type="text/javascript"></script>
+	<script src="../three-js/Detector.js" type="text/javascript"></script>
+	<script src="../three-js/stats.js" type="text/javascript"></script>
+	<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+	<script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+
+	<!-- include the JSON format font files we will use -->
+	<!-- script src="../fonts/gentilis_bold.typeface.js"></script -->
+	<!-- script src="../fonts/gentilis_regular.typeface.js"></script -->
+
+	<!-- the shaders  -->
+	<script id="vertexShader" type="x-shader/x-vertex">
+			varying vec2 		vUv;
+
+			/**
+			 * Multiply each vertex by the model-view matrix and the projection
+			 * matrix (both provided by Three.js) to get a final vertex position
+			 */
+			void main() {
+
+				// set the variables passed (behind the scenes) by three.js to our
+				// "varying" variables, which makes them available to the other shader
+				vUv = uv;
+
+				gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+			}
+		</script>
+
+	<!-- Note we have two fragment shaders - one for each texture 	 -->
+	<script id="fragmentShader" type="x-shader/x-fragment">
+			// create the shared variables. which are set in the vertex shader
+			varying vec2 		vUv;
+			uniform sampler2D 	texImage;
+
+			void main(void) {
+
+				gl_FragColor = texture2D(texImage, vUv);
+			}
+		</script>
+
+	<script id="fragmentShader-L" type="x-shader/x-fragment">
+			// create the shared variables. which are set in the vertex shader
+			//varying vec3 		vNormal;
+			varying vec2 		vUv;
+			uniform sampler2D 	leatherImage;
+
+			void main(void) {
+
+				gl_FragColor = texture2D(leatherImage, vUv);
+			}
+		</script>
+</head>
+<body>
+<script>
+    // global variables
+    var 	textGeom;
+
+    var 	size = 1;				// this is actually the HEIGHT of the text. in user-space
+    var 	height = 0.2;			// this is TOTALLY misnamed.  It is the thickness of the extruded text
+    var		curveSegments = 10;		// number of points on "the curve" - which curve?
+    var 	fontName = "../fonts/gentilis_bold.typeface.json";
+
+    var		bevelThickness = 0.05;
+    var		bevelSize = 0.05;
+    var 	bevelEnabled = false;
+
+    var		textMat = 0;
+    var 	extrudeMaterial = 0;
+    var		text= "Shazaam!";
+    var     texture;
+    var     leather;
+
+    // allocate the Scene object, request orbitControls, some of 3D axes 10 units high and the stats
+    var gfxScene = new GFX.Scene( {
+        canvasWidth : 768,
+        canvasHeight : 1024,
+		cameraPos:[4,2,10],
+		axesHeight:10,
+		controls:true,
+		displayStats:true });
+
+    // then initialize our demo's stuff
+    initializeDemo();
+
+    // Animate the scene
+    animateScene();
+
+    /**
+     * Initialize the Demo.
+     */
+    function initializeDemo() {
+
+        createText();
+    }
+
+    /**
+     * Here we actually create the text.  Not too much to it, actually.
+     */
+    function createText() {
+
+        // Note that one has to create a Material for both the face the side of the font.
+        // Three.js has some bugs, as does the font-converter software at typface.js
+        // http://typeface.neocracy.org/fonts.html.  The converter doesn't always keep the
+        // same winding order for nested or adjacent paths and then three.js gets confused
+        // In addition, with release 69 of three.js, you should not use smooth shading on the face
+        // of the font. If you do, you will get some pretty odd artifacts.  Try it and see.
+        // However, the face of the font is flat anyway, so flat shading is fine.
+        // In addition, you shouldn't use Phong material on the sides.  Again, you'll get odd
+        // artifacts.
+        // Finally, go easy on the beveling as large bevels tend to look odd (more bugs?)
+
+        // load the image as a texture
+        // Note that we load TWO textures, one for the face and one for the sides.  Just to see how
+        // it is done.  We then have to have TWO fragment shaders, one for each texture.  However,
+        // we still only need one vertex shader since they both do exactly the same thing.
+        texture = new THREE.ImageUtils.loadTexture("images/wood-grain.jpg");
+        leather = new THREE.ImageUtils.loadTexture("images/green-pebbled-leather.jpg");
+        // ensure that our texture gets wrapped so the coverage is complete and uniform
+        // also note that the texture needs to be big enough (e.g. at least 512x512) or
+        // the sharper curvers will be so stretched it will blur
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        leather.wrapS = leather.wrapT = THREE.RepeatWrapping;
+
+        // add a uniform for the texture.  This is the read-only
+        // variables that get passed to our shaders
+        var uniforms = {
+            texImage:	{ type: 't', value: texture }
+        };
+
+        var uniformsL = {
+            leatherImage:	{ type: 't', value: leather }
+        };
+
+        // find the shaders
+        var vs = document.getElementById("vertexShader").textContent;
+        var fs = document.getElementById("fragmentShader").textContent;
+        var fsL = document.getElementById("fragmentShader-L").textContent;
+
+        // and create our shader material...
+        var shaderMaterialW = new THREE.ShaderMaterial({
+            uniforms:     	uniforms,			// pass the "uniforms" vars
+            shading:        THREE.FlatShading,
+            side:           THREE.DoubleSide,	// want the texture on both sides?
+            vertexShader:   vs,					// pointers to the shaders
+            fragmentShader: fs
+        });
+
+        var shaderMaterialL = new THREE.ShaderMaterial({
+            uniforms:     	uniformsL,			// pass the "uniforms" vars
+            shading:        THREE.FlatShading,
+            side:           THREE.DoubleSide,	// want the texture on both sides?
+            vertexShader:   vs,					// pointers to the shaders
+            fragmentShader: fsL
+        });
+
+        var materialArray = [ shaderMaterialL, shaderMaterialW ];
+        var loader = new THREE.FontLoader();
+        loader.load( fontName, function ( font ) {
+
+            textGeom = new THREE.TextGeometry( text , {
+                size: size,						// actually the height of the font, in user-space
+                height: height,					// THICKNESS of the extruded font, in user-space
+                curveSegments: curveSegments,
+                font: font,						// name of the font
+                //weight: weight,					// bold or normal
+                //style: style,					// regular, italic or bold
+                bevelThickness: bevelThickness,
+                bevelSize: bevelSize,
+                bevelEnabled: bevelEnabled
+            });
+
+            var textMaterial = new THREE.MeshFaceMaterial(materialArray);
+            var textMesh = new THREE.Mesh(textGeom, textMaterial );
+
+            textGeom.computeBoundingBox();
+            textGeom.computeVertexNormals();
+
+            // get the width of the string so we can center it on the origin
+            textGeom.computeBoundingBox();
+
+            var textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
+
+            textMesh.position.set(-0.5 * textWidth, 0, 0.5 );
+            gfxScene.add(textMesh);
+        });
+
+    }
+
+    /**
+     * Animate the scene and call rendering.
+     */
+    function animateScene() {
+
+        // Tell the browser to call this function when page is visible
+        requestAnimationFrame(animateScene);
+
+        // Map the 3D scene down to the 2D screen (render the frame)
+        gfxScene.renderScene();
+    }
+</script>
+</body>
+</html>

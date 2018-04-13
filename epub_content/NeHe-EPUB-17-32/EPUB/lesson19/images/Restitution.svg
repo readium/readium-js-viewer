@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Restitution" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 500 152.9158" enable-background="new 0 0 500 152.9158" xml:space="preserve">
+<polyline fill="none" stroke="#767676" stroke-width="2" stroke-miterlimit="10" points="500,151.7744 166.1768,151.7744 
+	0,151.7744 "/>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M20,152.2616
+			c0,0,77.4613-221.1387,155.6994-6.6522"/>
+		<g>
+			<polygon points="178.0769,152.2616 170.7899,144.3613 175.4242,145.152 178.4068,141.5193 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M178.3017,152.2616
+			c0,0,76.2612-135.377,153.6696-6.1099"/>
+		<g>
+			<polygon points="335.5188,152.2616 326.9136,145.8222 331.6144,145.7548 333.8848,141.6391 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M335.3017,152.2616
+			c0,0,75.4884-87.2785,152.4901-5.2491"/>
+		<g>
+			<polygon points="492.5189,152.2616 482.7875,147.6991 487.3771,146.6807 488.7667,142.1905 			"/>
+		</g>
+	</g>
+</g>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="120" y1="52.2744" x2="271" y2="52.2744"/>
+<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="276" y1="88.2744" x2="435" y2="88.2744"/>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="413.5" y1="108.7744" x2="413.5" y2="92.7744"/>
+		<g>
+			<polygon points="413.5,111.9024 415.5327,106.9278 413.5,108.1082 411.4678,106.9278 			"/>
+		</g>
+		<g>
+			<polygon points="413.5,88.7744 415.5327,93.749 413.5,92.5686 411.4678,93.749 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="258.5" y1="85.7744" x2="258.5" y2="56.7744"/>
+		<g>
+			<polygon points="258.5,89.7744 260.5327,84.7998 258.5,85.9802 256.4678,84.7998 			"/>
+		</g>
+		<g>
+			<polygon points="258.5,52.7744 260.5327,57.749 258.5,56.5686 256.4678,57.749 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<polyline fill="none" stroke="#767676" stroke-width="2" stroke-miterlimit="10" points="11,14.7744 11,103.6206 11,151.7744 		
+			"/>
+		<g>
+			<polygon fill="#767676" points="11,7.7744 6.9345,17.7236 11,15.3628 15.0644,17.7236 			"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 18.6792 10.3623)" font-family="'Verdana'" font-size="12">+Y</text>
+<text transform="matrix(1 0 0 1 268.7061 71.2744)" font-family="'Verdana-Italic'" font-size="10">∆Restitution</text>
+<text transform="matrix(1 0 0 1 421.6979 102.1191)" font-family="'Verdana-Italic'" font-size="10">∆Restitution</text>
+</svg>

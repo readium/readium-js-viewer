@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>IRC / Real-Time Chat Systems</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="IRC / Real-Time Chat Systems"><div class="titlepage"><div><div><h1 class="title"><a id="irc"/>IRC / Real-Time Chat Systems</h1></div></div></div><p>Many projects offer real-time chat rooms using <em class="firstterm">Internet
+Relay Chat</em> (<em class="firstterm">IRC</em>), forums where users
+and developers can ask each other questions and get instant responses.
+While you <span class="emphasis"><em>can</em></span> run an IRC server from your own
+web site, it is generally not worth the hassle.  Instead, do what
+everyone else does: run your IRC channels at Freenode
+(<a class="ulink" href="http://freenode.net/">http://freenode.net/</a>).  Freenode gives you the control
+you need to administer your project's IRC
+channels,<sup>[<a id="idp5874064" href="#ftn.idp5874064" class="footnote">17</a>]</sup> while
+sparing you the not-insignificant trouble of maintaining an IRC server
+yourself.</p><p>The first thing to do is choose a channel name.  The most
+obvious choice is the name of your project—if that's available
+at Freenode, then use it.  If not, try to choose something as close to
+your project's name, and as easy to remember, as possible.  Advertise
+the channel's availabity from your project's web site, so a visitor
+with a quick question will see it right away.  For example, this
+appears in a prominently placed box at the top of Subversion's home
+page:</p><div class="blockquote"><blockquote class="blockquote"><p><span class="emphasis"><em>If you're using Subversion, we recommend that you
+    join the</em></span> <code class="literal">users@subversion.tigris.org</code>
+    <span class="emphasis"><em>mailing list, and read the <a class="ulink" href="http://svnbook.red-bean.com/">Subversion Book</a> and
+    <a class="ulink" href="http://subversion.tigris.org/faq.html">FAQ</a>.
+    You can also ask questions on IRC at</em></span>
+    <code class="literal">irc.freenode.net</code>
+    <span class="emphasis"><em>channel</em></span> <code class="literal">#svn</code>.</p></blockquote></div><p>Some projects have multiple channels, one per subtopic.  For
+example, one channel for installation problems, another for usage
+questions, another for development chat, etc. (<a class="xref" href="ch06s04.html" title="Handling Growth">the section called “Handling Growth”</a><span> in
+<a class="xref" href="ch06.html" title="Chapter 6. Communications">Chapter 6, <em>Communications</em></a></span> discusses and how to
+divide into multiple channels).  When your project is young, there
+should only be one channel, with everyone talking together.  Later, as
+the user-to-developer ratio increases, separate channels may become
+necessary.</p><p>How will people know all the available channels, let alone which
+channel to talk in?  And when they talk, how will they know what the
+local conventions are?</p><p>The answer is to tell them by setting the <em class="firstterm">channel
+topic</em>.<sup>[<a id="idp5884208" href="#ftn.idp5884208" class="footnote">18</a>]</sup>  The channel topic is a brief
+message each user sees when they first enter the channel.  It gives
+quick guidance to newcomers, and pointers to further information.  For
+example:</p><pre class="screen">
+You are now talking on #svn
+
+Topic for #svn is Forum for Subversion user questions, see also
+http://subversion.tigris.org/. || Development discussion happens in
+#svn-dev. || Please don't paste long transcripts here, instead use
+a pastebin site like http://pastebin.ca/. || NEWS: Subversion 1.1.0
+is released, see http://svn110.notlong.com/ for details.
+</pre><p>That's terse, but it tells newcomers what they need to know.  It
+says exactly what the channel is for, gives the project home page (in
+case someone wanders into the channel without having first been to the
+project web site), mentions a related channel, and gives some guidance
+about pasting.</p><div class="sidebar" title="Paste Sites"><a id="paste-sites"/><div class="titlepage"><div><div><p class="title"><strong>Paste Sites</strong></p></div></div></div><p>An IRC channel is a shared space: everyone can see what everyone
+else is saying.  Normally, this is a good thing, as it allows people
+to jump into a conversation when they think they have something to
+contribute, and allows spectators to learn by watching.  But it
+becomes problematic when someone has to provide a large quantity of
+information at once, such as a debugging session transcript, because
+pasting too many lines of output into the channel will disrupt other
+conversations.</p><p>The solution is to use one of the
+<em class="firstterm">pastebin</em> or <em class="firstterm">pastebot</em>
+sites.  When requesting a large amount of data from someone, ask them
+not to paste it into the channel, but instead to go to (for example)
+<a class="ulink" href="http://pastebin.ca/">http://pastebin.ca/</a>, paste their data into the form
+there, and tell the resulting new URL to the IRC channel.  Anyone can
+then visit the URL and view the data.</p><p>There are a number of free paste sites available now, too many
+for a comprehensive list, but here are some of the ones I've seen used:
+<a class="ulink" href="http://www.nomorepasting.com/">http://www.nomorepasting.com/</a>,
+<a class="ulink" href="http://pastebin.ca/">http://pastebin.ca/</a>,
+<a class="ulink" href="http://nopaste.php.cd/">http://nopaste.php.cd/</a>
+<a class="ulink" href="http://rafb.net/paste/">http://rafb.net/paste/</a>
+<a class="ulink" href="http://sourcepost.sytes.net/">http://sourcepost.sytes.net/</a>,
+<a class="ulink" href="http://extraball.sunsite.dk/notepad.php">http://extraball.sunsite.dk/notepad.php</a>,
+and
+<a class="ulink" href="http://www.pastebin.com/">http://www.pastebin.com/</a>.</p></div><div class="sect2" title="Bots"><div class="titlepage"><div><div><h2 class="title"><a id="bots"/>Bots</h2></div></div></div><p>Many technically-oriented IRC channels have a non-human member,
+a so-called <em class="firstterm">bot</em>, that is capable of storing and
+regurgitating information in response to specific commands.
+Typically, the bot is addressed just like any other member of the
+channel, that is, the commands are delivered by "speaking to" the bot.
+For example:</p><pre class="screen">
+&lt;kfogel&gt; ayita: learn diff-cmd = http://subversion.tigris.org/faq.html#diff-cmd
+&lt;ayita&gt;  Thanks!
+</pre><p>That told the bot (who is logged into the channel as ayita) to
+remember a certain URL as the answer to the query "diff-cmd".  Now we
+can address ayita, asking the bot to tell another user about
+diff-cmd:</p><pre class="screen">
+&lt;kfogel&gt; ayita: tell jrandom about diff-cmd
+&lt;ayita&gt;  jrandom: http://subversion.tigris.org/faq.html#diff-cmd
+</pre><p>The same thing can be accomplished via a convenient shorthand:</p><pre class="screen">
+&lt;kfogel&gt; !a jrandom diff-cmd
+&lt;ayita&gt;  jrandom: http://subversion.tigris.org/faq.html#diff-cmd
+</pre><p>The exact command set and behaviors differ from bot to bot.  The
+above example is with <code class="literal">ayita</code>
+(<a class="ulink" href="http://hix.nu/svn-public/alexis/trunk/">http://hix.nu/svn-public/alexis/trunk/</a>), of which
+there is usually an instance running in <code class="literal">#svn</code> at
+freenode.  Other bots include Dancer
+(<a class="ulink" href="http://dancer.sourceforge.net/">http://dancer.sourceforge.net/</a>) and Supybot
+(<a class="ulink" href="http://supybot.com/">http://supybot.com/</a>).  Note that no special server
+privileges are required to run a bot.  A bot is a client program;
+anyone can set one up and direct it to listen to a particular
+server/channel.</p><p>If your channel tends to get the same questions over and over,
+I highly recommend setting up a bot.  Only a small percentage of
+channel users will acquire the expertise needed to manipulate the bot,
+but those users will answer a disproportionately high percentage of
+questions, because the bot enables them to respond so much more
+efficiently.</p></div><div class="sect2" title="Archiving IRC"><div class="titlepage"><div><div><h2 class="title"><a id="irc-archiving"/>Archiving IRC</h2></div></div></div><p>Although it is possible to archive everything that happens in an
+IRC channel, it's not necessarily expected.  IRC conversations may be
+nominally public, but many people think of them as informal,
+semi-private conversations.  Users may be careless with grammar, and
+often express opinions (for example, about other software or other
+programmers) that they wouldn't want preserved forever in an online
+archive.</p><p>Of course, there will sometimes be <span class="emphasis"><em>excerpts</em></span>
+that should be preserved, and that's fine.  Most IRC clients can log a
+conversation to a file at the user's request, or failing that, one can
+always just cut and paste the conversation from IRC into a more
+permanent forum (most often the bug tracker).  But indiscriminate
+logging may make some users uneasy.  If you do archive everything,
+make sure you state so clearly in the channel topic, and give a URL to
+the archive.</p></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp5874064" href="#idp5874064" class="para">17</a>] </sup>There is no requirement or expectation that
+you donate to Freenode, but if you or your project can afford it,
+please consider a contribution.  They are a tax-exempt charity in the
+U.S., and they perform a valuable service.</p></div><div class="footnote"><p><sup>[<a id="ftn.idp5884208" href="#idp5884208" class="para">18</a>] </sup>To set a channel topic, use the
+<code class="literal">/topic</code> command.  All commands in IRC start with
+"<code class="literal">/</code>".  See <a class="ulink" href="http://www.irchelp.org/">http://www.irchelp.org/</a> if
+you're not familiar with IRC usage and administration; in particular,
+<a class="ulink" href="http://www.irchelp.org/irchelp/irctutorial.html">http://www.irchelp.org/irchelp/irctutorial.html</a> is an
+excellent tutorial.</p></div></div></div></body></html>

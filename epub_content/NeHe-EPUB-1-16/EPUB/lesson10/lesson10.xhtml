@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-08</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 10 - Specifying 3D Structures</h2>
+
+
+<p>This lesson is very simple, almst trivial. It was written in the days when writing any simple 3D game that involved moving from place to place was new and different. Today, with the far more complex types of games and other 3D adventures, this example seems pretty trivial. Nonetheless, it is part of the NeHe demos, so we include it here.</p>
+<p>The demo consists of the datafile which specifies a series of triangles that form a very simple structure that resembles nothing more than house of cards. Each of the &quot;walls&quot; and floor and ceiling consist of a pair of triangles, expressed as a JavaScript array. Here is the floor:</p>
+
+<pre><code class="language-javascript">var world = 	
+[	  	 
+ 	// Floor 
+ 	[-3.0, 0.0, -3.0, 0.0, 6.0],
+    [-3.0, 0.0,  3.0, 0.0, 0.0],
+    [ 3.0, 0.0,  3.0, 6.0, 0.0],
+    [-3.0, 0.0, -3.0, 0.0, 6.0],
+    [ 3.0, 0.0, -3.0, 6.0, 6.0],
+    [ 3.0, 0.0,  3.0, 6.0, 0.0],
+    etc.
+]</code></pre>
+   
+<p>First we read in the image and create a texture we will apply to the resulting triangles. Note that we map the texture onto both sides of each object. The original demo used a mud-like image of the original author's face I liked my puppy better (he's a LOT bigger now), but you can get the original texture swapping &quot;mud&quot; for &quot;sammy&quot; in the code.</p>
+
+<pre><code class="language-javascript">var texture = new THREE.ImageUtils.loadTexture("Data/Sammy.jpg");
+var material = new THREE.MeshBasicMaterial( { map: texture, side:THREE.DoubleSide } );</code></pre>
+
+<p>The JS array is then simply read via a link and automatically instantiated. The number of triangles is computed from the length of the array. Then the code simply loops through the array fetching three rows at a time (being the three verticies) and creates a plain <span class="inline-code">Geometry</span> and pushes the verticies into it, creating a triangular mesh.</p>
+			
+<pre><code class="language-javascript">var i1 = i * 3;
+var i2 = i * 3 + 1;
+var i3 = i * 3 + 2; 
+					
+var triGeom = new THREE.Geometry();
+triGeom.vertices.push(new THREE.Vector3(world[i1][V_X],world[i1][V_Y],world[i1][V_Z]));
+triGeom.vertices.push(new THREE.Vector3(world[i2][V_X],world[i2][V_Y],world[i2][V_Z]));
+triGeom.vertices.push(new THREE.Vector3(world[i3][V_X],world[i3][V_Y],world[i3][V_Z]));</code></pre>
+
+<p>Create a new <span class="inline-code">Face3</span>, whose indices point into the vertices we created above</p>
+
+<pre><code class="language-javascript">triGeom.faces.push( new THREE.Face3( 0, 1, 2 ) );</code></pre>
+
+<p>Then we need to create the mapping between our texture and the two triangles that
+comprise the faces (just like the previous lesson).</p>
+
+<pre><code class="language-javascript">var uvs = [];
+if ((i &amp; 1) == 1) {				
+    uvs.push( new THREE.Vector2( 0.0, 1.0 ) );
+    uvs.push( new THREE.Vector2( 1.0, 1.0 ) );
+    uvs.push( new THREE.Vector2( 1.0, 0.0 ) );
+}
+else {
+    uvs.push( new THREE.Vector2( 0.0, 1.0 ) );
+    uvs.push( new THREE.Vector2( 0.0, 0.0 ) );
+    uvs.push( new THREE.Vector2( 1.0, 0.0 ) );					
+}</code></pre>
+
+<p>Then  set corresponding UV vertices, re-compute the normals, create the actual mesh, and add it to the scene.</p> 
+					
+<pre><code class="language-javascript">triGeom.faceVertexUvs[ 0 ].push( [ uvs[0], uvs[1], uvs[2] ] );
+					
+triGeom.computeFaceNormals();
+triGeom.computeVertexNormals();
+
+var mesh = new THREE.Mesh( triGeom, material);
+gfxScene.add(mesh);</code></pre>
+	
+<p>Do this for each triangle and that's it. And that's it!  Go on to the next page to see the 'House of Sammy&quot; in all his glory!</p>
+</body>
+</html>

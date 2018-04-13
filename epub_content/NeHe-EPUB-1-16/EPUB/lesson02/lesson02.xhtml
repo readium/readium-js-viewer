@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-02</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 2 - Your First Polygon</h2>
+<p>In the this second lesson, we'll cover pretty much all the source code.  In subsequent lessons we'll include only the sections that are new.</p>
+<p>The first line just tells the browser we are using HTML5.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt; </code> </pre>
+<p>This next line just declares the namespaces. Note that demos are written in the XML serialization of HTML5 as required by EPUB 3.1.</p>
+<pre><code class="language-html">&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops"&gt;</code></pre>
+    
+<p> Next we explicitly declare the size of the viewport since we are packaging the page with the WebGL demo on it as pre-paginated.  It is done this way because the JavaScript code that is the demo has to have a specific size. Normally, in the browser the JS code fetches the sizee of the innerWindow, but that doesn't work from inside an EPUB reading system since it normally wraps the actual page content in an iFrame or other construct. So it works much better to specify a fixed size page.</p>
+        
+ <pre><code class="language-html">&lt;meta name="viewport" content="width="width=768,height=1024"/&gt;</code></pre>
+ 
+ <p>Then a little bit of CSS to set the background to black and hide oversized content so we don't get scroll bars. </p>
+ 
+<pre><code class="language-css">body {
+background-color: #000000;
+overflow: hidden;
+}</code></pre>
+            
+<p>Next we include to JavaScript libraries: the core library for three.js and a utility library that checks that underlying web-browser engine supports WebGL.  This is almost unnecessary as of 2016 since virtually all browsers enable WebGL support by default. Still, doesn't hurt.</p>
+<pre><code class="language-html">&lt;script src="../js/three.js"&gt;&lt;/script&gt;
+&lt;script src="../js/Detector.js"&gt;&lt;/script&gt;</code></pre>
+        
+<p>Then there is the body element, followed by a div to which we will attach the actual WebGL instance.  In a later lesson we'll simplify this by just creating the div on the fly.  The div is followed by the script element that is the real heart of the WebGL demos.</p>
+
+<pre><code class="language-html">&lt;body&gt;
+	&lt;div id="WebGLCanvas"&gt;
+	&lt;script&gt;</code></pre>
+    
+<p>The first part of the JavaScript just declares some global variables we need. The <span class="inline-code">scene</span> is the basic three.js object that contains everything else, while the <span class="inline-code">camera</span> defines the viewpoint and transform for the scene.</p>
+<pre><code class="language-javascript">var scene;
+var camera;
+var canvasWidth = 768;
+var canvasHeight = 1024;</code></pre>
+    
+    <p>Next we set up the scene by calling the scene initalization function then the renderScene function, the former populating the scene  with our polygons and the latter to tell three.js to render the &quot;3D&quot; objects onto a 2D canvas.</p>
+ 
+<pre><code class="language-javascript">initializeScene();
+renderScene();</code></pre>
+
+<p>So first comes the actual initialization of the scene.  This is boilerplate code that will be almost identical in each lesson.  In a later lesson, we'll refactor this code to create an object that hides all this and also provides a way to parameterize the setup.  But in these early versions we'll include it in the body of the document (though we won't include it in the text if the lessons themselves from now on).</p>
+<p> First, check whether the browser supports WebGL. If so, instantiate the three.js 3D renderer. If not, use the three.js "Canvas" renderer which doesn't use WebGL or the GPU.  This is shown in this first demo just to let you know it can be done that way.  But the non-WebGL renderer lacks many features, so from now on, we'll just skip this.  If you don't have hardware-asssisted rendering (which is very rare these days, see <a href="http://caniuse.com/#feat=webgl">here</a>) the demos just won't work. Note that we enable anti-aliasing which is not enabled by default.</p>
+      
+ <pre><code class="language-javascript">if (Detector.webgl){
+    renderer = new THREE.WebGLRenderer({antialias:true});
+    } else {
+    renderer = new THREE.CanvasRenderer();
+}</code></pre>
+      
+<p>Set the background color of the WebGL renderer to black with full opacity, set the size of the renderer to the size we specified for the page in the <span class="inline-code">&lt;meta viewport&gt;</span> tag.</p>  
+   
+<pre><code class="language-javascript">renderer.setClearColor(0x000000, 1);
+renderer.setSize(canvasWidth, canvasHeight);</code></pre>
+      
+<p>Get the <span class="inline-code">div</span> element from the HTML document by its ID and append the renderers DOM element to that <span class="inline-code">div</span>.  Then allocate the scene object, in which all objects are stored (<em>e. g.</em> camera, lights,
+ geometries, ...).</p>
+
+<pre><code class="language-javascript">document.getElementById("WebGLCanvas").appendChild(renderer.domElement);
+scene = new THREE.Scene();</code></pre>
+      
+<p>Now that we have a scene, we want to look into it. Therefore we need a camera. Three.js offers three camera types:</p>
+<ul>
+  <li> PerspectiveCamera (perspective projection) </li>
+  <li>OrthographicCamera (parallel projection)</li>
+  <li>CombinedCamera (allows to switch between perspective / orthographic projection
+    during runtime)
+  </li>
+</ul>
+<p>In this example we create a perspective camera. (We'll cover use of the orthographic camera in a  lesson in volume 2). Parameters for the perspective
+      camera are</p>
+<ul>
+  <li> field of view (FOV)</li>
+  <li> aspect ratio (usually set to the quotient of canvas width to canvas height)</li>
+  <li>near </li>
+  <li>far</li>
+</ul>
+<p>Near and far define the clipping planes of the view frustum. Three.js provides an
+  <a href="http://mrdoob.github.com/three.js/examples/canvas_camera_orthographic2.html">example</a>,
+  which allows one to play around with these parameters.
+  The camera is moved 10 units towards the z axis to allow looking to the center of
+  the scene.
+  After definition, the camera has to be added to the scene.</p>
+<pre><code class="language-javascript">camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 100);
+camera.position.set(0, 0, 10);
+camera.lookAt(scene.position);
+scene.add(camera);</code></pre>
+
+<p>Now, we finally get to creating the polygons!  In this demo all we are doing is creating the world's simplest polygons.  THey are simple, flat 2D objects. THe process to create the triangle (or any arbitrary geometry) consists of:
+       1. Instantiate the geometry object
+       2. Add the vertices
+       3. Define the faces by setting the vertices indices</p>
+       
+<pre><code class="language-javascript">var triangleGeometry = new THREE.Geometry();
+triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  1.0, 0.0));
+triangleGeometry.vertices.push(new THREE.Vector3(-1.0, -1.0, 0.0));
+triangleGeometry.vertices.push(new THREE.Vector3( 1.0, -1.0, 0.0));
+triangleGeometry.faces.push(new THREE.Face3(0, 1, 2));</code></pre>
+      
+<p>To color the surface, a material has to be created. If all faces have the same color,
+then THREE.MeshBasicMaterial fits our needs. It offers a lot of attributes (see the documentation
+<a href="https://github.com/mrdoob/three.js/blob/master/src/materials/MeshBasicMaterial.js">here</a>.
+For this lesson, we all we need to do is set 'color' to white.</p>
+      
+<p>Create a white basic material and activate the 'doubleSided' attribute to force the rendering of both sides of
+    each face (front and back). This prevents the so called 'backface culling'. Usually, only the side whose
+    normal vector points towards the camera is rendered. The other side is not rendered (known as 'backface culling').
+    But although that does result in some performance optimization, it sometimes leads to holes in the surface. When
+    this happens in your surface, simply set 'doubleSided' to 'true'.</p>
+ 
+<pre><code class="language-javascript">var triangleMaterial = new THREE.MeshBasicMaterial({
+      color:0xFFFFFF,
+      side:THREE.DoubleSide
+      });</code></pre>
+      
+<p> Now create a "mesh" (a collection of polygons) using the geometry and the material. Then t translate the whole
+    mesh by -1.5 on the x axis and by 4 on the z axis. Finally, add the mesh to the scene.</p>
+
+<pre><code class="language-javascript">var triangleMesh = new THREE.Mesh(triangleGeometry, triangleMaterial);
+triangleMesh.position.set(-1.5, 0.0, 4.0);
+scene.add(triangleMesh);</code></pre>
+      
+<p>The creation of the square is done in the same way as the triangle, except  in how we define the square.  There
+    is no Face4 in three.js (for performance reasons).  Instead, we have to define two triangles.  Moreover, the triangles
+    have to have the correct <em><strong>winding</strong></em> or one or the other will effectively be facing &quot;away&quot;
+    (though since we define the mesh as double-sided that wouldn't show). Still, it is not good practice, so one has to
+    ensure that they are have the correct winding direction. So we define the four vertices as ( -1, 1, 0), (1, 1, 0),
+    (1, -1, 0), (-1, -1, 0). Then connect them as (0, 1, 2) as one triangle and (0, 2, 3) as the second triangle. The
+    resulting geometry then looks like:</p>
+      
+<p><img src="../svg/OpenGL-Square.svg" width="300" height="300" alt=""/></p>
+<p>The process is then:</p>
+
+<ol>
+  <li> Instantiate the geometry object</li>
+  <li>Add the vertices  </li>
+  <li>Define the faces by setting the vertices indices</li>
+</ol>
+<pre><code class="language-javascript">var squareGeometry = new THREE.Geometry();
+squareGeometry.vertices.push(new THREE.Vector3(-1.0,  1.0, 0.0));
+squareGeometry.vertices.push(new THREE.Vector3( 1.0,  1.0, 0.0));
+squareGeometry.vertices.push(new THREE.Vector3( 1.0, -1.0, 0.0));
+squareGeometry.vertices.push(new THREE.Vector3(-1.0, -1.0, 0.0));
+squareGeometry.faces.push(new THREE.Face3(0, 1, 2));
+squareGeometry.faces.push(new THREE.Face3(0, 2, 3));</code></pre>
+
+<p>Again, create a white basic material and activate the 'doubleSided' attribute.  Then create a mesh using the geometry and the material. Translate the whole mesh by 1.5 on the x axis and by 4 on the z axis and add the mesh to the scene.</p>
+
+<pre><code class="language-javascript">var squareMaterial = new THREE.MeshBasicMaterial({
+      color:0xFFFFFF,
+      side:THREE.DoubleSide
+      });
+      
+var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
+      squareMesh.position.set(1.5, 0.0, 4.0);
+      scene.add(squareMesh);
+      }</code></pre>
+      
+<p>Finally, render the scene, mapping the 3D world to the 2D screen.</p>
+
+<pre><code class="language-javascript">function renderScene(){
+      renderer.render(scene, camera);
+      }</code></pre>
+
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all it's black and white glory!</p>
+</body>
+</html>

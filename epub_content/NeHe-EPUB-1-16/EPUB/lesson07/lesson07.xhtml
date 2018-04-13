@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-07</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 7 - Texture Filters and Input</h2>
+<p>This lesson covers two aspects, texture filters and keyboard input. The keyboard input is rather trivial for anyone reasonably familiar with JavaScript, but texture filters are a bit more interesting. Again, three.js makes using them pretty easy, but there are a few tricks. And texture filters themselves are interesting.</p>
+<p>Textures in OpenGL are made up of arrays of elements known as <em>texels</em>, which contain colour and alpha values. This corresponds with the display, which is made up of a bunch of pixels and displays a different colour at each point. In OpenGL, textures are applied to triangles and drawn on the screen, so these textures can be drawn in various sizes and orientation. The texture filtering options in OpenGL tell it how to map the texels onto the pixels of the device, depending on the scale of the mapping.</p>
+<p>There are three cases:</p>
+<ul>
+  <li>Each texel maps onto more than one pixel. This is known as <em>magnification</em>.</li>
+  <li>Each texel maps exactly onto one pixel. Filtering doesn't apply in this case.</li>
+  <li>Each texel maps onto less than one pixel. This is known as <em>minification</em>.</li>
+</ul>
+<p>What texture filters do, then, is to tell OpenGL how to map the texels onto the pixels of the actual display. </p>
+<p>There are basically two types of magnification filters:</p>
+<ul>
+  <li>Nearest neighbor</li>
+  <li>Bilinear interpolation</li>
+</ul>
+<p>Nearest neighbor just finds the center of the texel nearest the center of the pixel and uses that value. The result is rather crude as the texels essentially get &quot;blown up&quot; and pixelated. Bilinear interpolation, on the other hand, does what the name says, it interpolates the value of the texel across the pixels according to the distance from the center of the texel to the center of each pixel. There is always some pixelization but the result is a smoother gradient of change.</p>
+<p>There strategy used in minification is a little different. OpenGL supports a method known as mipmapping. The term mipmap comes from the latin acronym of multum in parvo, or &quot;much in little&quot;. The goal is to try to minimize the loss of information as the number of texels per pixel increase. The way this is done is to take the original texture and use performance-intensive methods to map the texture down to smaller and smaller textures, retaining as much information as possible. Then the set of &quot;maps&quot; are cached by OpenGL and it uses the one that is closest to a one-to-one mapping onto the pixels. This results in the least amount of information loss while using per-processed maps and reducing the overhead of having to do the mapping on the fly.</p>
+<p>There are four types of mipmap filters supported by OpenGL</p>
+<ul>
+  <li>GL_NEAREST_MIPMAP_NEAREST
+    <ul>
+      <li>Chooses the mipmap that most closely matches the size of the pixel being textured and uses the GL_NEAREST criterion (the texture element nearest to the center of the pixel) to produce a texture value.</li>
+    </ul>
+  </li>
+  <li>GL_NEAREST_MIPMAP_LINEAR
+    <ul>
+      <li>Chooses the mipmap that most closely matches the size of the pixel being textured and uses the GL_LINEAR criterion (a weighted average of the four texture elements that are closest to the center of the pixel) to produce a texture value.</li>
+    </ul>
+  </li>
+  <li>GL_LINEAR_MIPMAP_NEAREST
+    <ul>
+      <li>Chooses the two mipmaps that most closely match the size of the pixel being textured and uses the GL_NEAREST criterion (the texture element nearest to the center of the pixel) to produce a texture value from each mipmap. The final texture value is a weighted average of those two values.</li>
+    </ul>
+  </li>
+  <li>GL_LINEAR_MIPMAP_LINEAR
+    <ul>
+      <li>Chooses the two mipmaps that most closely match the size of the pixel being textured and uses the GL_LINEAR criterion (a weighted average of the four texture elements that are closest to the center of the pixel) to produce a texture value from each mipmap. The final texture value is a weighted average of those two values.</li>
+    </ul>
+  </li>
+</ul>
+<p>Whew. Lot of verbiage. The net net is that the first is the most performant and the last looks the best. Depending on the size and number of textures (and how patient you are) will determine which you will want to use.</p>
+<p>As usual, almost all of the HTML is the same as previous lessons, as is most of the script. However, there is a small addition to the HTML of an absolutely-positioned div which contains some instructions for the user as well as a few elements we use to tell the user the size of the current texture as well as which filters are currently in use.</p>
+
+<pre><code class="language-html">&lt;div id="overlaytext" style="position: absolute; top: 10px; left: 10px"&gt;
+    'F': Loop through the three texture filters (only for WebGL renderer)&lt;br/&gt;
+    'L': Toggle light (only for WebGL renderer)&lt;br/&gt;
+    Cursor left / right: Control y rotation speed&lt;br/&gt;
+    Cursor up / down: Control x rotation speed&lt;br/&gt;
+    Renderer:
+        &lt;p&gt;Min Filter: &lt;span id="minFilterType"&gt;Linear&lt;/span&gt;&lt;br/&gt;
+        Mag Filter: &lt;span id="magFilterType"&gt;Linear&lt;/span>&lt;/p&gt;
+        &lt;p id="textureSize"&gt;Texture Size: 1024&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        
+<p>In the script there are a number of changes this time. First, we declare some global variables to hold the various parameters:</p>
+
+<p>First, parameters to control the rate and direction of rotation:</p>
+
+<pre><code class="language-javascript">var xRotation = 0.0;
+var yRotation = 0.0;
+var xSpeed = 0.0;
+var ySpeed = 0.0;</code></pre>
+
+<p>Then the texture parameters:</p>
+
+<pre><code class="language-javascript">var wallTexture;
+var textureSize = 1024;
+var textureFilter = 0;
+
+var filter = [ THREE.NearestFilter,
+               THREE.LinearFilter,
+               THREE.NearestMipMapNearestFilter,
+               THREE.LinearMipMapLinearFilter ];
+
+var filterType = [ "Nearest",
+                   "Linear",
+                   "NearestMipMapNearest",
+                   "LinearMipMapLinear" ];</code></pre>
+
+<p>We are adding some lights this time too, so and we want to be able to turn them on and off so we declare them globally. </p>
+<pre><code class="language-javascript">var ambientLight;
+var directionalLight;</code></pre>
+
+<p>And finally, the cube's mesh as well. We need to access some of the properties of the mesh in our key handlers, so we need it declared globally. </p>
+            
+<pre><code class="language-javascript">var cubeMesh;</code></pre>
+
+<p>You may be thinking &quot;this isn't very object-oriented&quot; and it's not, but we'll clean that up when we refactor the code in lesson 9.</p>
+<p>Most of initializeScene is the same, but there are some changes. First we load the texture then create the material for our cube.</p>
+
+<pre><code class="language-javascript">wallTexture = new THREE.ImageUtils.loadTexture("../images/StoneWall-"+textureSize+".png");
+var cubeMaterial = new THREE.MeshLambertMaterial({ map:wallTexture, side:THREE.DoubleSide })</code></pre>
+
+<p>Note that this time we are using <span class="inline-code">MeshLambertMaterial</span> which provides a surface which reflects light uniformly - as opposed to providing specular (shiny) properties. Previously, we used MeshBasicMaterial, but that material does not support lights so we have used MeshLambertMaterial instead.</p>
+<p>Finally we set up and ambient light.  Ambient light has no direction, it illuminates every object with the same
+intensity. If only ambient light is used, no shading effects will occur.</p>
+<pre><code class="language-javascript">ambientLight = new THREE.AmbientLight(0x010101, 1.0);
+  scene.add(ambientLight);</code></pre>
+  
+<p>Directional light, on the other hand, has a source and is most like the sun in that all the light rays come from that direction and are parallel.
+   This type of light allows us to create shading effects.</p>
+   
+<pre><code class="language-javascript">directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+directionalLight.position.set( 0, 0, 6 ).normalize();
+scene.add(directionalLight);</code></pre>
+  
+<p>Finally, we add a listener for 'keydown' events. By this listener, all key events will be
+   passed to the function 'onDocumentKeyDown'. There's another event type 'keypress', but it  reports only the visible characters like 'a', but not the function keys
+   like 'cursor up', which we wish to use.</p>
+  
+<pre><code class="language-javascript">document.addEventListener("keydown", onDocumentKeyDown, false);</code></pre>
+
+<p>The next block of code is the keyhandler itself:</p>
+
+<pre><code class="language-javascript">function onDocumentKeyDown(event) {
+    var keyCode = event.which;
+
+    if (keyCode == 70) {            // 'F' - Toggle through the texture filters
+        updateFilter();
+    }
+    else if (keyCode == 76) {       // 'L' - Toggle light
+        intensity = intensity > 0 ? 0 : 1;
+        directionalLight.intensity = ambientLight.intensity = intensity;
+    }
+    else if (keyCode == 38) {       // Cursor up
+        xSpeed -= 0.005;
+    }
+    else if (keyCode == 40) {       // Cursor down
+        xSpeed += 0.005;
+    }
+    else if (keyCode == 37) {       // Cursor left
+        ySpeed -= 0.005;
+    }
+    else if (keyCode == 39) {       // Cursor right
+        ySpeed += 0.005;
+    }
+    else if (keyCode == 33) {       // Page up
+        zTranslation -= 0.2;
+    }
+    else if (keyCode == 34) {       // Page down
+        zTranslation += 0.2;
+    }
+    else if (keyCode == 84) {       // 'T' switch textures
+        textureSize = textureSize == 1024 ? 256 : textureSize == 256 ? 64 : 1024;
+        cubeMesh.material.map = new 
+                THREE.ImageUtils.loadTexture("StoneWall-"+textureSize+".png");
+                
+        textureFilter = ++textureFilter % 4;
+
+        updateFilter();
+    
+        cubeMesh.material.needsUpdate = true;
+        document.getElementById("textureSize").innerHTML = 
+                 "Texture Size: " + textureSize;
+    }
+
+    event.stopPropagation();
+}
+
+function updateFilter() {
+    textureFilter = ++textureFilter % 4;
+
+    cubeMesh.material.map.minFilter = filter[textureFilter];
+    cubeMesh.material.map.magFilter = filter[textureFilter % 2];
+    cubeMesh.material.map.needsUpdate = true;
+
+    document.getElementById("minFilterType").innerHTML = filterType[textureFilter];
+    document.getElementById("magFilterType").innerHTML = filterType[textureFilter % 2];
+}</code></pre>
+    
+<p>The first block calls updateFilter(), which rolls both the min-filter and the mag-filters for the texture then updates the label. Note that updateFilter then calls <span class="inline-code">cubeMesh.material.map.needsUpdate()</span>. This is essential to force three.js to update its cache.</p>
+<p>The next block simply toggles the light by checking if the intensity is 0 or 1 then flips it to the opposite value. </p>
+<p>Then there are bunch of if/else statements that manage the rotation and z-value of the cube. The z-value is handy for effectively growing or shrinking the area the texture is mapped onto and hence altering whether minification or magnification is going on.</p>
+<p>The final block swaps out the current texture for the next one. Note that curMesh.material.needsUpdate() is also called to ensure the cache is updated. then the label is updated.</p>
+<p>Animate scene is pretty much unchanged except that we update the rotation and z-position of the cube:</p>
+
+<pre><code class="language-javascript">xRotation += xSpeed;
+yRotation += ySpeed;
+cubeMesh.rotation.set(xRotation, yRotation, 0.0);
+cubeMesh.position.z = zTranslation;</code></pre>
+
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its texture filtered glory!</p>
+</body>
+</html>

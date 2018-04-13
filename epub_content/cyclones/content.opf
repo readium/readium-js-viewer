@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<package unique-identifier="bookid" version="2.0" xmlns="http://www.idpf.org/2007/opf">
+ <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <dc:title>Cyclones</dc:title> 
+   <dc:creator>Wikipedia contributors</dc:creator> 
+   <dc:date xsi:type="dcterms:W3CDTF">2006-10-18</dc:date>
+   <dc:language xsi:type="dcterms:RFC3066">en-US</dc:language>
+   <dc:identifier id="bookid">urn:uuid:78078fc4-eed5-11db-8314-0800200c9a66</dc:identifier>
+ </metadata>
+ <manifest>
+  <item id="toc" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+  <item id="titlepage" href="titlepage.xhtml" media-type="application/xhtml+xml"/>
+  <item id="copyright" href="copyright.xhtml" media-type="application/xhtml+xml"/>
+  <item id="gnu_license" href="gnu_license.xhtml" media-type="application/xhtml+xml"/>
+  <item id="tropical_cyclone" href="tropical_cyclone/index.xhtml" media-type="application/xhtml+xml"/>
+  <item id="extratropical_cyclone" href="extratropical_cyclone/index.xhtml" media-type="application/xhtml+xml"/>
+  <item id="subtropical_cyclone" href="subtropical_cyclone/index.xhtml" media-type="application/xhtml+xml"/>
+  <item id="img-01" href="tropical_cyclone/480px-Typhoon_saomai_060807.jpg" media-type="image/jpeg"/>
+  <item id="img-02" href="tropical_cyclone/600px-Hurricane_Vince_eye_2005.jpg" media-type="image/jpeg"/>
+  <item id="img-03" href="tropical_cyclone/600px-Typhoon_Odessa_1985.jpg" media-type="image/jpeg"/>
+  <item id="img-04" href="tropical_cyclone/731px-Brazil_hurricane.jpg" media-type="image/jpeg"/>
+  <item id="img-05" href="tropical_cyclone/783px-GulfMexTemps_2005Hurricanes.gif" media-type="image/gif"/>
+  <item id="img-06" href="tropical_cyclone/800px-Cyclone_Catarina_from_the_ISS_on_March_26_2004.jpg" media-type="image/jpeg"/>
+  <item id="img-07" href="tropical_cyclone/800px-Epsilon_ISS012-E-10097.jpg" media-type="image/jpeg"/>
+  <item id="img-08" href="tropical_cyclone/800px-Global_tropical_cyclone_tracks-edit2.jpg" media-type="image/jpeg"/>
+  <item id="img-09" href="tropical_cyclone/800px-Hurricane_katrina_damage_gulfport_mississippi.jpg" media-type="image/jpeg"/>
+  <item id="img-010" href="tropical_cyclone/800px-Irene_TRM_20050815_lrg.jpg" media-type="image/jpeg"/>
+  <item id="img-011" href="tropical_cyclone/Atlantic_hurricane_graphic.gif" media-type="image/gif"/>
+  <item id="img-012" href="tropical_cyclone/Cyclone_Deaths.svg" media-type="image/svg+xml"/>
+  <item id="img-013" href="tropical_cyclone/Cyclone_Monica.gif" media-type="image/gif"/>
+  <item id="img-014" href="tropical_cyclone/Hurricane_profile_graphic.svg" media-type="image/svg+xml"/>
+  <item id="img-015" href="tropical_cyclone/Hurricane_structure_graphic.jpg" media-type="image/jpeg"/>
+  <item id="img-016" href="tropical_cyclone/Isidore091902-p3sunset2.jpg" media-type="image/jpeg"/>
+  <item id="img-017" href="tropical_cyclone/Typhoonsizes.jpg" media-type="image/jpeg"/>
+  <item id="img-018" href="extratropical_cyclone/600px-ETS_Florence_2006.jpg" media-type="image/jpeg"/>
+  <item id="img-019" href="extratropical_cyclone/800px-Cyclonemodels.gif" media-type="image/gif"/>
+  <item id="img-020" href="extratropical_cyclone/800px-Snowcsi.gif" media-type="image/gif"/>
+  <item id="img-021" href="extratropical_cyclone/Jetstreak.gif" media-type="image/gif"/>
+  <item id="img-022" href="extratropical_cyclone/Medionalflowpattern.jpg" media-type="image/jpeg"/>
+  <item id="img-023" href="extratropical_cyclone/Quikscatcyclone.jpg" media-type="image/jpeg"/>
+  <item id="img-024" href="extratropical_cyclone/UK-Cyclone.svg" media-type="image/svg+xml"/>
+  <item id="img-025" href="extratropical_cyclone/Zonalflow.gif" media-type="image/gif"/>
+  <item id="img-026" href="subtropical_cyclone/Subtropical_Storm_2000.jpg" media-type="image/jpeg"/>
+  <item id="img-027" href="article.css" media-type="text/css"/>
+ </manifest>
+ <spine toc="toc">
+  <itemref idref="titlepage"/>
+   <itemref idref="tropical_cyclone"/>
+  <itemref idref="extratropical_cyclone"/>
+  <itemref idref="subtropical_cyclone"/>
+  <itemref idref="copyright"/>
+ <itemref idref="gnu_license"/>
+ </spine>
+</package>

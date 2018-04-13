@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-04</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 5 - Add Some Depth!</h2>
+<p>Now that we have created, colored and animated some rather dull flat polygons, let's add some depth. After all, we're not from Flatland, eh? We're going to create two 3D objects: a pyramid and a cube, then animate them. Most of the source code is identical boilerplate
+    to the previous lessons, but there is a little more meat in this one. </p>
+<p>Again, we instantiate a scene and call <span class="inline-code">initializeScene()</span>where all the work gets done.    </p>
+<p>First we need to create the pyramid. We could create it from scratch by just specifying each face as a triangle and specifying each vertex explicitly.  Perfectly doable, but kind of tedious. Instead we can cheat and use a three.js construct, the CylinderGeometry. Wait, a cylinder? Yes, because the CylinderGeometry takes 5 parameters:</p>
+<ul>
+  <li>radiusTop</li>
+  <li>radiusBottom</li>
+  <li>height</li>
+  <li>segments</li>
+  <li>openEnded</li>
+</ul>
+<p> So if we tell three.js that the &quot;cylinder&quot; has a top radius of 0, a bottom radius of 1.5, has a height of 1.5, and only 4 segments, it will construct a pyramid!  We also tell it that the bottom is closed - though it really doesn't matter since in our animation the bottom never shows. So here is the call:</p>
+
+<pre><code class="language-javascript">var pyramidGeometry = new THREE.CylinderGeometry(0, 1.5, 1.5, 4, false);</code>
+</pre>
+
+<p>Then we set up a small loop to colorize each face. Like in the previous lesson, we assign a color to each
+    vertex on each face.</p>
+
+<pre><code class="language-javascript">for (var i = 0; i &lt; pyramidGeometry.faces.length; i++) {
+    pyramidGeometry.faces[i].vertexColors[0] = new THREE.Color(0xFF0000);
+    pyramidGeometry.faces[i].vertexColors[1] = new THREE.Color(0x00FF00);
+    pyramidGeometry.faces[i].vertexColors[2] = new THREE.Color(0x0000FF);
+}</code></pre>
+
+<p>Then we create the material and then the mesh, passing in the geometry and material, just as in the previous lesson, then add it to the mesh.</p>
+
+<pre><code class="language-javascript">var pyramidMaterial = new THREE.MeshBasicMaterial({
+    vertexColors:THREE.VertexColors,
+    side:THREE.DoubleSide
+});
+
+pyramidMesh = new THREE.Mesh(pyramidGeometry, pyramidMaterial);</code></pre>
+
+<p>We set its position and add it to the scene.</p>
+
+<pre><code class="language-javascript">pyramidMesh.position.set(-1.5, 0.0, 4.0);
+scene.add(pyramidMesh);</code></pre>
+	
+<p>Now we need to create the cube. This is easy to as three.js provides a BoxGeometry. which takes just three parameters:</p>
+<ul>
+  <li>height</li>
+  <li>width</li>
+  <li>depth</li>
+</ul>
+
+<pre><code class="language-javascript">var cubeGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);</code></pre>
+
+<p>Applying different materials to the faces is a little more difficult than applying one
+material to the whole geometry. We start with creating an array of THREE.MeshBasicMaterial.
+Define six colored materials, one for each face of the cube.</p>
+
+<pre><code class="language-javascript">var cubeMaterials = [
+    new THREE.MeshBasicMaterial({color:0xFF0000}),
+    new THREE.MeshBasicMaterial({color:0x00FF00}),
+    new THREE.MeshBasicMaterial({color:0x0000FF}),
+    new THREE.MeshBasicMaterial({color:0xFFFF00}),
+    new THREE.MeshBasicMaterial({color:0x00FFFF}),
+    new THREE.MeshBasicMaterial({color:0xFFFFFF})
+];</code></pre>
+
+<p>Create a MeshFaceMaterial, which allows the cube to have different materials on
+each face</p>
+<pre><code class="language-javascript">var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);</code></pre>
+<p>Create a mesh and insert the geometry and the material. Translate the whole mesh
+by 1.5 on the x axis and by 4 on the z axis and add the mesh to the scene.</p>
+
+<pre><code class="language-javascript">cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cubeMesh.position.set(1.5, 0.0, 4.0);
+scene.add(cubeMesh);</code></pre>
+  
+<p>Again, we animate them in our animateScene function. It's very similar, but we add a little trick. The pyramid is just rotated around the Y axis, as before.</p>
+		
+<pre><code class="language-javascript">pyramidMesh.rotation.y += 0.1;</code></pre>
+
+<p>But the cube is a bit different. We allocate a vector extending from the origin of the cube out to (1,1,1) . The we rotate the cube around that axis.</p>
+
+<pre><code class="language-javascript">cubeMesh.rotateOnAxis(new THREE.Vector3(1, 1, 1).normalize(), 0.075);</code></pre>
+           
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its 3D rainbow glory!</p>
+</body>
+</html>

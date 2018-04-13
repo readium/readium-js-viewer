@@ -1,0 +1,9 @@
+@import "page.css";
+
+.footnote {
+  margin-bottom:10px;
+}
+
+.footnote .marker {
+  color:#777;
+}

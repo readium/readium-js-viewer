@@ -22,7 +22,7 @@ define(['text!readium_js_viewer_i18n/_locales/de/messages.json',
         'text!readium_js_viewer_i18n/_locales/pt_BR/messages.json',
         'text!readium_js_viewer_i18n/_locales/zh_CN/messages.json',
         'text!readium_js_viewer_i18n/_locales/zh_TW/messages.json'],
-function(de, es, en_US, fr, id, it, ja, ko, pt_BR, zh_CN, zh_TW){
+function(de, es, en_US, fr, it, id, ja, ko, pt_BR, zh_CN, zh_TW){
     var Strings = {};
 
     Strings['de'] = de;

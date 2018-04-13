@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-08</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 15 - Textured Vector Fonts</h2>
+
+
+<p>Lesson 15 is essentially a sequel to the previous lesson on vector fonts. The NeHe lesson was about how to apply texture to vector fonts. In OpenGL 1.1 that required a bit of work. In three.js it is actually pretty trivial as one can just create a material and specify a texture. However, that seems too easy, so we'll show you another way to do it - by writing your first shader program. The shader program is pretty trivial, but it introduces the concept. We'll encounter some more complex shaders later in the other lessons.</p>
+<p>OpenGL Shading Language (<strong>GLSL</strong>), is a high-level shading language based on the syntax of the C programming language. It was created by the OpenGL Architecture Review Board to give developers more direct control of the graphics pipeline without writing in assembly language. When your JavaScript program is executed by the browser, three.js takes the objects you have created and added to your scene, pushes them into vertex buffers and passes them to the GPU. The default shaders of three.js as well as any shaders you have defined to are compiled and passed to the GPU as well, where they use the data in the vertex buffers to render the actual pixels.</p>
+<p>That rendering process is bit complex. A good article on it is <a href="http://webglfundamentals.org/webgl/lessons/webgl-how-it-works.html" title="WebGL Fundamentals" target="_blank">here</a>. But the gist is this. You define (via three.js meshes) a set of vertices. For each vertex a call is made to a <em>vertex shader</em>, which figures out where that vertex is mapped onto your display. Then WebGL takes the set of vertices as mapped to the display and iterates across the display and for each pixel calls the <em>fragment shader</em> to determine what color to make the pixel.</p>
+
+<p>You pass information to the shaders via what are called <span class="inline-code">uniforms</span>. Information is passed from the vertex shader to the fragment shader via variables called <span class="inline-code">varying</span>. This all sounds kind of complex, but let's look at an actual example.</p>
+
+<p>We first load the images into textures.</p>
+
+<pre><code class="language-javascript">wood = new THREE.ImageUtils.loadTexture("images/wood-grain.jpg");
+leather = new THREE.ImageUtils.loadTexture("images/green-pebbled-leather.jpg");</code></pre>
+				
+<p>We need to ensure that our texture gets wrapped so the coverage of our meshes is complete and uniform. Also note that the texture needs to be big enough (e.g. at least 512x512) or the sharper curves will be so stretched that the textures will be blurred.</p>
+                
+<pre><code class="language-javascript">wood.wrapS = wood.wrapT = THREE.RepeatWrapping;
+leather.wrapS = leather.wrapT = THREE.RepeatWrapping;</code></pre>
+
+<p>Now, add a <span class="inline-code">uniform</span> for each texture.  These are the <em>read-only</em> variables that get passed to our shaders</p>
+<pre><code class="language-javascript">var uniformsW = {
+    woodImage:	{ type: 't', value: wood }
+};
+
+var uniformsL = {
+    leatherImage:	{ type: 't', value: leather }
+};</code></pre>
+
+<p>Then we need to find the shaders, whach are inside special script elements that we'll look at shortly. Note that we only have one vertex shader since what is does is exactly the same for both the face and the sides of the mesh, so we only need one.</p>
+
+<pre><code class="language-javascript">var vs = document.getElementById("vertexShader").textContent;
+var fsW = document.getElementById("fragmentShader-W").textContent;
+var fsL = document.getElementById("fragmentShader-L").textContent;</code></pre>
+
+<p>Next we create the shader material and store it in an array, just as in the previous lesson. The key difference here is that we pass in the uniforms and pointers to the <span class="inline-code">THREE.ShaderMaterial</span>.</p>
+<pre><code class="language-javascript">var shaderMaterialW = new THREE.ShaderMaterial({
+    uniforms:       uniformsW,			
+    shading:        THREE.FlatShading,
+    side:           THREE.DoubleSide,	
+    vertexShader:   vs,				
+    fragmentShader: fsW
+});
+
+var shaderMaterialL = new THREE.ShaderMaterial({
+    uniforms:       uniformsL,			
+    shading:        THREE.FlatShading,
+    side:           THREE.DoubleSide,	
+    vertexShader:   vs,					
+    fragmentShader: fsL
+});
+
+var materialArray = [ shaderMaterialL, shaderMaterialW ];</code></pre>
+
+<p>The rest of the JavaScript is exactly the same as the previous lesson; we load the font, instantiate the <span class="inline-code">TextGeometry</span> and create the text-mesh, passing it the <span class="inline-code">TextGeometry</span> and our <span class="inline-code">materialArray</span>.</p>
+<p>Finally, let's take a look at the shaders themselves. The vertex shader is always called first. Also note that the mimetype of the shader is &quot;x-shader/x-vertex&quot;. The browser doesn't know what to do with such a mimetype so it just ignores it. three.js takes care of fetching the script element, injecting some variables and then feeding it to the WebGL API.</p>
+
+<pre><code class="language-clike">&lt;script id="vertexShader" type="x-shader/x-vertex"&gt;
+    varying vec3   vNormal;
+    varying vec2   vUv;		
+
+    void main() {
+    
+        vNormal = normal;
+        vUv = uv;
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+    }
+&lt;/script&gt;</code></pre>
+        
+<p>		  Three.js  injects (behind the scenes, prior to the call the vertex shader) the variables <span class="inline-code">normal</span> and <span class="inline-code">uv</span>. <span class="inline-code">normal</span> is the normal vector for the vertex being operated on. <span class="inline-code">uv</span> is exactly what you might guess, it is the UV index (just like in our earlier texture-mapping lessons) into the texture being passed in in our uniform. We assign  <span class="inline-code">normal</span> and <span class="inline-code">uv</span> to two variables we declare as 
+		     <span class="inline-code">varying</span> which makes them available to the fragment shader. In this case, the fragment shader doesn't need the normal, but we do it anyway, just for example's sake. The <span class="inline-code">position</span> variable is  vector which holds the coordinates of the actual vertex.</p>
+<p>Then we simply  transform the vertex's position by multiplying it by the <span class="inline-code">modelViewMatrix</span> and the <span class="inline-code">projectionMatrix</span> (both provided by three.js) to get a final vertex position.</p>
+<p>Finally, let's look at the fragment shader. They're virtually identical since they do the same thing. Again,  note that the mimetype of the shader is now &quot;x-shader/x-fragment&quot;. The browser doesn't know what to do with such a mimetype so it just ignores it.</p>
+
+<pre><code class="language-clike">&lt;script id="fragmentShader-W" type="x-shader/x-fragment"&gt;
+    varying vec2         vUv;
+    uniform sampler2D    woodImage;
+
+    void main(void) {
+			
+        gl_FragColor = texture2D(woodImage, vUv);
+    }
+&lt;/script&gt;</code></pre>
+
+<p>Note the declaration of the <span class="inline-code">varying vec2</span> that we declared in the vertex shader. It contains the indices we need to figure out how to index into the texture passed in via our uniform. We then determine the <span class="inline-code">gl_fragColor</span> by calling a function, <span class="inline-code">texture2D</span>, which is a wrapper for the underlying low-level WebGL API. The other fragment shader is identical except that it's<span class="inline-code"> uniform sampler2D</span> is <span class="inline-code">leatherImage</span>.</p>
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its texture filtered glory! Shazaam!</p>
+</body>
+</html>

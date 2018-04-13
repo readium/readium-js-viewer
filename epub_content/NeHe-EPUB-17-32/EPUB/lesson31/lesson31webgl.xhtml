@@ -1,0 +1,403 @@
+<!DOCTYPE html>	<!-- Tells the browser that the page uses the HTML5 standard -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<!--
+  			Roughly based (or inspired by) NeHe Tutorial xxx 
+  			Original:  http://nehe.gamedev.net/tutorial/model_loading/16004/
+  
+  			@author: rkwright@geofx.com
+		 -->
+		<title>NEHE Tutorial 31</title>
+		<meta charset="UTF-8"/>
+
+		<!-- Set the viewport size to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024, initial-scale=1"/>
+		<link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+
+		<!-- Include several libraries from THREE.js and the Scene class  -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+		<script src="../three-js/stats.js" type="text/javascript"></script>
+        <script src="../three-js/dat.gui.min.js" type="text/javascript"></script>
+        <script src="../three-js/loaders/OBJLoader.js" type="text/javascript"></script>
+        <script src="../three-js/loaders/ColladaLoader.js" type="text/javascript"></script>
+        <script src="../three-js/loaders/AWDLoader.js"></script>
+        <script src="../three-js/loaders/BabylonLoader.js"></script>
+        <script src="../three-js/loaders/PDBLoader.js"></script>
+        <script src="../three-js/loaders/PLYLoader.js"></script>
+        <script src="../three-js/loaders/STLLoader.js"></script>
+        <script src="../three-js/loaders/VRMLLoader.js"></script>
+        <script src="../three-js/loaders/VTKLoader.js"></script>
+		<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+		<script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	</head>
+	<body>	
+		<script type="text/javascript"><![CDATA[
+			var	    modelMesh;
+			var     modelType;
+	
+			// allocate the Scene object, request orbitControls, some of 3D axes 10 units high and the stats
+			var gfxScene = new GFX.Scene( {
+                cameraPos : [5, 5, 10],
+                canvasWidth : 768,
+                canvasHeight : 1024,
+                axesHeight:10,
+				controls:true,
+				displayStats:true});
+
+			setupDatGUI();
+
+			// then initialize our demo's stuff
+			initializeDemo();
+	
+			// Animate the scene
+			animateScene();
+	
+			/**
+			 * Initialize the Demo.  
+			 */
+	
+			function initializeDemo() {
+
+			    loadModel(3);
+
+                //document.addEventListener("keypress", onDocumentKeyPress, false);
+            }
+
+            function loadModel( type ) {
+
+                modelType = type;
+
+                gfxScene.remove( modelMesh );
+
+                switch ( modelType ) {
+                    case 0:
+                        loadOBJ();
+                        break;
+                    case 1:
+                        loadCollada();
+                        break;
+                    case 2:
+                        loadAWD();
+                        break;
+                    case 3:
+                        loadBabylon();
+                        break;
+                    case 4:
+                        loadPLY();
+                        break;
+                    case 5:
+                        loadSTL();
+                        break;
+                    case 6:
+                        loadVRML();
+                        break;
+                    case 7:
+                        loadVTK();
+                        break;
+                    /*case '4':
+                        loadPDB();
+                        break;*/
+                }
+            }
+
+			function loadOBJ() {
+				var manager = new THREE.LoadingManager();
+
+				//Loader for Obj from Three.js
+				var loader = new THREE.OBJLoader( manager );
+
+				//Launch loading of the obj file, addBananaInScene is the callback when it's ready
+				loader.load( 'models/OBJ/banana.obj', onLoadOBJ);
+            }
+
+            function onLoadOBJ (object) {
+                var bbs = getBoundingSphere( object );
+
+                moveObjectToOrigin(object, bbs, 1);
+
+                //Go through all children of the loaded object and search for a Mesh
+                object.traverse( function ( child ) {
+                    //This allow us to check if the children is an instance of the Mesh constructor
+                    if (child instanceof THREE.Mesh) {
+                        child.material.color = new THREE.Color(0XFFFF00);
+                        // Sometimes there are some vertex normals missing in the .obj files, three.js will compute them
+                        child.geometry.computeVertexNormals();
+                    }
+                });
+
+                modelMesh = object;
+                //modelMesh.scale.set(1,1,1);
+                gfxScene.add(modelMesh);
+            }
+
+            function  loadCollada () {
+                var manager = new THREE.LoadingManager();
+                // Loader for Collada from Three.js
+                var loader = new THREE.ColladaLoader( manager );
+
+                // Launch loading of the Collada file, onLoadCollada will be called when it's ready
+                loader.load( 'models/Collada/Shark.dae', onLoadCollada);
+            }
+
+            function onLoadCollada( object ) {
+                var dae = object.scene;
+
+                // Go through all children of the loaded object and search for a Mesh
+                dae.traverse( function ( child ) {
+                    //This allow us to check if the children is an instance of the Mesh constructor
+                    if (child instanceof THREE.Mesh) {
+                        child.material.color = new THREE.Color(0X00FF00);
+                        // Sometimes there are some vertex normals missing in the .obj files, three.js will compute them
+                        child.geometry.computeVertexNormals();
+                    }
+                });
+
+                modelMesh = dae;
+                modelMesh.scale.set(0.5,0.5,0.5);
+                modelMesh.rotateX(-Math.PI/2);
+                modelMesh.rotateZ(Math.PI/2);
+                gfxScene.add(modelMesh);
+            }
+
+            function  loadAWD () {
+                var manager = new THREE.LoadingManager();
+                var loader = new THREE.AWDLoader( manager );
+
+                // Launch loading of the AWD file, onLoadAWD will be called when it's ready
+                loader.load( 'models/AWD/simple.awd', onLoadAWD);
+            }
+
+            function onLoadAWD ( object ) {
+                var awd = object;
+
+                // Go through all children of the loaded object and search for a Mesh
+                awd.traverse( function ( child ) {
+                    //This allow us to check if the children is an instance of the Mesh constructor
+                    if (child instanceof THREE.Mesh){
+                        child.material.color = new THREE.Color(0X00FF00);
+                        // Sometimes there are some vertex normals missing in the .obj files, three.js will compute them
+                        child.geometry.computeVertexNormals();
+                    }
+                });
+
+                modelMesh = awd;
+                modelMesh.scale.set(0.075, 0.075, 0.075);
+                gfxScene.add(modelMesh);
+            }
+
+            function  loadBabylon () {
+                var manager = new THREE.LoadingManager();
+                var loader = new THREE.BabylonLoader( manager );
+
+                // Launch loading of the Babylon file, onLoadBabylon will be called when it's ready
+                loader.load( 'models/Babylon/rabbit.babylon', onLoadBabylon);
+            }
+
+            function onLoadBabylon ( object ) {
+			    var babylon = object;
+                // apply custom material
+                object.traverse( function(child) {
+                    if (child instanceof THREE.Mesh) {
+
+                        // apply custom material (texture)
+                        var textureD = THREE.ImageUtils.loadTexture('models/Babylon/0.jpg', undefined, function() {
+
+                            child.material = new THREE.MeshLambertMaterial({  map: textureD });
+                        });
+                        textureD.needsUpdate = true;
+                        textureD.magFilter = THREE.NearestFilter;
+                        textureD.repeat.set(1, 1);
+                        textureD.wrapS = textureD.wrapT = THREE.RepeatWrapping;
+                        textureD.anisotropy = 16;
+                    }
+                });
+
+                modelMesh = babylon;
+                modelMesh.rotateY(Math.PI);
+                modelMesh.scale.set(0.05, 0.05, 0.05);
+                gfxScene.add(modelMesh);
+            }
+
+            function  loadPLY () {
+                var manager = new THREE.LoadingManager();
+                var loader = new THREE.PLYLoader( manager );
+
+                // Launch loading of the PLY file, onLoad* will be called when it's ready
+                loader.load( 'models/PLY/F117.ply', onLoadPLY);
+            }
+
+            function onLoadPLY ( geometry ) {
+
+                geometry.computeVertexNormals();
+                var material = new THREE.MeshPhongMaterial({color: 0xC0C0C0, shading:THREE.FlatShading, specular: 0xFFFFFF, shininess: 100});
+                modelMesh = new THREE.Mesh(geometry, material);
+                modelMesh.rotation.set(-Math.PI / 2, 0, 0);
+                modelMesh.scale.set(0.5, 0.5, 0.5);
+                modelMesh.position.set(-2, 0, 5.36);
+                gfxScene.add(modelMesh);
+            }
+
+            // prepare STL loader and load the model
+            function  loadSTL () {
+                var manager = new THREE.LoadingManager();
+                var loader = new THREE.STLLoader( manager );
+
+                // Launch loading of the STL file, onLoad* will be called when it's ready
+                loader.load( 'models/STL/piano.stl', onLoadSTL);
+            }
+
+            function onLoadSTL ( geometry ) {
+
+                geometry.computeVertexNormals();
+                var material = new THREE.MeshNormalMaterial();
+                modelMesh = new THREE.Mesh(geometry, material);
+                modelMesh.rotation.set(-Math.PI / 2, 0, Math.PI / 2);
+                modelMesh.rotateZ(Math.PI);
+                modelMesh.scale.set(0.5, 0.5, 0.5);
+                gfxScene.add(modelMesh);
+            }
+
+            // prepare VRML loader and load the model
+            function  loadVRML () {
+                var manager = new THREE.LoadingManager();
+                var loader = new THREE.VRMLLoader( manager );
+
+                // Launch loading of the VRML file, onLoad* will be called when it's ready
+                loader.load( 'models/VRML/house.wrl', onLoadVRML);
+            }
+
+            function onLoadVRML ( object ) {
+
+                modelMesh = object;
+                modelMesh.scale.set(0.5, 0.5, 0.5);
+                modelMesh.position.set(-1.5, 0, 2.5 );
+
+                gfxScene.add(modelMesh);
+            }
+
+            // prepare VTK loader and load the model
+            function  loadVTK () {
+                var manager = new THREE.LoadingManager();
+                var loader = new THREE.VTKLoader( manager );
+
+                // Launch loading of the VTK file, onLoad* will be called when it's ready
+                loader.load( 'models/VTK/bunny.vtk', onLoadVTK);
+            }
+
+            function onLoadVTK ( geometry ) {
+
+                geometry.computeVertexNormals();
+
+                var material = new THREE.MeshLambertMaterial( { color:0xEEEEEE, shading:THREE.FlatShading } );
+                modelMesh = new THREE.Mesh(geometry, material);
+                modelMesh.rotation.set(0, Math.PI/2, 0);
+                modelMesh.scale.set(15, 15, 15);
+                modelMesh.position.set(-0.15, -0.5, 0);
+                gfxScene.add(modelMesh);
+            }
+
+            /*  PDB Loader got changed significantly around r82 and needs a significant refactoring
+            function  loadPDB () {
+                var manager = new THREE.LoadingManager();
+                var loader = new THREE.PDBLoader( manager );
+
+                // Launch loading of the PDB file, onLoadPDB will be called when it's ready
+                loader.load( 'models/PDB/caffeine.pdb', onLoadPDB);
+            }
+
+            // prepare PDB loader and load the model
+            function onLoadPDB ( geometry, geometryBonds ) {
+
+                var group = new THREE.Object3D();
+
+                var i = 0;
+                geometry.vertices.forEach(function (position) {
+                    var sphere = new THREE.SphereGeometry(0.3);
+                    var material = new THREE.MeshPhongMaterial({color: geometry.colors[i++]});
+                    var mesh = new THREE.Mesh(sphere, material);
+                    mesh.position.copy(position);
+                    group.add(mesh);
+                });
+
+                for (var j = 0; j < geometryBonds.vertices.length; j += 2) {
+                    var path = new THREE.SplineCurve3([geometryBonds.vertices[j], geometryBonds.vertices[j + 1]]);
+                    var tube = new THREE.TubeGeometry(path, 1, 0.05);
+                    var material = new THREE.MeshPhongMaterial({color: 0xcccccc});
+                    var mesh = new THREE.Mesh(tube, material);
+                    group.add(mesh);
+                }
+
+                modelMesh = group;
+                modelMesh.scale.set(0.5, 0.5, 0.5);
+                gfxScene.add(modelMesh);
+                updateLabel("PDB");
+            } */
+            //================= Utilities ==========================
+
+            function getBoundingSphere ( object ) {
+                var helper = new THREE.BoxHelper(object, 0xff0000);
+
+                var bbs = helper.geometry.boundingSphere;
+                console.log(bbs.center.x + " " +  bbs.center.y + " " + bbs.center.z);
+                console.log(bbs.radius);
+
+                return bbs;
+            }
+
+            function moveObjectToOrigin ( object, bbs, size ) {
+                var scaleVal = size / bbs.radius;
+                object.translateX( -bbs.center.x * scaleVal );
+                object.translateY( -bbs.center.y * scaleVal );
+                object.translateZ( -bbs.center.z * scaleVal );
+
+                object.scale.x = object.scale.y = object.scale.z = scaleVal;
+
+                //var marker = new THREE.Mesh(new THREE.SphereGeometry( 0.25 ), new THREE.MeshBasicMaterial({color: 0xFF0000}));
+                //marker.position.set(object.position.x,object.position.y,object.position.z);
+                //gfxScene.add(marker);
+
+            }
+
+            /**
+             * Set up the parameters and interface
+             */
+            function setupDatGUI() {
+                var modelList= [
+                    "OBJ",
+                    "Collada",
+                    "AWD",
+                    "Babylon",
+                    "PLY",
+                    "STL",
+                    "VRML",
+                    "VTK"
+                ];
+
+                var options = [];
+
+                options.model = modelList[0];
+
+                var gui = new dat.GUI();
+
+                gui.add(options, "model", [ modelList[0],modelList[1],modelList[2],modelList[3],modelList[4],modelList[5],modelList[6],modelList[7] ]).onChange(function() {
+                    var modelType = modelList.indexOf( options.model );
+                    loadModel(modelType);
+                });
+            }
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene() {
+	
+				// Tell the browser to call this function when page is visible
+				requestAnimationFrame(animateScene);
+
+				// Map the 3D scene down to the 2D screen (render the frame)
+				gfxScene.renderScene();
+			}
+
+		]]></script>
+	</body>
+</html>

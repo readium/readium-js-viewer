@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+	<head>
+		<title>Three.js tutorial - Lesson 04</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+		<!-- The following meta line sets the size of the fixed viewport for
+                     a pre-paginated EPUB page -->
+		<meta name="viewport" content="width=768, height=1024"/>
+		<style type="text/css">
+			body {
+				/* Set the background color of the HTML page to black */
+				background-color: #000000;
+
+				/* Hide oversized content. This prevents the scroll bars. */
+				overflow: hidden;
+			}
+		</style>
+		<!-- Include two libraries
+		1. Three.three-js (core library)
+		2. Detector.three-js (checks the browsers WebGL capabilities) -->
+		<script src="../three-js/three.js"></script>
+		<script src="../three-js/Detector.js"></script>
+	</head>
+	<body>
+		<!-- This is the DIV element which will contain the WebGL canvas. To be identifiable later on,
+		the id 'WebGLCanvas' is applied to it. -->
+		<div id="WebGLCanvas">
+
+		<!-- This JavaScript block encloses the Three.three-js commands -->
+		<script>
+			// Global scene object
+			var scene;
+
+			// Global camera object
+			var camera;
+
+			// Global mesh object of the triangle
+			var triangleMesh;
+
+			// Global mesh object of the square
+			var squareMesh;
+
+			// Initialize the scene
+			initializeScene();
+
+			// Instead of calling 'renderScene()', we call a new function: 'animateScene()'. It will
+			// update the rotation values and call 'renderScene()' in a loop.
+
+			// Animate the scene
+			animateScene();
+
+			/**
+			 * Initialze the scene.
+			 */
+			function initializeScene(){
+				// Check whether the browser supports WebGL. If so, instantiate the hardware accelerated
+				// WebGL renderer. For antialiasing, we have to enable it. The canvas renderer uses
+				// antialiasing by default.
+				// The approach of multiplse renderers is quite nice, because your scene can also be
+				// viewed in browsers, which don't support WebGL. The limitations of the canvas renderer
+				// in contrast to the WebGL renderer will be explained in the tutorials, when there is a
+				// difference.
+				if(Detector.webgl){
+					renderer = new THREE.WebGLRenderer({antialias:true});
+
+				// If its not supported, instantiate the canvas renderer to support all non WebGL
+				// browsers
+				} else {
+					renderer = new THREE.CanvasRenderer();
+				}
+
+				// Set the background color of the renderer to black, with full opacity
+				renderer.setClearColor(0x000000, 1);
+
+				// Set the size of the fixed page
+				canvasWidth = 768;
+				canvasHeight = 1024;
+
+				// Set the renderers size to the content areas size
+				renderer.setSize(canvasWidth, canvasHeight);
+
+				// Get the DIV element from the HTML document by its ID and append the renderers DOM
+				// object to it
+				document.getElementById("WebGLCanvas").appendChild(renderer.domElement);
+
+				// Create the scene, in which all objects are stored (e. g. camera, lights,
+				// geometries, ...)
+				scene = new THREE.Scene();
+
+				// Now that we have a scene, we want to look into it. Therefore we need a camera.
+				// Three.three-js offers three camera types:
+				//  - PerspectiveCamera (perspective projection)
+				//  - OrthographicCamera (parallel projection)
+				//  - CombinedCamera (allows to switch between perspective / parallel projection
+				//    during runtime)
+				// In this example we create a perspective camera. Parameters for the perspective
+				// camera are ...
+				// ... field of view (FOV),
+				// ... aspect ratio (usually set to the quotient of canvas width to canvas height)
+				// ... near and
+				// ... far.
+				// Near and far define the clipping planes of the view frustum. Three.three-js provides an
+				// example (http://mrdoob.github.com/three.js/examples/
+				// -> canvas_camera_orthographic2.html), which allows to play around with these
+				// parameters.
+				// The camera is moved 15 units towards the z axis to allow looking to the center of
+				// the scene.
+				// After definition, the camera has to be added to the scene.
+				camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 1, 100);
+				camera.position.set(0, 0, 15);
+				camera.lookAt(scene.position);
+				scene.add(camera);
+
+				// Create the triangle (or any arbitrary geometry).
+				// 1. Instantiate the geometry object
+				// 2. Add the vertices
+				// 3. Define the faces by setting the vertices indices
+				var triangleGeometry = new THREE.Geometry();
+				triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  1.0, 0.0));
+				triangleGeometry.vertices.push(new THREE.Vector3(-1.0, -1.0, 0.0));
+				triangleGeometry.vertices.push(new THREE.Vector3( 1.0, -1.0, 0.0));
+				triangleGeometry.faces.push(new THREE.Face3(0, 1, 2));
+
+				// To color the surface, a material has to be created. If all vertices shall have
+				// different colors, we need to set the vertex colors of each face. The colors in
+				// between will be interpolated as color gradients.
+				// Unfortunately, the canvas renderer doesn't support vertex yolors (yet [Three.three-js,
+				// release 50]). Either you accept a white face color, or set another face color.
+
+				triangleGeometry.faces[0].vertexColors[0] = new THREE.Color(0xFF0000);
+				triangleGeometry.faces[0].vertexColors[1] = new THREE.Color(0x00FF00);
+				triangleGeometry.faces[0].vertexColors[2] = new THREE.Color(0x0000FF);
+
+				// To activate the vertex color, we have to set 'vertexColors' attribute to
+				// 'THREE.VertexColors'. Otherwise they won't be displayed.
+
+				// Create a basic material, supporting vertex colors. Activate the 'doubleSided'
+				// attribute to force the rendering of both sides of each face (front and back).
+				// This prevents the so called 'backface culling'. Usually, only the side is
+				// rendered, whose normal vector points towards the camera. The other side is not
+				// rendered (backface culling). But this performance optimization sometimes leads
+				// to wholes in the surface. When this happens in your surface, simply set
+				// 'doubleSided' to 'true'.
+				var triangleMaterial = new THREE.MeshBasicMaterial({
+					vertexColors:THREE.VertexColors,
+					side:THREE.DoubleSide
+				});
+
+				// Create a mesh and insert the geometry and the material. Translate the whole mesh
+				// by -1.5 on the x axis and by 4 on the z axis. Finally add the mesh to the scene.
+				triangleMesh = new THREE.Mesh(triangleGeometry, triangleMaterial);
+				triangleMesh.position.set(-1.5, 0.0, 4.0);
+				scene.add(triangleMesh);
+
+				// The creation of the square is done in the same way as the triangle, except of the
+				// face definition. Instead of using THREE.Face3, we define a face with four vertices:
+				// THREE.Face4.
+				// 1. Instantiate the geometry object
+				// 2. Add the vertices
+				// 3. Define the faces by setting the vertices indices
+				var squareGeometry = new THREE.Geometry();
+				squareGeometry.vertices.push(new THREE.Vector3(-1.0,  1.0, 0.0));
+				squareGeometry.vertices.push(new THREE.Vector3( 1.0,  1.0, 0.0));
+				squareGeometry.vertices.push(new THREE.Vector3( 1.0, -1.0, 0.0));
+				squareGeometry.vertices.push(new THREE.Vector3(-1.0, -1.0, 0.0));
+				squareGeometry.faces.push(new THREE.Face3(0, 1, 2));
+				squareGeometry.faces.push(new THREE.Face3(0, 2, 3));
+
+				// The square gets a new face color. In contrast to vertex colors means face color,
+				// that all vertices have the same color or in other words, the whole face has the
+				// same color (no color gradients).
+
+				// Create a light blue basic material and activate the 'doubleSided' attribute.
+				var squareMaterial = new THREE.MeshBasicMaterial({
+					color:0x8080FF,
+					side:THREE.DoubleSide
+				});
+
+				// Create a mesh and insert the geometry and the material. Translate the whole mesh
+				// by 1.5 on the x axis and by 4 on the z axis and add the mesh to the scene.
+				squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
+				squareMesh.position.set(1.5, 0.0, 4.0);
+				scene.add(squareMesh);
+			}
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene(){
+				// At first, we increase the y rotation of the triangle mesh and decrease the x
+				// rotation of the square mesh.
+			
+				// Increase the y rotation of the triangle
+				triangleMesh.rotation.y += 0.1;
+
+				// Decrease the x rotation of the square
+				squareMesh.rotation.x -= 0.075;
+
+				// Define the function, which is called by the browser-supported timer loop. If the
+				// browser tab is not visible, the animation is paused. So 'animateScene()' is called
+				// in a browser controlled loop.
+				requestAnimationFrame(animateScene);
+
+				// Map the 3D scene down to the 2D screen (render the frame)
+				renderScene();
+			}
+
+			/**
+			 * Render the scene. Map the 3D world to the 2D screen.
+			 */
+			function renderScene(){
+				renderer.render(scene, camera);
+			}
+		</script>
+	</div>
+	</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<title>NEHE Lesson 19</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+	<!-- Set the viewport size to the screen size, so it will be displayed maximized, but unscaled. -->
+	<meta name="viewport" content="width=768, height=1024"/>
+	<link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+
+	<!-- Include the necessary libs -->
+	<script src="../three-js/three.js" type="text/javascript"></script>
+	<script src="../three-js/Detector.js" type="text/javascript"></script>
+	<script src="../three-js/stats.js" type="text/javascript"></script>
+	<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+	<script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	<script src="js/beachball.js" type="text/javascript"></script>
+	<script src="js/cannon.js" type="text/javascript"></script>
+</head>
+<body>
+
+	<script type="text/javascript"> <![CDATA[
+		var ELEV         = 25;
+		var DELTA_ELEV   = 10;
+		var FLOOR_REPEAT = 5;
+		var clock;
+		var particleSystem;
+		var cannon       = null;
+
+		// allocate the Scene object, and set the camera position
+		var gfxScene = new GFX.Scene( {
+			cameraPos : [5,7.5,25],
+			canvasWidth : 768,
+			canvasHeight : 1024,
+			controls : true,
+			floorRepeat : FLOOR_REPEAT,
+			displayStats:true
+		});
+
+		// Initialize the demo
+		initializeDemo();
+
+		// Animate the scene
+		animateScene();
+
+		/**
+		 *  Initialize the demo's local aspects, i.e not the scene.
+		 */
+		function initializeDemo() {
+
+			clock = new THREE.Clock(true);
+
+			var cubeGeometry = new THREE.BoxGeometry( 10, 10, 10 );
+			var cubeMaterial = new THREE.MeshBasicMaterial( { wireframe:true, color : 0xff0000 } );
+			var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+			cube.position.set(0,0,0);
+			gfxScene.add(cube);
+
+			particleSystem = createParticleSystem();
+			gfxScene.add(particleSystem);
+
+			cannon = new CANNON.Cannon( { scene : gfxScene,
+										  deltaT : 5,
+										  xLimit : FLOOR_REPEAT,
+										  zLimit : FLOOR_REPEAT});
+
+			gfxScene.add( cannon.mesh );
+		}
+
+		function createParticleSystem() {
+			var DISTRIBX     = 20;
+			var DISTRIBZ     = 20;
+
+			// The number of particles in a particle system is not easily changed.
+			var PARTICLE_COUNT = 500;
+
+			// Particles are just individual vertices in a geometry
+			// Create the geometry that will hold all of the vertices
+			var particles = new THREE.Geometry();
+
+			// Create the vertices and add them to the particles geometry
+			for (var p = 0; p < PARTICLE_COUNT; p++) {
+
+				// This will create all the vertices in a range of -200 to 200 in all directions
+				var y = Math.random() * ELEV - DELTA_ELEV;
+				var x = Math.random() * DISTRIBX - FLOOR_REPEAT * 2;
+				var z = Math.random() * DISTRIBZ - FLOOR_REPEAT * 2;
+
+				// Create the vertex
+				var particle = new THREE.Vector3(x, y, z);
+
+				// Add the vertex to the geometry
+				particles.vertices.push(particle);
+			}
+
+			// Create the material that will be used to render each vertex of the geometry
+			var particleMaterial = new THREE.PointsMaterial(
+					{ color: 0xffffff,
+						size: 0.4,
+						map: THREE.ImageUtils.loadTexture("images/snowflake.png"),
+						blending: THREE.AdditiveBlending,
+						transparent: true
+					});
+
+			// Create the particle system
+			particleSystem = new THREE.Points(particles, particleMaterial);
+
+			return particleSystem;
+		}
+
+		/**
+		 * Animate the scene and call rendering.
+		 */
+		function animateScene() {
+
+			cannon.update();
+
+			animateParticles();
+
+			// Tell the browser to call this function back
+			requestAnimationFrame(animateScene);
+
+			// Map the 3D scene down to the 2D screen (render the frame)
+			gfxScene.renderScene();
+		}
+
+		function animateParticles() {
+			var deltaTime = clock.getDelta();
+
+			var verts = particleSystem.geometry.vertices;
+			for(var i = 0; i < verts.length; i++) {
+				var vert = verts[i];
+				if (vert.y < -10) {
+					vert.y = Math.random() * ELEV - DELTA_ELEV;
+				}
+				vert.y = vert.y - (1.0 * deltaTime);
+			}
+			particleSystem.geometry.verticesNeedUpdate = true;
+		}
+
+	]]></script>
+</body>
+</html>
