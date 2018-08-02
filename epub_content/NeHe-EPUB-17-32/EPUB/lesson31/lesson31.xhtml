@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Loading 3D Models</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+
+<h2>Lesson 31 - Loading 3D Models</h2>
+<p></p>
+<h4>Introduction</h4>
+
+<p>This lesson is pretty straightforward since three.js does all the heavy lifting. For each type of model, there is a different loader. They all have the same pattern of usage, but there are some little quirks, so we'll go over them briefly.</p>
+<p>The basic pattern is like the image-loader. Here is a stylize pseudo-code view of the pattern for the imaginary model type ZOT:</p>
+
+<pre><code class="language-javascript">function loadZOT() {
+    var manager = new THREE.LoadingManager();
+
+		var loader = new THREE.ZOTLoader( manager );
+
+    loader.load( 'models/ZOT/model.zot', onLoadZOT);
+}
+
+function onLoadZOT (object) {
+
+    object.traverse( function ( child ) {
+    
+        // do something ZOT-specific with the child (if any)
+                      
+    });
+
+    object.scale.set(1,1,1);
+    object.position.set(0,0,0);
+    scene.add(object);
+}</code></pre>
+
+<p>The first function is always much the same, initializing the LoadingManager, then telling it the path to the model to be loaded and providing a function that will be called when the model has been loaded. That function is passed the object created in the loading process. That object is always based on an THREE.Object3D, but may be a THREE.Mesh but sometimes is an entire THREE.Scene. It depends on the Loader. The function then traverses the object passed in. The travers method looks for children of the object and for each child calls back the function. Sometimes that function does something, sometimes not, again it depends on the particular model-loader.</p>
+<p>Finally, the onLoad function opetinally scales, rotates, and moves the object then adds it to the scene.</p>
+<p>That's the general approach. We'll now briefly look at some of the models. We won't cover the load* function as it always the same. Only the callback is of interest.</p>
+<h4>The Models</h4>
+<p><strong>OBJ</strong> (or .OBJ) is a geometry definition file format first developed by <a href="https://en.wikipedia.org/wiki/Wavefront_Technologies" title="Wavefront Technologies">Wavefront Technologies</a> for its <a href="https://en.wikipedia.org/wiki/The_Advanced_Visualizer" title="The Advanced Visualizer">Advanced Visualizer</a> animation package. The file format is open and has been adopted by other 3D graphics application vendors. The callback for is:</p>
+<pre><code class="language-javascript">function onLoadOBJ (object) {
+    var bbs = getBoundingSphere( object );
+
+    moveObjectToOrigin(object, bbs, 1);
+
+    object.traverse( function ( child ) {
+                    
+        if (child instanceof THREE.Mesh) {
+            child.material.color = new THREE.Color(0XFFFF00);                
+            child.geometry.computeVertexNormals();
+        }
+    });
+     
+    modelMesh = object;
+    gfxScene.add(modelMesh);
+}</code></pre>
+
+<p>The OBJ model isn't necessarily at the origin nor scaled to our coordinate space, so we call a couple of methods to get the bounding sphere and scale it to 0..1 and move it to the origin. Sometimes the vertex normals are not correct or missing so we tell three.js to re-compute them. Also note that the modelMesh variable is just a convenience for the demo.</p>
+<p><strong>COLLADA</strong> (<em><strong>COLLA</strong>borative <strong>D</strong>esign <strong>A</strong>ctivity</em>) is an interchange file format for interactive 3D applications. It is managed by the nonprofit technology consortium, the <a href="https://en.wikipedia.org/wiki/Khronos_Group" title="Khronos Group">Khronos Group</a>, and has been adopted by ISO as a publicly available specification, ISO/PAS 17506. Its callback is:</p>
+
+<pre><code class="language-javascript">function onLoadCollada( object ) {
+    dae = object.scene;
+
+    dae.traverse( function ( child ) {
+                    
+        if (child instanceof THREE.Mesh) {
+            child.material.color = new THREE.Color(0X00FF00);                
+            child.geometry.computeVertexNormals();
+         }
+    });
+
+    modelMesh = dae;
+    modelMesh.scale.set(0.5,0.5,0.5);
+    modelMesh.rotateX(-Math.PI/2);
+    modelMesh.rotateZ(Math.PI/2);
+    gfxScene.add(modelMesh);
+}</code></pre>
+
+<p>Again, the transforms are simply to adapt the particular model (a Shark) to our coordinate space. The child function is not called in this case as the shark's mesh is already colored.</p>
+<p><strong>Away3D</strong> (AWD) is an open-source platform for developing interactive 3D graphics for video games and applications. The platform consists of a 3D world editor (Away Builder), a 3D graphics engine (Away3D or AwayJS), a 3D physics engine (Away Physics) and a compressed 3D model file format (AWD). The callback is virtually identical to that of Collada so we won't spend any time on it.</p>
+<p><a href="http://www.babylonjs.com/" title="Babylon.js" target="_blank">Babylon</a> is a JavaScript framework for building 3D games with HTML 5 and WebGL. The actual model is JSON.</p>
+
+<pre><code class="language-javascript">function onLoadBabylon ( object ) {
+
+    object.traverse( function(child) {
+        if (child instanceof THREE.Mesh) {
+
+            var textureD = THREE.ImageUtils.loadTexture('models/Babylon/0.jpg',  
+                                                        undefined, 
+                                                        function() {
+
+                child.material = new THREE.MeshLambertMaterial({ map: textureD });
+            });
+                        
+            textureD.needsUpdate = true;
+            textureD.magFilter = THREE.NearestFilter;
+            textureD.repeat.set(1, 1);
+            textureD.wrapS = textureD.wrapT = THREE.RepeatWrapping;
+            textureD.anisotropy = 16;
+        }
+    });
+   
+    modelMesh = object;
+    modelMesh.rotateY(Math.PI);
+    modelMesh.scale.set(0.05, 0.05, 0.05);
+    gfxScene.add(modelMesh);
+}</code></pre>
+
+<p>The callback is a little more complex because the Babylon format can have, as in this case, an external image file that is the texture to be applied to the model. So the callback searches for the mesh contained in the file and then loads the texture and applies it to the mesh.</p>
+<p>The <strong>Protein Data Bank (pdb) file format</strong> is a textual file format describing the three-dimensional structures of molecules held in the <a href="https://en.wikipedia.org/wiki/Protein_Data_Bank" title="Protein Data Bank">Protein Data Bank</a>. It was originally designed to be used with 80-column punch cards (!).  There is also an XML form of the format, but the PDBLoader in three.js doesn't support that.</p>
+
+
+<pre><code class="language-javascript">function onLoadPDB ( geometry, geometryBonds ) {
+
+    var group = new THREE.Object3D();
+
+    var i = 0; 
+    geometry.vertices.forEach(function (position) {
+        var sphere = new THREE.SphereGeometry(0.3);
+        var material = new THREE.MeshPhongMaterial({color: geometry.colors[i++]});
+        var mesh = new THREE.Mesh(sphere, material);
+        mesh.position.copy(position);
+        group.add(mesh);
+    });
+
+    for (var j = 0; j &lt; geometryBonds.vertices.length; j += 2) {
+        var path = new THREE.SplineCurve3([geometryBonds.vertices[j], geometryBonds.vertices[j + 1]]);
+        var tube = new THREE.TubeGeometry(path, 1, 0.05);
+        var material = new THREE.MeshPhongMaterial({color: 0xcccccc});
+        var mesh = new THREE.Mesh(tube, material);
+        group.add(mesh);
+    }
+
+    modelMesh = group;
+    modelMesh.scale.set(0.5, 0.5, 0.5);
+    gfxScene.add(modelMesh);                
+}</code></pre>
+
+<p>The PDBLoader is a bit different from most of them in that it reads the format and then passes in two geometries, one of the atoms and one for the bonds between them. So the callback function then has to create the spheres to represent the atoms and the tubes to repressent the bonds. An earlier version of the loader did all this internally, but a more recent version moved this work into the callback - presumably to allow the user to customize the rendering, if desired.</p>
+<p><strong>PLY</strong> is a computer file format known as the <strong>Polygon File Format</strong> or the <strong>Stanford Triangle Format</strong>. It was principally designed to store three-dimensional data from 3D scanners. The data storage format supports a relatively simple description of a single object as a list of nominally flat polygons. A variety of properties can be stored, including: color and transparency, surface normals, texture coordinates and data confidence values. </p>
+<p>The callback for PLY is again very simple, at least in this case. However, the three.js PLY loader is very simple and doesn't read any attribute data, it just generates a mesh of all the triangles. The callback has to provide a material. If there are attributes in the model they are not handled by the callback (at least in its present state).</p>
+<p><a href="https://en.wikipedia.org/wiki/STL_(file_format)" title="STL format" target="_blank">STL (STereoLithography)</a> is a file format native to the stereolithography CAD software created by 3D Systems. STL has several after-the-fact backronyms such as &quot;Standard Triangle Language&quot; and &quot;Standard Tessellation Language&quot;. STL files describe only the surface geometry of a three-dimensional object without any representation of color, texture or other common CAD model attributes. The STL format specifies both ASCII and binary representations.</p>
+<p>Given the simplistic nature of the format, the callback is very simple.</p>
+<p><a href="https://en.wikipedia.org/wiki/VRML" title="VRML" target="_blank">VRML</a> (<strong>Virtual Reality Modeling Language</strong>, pronounced <em>vermal</em> or by its initials, originally—before 1995—known as the Virtual Reality Markup Language) is a standard file format for representing 3-dimensional (3D) interactive vector graphics.  Again, the loader does all the handling of the geometry as well as materials, etc. so the callback needs to handle only the positioning.</p>
+<p>The <a href="http://www.vtk.org/" title="VTK" target="_blank">VTK</a> format is part of the visualization toolkit which provides a way to visualize scientific and other data types, more often than not that were generated through experiments or scientific/mathematical modeling. Again, the loader does all the handling of the geometry as well as materials, etc. so the callback needs to handle only the positioning.</p>
+<p>And that's it!  Click on <a href="lesson31webgl.xhtml" title="Lesson 31" target="_self">this
+  link</a> to see the actual rendered demo in all it's modeling glory!</p>
+<p>As always the source-code is <a href="https://github.com/rkwright/nehe-three-js/tree/master/tutorial31" title="Source on github" target="_blank">here</a> on Github! </p>
+
+</body>
+</html>

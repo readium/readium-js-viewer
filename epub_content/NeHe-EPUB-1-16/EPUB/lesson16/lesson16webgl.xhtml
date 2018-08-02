@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+		<title>NEHE Tutorial 16</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+		<!-- Set the viewport size to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024"/>
+		<link rel="stylesheet" type="text/css" href="../css/NeHe.css" />
+
+		<!-- Include several libraries from THREE.three-js and the Scene class  -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+	    <script src="../three-js/stats.js" type="text/javascript"></script>
+	    <script src="../three-js/dat.gui.min.js" type="text/javascript"></script>
+	    <script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+		<script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	</head>
+	<body>
+	<script type="text/javascript"><![CDATA[
+        var MAX_FOG = 0.5;
+        var MIN_FOG = 0.0;
+        var fogType = "exponential";
+        var fogDensity = 0.10;
+
+        // allocate the Scene object, request orbitControls, some of 3D axes 10 units high and the stats
+        var gfxScene = new GFX.Scene( {
+            cameraPos:[2,2,10],
+            canvasWidth : 768,
+        	canvasHeight : 1024,
+            axisHeight:10,
+            controls:true,
+            displayStats:true,
+            floorRepeat:10,
+            fogType : fogType,
+            fogDensity : fogDensity,
+            fogColor: 0xffffff });
+
+        var options = setupDatGUI();
+
+        // then initialize our demo's stuff
+        initializeDemo();
+
+        // Animate the scene
+        animateScene();
+
+        /**
+         * Initialize the Demo.
+         */
+        function initializeDemo() {
+            var CUBE_SIZE = 0.25;
+            var crateTexture;
+            var xTranslation = 0.0;
+            var	yTranslation = CUBE_SIZE/2.0;
+            var	zTranslation = 0.0;
+
+            // Create the cubes
+            var boxGeometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);
+
+            // Load an image as texture
+            crateTexture = new THREE.ImageUtils.loadTexture("images/Crate.jpg");
+
+            var boxMaterial = new THREE.MeshLambertMaterial({
+                map:crateTexture,
+                side:THREE.DoubleSide
+            });
+
+            var boxMesh;
+            for ( var x=-5; x<=5; x += 1 ) {
+                boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+                boxMesh.position.set(x, yTranslation, zTranslation);
+                gfxScene.add(boxMesh);
+            }
+
+            for ( var z=-5; z<=5; z += 1 ) {
+                boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+                boxMesh.position.set(xTranslation, yTranslation, z);
+                gfxScene.add(boxMesh);
+            }
+        }
+
+        /**
+         * Initialize the dat.gui library and the options elements
+         */
+        function setupDatGUI() {
+            var options = [];
+
+            options.density = 0.1;
+            options.color = 0xffffff;
+
+            gui = new dat.GUI();
+
+            gui.add(options, 'density', MIN_FOG, MAX_FOG).onChange(function() {
+                gfxScene.addFog( { fogDensity: options.density } );
+            });
+
+            gui.addColor( options, 'color').onChange( function( color  ) {
+                gfxScene.addFog( { fogColor: color } );
+            });
+
+            return options;
+        }
+
+        /**
+         * Animate the scene and call rendering.
+         */
+        function animateScene() {
+
+            // Tell the browser to call this function when page is visible
+            requestAnimationFrame(animateScene);
+
+            // Map the 3D scene down to the 2D screen (render the frame)
+            gfxScene.renderScene();
+        }
+    ]]></script>
+	</body>
+</html>

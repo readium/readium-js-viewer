@@ -1,0 +1,22 @@
+
+.title{
+	text-align:center;
+}
+
+.author {
+	text-align:center;
+}
+
+.img {
+	text-align:center;
+}
+
+.toc{
+	display:block;
+	text-align: left;
+	font-size : 1.2em;
+	margin-top : 1em;
+	margin-bottom : 1em;
+	margin-left : 3em;
+	margin-right : 3em;
+}

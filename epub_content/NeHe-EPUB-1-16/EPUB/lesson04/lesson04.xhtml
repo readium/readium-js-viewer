@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-04</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 4 - Let's Get Moving!</h2>
+<p>Now that we have covered creating and coloring polygons, let's add some animation. Most of the source code is identical boilerplate
+    to the second and third lessons so this lesson is also quite short.</p>
+<p>Again, we instantiate a scene and call <span class="inline-code">initializeScene()</span>where all the work gets done.
+    Similarly, the creation of the triangle and the square is identical to the third lesson. </p>
+<p>The key difference in this lesson is that we don't call<span class="inline-code"> renderScene()</span> directly. Instead, 
+we call <span class="inline-code">animateScene()</span> which invokes a special behaviour in the browser that repeatedly 
+calls a callback function, which in turn calls <span class="inline-code">renderScene()</span>.</p>
+
+<p>In the function, we first increase the y rotation of the triangle mesh and decrease the x rotation of the square mesh.</p>
+	
+<pre><code class="language-javascript">triangleMesh.rotation.y += 0.1;
+squareMesh.rotation.x -= 0.075;</code></pre>
+
+<p>Then we call a browser function, <span class="inline-code"><a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">
+    requestAnimationFrame</a></span>.  That method tells the browser that you wish to perform an
+    animation and requests that the browser call a specified function to update an animation before the next repaint. The
+    method takes as an argument a callback to be invoked before the repaint. In our case, the callback function we pass
+    in is <span class="inline-code">animateScene</span>. Note that if the container (i.e. the browser window) is not visible,
+    the animation is paused. </p>
+
+<pre><code class="language-javascript">requestAnimationFrame(animateScene);</code></pre>
+
+ <p>Note also that our callback function effectively calls<span class="inline-code"> requestAnimationFrame()</span> every
+     time it is invoked - which is required - it's not a fire and forget sort of call.</p>
+ <p>Finally, we actually call <span class="inline-code">renderScene()</span> which then maps the 3D scene down to the
+     2D screen, just like the previous lessons</p>
+ 
+<pre><code class="language-javascript">renderScene();</code></pre>
+
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all it's rainbow glory!</p>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Copyright Assignment and Ownership</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Copyright Assignment and Ownership"><div class="titlepage"><div><div><h1 class="title"><a id="copyright-assignment"/>Copyright Assignment and Ownership</h1></div></div></div><p>There are three ways to handle copyright ownership for free code
+and documentation that were contributed to by many people.  The first
+is to ignore the issue of copyright entirely (I don't recommend this).
+The second is to collect a <em class="firstterm">contributor license
+agreement</em> (<em class="firstterm">CLA</em>) from each person
+who works on the project, explicitly granting the project the right to
+use that person's contributions.  This is usually enough for most
+projects, and the nice thing is that in some jurisdictions, CLAs can
+be sent in by email.  The third way is to get actual copyright
+assignments from contributors, so that the project (i.e., some legal
+entity, usually a nonprofit) is the copyright owner for everything.
+This is the most legally airtight way, but it's also the most
+burdensome for contributors; only a few projects insist on
+it.<sup>[<a id="idp8845536" href="#ftn.idp8845536" class="footnote">32</a>]</sup></p><p>Note that even under centralized copyright ownership, the
+code<sup>[<a id="idp8846544" href="#ftn.idp8846544" class="footnote">33</a>]</sup> remains free, because
+open source licenses do not give the copyright holder the right to
+retroactively proprietize all copies of the code.  So even if the
+project, as a legal entity, were to suddenly turn around and started
+distributing all the code under a restrictive license, that wouldn't
+cause a problem for the public community.  The other developers would
+simply start a fork based on the latest free copy of the code, and
+continue as if nothing had happened.  Because they know they can do
+this, most contributors cooperate when asked to sign a CLA or an
+assignment of copyright.</p><div class="sect2" title="Doing Nothing"><div class="titlepage"><div><div><h2 class="title"><a id="copyright-assignment-none"/>Doing Nothing</h2></div></div></div><p>Most projects never collect CLAs or copyright assignments from
+their contributors.  Instead, they accept code whenever it seems
+reasonably clear that the contributor intended it to be incorporated
+into the project.</p><p>Under normal circumstances, this is okay.  But every now and
+then, someone may decide to sue for copyright infringement, alleging
+that they are the true owner of the code in question and that they
+never agreed to its being distributed by the project under an open
+source license.  For example, the SCO Group did something like this to
+the Linux project, see
+<a class="ulink" href="http://en.wikipedia.org/wiki/SCO-Linux_controversies">http://en.wikipedia.org/wiki/SCO-Linux_controversies</a>
+for details.  When this happens, the project will have no
+documentation showing that the contributor formally granted the right
+to use the code, which could make some legal defenses more
+difficult.</p></div><div class="sect2" title="Contributor License Agreements"><div class="titlepage"><div><div><h2 class="title"><a id="copyright-assignment-cla"/>Contributor License Agreements</h2></div></div></div><p>CLAs probably offer the best tradeoff between safety and
+convenience.  A CLA is typically an electronic form that a developer
+fills out and sends in to the project.  In many jurisdictions, email
+submission is enough.  A secure digital signature may or may not be
+required; consult a lawyer to find out what method would be best for
+your project.</p><p>Most projects use two slightly different CLAs, one for
+individuals, and one for corporate contributors.  But in both types,
+the core language is the same: the contributor grants the
+project <span class="emphasis"><em>"...perpetual, worldwide, non-exclusive, no-charge,
+royalty-free, irrevocable copyright license to reproduce, prepare
+derivative works of, publicly display, publicly perform, sublicense,
+and distribute [the] Contributions and such derivative
+works."</em></span> Again, you should have a lawyer approve any CLA,
+but if you get all those adjectives into it, you're probably
+fine.</p><p>When you request CLAs from contributors, make sure to emphasize
+that you are <span class="emphasis"><em>not</em></span> asking for actual copyright
+assignment.  In fact, many CLAs start out by reminding the reader of
+this:</p><div class="blockquote"><blockquote class="blockquote"><p><span class="emphasis"><em>This is a license agreement only; it does not transfer
+copyright ownership and does not change your rights to use your own
+Contributions for any other purpose.</em></span></p></blockquote></div><p>Here are some examples:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Individual contributor CLAs:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://apache.org/licenses/icla.txt">http://apache.org/licenses/icla.txt</a>
+      </p></li><li class="listitem"><p><a class="ulink" href="http://code.google.com/legal/individual-cla-v1.0.html">http://code.google.com/legal/individual-cla-v1.0.html</a>
+      </p></li></ul></div></li><li class="listitem"><p>Corporate contributor CLAs:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://apache.org/licenses/cla-corporate.txt">http://apache.org/licenses/cla-corporate.txt</a>
+      </p></li><li class="listitem"><p><a class="ulink" href="http://code.google.com/legal/corporate-cla-v1.0.html">http://code.google.com/legal/corporate-cla-v1.0.html</a>
+      </p></li></ul></div></li></ul></div></div><div class="sect2" title="Transfer of Copyright"><div class="titlepage"><div><div><h2 class="title"><a id="copyright-assignment-transfer"/>Transfer of Copyright</h2></div></div></div><p>Copyright transfer means that the contributor assigns to the
+project copyright ownership on her contributions.  Ideally, this is
+done on paper and either faxed or snail-mailed to the project.</p><p>Some projects insist on full assignment because having a single
+legal entity own the copyright on the entire code base can be useful
+if the terms of the open source license ever need to be enforced in
+court.  If no single entity has the right to do it, all the
+contributors might have to cooperate, but some might not have time or
+even be reachable when the issue arises.</p><p>Different organizations apply different amounts of rigor to the
+task of collecting assignments.  Some simply get an informal statement
+from a contributor on a public list mailing list—something to
+the effect of "I hereby assign copyright in this code to the project,
+to be licensed under the same terms as the rest of the code."  At
+least one lawyer I've talked to says that's really enough, presumably
+because it happens in a context where copyright assignment is normal
+and expected anyway, and because it represents a <span class="foreignphrase"><em class="foreignphrase">bona
+fide</em></span> effort on the project's part to ascertain the
+developer's true intentions.  On the other hand, the Free Software
+Foundation goes to the opposite extreme: they require contributors to
+physically sign and mail in a piece of paper containing a formal
+statement of copyright assignment, sometimes for just one
+contribution, sometimes for current and future contributions.  If the
+developer is employed, the FSF asks that the employer sign it
+too.</p><p>The FSF's paranoia is understandable.  If someone violates the
+terms of the GPL by incorporating some of their software into a
+proprietary program, the FSF will need to fight that in court, and
+they want their copyrights to be as airtight as possible when that
+happens.  Since the FSF is copyright holder for a lot of popular
+software, they view this as a real possibility.  Whether your
+organization needs to be similarly scrupulous is something only you
+can decide, in consultation with lawyers.  In general, unless there's
+some specific reason why your project needs full copyright assignment,
+just go with CLAs; they're easier for everyone.</p></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp8845536" href="#idp8845536" class="para">32</a>] </sup>Also, actual copyright transferral is subject to
+national law, and licenses designed for the United States may
+encounter problems elsewhere (e.g., in Germany, where it's apparently
+not possible to transfer copyright).</p></div><div class="footnote"><p><sup>[<a id="ftn.idp8846544" href="#idp8846544" class="para">33</a>] </sup>I'll use "code" to refer to both code and
+documentation, from now on.</p></div></div></div></body></html>

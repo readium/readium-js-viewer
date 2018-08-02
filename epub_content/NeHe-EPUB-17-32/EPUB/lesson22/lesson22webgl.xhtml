@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" >
+	<head>
+		<title>NeHe - Lesson 22 - Bump Mapping</title>
+		<meta charset="utf-8"/>
+		<!--
+  			Roughly based (or inspired by) NeHe Tutorial 22
+  			Original:  http://nehe.gamedev.net/tutorial/sphere_mapping_quadrics_in_opengl/15005/
+
+  			@author: rkwright@geofx.com
+		-->
+
+		<!-- The following meta line optimizes the site for mobile devices. It sets the viewport size
+		to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="../css/fixed.css" />
+
+		<!-- Include the necessary libs -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+		<script src="../three-js/Detector.js" type="text/javascript"></script>
+        <script src="../three-js/stats.js" type="text/javascript"></script>
+        <script src="../three-js/dat.gui.min.js" type="text/javascript"></script>
+		<script src="../gfx/OrbitControls-Touch-Ortho.js" type="text/javascript"></script>
+        <script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+
+	</head>
+	<body>
+		<script type="text/javascript">
+            // the global var (ick!) for the cube's mesh
+            var mesh;
+
+            // allocate the Scene object, and set the camera position
+            var gfxScene = new GFX.Scene( {
+				cameraPos : [3, 5, 8],
+                canvasWidth : 768,
+                canvasHeight : 1024,
+                controls : true,
+				axesHeight:10,
+				displayStats:true});
+
+            setupDatGUI();
+
+			// Initialize the demo
+			initializeDemo();
+
+			// Animate the scene
+			animateScene();
+
+			/**
+			 *  Initialize the demo's local aspects, i.e not the scene.
+			 */
+			function initializeDemo() {
+                makeMesh( true, "flower" );
+			}
+
+			/**
+             *  Rebuild the mesh completely and add it to the scene.  We need to do
+             *  because you can't refresh textures or alpha-Maps without rebuilding
+             *  the mesh.
+             */
+			function makeMesh( bumped, image ) {
+
+			    gfxScene.remove(mesh);
+
+                var geom = new THREE.CubeGeometry( 2, 2, 2 );
+
+                var texture = new THREE.ImageUtils.loadTexture("images/" + image + ".jpg");
+                var bump = bumped === true ? new THREE.ImageUtils.loadTexture("images/" + image + "-bump.jpg") : null;
+                var scale = bumped === true ? 2 : 0;
+
+                var material = new THREE.MeshPhongMaterial( {
+                    map:texture,
+                    bumpMap:bump,
+                    bumpScale:scale } );
+
+                mesh = new THREE.Mesh( geom, material );
+                gfxScene.add(mesh);
+            }
+
+            /**
+             *
+             */
+            function setupDatGUI() {
+                var imageList = [ "flower", "stone"];
+                var options = [];
+
+                options.image = imageList[0];
+                options.bumped = true;
+
+                var gui = new dat.GUI();
+
+                gui.add(options, "image", [ imageList[0], imageList[1] ]).onChange(function() {
+                    makeMesh( options.bumped, options.image );
+                });
+
+                gui.add(options, "bumped" ).onChange(function() {
+                    makeMesh( options.bumped, options.image );
+                });
+            }
+
+			/**
+			 * Animate the scene and call rendering.
+			 */
+			function animateScene() {
+
+				// Tell the browser to call this function back
+				requestAnimationFrame(animateScene);
+
+                // Map the 3D scene down to the 2D screen (render the frame)
+                gfxScene.renderScene();
+			}
+
+		</script>
+	</body>
+</html>

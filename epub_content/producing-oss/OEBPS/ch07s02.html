@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Release Branches</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Release Branches"><div class="titlepage"><div><div><h1 class="title"><a id="release-branches"/>Release Branches</h1></div></div></div><p>From a developer's point of view, a free software project is in
+a state of continuous release.  Developers usually run the latest
+available code at all times, because they want to spot bugs, and
+because they follow the project closely enough to be able to stay away
+from currently unstable areas of the feature space.  They often update
+their copy of the software every day, sometimes more than once a day,
+and when they check in a change, they can reasonably expect that every
+other developer will have it within 24 hours.</p><p>How, then, should the project make a formal release?  Should it
+simply take a snapshot of the tree at a moment in time, package it up,
+and hand it to the world as, say, version "3.5.0"?  Common sense says
+no.  First, there may be no moment in time when the entire development
+tree is clean and ready for release.  Newly-started features could be
+lying around in various states of completion.  Someone might have
+checked in a major change to fix a bug, but the change could be
+controversial and under debate at the moment the snapshot is taken.
+If so, it wouldn't work to simply delay the snapshot until the debate
+ends, because another, unrelated debate could start in the meantime,
+and then you'd have wait for <span class="emphasis"><em>that</em></span> one to end too.
+This process is not guaranteed to halt.</p><p>In any case, using full-tree snapshots for releases would
+interfere with ongoing development work, even if the tree could be put
+into a releasable state.  Say this snapshot is going to be "3.5.0";
+presumably, the next snapshot would be "3.5.1", and would contain
+mostly fixes for bugs found in the 3.5.0 release.  But if both are
+snapshots from the same tree, what are the developers supposed to do
+in the time between the two releases?  They can't be adding new
+features; the compatibility guidelines prevent that.  But not everyone
+will be enthusiastic about fixing bugs in the 3.5.0 code.  Some people
+may have new features they're trying to complete, and will become
+irate if they are forced to choose between sitting idle and working on
+things they're not interested in, just because the project's release
+processes demand that the development tree remain unnaturally
+quiescent.</p><p>The solution to these problems is to always use
+a <em class="firstterm">release branch</em>.  A release branch is just a
+branch in the version control system (see
+<a class="xref" href="ch03s03.html#vc-vocabulary-branch"><em class="firstterm">branch</em></a>), on which the code
+destined for this release can be isolated from mainline development.
+The concept of release branches is certainly not original to free
+software; many commercial development organizations use them too.
+However, in commercial environments, release branches are sometimes
+considered a luxury—a kind of formal "best practice" that can,
+in the heat of a major deadline, be dispensed with while everyone on
+the team scrambles to stabilize the main tree.</p><p>Release branches are pretty much required in open source
+projects, however.  I have seen projects do releases without them, but
+it has always resulted in some developers sitting idle while
+others—usually a minority—work on getting the release out
+the door.  The result is usually bad in several ways.  First, overall
+development momentum is slowed.  Second, the release is of poorer
+quality than it needed to be, because there were only a few people
+working on it, and they were hurrying to finish so everyone else could
+get back to work.  Third, it divides the development team
+psychologically, by setting up a situation in which different types of
+work interfere with each other unnecessarily.  The developers sitting
+idle would probably be happy to contribute <span class="emphasis"><em>some</em></span>
+of their attention to a release branch, as long as that were a choice
+they could make according to their own schedules and interests.  But
+without the branch, their choice becomes "Do I participate in the
+project today or not?"  instead of "Do I work on the release today, or
+work on that new feature I've been developing in the mainline
+code?"</p><div class="sect2" title="Mechanics of Release Branches"><div class="titlepage"><div><div><h2 class="title"><a id="release-branch-mechanics"/>Mechanics of Release Branches</h2></div></div></div><p>The exact mechanics of creating a release branch depend on your
+version control system, of course, but the general concepts are the
+same in most systems.  A branch usually sprouts from another branch or
+from the trunk.  Traditionally, the trunk is where mainline
+development goes on, unfettered by release constraints.  The first
+release branch, the one leading to the "1.0" release, sprouts off the
+trunk.  In CVS, the branch command would be something like this</p><pre class="screen">
+$ cd trunk-working-copy
+$ cvs tag -b RELEASE_1_0_X
+</pre><p>or in Subversion, like this:</p><pre class="screen">
+$ svn copy http://.../repos/trunk http://.../repos/branches/1.0.x
+</pre><p>(All these examples assume a three-component release numbering
+system.  While I can't show the exact commands for every version
+control system, I'll give examples in CVS and Subversion and hope that
+the corresponding commands in other systems can be deduced from those
+two.)</p><p>Notice that we created branch "1.0.x" (with a literal "x")
+instead of "1.0.0".  This is because the same minor line—i.e.,
+the same branch—will be used for all the micro releases in that
+line.  The actual process of stabilizing the branch for release is
+covered in
+<a class="xref" href="ch07s03.html" title="Stabilizing a Release">the section called “Stabilizing a Release”</a><span>
+later in this chapter</span>.  Here we are
+concerned just with the interaction between the version control system
+and the release process.  When the release branch is stabilized and
+ready, it is time to tag a snapshot from the branch:</p><pre class="screen">
+$ cd RELEASE_1_0_X-working-copy
+$ cvs tag RELEASE_1_0_0
+</pre><p>or</p><pre class="screen">
+$ svn copy http://.../repos/branches/1.0.x http://.../repos/tags/1.0.0
+</pre><p>That tag now represents the exact state of the project's source
+tree in the 1.0.0 release (this is useful in case anyone ever needs to
+get an old version after the packaged distributions and binaries have
+been taken down).  The next micro release in the same line is likewise
+prepared on the 1.0.x branch, and when it is ready, a tag is made for
+1.0.1.  Lather, rinse, repeat for 1.0.2, and so on.  When it's time to
+start thinking about a 1.1.x release, make a new branch from
+trunk:</p><pre class="screen">
+$ cd trunk-working-copy
+$ cvs tag -b RELEASE_1_1_X
+</pre><p>or</p><pre class="screen">
+$ svn copy http://.../repos/trunk http://.../repos/branches/1.1.x
+</pre><p>Maintenance can continue in parallel along both 1.0.x and 1.1.x,
+and releases can be made independently from both lines.  In fact, it
+is not unusual to publish near-simultaneous releases from two
+different lines.  The older series is recommended for more
+conservative site administrators, who may not want to make the big
+jump to (say) 1.1 without careful preparation.  Meanwhile, more
+adventurous people usually take the most recent release on the highest
+line, to make sure they're getting the latest features, even at the
+risk of greater instability.</p></div><p>This is not the only release branch strategy, of course.  In
+some circumstances it may not even be the best, though it's worked out
+pretty well for projects I've been involved in.  Use any strategy that
+seems to work, but remember the main points: the purpose of a release
+branch is to isolate release work from the fluctuations of daily
+development, and to give the project a physical entity around which to
+organize its release process.  That process is described in detail in
+the next section.</p></div></body></html>

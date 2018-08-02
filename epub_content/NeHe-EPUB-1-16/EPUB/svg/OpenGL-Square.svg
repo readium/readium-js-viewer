@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="OpenGL-Square" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 249.3916 261.1929" enable-background="new 0 0 249.3916 261.1929" xml:space="preserve">
+<rect x="13.0144" y="19.9032" fill="#FFFFFF" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="222.4359" height="222.4359"/>
+<text transform="matrix(1 0 0 1 -2.336502e-05 15.0662)" font-family="'MyriadPro-Regular'" font-size="18">0</text>
+<text transform="matrix(1 0 0 1 234.3507 15.066)" font-family="'MyriadPro-Regular'" font-size="18">1</text>
+<text transform="matrix(1 0 0 1 240.1581 256.1933)" font-family="'MyriadPro-Regular'" font-size="18">2</text>
+<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="13.0143" y1="19.9032" x2="235.4502" y2="242.3391"/>
+<text transform="matrix(1 0 0 1 1.5131 256.1933)" stroke="#000000" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="18">3</text>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="101.2451" y1="27.7622" x2="140.2451" y2="27.7622"/>
+		<g>
+			<path d="M146.2451,27.7622c-2.8398,1.0537-6.3633,2.8516-8.5474,4.7559l1.7202-4.7559l-1.7202-4.7549
+				C139.8818,24.9116,143.4053,26.7095,146.2451,27.7622z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="226.7451" y1="100.2622" x2="226.7451" y2="139.2622"/>
+		<g>
+			<path d="M226.7451,145.2622c-1.0537-2.8398-2.8516-6.3633-4.7559-8.5474l4.7559,1.7202l4.7549-1.7202
+				C229.5957,138.8989,227.7979,142.4224,226.7451,145.2622z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="151.655" y1="139.6721" x2="124.1027" y2="112.1198"/>
+		<g>
+			<path d="M119.8352,107.8523c2.7531,1.263,6.5159,2.4832,9.4068,2.681l-4.5793,2.1465l-2.1458,4.5786
+				C122.3191,114.3675,121.0989,110.6047,119.8352,107.8523z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="98.8352" y1="122.8523" x2="126.3875" y2="150.4046"/>
+		<g>
+			<path d="M130.655,154.6721c-2.7531-1.263-6.5159-2.4832-9.4068-2.681l4.5793-2.1465l2.1458-4.5786
+				C128.1712,148.1569,129.3914,151.9197,130.655,154.6721z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="149.2451" y1="234.7622" x2="110.2451" y2="234.7622"/>
+		<g>
+			<path d="M104.2451,234.7622c2.8398-1.0537,6.3633-2.8516,8.5474-4.7559l-1.7202,4.7559l1.7202,4.7549
+				C110.6084,237.6128,107.0849,235.8149,104.2451,234.7622z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="23.7451" y1="165.2622" x2="23.7451" y2="126.2622"/>
+		<g>
+			<path d="M23.7451,120.2622c1.0537,2.8398,2.8516,6.3633,4.7559,8.5474l-4.7559-1.7202l-4.7549,1.7202
+				C20.8945,126.6255,22.6924,123.102,23.7451,120.2622z"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 119.8352 39.6908)" font-family="'MyriadPro-Regular'" font-size="12">0</text>
+<text transform="matrix(1 0 0 1 215.279 123.7621)" font-family="'MyriadPro-Regular'" font-size="12">1</text>
+<text transform="matrix(1 0 0 1 139.1349 121.782)" font-family="'MyriadPro-Regular'" font-size="12">2</text>
+<text transform="matrix(1 0 0 1 27.7198 148.2839)" font-family="'MyriadPro-Regular'" font-size="12">2</text>
+<text transform="matrix(1 0 0 1 104.2453 145.2621)" font-family="'MyriadPro-Regular'" font-size="12">0</text>
+<text transform="matrix(1 0 0 1 126.7453 230.2301)" font-family="'MyriadPro-Regular'" font-size="12">1</text>
+</svg>

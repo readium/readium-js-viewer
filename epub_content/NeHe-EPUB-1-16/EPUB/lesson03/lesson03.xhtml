@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-03</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 3 - Color Your Polygons!</h2>
+<p>Now that we have covered creating polygons, let's give them some color. Most of the source code is identical
+    boilerplate to the second lesson so this lesson is much shorter.</p>
+<p>Again, we instantiate a scene and call <span class="inline-code">initializeScene()</span>where all the work gets done.
+    Similarly, the creation of the triangle and the square is identical to the second lesson, with one exception -
+    how we specify the color.</p>
+<p>In the second lesson, we created the mesh like this</p>
+
+<pre><code class="language-javascript">var triangleMaterial = new THREE.MeshBasicMaterial({
+      color:0xFFFFFF,
+      side:THREE.DoubleSide
+      });</code></pre>
+      
+<p>This time, we want each vertex of the triangle to be a different color. Then those colors will be interpolated
+    across the surface of the triangle. First, we create the colors themselves by specifying the color of the three
+    vertexes in the one face that we created.</p>
+<pre><code class="language-javascript">triangleGeometry.faces[0].vertexColors[0] = new THREE.Color(0xFF0000);
+triangleGeometry.faces[0].vertexColors[1] = new THREE.Color(0x00FF00);
+triangleGeometry.faces[0].vertexColors[2] = new THREE.Color(0x0000FF);</code></pre>
+<p>In order for those colors to be used we have to tell three.js when we create the mesh to use those vertex-colors:</p>
+<pre><code class="language-javascript">var triangleMaterial = new THREE.MeshBasicMaterial({
+    vertexColors:THREE.VertexColors,
+    side:THREE.DoubleSide
+    });</code></pre>
+<p>BTW, notice the curly braces inside the call to the constructor THREE.MeshBasicMaterial. Three.js uses JSON syntax for
+    most (if not all) its function parameter lists. This is very handy and flexible. We'll use the same approach later
+    when we start refactoring the lessons.</p>
+<p>And that's how it is done. Note that under the covers, three.js creates a shader which handles the color interpolation.
+    A shader is a function written in OpenGL Shader language (which we'll cover later on). The shader is passed to the
+    graphics hardware and it drives those thousands of GPU cores to iterate across the surface of the triangle to render
+    the color gradients.</p>
+<p>The square is similar to lesson 2 except that we specify a pale blue color.</p>
+
+<pre><code class="language-javascript">var squareMaterial = new THREE.MeshBasicMaterial({
+      color:0x8080FF,
+      side:THREE.DoubleSide
+      });</code></pre>
+
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all it's rainbow glory!</p>
+</body>
+</html>

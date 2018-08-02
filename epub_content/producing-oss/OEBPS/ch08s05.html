@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Credit</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Credit"><div class="titlepage"><div><div><h1 class="title"><a id="credit"/>Credit</h1></div></div></div><p>Credit is the primary currency of the free software world.
+Whatever people may say about their motivations for participating in a
+project, I don't know any developers who would be happy doing all
+their work anonymously, or under someone else's name.  There are
+tangible reasons for this: one's reputation in a project roughly
+governs how much influence one has, and participation in an open
+source project can also indirectly have monetary value, because
+some employers now look for it on resumés.  There are also
+intangible reasons, perhaps even more powerful: people simply want to
+be appreciated, and instinctively look for signs that their work was
+recognized by others.  The promise of credit is therefore one of best
+motivators the project has.  When small contributions are
+acknowledged, people come back to do more.</p><p>One of the most important features of collaborative development
+software (see <a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a>) is that
+it keeps accurate records of who did what, when.  Wherever possible,
+use these existing mechanisms to make sure that credit is distributed
+accurately, and be specific about the nature of the contribution.
+Don't just write "Thanks to J. Random &lt;jrandom@example.com&gt;" if
+instead you can write "Thanks to J. Random &lt;jrandom@example.com&gt;
+for the bug report and reproduction recipe" in a log message.</p><p>In Subversion, we have an informal but consistent policy of
+crediting the reporter of a bug in either the issue filed, if there is
+one, or the log message of the commit that fixes the bug, if not.  A
+quick survey of Subversion commit logs up to commit number 14525 shows
+that about 10% of commits give credit to someone by name and email
+address, usually the person who reported or analyzed the bug fixed by
+that commit.  Note that this person is different from the developer
+who actually made the commit, whose name is already recorded
+automatically by the version control system.  Of the 80-odd full and
+partial committers Subversion has today, 55 were credited in the
+commit logs (usually multiple times) before they became committers
+themselves.  This does not, of course, prove that being credited was a
+factor in their continued involvement, but it at least sets up an
+atmosphere in which people know they can count on their contributions
+being acknowledged.</p><p>It is important to distinguish between routine acknowledgment
+and special thanks.  When discussing a particular piece of code, or
+some other contribution someone made, it is fine to acknowledge their
+work.  For example, saying "Daniel's recent changes to the delta code
+mean we can now implement feature X" simultaneously helps people
+identify which changes you're talking about and acknowledges Daniel's
+work.  On the other hand, posting solely to thank Daniel for the delta
+code changes serves no immediate practical purpose.  It doesn't add
+any information, since the version control system and other mechanisms
+have already recorded the fact that he made the changes.  Thanking
+everyone for everything would be distracting and ultimately
+information-free, since thanks are effective largely by how much they
+stand out from the default, background level of favorable comment
+going on all the time.  This does not mean, of course, that you should
+never thank people.  Just make sure to do it in ways that tend not to
+lead to credit inflation.  Following these guidelines will
+help:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>The more ephemeral the forum, the more free you
+            should feel to express thanks there.  For example,
+            thanking someone for their bugfix in passing during an IRC
+            conversation is fine, as is an aside in an email devoted
+            mainly to other topics.  But don't post an email solely to
+            thank someone, unless it's for a truly unusual feat.
+            Likewise, don't clutter the project's web pages with
+            expressions of gratitude.  Once you start that, it'll
+            never be clear when or where to stop. And
+            <span class="emphasis"><em>never</em></span> put thanks into comments in the
+            code; that would only be a distraction from the primary
+            purpose of comments, which is to help the reader
+            understand the code.</p></li><li class="listitem"><p>The less involved someone is in the project, the
+            more appropriate it is to thank her for something she
+            did.  This may sound counterintuitive, but it fits with
+            the attitude that expressing thanks is something you do
+            when someone contributes even more than you thought she
+            would.  Thus, to constantly thank regular contributors for
+            doing what they normally do would be to express a lower
+            expectation of them than they have of themselves.  If
+            anything, you want to aim for the opposite effect!</p><p>There are occasional exceptions to this rule.  It's
+            acceptable to thank someone for fulfilling his expected
+            role when that role involves temporary, intense efforts
+            from time to time.  The canonical example is the release
+            manager, who goes into high gear around the time of each
+            release, but otherwise lies dormant (dormant as a release
+            manager, in any case—he may also be an active
+            developer, but that's a different matter).
+            </p></li><li class="listitem"><p>As with criticism and crediting, gratitude should
+            be specific.  Don't thank people just for being great,
+            even if they are.  Thank them for something they did that
+            was out of the ordinary, and for bonus points, say
+            exactly why what they did was so great.</p></li></ul></div><p>In general, there is always a tension between making sure that
+people's individual contributions are recognized, and making sure the
+project is a group effort rather than a collection of individual
+glories.  Just remain aware of this tension and try to err on the
+side of group, and things won't get out of hand.</p></div></body></html>

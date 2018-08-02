@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Rendering Shadows</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+<h2>Lesson 27 - Rendering Shadows</h2>
+
+<p></p>
+<h4>Introduction</h4>
+<p>Rendering shadows in three.js is pretty easy - the renderer does all the heavy lifting. All the developer has to do is set some parameters. However, to make a nice demo, a couple of changes had to be made to GFXScene, so we'll cover those too.</p>
+<h4>Setting Up the Scene</h4>
+<p>First. we set up the scene, which consists of a &quot;back&quot; wall and a floor. The wall is a brick texture and the floor is hardwood. Both of them have both bump maps and roughness maps associated with them </p>
+<p>In an earlier lesson, we covered bump maps, which use a monchromatic image to simulate a 3D surface topography by altering the normal vectors of the surface even if the actual surfaces is flat. Roughness maps, on the other hand, simulate the microscopic characteristics of the surface. The rougher a surface, the more it will reflect light as scattered (diffuse) light i.e. not specular. It's a complicated subject, so won't go into it here, but there is an excellent article <a href="https://www.marmoset.co/posts/basic-theory-of-physically-based-rendering/" title="Physically Based Rendering" target="_blank">here</a>.</p>
+<p>In three.js using a roughness map is as easy as a bump map. One just loads the image that is the roughness map. Here is the code for floor mesh roughness map (omitting the loading of the image and bump maps:</p>
+
+<pre><code class="language-javascript">floorMat = new THREE.MeshStandardMaterial( {
+    roughness: 0.8,
+    color: 0xffffff,
+    bumpScale: 0.005
+});
+
+var textureLoader = new THREE.TextureLoader();
+
+textureLoader.load( "images/hardwood2_roughness.jpg", function( texture ) {
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.anisotropy = 4;
+    texture.repeat.set( FLOOR_S, FLOOR_T );
+    floorMat.side = THREE.DoubleSide;
+    floorMat.roughnessMap = texture;
+    floorMat.needsUpdate = true;
+} );
+
+var floorGeometry = new THREE.PlaneBufferGeometry( 20, 20 );
+var floorMesh = new THREE.Mesh( floorGeometry, floorMat );
+floorMesh.receiveShadow = true;
+floorMesh.rotation.x = -Math.PI / 2.0;
+gfxScene.add( floorMesh );</code></pre>
+
+<p>A few items to note:</p>
+<ul>
+  <li>The material has a roughness value. This is the equivalent to the bump scale. The actual value is rather arbitrary. Experiment to see what looks good.</li>
+  <li>We set an anisotropy value of 4. This makes textures look better when they are farther away from the user - otherwise they would tend to lose detail. Again, the value is relatively arbitrary. 1 is &quot;nothing&quot;, 2 doesn't do much, 4 good whereas 8 and higher doesn't gain much (and takes more GPU power. So 4 is a reasonable tradeoff.</li>
+  <li>In loading the texture we use the newer three.js TextureLoader, which is asynchronous. It the (now deprecated) ImageLoader utility, all processing stops until the image is loaded. In web graphics this is consisdered rude since JavaScript has only one thread it means nothing else can be done until the image is loaded. However, since the loading is asynchronous it makes sense to set the &quot;update&quot; flag on the material as the texture might have been loaded after we have already created the mesh with the texture.</li>
+  <li>We want the shadows to show up on the floor, so we set the flag telling three.js that it should compute shadows for the floor. The default is false so otherwise there wouldn't be shown. As we will see, we also have flag the objects which will CAST shadows.</li>
+</ul>
+
+<p>Next we set up the shapes. There are four of them:</p>
+<ul>
+  <li>A sphere with a earth-texture</li>
+  <li>A torus knot</li>
+  <li>An Icosahedron</li>
+  <li>A monolith like in 2001</li>
+  </ul>
+<p>They are standard meshes, with the addition of a flag that tells three.js that these shapes should cast shadows. Here is the knot's code:</p>
+
+<pre><code class="language-javascript">var knot = new THREE.TorusKnotGeometry(1.5, 0.25, 100, 16);
+var knotMat = new THREE.MeshPhongMaterial({ 
+    color: '#c0c0c0', 
+    emissive: 0x0c0c0, 
+    specular: 0x050505,
+    shininess: 500, 
+    metalness: 0.5  });
+                
+var knotMesh = new THREE.Mesh(knot, knotMat);
+knotMesh.position.set(5,3.25,-5);
+knotMesh.castShadow = true;
+gfxScene.add(knotMesh);</code></pre>
+
+<p>The key aspect is that we set the castShadow flag to true.</p>
+
+<h4>Shadow Support in GFXScene</h4>
+<p>Finally, to make the shadows more interesting we want the directional light (ambient lights don't cast shadows) to move around. However, in its previous form, the lights in the GFXScene object are set up in the object and then are fixed. So we'll need to modify the GFXScene object to make that possible.</p>
+<p>First, instead of a single directional light, a single point light and a single ambient light, we declare that each of the light types. directional, point, spot, ambient and hemispehre lights are arrays: </p>
+
+<pre><code class="language-javascript">this.defaultLights = true;
+this.ambientLights = [];
+this.directionalLights = [];
+this.pointLights = [];
+this.hemisphereLights = [];
+this.spotLights = [];</code></pre>
+
+<p>It isn't really required that ambient and hemispehere lights be arrays since having more than one of them doesn't make a lot of sense, but it make managing them easier, as we shall see.</p>
+
+<p>Now, when the GFXScene is set up, one often doesn't specify anything about lights. That's fine. The dafault is an ambient light, a directional light and a pointlight:</p>
+
+<pre><code class="language-javascript">var ambLight = new THREE.AmbientLight(0x808080);
+this.scene.add( ambLight );
+this.ambientLights.push( ambLight);
+
+var dirLight = new THREE.DirectionalLight(0xc0c0c0);
+dirLight.position.set(5, 20, 12);
+this.scene.add( dirLight );
+this.directionalLights.push( dirLight );
+
+var pointLight = new THREE.PointLight(0xc0c0c0, 0.25);
+pointLight.position.set(15, -20, -12);
+this.scene.add( pointLight );
+this.pointLights.push( pointLight );</code></pre>
+  
+<p>However, as in this case, we want to specify and manage our own lights, then there are two choices. Pass in a parameter <span class="inline-code">defaultLights:false</span> to the constructor, or make the call <span class="inline-code">clearAllLights() </span>to the <span class="inline-code">GFXScene</span> after it has been instantiated. Then set up own lights, like this:</p>
+
+<pre><code class="language-javascript">gfxScene.clearAllLights();
+gfxScene.addLight( 'ambient', { color:0xffffff, intensity : 0.75 });
+var dirLight = gfxScene.addLight( 'directional', { 
+        color:0xffffff, 
+        intensity:0.25,  
+        position:[0,10,0],
+        castShadow:true,
+        debug:true  
+    });</code></pre>
+
+<p>Here we add an ambient light then a directional light. We set an arbitrary location which we will animate later. Note that addLight returns a handle to the light that has been added, which is essntial as we want access so we can animate it's position (or any other aspect of it, should we wish to). Note that we added the parameter debug:true, which causes some additional lines to be drawn showing where the light originates and the geometry of its beams.</p>
+<p>Also note that we set castShadow:true. So to have shadows we need to set three parameters:</p>
+<ul>
+  <li>The light has to be set to <em><strong>cast</strong></em> shadows</li>
+  <li>The object has to be set to <em><strong>cast</strong></em> the shadows</li>
+  <li>The receiver (<em>e.g. </em>the wall or floor) has to <em><strong>receive</strong></em> the shadows</li>
+</ul>
+<p>For debug reasons, we also create a little mesh that will represent the light itself:</p>
+<pre><code class="language-javascript">var sphereLight = new THREE.SphereGeometry(0.2);
+var sphereLightMaterial = new THREE.MeshBasicMaterial({color: 0xac6c25});
+sphereLightMesh = new THREE.Mesh(sphereLight, sphereLightMaterial);
+sphereLightMesh.castShadow = true;
+gfxScene.add(sphereLightMesh);</code></pre>
+<h4>Animating the Shadows</h4>
+<p>In the animateScene method we then have this code:</p>
+
+<pre><code class="language-javascript">var timer = Date.now() * 0.01;
+
+sphereLightMesh.position.set(
+    Math.cos( timer * 0.1 ) * ORBIT_RADIUS,
+    Math.abs( ORBIT_ELEV + Math.cos( timer * 0.2 ) ) * 2,
+    Math.sin( timer * 0.1 ) * ORBIT_RADIUS
+);
+
+dirLight.position.copy(sphereLightMesh.position);</code></pre>
+
+<p>This causes the light itself to to circle around oscillating up and down as it goes and our little debug mesh does as well.</p>
+<p>And that's it!  Click on <a href="lesson27webgl.xhtml" title="Lesson 27" target="_self">this link</a> to see the actual rendered demo in all it's shadowy glory!</p>
+<p>As always, the original sources are on github <a href="https://github.com/rkwright/nehe-three-js" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+</body>
+</html>

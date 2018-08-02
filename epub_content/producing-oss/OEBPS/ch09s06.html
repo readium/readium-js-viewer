@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Dual Licensing Schemes</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Dual Licensing Schemes"><div class="titlepage"><div><div><h1 class="title"><a id="dual-licensing"/>Dual Licensing Schemes</h1></div></div></div><p>Some projects try to fund themselves by using a dual licensing
+scheme, in which proprietary derivative works may pay the copyright
+holder for the right to use the code, but the code still remains free
+for use by open source projects.  This tends to work better with code
+libraries than with standalone applications, naturally.  The exact
+terms differ from case to case.  Often the license for the free side
+is the GNU GPL, since it already bars others from incorporating the
+covered code into their proprietary product without permission from
+the copyright holder, but sometimes it is a custom license that has
+the same effect.  An example of the former is the MySQL license,
+described at
+<a class="ulink" href="http://www.mysql.com/company/legal/licensing/">http://www.mysql.com/company/legal/licensing/</a>; an
+example of the latter is Sleepycat Software's licensing strategy,
+described at <a class="ulink" href="http://www.oracle.com/technology/software/products/berkeley-db/htdocs/licensing.html">http://www.oracle.com/technology/software/products/berkeley-db/htdocs/licensing.html</a>.</p><p>You might be wondering: how can the copyright holder offer
+proprietary licensing for a mandatory fee if the terms of the GNU GPL
+stipulate that the code must be available under less restrictive
+terms?  The answer is that the GPL's terms are something the copyright
+holder imposes on everyone else; the owner is therefore free to
+decide <span class="emphasis"><em>not</em></span> to apply those terms to itself.  A
+good way to think of it is to imagine that the copyright owner has an
+infinite number of copies of the software stored in a bucket.  Each
+time it takes one out of the bucket to send into the world, it can
+decide what license to put on it: GPL, proprietary, or something else.
+Its right to do this is not tied to the GPL or any other open source
+license; it is simply a power granted by copyright law.</p><p>The attractiveness of dual licensing is that, at its best, it
+provides a way for a free software project to get a reliable income
+stream.  Unfortunately, it can also interfere with the normal dynamics
+of open source projects.  The problem is that any volunteer who makes
+a code contribution is now contributing to two distinct entities: the
+free version of the code and the proprietary version.  While the
+contributor will be comfortable contributing to the free version,
+since that's the norm in open source projects, she may feel funny
+about contributing to someone else's semi-proprietary revenue stream.
+The awkwardness is exacerbated by the fact that in dual licensing, the
+copyright owner really needs to gather formal, signed copyright
+assignments from all contributors, in order to protect itself from a
+disgruntled contributor later claiming a percentage of royalties from
+the proprietary stream.  The process of collecting these assignment
+papers means that contributors are starkly confronted with the fact
+that they are doing work that makes money for someone else.</p><p>Not all volunteers will be bothered by this; after all, their
+contributions go into the open source edition as well, and that may be
+where their main interest lies.  Nevertheless, dual licensing is an
+instance of the copyright holder assigning itself a special right that
+others in the project do not have, and is thus bound to raise
+tensions at some point, at least with some volunteers.</p><p>What seems to happen in practice is that companies based on
+dual licensed software do not have truly egalitarian development
+communities.  They get small-scale bug fixes and cleanup patches from
+external sources, but end up doing most of the hard work with internal
+resources.  For example, Zack Urlocker, vice president of marketing at
+MySQL, told me that the company generally ends up hiring the most
+active volunteers anyway.  Thus, although the product itself is open
+source, licensed under the GPL, its development is more or less
+controlled by the company, albeit with the (extremely unlikely)
+possibility that someone truly dissatisfied with the company's
+handling of the software could fork the project.  To what degree this
+threat preëmptively shapes the company's policies I don't know,
+but at any rate, MySQL does not seem to be having acceptance problems
+either in the open source world or beyond.</p></div></body></html>

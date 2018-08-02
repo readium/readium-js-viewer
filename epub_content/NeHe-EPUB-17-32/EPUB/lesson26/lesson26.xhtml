@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Reflection</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+
+<h2>Lesson 26 - Reflection</h2>
+<p></p>
+<h4>Introduction</h4>
+
+<p>This lesson is a little different in that it uses a separate three.js library written by Sylvain Hittelet<a href="http://slayvin.net" title="Sylvain Hittelet" target="_blank"> (http://slayvin.net</a>) to perform the reflection. The scene comprises a flat plane which has a mirror-like surface and reflects the other items (a ball, a bouncing icosahedron, etc.)  in the mirror. The reflection is implemented by instantiating another camera, which is located under the mirror's surface (plane) and pointed upwards. Then the rendered result of that camera is used as the material (texture) for the mirror.</p>
+<h4>Initialization</h4>
+<p>In the X-Z plane of the scene there is a <span class="inline-code">PlaneBuffferGeometry</span> which forms the geometry of the mirror. Then the <span class="inline-code">Mirror</span> object is instantiated.</p>
+
+<pre><code class="language-javascript">var planeGeo = new THREE.PlaneBufferGeometry( 20, 20 );
+
+groundMirror = new THREE.Mirror( gfxScene.renderer, gfxScene.camera, { 
+        textureWidth: gfxScene.canvasWidth, 
+        textureHeight: gfxScene.canvasHeight, 
+        color: 0x505050, 
+        debugMode : true 
+    });
+
+var mirrorMesh = new THREE.Mesh( planeGeo, mirror.material );
+mirrorMesh.add( groundMirror );
+mirrorMesh.rotateX( -Math.PI / 2 );
+gfxScene.add( mirrorMesh );</code></pre>
+
+<p>The <span class="inline-code">Mirror</span> constructor takes the renderer. This is so it is rendering with same renderer; same geometry, clear-color, etc. Similarly, it takes the scene's camera (which it clones) so that the mirror-camera has the same geometry and so on. Internally, the mirror renders to a <span class="inline-code">Material</span>, so the sizes passed in are used to set the size of the texture for that material. </p>
+<p>The color controls the blending (additive masking) of what the camera renders into the texture. If the color is white, then the resulting texture is pure white, while if black is passed in then nothing of what the camera renders gets blended into the material and so the material is just black. So a color in the mid-gray such as 0x808080 works best. If the color is not gray, then as you might expect, the mirror is tinted in that color. Finally, the debug flag causes the <span class="inline-code">Mirror</span> object to use the three.js <span class="inline-code">ArrowHelper</span> to show where the camera is pointing and draw a yellow border around the mirror.
+</p>
+
+<p>Then we set up the back wall which is just a plane with a brick-like texture. Then  we add a &quot;beachball&quot;, wrapping a spherized bitmap aroud it.  
+Finally, we add a little icosahedron to provide something moving to the mix.</p>
+
+<pre><code class="language-javascript">var texture = new THREE.ImageUtils.loadTexture("images/envwall.png");
+texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+texture.repeat.set( 4, 4 );
+
+var planeBack = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { map: texture } ));
+planeBack.position.z = -10;
+planeBack.position.y = 10;
+gfxScene.add( planeBack );
+
+var sphereGeom = new THREE.SphereGeometry(1.5, 32, 32);
+var ballTexture = new THREE.ImageUtils.loadTexture("images/ball.png");
+var mat = new THREE.MeshLambertMaterial({ map:ballTexture });
+var mesh = new THREE.Mesh(sphereGeom, mat);
+mesh.position.y = 1.5;
+
+gfxScene.add(mesh);
+
+var geometry = new THREE.IcosahedronGeometry( 0.5, 0 );
+var material = new THREE.MeshPhongMaterial( { 
+    color: 0xffffff, 
+    emissive: 0x333333, 
+    shading: THREE.FlatShading } );
+
+smallSphere = new THREE.Mesh( geometry, material );
+gfxScene.add(smallSphere);</code></pre>
+
+
+<h4>Animating the Scene</h4>
+<p>Finally, here is the animateScene function. Note that we have to explicitly call the <span class="inline-code">Mirror's</span> render function. Then we animate the icosahedron. It isn't really bouncing - it is following a circular path around the origin and it's vertical motion is simply a sinusoidal function.</p>
+
+<pre><code class="language-javascript">function animateScene() {
+	
+    requestAnimationFrame(animateScene);
+
+    groundMirror.render();
+
+    var timer = Date.now() * 0.01;
+
+    smallSphere.position.set(
+        Math.cos( timer * 0.1 ) * 3,
+        Math.abs( Math.cos( timer * 0.2 ) ) * 2 + 0.5,
+        Math.sin( timer * 0.1 ) * 3
+    );
+    
+    smallSphere.rotation.y = ( Math.PI / 2 ) - timer * 0.1;
+    smallSphere.rotation.z = timer * 0.8;
+
+    gfxScene.renderScene();
+}</code></pre>
+      
+<p>One final note. If you rotate the scene so one is looking up <em>through</em> the mirror, it appears that the mirror has disappeared and has become clear glass. This is because the material generated by the mirror library is one-sided so it is transparent on the other side.</p>
+<p>And that's it!  Click on <a href="lesson26webgl.xhtml" title="Lesson 26" target="_self">this link</a> to see the actual rendered demo in all it's mirrored glory!</p>
+<p>As always, the original sources are on github <a href="https://github.com/rkwright/nehe-three-js" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+</body>
+</html>

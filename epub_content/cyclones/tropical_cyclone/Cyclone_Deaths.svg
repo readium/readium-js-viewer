@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 width="600" height="440" viewBox="20 -6.06 600 440" xml:space="preserve" font-family="Arial,sans-serif" font-weight="bold" font-size="24">
+<defs>
+<radialGradient id="G" cx="306.2471" cy="347.8843" r="262.0687" gradientTransform="matrix(1.2063 0 0 0.6031 -44.9321 9.2149)"
+   gradientUnits="userSpaceOnUse">
+	<stop  offset="0" style="stop-color:#000000"/>
+	<stop  offset="0.3168" style="stop-color:#020202"/>
+	<stop  offset="0.4473" style="stop-color:#090909"/>
+	<stop  offset="0.5434" style="stop-color:#151515"/>
+	<stop  offset="0.6227" style="stop-color:#272727"/>
+	<stop  offset="0.6916" style="stop-color:#3E3E3E"/>
+	<stop  offset="0.7523" style="stop-color:#595959"/>
+	<stop  offset="0.7753" style="stop-color:#666666"/>
+	<stop  offset="0.8202" style="stop-color:#989898"/>
+	<stop  offset="0.8664" style="stop-color:#C4C4C4"/>
+	<stop  offset="0.9079" style="stop-color:#E4E4E4"/>
+	<stop  offset="0.9426" style="stop-color:#F8F8F8"/>
+	<stop  offset="0.9663" style="stop-color:#FFFFFF"/>
+</radialGradient>
+<clipPath id="SC">
+	<rect x="25" y="0" width="590" height="400"/>
+</clipPath>
+</defs>
+<ellipse clip-path="url(#SC)" fill="url(#G)" cx="324.5" cy="219.04" rx="324.5" ry="152.6">
+<desc>pie chart shadow</desc>
+</ellipse>
+<g stroke="#000">
+<desc>pie chart</desc>
+<path fill="#FF3921" d="M309.67,183.06l-0.21,140.3c0,0-59.01,7.22-140.92-19.81C86.39,276.44,26.66,232.16,40.49,168.21c14-64.77,90.51-101.3,197.38-120.49c105.25-18.9,215.45,15.2,215.45,15.2L309.67,183.06z"/>
+<path fill="#FFAD08" d="M572.11,145.92L310.5,182.65l244.28,59.01c0,0,20.84-19.81,25.17-43.74C584.28,173.98,572.11,145.92,572.11,145.92z"/>
+<path fill="#FBEB3B" d="M554.78,241.66l-245.93-59.01l117.19,126.88c0,0,39.1-8.15,71.39-24.96S554.78,241.66,554.78,241.66z"/>
+<path fill="#B1D135" d="M425.62,309.33c0,0-14.68,4.18-30.78,7.06s-34.42,6.14-33.59,4.49s-52.82-137.41-52.82-137.41L425.62,309.33z"/>
+<path fill="#5BA231" d="M310.03,183.6l51.56,137.84c0,0-10.49,1.12-18.88,1.63c-8.39,0.51-14.88,0-14.88,0L310.03,183.6z"/>
+<path fill="#3E8753" d="M328.03,323.36h-18.36l-0.41-139.06L328.03,323.36z"/>
+<path fill="#FF682C" d="M572.14,146.08l-262.12,36.35L453.58,62.8c0,0,33.86,12.06,65.36,29.18C549.66,108.67,572.14,146.08,572.14,146.08z"/>
+<g fill="none" stroke-width="2">
+<path d="M394.26,316.34l11.97,16.51"/>
+<path d="M345.16,323.36l7.84,27.23"/>
+<path d="M318.34,322.94l9.08,48.69"/>
+</g>
+</g>
+<text transform="translate(70 427)" font-weight="normal" font-size="11">Source: Edward Rappaport - Chief, Technical Support Branch, Tropical Prediction Center</text>
+<text transform="translate(414 345)">Tornado 4%</text>
+<text x="30" y="15" font-size="18">Leading Causes of Tropical Cyclone Deaths in the U.S. 1970-1999</text>
+<text transform="translate(355 369)">Other 2%</text>
+<text transform="translate(314 396)">Surge 1%</text>
+<use xlink:href="#Labels" transform="translate(1 1)" fill="#666">
+<desc>label shadows</desc>
+</use>
+<g fill="#FFF">
+<g id="Labels">
+<text transform="translate(113 144)"><tspan>Freshwater </tspan><tspan x="13.38" y="26">Flooding </tspan><tspan x="40.01" y="52">59%</tspan></text>
+<text transform="translate(434 112)"><tspan>Wind</tspan><tspan x="0" y="26"> 12%</tspan></text>
+<text transform="translate(445 194)">Surf 11%</text>
+<text transform="translate(376 246)"><tspan>Offshore </tspan><tspan x="25.99" y="26">11%</tspan></text>
+</g>
+</g>
+</svg>

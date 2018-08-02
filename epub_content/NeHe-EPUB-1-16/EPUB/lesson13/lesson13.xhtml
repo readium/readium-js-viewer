@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-08</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 13 - Bitmap Fonts and  Canvas 2d</h2>
+
+
+<p>Lesson 13 in NeHe is about using bitmapped fonts. This was important in the old days because support for vector fonts was very limited. For a long time, only Windows supported vector fonts (via the infamous &quot;wgl&quot; functions, so named because they were all prefixed with <em>wgl</em>). So being able to render text via bitmap fonts was actually important. Lesson 13 showed how to paint text on the screen via function glPrint, whch wrapped the wgl functions.</p>
+<p>The sequence was</p>
+<ul>
+  <li>Load a  font with specfied font-family, font-weight, size, etc. using the wgl functions</li>
+  <li>Specify the  location of the text to be rendered  </li>
+  <li>Create a raster image on the fly with the text passed in </li>
+  <li>Render it at the specified location</li>
+</ul>
+<p>The wgl fucntions (as well as the Apple agl and Linux glx functions) no longer exist. Three.js supports vector fonts (lesssons 14 and 15) so being able to render bitmap fonts <em>per se</em> isn't that interesting. Instead, this lesson will show how to combine three.js' support for creating textures from HTML5's Canvas2D and three.js sprites to generate &quot;text sprites&quot;.  Sprites are a special type of geometry where the face of the geometry is always directly facing the camera. This can be handy if you are displaying some explanatory material or other info that isn't really intended to be part of the scene or SHOULD always be facing the camera.</p>
+<p>So this lesson's content are some functions that allow you to render a sprite with specified text at a specified location. In additon, you can specify:</p>
+<ul>
+  <li>Font family, size, weight, etc.</li>
+  <li>Position of the sprite</li>
+  <li>Alignment of the sprite</li>
+  <li>Color of the sprite's background (including transparency)</li>
+  <li>Rounded corners</li>
+</ul>
+<p>So let's walk through the code and see how it works.</p>
+<p>The demo creates a wireframe cube just to provide some reference (as well as the usual axes):</p>
+
+<pre><code class="language-javascript">var cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+var cubeMaterial = new THREE.MeshNormalMaterial( { wireframe:true } );
+cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+cube.position.set(0,0,0);
+gfxScene.add(cube);</code></pre>
+
+<p>The function that makes the sprite is <span class="inline-code">makeTextSprite( message, x, y, z, parameters )</span>where <span class="inline-code">message</span> is the string to be rendered, <span class="inline-code">x,y,z</span> are the coordinates where the text is to be rendered, expressed in the current coordinate system.  <span class="inline-code">parameters</span> is a JSON array which can contain the following parameters:</p>
+<ul>
+  <li><span class="inline-code">fontface</span> (default is Arial)</li>
+  <li> <span class="inline-code">fontsize</span> (in pixels, default is 18)</li>
+  <li><span class="inline-code">borderThickness</span> (in pixels, default is 4)  </li>
+  <li><span class="inline-code">borderColor</span> (expressed as a JSON array, default is none) </li>
+  <li><span class="inline-code">fillColor</span> (expressed as a JSON array, default is { r:255, g:255, b:255, a:1.0 })</li>
+  <li> <span class="inline-code">textColor</span> (expressed as a JSON array, default is { r:0, g:0, b:0, a:1.0 })</li>
+  <li> <span class="inline-code">radius</span> (radius of corner, in pixels, default is 6)</li>
+  <li> <span class="inline-code">vAlign</span> (how text is aligned vertically, one of &quot;<span class="inline-code">top, center, bottom</span>&quot;, default is &quot;<span class="inline-code">center</span>&quot;)</li>
+  <li> <span class="inline-code">hAlign</span> (how text is aligned horizontally, one of &quot;<span class="inline-code">left, center, right</span>&quot;, default is &quot;<span class="inline-code">center</span>&quot;)</li>
+</ul>
+<p>Here is one call as an example</p>
+
+<pre><code class="language-javascript">var txSprite1 = makeTextSprite( "Bottom-Right", -1, 1, 0.25, { fontsize: 72, 
+            fontface: "Georgia", borderColor: {r:0, g:0, b:255, a:1.0}, 
+            borderThickness:4, fillColor: {r:255, g:255, b:255, a:1.0}, 
+            radius:0, vAlign:"bottom", hAlign:"right" } );
+gfxScene.add( txSprite1 );</code></pre>
+
+<p>A word about the alignment flags. The flags indicate which part of the text string is aligned to the specified position. <span class="inline-code">bottom</span> aligns the baseline of the string to the position. <span class="inline-code">top</span> aligns top of the character cell to the point. <span class="inline-code">right</span> aligns the end of bounding box for the string to the point, while <span class="inline-code">left</span> aligns the beginning of the bounding box. <span class="inline-code">center</span> for horizontal alignment uses the center of the string's bounding box. <span class="inline-code">center</span> for vertical alignment uses the midpoint between the baseline and top of the character cell. Note that the descenders of the string (e.g. 'g', 'p' and other characters whose lower part extend below the baseline aren't taken into account. So here is what the above call would result in:</p>
+<p><img src="images/BottomRight.png" width="486" height="289" alt=""/></p>
+<p>The crosshairs and little red dot are simply debug references, they aren't normally drawn.</p>
+<p>So let's take a look at how the sprite is created. The first step is to create a canvas-2d context. </p>
+
+<pre><code class="language-javascript">var canvas = document.createElement('canvas');
+var context = canvas.getContext('2d');
+
+canvas.width = 1800;
+canvas.height = 900;</code></pre>
+
+<p>Note that set an arbitrarily large size to the canvas. We don't care if it is oversize since the sprite is transparent, so only what we explicitly draw will be visible.  First we set up the font. We set alignment to &quot;left&quot; since we'll do the alignment ourselves.</p>
+
+<pre><code class="language-javascript">context.font = fontsize + "px " + fontface;
+context.textBaseline = "alphabetic";
+context.textAlign = "left";</code></pre>
+
+<p>Then we fetch all the various metrics information we'll need to position the text. Then we find the center of the canvas and the half of the font width and height. We do it this way because the sprite's position is the CENTER of the sprite. </p>
+
+<pre><code class="language-javascript">var metrics = context.measureText( message );
+var textWidth = metrics.width;
+var cx = canvas.width / 2;
+var cy = canvas.height / 2;  
+var tx = textWidth/ 2.0;
+var ty = fontsize / 2.0;</code></pre>
+           
+<p>Then we calculate the offsets for the alignment. Since the position is the center of the sprite, then if the request is to center the text, we don't have to do anything.</p>
+	
+<pre><code class="language-javascript">if ( vAlign == "bottom")
+    ty = 0;
+else if (vAlign == "top")
+    ty = fontsize;
+
+if (hAlign == "left")
+    tx = 0;
+else if (hAlign == "right")
+    tx = textWidth;</code></pre>
+    
+<p>Next, we draw the rectangle (assuming the user asked for one).</p>
+
+		
+<pre><code class="language-javascript">roundRect(context, cx - tx , cy + ty + 0.28 * fontsize,
+				textWidth, fontsize * DESCENDER_ADJUST, radius, 
+                borderThickness, borderColor, fillColor);</code></pre>
+
+<p> The constant <span class="inline-code">DESCENDER_ADJUST</span> is an extra fudge factor for text with descenders the below baseline since we don't know the true bounding box of the text (only the height above the baseline). <span class="inline-code">roundRect</span> itself is very straightforward, we just set the border color and thickness if requested and draw the rect.</p>
+<p>Finally, we set the text color and draw the text. Note that we have to wait until we draw the text to set its color because <span class="inline-code">roundRect</span> may have set the fillstyle to  fill  the rect.</p>
+<pre><code class="language-javascript">context.fillStyle = getCanvasColor(textColor);
+context.fillText( message, cx - tx, cy + ty);</code></pre>
+
+<p>Almost done. Create a texture from the canvas, then a <span class="inline-code">SpriteMaterial</span> from the texture and finally, the sprite itself.</p>
+
+<pre><code class="language-javascript">var texture = new THREE.Texture(canvas);
+texture.needsUpdate = true;
+
+var spriteMaterial = new THREE.SpriteMaterial( { map: texture } );
+var sprite = new THREE.Sprite( spriteMaterial );</code></pre>
+
+<p>The last step is to set the sprite's scale to 2:1.  The canvas is already at a 2:1 scale (1800x900),
+		but the sprite itself is square: 1.0 x 1.0. Note also that the size of the scale factors controls the actual size of the text-label. The value of the scale is somewhat arbitrary. Finally, set the sprite's position, which  is in the CENTER of the sprite.</p>
+
+<pre><code class="language-javascript">sprite.scale.set(4,2,1);
+sprite.position.set(x, y, z);</code></pre>
+
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its spritely glory!</p>
+</body>
+</html>
