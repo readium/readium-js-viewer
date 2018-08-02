@@ -22,7 +22,7 @@ define([
 './Keyboard',
 './versioning/ReadiumVersioning',
 'readium_shared_js/helpers',
-'readium_cfi_js/XmlParse'],
+'readium_shared_js/XmlParse'],
 
 function(
 moduleConfig,

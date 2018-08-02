@@ -131,7 +131,7 @@ define(['StorageManager', '../storage/ZipFileLoader', '../storage/UnpackedDirLoa
             this.fileLoader.loadFile(path, function(blob){
                 if (blob){
                     fileReader.onload = function() {
-                        // readium_cfi_js/XmlParse
+                        // readium_shared_js/XmlParse
                         // var xmlDom = XmlParse.fromString(this.result, "text/xml");
                         callback(this.result);
                     };

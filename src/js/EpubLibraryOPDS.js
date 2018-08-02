@@ -2,7 +2,7 @@ define([
 './ModuleConfig',
 'jquery',
 'URIjs',
-'readium_cfi_js/XmlParse'
+'readium_shared_js/XmlParse'
 ],
 
 function(

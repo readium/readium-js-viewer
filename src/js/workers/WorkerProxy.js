@@ -1,4 +1,4 @@
-define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_js/epub-fetch/encryption_handler', 'readium_cfi_js/XmlParse'], function(moduleConfig, Messages, $, PackageParser, EncryptionHandler, XmlParse){
+define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_js/epub-fetch/encryption_handler', 'readium_shared_js/XmlParse'], function(moduleConfig, Messages, $, PackageParser, EncryptionHandler, XmlParse){
 
     var worker;
     var cleanupWorker = function(){
