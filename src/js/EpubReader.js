@@ -76,6 +76,8 @@ BookmarkData){
     // (bad naming convention, hard to find usages of "el")
     var el = document.documentElement;
 
+    var _renditionSelection = undefined;
+       
     var tooltipSelector = function() {
         return 'nav *[title], #readium-page-btns *[title]';
     };
@@ -157,6 +159,34 @@ BookmarkData){
     // This function will retrieve a package document and load an EPUB
     var loadEbook = function (readerSettings, openPageRequest) {
 
+        _renditionSelection = {
+            renditionLanguage: readerSettings.renditionSelectionLanguage,
+            renditionAccessMode: readerSettings.renditionSelectionAccessMode,
+            renditionLayout: readerSettings.renditionSelectionLayout,
+            renditionReload: _.debounce(function() {
+                
+                console.debug("renditionMediaQueryCallback");
+        
+                var urlParams = Helpers.getURLQueryParams();
+                //var ebookURL = urlParams['epub'];
+                var libraryURL = urlParams['epubs'];
+                //var embedded = urlParams['embedded'];
+                
+                var data = {
+                    embedded: embedded,
+                    epub: ebookURL,
+                    epubs: libraryURL
+                };
+                
+                console.debug("embedded: " + embedded);
+                console.debug("epub: " + ebookURL_filepath);
+                console.debug("epubs: " + libraryURL);
+                
+                unloadReaderUI();
+                applyKeyboardSettingsAndLoadUi(data);
+            }, 500, false)
+        };
+        
         readium.openPackageDocument(
             
             ebookURL,
@@ -196,6 +226,9 @@ BookmarkData){
                 }));
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
+                
+                SettingsDialog.updateMultipleRenditions(readium.reader.getMultipleRenditions(), _renditionSelection);
+
                 $("#left-page-btn").mouseleave(function() {
                   $(tooltipSelector()).tooltip('destroy');
                 });
@@ -203,7 +236,8 @@ BookmarkData){
                   $(tooltipSelector()).tooltip('destroy');
                 });
             },
-            openPageRequest
+            openPageRequest,
+            _renditionSelection
         );
     };
 
@@ -758,6 +792,16 @@ BookmarkData){
     var savePlace = function(){
 
         var bookmarkString = readium.reader.bookmarkCurrentPage();
+
+        var multipleRenditions = readium.reader.getMultipleRenditions();
+        if (multipleRenditions) {
+            var rendition = multipleRenditions.renditions[multipleRenditions.selectedIndex];
+
+            var bookMark = JSON.parse(bookmarkString);
+            bookMark["opf"] = rendition.opfPath;
+            bookmarkString = JSON.stringify(bookMark);
+        }
+        
         // Note: automatically JSON.stringify's the passed value!
         // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
         Settings.put(ebookURL_filepath, bookmarkString, $.noop);
@@ -1155,14 +1199,18 @@ BookmarkData){
 
             _debugBookmarkData_goto = undefined;
             var openPageRequest;
-            if (settings[ebookURL_filepath]){
+
+            if (settings[ebookURL_filepath]) {
+
+                //see savePlace() which stores reader.bookmarkCurrentPage() at every PAGINATION_CHANGED event.
+
                 // JSON.parse() *first* because Settings.getMultiple() returns raw string values from the key/value store (unlike Settings.get()) 
                 var bookmark = JSON.parse(settings[ebookURL_filepath]);
                 // JSON.parse() a *second time* because the stored value is readium.reader.bookmarkCurrentPage(), which is JSON.toString'ed
                 bookmark = JSON.parse(bookmark);
                 if (bookmark && bookmark.idref) {
                     //console.log("Bookmark restore: " + JSON.stringify(bookmark));
-                    openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
+                    openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI, opfPath: bookmark.opf};
                     console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
                 }
             }
@@ -1328,6 +1376,7 @@ BookmarkData){
             if (settings.reader){
                 readerSettings = settings.reader;
             }
+
             if (!embedded){
                 readerSettings = readerSettings || SettingsDialog.defaultSettings;
                 SettingsDialog.updateReader(readium.reader, readerSettings);

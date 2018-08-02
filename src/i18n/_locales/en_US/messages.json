@@ -301,7 +301,53 @@
   "i18n_scroll_mode_continuous" : {
     "message" : "Continuous"
   },
-
+  
+  "i18n_multipleRenditions" : {
+    "message" : "Renditions"
+  },
+  "i18n_multipleRenditionsList" : {
+    "message" : "AVAILABLE RENDITIONS"
+  },
+  "i18n_multipleRenditionsSelect" : {
+    "message" : "Pick values"
+  },
+  
+  "i18n_renditionsAccessMode" : {
+    "message" : "ACCESS MODE"
+  },
+  "i18n_renditionsAccessMode_None" : {
+    "message" : "Default"
+  },
+  "i18n_renditionsAccessMode_Textual" : {
+    "message" : "Textual"
+  },
+  "i18n_renditionsAccessMode_Visual" : {
+    "message" : "Visual"
+  },
+  "i18n_renditionsAccessMode_Auditory" : {
+    "message" : "Auditory"
+  },
+  "i18n_renditionsAccessMode_Tactile" : {
+    "message" : "Tactile"
+  },
+  
+  "i18n_renditionsLayout" : {
+    "message" : "LAYOUT"
+  },
+  "i18n_renditionsLayout_None" : {
+    "message" : "Default"
+  },
+  "i18n_renditionsLayout_Reflowable" : {
+    "message" : "Reflowable"
+  },
+  "i18n_renditionsLayout_Prepaginated" : {
+    "message" : "Pre-paginated"
+  },
+  
+  "i18n_renditionsLanguage" : {
+    "message" : "LANGUAGE"
+  },
+  
   "i18n_page_transition" : {
     "message" : "PAGE EFFECTS"
   },

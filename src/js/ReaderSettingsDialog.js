@@ -36,7 +36,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         $previewText.addClass(newTheme);
         $previewText.attr('data-theme', newTheme);
     }
-
+    
     var updateReader = function(reader, readerSettings){
         reader.updateSettings(readerSettings); // triggers on pagination changed
 
@@ -49,7 +49,82 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             $('#reading-area').css(bookStyles[0].declarations);
         }
     }
+    
+    var setRenditionInfo = function(readerSettings) {
 
+        if (readerSettings.renditionSelectionAccessMode === "textual")
+        {
+            $('#renditions-AccessMode-textual-option input').prop('checked', true);
+        }
+        else if (readerSettings.renditionSelectionAccessMode === "visual")
+        {
+            $('#renditions-AccessMode-visual-option input').prop('checked', true);
+        }
+        else if (readerSettings.renditionSelectionAccessMode === "auditory")
+        {
+            $('#renditions-AccessMode-auditory-option input').prop('checked', true);
+        }
+        else if (readerSettings.renditionSelectionAccessMode === "tactile")
+        {
+            $('#renditions-AccessMode-tactile-option input').prop('checked', true);
+        }
+        else
+        {
+            $('#renditions-AccessMode-none-option input').prop('checked', true);
+        }
+        
+        if (readerSettings.renditionSelectionLayout === "reflowable")
+        {
+            $('#renditions-Layout-reflowable-option input').prop('checked', true);
+        }
+        else if (readerSettings.renditionSelectionLayout === "pre-paginated")
+        {
+            $('#renditions-Layout-prepaginated-option input').prop('checked', true);
+        }
+        else
+        {
+            $('#renditions-Layout-none-option input').prop('checked', true);
+        }
+        
+        if (!readerSettings.renditionSelectionLanguage || readerSettings.renditionSelectionLanguage === "")
+        {
+            $('#renditions-Language-text').val('');
+        }
+        else
+        {
+            $('#renditions-Language-text').val(readerSettings.renditionSelectionLanguage);
+        }
+    }
+    
+    var updateMultipleRenditions = function(multipleRenditions, renditionSelection) {
+        var $list = $('#multipleRenditionsList');
+        $list.empty();
+        
+        if (!multipleRenditions || !multipleRenditions.renditions) {
+            $list.html("");
+            return;
+        }
+        
+        $list.data("renditions", multipleRenditions);
+        $list.data("renditionsSelection", renditionSelection);
+        
+        for (var i = 0; i < multipleRenditions.renditions.length; i++) {
+            var rendition = multipleRenditions.renditions[i];
+            $list.append("<li style='border: 1px solid #ccbbcc;" + (i == multipleRenditions.selectedIndex ? "background-color:#ddddee;" : "") + "'>" + "<button style='float: right;' class='renditionSelect' id='renditionSelect_" + i + "' data-renditionIndex='"+i+"'>" + Strings.i18n_multipleRenditionsSelect + "</button>" + "<strong><u>Label</u>: </strong>" + (rendition.Label ? rendition.Label : "") + "<br/>" + "<strong>Layout: </strong>" + (rendition.Layout ? rendition.Layout : "") + "<br/>" + "<strong>Language: </strong>" + (rendition.Language ? rendition.Language : "") + "<br/>" + "<strong>AccessMode: </strong>" + (rendition.AccessMode ? rendition.AccessMode : "") + "<br/>" + "<strong>Media: </strong>" + (rendition.Media ? rendition.Media : "") + "<br/>" + "<strong>OPF: </strong>" + (rendition.opfPath ? rendition.opfPath : "") + "</li>");
+        }
+        
+        $(".renditionSelect").on("click", function() {
+            var i = parseInt($(this).attr("data-renditionIndex"));
+            var rendition = $list.data("renditions").renditions[i];
+        
+            setRenditionInfo({
+                renditionSelectionAccessMode: rendition.AccessMode,
+                renditionSelectionLayout: rendition.Layout,
+                renditionSelectionLanguage: rendition.Language
+            });
+        });
+    }
+    
     var updateSliderLabels = function($slider, val, txt, label)
     {
         $slider.attr("aria-valuenow", val+"");
@@ -233,7 +308,9 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 {
                     $('#pageTransition-none-option input').prop('checked', true);
                 }
-
+                
+                setRenditionInfo(readerSettings);
+                
                 if (readerSettings.theme){
                     setPreviewTheme($previewText, readerSettings.theme);
                 }
@@ -283,6 +360,46 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 readerSettings.pageTransition = -1;
             }
 
+        
+            if ($('#renditions-AccessMode-textual-option input').prop('checked'))
+            {
+                readerSettings.renditionSelectionAccessMode = "textual";
+            }
+            else if ($('#renditions-AccessMode-visual-option input').prop('checked'))
+            {
+                readerSettings.renditionSelectionAccessMode = "visual";
+            }
+            else if ($('#renditions-AccessMode-auditory-option input').prop('checked'))
+            {
+                readerSettings.renditionSelectionAccessMode = "auditory";
+            }
+            else if ($('#renditions-AccessMode-tactile-option input').prop('checked'))
+            {
+                readerSettings.renditionSelectionAccessMode = "tactile";
+            }
+            else
+            {
+                readerSettings.renditionSelectionAccessMode = "";
+            }
+            
+            if ($('#renditions-Layout-reflowable-option input').prop('checked'))
+            {
+                readerSettings.renditionSelectionLayout = "reflowable";
+            }
+            else if ($('#renditions-Layout-prepaginated-option input').prop('checked'))
+            {
+                readerSettings.renditionSelectionLayout = "pre-paginated";
+            }
+            else
+            {
+                readerSettings.renditionSelectionLayout = "";
+            }
+            
+            // TODO check input syntax? (IETF language tag + script subtag)
+            readerSettings.renditionSelectionLanguage = $('#renditions-Language-text').val();
+            
+            
+            
             readerSettings.theme = $previewText.attr('data-theme');
             if (reader){
                updateReader(reader, readerSettings);
@@ -324,6 +441,15 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 setTimeout(function()
                 {
                     Keyboard.applySettings(json);
+                    
+                    var $list = $('#multipleRenditionsList');
+            
+                    //var multipleRenditions = $list.data("renditions");
+                    var renditionSelection = $list.data("renditionsSelection");
+                    if (renditionSelection && renditionSelection.renditionReload) {
+                        renditionSelection.renditionReload();
+                    }
+                    
                 }, 100);
             });
         };
@@ -362,6 +488,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
     return {
         initDialog : initDialog,
         updateReader : updateReader,
-        defaultSettings : defaultSettings
+        defaultSettings : defaultSettings,
+        updateMultipleRenditions : updateMultipleRenditions
     }
 });
