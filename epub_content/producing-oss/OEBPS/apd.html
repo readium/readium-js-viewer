@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Appendix D. Example Instructions for Reporting Bugs</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="appendix" title="Appendix D. Example Instructions for Reporting Bugs"><div class="titlepage"><div><div><h1 class="title"><a id="bug-reporting"/>Appendix D. Example Instructions for Reporting Bugs</h1></div></div></div><div class="simplesect"><div class="titlepage"/><p>This is a lightly-edited copy of the Subversion project's online
+instructions to new users on how to report bugs.  See
+<a class="xref" href="ch08.html#users-to-volunteers" title="Treat Every User as a Potential Volunteer">the section called “Treat Every User as a Potential Volunteer”</a><span> in
+<a class="xref" href="ch08.html" title="Chapter 8. Managing Volunteers">Chapter 8, <em>Managing Volunteers</em></a></span> for why it is
+important that a project have such instructions.  The original
+document is located at
+<a class="ulink" href="http://svn.collab.net/repos/svn/trunk/www/bugs.html">http://svn.collab.net/repos/svn/trunk/www/bugs.html</a>.</p><pre class="screen">
+                       Reporting Bugs in Subversion
+
+This document tells how and where to report bugs. (It is not a list of
+all outstanding bugs — you can get that here instead.)
+
+Where To Report A Bug
+---------------------
+
+    * If the bug is in Subversion itself, send mail to
+      users@subversion.tigris.org. Once it's confirmed as a bug,
+      someone, possibly you, can enter it into the issue tracker. (Or
+      if you're pretty sure about the bug, go ahead and post directly
+      to our development list, dev@subversion.tigris.org. But if
+      you're not sure, it's better to post to users@ first; someone
+      there can tell you whether the behavior you encountered is
+      expected or not.)
+
+    * If the bug is in the APR library, please report it to both of
+      these mailing lists: dev@apr.apache.org, dev@subversion.tigris.org.
+
+    * If the bug is in the Neon HTTP library, please report it to:
+      neon@webdav.org, dev@subversion.tigris.org.
+
+    * If the bug is in Apache HTTPD 2.0, please report it to both of
+      these mailing lists: dev@httpd.apache.org,
+      dev@subversion.tigris.org. The Apache httpd developer mailing
+      list is high-traffic, so your bug report post has the
+      possibility to be overlooked. You may also file a bug report at
+      http://httpd.apache.org/bug_report.html.
+
+    * If the bug is in your rug, please give it a hug and keep it snug.
+
+How To Report A Bug
+-------------------
+
+First, make sure it's a bug. If Subversion does not behave the way you
+expect, look in the documentation and mailing list archives for
+evidence that it should behave the way you expect. Of course, if it's
+a common-sense thing, like Subversion just destroyed your data and
+caused smoke to pour out of your monitor, then you can trust your
+judgement. But if you're not sure, go ahead and ask on the users
+mailing list first, users@subversion.tigris.org, or ask in IRC,
+irc.freenode.net, channel #svn.
+
+Once you've established that it's a bug, the most important thing you
+can do is come up with a simple description and reproduction
+recipe. For example, if the bug, as you initially found it, involves
+five files over ten commits, try to make it happen with just one file
+and one commit. The simpler the reproduction recipe, the more likely a
+developer is to successfully reproduce the bug and fix it.
+
+When you write up the reproduction recipe, don't just write a prose
+description of what you did to make the bug happen. Instead, give a
+literal transcript of the exact series of commands you ran, and their
+output. Use cut-and-paste to do this. If there are files involved, be
+sure to include the names of the files, and even their content if you
+think it might be relevant. The very best thing is to package your
+reproduction recipe as a script, that helps us a lot.
+
+<span class="emphasis"><em>Quick sanity check: you *are* running the most recent version of
+Subversion, right? :-) Possibly the bug has already been fixed; you
+should test your reproduction recipe against the most recent
+Subversion development tree.</em></span>
+
+In addition to the reproduction recipe, we'll also need a complete
+description of the environment in which you reproduced the bug. That
+means:
+
+    * Your operating system
+    * The release and/or revision of Subversion
+    * The compiler and configuration options you built Subversion with
+    * Any private modifications you made to your Subversion
+    * The version of Berkeley DB you're running Subversion with, if any
+    * Anything else that could possibly be relevant. Err on the side
+      of too much information, rather than too little.
+
+Once you have all this, you're ready to write the report. Start out
+with a clear description of what the bug is. That is, say how you
+expected Subversion to behave, and contrast that with how it actually
+behaved. While the bug may seem obvious to you, it may not be so
+obvious to someone else, so it's best to avoid a guessing game. Follow
+that with the environment description, and the reproduction recipe. If
+you also want to include speculation as to the cause, and even a patch
+to fix the bug, that's great — see
+http://subversion.apache.org/docs/community-guide/#patches for
+instructions on sending patches.
+
+Post all of this information to dev@subversion.tigris.org, or if you
+have already been there and been asked to file an issue, then go to
+the Issue Tracker and follow the instructions there.
+
+Thanks. We know it's a lot of work to file an effective bug report,
+but a good report can save hours of a developer's time, and make the
+bug much more likely to get fixed.
+</pre></div></div></body></html>

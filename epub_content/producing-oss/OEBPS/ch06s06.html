@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Publicity</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Publicity"><div class="titlepage"><div><div><h1 class="title"><a id="publicity"/>Publicity</h1></div></div></div><p>In free software, there is a fairly smooth continuum between
+purely internal discussions and public relations statements.  This is
+partly because the target audience is always ill-defined: given that
+most or all posts are publicly accessible, the project doesn't have
+full control over the impression the world gets.  Someone—say, a
+<a class="ulink" href="http://slashdot.org/">slashdot.org</a>
+editor—may draw millions of readers' attention to a post that no
+one ever expected to be seen outside the project.  This is a fact of
+life that all open source projects live with, but in practice, the
+risk is usually small.  In general, the announcements that the project
+most wants publicized are the ones that will be most publicized,
+assuming you use the right mechanisms to indicate relative
+newsworthiness to the outside world.</p><p>For major announcements, there tend to be four or five main
+channels of distribution, on which announcements should be made as
+nearly simultaneously as possible:</p><div class="orderedlist"><ol class="orderedlist"><li class="listitem"><p>Your project's front page is probably seen by more
+            people than any other part of the project.  If you have a
+            really major announcement, put a blurb there.  The blurb
+            should be a very brief synopsis that links to the press
+            release (see below) for more information.</p></li><li class="listitem"><p>At the same time, you should also have a "News" or
+            "Press Releases" area of the web site, where the
+            announcement can be written up in detail.  Part of the
+            purpose of a press release is to provide a single,
+            canonical "announcement object" that other sites can link
+            to, so make sure it is structured accordingly: either as
+            one web page per release, as a discrete blog entry, or
+            as some other kind of entity that can be linked to while
+            still being kept distinct from other press releases in the
+            same area.</p></li><li class="listitem"><p>If your project has an RSS feed (see
+            <a class="xref" href="ch03s06.html" title="RSS Feeds">the section called “RSS Feeds”</a>), make sure the announcement goes
+            out there too.  This may happen automatically when you
+            create the press release, depending on how things are set
+            up at your site.</p></li><li class="listitem"><p>If the announcement is about a new release of the
+            software, then update your project's entry on
+            <a class="ulink" href="http://freecode.com/">http://freecode.com/</a> (see
+            <a class="xref" href="ch02s04.html" title="Announcing">the section called “Announcing”</a> about creating the entry
+            in the first place).  Every time you update a Freecode
+            entry, that entry goes onto the Freecode change list
+            for the day.  The change list is updated not only on
+            Freecode itself, but on various portal sites (including
+            <a class="ulink" href="http://slashdot.org">http://slashdot.org</a>) which are watched eagerly by
+            hordes of people.  Freecode also offers the same data via
+            RSS feed, so people who are not subscribed to your
+            project's own RSS feed might still see the announcement
+            via Freecode's.</p></li><li class="listitem"><p>Send a mail to your project's announcement mailing
+            list.  This list's name should actually be "announce",
+            that is, <code class="literal">announce@yourprojectdomain.org</code>,
+            because that's a fairly standard convention now, and the
+            list's charter should make it clear that it is very
+            low-traffic, reserved for major project announcements.
+            Most of those announcements will be about new releases of
+            the software, but occasionally other events, such as a
+            fundraising drive, the discovery of a security
+            vulnerability (see
+            <a class="xref" href="ch06s06.html#security" title="Announcing Security Vulnerabilities">the section called “Announcing Security Vulnerabilities”</a>)<span>
+            later in this chapter</span>, or a
+            major shift in project direction may be posted there as
+            well.  Because it is low traffic and used only for
+            important things, the <code class="literal">announce</code> list
+            typically has the highest subscribership of any mailing
+            list in the project (of course, this means you shouldn't
+            abuse it—consider carefully before posting).  To
+            avoid random people making announcements, or worse, spam
+            getting through, the <code class="literal">announce</code> list must
+            always be moderated.</p></li></ol></div><p>Try to make the announcements in all these places at the same
+time, as nearly as possible.  People might get confused if they see an
+announcement on the mailing list but then don't see it reflected on
+the project's home page or in its press releases area.  If you get the
+various changes (emails, web page edits, etc.) queued up and
+then send them all in a row, you can keep the window of inconsistency
+very small.</p><p>For a less important event, you can eliminate some or all of the
+above outlets.  The event will still be noticed by the outside world
+in direct proportion to its importance.  For example, while a new
+release of the software is a major event, merely setting the date of
+the next release, while still somewhat newsworthy, is not nearly as
+important as the release itself.  Setting a date is worth an email to
+the daily mailing lists (not the announce list), and an update of the
+project's timeline or status web page, but no more.</p><p>However, you might still see that date appearing in discussions
+elsewhere on the Internet, wherever there are people interested in the
+project.  People who are lurkers on your mailing lists, just listening
+and never saying anything, are not necessarily silent elsewhere.  Word
+of mouth gives very broad distribution; you should count on it, and
+construct even minor announcements in such a way as to encourage
+accurate informal transmission.  Specifically, posts that you expect
+to be quoted should have a clearly meant-to-be-quoted portion, just as
+though you were writing a formal press release.  For example:</p><div class="blockquote"><blockquote class="blockquote"><p><span class="emphasis"><em>Just a progress update: we're planning to release
+     version 2.0 of Scanley in mid-August 2005.  You can always check
+     http://www.scanley.org/status.html for updates.  The major new
+     feature will be regular-expression searches.</em></span></p><p><span class="emphasis"><em>Other new features include: ... There will
+     also be various bugfixes, including: ...</em></span></p></blockquote></div><p>The first paragraph is short, gives the two most important
+pieces of information (the release date and the major new feature),
+and a URL to visit for further news.  If that paragraph is the only
+thing that crosses someone's screen, you're still doing pretty well.
+The rest of the mail could be lost without affecting the gist of the
+content.  Of course, sometimes people will link to the entire mail
+anyway, but just as often, they'll quote only a small part.  Given that
+the latter is a possibility, you might as well make it easy for them,
+and in the bargain get some influence over what gets quoted.</p><div class="sect2" title="Announcing Security Vulnerabilities"><div class="titlepage"><div><div><h2 class="title"><a id="security"/>Announcing Security Vulnerabilities</h2></div></div></div><p>Handling a security vulnerability is different from handling any
+other kind of bug report.  In free software, doing things openly and
+transparently is normally almost a religious credo.  Every step of the
+standard bug-handling process is visible to all who care to watch: the
+arrival of the initial report, the ensuing discussion, and the
+eventual fix.</p><p>Security bugs are different.  They can compromise users' data,
+and possibly users' entire computers.  To discuss such a problem
+openly would be to advertise its existence to the entire
+world—including to all the parties who might make malicious use
+of the bug.  Even merely committing a fix effectively announces the
+bug's existence (there are potential attackers who watch the commit
+logs of public projects, systematically looking for changes that
+indicate security problems in the pre-change code).  Most open source
+projects have settled on approximately the same set of steps to handle
+this conflict between openness and secrecy, based on the these basic
+guidelines:</p><div class="orderedlist"><ol class="orderedlist"><li class="listitem"><p>Don't talk about the bug publicly until a fix is
+            available; then supply the fix at exactly the same moment
+            you announce the bug.</p></li><li class="listitem"><p>Come up with that fix as fast as you
+            can—especially if someone outside the project
+            reported the bug, because then you know there's at least
+            one person outside the project who is able to exploit the
+            vulnerability.</p></li></ol></div><p>In practice, those principles lead to a fairly standardized
+series of steps, which are described in the sections below.</p><div class="sect3" title="Receive the report"><div class="titlepage"><div><div><h3 class="title"><a id="security-receiving"/>Receive the report</h3></div></div></div><p>Obviously, a project needs the ability to receive security bug
+reports from anyone.  But the regular bug reporting address won't do,
+because it can be watched by anyone too.  Therefore, have a separate
+mailing list for receiving security bug reports.  That mailing list
+must not have publicly readable archives, and its subscribership must
+be strictly controlled—only long-time, trusted developers can be
+on the list.  If you need a formal definition of "trusted", you can
+use "anyone who has had commit access for two years or more" or
+something like that, to avoid favoritism.  This is the group that will
+handle security bugs.</p><p>Ideally, the security list should not be spam-protected or
+moderated, since you don't want an important report to get filtered
+out or delayed just because no moderators happened to be online that
+weekend.  If you do use automated spam-protection software, try to
+configure it with high-tolerance settings; it's better to let a few spams
+through than to miss a report.  For the list to be effective, you must
+advertise its address, of course; but given that it will be unmoderated
+and, at most, lightly spam-protected, try to never to post its address
+without some sort of address hiding transformation, as described in
+<a class="xref" href="ch03s02.html#address-hiding" title="Address hiding in archives">the section called “Address hiding in archives”</a><span> in
+<a class="xref" href="ch03.html" title="Chapter 3. Technical Infrastructure">Chapter 3, <em>Technical Infrastructure</em></a></span>.
+Fortunately, address-hiding need not make the address illegible; see
+<a class="ulink" href="http://subversion.tigris.org/security.html">http://subversion.tigris.org/security.html</a>, and view
+that page's HTML source, for an example.</p></div><div class="sect3" title="Develop the fix quietly"><div class="titlepage"><div><div><h3 class="title"><a id="security-finding-a-fix"/>Develop the fix quietly</h3></div></div></div><p>So what does the security list do when it receives a report?
+The first task is to evaluate the problem's severity and
+urgency:</p><div class="orderedlist"><ol class="orderedlist"><li class="listitem"><p>How serious is the vulnerability?  Does it allow a
+            malicious attacker to take over the computer of someone
+            who uses your software?  Or does it, say, merely leak
+            information about the sizes of some of their files?</p></li><li class="listitem"><p>How easy is it to exploit the vulnerability?  Can
+            an attack be scripted, or does it require circumstantial
+            knowledge, educated guessing, and luck?</p></li><li class="listitem"><p><span class="emphasis"><em>Who</em></span> reported the problem to
+            you?  The answer to this question doesn't change the
+            nature of the vulnerability, of course, but it does give
+            you an idea of how many other people might know about it.
+            If the report comes from one of the project's own
+            developers, you can breathe a little easier (but only a
+            little), because you can trust them not to have told
+            anyone else about it.  On the other hand, if it came in an
+            email from <code class="literal">anonymous14@globalhackerz.net</code>,
+            then you'd better act as fast as you can.  The person did
+            you a favor by informing you of the problem at all, but you
+            have no idea how many other people she's told, or how long
+            she'll wait before exploiting the vulnerability on live
+            installations.</p></li></ol></div><p>Note that the difference we're talking about here is often just
+a narrow range between <span class="emphasis"><em>urgent</em></span>
+and <span class="emphasis"><em>extremely urgent</em></span>.  Even when the report
+comes from a known, friendly source, there could be other people on
+the Net who discovered the bug long ago and just haven't reported it.
+The only time things aren't urgent is when the bug inherently does not
+compromise security very severely.</p><p>The "<code class="literal">anonymous14@globalhackerz.net</code>" example
+is not facetious, by the way.  You really may get bug reports from
+identity-cloaked people who, by their words and behavior, never quite
+clarify whether they're on your side or not.  It doesn't matter: if
+they've reported the security hole to you, they'll feel they've done
+you a good turn, and you should respond in kind.  Thank them for the
+report, give them a date on or before which you plan to release a
+public fix, and keep them in the loop.  Sometimes they may
+give <span class="emphasis"><em>you</em></span> a date—that is, an implicit threat
+to publicize the bug on a certain date, whether you're ready or not.
+This may feel like a bullying power play, but it's more likely a
+preëmptive action resulting from past disappointment with
+unresponsive software producers who didn't take security reports
+seriously enough.  Either way, you can't afford to tick this person
+off.  After all, if the bug is severe, he has knowledge that could
+cause your users big problems.  Treat such reporters well, and hope
+that they treat you well.</p><p>Another frequent reporter of security bugs is the security
+professional, someone who audits code for a living and keeps up on the
+latest news of software vulnerabilities.  These people usually have
+experience on both sides of the fence—they've both received and
+sent reports, probably more than most developers in your project have.
+They too will usually give a deadline for fixing a vulnerability
+before going public.  The deadline may be somewhat negotiable, but
+that's up to the reporter; deadlines have become recognized among
+security professionals as pretty much the only reliable way to get
+organizations to address security problems promptly.  So don't treat
+the deadline as rude; it's a time-honored tradition, and there are
+good reasons for it.</p><p>Once you know the severity and urgency, you can start working on
+a fix.  There is sometimes a tradeoff between doing a fix elegantly
+and doing it speedily; this is why you must agree on the urgency
+before you start.  Keep discussion of the fix restricted to the
+security list members, of course, plus the original reporter (if she
+wants to be involved) and any developers who need to be brought in for
+technical reasons.</p><p>Do not commit the fix to the repository.  Keep it in patch form
+until the go-public date.  If you were to commit it, even with an
+innocent-looking log message, someone might notice and understand the
+change.  You never know who is watching your repository and why they
+might be interested.  Turning off commit emails wouldn't help; first
+of all, the gap in the commit mail sequence would itself look
+suspicious, and anyway, the data would still be in the repository.
+Just do all development in a patch and keep the patch in some private
+place, perhaps a separate, private repository known only to the people
+already aware of the bug.  (If you use a decentralized version control
+system like Arch or SVK, you can do the work under full version
+control, and just keep that repository inaccessible to
+outsiders.)</p></div><div class="sect3" title="CAN/CVE numbers"><div class="titlepage"><div><div><h3 class="title"><a id="security-cve"/>CAN/CVE numbers</h3></div></div></div><p>You may have seen a <em class="firstterm">CAN number</em> or
+a <em class="firstterm">CVE number</em> associated with security problems.
+These numbers usually look like "CAN-2004-0397" or
+"CVE-2002-0092", for example.</p><p>Both kinds of numbers represent the same type of entity: an
+entry in the list of "Common Vulnerabilities and Exposures" list
+maintained at <a class="ulink" href="http://cve.mitre.org/">http://cve.mitre.org/</a>.  The purpose of
+the list is to provide standardized names for all known security
+problems, so that everyone has a unique, canonical name to use when
+discussing one, and a central place to go to find out more
+information.  The only difference between a "CAN" number and a "CVE"
+number is that the former represents a candidate entry, not yet
+approved for inclusion in the official list by the CVE Editorial
+Board, and the latter represents an approved entry.  However, both
+types of entries are visible to the public, and an entry's number does
+not change when it is approved—the "CAN" prefix is simply
+replaced with "CVE".</p><p>A CAN/CVE entry does not itself contain a full description of
+the bug and how to protect against it.  Instead, it contains a brief
+summary, and a list of references to external resources (such as
+mailing list archives) where people can go to get more detailed
+information.  The real purpose of <a class="ulink" href="http://cve.mitre.org/">http://cve.mitre.org/</a>
+is to provide a well-organized space in which every vulnerability can
+have a name and a clear route to more data.  See
+<a class="ulink" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=2002-0092">http://cve.mitre.org/cgi-bin/cvename.cgi?name=2002-0092</a>
+for an example of an entry.  Note that the references can be very
+terse, with sources appearing as cryptic abbreviations.  A key to
+those abbreviations is at
+<a class="ulink" href="http://cve.mitre.org/data/refs/refkey.html">http://cve.mitre.org/data/refs/refkey.html</a>.</p><p>If your vulnerability meets the CVE criteria, you may wish to
+acquire it a CAN number.  The process for doing so is deliberately
+gated: basically, you have to know someone, or know someone who knows
+someone.  This is not as crazy as it might sound.  In order for the
+CVE Editorial Board to avoid being overwhelmed with spurious or
+poorly written submissions, they take submissions only from sources
+they already know and trust.  In order to get your vulnerability
+listed, therefore, you need to find a path of acquaintance from your
+project to the CVE Editorial Board.  Ask around among your developers;
+one of them will probably know someone else who has either done the
+CAN process before, or knows someone who has, etc.  The advantage of
+doing it this way is also that somewhere along the chain, someone may
+know enough to tell you that a) it wouldn't count as a vulnerability
+or exposure according to MITRE's criteria, so there is no point
+submitting it, or b) the vulnerability already
+<span class="emphasis"><em>has</em></span> a CAN or CVE number.  The latter can happen
+if the bug has already been published on another security advisory
+list, for example at <a class="ulink" href="http://www.cert.org/">http://www.cert.org/</a> or on the
+BugTraq mailing list at <a class="ulink" href="http://www.securityfocus.com/">http://www.securityfocus.com/</a>.
+(If that happened without your project hearing about it, then you
+should worry what else might be going on that you don't know
+about.)</p><p>If you get a CAN/CVE number at all, you usually want to get it
+in the early stages of your bug investigation, so that all further
+communications can refer to that number.  CAN entries are embargoed
+until the go-public date; the entry will exist as an empty placeholder
+(so you don't lose the name), but it won't reveal any information
+about the vulnerability until the date on which you will be announcing
+the bug and the fix.</p><p>More information about the CAN/CVE process may be found at
+<a class="ulink" href="http://cve.mitre.org/cve/identifiers/candidates_explained.html">http://cve.mitre.org/cve/identifiers/candidates_explained.html</a>, and a
+particularly clear exposition of one open source project's use of
+CAN/CVE numbers is at
+<a class="ulink" href="http://www.debian.org/security/cve-compatibility">http://www.debian.org/security/cve-compatibility</a>.</p></div><div class="sect3" title="Pre-notification"><div class="titlepage"><div><div><h3 class="title"><a id="security-prenotification"/>Pre-notification</h3></div></div></div><p>Once your security response team (that is, those developers who
+are on the security mailing list, or who have been brought in to deal
+with a particular report) has a fix ready, you need to decide how to
+distribute it.</p><p>If you simply commit the fix to your repository, or otherwise
+announce it to the world, you effectively force everyone using your
+software to upgrade immediately or risk being hacked.  It is sometimes
+appropriate, therefore, to do <em class="firstterm">pre-notification</em>
+for certain important users.  This is particularly true with
+client/server software, where there may be well-known servers that are
+tempting targets for attackers.  Those servers' administrators would
+appreciate having an extra day or two to do the upgrade, so that they
+are already protected by the time the exploit becomes public
+knowledge.</p><p>Pre-notification simply means sending mails to those
+administrators before the go-public date, telling them of the
+vulnerability and how to fix it.  You should send pre-notification
+only to people you trust to be discreet with the information.  That
+is, the qualification for receiving pre-notification is twofold: the
+recipient must run a large, important server where a compromise would
+be a serious matter, <span class="emphasis"><em>and</em></span> the recipient must be
+known to be someone who won't blab about the security problem before
+the go-public date.</p><p>Send each pre-notification mail individually (one at a time) to
+each recipient.  Do <span class="emphasis"><em>not</em></span> send to the entire list
+of recipients at once, because then they would see each others'
+names—meaning that you would essentially be alerting each
+recipient to the fact that each <span class="emphasis"><em>other</em></span> recipient
+may have a security hole in her server.  Sending it to them all via
+blind CC (BCC) isn't a good solution either, because some admins
+protect their inboxes with spam filters that either block or reduce
+the priority of BCC'd mail, since so much spam is sent via BCC these
+days.</p><p>Here's a sample pre-notification mail:</p><pre class="screen">
+From: Your Name Here
+To: admin@large-famous-server.com
+Reply-to: Your Name Here (not the security list's address)
+Subject: Confidential Scanley vulnerability notification.
+
+
+This email is a confidential pre-notification of a security alert
+in the Scanley server.
+
+Please *do not forward* any part of this mail to anyone.  The public
+announcement is not until May 19th, and we'd like to keep the
+information embargoed until then.
+
+You are receiving this mail because (we think) you run a Scanley
+server, and would want to have it patched before this security hole is
+made public on May 19th.
+
+References:
+===========
+
+   CAN-2004-1771: Scanley stack overflow in queries
+
+Vulnerability:
+==============
+
+   The server can be made to run arbitrary commands if the server's
+   locale is misconfigured and the client sends a malformed query.
+
+Severity:
+=========
+
+   Very severe, can involve arbitrary code execution on the server.
+
+Workarounds:
+============
+
+   Setting the 'natural-language-processing' option to 'off' in
+   scanley.conf closes this vulnerability.
+
+Patch:
+======
+
+   The patch below applies to Scanley 3.0, 3.1, and 3.2.
+
+   A new public release (Scanley 3.2.1) will be made on or just before
+   May 19th, so that it is available at the same time as this
+   vulnerability is made public.  You can patch now, or just wait for
+   the public release.  The only difference between 3.2 and 3.2.1 will
+   be this patch.
+
+[...patch goes here...]
+</pre><p>If you have a CAN number, include it in the pre-notification (as
+shown above), even though the information is still embargoed and
+therefore the MITRE page will show nothing.  Including the CAN number
+allows the recipient to know with certainty that the bug they were
+pre-notified about is the same one they later hear about through
+public channels, so they don't have to worry whether further action is
+necessary or not, which is precisely the point of CAN/CVE
+numbers.</p></div><div class="sect3" title="Distribute the fix publicly"><div class="titlepage"><div><div><h3 class="title"><a id="security-announcing"/>Distribute the fix publicly</h3></div></div></div><p>The last step in handling a security bug is to distribute the
+fix publicly.  In a single, comprehensive announcement, you should
+describe the problem, give the CAN/CVE number if any, describe how to
+work around it, and how to permanently fix it.  Usually "fix" means
+upgrading to a new version of the software, though sometimes it can
+mean applying a patch, particularly if the software is normally run in
+source form anyway.  If you do make a new release, it should differ
+from some existing release by exactly the security patch.  That way,
+conservative admins can upgrade without worrying about what else they
+might be affecting; they also don't have to worry about future upgrades,
+because the security fix will be in all future releases as a matter of
+course.  (Details of release procedures are discussed in
+<a class="xref" href="ch07s06.html#security-releases" title="Security Releases">the section called “Security Releases”</a><span> in
+<a class="xref" href="ch07.html" title="Chapter 7. Packaging, Releasing, and Daily Development">Chapter 7, <em>Packaging, Releasing, and Daily Development</em></a></span>.)</p><p>Whether or not the public fix involves a new release, do the
+announcement with roughly the same priority as you would a new
+release: send a mail to the project's <code class="literal">announce</code>
+list, make a new press release, update the Freecode entry, etc.
+While you should never try to play down the existence of a security
+bug out of concern for the project's reputation, you may certainly set
+the tone and prominence of a security announcement to match the actual
+severity of the problem.  If the security hole is just a minor
+information exposure, not an exploit that allows the user's entire
+computer to be taken over, then it may not warrant a lot of fuss.  You
+may even decide not to distract the <code class="literal">announce</code> list
+with it.  After all, if the project cries wolf every time, users might
+end up thinking the software is less secure than it actually is, and
+also might not believe you when you have a really big problem to
+announce.  See
+<a class="ulink" href="http://cve.mitre.org/about/terminology.html">http://cve.mitre.org/about/terminology.html</a> for a good
+introduction to the problem of judging severity.</p><p>In general, if you're unsure how to treat a security problem,
+find someone with experience and talk to them about it.  Assessing and
+handling vulnerabilities is very much an acquired skill, and it's easy
+to make missteps the first few times.</p></div><p>See also the Apache Software Foundation
+guidelines on handling security vulnerabilities at
+<a class="ulink" href="http://www.apache.org/security/committers.html">http://www.apache.org/security/committers.html</a>.  They
+are an excellent checklist you can compare against to see if you're
+doing everything carefully.</p></div></div></body></html>

@@ -17,7 +17,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         setPreviewTheme($previewText, theme);
         var previewStyle = window.getComputedStyle($previewText[0]);
         var bookStyles = [{
-            selector: 'body', // or "html", or "*", or "", or undefined (styles applied to whole document)
+            selector: ':not(a):not(hypothesis-highlight)', // or "html", or "*", or "", or undefined (styles applied to whole document)
             declarations: {
             backgroundColor: isAuthorTheme ? "" : previewStyle.backgroundColor,
             color: isAuthorTheme ? "" : previewStyle.color
@@ -143,7 +143,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 readerSettings = readerSettings || defaultSettings;
                 for (prop in defaultSettings)
                 {
-                    if (defaultSettings.hasOwnProperty(prop) && !readerSettings.hasOwnProperty(prop) && !readerSettings[prop])
+                    if (defaultSettings.hasOwnProperty(prop) && (!readerSettings.hasOwnProperty(prop) || (typeof readerSettings[prop] == "undefined")))
                     {
                         readerSettings[prop] = defaultSettings[prop];
                     }

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Releases and Daily Development</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Releases and Daily Development"><div class="titlepage"><div><div><h1 class="title"><a id="releases-and-daily-development"/>Releases and Daily Development</h1></div></div></div><p>Maintaining parallel releases simultaneously has implications
+for how daily development is done.  In particular, it makes
+practically mandatory a discipline that would be recommended anyway:
+have each commit be a single logical change, and never mix unrelated
+changes in the same commit.  If a change is too big or too disruptive
+to do in one commit, break it across N commits, where each commit is a
+well-partitioned subset of the overall change, and includes nothing
+unrelated to the overall change.</p><p>Here's an example of an ill-thought-out commit:</p><pre class="screen">
+------------------------------------------------------------------------
+r6228 | jrandom | 2004-06-30 22:13:07 -0500 (Wed, 30 Jun 2004) | 8 lines
+
+Fix Issue #1729: Make indexing gracefully warn the user when a file
+is changing as it is being indexed.
+
+* ui/repl.py
+  (ChangingFile): New exception class.
+  (DoIndex): Handle new exception.
+
+* indexer/index.py
+  (FollowStream): Raise new exception if file changes during indexing.
+  (BuildDir): Unrelatedly, remove some obsolete comments, reformat
+  some code, and fix the error check when creating a directory.
+
+Other unrelated cleanups:
+
+* www/index.html: Fix some typos, set next release date.
+------------------------------------------------------------------------
+</pre><p>The problem with it becomes apparent as soon as someone needs to
+port the <code class="function">BuildDir</code> error check fix over to a
+branch for an upcoming maintenance release.  The porter doesn't want
+any of the other changes—for example, perhaps the fix to issue
+#1729 wasn't approved for the maintenance branch at all, and the
+<code class="filename">index.html</code> tweaks would simply be irrelevant
+there.  But she cannot easily grab just the
+<code class="function">BuildDir</code> change via the version control tool's
+merge functionality, because the version control system was told that
+that change is logically grouped with all these other unrelated
+things.  In fact, the problem would become apparent even before the
+merge.  Merely listing the change for voting would become problematic:
+instead of just giving the revision number, the proposer would have to
+make a special patch or change branch just to isolate the portion of
+the commit being proposed.  That would be a lot of work for others to
+suffer through, and all because the original committer couldn't be
+bothered to break things into logical groups.</p><p>In fact, that commit really should have been
+<span class="emphasis"><em>four</em></span> separate commits: one to fix issue
+#1729, another to remove obsolete comments and reformat code in
+<code class="function">BuildDir</code>, another to fix the error check in
+<code class="function">BuildDir</code>, and finally, one to tweak
+<code class="filename">index.html</code>.  The third of those commits would be
+the one proposed for the maintenance release branch.</p><p>Of course, release stabilization is not the only reason why
+having each commit be one logical change is desirable.
+Psychologically, a semantically unified commit is easier to review,
+and easier to revert if necessary (in some version control systems,
+reversion is really a special kind of merge anyway).  A little
+up-front discipline on everyone's part can save the project a lot of
+headache later.</p><div class="sect2" title="Planning Releases"><div class="titlepage"><div><div><h2 class="title"><a id="planning"/>Planning Releases</h2></div></div></div><p>One area where open source projects have historically differed
+from proprietary projects is in release planning.  Proprietary
+projects usually have firmer deadlines.  Sometimes it's because
+customers were promised that an upgrade would be available by a
+certain date, because the new release needs to be coordinated with
+some other effort for marketing purposes, or because the venture
+capitalists who invested in the whole thing need to see some results
+before they put in any more funding.  Free software projects, on the
+other hand, were until recently mostly motivated by amateurism in the
+most literal sense: they were written for the love of it.  No one felt
+the need to ship before all the features were ready, and why should
+they?  It wasn't as if anyone's job was on the line.</p><p>Nowadays, many open source projects are funded by corporations,
+and are correspondingly more and more influenced by deadline-conscious
+corporate culture.  This is in many ways a good thing, but it can
+cause conflicts between the priorities of those developers who are
+being paid and those who are volunteering their time.  These conflicts
+often happen around the issue of when and how to schedule releases.
+The salaried developers who are under pressure will naturally want to
+just pick a date when the releases will occur, and have everyone's
+activities fall into line.  But the volunteers may have other
+agendas—perhaps features they want to complete, or some testing
+they want to have done—that they feel the release should wait
+on.</p><p>There is no general solution to this problem except discussion
+and compromise, of course.  But you can minimize the frequency and
+degree of friction caused, by decoupling the proposed
+<span class="emphasis"><em>existence</em></span> of a given release from the date when
+it would go out the door.  That is, try to steer discussion toward the
+subject of which releases the project will be making in the near- to
+medium-term future, and what features will be in them, without at
+first mentioning anything about dates, except for rough guesses with
+wide margins of error<sup>[<a id="idp7878160" href="#ftn.idp7878160" class="footnote">23</a>]</sup>.  By nailing down feature sets early, you reduce
+the complexity of the discussion centered on any individual release,
+and therefore improve predictability.  This also creates a kind of
+inertial bias against anyone who proposes to expand the definition of
+a release by adding new features or other complications.  If the
+release's contents are fairly well defined, the onus is on the
+proposer to justify the expansion, even though the date of the release
+may not have been set yet.</p><p>In his multi-volume biography of Thomas Jefferson,
+<em class="citetitle">Jefferson and His Time</em>, Dumas Malone tells the
+story of how Jefferson handled the first meeting held to decide the
+organization of the future University of Virginia.  The University had
+been Jefferson's idea in the first place, but (as is the case
+everywhere, not just in open source projects) many other parties had
+climbed on board quickly, each with their own interests and agendas.
+When they gathered at that first meeting to hash things out, Jefferson
+made sure to show up with meticulously prepared architectural
+drawings, detailed budgets for construction and operation, a proposed
+curriculum, and the names of specific faculty he wanted to import from
+Europe.  No one else in the room was even remotely as prepared; the
+group essentially had to capitulate to Jefferson's vision, and the
+University was eventually founded more or less in accordance with his
+plans.  The facts that construction went far over budget, and that
+many of his ideas did not, for various reasons, work out in the end,
+were all things Jefferson probably knew perfectly well would happen.
+His purpose was strategic: to show up at the meeting with something so
+substantive that everyone else would have to fall into the role of
+simply proposing modifications to it, so that the overall shape, and
+therefore schedule, of the project would be roughly as he
+wanted.</p><p>In the case of a free software project, there is no single
+"meeting", but instead a series of small proposals made mostly by
+means of the issue tracker.  But if you have some credibility in the
+project to start with, and you start assigning various features,
+enhancements, and bugs to target releases in the issue tracker,
+according to some announced overall plan, people will mostly go along
+with you.  Once you've got things laid out more or less as you want
+them, the conversations about actual release
+<span class="emphasis"><em>dates</em></span> will go much more smoothly.</p><p>It is crucial, of course, to never present any individual
+decision as written in stone.  In the comments associated with each
+assignment of an issue to a specific future release, invite
+discussion, dissent, and be genuinely willing to be persuaded whenever
+possible.  Never exercise control merely for the sake of exercising
+control: the more deeply others participate in the release planning
+process (see
+<a class="xref" href="ch08s02.html" title="Share Management Tasks as Well as Technical Tasks">the section called “Share Management Tasks as Well as Technical Tasks”</a><span> in
+<a class="xref" href="ch08.html" title="Chapter 8. Managing Volunteers">Chapter 8, <em>Managing Volunteers</em></a></span>), the easier it
+will be to persuade them to share your priorities on the issues that
+really count for you.</p><p>The other way the project can lower tensions around release
+planning is to make releases fairly often.  When there's a long time
+between releases, the importance of any individual release is
+magnified in everyone's minds; people are that much more crushed when
+their code doesn't make it in, because they know how long it might be
+until the next chance.  Depending on the complexity of the release
+process and the nature of your project, somewhere between every three
+and six months is usually about the right gap between releases, though
+maintenance lines may put out micro releases a bit faster, if there is
+demand for them.</p></div><div class="footnotes"><br/><hr/><div class="footnote"><p><sup>[<a id="ftn.idp7878160" href="#idp7878160" class="para">23</a>] </sup>For an alternative approach, you
+may wish to read Martin Michlmayr's Ph.D. thesis <em class="citetitle">Quality
+Improvement in Volunteer Free and Open Source Software Projects:
+Exploring the Impact of Release Management</em>
+(<a class="ulink" href="http://www.cyrius.com/publications/michlmayr-phd.html">http://www.cyrius.com/publications/michlmayr-phd.html</a>).
+It is about using time-based release processes, as opposed to
+feature-based, in large free software projects.  Michlmayr also gave a
+talk at Google on the subject, available on Google Video at
+<a class="ulink" href="http://video.google.com/videoplay?docid=-5503858974016723264">http://video.google.com/videoplay?docid=-5503858974016723264</a>.</p></div></div></div></body></html>

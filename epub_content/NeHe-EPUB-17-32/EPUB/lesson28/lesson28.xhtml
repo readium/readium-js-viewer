@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NURBS</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+
+<h2>Lesson 28 - NURBS</h2>
+<p></p>
+<h4>Introduction</h4>
+
+<p>Non-uniform rational basis spline (<strong>NURBS</strong>) is a mathematical model commonly used in computer graphics for generating and representing curves and surfaces. It offers great flexibility and precision for handling both analytic (surfaces defined by common mathematical formulae) and modeled shapes. NURBS are a generealization of Bézier curves, named after Pierre Bézier, who began using them at the French automaker Renault to define the curves of the bodywork. However, it was  Paul de Casteljau using de Casteljau's algorithm, a numerically stable method to evaluate Bézier curves at Citroën, another French automaker. The mathematics of Bezier curves and NURBS are beyond the scope of this lsson, but a good introductory article is <a href="http://www.rw-designer.com/NURBS" title="NURBS" target="_blank">here</a> and there are further references in its bibliography.</p>
+<p>To be honest, this lesson is largely a copy of the example of NURBS in the three.js site. So this lesson is pretty short. The code is based on the NURBS libraries that are part of the three.js repo at github. Those libraries were (apparently) written by &quot;renej&quot; but further information is not readily available.</p>
+<h4>Creating the NURB Surface </h4>
+<p>The meat of this lesson is in the methd createSurface. The first part of the code simply defines the control points as a 3x4 array of coordinates. It is 3x4 because a Bézier curve has 4 control points and there are 3 such curves across the surface. However, NURBS are a bit more complex than &quot;simple&quot; Bézier curves. In addition to the Bézier control points, NURBS also define a set of &quot;knots&quot;(the knot vector), and the degrees of the curves.</p>
+<p>The call to the NURBS library to create the surface then is:</p>
+
+<pre><code class="language-javascript">var degree1 = 2;
+var degree2 = 3;
+var knots1 = [0, 0, 0, 1, 1, 1];
+var knots2 = [0, 0, 0, 0, 1, 1, 1, 1];
+var nurbsSurface = new THREE.NURBSSurface(degree1, degree2, knots1, knots2, controlPoints);</code></pre>
+
+<p>We then load a texture which we can map onto the surface:</p>
+
+<pre><code class="language-javascript">var map = new THREE.TextureLoader().load( 'images/UV_Grid_Sm.jpg' );
+map.wrapS = map.wrapT = THREE.RepeatWrapping;
+map.anisotropy = 4;</code></pre>
+
+<p>This image is fact a grid of UV coordinates (which we talked about a couple of times so far). But while we have created a NURBS surface, what  we need is a <span class="inline-code">Geometry</span> to map the texture onto. The NURBS surface is just a mathematical model. Now we need to actually create the <span class="inline-code">Geometry</span> and map the texture to it. This is done by creating a <span class="inline-code">ParametricBufferGeometry</span>,
+    similar to what was done in Lesson 11 in Volume 1.</p>
+
+<pre><code class="language-javascript">getSurfacePoint = function(u, v) {
+    return nurbsSurface.getPoint(u, v);
+};
+
+var geometry = new THREE.ParametricBufferGeometry(getSurfacePoint, 20, 20);
+var material = new THREE.MeshLambertMaterial({map: map, side: THREE.DoubleSide});
+var mesh = new THREE.Mesh(geometry, material);</code></pre>
+
+<p>We simply specify the size of the <span class="inline-code">Geometry</span> and provide a callback function that takes the <span class="inline-code">(u,v)</span> coordinates and then calls the <span class="inline-code">getSurfacePoint</span> method on the <span class="inline-code">nurbSurface</span> to return the three-dimensional coordinate for the <span class="inline-code">Geometry</span>. Then we map the UV texture image on to the Geometry to create the mesh.</p>
+<p>Finally, we render the control points as a series of small red spheres and then connect them with some yellow lines.</p>
+
+<pre><code class="language-javascript">for ( var i=0; i&lt;3; i++ ) {
+    for (var j=0; j&lt;4; j++ ) {
+
+       var cpGeom = new THREE.SphereGeometry(0.1);
+       var cpMat = new THREE.MeshLambertMaterial({color: 0xff0000});
+       var cpMesh = new THREE.Mesh(cpGeom, cpMat);
+
+       cpMesh.position.set(controlPoints[i][j].x, 
+                           controlPoints[i][j].y,           
+                           controlPoints[i][j].z);
+       gfxScene.add(cpMesh);
+   }
+}
+
+for ( var k=0; k&lt;3; k++ ) {
+    var verts = new THREE.Geometry();
+    for (var n=0; n&lt;4; n++ ) {
+       verts.vertices.push( new THREE.Vector3(controlPoints[k][n].x, 
+                                              controlPoints[k][n].y, 
+                                              controlPoints[k][n].z));
+    }
+    var line = new THREE.Line( verts, new THREE.LineBasicMaterial( { color: 0xffff80 } ) );
+    gfxScene.add(line);
+}
+
+for (var p=0; p&lt;4; p++ ) {
+   var verts2 = new THREE.Geometry();
+   for ( var q=0; q&lt;3; q++ ) {
+      verts2.vertices.push( new THREE.Vector3(controlPoints[q][p].x, 
+                                              controlPoints[q][p].y, 
+                                              controlPoints[q][p].z));
+   }
+   var line2 = new THREE.Line( verts2, new THREE.LineBasicMaterial( { color: 0xffff80 } ) );
+   gfxScene.add(line2);
+}</code></pre>
+
+<p>And that's it!  Click on <a href="lesson28webgl.xhtml" title="Lesson 28" target="_self">this link</a> to see the actual rendered demo in all it's Bezier glory!</p>
+<p>As always, the original sources are on github <a href="https://github.com/rkwright/nehe-three-js" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+</body>
+</html>

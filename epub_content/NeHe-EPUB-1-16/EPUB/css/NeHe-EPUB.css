@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/* CSS Stylers for the geofx-pages */
+body {
+   	margin-top: 2em;
+    margin-bottom: 2em;
+    margin-right: 1em;
+    margin-left: 1em;
+	
+  	padding: 0px;
+	font-family: "Times New Roman", Times, serif;
+	font-size:110%;
+    /*background-color: #FFEEFF; */
+
+}
+
+h2 {
+	text-align:center;
+}
+
+pre
+{
+    /* display:block; */
+
+    margin-right: 1%;
+    margin-left: 1%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size:70%;
+    font-family: "Lucida Sans Typewriter", "Courier New", Courier, Monaco, monospace;
+}
+
+.inline-code
+{
+    font-size:90%;
+    font-family: "Lucida Sans Typewriter", "Courier New", Courier, Monaco, monospace;
+}

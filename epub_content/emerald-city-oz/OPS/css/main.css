@@ -1,0 +1,139 @@
+@import "page.css";
+body {padding: 0;}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-indent: 1.0em;
+  text-align: justify;}
+  
+body > p:first-child {text-indent: 0}
+div.text p:first-child {text-indent: 0}
+p.dropcap, p.noindent {text-indent: 0em;}
+
+blockquote p, li p {
+  text-indent: 0.0em;
+  text-align: left;}
+
+a {color: #000000;
+   text-decoration: none;}
+
+h2 {
+  padding-top:0;
+  display:block;}
+
+.chapterHeader {
+  height:60px;
+  border:1px solid #000;
+  display:block;
+  margin-bottom:20px;
+  background-color:#FFF;}
+  
+.chapterHeader .translation {
+  float:left;
+  font-weight: normal;
+  margin-top:38px;
+  margin-left: -8px;
+  margin-bottom: 0px;
+  padding-right: 16px;
+  padding-left: 5px ;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-size:26px;
+  background-color:#FFF;}
+                             
+.chapterHeader .count {
+  line-height: 100%;
+  font-style:normal;
+  font-weight: normal;
+  text-transform:uppercase;
+  font-size:94px;
+  margin-right:18px;
+  margin-top:-14px;
+  margin-bottom: -20px;
+  float:left;
+  padding:0px;
+  background-color:#FFF;}
+  
+div.body {}
+
+div.book {
+  padding-top: 6.0em;
+  page-break-before: right;}
+  
+div.chapter {padding-top: 2.0em;}
+div.part {padding-top: 2.0em;}
+h3.section_title {text-align: center;}
+div.verse {padding: 1.0em;}
+
+div.verseline {
+  font-style: italic;
+  margin-left: 1.0em;
+  text-indent: -1.0em;}
+  
+span.dropcap {
+  font-size: 300%; 
+  font-weight: bold; 
+  float: left; 
+  margin: -0.1em 0.125em -0.2em 0em; 
+  text-indent: 0em; 
+  line-height: 1em; 
+  height: 1em;}
+
+.footnote {
+  font-size:x-small;
+  vertical-align:super;}
+
+.similar {
+  list-style:none;
+  margin:10px 0 20px 0;
+  padding:0;}
+
+.similar hr {
+  margin:0 0 5px 0;
+  padding:0;}
+
+.similar li {
+  margin:0;
+  padding-bottom:5px;}
+
+.similar li.author {
+  font-weight:bolder;
+  margin:0;
+  padding:0;}
+
+.similar li p {
+  margin:6px 0 0 0;
+  padding:0;
+  font-size:small;
+  text-align:justify;}
+
+table {
+  border:1px solid #ccc;
+  border-collapse:collapse;
+  width:90%;
+  margin:5px auto 5px auto;}
+
+thead, tfoot {
+  background-color:#D0E3FA;
+  border:1px solid #aaa;}
+
+tbody {background-color:#FFFFFF;}
+
+th {
+  font-family:monospace;
+  border:1px dotted #aaa;
+  padding:5px;
+  background-color:#EFF6FF;}
+
+td {
+  font-family:sans-serif;
+  font-size:80%;
+  border:1px solid #ccc;
+  padding:5px;
+  text-align:left;}
+
+caption {
+  text-align:left;
+  padding:0px 0px 2px 0px;
+  font-family:sans-serif;}

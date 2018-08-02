@@ -13,7 +13,7 @@
 
 require.config({
 
-    baseUrl: process._RJS_baseUrl(1),
+    baseUrl: process._RJS_baseUrl(0),
 
     // relative to this config file (not baseUrl)
     dir: "../build-output/_multiple-bundles",
@@ -25,10 +25,9 @@ require.config({
             create: true,
             include: ["jath", "bootstrap", "bootstrapA11y", "hammerjs", "hogan", "jquery_hammer", "keymaster", "screenfull", "spin",
             "mime-types", "zip", "zip-ext", "zip-fs", "cryptoJs/sha1", "cryptoJs/core",
-            'jquery',
+            'jquery', 'readium_cfi_js',
             'underscore', 'URIjs', 'punycode', 'SecondLevelDomains', 'IPv6',
-            'jquerySizes', 'domReady', 'eventEmitter', 'console_shim',
-            'rangy', 'rangy-core', 'rangy-textrange', 'rangy-highlighter', 'rangy-cssclassapplier', 'rangy-position']
+            'jquerySizes', 'domReady', 'eventEmitter', 'console_shim', 'cssom']
         }
     ]
 });

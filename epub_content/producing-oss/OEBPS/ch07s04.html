@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Packaging</title><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/></head><body><div class="sect1" title="Packaging"><div class="titlepage"><div><div><h1 class="title"><a id="packaging"/>Packaging</h1></div></div></div><p>The canonical form for distribution of free software is as
+source code.  This is true regardless of whether the software normally
+runs in source form (i.e., can be interpreted, like Perl, Python, PHP,
+etc.) or needs to be compiled first (like C, C++, Java, etc.).  With
+compiled software, most users will probably not compile the sources
+themselves, but will instead install from pre-built binary packages
+(see <a class="xref" href="ch07s04.html#binary-packages" title="Binary Packages">the section called “Binary Packages”</a><span>
+later in this chapter</span>).  However, those binary
+packages are still derived from a master source distribution.  The
+point of the source package is to unambiguously define the release.
+When the project distributes "Scanley 2.5.0", what it means,
+specifically, is "The tree of source code files that, when compiled
+(if necessary) and installed, produces Scanley 2.5.0."</p><p>There is a fairly strict standard for how source releases
+should look.  One will occasionally see deviations from this standard,
+but they are the exception, not the rule.  Unless there is a compelling
+reason to do otherwise, your project should follow this standard
+too.</p><div class="sect2" title="Format"><div class="titlepage"><div><div><h2 class="title"><a id="packaging-format"/>Format</h2></div></div></div><p>The source code should be shipped in the standard formats for
+transporting directory trees.  For Unix and Unix-like operating
+systems, the convention is to use TAR format, compressed
+by <span class="command"><strong>compress</strong></span>, <span class="command"><strong>gzip</strong></span>,
+<span class="command"><strong>bzip</strong></span> or <span class="command"><strong>bzip2</strong></span>.  For MS Windows,
+the standard method for distributing directory trees
+is <em class="firstterm">zip</em> format, which happens to do compression
+as well, so there is no need to compress the archive after creating
+it.</p><div class="sidebar" title="TAR Files"><a id="packaging-tar"/><div class="titlepage"><div><div><p class="title"><strong>TAR Files</strong></p></div></div></div><p><em class="firstterm">TAR</em> stands for "Tape ARchive",
+   because tar format represents a directory tree as a linear data
+   stream, which makes it ideal for saving directory trees to tape.
+   The same property also makes it the standard for distributing
+   directory trees as a single file.  Producing compressed tar files
+   (or <em class="firstterm">tarballs</em>) is pretty easy.  On some
+   systems, the <span class="command"><strong>tar</strong></span> command can produce a
+   compressed archive itself; on others, a separate compression
+   program is used.</p></div></div><div class="sect2" title="Name and Layout"><div class="titlepage"><div><div><h2 class="title"><a id="packaging-name-and-layout"/>Name and Layout</h2></div></div></div><p>The name of the package should consist of the software's name
+plus the release number, plus the format suffixes appropriate for the
+archive type.  For example, Scanley 2.5.0, packaged for Unix using GNU
+Zip (gzip) compression, would look like this:</p><div class="informalexample"><div class="literallayout"><p>scanley-2.5.0.tar.gz</p></div></div><p>or for Windows using zip compression:</p><div class="informalexample"><div class="literallayout"><p>scanley-2.5.0.zip</p></div></div><p>Either of these archives, when unpacked, should create a single
+new directory tree named <code class="filename">scanley-2.5.0</code> in the
+current directory.  Underneath the new directory, the source code
+should be arranged in a layout ready for compilation (if compilation
+is needed) and installation.  In the top level of new directory tree,
+there should be a plain text <code class="filename">README</code> file
+explaining what the software does and what release this is, and giving
+pointers to other resources, such as the project's web site, other
+files of interest, etc.  Among those other files should be an
+<code class="filename">INSTALL</code> file, sibling to
+the <code class="filename">README</code> file, giving instructions on how to build
+and install the software for all the operating systems it supports.
+As mentioned in
+<a class="xref" href="ch02s02.html#license-quickstart-applying" title="How to Apply a License to Your Software">the section called “How to Apply a License to Your Software”</a><span>
+in <a class="xref" href="ch02.html" title="Chapter 2. Getting Started">Chapter 2, <em>Getting Started</em></a></span>, there should also
+be a <code class="filename">COPYING</code> or <code class="filename">LICENSE</code>
+file, giving the software's terms of distribution.</p><p>There should also be a <code class="filename">CHANGES</code> file
+(sometimes called <code class="filename">NEWS</code>), explaining what's new in
+this release.  The <code class="filename">CHANGES</code> file accumulates
+changelists for all releases, in reverse chronological order, so that
+the list for this release appears at the top of the file.  Completing
+that list is usually the last thing done on a stabilizing release
+branch; some projects write the list piecemeal as they're developing,
+others prefer to save it all up for the end and have one person write
+it, getting information by combing the version control logs.  The list
+looks something like this:</p><pre class="screen">
+Version 2.5.0
+(20 December 2004, from /branches/2.5.x)
+http://svn.scanley.org/repos/svn/tags/2.5.0/
+
+ New features, enhancements:
+    * Added regular expression queries (issue #53)
+    * Added support for UTF-8 and UTF-16 documents
+    * Documentation translated into Polish, Russian, Malagasy
+    * ...
+
+ Bugfixes:
+    * fixed reindexing bug (issue #945)
+    * fixed some query bugs (issues #815, #1007, #1008)
+    * ...
+</pre><p>The list can be as long as necessary, but don't bother to
+include every little bugfix and feature enhancement.  Its purpose is
+simply to give users an overview of what they would gain by upgrading
+to the new release.  In fact, the changelist is customarily included
+in the announcement email (see
+<a class="xref" href="ch07s05.html" title="Testing and Releasing">the section called “Testing and Releasing”</a><span>
+later in this chapter</span>), so write it with that
+audience in mind.</p><div class="sidebar" title="CHANGES Versus ChangeLog"><a id="changelog"/><div class="titlepage"><div><div><p class="title"><strong>CHANGES Versus ChangeLog</strong></p></div></div></div><p>Traditionally, a file named <em class="firstterm">ChangeLog</em>
+   lists every change ever made to a project—that is, every
+   revision committed to the version control system.  There are
+   various formats for ChangeLog files; the details of the formats
+   aren't important here, as they all contain the same information:
+   the date of the change, its author, and a brief summary (or just
+   the log message for that change).</p><p>A <code class="filename">CHANGES</code> file is different.  It too is
+   a list of changes, but only the ones thought important for a
+   certain audience to see, and often with metadata like the exact
+   date and author stripped off.  To avoid confusion, don't use the
+   terms interchangeably.  Some projects use "NEWS" instead of
+   "CHANGES"; although this avoids the potential for confusion with
+   "ChangeLog", it is a bit of a misnomer, since the CHANGES file
+   retains change information for all releases, and thus has a lot of
+   old news in addition to the new news at the top.</p><p>ChangeLog files may be slowly disappearing anyway.  They were
+   helpful in the days when CVS was the only choice of version control
+   system, because change data was not easy to extract from CVS.
+   However, with more recent version control systems, the data that
+   used to be kept in the ChangeLog can be requested from the version
+   control repository at any time, making it pointless for the project
+   to keep a static file containing that data—in fact, worse
+   than pointless, since the ChangeLog would merely duplicate the log
+   messages already stored in the repository.</p></div><p>The actual layout of the source code inside the tree should be
+the same as, or as similar as possible to, the source code layout one
+would get by checking out the project directly from its version
+control repository.  Usually there are a few differences, for example
+because the package contains some generated files needed for
+configuration and compilation (see
+<a class="xref" href="ch07s04.html#packaging-build-install" title="Compilation and Installation">the section called “Compilation and Installation”</a><span>
+later in this chapter</span>), or because it includes
+third-party software that is not maintained by the project, but that
+is required and that users are not likely to already have.  But even
+if the distributed tree corresponds exactly to some development tree
+in the version control repository, the distribution itself should not
+be a working copy (see <a class="xref" href="ch03s03.html#vc-vocabulary-working-copy"><em class="firstterm">working copy</em></a>).
+The release is supposed to represent a static reference point—a
+particular, unchangeable configuration of source files.  If it were a
+working copy, the danger would be that the user might update it, and
+afterward think that he still has the release when in fact he has
+something different.</p><p>Remember that the package is the same regardless of the
+packaging.  The release—that is, the precise entity referred to
+when someone says "Scanley 2.5.0"—is the tree created by
+unpacking a zip file or tarball.  So the project might offer all of
+these for download:</p><div class="informalexample"><div class="literallayout"><p>scanley-2.5.0.tar.bz2<br/>
+scanley-2.5.0.tar.gz<br/>
+scanley-2.5.0.zip</p></div></div><p>...but the source tree created by unpacking them must be the
+same.  That source tree is the distribution; the form in which it is
+downloaded is merely a matter of convenience.  Certain trivial
+differences between source packages are allowable: for example, in the
+Windows package, text files should have lines ending with CRLF
+(Carriage Return and Line Feed), while Unix packages should use just
+LF.  The trees may be arranged slightly differently between source
+packages destined for different operating systems, too, if those
+operating systems require different sorts of layouts for compilation.
+However, these are all basically trivial transformations.  The basic
+source files should be the same across all the packagings of a given
+release.</p><div class="sect3" title="To capitalize or not to capitalize"><div class="titlepage"><div><div><h3 class="title"><a id="release-capitalization"/>To capitalize or not to capitalize</h3></div></div></div><p>When referring to a project by name, people generally capitalize
+it as a proper noun, and capitalize acronyms if there are any:
+"MySQL 5.0", "Scanley 2.5.0", etc.  Whether this
+capitalization is reproduced in the package name is up to the project.
+Either <code class="filename">Scanley-2.5.0.tar.gz</code> or
+<code class="filename">scanley-2.5.0.tar.gz</code> would be fine, for example
+(I personally prefer the latter, because I don't like to make people
+hit the shift key, but plenty of projects ship capitalized packages).
+The important thing is that the directory created by unpacking the
+tarball use the same capitalization.  There should be no surprises:
+the user must be able to predict with perfect accuracy the name of the
+directory that will be created when she unpacks a distribution.</p></div><div class="sect3" title="Pre-releases"><div class="titlepage"><div><div><h3 class="title"><a id="release-prereleases"/>Pre-releases</h3></div></div></div><p>When shipping a pre-release or candidate release, the qualifier
+is truly a part of the release number, so include it in the name of
+the package's name.  For example, the ordered sequence of alpha and
+beta releases given earlier in
+<a class="xref" href="ch07.html#release-number-components" title="Release Number Components">the section called “Release Number Components”</a> would result in
+package names like this:</p><div class="informalexample"><div class="literallayout"><p>scanley-2.3.0-alpha1.tar.gz<br/>
+scanley-2.3.0-alpha2.tar.gz<br/>
+scanley-2.3.0-beta1.tar.gz<br/>
+scanley-2.3.0-beta2.tar.gz<br/>
+scanley-2.3.0-beta3.tar.gz<br/>
+scanley-2.3.0.tar.gz</p></div></div><p>The first would unpack into a directory
+named <code class="filename">scanley-2.3.0-alpha1</code>, the second into
+<code class="filename">scanley-2.3.0-alpha2</code>, and so on.</p></div></div><div class="sect2" title="Compilation and Installation"><div class="titlepage"><div><div><h2 class="title"><a id="packaging-build-install"/>Compilation and Installation</h2></div></div></div><p>For software requiring compilation or installation from source,
+there are usually standard procedures that experienced users expect to
+be able to follow.  For example, for programs written in C, C++, or
+certain other compiled languages, the standard under Unix-like systems
+is for the user to type:</p><pre class="screen">
+   $ ./configure
+   $ make
+   # make install
+</pre><p>The first command autodetects as much about the environment as
+it can and prepares for the build process, the second command builds
+the software in place (but does not install it), and the last command
+installs it on the system.  The first two commands are done as a
+regular user, the third as root.  For more details about setting up
+this system, see the excellent <em class="citetitle">GNU Autoconf, Automake, and
+Libtool</em> book by Vaughan, Elliston, Tromey, and Taylor.  It
+is published as treeware by New Riders, and its content is also freely
+available online at
+<a class="ulink" href="http://sources.redhat.com/autobook/">http://sources.redhat.com/autobook/</a>.</p><p>This is not the only standard, though it is one of the most
+widespread.  The Ant (<a class="ulink" href="http://ant.apache.org/">http://ant.apache.org/</a>) build
+system is gaining popularity, especially with projects written in
+Java, and it has its own standard procedures for building and
+installing.  Also, certain programming languages, such as Perl and
+Python, recommend that the same method be used for most programs
+written in that language (for example, Perl modules use the
+command <span class="command"><strong>perl Makefile.PL</strong></span>).  If it's not
+obvious to you what the applicable standards are for your project, ask
+an experienced developer; you can safely assume
+that <span class="emphasis"><em>some</em></span> standard applies, even if you don't
+know what it is at first.</p><p>Whatever the appropriate standards for you project are, don't
+deviate from them unless you absolutely must.  Standard installation
+procedures are practically spinal reflexes for a lot of system
+administrators now.  If they see familiar invocations documented in
+your project's <code class="filename">INSTALL</code> file, that instantly
+raises their faith that your project is generally aware of
+conventions, and that it is likely to have gotten other things right
+as well.  Also, as discussed in
+<a class="xref" href="ch02.html#downloads" title="Downloads">the section called “Downloads”</a><span> in
+<a class="xref" href="ch02.html" title="Chapter 2. Getting Started">Chapter 2, <em>Getting Started</em></a></span>, having a standard
+build procedure pleases potential developers.</p><p>On Windows, the standards for building and installing are a bit
+less settled.  For projects requiring compilation, the general
+convention seems to be to ship a tree that can fit into the
+workspace/project model of the standard Microsoft development
+environments (Developer Studio, Visual Studio, VS.NET, MSVC++, etc.).
+Depending on the nature of your software, it may be possible to offer
+a Unix-like build option on Windows via the Cygwin
+(<a class="ulink" href="http://www.cygwin.com/">http://www.cygwin.com/</a>) environment.  And of course,
+if you're using a language or programming framework that comes with
+its own build and install conventions—e.g., Perl or
+Python—you should simply use whatever the standard method is for
+that framework, whether on Windows, Unix, Mac OS X, or any other
+operating system.</p><p>Be willing to put in a lot of extra effort in order to make your
+project conform to the relevant build or installation standards.
+Building and installing is an entry point: it's okay for things to get
+harder after that, if they absolutely must, but it would be a shame
+for the user's or developer's very first interaction with the software
+to require unexpected steps.</p></div><div class="sect2" title="Binary Packages"><div class="titlepage"><div><div><h2 class="title"><a id="binary-packages"/>Binary Packages</h2></div></div></div><p>Although the formal release is a source code package, most users
+will install from binary packages, either provided by their operating
+system's software distribution mechanism, or obtained manually from
+the project web site or from some third party.  Here "binary" doesn't
+necessarily mean "compiled"; it just means any pre-configured form of
+the package that allows a user to install it on his computer without
+going through the usual source-based build and install procedures.  On
+RedHat GNU/Linux, it is the RPM system; on Debian GNU/Linux, it is the
+APT (<code class="filename">.deb</code>) system; on MS Windows, it's usually
+<code class="literal">.MSI</code> files or self-installing
+<code class="literal">.exe</code> files.</p><p>Whether these binary packages are assembled by people closely
+associated with the project, or by distant third parties, users are
+going to <span class="emphasis"><em>treat</em></span> them as equivalent to the
+project's official releases, and will file issues in the project's bug
+tracker based on the behavior of the binary packages.  Therefore, it
+is in the project's interest to provide packagers with clear
+guidelines, and work closely with them to see to it that what they
+produce represents the software fairly and accurately.</p><p>The main thing packagers need to know is that they should always
+base their binary packages on an official source release.  Sometimes
+packagers are tempted to pull a later incarnation of the code from the
+repository, or include selected changes that were committed after the
+release was made, in order to provide users with certain bug fixes or
+other improvements.  The packager thinks he is doing his users a favor
+by giving them the more recent code, but actually this practice can
+cause a great deal of confusion.  Projects are prepared to receive
+reports of bugs found in released versions, and bugs found in recent
+trunk and major branch code (that is, found by people who deliberately
+run bleeding edge code).  When a bug report comes in from these
+sources, the responder will often be able to confirm that the bug is
+known to be present in that snapshot, and perhaps that it has since
+been fixed and that the user should upgrade or wait for the
+next release.  If it is a previously unknown bug, having the precise
+release makes it easier to reproduce and easier to categorize in the
+tracker.</p><p>Projects are not prepared, however, to receive bug reports based
+on unspecified intermediate or hybrid versions.  Such bugs can be hard
+to reproduce; also, they may be due to unexpected interactions in
+isolated changes pulled in from later development, and thereby cause
+misbehaviors that the project's developers should not have to take the
+blame for.  I have even seen dismayingly large amounts of time wasted
+because a bug was <span class="emphasis"><em>absent</em></span> when it should have been
+present: someone was running a slightly patched up version, based on
+(but not identical to) an official release, and when the predicted bug
+did not happen, everyone had to dig around a lot to figure out
+why.</p><p>Still, there will sometimes be circumstances when a packager
+insists that modifications to the source release are necessary.
+Packagers should be encouraged to bring this up with the project's
+developers and describe their plans.  They may get approval, but
+failing that, they will at least have notified the project of their
+intentions, so the project can watch out for unusual bug reports.  The
+developers may respond by putting a disclaimer on the project's web
+site, and may ask that the packager do the same thing in the
+appropriate place, so that users of that binary package know what they
+are getting is not exactly the same as what the project officially
+released.  There need be no animosity in such a situation, though
+unfortunately there often is.  It's just that packagers have a
+slightly different set of goals from developers.  The packagers mainly
+want the best out-of-the-box experience for their users.  The
+developers want that too, of course, but they also need to ensure that
+they know what versions of the software are out there, so they can
+receive coherent bug reports and make compatibility guarantees.
+Sometimes these goals conflict.  When they do, it's good to keep in
+mind that the project has no control over the packagers, and that the
+bonds of obligation run both ways.  It's true that the project is
+doing the packagers a favor simply by producing the software.  But the
+packagers are also doing the project a favor, by taking on a mostly
+unglamorous job in order to make the software more widely available,
+often by orders of magnitude.  It's fine to disagree with packagers,
+but don't flame them; just try to work things out as best you
+can.</p></div></div></body></html>

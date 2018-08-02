@@ -8,13 +8,13 @@ scripts:
 
 #=====================
     cson2json: '
-        node ./readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/concat.js "package/*.cson" package.cson
+        node ./readium-js/readium-shared-js/readium-build-tools/concat.js "package/*.cson" package.cson
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/cson/bin/cson2json package.cson > package.json
+        node ./readium-js/readium-shared-js/node_modules/cson/bin/cson2json package.cson > package.json
         &&
-        node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js package.cson
+        node ./readium-js/readium-shared-js/node_modules/rimraf/bin.js package.cson
         &&
-        node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/optimizePackageJsonScripts.js
+        node readium-js/readium-shared-js/readium-build-tools/optimizePackageJsonScripts.js
     '
 
 #=====================
@@ -30,11 +30,9 @@ scripts:
 #=====================
     'prepare:local': '
 
-        npm outdated
-        ;
-        npm install
+        (npm outdated || echo outdated)
         &&
-        npm update
+        (npm ci || npm install)
         &&
         npm run prepare:local:common
     '
@@ -52,11 +50,9 @@ scripts:
 #=====================
     'prepare:yarn:local': '
 
-        yarn outdated
-        ;
-        yarn install
+        (yarn outdated || echo outdated)
         &&
-        yarn upgrade
+        yarn install
         &&
         yarn run prepare:local:common
     '
@@ -64,7 +60,7 @@ scripts:
 #=====================
     'prepare:local:common': '
 
-        node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/gitHubForksUpdater.js
+        node readium-js/readium-shared-js/readium-build-tools/gitHubForksUpdater.js
     '
 
 #=====================

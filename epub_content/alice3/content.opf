@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!-- DOCTYPE package 
+  PUBLIC "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN"
+  "http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd" -->
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id" version="3.0" >
+ <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:dcterms="http://purl.org/dc/terms/"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:opf="http://www.idpf.org/2007/opf">
+   <dc:title>Alice's Adventures in Wonderland</dc:title> 
+   <dc:creator>Lewis Carroll</dc:creator> 
+   <dc:date>1865-07-04</dc:date>
+   <dc:subject>fiction</dc:subject>
+   <dc:language>en-GB</dc:language> 
+   <dc:coverage>England - 19th Century</dc:coverage> 
+   <dc:rights>Public Domain</dc:rights> 
+   <dc:publisher>D. Appleton and Co</dc:publisher> 
+   <dc:identifier id="pub-id">urn:uuid:7408D53A-5383-40AA-8078-5256C872AE41</dc:identifier>
+    <meta property="dcterms:modified">2012-04-02T12:47:00Z</meta>
+    <meta name="cover" content="coverpage" />
+ </metadata>
+ <manifest>
+  <item id="font0" href="fonts/MinionPro.otf" media-type="application/vnd.ms-opentype"/>
+  <item id="font0-it" href="fonts/MinionPro-It.otf" media-type="application/vnd.ms-opentype"/>
+  <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+  <item id="css" href="style.css" media-type="text/css"/>
+  <item id="titlepage" href="titlepage.xhtml" media-type="application/xhtml+xml" />
+  <item id="chapter01" href="chapter01.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter02" href="chapter02.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter03" href="chapter03.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter04" href="chapter04.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter05" href="chapter05.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter06" href="chapter06.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter07" href="chapter07.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter08" href="chapter08.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter09" href="chapter09.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter10" href="chapter10.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter11" href="chapter11.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter12" href="chapter12.xhtml" media-type="application/xhtml+xml"/>
+  <item id="img01a" href="images/alice01a.gif" media-type="image/gif" properties="cover-image"/>
+  <item id="img02a" href="images/alice02a.gif" media-type="image/gif"/>
+  <item id="img03a" href="images/alice03a.gif" media-type="image/gif"/>
+  <item id="img04a" href="images/alice04a.gif" media-type="image/gif"/>
+  <item id="img05a" href="images/alice05a.gif" media-type="image/gif"/>
+  <item id="img06a" href="images/alice06a.gif" media-type="image/gif"/>
+  <item id="img07a" href="images/alice07a.gif" media-type="image/gif"/>
+  <item id="img08a" href="images/alice08a.gif" media-type="image/gif"/>
+  <item id="img09a" href="images/alice09a.gif" media-type="image/gif"/>
+  <item id="img10a" href="images/alice10a.gif" media-type="image/gif"/>
+  <item id="img11a" href="images/alice11a.gif" media-type="image/gif"/>
+  <item id="img12a" href="images/alice12a.gif" media-type="image/gif"/>
+  <item id="img13a" href="images/alice13a.gif" media-type="image/gif"/>
+  <item id="img14a" href="images/alice14a.gif" media-type="image/gif"/>
+  <item id="img15a" href="images/alice15a.gif" media-type="image/gif"/>
+  <item id="img16a" href="images/alice16a.gif" media-type="image/gif"/>
+  <item id="img17a" href="images/alice17a.gif" media-type="image/gif"/>
+  <item id="img18a" href="images/alice18a.gif" media-type="image/gif"/>
+  <item id="img19a" href="images/alice19a.gif" media-type="image/gif"/>
+  <item id="img20a" href="images/alice20a.gif" media-type="image/gif"/>
+  <item id="img21a" href="images/alice21a.gif" media-type="image/gif"/>
+  <item id="img22a" href="images/alice22a.gif" media-type="image/gif"/>
+  <item id="img23a" href="images/alice23a.gif" media-type="image/gif"/>
+  <item id="img24a" href="images/alice24a.gif" media-type="image/gif"/>
+  <item id="img25a" href="images/alice25a.gif" media-type="image/gif"/>
+  <item id="img26a" href="images/alice26a.gif" media-type="image/gif"/>
+  <item id="img27a" href="images/alice27a.gif" media-type="image/gif"/>
+  <item id="img28a" href="images/alice28a.gif" media-type="image/gif"/>
+  <item id="img29a" href="images/alice29a.gif" media-type="image/gif"/>
+  <item id="img30a" href="images/alice30a.gif" media-type="image/gif"/>
+  <item id="img31a" href="images/alice31a.gif" media-type="image/gif"/>
+  <item id="img32a" href="images/alice32a.gif" media-type="image/gif"/>
+  <item id="img33a" href="images/alice33a.gif" media-type="image/gif"/>
+  <item id="img34a" href="images/alice34a.gif" media-type="image/gif"/>
+  <item id="img35a" href="images/alice35a.gif" media-type="image/gif"/>
+  <item id="img36a" href="images/alice36a.gif" media-type="image/gif"/>
+  <item id="img37a" href="images/alice37a.gif" media-type="image/gif"/>
+  <item id="img38a" href="images/alice38a.gif" media-type="image/gif"/>
+  <item id="img39a" href="images/alice39a.gif" media-type="image/gif"/>
+  <item id="img40a" href="images/alice40a.gif" media-type="image/gif"/>
+  <item id="img41a" href="images/alice41a.gif" media-type="image/gif"/>
+  <item id="img42a" href="images/alice42a.gif" media-type="image/gif"/>
+ </manifest>
+ <spine>
+  <itemref idref="titlepage"/>
+  <itemref idref="chapter01"/>
+  <itemref idref="chapter02"/>
+  <itemref idref="chapter03"/>
+  <itemref idref="chapter04"/>
+  <itemref idref="chapter05"/>
+  <itemref idref="chapter06"/>
+  <itemref idref="chapter07"/>
+  <itemref idref="chapter08"/>
+  <itemref idref="chapter09"/>
+  <itemref idref="chapter10"/>
+  <itemref idref="chapter11"/>
+  <itemref idref="chapter12"/>
+ </spine>
+</package>

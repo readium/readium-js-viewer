@@ -4,8 +4,14 @@ branches:
   - develop
 language: node_js
 node_js:
-- '7'
+- '9'
+cache: false
+#  directories:
+#    - node_modules
+#    - readium-shared-js/node_modules
+#    - readium-shared-js/readium-js/node_modules
 before_install:
+- npm -g install npm@latest
 - git submodule update --init --recursive
 #
 # READIUM JS VIEWER
@@ -50,33 +56,14 @@ before_install:
 - git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
 - git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1`
 - git branch -avv
-#
-# READIUM CFI JS
-#
-- cd readium-cfi-js
-#
-#- git fetch --all
-- for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done
-- git branch -avv
-- git remote -v
-- git show-ref --heads
-- git show-ref --head --hash head
-- git branch -a --contains $(git rev-parse HEAD)
-- git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1
-- git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1`
-- git branch -avv
-#
-- cd ../../../
-install:
-- yarn run prepare:all
+- echo "plugins:['hypothesis']" > plugins/plugins.cson
+- cat plugins/plugins.cson
+- cd ../../
+install: 
+- npm run prepare:all
 before_script:
 - pwd
 script:
-- cd readium-js/readium-shared-js/readium-cfi-js
-#- yarn run prepare:all
-- npm run build
-- npm run test:travis
-- cd ../../..
 - pwd
 - git status
 - npm run pretest:travis
@@ -85,13 +72,11 @@ script:
 - git status
 - cd readium-shared-js
 - git status
-- cd readium-cfi-js
-- git status
-- cd ../../../
+- cd ../../
 - cat build-output/version.json
 after_success:
 - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${MODE} = "firefox" ] && npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh'
-- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${MODE} = "firefox" ] && npm install firebase-tools && firebase version && firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project "project-1351855251145549090"'
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${MODE} = "firefox" ] && npm install firebase-tools && firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project "project-1351855251145549090"'
 - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${MODE} = "chromeApp" ] && node build-config/deployCrx.js'
 after_failure: cat ./sauce_connect.log
 env:

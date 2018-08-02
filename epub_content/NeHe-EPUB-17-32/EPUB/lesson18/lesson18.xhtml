@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-02</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+</head>
+<body>
+<h2>Lesson 18 - Quadrics</h2>
+
+<p>The quadrics example is very easy since three.jsprovides built-in quadrics support. However, as always, there are a couple of wrinkles so let's go over it briefly.</p>
+<p>We initialize the gfxScene object same as always. We also declare some global vars:</p>
+
+<pre><code class="language-javascript">var quadTexture;
+var	quadric;
+var	quadGeometry;
+var	quadMaterial;
+var	materialType = 'p';	// texture, paint or wire
+var	quadType = 'b';</code></pre>
+
+<p>Global variables are not good programming but this is a simple demo so we'll just hold our nose.</p>
+<p>Then we call <span class="inline-code">initDemo</span> which is very simple:</p>
+
+<pre><code class="language-javascript">quadTexture = new THREE.ImageUtils.loadTexture("images/clouds.jpg");
+	
+quadMaterial = makeMaterial(materialType);
+quadric = makeQuad('0');
+
+window.addEventListener("keydown", onDocumentKeyDown, false);</code></pre>
+
+<p>Here's the code that creates the material for the quadric. We do it this way because we have to create a new material each time we change the type of quadric (though not vice-versa).</p>
+
+<pre><code class="language-javascript">function makeMaterial ( matType ) {
+				
+    materialType = matType;
+    if ( materialType == 't')
+        quadMat = new THREE.MeshPhongMaterial({ map:quadTexture, side:THREE.DoubleSide });
+    else if (materialType == 'w')
+        quadMat = new THREE.MeshBasicMaterial({ wireframe:true });
+    else
+        quadMat = new THREE.MeshLambertMaterial({ color: '#00abb1' });
+				
+    return quadMat;
+}</code></pre>
+
+ <p>And here's the code that actually creates the quadrics. Again, we have to re-create the geometry that is the quadric each time we change the quadric type (but not if we are only changing the material).</p>
+ 
+<pre><code class="language-javascript">function makeQuad( qType ) {
+	
+    quadType = qType;
+				
+    gfxScene.remove( quadric );
+	
+	switch ( quadType ) {
+        case '0':
+            quadGeometry = new THREE.BoxGeometry(2.0, 2.0, 2.0);
+        break;		
+        case '1':
+            quadGeometry = new THREE.CircleGeometry(2.0, 32);
+        break;
+        case '2':
+            quadGeometry = new THREE.CylinderGeometry(2.0, 2.0, 5, 32);
+        break;
+        case '3':
+            quadGeometry = new THREE.DodecahedronGeometry(2.0);
+        break;
+        case '4':
+            quadGeometry = new THREE.IcosahedronGeometry(2.0);
+        break;
+        case '5': 
+            quadGeometry = new THREE.CylinderGeometry(0.0, 2.0, 5, 64);	
+        break;
+        case '6':
+            quadGeometry = new THREE.OctahedronGeometry(2.0, 2.0, 2.0);
+        break;
+        case '7':
+            quadGeometry = new THREE.RingGeometry(0.5, 2.0, 32);
+        break;
+        case '8':
+            quadGeometry = new THREE.SphereGeometry(2.0, 32, 32);
+        break;
+        case '9':
+            quadGeometry = new THREE.TetrahedronGeometry(2.0);
+        break;
+        case 'a':
+            quadGeometry = new THREE.TorusGeometry(2.0, 0.5, 16, 100);
+        break;
+        case 'b':
+            quadGeometry = new THREE.TorusKnotGeometry(2.0, 0.5, 100, 16);
+       
+    }
+	
+    quad = new THREE.Mesh(quadGeometry, quadMaterial);
+    gfxScene.add(quad);
+				
+	return quad;
+}</code></pre>
+            
+ <p>Finally, we handle the keystrokes and create the material and geometry:</p>
+ 
+<pre><code class="language-javascript">function onDocumentKeyDown(event) {			
+    var keyChar = String.fromCharCode(event.which);
+    keyChar = keyChar.toLowerCase();
+
+    var quadString = "0123456789ab";
+    var matString = "ptw";
+
+    if ( quadString.indexOf(keyChar) != -1) {
+        quadric = makeQuad(keyChar);
+    }
+    else if (matString.indexOf(keyChar) != -1) {
+        quadMaterial = makeMaterial(keyChar);
+        quadric = makeQuad(quadType);
+    }
+
+    // need to stop propagation of the event or the Reading System will probably take back the focus
+    event.stopPropagation();
+}</code></pre>
+        
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all it's quadric glory!</p>
+</body>
+</html>

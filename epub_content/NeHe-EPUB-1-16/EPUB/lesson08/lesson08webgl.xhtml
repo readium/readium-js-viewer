@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+		<title>Three.js tutorial - Lesson 08</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+		<!-- The following meta line optimizes the site for mobile devices. It sets the viewport size
+		to the screen size, so it will be displayed maximized, but unscaled. -->
+		<meta name="viewport" content="width=768, height=1024"/>
+        <link rel="stylesheet" type="text/css" href="../css/NeHe.css" />
+
+		<!-- Include the necessary libs -->
+		<script src="../three-js/three.js" type="text/javascript"></script>
+	    <script src="../three-js/Detector.js" type="text/javascript"></script>
+	    <script src="../three-js/dat.gui.min.js" type="text/javascript"></script>
+        <script src="../gfx/gfx-scene.js" type="text/javascript"></script>
+	</head>
+	<body>
+
+	<!-- This JavaScript block encloses the Three.js commands -->
+	<script type="text/javascript">
+        var X_DELTA = 0.002;
+        var Y_DELTA = 0.003;
+        var Z_DELTA = 0.004;
+
+        var xRotation = 0;
+        var yRotation = 0;
+        var zRotation = 0;
+
+        // Texture and flag for current texture filter
+        var glassTexture;
+        var textureFilter = 0;
+
+        var filter = [
+            THREE.NearestFilter,
+            THREE.LinearFilter,
+            THREE.NearestMipMapNearestFilter,
+            THREE.LinearMipMapLinearFilter
+        ];
+
+        var filterType = [
+            "Nearest",
+            "Linear",
+            "NearestMipMapNearest",
+            "LinearMipMapLinear"
+        ];
+
+        // Global mesh object of the cube
+        var cubeMesh;
+        var options = setupDatGUI();
+
+        // allocate the Scene object, and set the camera position
+        var gfxScene = new GFX.Scene( {
+            cameraPos:[0,0,6],
+            canvasWidth : 768,
+            canvasHeight : 1024 });
+
+        var directionalLight = gfxScene.directionalLights[0];
+        var ambientLight = gfxScene.ambientLights[0];
+
+        initializeDemo();
+
+        animateScene();
+
+        /**
+         *  Initialize the demo's local aspects, i.e not the scene.
+         */
+        function initializeDemo() {
+            // Create the cube
+            var cubeGeometry = new THREE.BoxGeometry(2.0, 2.0, 2.0);
+
+            // Load an image as texture
+            glassTexture = THREE.ImageUtils.loadTexture("images/Glass.jpg");
+
+            // Create a material, which contains the texture
+            var cubeMaterial = new THREE.MeshLambertMaterial({
+                map:glassTexture,
+                depthWrite: false,
+                transparent: true,
+                opacity: 0.75,
+                side:THREE.DoubleSide,
+                combine: THREE.MixOperation
+            });
+
+            // Create a mesh and insert the geometry and the material. Translate the
+            // whole mesh by 'zTranslation' units on the z axis. Finally add the mesh
+            // to the scene.
+            cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+            gfxScene.add(cubeMesh);
+        }
+
+        /**
+         *
+         */
+        function setupDatGUI() {
+            var options = [];
+
+            options.rotating = false;
+            options.blending = true;
+            options.light = true;
+
+            options.nFilter = 0;
+            options.textureFilter = filterType[options.nFilter];
+
+            gui = new dat.GUI();
+
+            gui.add( options, 'rotating' ).onChange(function() {
+                if (options.rotating === false) {
+                    xRotation = 0;
+                    yRotation = 0;
+                    zRotation = 0;
+                }
+            });
+
+            gui.add( options, 'blending' ).onChange(function() {
+                if (cubeMesh.material.depthWrite === false) {
+                    cubeMesh.material.depthWrite = true;
+                    cubeMesh.material.opacity = 1.0;
+                    cubeMesh.material.combine = THREE.MultiplyOperation;
+                }
+                else {
+                    cubeMesh.material.depthWrite = false;
+                    cubeMesh.material.transparent = true;
+                    cubeMesh.material.opacity = 0.5;
+                    cubeMesh.material.combine = THREE.MixOperation;
+                }
+                updateFilter();
+            });
+
+            gui.add( options, 'light' ).onChange(function() {
+                ambientLight.intensity = ambientLight.intensity > 0 ? 0 : 1;
+                directionalLight.intensity = directionalLight.intensity > 0 ? 0 : 1;
+            });
+
+            gui.add(options, "textureFilter", [ filterType[0], filterType[1], filterType[2], filterType[3]  ]).onChange(function() {
+
+                options.nFilter = filterType.indexOf(options.textureFilter);
+                updateFilter();
+            });
+
+            return options;
+        }
+
+        /**
+         *  Just update the filters and the labels
+         */
+        function updateFilter() {
+            cubeMesh.material.map.minFilter = filter[textureFilter];
+            cubeMesh.material.map.magFilter = filter[textureFilter % 2];
+            cubeMesh.material.map.needsUpdate = true;
+        }
+
+        /**
+         * Animate the scene and call rendering.
+         */
+        function animateScene(){
+            // Update and set the rotation around the axes
+            if (options.rotating) {
+                xRotation += X_DELTA;
+                yRotation += Y_DELTA;
+                zRotation += Z_DELTA;
+            }
+
+            cubeMesh.rotation.set(xRotation, yRotation, zRotation);
+
+            // Tell the browser to call this function back
+            requestAnimationFrame(animateScene);
+
+            // Map the 3D scene down to the 2D screen (render the frame)
+            gfxScene.renderScene();
+        }
+
+	</script>
+	</body>
+</html>

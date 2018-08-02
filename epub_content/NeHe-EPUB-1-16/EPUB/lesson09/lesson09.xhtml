@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>NeHe-EPUB-08</title>
+    <link type="text/css" href="../css/NeHe-EPUB.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/prism.css" rel="stylesheet"/>
+    <script src="../three-js/prism.js"></script>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h2>Lesson 9 - Masks and Texture Coordinates</h2>
+
+<p>This lesson is pretty simple. It uses a simple black and white image as a mask to render the &quot;star&quot;. Here is the image:</p>
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <p><img src="images/star.jpg" width="128" height="128" alt=""/></p>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+<p>Note that this is a JPEG image, not PNG so the image is just black and white - no transparency. The image is treated as a mask, so the black areas are effectively transparent while the white areas are rendered.</p>
+
+<p>We have to create a &quot;square&quot; mesh to hold the image, so like in the first lesson - we have to use two triangles and ensure the winding directions are correct</p>
+<pre><code class="language-javascript">var squareGeometry = new THREE.Geometry();
+squareGeometry.vertices.push(new THREE.Vector3(-1, -1, 0));
+squareGeometry.vertices.push(new THREE.Vector3( 1, -1, 0));
+squareGeometry.vertices.push(new THREE.Vector3( 1,  1, 0));
+squareGeometry.vertices.push(new THREE.Vector3(-1,  1, 0));
+squareGeometry.faces.push(new THREE.Face3(0, 1, 2));
+squareGeometry.faces.push(new THREE.Face3(0, 2, 3));</code></pre>
+        
+
+                    
+					<p>Since we are going to use the image as mask, we need to load it as texture, as before. However, since we are creating our own mesh, we need to tell three.js how to map the coordinates of the mask-image onto the mesh. Basically, we simply specify which corners of the image correspond to the vertices that we specified as the verticies of the two triangles.</p>
+					<p>Here is an illustration of how the mapping works. The figures in red are the UV coordinates. UV coordinates are just the coordinates in the image-space, where they vary from 0..1 in both X and Y in the image. If you're wondering what UV stands for the answer is nothing - it's just that X, Y and Z were already used for the geometric axes in 3D space. So the previous two letters in the alphabet were chosen. &#9786;</p>
+					<blockquote>
+					  <blockquote>
+					    <blockquote>
+					      <blockquote>
+					        <p><img src="images/TriGeomMask.png" width="350" height="350" alt="Triangle Mask Geometry"/></p>
+				          </blockquote>
+				        </blockquote>
+				      </blockquote>
+</blockquote>
+<p>So we just push the three coordinates, in the image's coordinate space, that correspond to the vertexes of each triangle. Note that the order is critical, the coordinates have to have the same order as the triangles.</p>
+<pre><code class="language-javascript">squareGeometry.faceVertexUvs[0].push([
+    new THREE.Vector2(0.0, 0.0),
+    new THREE.Vector2(1.0, 0.0),
+    new THREE.Vector2(1.0, 1.0)
+]);
+					
+squareGeometry.faceVertexUvs[0].push([
+    new THREE.Vector2(0.0, 0.0),
+    new THREE.Vector2(1.0, 1.0),
+    new THREE.Vector2(0.0, 1.0)
+]);</code>
+</pre>
+					
+<p>For an excellent intro to texture/UV mapping, see
+<a href="http://solutiondesign.com/webgl-and-three-js-texture-mapping">http://solutiondesign.com/webgl-and-three-js-texture-mapping</a></p>
+<p>Then we create a material, which contains the texture. We use <span class="inline-code">AdditiveBlending</span> and <span class="inline-code">transparency:true</span> so that the black areas of the image become transparent. We also set the <span class="inline-code">combine</span> property to 
+  <span class="inline-code">MixOperation</span> so the color we specify gets combined with white parts of the image. We set the initial 
+color of each to white, but that gets changed when we animate the stars.</p>
+					
+<pre><code class="language-javascript">var squareMaterial = new THREE.MeshBasicMaterial({
+    map:starTexture,
+    transparent: true,
+    combine: THREE.MixOperation,
+    blending: THREE.AdditiveBlending,
+    color:0xFFFFFF
+});</code></pre>
+
+<p>We do this for all 32 of the stars. The colors and animation of the spiral happen in the animateFrame function.  We want the stars to spin as they spiral in, so we just increment the spin value and clamp it to 2*&#928;. At each pass, we decrement the distance outward by a small amount. Note that when the value is decremented to less than zero, we re-cycle the star, setting its distance back to the original distance and set a new color.</p>
+<pre><code class="language-javascript">spin += Math.PI * 2 / num;
+if (spin > (Math.PI*2))
+    spin = 0;
+
+star[i].angle += i / num;
+star[i].dist  -= 0.01;
+if (star[i].dist &lt; 0.0) {
+    star[i].dist += 5.0;
+    star[i].r    = Math.random();
+    star[i].g    = Math.random();
+    star[i].b    = Math.random();
+}</code></pre>
+<p>We want to translate the star out to the right distance and the rotate it around the z-axis 
+so we set the mesh's matrix to that translated value then rotate a second matrix and concatenate 
+it onto the mesh's matrix. Finally, we set the color of the mesh to the values set when it was last initialized.</p>
+
+<pre><code class="language-javascript">star[i].mesh.matrix.setPosition(new THREE.Vector3(star[i].dist, 0, 0));
+var mr = new THREE.Matrix4();
+mr.makeRotationZ(spin);
+star[i].mesh.applyMatrix(mr);
+
+star[i].mesh.material.color.setRGB(star[i].r, star[i].g, star[i].b);</code></pre>
+                    
+<p>And that's it!  Go on to the next page to see the actual rendered demo in all its spinning, spiraling glory!</p>
+</body>
+</html>
