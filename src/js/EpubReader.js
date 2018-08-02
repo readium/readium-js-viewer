@@ -308,32 +308,44 @@ BookmarkData){
             var tocNav;
 
             var $navs = $('nav', dom);
-            Array.prototype.every.call($navs, function(nav){
-                if (nav.getAttributeNS('http://www.idpf.org/2007/ops', 'type') == 'toc'){
+            Array.prototype.every.call($navs, function(nav) {
+                
+                var attr = Helpers.getEpubTypeRoleAttributeValue(nav);
+
+                if (attr && ((attr.indexOf('toc') >= 0) || (attr.indexOf('doc-toc') >= 0))) { // TODO: tighter regexp check, with token-separated values (space character? depends on EPUB3 epub:type vs. ARIA role?)
                     tocNav = nav;
                     return false;
                 }
+                
                 return true;
             });
-
+            
             var isRTL = false;
             var pparent = tocNav;
 
-            while (pparent && pparent.getAttributeNS)
+            while (pparent)
             {
-                var dir = pparent.getAttributeNS("http://www.w3.org/1999/xhtml", "dir") || pparent.getAttribute("dir");
-
+                var dir = undefined;
+                if (pparent.getAttributeNS) {
+                    dir = pparent.getAttributeNS("http://www.w3.org/1999/xhtml", "dir");
+                }
+                if (!dir) {
+                    if (pparent.getAttribute) {
+                        dir = pparent.getAttribute("dir");
+                    }
+                }
+                
                 if (dir && dir === "rtl")
                 {
                     isRTL = true;
                     break;
                 }
+                
                 pparent = pparent.parentNode;
             }
 
             var toc = (tocNav && $(tocNav).html()) || $('body', dom).html() || $(dom).html();
-            var tocUrl = currentPackageDocument.getToc();
-
+            
             if (toc && toc.length)
             {
                 var $toc = $(toc);
@@ -375,7 +387,7 @@ BookmarkData){
             }
 
         } else {
-            var tocUrl = currentPackageDocument.getToc();
+            var tocUrl = currentPackageDocument.getTocURI();
 
             $('#readium-toc-body').append("?? " + tocUrl);
         }
@@ -520,13 +532,17 @@ BookmarkData){
         {
             try {
                 spin(true);
-    
+                
                 var href = $(this).attr('href');
+                
+                //var tocUrl = currentPackageDocument.getTocURI();
                 //href = tocUrl ? new URI(href).absoluteTo(tocUrl).toString() : href;
     
                 _tocLinkActivated = true;
     
-                readium.reader.openContentUrl(href, tocUrl, undefined);
+                var tocHref = currentPackageDocument.getToc();
+    
+                readium.reader.openContentUrl(href, tocHref, undefined);
     
                 if (embedded) {
                     $('.toc-visible').removeClass('toc-visible');

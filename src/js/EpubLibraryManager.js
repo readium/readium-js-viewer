@@ -1,4 +1,4 @@
-define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings', 'URIjs', './EpubLibraryOPDS'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings, URI, EpubLibraryOPDS) {
+define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 'StorageManager', 'i18nStrings', 'URIjs', './EpubLibraryOPDS', 'readium_shared_js/XmlParse'], function ($, moduleConfig, PackageParser, WorkerProxy, StorageManager, Strings, URI, EpubLibraryOPDS, XmlParse) {
 
     var LibraryManager = function(){
     };
@@ -107,8 +107,7 @@ define(['jquery', './ModuleConfig', './PackageParser', './workers/WorkerProxy', 
             $.get(packageUrl, function(data){
     
                 if(typeof(data) === "string" ) {
-                    var parser = new window.DOMParser;
-                    data = parser.parseFromString(data, 'text/xml');
+                    data = XmlParse.fromString(data, "text/xml");
                 }
                 var jsonObj = PackageParser.parsePackageDom(data, packageUrl);
                 jsonObj.coverHref = jsonObj.coverHref ? self._getFullUrl(packageUrl, jsonObj.coverHref) : undefined;

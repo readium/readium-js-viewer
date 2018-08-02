@@ -1,4 +1,4 @@
-define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_js/epub-fetch/encryption_handler'], function(moduleConfig, Messages, $, PackageParser, EncryptionHandler){
+define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_js/epub-fetch/encryption_handler', 'readium_shared_js/XmlParse'], function(moduleConfig, Messages, $, PackageParser, EncryptionHandler, XmlParse){
 
     var worker;
     var cleanupWorker = function(){
@@ -60,7 +60,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
                     }
                     break;
                 case Messages.FIND_PACKAGE:
-                    var containerDom = (new DOMParser()).parseFromString(data.containerStr, "text/xml");
+                    var containerDom = XmlParse.fromString(data.containerStr, "text/xml");
                     var $rootfile = $('rootfile', containerDom);
                     if (!$rootfile.length){
                         error(Messages.ERROR_EPUB);
@@ -71,7 +71,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
                     }
                     break;
                 case Messages.PARSE_PACKAGE:
-                    var packageDom = (new DOMParser()).parseFromString(data.packageStr, "text/xml");
+                    var packageDom = XmlParse.fromString(data.packageStr, "text/xml");
                     var errors = $(packageDom).find('parsererror');
                     if (errors.length) {
                         error(Messages.ERROR_PACKAGE_PARSE, $(errors).find('div').text());
@@ -82,7 +82,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
 
                         var encryptionData;
                         if(data.encryptionStr) {
-                            var encryptionDom = (new DOMParser()).parseFromString(data.encryptionStr, "text/xml");
+                            var encryptionDom = XmlParse.fromString(data.encryptionStr, "text/xml");
 
                             encryptionData = EncryptionHandler.CreateEncryptionData(packageObj.id, encryptionDom);
                         }
