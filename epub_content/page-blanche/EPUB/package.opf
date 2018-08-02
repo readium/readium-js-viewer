@@ -35,7 +35,7 @@
 <!-- fixed-layout options -->
 	  <meta property="rendition:layout">pre-paginated</meta>
 	  <meta property="rendition:orientation">auto</meta>
-	  <meta property="rendition:spread">auto</meta>
+	  <meta property="rendition:spread">both</meta>
 <!-- meta for the cover -->
 	  <meta name="cover" content="cover-jpg"/>
    </metadata>
@@ -66,15 +66,15 @@
 	  <item id="id-PageBlanche_Page_008-jpg" href="Image/PageBlanche_Page_008.jpg" media-type="image/jpeg"/>
    </manifest>
    <spine toc="ncx">
-      <itemref idref="id-cover-xhtml" properties="page-spread-right"/>
-      <itemref idref="white-xhtml" properties="page-spread-left"/>
-      <itemref idref="id-PageBlanche_Page_001-xhtml" properties="page-spread-right"/>
-      <itemref idref="id-PageBlanche_Page_002-xhtml" properties="page-spread-left"/>
-      <itemref idref="id-PageBlanche_Page_003-xhtml" properties="page-spread-right"/>
-      <itemref idref="id-PageBlanche_Page_004-xhtml" properties="page-spread-left"/>
-      <itemref idref="id-PageBlanche_Page_005-xhtml" properties="page-spread-right"/>
-      <itemref idref="id-PageBlanche_Page_006-xhtml" properties="page-spread-left"/>
-      <itemref idref="id-PageBlanche_Page_007-xhtml" properties="page-spread-right"/>
-      <itemref idref="id-PageBlanche_Page_008-xhtml" properties="page-spread-left"/>
+      <itemref idref="id-cover-xhtml" properties="rendition:spread-both rendition:page-spread-right page-spread-right"/>
+      <itemref idref="white-xhtml" properties="rendition:spread-both rendition:page-spread-left page-spread-left"/>
+      <itemref idref="id-PageBlanche_Page_001-xhtml" properties="rendition:spread-both rendition:page-spread-right page-spread-right"/>
+      <itemref idref="id-PageBlanche_Page_002-xhtml" properties="rendition:spread-both rendition:page-spread-left page-spread-left"/>
+      <itemref idref="id-PageBlanche_Page_003-xhtml" properties="rendition:spread-both rendition:page-spread-right page-spread-right"/>
+      <itemref idref="id-PageBlanche_Page_004-xhtml" properties="rendition:spread-both rendition:page-spread-left page-spread-left"/>
+      <itemref idref="id-PageBlanche_Page_005-xhtml" properties="rendition:spread-both rendition:page-spread-right page-spread-right"/>
+      <itemref idref="id-PageBlanche_Page_006-xhtml" properties="rendition:spread-both rendition:page-spread-left page-spread-left"/>
+      <itemref idref="id-PageBlanche_Page_007-xhtml" properties="rendition:spread-both rendition:page-spread-right page-spread-right"/>
+      <itemref idref="id-PageBlanche_Page_008-xhtml" properties="rendition:spread-both rendition:page-spread-left page-spread-left"/>
    </spine>
 </package>
