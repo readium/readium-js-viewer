@@ -22,11 +22,11 @@
         },
         {
           "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Content-Length, Accept-Ranges, Link, Transfer-Encoding"
+          "value": "Content-Type, Content-Length, Accept-Ranges, Range, Link, Transfer-Encoding"
         },
         {
           "key": "Access-Control-Expose-Headers",
-          "value": "Content-Type, Content-Length, Accept-Ranges, Link, Transfer-Encoding"
+          "value": "Content-Type, Content-Length, Accept-Ranges, Range, Link, Transfer-Encoding"
         }
       ]
     }
