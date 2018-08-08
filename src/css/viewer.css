@@ -224,6 +224,116 @@ html[data-theme=night-theme] .page-switch-overlay-icon {
 vertical-align: middle;
 }
 
+
+
+
+
+/* --- */
+/* #nav-back */
+
+
+#nav-back-btn.page-switch-overlay-icon > span
+{
+  transform: scale(0.8);
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -o-transform: scale(0.8);
+}
+
+#nav-back-btn.page-switch-overlay-icon {
+
+  top: 85%;
+  bottom: 0%;
+
+  padding-top: 0.2em;
+  padding-bottom: 0.44em;
+}
+
+#nav-back-btn {
+
+  left: 0;
+  border-top-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+}
+
+#nav-back-btn.pageProgressionDirectionRTL {
+
+  right: 0;
+  border-top-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
+}
+
+/* #nav-back-btn:focus, */
+#nav-back-btn:hover
+{
+  opacity: 1.0;
+  color: white;
+  background-color: rgba(0,0,0,0.2);
+}
+
+/* html[data-theme=night-theme] #nav-back-btn:focus, */
+html[data-theme=night-theme] #nav-back-btn:hover
+{
+  color: black;
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* --- */
+/* #nav-back-linear */
+
+#nav-back-linear-btn.page-switch-overlay-icon > span
+{
+  transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -o-transform: scale(0.7);
+}
+
+#nav-back-linear-btn.page-switch-overlay-icon {
+
+  top: 0%;
+  bottom: 85%;
+
+  padding-top: 0.2em;
+  padding-bottom: 0.44em;
+}
+
+#nav-back-linear-btn {
+
+  left: 0;
+  border-top-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+}
+
+#nav-back-linear-btn.pageProgressionDirectionRTL {
+
+  right: 0;
+  border-top-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
+}
+
+/* #nav-back-btn:focus, */
+#nav-back-linear-btn:hover
+{
+  opacity: 1.0;
+  color: white;
+  background-color: rgba(0,0,0,0.2);
+}
+
+/* html[data-theme=night-theme] #nav-back-btn:focus, */
+html[data-theme=night-theme] #nav-back-linear-btn:hover
+{
+  color: black;
+  background-color: rgba(255,255,255,0.2);
+}
+
+
+
+
+
+
 #left-page-btn {
 
   left: 0;
@@ -316,14 +426,22 @@ html[data-theme=night-theme] #right-page-btn:hover
 
 .hide-ui #left-page-btn, 
 .hide-ui #right-page-btn,
+.hide-ui #nav-back-btn,
+.hide-ui #nav-back-linear-btn,
 .embedded .toc-visible #left-page-btn, 
-.embedded .toc-visible #right-page-btn{
+.embedded .toc-visible #right-page-btn,
+.embedded .toc-visible #nav-back-btn,
+.embedded .toc-visible #nav-back-linear-btn
+{
   -webkit-transition: opacity .2s ease-out;
   opacity: 0;
 }
 
 .hide-ui #left-page-btn:hover, 
-.hide-ui #right-page-btn:hover{
+.hide-ui #right-page-btn:hover,
+.hide-ui #nav-back-btn:hover,
+.hide-ui #nav-back-linear-btn:hover
+{
    -webkit-transition: opacity .2s ease-out;
   opacity: 1;
 }

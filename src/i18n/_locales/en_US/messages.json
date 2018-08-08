@@ -447,6 +447,12 @@
   "i18n_page_next" : {
     "message" : "Next Page"
   },
+  "i18n_nav_back" : {
+    "message" : "Go back in navigation history"
+  },
+  "i18n_nav_back_linear" : {
+    "message" : "Return to primary reading flow"
+  },
   "i18n_page_navigation" : {
     "message" : "Page Navigation"
   },

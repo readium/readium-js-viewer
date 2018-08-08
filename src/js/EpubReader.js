@@ -188,14 +188,22 @@ BookmarkData){
 
                 $("#left-page-btn").unbind("click");
                 $("#right-page-btn").unbind("click");
+                $("#nav-back-btn").unbind("click");
+                $("#nav-back-linear-btn").unbind("click");
+                
                 var $pageBtnsContainer = $('#readium-page-btns');
                 $pageBtnsContainer.empty();
                 var rtl = currentPackageDocument.getPageProgressionDirection() === "rtl"; //_package.spine.isLeftToRight()
                 $pageBtnsContainer.append(ReaderBodyPageButtons({strings: Strings, dialogs: Dialogs, keyboard: Keyboard,
                     pageProgressionDirectionIsRTL: rtl
                 }));
+                
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
+
+                $("#nav-back-btn").on("click", function() { return navBack(false); });
+                $("#nav-back-linear-btn").on("click", function() { return navBack(true); });
+    
                 $("#left-page-btn").mouseleave(function() {
                   $(tooltipSelector()).tooltip('destroy');
                 });
@@ -722,19 +730,38 @@ BookmarkData){
         }
     }
 
-    //TODO: also update "previous/next page" commands status (disabled/enabled), not just button visibility.
-    // https://github.com/readium/readium-js-viewer/issues/188
-    // See onSwipeLeft() onSwipeRight() in gesturesHandler.
-    // See nextPage() prevPage() in this class.
-    var updateUI = function(pageChangeData){
-        if(pageChangeData.paginationInfo.canGoLeft())
+    var _canGoLeft = false;
+    var _canGoRight = false;
+    var _navigationHistoryCanBack = false;
+    var _navigationHistoryCanBackLinear = false;
+
+    var updateUI = function(pageChangeData) {
+        
+        _canGoLeft = pageChangeData.paginationInfo.canGoLeft(); 
+        if (_canGoLeft)
             $("#left-page-btn").show();
         else
             $("#left-page-btn").hide();
-        if(pageChangeData.paginationInfo.canGoRight())
+        
+        _canGoRight = pageChangeData.paginationInfo.canGoRight();
+        if (_canGoRight)
             $("#right-page-btn").show();
         else
             $("#right-page-btn").hide();
+
+        _navigationHistoryCanBack = readium.reader.navigationHistoryCanBack(false); 
+        if (_navigationHistoryCanBack) {
+            $("#nav-back-btn").show();
+        } else {
+            $("#nav-back-btn").hide();
+        }
+        
+        _navigationHistoryCanBackLinear = readium.reader.navigationHistoryCanBack(true) && !readium.reader.spine().isValidLinearItem(pageChangeData.paginationInfo.openPages[0].spineItemIndex); 
+        if (_navigationHistoryCanBackLinear) {
+            $("#nav-back-linear-btn").show();
+        } else {
+            $("#nav-back-linear-btn").hide();
+        }
     };
 
     var generateQueryParamCFI = function (bookmark) {
@@ -754,7 +781,7 @@ BookmarkData){
         // characters '/', '!', '@', and ':' are allowed in the query component of a URI as per RFC 3986 section 3.4
         return encodeURI(completeCFI);
     };
-
+    
     var savePlace = function(){
 
         var bookmarkString = readium.reader.bookmarkCurrentPage();
@@ -790,15 +817,27 @@ BookmarkData){
         }
     };
 
-    var nextPage = function () {
 
-        readium.reader.openPageRight();
+    var navBack = function (forceLinear) {
+
+        if (forceLinear && _navigationHistoryCanBackLinear
+        || !forceLinear && _navigationHistoryCanBack)
+            readium.reader.navigationHistoryBack(forceLinear);
+            
+        return false;
+    };
+    
+    var nextPage = function () {
+        if (_canGoRight)
+            readium.reader.openPageRight();
+            
         return false;
     };
 
     var prevPage = function () {
-
-        readium.reader.openPageLeft();
+        if (_canGoLeft)
+            readium.reader.openPageLeft();
+            
         return false;
     };
 
@@ -943,6 +982,10 @@ BookmarkData){
         Keyboard.on(Keyboard.PagePrevious, 'reader', function(){
             if (!isWithinForbiddenNavKeysArea()) prevPage();
         });
+
+
+        Keyboard.on(Keyboard.NavBack, 'reader', function() { return navBack(false); });
+        Keyboard.on(Keyboard.NavBackLinear, 'reader', function() { return navBack(true); });
 
         Keyboard.on(Keyboard.PagePreviousAlt, 'reader', prevPage);
 
