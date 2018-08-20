@@ -153,6 +153,26 @@
 
                     </div>
 
+                    <h5 id="setting-header-EPUBPopupFootNotes-legend" class="setting-header">{{strings.i18n_EPUBPopupFootNotes}}</h5>
+
+                    <div role="radiogroup" class="row" style="width:100%;text-align:center;" aria-labelledby="setting-header-EPUBPopupFootNotes-legend">
+
+                        <div role="radio" id="EPUBPopupFootNotes-ON-option" style="vertical-align:middle;width:40%;display:inline-block;position:relative;">
+                            <input style=""  name="EPUBPopupFootNotes" value="single" type="radio" id="EPUBPopupFootNotes-ON-radio"/>
+                            <label style="" for="EPUBPopupFootNotes-ON-radio" class="underlinedLabel">
+                                {{strings.i18n_EPUBPopupFootNotes_ON}}
+                            </label>
+                        </div>
+
+                        <div role="radio" id="EPUBPopupFootNotes-OFF-option" style="vertical-align:middle;width:40%;display:inline-block;position:relative;">
+                            <input style=""  name="EPUBPopupFootNotes" value="single" type="radio" id="EPUBPopupFootNotes-OFF-radio"/>
+                            <label style="" for="EPUBPopupFootNotes-OFF-radio" class="underlinedLabel">
+                                 {{strings.i18n_EPUBPopupFootNotes_OFF}}
+                            </label>
+                        </div>
+
+                    </div>
+                    
                     <!-- Page transitions are seriously broken (see readium-shared-js one_page_view.js disablePageTransitions boolean), so we hide the UI config options -->
                     <h5 style="display:none;" hiddenx="hidden" id="setting-header-pageTransition-legend" class="setting-header">{{strings.i18n_page_transition}}</h5>
 

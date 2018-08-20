@@ -385,6 +385,13 @@ BookmarkData){
         var lastIframe = undefined,
             wasFixed;
 
+        readium.reader.on(ReadiumSDK.Events.EPUB_POPUP_FOOTNOTE, function(targetID, htmlFragment) {
+            Globals.logEvent("EPUB_POPUP_FOOTNOTE", "ON", "EpubReader.js");
+            //console.log(targetID);
+            //console.log(htmlFragment);
+            Dialogs.showModalHTML(Strings.i18n_EPUBPopupFootNote, htmlFragment);
+        });
+        
         readium.reader.on(ReadiumSDK.Events.FXL_VIEW_RESIZED, function() {
             Globals.logEvent("FXL_VIEW_RESIZED", "ON", "EpubReader.js");
             setScaleDisplay();

@@ -94,6 +94,19 @@ define(['hgn!readium_js_viewer_html_templates/managed-dialog.html', 'hgn!readium
 
             showModalDialog(true, title, body, buttons);
         },
+        showModalHTML : function(title, html){
+            var body = $(html),
+                buttons = ButtonTemplate({
+                    buttons : [
+                        {
+                            dismiss : true,
+                            text : Strings.ok
+                        }
+                    ]
+                });
+
+            showModalDialog(true, title, body, buttons);
+        },
         showModalMessageEx : function(title, body){
             var buttons = ButtonTemplate({
                     buttons : [

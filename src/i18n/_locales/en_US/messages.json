@@ -450,6 +450,23 @@
   "i18n_page_navigation" : {
     "message" : "Page Navigation"
   },
+  
+  "i18n_EPUBPopupFootNotes" : {
+    "message" : "EPUB FOOTNOTES"
+  },
+  "i18n_EPUBPopupFootNote" : {
+    "message" : "Footnote"
+  },
+  "i18n_EPUBPopupFootNotes_reload" : {
+    "message" : "Please reload the page to refresh EPUB popup footnotes."
+  },
+  "i18n_EPUBPopupFootNotes_ON" : {
+    "message" : "Popup display"
+  },
+  "i18n_EPUBPopupFootNotes_OFF" : {
+    "message" : "Original links"
+  },
+  
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
     "placeholders": {
