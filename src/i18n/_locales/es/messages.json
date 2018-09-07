@@ -3,6 +3,9 @@
     "chrome_extension_name": {
         "message": "Readium"
     },
+    "home" : {
+        "message" : "Home"
+    },
     "about" : {
         "message" : "Acerca de"
     },

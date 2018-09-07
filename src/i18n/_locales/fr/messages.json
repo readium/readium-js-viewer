@@ -5,6 +5,9 @@
   "chrome_extension_description": {
     "message": "Un lecteur de livres numériques EPUB3."
   },
+  "home" : {
+    "message" : "Home"
+  },
   "i18n_readium_library" : {
     "message" : "Bibliothèque Readium"
   },
