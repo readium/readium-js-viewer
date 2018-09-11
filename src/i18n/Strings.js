@@ -11,31 +11,15 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define(['text!readium_js_viewer_i18n/_locales/de/messages.json',
-        'text!readium_js_viewer_i18n/_locales/es/messages.json',
+define(['text!readium_js_viewer_i18n/_locales/es/messages.json',
         'text!readium_js_viewer_i18n/_locales/en_US/messages.json',
-        'text!readium_js_viewer_i18n/_locales/fr/messages.json',
-        'text!readium_js_viewer_i18n/_locales/it/messages.json',
-        'text!readium_js_viewer_i18n/_locales/id/messages.json',
-        'text!readium_js_viewer_i18n/_locales/ja/messages.json',
-        'text!readium_js_viewer_i18n/_locales/ko/messages.json',
-        'text!readium_js_viewer_i18n/_locales/pt_BR/messages.json',
-        'text!readium_js_viewer_i18n/_locales/zh_CN/messages.json',
-        'text!readium_js_viewer_i18n/_locales/zh_TW/messages.json'],
-function(de, es, en_US, fr, it, id, ja, ko, pt_BR, zh_CN, zh_TW){
+        'text!readium_js_viewer_i18n/_locales/fr/messages.json'],
+function(es, en_US, fr){
     var Strings = {};
 
-    Strings['de'] = de;
     Strings['es'] = es;
     Strings['en_US'] = en_US;
     Strings['fr'] = fr;
-    Strings['id'] = id;
-    Strings['it'] = it;
-    Strings['ja'] = ja;
-    Strings['ko'] = ko;
-    Strings['pt_BR'] = pt_BR;
-    Strings['zh_CN'] = zh_CN;
-    Strings['zh_TW'] = zh_TW;
 
     var language = navigator.userLanguage || navigator.language;
 //FORCE HERE (for testing)

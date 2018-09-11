@@ -3,10 +3,10 @@ define(['jquery', './EpubReader', 'readium_shared_js/helpers'], function($, Epub
     $(function(){
 
         var urlParams = Helpers.getURLQueryParams();
-    
+        
         // embedded, epub
         // (epub is ebookURL)
-      EpubReader.loadUI(urlParams);
+        EpubReader.loadUI(urlParams);
 
         $(document.body).on('click', function()
         {
