@@ -655,8 +655,8 @@ Helpers){
             && chrome.app.window && chrome.app.window.current // a bit redundant?
             && !/\bCrOS\b/.test(navigator.userAgent);
 
-        // TODO: remove the "true" condition in order to activate this feature *only* for the Chrome App (currently testing in cloud reader)
-        if (true || isChromeExtensionPackagedApp_ButNotChromeOS) {
+        // test whether we are in the Chrome app.  If so, put up the dialog and whine at the users...
+        if (isChromeExtensionPackagedApp_ButNotChromeOS) {
             setTimeout(function() {
                 Dialogs.showModalHTML(Strings.i18n_ChromeApp_deprecated_dialog_title, Strings.i18n_ChromeApp_deprecated_dialog_HTML);
             }, 800);
