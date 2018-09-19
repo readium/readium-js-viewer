@@ -448,9 +448,9 @@
     "message" : "Next Page"
   },
   "i18n_page_navigation" : {
-  "i18n_ChromeApp_deprecated_dialog_title" : {
     "message" : "Page Navigation"
   },
+  "i18n_ChromeApp_deprecated_dialog_title" : {
     "message" : "Readium Chrome App - WARNING"
   },
   "i18n_ChromeApp_deprecated_dialog_HTML" : {
