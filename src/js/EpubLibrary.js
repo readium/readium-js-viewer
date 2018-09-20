@@ -651,6 +651,16 @@ Helpers){
             $("#buttClose").attr("accesskey", Keyboard.accesskeys.SettingsModalClose);
         });
 
+        var isChromeExtensionPackagedApp_ButNotChromeOS = (typeof chrome !== "undefined") && chrome.app
+            && chrome.app.window && chrome.app.window.current // a bit redundant?
+            && !/\bCrOS\b/.test(navigator.userAgent);
+
+        // test whether we are in the Chrome app.  If so, put up the dialog and whine at the users...
+        if (isChromeExtensionPackagedApp_ButNotChromeOS) {
+            setTimeout(function() {
+                Dialogs.showModalHTML(Strings.i18n_ChromeApp_deprecated_dialog_title, Strings.i18n_ChromeApp_deprecated_dialog_HTML);
+            }, 800);
+        }
 
         //async in Chrome
         Settings.get("needsMigration", function(needsMigration){

@@ -450,6 +450,12 @@
   "i18n_page_navigation" : {
     "message" : "Page Navigation"
   },
+  "i18n_ChromeApp_deprecated_dialog_title" : {
+    "message" : "Readium Chrome App - WARNING"
+  },
+  "i18n_ChromeApp_deprecated_dialog_HTML" : {
+    "message" : "<p><strong><u>IMPORTANT:</u></strong></p><p>This is the final release of the Readium Chrome App. Google decided to remove support for \"apps\" in the Chrome Web Browser, as <a href=\"https://developer.chrome.com/apps/migration\" target=\"_blank\">explained here</a>.</p> <p>At some point, Google will completely disable existing Chrome apps. This is unfortunately outside of Readium's control.</p> <p>Consequently, please consider using alternative software to read EPUB files. Visit the <a href=\"https://readium.org/about/applications.html/\" target=\"_blank\">Readium website</a> for suggestions.</p>"
+  },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
     "placeholders": {

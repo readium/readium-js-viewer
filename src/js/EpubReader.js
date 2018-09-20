@@ -1430,18 +1430,6 @@ BookmarkData){
                 repo3.url = "https://github.com/readium/" + repo3.name + "/tree/" + repo3.sha;
                 window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo3);
 
-                var repo4 = {};
-                repo4.name = "readium-cfi-js";
-                repo4.sha = version.readiumCfiJs.sha;
-                repo4.tag = version.readiumCfiJs.tag;
-                repo4.version = version.readiumCfiJs.version;
-                repo4.clean = version.readiumCfiJs.clean;
-                repo4.branch = version.readiumCfiJs.branch;
-                repo4.release = version.readiumCfiJs.release;
-                repo4.timestamp = version.readiumCfiJs.timestamp;
-                repo4.url = "https://github.com/readium/" + repo4.name + "/tree/" + repo4.sha;
-                window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.push(repo4);
-
                 // Debug check:
                 //console.debug(JSON.stringify(window.navigator.epubReadingSystem, undefined, 2));
 

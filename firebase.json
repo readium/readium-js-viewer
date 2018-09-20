@@ -15,6 +15,18 @@
         {
           "key": "Access-Control-Allow-Origin",
           "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, HEAD, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Content-Length, Accept-Ranges, Content-Range, Range, Link, Transfer-Encoding"
+        },
+        {
+          "key": "Access-Control-Expose-Headers",
+          "value": "Content-Type, Content-Length, Accept-Ranges, Content-Range, Range, Link, Transfer-Encoding"
         }
       ]
     }

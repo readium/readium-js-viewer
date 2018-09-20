@@ -30,7 +30,7 @@ See [license.txt](./license.txt).
 
 * `git clone --recursive -b BRANCH_NAME https://github.com/readium/readium-js-viewer.git readium-js-viewer` (replace "BRANCH_NAME" with e.g. "develop")
 * `cd readium-js-viewer`
-* `git submodule update --init --recursive` to ensure that the readium-js-viewer chain of dependencies is initialised (readium-js, readium-shared-js and readium-cfi-js)
+* `git submodule update --init --recursive` to ensure that the readium-js-viewer chain of dependencies is initialised (readium-js, readium-shared-js)
 * `git checkout BRANCH_NAME && git submodule foreach --recursive "git checkout BRANCH_NAME"` (or simply `cd` inside each repository / submodule, and manually enter the desired branch name: `git checkout BRANCH_NAME`) Git should automatically track the corresponding branch in the 'origin' remote.
 
 
@@ -96,7 +96,7 @@ Remark: logs of HTTP requests are preserved in two separate files `http_app.log`
 
 ### Forking
 
-Assuming a fork of `https://github.com/readium/readium-js-viewer` is made under `USER` at `https://github.com/USER/readium-js-viewer`, the `.gitmodules` file ( https://github.com/readium/readium-js-viewer/blob/develop/.gitmodules ) will still point to the original submodule URL (at `readium`, instead of `USER`). Thankfully, one can simply modify the `.gitmodules` file by replacing `https://github.com/readium/` with `https://github.com/USER/`, and do this for every submodule (`readium-js-viewer` > `readium-js` > `readium-shared-js` > `readium-cfi-js`). Then the Git command `git submodule sync` can be invoked, for each submodule.
+Assuming a fork of `https://github.com/readium/readium-js-viewer` is made under `USER` at `https://github.com/USER/readium-js-viewer`, the `.gitmodules` file ( https://github.com/readium/readium-js-viewer/blob/develop/.gitmodules ) will still point to the original submodule URL (at `readium`, instead of `USER`). Thankfully, one can simply modify the `.gitmodules` file by replacing `https://github.com/readium/` with `https://github.com/USER/`, and do this for every submodule (`readium-js-viewer` > `readium-js` > `readium-shared-js`). Then the Git command `git submodule sync` can be invoked, for each submodule.
 
 
 ### Plugins integration
@@ -150,7 +150,7 @@ Note that `npm run http` + `dev` folder is not the only way to test Readium "loc
 ## Cloud reader deployment
 
 The contents of the `cloud-reader` distribution folder (see section above) can be uploaded to an HTTP server as-is (either in the http://domain.com/ root, or any subfolder path http://domain.com/reader/),
-and a sibling `epub_content/` folder is expected to contain exploded or zipped EPUBs (e.g. http://domain.com/reader/epub_content/ebook.epub or http://domain.com/epub_content/ebook/ for extracted files),
+and a child (of the parent cloud-reader folder) `epub_content/` folder is expected to contain exploded or zipped EPUBs (e.g. http://domain.com/reader/epub_content/ebook.epub or http://domain.com/epub_content/ebook/ for extracted files),
 and the `epub_content/epub_library.opds` file is expected to describe the available ebooks in the online library
 (see the existing examples in `readium-js-viewer` repository). Note that `epub_library.json` is the legacy format, now superseded by OPDS XML (a specialized Atom feed format). Readium supports both formats, but OPDS is recommended. The `epubs` URL query parameter can be used to specify a different location for the OPDS/JSON file that describes the ebook library contents, for example:
 `http://domain.com/index.html?epubs=http://otherdomain.com/ebooks.opds` (assuming both HTTP servers are suitably configured with CORS),
@@ -260,12 +260,6 @@ Usage is demonstrated by the HTML file in the `dev` folder (trimmed for brevity)
 <!-- full RequireJS library -->
 <script type="text/javascript" src="../build-output/_multiple-bundles/RequireJS.js"> </script>
 
-
-
-<!-- individual bundles: -->
-
-<!-- readium CFI library -->
-<script type="text/javascript" src="../build-output/_multiple-bundles/readium-cfi-js.js"> </script>
 
 <!-- external libraries -->
 <script type="text/javascript" src="../build-output/_multiple-bundles/readium-external-libs.js"> </script>

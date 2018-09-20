@@ -69,7 +69,7 @@
 
         cd readium-js/readium-shared-js/
         &&
-        node readium-cfi-js/readium-build-tools/pluginsConfigMaker.js
+        node readium-build-tools/pluginsConfigMaker.js
         &&
         cd ../..
     '
