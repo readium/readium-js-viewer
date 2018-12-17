@@ -10,35 +10,35 @@
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0300</name>
 </author>
-<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0300" rel="http://opds-spec.org/acquisition"/>
+<link type="application/epub" href="https://raw.githack.com/daisy/epub-accessibility-tests/master/content/epub30-test-0300" rel="http://opds-spec.org/acquisition"/>
 <updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___cdn.rawgit.com_daisy_epub-accessibility-tests_master_content_epub30-test-0300</id>
+<id>READIUM_OPDS_https___raw.githack.com_daisy_epub-accessibility-tests_master_content_epub30-test-0300</id>
 </entry>
 <entry>
 <title>EPUBTEST 0320 - Media Overlays Fundamental Accessibility Tests</title>
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0320</name>
 </author>
-<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0320" rel="http://opds-spec.org/acquisition"/>
+<link type="application/epub" href="https://raw.githack.com/daisy/epub-accessibility-tests/master/content/epub30-test-0320" rel="http://opds-spec.org/acquisition"/>
 <updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___cdn.rawgit.com_daisy_epub-accessibility-tests_master_content_epub30-test-0320</id>
+<id>READIUM_OPDS_https___raw.githack.com_daisy_epub-accessibility-tests_master_content_epub30-test-0320</id>
 </entry>
 <entry>
 <title>Math in EPUB Advanced Testbook</title>
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0330</name>
 </author>
-<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0330" rel="http://opds-spec.org/acquisition"/>
+<link type="application/epub" href="https://raw.githack.com/daisy/epub-accessibility-tests/master/content/epub30-test-0330" rel="http://opds-spec.org/acquisition"/>
 <updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___cdn.rawgit.com_daisy_epub-accessibility-tests_master_content_epub30-test-0330</id>
+<id>READIUM_OPDS_https___raw.githack.com_daisy_epub-accessibility-tests_master_content_epub30-test-0330</id>
 </entry>
 <entry>
 <title>Extended Descriptions Sample Book</title>
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0340</name>
 </author>
-<link type="application/epub" href="https://cdn.rawgit.com/daisy/epub-accessibility-tests/master/content/epub30-test-0340" rel="http://opds-spec.org/acquisition"/>
+<link type="application/epub" href="https://raw.githack.com/daisy/epub-accessibility-tests/master/content/epub30-test-0340" rel="http://opds-spec.org/acquisition"/>
 <updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___cdn.rawgit.com_daisy_epub-accessibility-tests_master_content_epub30-test-0340</id>
+<id>READIUM_OPDS_https___raw.githack.com_daisy_epub-accessibility-tests_master_content_epub30-test-0340</id>
 </entry>
 </feed>

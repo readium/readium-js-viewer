@@ -98,7 +98,7 @@
   <author>
     <name>Markus Gylling et. al.</name>
   </author>
-  <link type="application/epub+zip" href="https://rawgit.com/w3c/publ-epub-revision/cbee05c2ab6fb2dba821c94984d7203d91f5a97d/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
+  <link type="application/epub+zip" href="https://raw.githack.com/w3c/publ-epub-revision/cbee05c2ab6fb2dba821c94984d7203d91f5a97d/build/31/docs/epub31-v30.epub" rel="http://opds-spec.org/acquisition"/>
   <link type="image/png" href="EPUB-Spec-Zipped.png" rel="http://opds-spec.org/image/thumbnail"/>        
   <updated>2016-11-01T00:00:00Z</updated>
   <id>READIUM_OPDS_0123456789_8</id>
