@@ -4,7 +4,7 @@ branches:
   - develop
 language: node_js
 node_js:
-- '9'
+- '10'
 cache: false
 #  directories:
 #    - node_modules
