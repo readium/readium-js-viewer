@@ -1,44 +1,117 @@
 <feed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odl="http://opds-spec.org/odl" xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:opds="http://opds-spec.org/2010/catalog">
-<updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___github.com_daisy_epub-accessibility-tests_tree_master_content</id>
-<title>Readium CloudReader OPDS feed for [ https://github.com/daisy/epub-accessibility-tests/tree/master/content ]</title>
-<link rel="self" href="epub_tests_a11y.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
-<link rel="start" href="epub_tests_a11y.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___github.com_daisy_epub-accessibility-tests_tree_mastercontent</id>
+<title>Readium CloudReader OPDS feed for [ https://github.com/daisy/epub-accessibility-tests/tree/mastercontent ]</title>
+<link rel="self" href="test.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="start" href="test.opds" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
 
 <entry>
-<title>EPUBTEST 0300 - Fundamental Accessible Reading System Tests</title>
+<title>Tests fondamentaux pour l’accessibilité: Fonctionnalités de base</title>
 <author>
-  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0300</name>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0301-fr</name>
 </author>
-<link type="application/epub" href="https://raw.githack.com/daisy/epub-accessibility-tests/master/content/epub30-test-0300" rel="http://opds-spec.org/acquisition"/>
-<updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___raw.githack.com_daisy_epub-accessibility-tests_master_content_epub30-test-0300</id>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0301-fr" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0301-fr/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0301-fr</id>
 </entry>
 <entry>
-<title>EPUBTEST 0320 - Media Overlays Fundamental Accessibility Tests</title>
+<title>Fundamental Accessibility Tests: Basic Functionality</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0301</name>
+</author>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0301" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0301/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0301</id>
+</entry>
+<entry>
+<title>Tests fondamentaux pour l’accessibilité: Lecture non visuelle</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0302-fr</name>
+</author>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0302-fr" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0302-fr/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0302-fr</id>
+</entry>
+<entry>
+<title>Fundamental Accessibility Tests: Non-Visual Reading</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0302</name>
+</author>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0302" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0302/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0302</id>
+</entry>
+<entry>
+<title>Tests fondamentaux pour l’accessibilité: Ajustements visuels</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0303-fr</name>
+</author>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0303-fr" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0303-fr/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0303-fr</id>
+</entry>
+<entry>
+<title>Fundamental Accessibility Tests: Visual Adjustments</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0303</name>
+</author>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0303" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0303/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0303</id>
+</entry>
+<entry>
+<title>Tests fondamentaux pour l’accessibilité: Fonctionnalité de lecture audio</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0304-fr</name>
+</author>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0304-fr" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0304-fr/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0304-fr</id>
+</entry>
+<entry>
+<title>Fundamental Accessibility Tests: Read Aloud</title>
+<author>
+  <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0304</name>
+</author>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0304" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0304/EPUB/package.opf/../images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0304</id>
+</entry>
+<entry>
+<title>Advanced Accessibility Tests: Media Overlays</title>
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0320</name>
 </author>
-<link type="application/epub" href="https://raw.githack.com/daisy/epub-accessibility-tests/master/content/epub30-test-0320" rel="http://opds-spec.org/acquisition"/>
-<updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___raw.githack.com_daisy_epub-accessibility-tests_master_content_epub30-test-0320</id>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0320" rel="http://opds-spec.org/acquisition"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0320</id>
 </entry>
 <entry>
-<title>Math in EPUB Advanced Testbook</title>
+<title>Advanced Accessibility Tests: Mathematics</title>
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0330</name>
 </author>
-<link type="application/epub" href="https://raw.githack.com/daisy/epub-accessibility-tests/master/content/epub30-test-0330" rel="http://opds-spec.org/acquisition"/>
-<updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___raw.githack.com_daisy_epub-accessibility-tests_master_content_epub30-test-0330</id>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0330" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0330/EPUB/package.opf/../Images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0330</id>
 </entry>
 <entry>
-<title>Extended Descriptions Sample Book</title>
+<title>Advanced Accessibility Tests: Extended Descriptions</title>
 <author>
   <name>daisy/epub-accessibility-tests (master) - content/epub30-test-0340</name>
 </author>
-<link type="application/epub" href="https://raw.githack.com/daisy/epub-accessibility-tests/master/content/epub30-test-0340" rel="http://opds-spec.org/acquisition"/>
-<updated>2018-08-03T09:44:06.566Z</updated>
-<id>READIUM_OPDS_https___raw.githack.com_daisy_epub-accessibility-tests_master_content_epub30-test-0340</id>
+<link type="application/epub" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0340" rel="http://opds-spec.org/acquisition"/>
+<link type="image/jpg" href="https://cdn.statically.io/gh/daisy/epub-accessibility-tests/master/content/epub30-test-0340/EPUB/package.opf/../Images/cover.jpg" rel="http://opds-spec.org/image/thumbnail"/>
+<updated>2019-11-19T20:42:24.325Z</updated>
+<id>READIUM_OPDS_https___cdn.statically.io_gh_daisy_epub-accessibility-tests_master_content_epub30-test-0340</id>
 </entry>
 </feed>
