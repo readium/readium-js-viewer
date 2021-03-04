@@ -56,7 +56,7 @@
     "jath": "github:danielweck/jath#master",
     "mathjax-single-file": "github:danielweck/MathJax-single-file#master",
     "bootstrap": "3.x",
-    "bootstrap-accessibility-plugin": "github:paypal/bootstrap-accessibility-plugin#master",
+    "bootstrap-accessibility-plugin": "github:paypal/bootstrap-accessibility-plugin#main",
     "hammerjs": "^2.0.8",
     "jquery-hammerjs": "^2.0.0",
     "screenfull": "^3.3.2",
