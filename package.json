@@ -7,9 +7,9 @@
   "name": "readium-js-viewer",
   "version": "0.32.0",
   "engines": {
-    "node": ">=4",
-    "npm": ">=2",
-    "yarn": ">=0.23"
+    "node": ">=16",
+    "npm": ">=8",
+    "yarn": ">=1.2"
   },
   "description": "Readium web app - online cloud reader, offline Chrome extension/app",
   "keywords": [
