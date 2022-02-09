@@ -1,0 +1,117 @@
+name: CI
+on:
+  push:
+    branches: [ develop ]
+    tags-ignore:
+      - '*'
+  pull_request:
+    branches: [ develop ]
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  USE_HARD_LINKS: 'false'
+jobs:
+  build:
+#    if: "!contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
+    if: "github.event_name == 'pull_request' || !contains(github.event.head_commit.message, 'skip ci')"
+    # runs-on: ubuntu-latest # / ubuntu-18.04 ... or ubuntu-16.04, ubuntu-20.04
+    # runs-on: macos-latest # / macos-10.15
+    # runs-on: windows-2016 # not window-latest / windows-2019, see https://github.com/edrlab/thorium-reader/issues/1591
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # windows-latest, macos-latest, 
+        os: [ubuntu-latest]
+        include:
+          # - os: windows-latest
+          #   osname: windows
+          #   packname: win
+          #   travistag: latest-windows
+          # - os: macos-latest
+          #   osname: osx
+          #   packname: 'mac:skip-notarize'
+          #   travistag: latest-osx
+          - os: ubuntu-latest
+            osname: linux
+            packname: linux
+            travistag: latest-linux
+    env:
+      TRAVIS_OS_NAME_: ${{ matrix.osname }}
+      TRAVIS_TAG: ${{ matrix.travistag }}
+    steps:
+    - run: echo 'TRAVIS_OS_NAME_:' ${{ env.TRAVIS_OS_NAME_ }}
+    #- run: echo 'TRAVIS_TAG=latest-${{ env.TRAVIS_OS_NAME_ }}' | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+    #- run: echo 'TRAVIS_TAG=latest-${{ env.TRAVIS_OS_NAME_ }}' >> $GITHUB_ENV
+    #- run: echo '::set-env name=TRAVIS_TAG::latest-${{ env.TRAVIS_OS_NAME_ }}'
+    - run: echo 'TRAVIS_TAG:' ${{ env.TRAVIS_TAG }}
+    - run: 'echo "GITHUB_RUN_NUMBER: ${{ github.run_number }}"'
+    - run: 'echo "GITHUB_RUN_ID: ${{ github.run_id }}"'
+    - run: 'echo "GITHUB_SHA: ${{ github.sha }}"'
+    - name: Checkout
+      uses: actions/checkout@v2
+    #   with:
+    #     persist-credentials: false
+    # - name: Git config global dump (pre)
+    #   run: 'git config --global --list || echo NO_GIT_GLOBAL_CONFIG || true'
+    #   shell: bash
+    # - name: Git config local dump (pre)
+    #   run: 'git config --list || echo NO_GIT_GLOBAL_CONFIG || true'
+    #   shell: bash
+    # - name: git HTTP authentication instead SSH (NPM >=7) 1
+    #   run: >
+    #     git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+    #   shell: bash
+    # - name: git HTTP authentication instead SSH (NPM >=7) 2
+    #   run: >
+    #     git config --global url."https://github.com".insteadOf ssh://git@github.com
+    #   shell: bash
+    # - name: git HTTP authentication instead SSH (NPM >=7) 3
+    #   run: >
+    #     git config --global url."http://github.com/".insteadOf git@github.com:
+    #   shell: bash
+    # - name: git HTTP authentication instead SSH (NPM >=7) 4
+    #   run: >
+    #     git config --global url."http://".insteadOf git://
+    #   shell: bash
+    - name: Git config global dump (post)
+      run: 'git config --global --list || echo NO_GIT_GLOBAL_CONFIG || true'
+      shell: bash
+    - name: Git config local dump (post)
+      run: 'git config --list || echo NO_GIT_GLOBAL_CONFIG || true'
+      shell: bash
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        #check-latest: true
+    - run: node --version && npm --version
+    - run: npm --global install npm@^8
+    - run: npm --version
+    # - run: npm --global install asar
+    - name: Git submodules
+      run: git submodule update --init --recursive && git branch -avv && git remote -v && git show-ref --heads && git show-ref --head --hash head && git branch -a --contains $(git rev-parse HEAD) && git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 && git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1` && git branch -avv
+      shell: bash
+    - name: READIUM JS
+      run: cd readium-js && for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done && git branch -avv && git remote -v && git show-ref --heads && git show-ref --head --hash head && git branch -a --contains $(git rev-parse HEAD) && git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 && git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1` && git branch -avv
+      shell: bash
+    - name: READIUM SHARED JS
+      run: cd readium-shared-js && for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done && git branch -avv && git remote -v && git show-ref --heads && git show-ref --head --hash head && git branch -a --contains $(git rev-parse HEAD) && git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 && git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1` && git branch -avv && echo "plugins:['hypothesis']" > plugins/plugins.cson && cat plugins/plugins.cson && cd ../../
+      shell: bash
+    - name: BUILD
+      run: pwd && git status && git --no-pager diff && npm cache clean --force && npm cache verify && npm run prepare:all
+      shell: bash
+    - name: PR action (just test)
+      if: ${{ github.event_name == 'pull_request' }}
+      run: npm run pretest:travis && cat build-output/version.json
+    - name: non-PR action (build and package)
+      if: ${{ github.event_name != 'pull_request' }}
+      run: npm run pretest:travis && cat build-output/version.json && ls -als ./dist/
+
+# npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh'
+# npm install firebase-tools && firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project "project-1351855251145549090"'
+# node build-config/deployCrx.js'
+
+    #- run: npm install @octokit/rest
+    # - name: GitHub Tagged Release Delete/ReCreate and Upload Build Artefacts
+    #   if: ${{ github.event_name != 'pull_request' }}
+    #   run: node scripts/release-github.js
+ 
