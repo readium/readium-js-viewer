@@ -105,8 +105,12 @@ jobs:
       run: npm run pretest:travis && cat build-output/version.json && ls -als ./dist/
       shell: bash
     - name: non-PR action (build and deploy)
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
       if: ${{ github.event_name != 'pull_request' }}
-      run: npm run pretest:travis && cat build-output/version.json && ls -als ./dist/ && npm install -g surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh && npm install -g firebase-tools && firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project "project-1351855251145549090"
+      run: npm run pretest:travis && cat build-output/version.json && ls -als ./dist/ && npm install -g surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh && npm install -g firebase-tools && firebase deploy --non-interactive --token "$env:FIREBASE_TOKEN" --project "project-1351855251145549090"
       shell: bash
 
     #- run: npm install @octokit/rest
