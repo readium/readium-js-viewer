@@ -94,21 +94,20 @@ jobs:
       run: cd readium-js && for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done && git branch -avv && git remote -v && git show-ref --heads && git show-ref --head --hash head && git branch -a --contains $(git rev-parse HEAD) && git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 && git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1` && git branch -avv
       shell: bash
     - name: READIUM SHARED JS
-      run: cd readium-shared-js && for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done && git branch -avv && git remote -v && git show-ref --heads && git show-ref --head --hash head && git branch -a --contains $(git rev-parse HEAD) && git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 && git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1` && git branch -avv && echo "plugins:['hypothesis']" > plugins/plugins.cson && cat plugins/plugins.cson && cd ../../
+      run: cd readium-js/readium-shared-js && for remote in `git branch -r | grep -v \> | grep -v master`; do git branch --track ${remote#origin/} $remote; done && git branch -avv && git remote -v && git show-ref --heads && git show-ref --head --hash head && git branch -a --contains $(git rev-parse HEAD) && git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 && git checkout `git for-each-ref --format="%(refname:short) %(objectname)" 'refs/heads/' | grep $(git rev-parse HEAD) | cut -d " " -f 1 | head -n1` && git branch -avv && echo "plugins:['hypothesis']" > plugins/plugins.cson && cat plugins/plugins.cson
       shell: bash
     - name: BUILD
-      run: pwd && git status && git --no-pager diff && npm cache clean --force && npm cache verify && npm run prepare:all
+      run: pwd && git status && git --no-pager diff && npm run prepare:all
+      #npm cache clean --force && npm cache verify
       shell: bash
     - name: PR action (just test)
       if: ${{ github.event_name == 'pull_request' }}
-      run: npm run pretest:travis && cat build-output/version.json
-    - name: non-PR action (build and package)
-      if: ${{ github.event_name != 'pull_request' }}
       run: npm run pretest:travis && cat build-output/version.json && ls -als ./dist/
-
-# npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh'
-# npm install firebase-tools && firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project "project-1351855251145549090"'
-# node build-config/deployCrx.js'
+      shell: bash
+    - name: non-PR action (build and deploy)
+      if: ${{ github.event_name != 'pull_request' }}
+      run: npm run pretest:travis && cat build-output/version.json && ls -als ./dist/ && npm install surge && echo "epub_content" > ./dist/cloud-reader/.surgeignore && surge --project ./dist/cloud-reader --domain readium.surge.sh && npm install firebase-tools && firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project "project-1351855251145549090"
+      shell: bash
 
     #- run: npm install @octokit/rest
     # - name: GitHub Tagged Release Delete/ReCreate and Upload Build Artefacts
