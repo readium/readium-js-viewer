@@ -110,7 +110,7 @@ dependencies:
     "opener": '^1.4.3'
 
     #"http-server": 'latest'
-    "http-server": 'github:danielweck/http-server#master'
+    "http-server": 'github:readium/http-server#9c6e56279af34381a5dae640b7d73762e8135bd7'
     # SEE: https://github.com/indexzero/http-server/issues/154
 
 
@@ -126,18 +126,18 @@ devDependencies:
 # "requirejs", "almond", "jquery"
 
     #"keymaster": 'latest'
-    "keymaster": 'github:danielweck/keymaster#master'
+    "keymaster": 'github:readium/keymaster#a7ed1873acebe45b310465fc06513609219e97ac'
 
     #"jath": 'latest'
-    "jath": 'github:danielweck/jath#master'
+    "jath": 'github:readium/jath#bc44f31f160ab10cdc87e45493b1034dcf2c2674'
     # "libxmljs" node-gyp python < v3 :(
     #"jquery-xpath": 'latest'
 
-    "mathjax-single-file": 'github:danielweck/MathJax-single-file#master'
+    "mathjax-single-file": 'github:readium/MathJax-single-file#4461553303ef7703e4f8a13e9d0e9eb615cef752'
 
     "bootstrap": '3.x'
 
-    "bootstrap-accessibility-plugin": 'github:paypal/bootstrap-accessibility-plugin#master'
+    "bootstrap-accessibility-plugin": 'github:paypal/bootstrap-accessibility-plugin#fbbf870eafc1ee5d4547fabbeea71778ddbe2166'
 
     "hammerjs": '^2.0.8'
 
@@ -178,7 +178,7 @@ devDependencies:
     "phantomjs-prebuilt": '^2.1.16'
 
     #"grunt": 'latest'
-    "grunt-selenium-webdriver": 'github:levexis/grunt-selenium-webdriver#master'
+    "grunt-selenium-webdriver": 'github:levexis/grunt-selenium-webdriver#e9f63af80c8e6738b00812370c6f1ba13c5dc817'
     #"selenium-webdriver": 'latest'
 
     "crx": '^3.2.1'

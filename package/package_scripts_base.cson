@@ -59,9 +59,10 @@ scripts:
 
 #=====================
     'prepare:local:common': '
-
-        node readium-js/readium-shared-js/readium-build-tools/gitHubForksUpdater.js
+        echo ok
     '
+# node readium-js/readium-shared-js/readium-build-tools/patchRequireJS.js
+# node readium-js/readium-shared-js/readium-build-tools/gitHubForksUpdater.js
 
 #=====================
     'prepare:submodule': '
