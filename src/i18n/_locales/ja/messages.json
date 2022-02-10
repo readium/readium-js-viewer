@@ -2,14 +2,98 @@
   "chrome_extension_name": {
     "message": "Readium"
   },
+    "about" : {
+    "message" : "About"
+  },
+  "preview" : {
+    "message" : "プレビュー"
+  },
+  "list_view" : {
+    "message" : "リスト表示"
+  },
+  "thumbnail_view" : {
+    "message" : "サムネール表示"
+  },
+  "view_library": {
+    "message" : "書棚を見る"
+  },
+  "highlight_selection" : {
+    "message" : "選択したテキストのハイライト"
+  },
+  "toc" : {
+    "message" : "目次"
+  },
+  "settings" : {
+    "message" : "設定"
+  },
+  "enter_fullscreen" : {
+    "message" : "フルスクリーン表示"
+  },
+  "exit_fullscreen" : {
+    "message" : "通常表示"
+  },
   "chrome_extension_description": {
     "message": "EPUB3ブックリーダ"
+  },
+  "ok" : {
+    "message" : "Ok"
+  },
+  "delete_dlg_title" : {
+    "message" : "削除の確認"
+  },
+  "delete_progress_title" : {
+    "message" : "削除中..."
+  },
+  "delete_progress_message" : {
+    "message" : "削除しています"
+  },
+  "migrate_dlg_title" : {
+    "message" : "本を移動しています"
+  },
+  "migrate_dlg_message" : {
+    "message" : "読み込み中..."
+  },
+  "migrating" : {
+    "message" : "移動中"
+  },
+  "replace_dlg_title" : {
+    "message": "同じタイトルの本が見つかりました"
+  },
+  "replace_dlg_message": {
+    "message": "このまま続けると、次のEPUBファイルが、読み込もうとしているファイルに置き換えられます。"
+  },
+  "import_dlg_title" : {
+    "message": "EPUBを読み込んでいます"
+  },
+  "import_dlg_message" : {
+    "message": "EPUB検証中..."
+  },
+  "storing_file" : {
+    "message": "Storing file"
+  },
+  "err_unknown" : {
+    "message": "エラーが発生しました。詳細はコンソールを確認してください。"
+  },
+  "err_storage" : {
+    "message": "Unable to access storage"
+  },
+  "err_epub_corrupt" : {
+    "message": "不正なEPUBファイルです"
+  },
+  "err_dlg_title" : {
+    "message": "予期せぬエラー"
+  },
+  "replace" : {
+    "message": "置換"
+  },
+  "gethelp" : {
+    "message" : "不具合の報告や質問があれば、<a href=\"http://idpf.org/forums/readium\">我々のフォーラム</a>にお越しください。"
   },
   "i18n_readium_library" : {
     "message" : "Readiumライブラリ"
   },
   "i18n_loading" : {
-    "message" : "Loading Library"
+    "message" : "書棚の読み込み中..."
   },
   "i18n_readium_options" : {
     "message" : "Readiumオプション:"
@@ -146,8 +230,65 @@
   "i18n_display_format" : {
     "message" : "表示形式"
   },
+  "i18n_spread_auto" : {
+     "message" : "自動"
+  },
+  "i18n_scroll_mode" : {
+    "message" : "スクロールモード"
+  },
+  "i18n_scroll_mode_auto" : {
+    "message" : "自動"
+  },
+  "i18n_scroll_mode_doc" : {
+    "message" : "書籍型"
+  },
+  "i18n_scroll_mode_continuous" : {
+    "message" : "連続型"
+  },
   "i18n_html_readium_tm_a_project" : {
     "message" : "Readium<sup>TM</sup>とは, International Digital Publishing Forum (IDPF) と支援企業によるプロジェクトで, EPUB&reg; 出版のためのシステムとレンダリングエンジンのオープンソースリファレンスです。詳しくは、<a href=\"http://readium.org/\">プロジェクトホームページ</a>をご覧ください。これまでは<a href=\"http://evidentpoint.com/\">Evident Point</a>と<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>がプロジェクト開発をリードしてきました。 コントリビュートするには<a href=\"https://github.com/readium/readium-js-viewer\">githubレポジトリ</a>をご覧ください。"
+  },
+  "i18n_toolbar_show" : {
+    "message" : "ツールバーを表示"
+  },
+  "i18n_toolbar_hide" : {
+    "message" : "ツールバーを隠す"
+  },
+  "i18n_audio_play" : {
+    "message" : "再生"
+  },
+  "i18n_audio_pause" : {
+    "message" : "一時停止"
+  },
+  "i18n_audio_previous" : {
+    "message" : "前の音声フレーズ"
+  },
+  "i18n_audio_next" : {
+    "message" : "次の音声フレーズ"
+  },
+  "i18n_audio_volume" : {
+    "message" : "音量"
+  },
+  "i18n_audio_volume_increase" : {
+    "message" : "音を大きく"
+  },
+  "i18n_audio_volume_decrease" : {
+    "message" : "音を小さく"
+  },
+  "i18n_audio_time" : {
+    "message" : "Audio time cursor"
+  },
+  "i18n_audio_mute" : {
+    "message" : "ミュート"
+  },
+  "i18n_audio_unmute" : {
+    "message" : "ミュート解除"
+  },
+  "i18n_audio_expand" : {
+    "message" : "詳細な音声コントロールを表示"
+  },
+  "i18n_audio_collapse" : {
+    "message" : "詳細な音声コントロールを非表示"
   },
   "chrome_accept_languages": {
     "message": "$CHROME$ accepts $languages$ languages",
