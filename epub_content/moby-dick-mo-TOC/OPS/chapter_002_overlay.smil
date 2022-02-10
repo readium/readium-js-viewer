@@ -1,0 +1,70 @@
+<smil xmlns="http://www.w3.org/ns/SMIL" xmlns:epub="http://www.idpf.org/2007/ops" version="3.0">
+    <body>
+        <seq id="id1" epub:textref="chapter_002.xhtml" epub:type="bodymatter chapter">
+            <par id="heading1">
+                <text src="chapter_002.xhtml#c02h01"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:14:45.000" clipEnd="0:14:48.500"/>
+            </par>
+            
+            <par id="para1">
+                <text src="chapter_002.xhtml#c02p0001"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:14:48.500" clipEnd="0:15:14.000"/>
+            </par>
+            
+            <par id="para2">
+                <text src="chapter_002.xhtml#c02p0002"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:15:14.000" clipEnd="0:16:24.500"/>
+            </par>
+
+            <par id="para3">
+                <text src="chapter_002.xhtml#c02p0003"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:16:24.500" clipEnd="0:17:16.800"/>
+            </par>
+
+            <par id="para4">
+                <text src="chapter_002.xhtml#c02p0004"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:17:16.800" clipEnd="0:18:24.000"/>
+            </par>
+
+            <par id="para5">
+                <text src="chapter_002.xhtml#c02p0005"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:18:24.000" clipEnd="0:19:21.800"/>
+            </par>
+
+            <par id="para6">
+                <text src="chapter_002.xhtml#c02p0006"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:19:21.800" clipEnd="0:19:49.500"/>
+            </par>
+
+            <par id="para7">
+                <text src="chapter_002.xhtml#c02p0007"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:19:49.500" clipEnd="0:20:12.100"/>
+            </par>
+
+            <par id="para8">
+                <text src="chapter_002.xhtml#c02p0008"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:20:12.100" clipEnd="0:20:47.500"/>
+            </par>
+
+            <par id="para9">
+                <text src="chapter_002.xhtml#c02p0009"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:20:47.500" clipEnd="0:22:49.200"/>
+            </par>
+
+            <par id="para10">
+                <text src="chapter_002.xhtml#c02p0010"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:22:49.200" clipEnd="0:23:10.000"/>
+            </par>
+
+            <par id="para11">
+                <text src="chapter_002.xhtml#c02p0011"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:23:10.000" clipEnd="0:23:34.000"/>
+            </par>
+
+            <par id="para12">
+                <text src="chapter_002.xhtml#c02p0012"/>
+                <audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:23:34.000" clipEnd="0:23:48.000"/>
+            </par>
+        </seq>
+    </body>
+</smil>

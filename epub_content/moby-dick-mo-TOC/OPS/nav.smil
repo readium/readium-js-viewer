@@ -1,0 +1,19 @@
+<smil 
+     xmlns="http://www.w3.org/ns/SMIL"
+     xmlns:epub="http://www.idpf.org/2007/ops"
+     version="3.0">
+    <body>
+		<seq id="id1" epub:textref="toc.xhtml" epub:type="bodymatter chapter">
+			<par id="heading1">
+				<text src="toc.xhtml#toc-chapter_001"/>
+				<audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:00:24.500"
+					clipEnd="0:00:29.268"/>
+			</par>
+			<par id="heading2">
+				<text src="toc.xhtml#toc-chapter_002"/>
+				<audio src="audio/mobydick_001_002_melville.mp4" clipBegin="0:14:45.000"
+					clipEnd="0:14:48.500"/>
+			</par>
+		</seq>
+    </body>
+</smil>

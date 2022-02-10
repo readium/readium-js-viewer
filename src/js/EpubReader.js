@@ -24,7 +24,10 @@ define([
 './versioning/ReadiumVersioning',
 'readium_js/Readium',
 'readium_shared_js/helpers',
-'readium_shared_js/models/bookmark_data'],
+'readium_shared_js/models/bookmark_data',
+'readium_shared_js/views/audio_player',
+'readium_js/epub-model/smil_document_parser'
+],
 
 function (
 globalSetup,
@@ -52,7 +55,9 @@ GesturesHandler,
 Versioning,
 Readium,
 Helpers,
-BookmarkData){
+BookmarkData,
+AudioPlayer,
+SmilDocumentParser){
 
     // initialised in initReadium()
     var readium = undefined;
@@ -300,6 +305,58 @@ BookmarkData){
         $('.zoom-wrapper').hide();
     }
 
+    var _toc_smil_model = undefined;
+    var _toc_current_audio = undefined;
+    var _audioPlayer = undefined; 
+    
+    var stopTocAudioPlayback = function() {
+        if (!_audioPlayer) return;
+        _audioPlayer.pause();
+        _toc_current_audio = undefined;
+    };
+    
+    var startTocAudioPlayback_ = function(audio) {
+        if (!audio) {
+            stopTocAudioPlayback();
+            return;
+        }
+    
+        try{
+            readium.reader.pauseMediaOverlay();
+        }catch(err){
+            return; 
+        }
+        
+        stopTocAudioPlayback();
+        
+        if (!_audioPlayer) {
+            function onStatusChanged(){};
+            function onAudioPositionChanged(position, from){
+                if(_toc_current_audio && position > _toc_current_audio.clipEnd) {
+                    stopTocAudioPlayback();
+                    return;
+                }
+            };
+            function onAudioEnded(){};
+            function onPlay(){};
+            function onPause(){};
+            _audioPlayer = new AudioPlayer(onStatusChanged, onAudioPositionChanged, onAudioEnded, onPlay, onPause);
+        }
+
+        var audioContentRef = Helpers.ResolveContentRef(audio.src, _toc_smil_model.href);
+
+        var audioSource = readium.reader.package().resolveRelativeUrlMO(audioContentRef); //currentPackageDocument
+
+        var startTime = audio.clipBegin;
+
+        _toc_current_audio = audio; 
+
+        _audioPlayer.setRate(readium.reader.viewerSettings().mediaOverlaysRate);
+        _audioPlayer.playFile(audio.src, audioSource, startTime);
+    };
+    //var startTocAudioPlayback_ = _.bind(_.debounce(startTocAudioPlayback, 700), this);
+    var startTocAudioPlayback = _.debounce(startTocAudioPlayback_, 300);
+
     var loadToc = function(dom){
 
         if (dom) {
@@ -355,23 +412,164 @@ BookmarkData){
                     $toc[0].style.direction = "rtl"; // The CSS stylesheet property does not trigger :(
                 }
 
-                // remove default focus from anchor elements in TOC after added to #readium-toc-body
                 var $items = $('#readium-toc-body li >a');
-                $items.each(function(){
-                  $(this).attr("tabindex", "-1");
-                   $(this).on("focus", function(event){
-                    //console.log("toc item focus: " + event.target);
-                    // remove tabindex from previously focused
-                    var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
-                    if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
-                      //console.log("previous focus: " + $prevFocus[0]);
-                      $prevFocus.attr("tabindex","-1");
-                    }
-                    // add to newly focused
-                    event.target.setAttribute("tabindex", "60");
-                  });
-                });
+                
+                var applyTocSmil = function() {
+                    $items.each(function(){
+                        var $that = $(this);
+                        
+                        var par = findParInSMIL(_toc_smil_model, $that[0]);
+                        if (par) {
+                            var child1 = par.children[0];
+                            var child2 = par.children.length > 1 ? par.children[1] : undefined;
+                            var audioChild = undefined;
+                            if (child1.nodeType == "audio") audioChild = child1;
+                            else if (child2.nodeType == "audio") audioChild = child2;
+                            if (audioChild) {
 
+                                $that.data("data-mo", audioChild);
+                                $that[0].setAttribute("data-mo-audio-src", audioChild.src);
+                                $that[0].setAttribute("data-mo-audio-clipBegin", audioChild.clipBegin);
+                                $that[0].setAttribute("data-mo-audio-clipEnd", audioChild.clipEnd);
+                            }
+                        }
+                    });
+                };
+                
+                var tocItem = currentPackageDocument.getTocItem();
+                
+                if (tocItem.media_overlay_id && tocItem.media_overlay_id.length) {
+                    var metadata = currentPackageDocument.getMetadata();
+                    
+                    var mo = metadata.media_overlay;
+
+                    if (mo && mo.smil_models) {
+                        for (var i = 0; i < mo.smil_models.length; i++) {
+                            var smil_model = mo.smil_models[i];
+                            var manifestItemId = smil_model.spineItemId; // yuk! (historical mistake in the naming of this property)
+                            if (tocItem.media_overlay_id == smil_model.id && tocItem.id == manifestItemId) {
+                                _toc_smil_model = smil_model;
+                                break;
+                            } 
+                        }
+                        if (!_toc_smil_model) {
+
+                            _toc_smil_model = undefined; 
+                            
+                            var manifestItemSMIL = currentPackageDocument.manifest.getManifestItemByIdref(tocItem.media_overlay_id);
+                            
+                            if (manifestItemSMIL) {
+
+                                var smilParser = new SmilDocumentParser(currentPackageDocument, readium.getCurrentPublicationFetcher());
+                                        
+                                var parsingDeferred = $.Deferred();
+                                parsingDeferred.media_overlay_id = tocItem.media_overlay_id;
+                                
+                                var smilJson = {};
+                                
+                                smilParser.parse({idref: tocItem.id}, manifestItemSMIL, smilJson, parsingDeferred, function(myDeferred, smilJson) {
+                                    _toc_smil_model = smilJson;
+                                    applyTocSmil();
+                                    myDeferred.resolve();
+                                }, function(myDeferred, parseError) {
+                                    console.log('Error when parsing SMIL manifest item ' + manifestItemSMIL.href + ':');
+                                    console.log(parseError);
+                                    myDeferred.resolve();
+                                });
+                            }
+                        }
+                    }
+                }
+                
+                function findParInSMILModel(smil_model, id) {
+                    if (!smil_model) return undefined;
+                
+                    if (!smil_model.children || !smil_model.children.length) return undefined;
+                    
+                    if (smil_model.nodeType == "par") {
+                        var child1 = smil_model.children[0];
+                        var child2 = smil_model.children.length > 1 ? smil_model.children[1] : undefined;
+                        var textChild = undefined;
+                        if (child1.nodeType == "text") textChild = child1;
+                        else if (child2.nodeType == "text") textChild = child2;
+                        if (textChild && textChild.srcFragmentId == id) {
+                            return smil_model;
+                        }
+                    }
+                    
+                    var par = undefined;
+                    for (var i = 0; i < smil_model.children.length; i++) {
+                        var child = smil_model.children[i];
+                        
+                        par = findParInSMILModel(child, id);
+                        if (par) break;
+                    }
+                    return par;
+                }
+                
+                function findParInSMIL(smil_model, el) {
+                    if (!el || !el.getAttribute) return undefined;
+
+                    var id = el.getAttribute("id");
+                    if (!id) {
+                        var parent = el.parentNode;
+                        
+                        var par = findParInSMIL(smil_model, parent);
+                        return par;
+                    }
+                    
+                    var par = findParInSMILModel(smil_model, id);
+                    if (!par) {
+                        var parent = el.parentNode;
+                        
+                        var par = findParInSMIL(smil_model, parent);
+                        return par;
+                    }
+                    return par;
+                }
+                
+                if (_toc_smil_model) {
+                    applyTocSmil();
+                }
+                
+                // remove default focus from anchor elements in TOC after added to #readium-toc-body
+                $items.each(function(){
+                    var $that = $(this);
+                    
+                    $that.attr("tabindex", "-1");
+                    
+                    $that.on("focus", function(event){
+                        //console.log("toc item focus: " + event.target);
+                        // remove tabindex from previously focused
+                        var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
+                        if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
+                        //console.log("previous focus: " + $prevFocus[0]);
+                        $prevFocus.attr("tabindex","-1");
+                        }
+                        // add to newly focused
+                        event.target.setAttribute("tabindex", "60");
+                    });
+                    
+                    $that.on("focus", function(event){
+                        var audio = $that.data("data-mo");
+                        if (!audio) {
+                            if (_toc_smil_model) {
+                                startTocAudioPlayback(undefined);
+                            }
+                            return;
+                        }
+                        
+                        //var dataMO = event.target.getAttribute("data-mo");
+                        
+                        startTocAudioPlayback(audio);
+                    });
+                    $that.on("blur", function(event){
+                        var audio = $that.data("data-mo");
+                        if (!audio) return;
+                        
+                        stopTocAudioPlayback();
+                    });
+                });
             }
 
         } else {
@@ -519,6 +717,8 @@ BookmarkData){
         $('#readium-toc-body').on('click', 'a', function(e)
         {
             try {
+                stopTocAudioPlayback();
+                
                 spin(true);
     
                 var href = $(this).attr('href');
