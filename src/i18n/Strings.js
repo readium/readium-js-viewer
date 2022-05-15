@@ -38,6 +38,10 @@ function(de, es, en_US, fr, it, id, ja, ko, pt_BR, zh_CN, zh_TW){
     Strings['zh_TW'] = zh_TW;
 
     var language = navigator.userLanguage || navigator.language;
+
+    // nagigator's language is 'zh-CN', but i18n is 'zh_CN'
+    language = language.replace("-", "_");
+
 //FORCE HERE (for testing)
 //language="es";
     console.log("Language: [" + language + "]");
