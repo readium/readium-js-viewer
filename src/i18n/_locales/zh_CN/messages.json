@@ -1,165 +1,401 @@
 {
+  "gitHasLocalChanges": {
+    "message": "有修改"
+  },
   "chrome_extension_name": {
     "message": "Readium"
+  },
+  "about": {
+    "message": "关于"
+  },
+  "preview": {
+    "message": "效果预览"
+  },
+  "list_view": {
+    "message": "列表模式"
+  },
+  "thumbnail_view": {
+    "message": "卡片模式"
+  },
+  "view_library": {
+    "message": "书库"
+  },
+  "highlight_selection": {
+    "message": "高亮选中的文字"
+  },
+  "share_url": {
+    "message": "分享阅读书签..."
+  },
+  "share_url_label": {
+    "message": "使用您的剪切板复制/粘贴此分享链接："
+  },
+  "toc": {
+    "message": "目录"
+  },
+  "settings": {
+    "message": "设置"
+  },
+  "layout": {
+    "message": "布局"
+  },
+  "style": {
+    "message": "主题"
+  },
+  "enter_fullscreen": {
+    "message": "进入全屏模式"
+  },
+  "exit_fullscreen": {
+    "message": "退出全屏模式"
   },
   "chrome_extension_description": {
     "message": "EPUB3电子书阅览器"
   },
-  "i18n_readium_library" : {
-    "message" : "Readium书库"
+  "ok": {
+    "message": "Ok"
   },
-  "i18n_loading" : {
-    "message" : "Loading Library"
+  "delete_dlg_title": {
+    "message": "确认删除"
   },
-  "i18n_readium_options" : {
-    "message" : "Readium选项:"
+  "delete_progress_title": {
+    "message": "删除进度"
   },
-  "i18n_save_changes" : {
-    "message" : "保存更改"
+  "delete_progress_message": {
+    "message": "删除中"
   },
-  "i18n_close" : {
-    "message" : "关闭"
+  "migrate_dlg_title": {
+    "message": "迁移电子书"
   },
-  "i18n_paginate_all" : {
-    "message" : "分页显示所有可重排版EPUB文件"
+  "migrate_dlg_message": {
+    "message": "正在加载数据..."
   },
-  "i18n_automatically" : {
-    "message" : "自动用Readium打开*.epub网址"
+  "migrating": {
+    "message": "迁移中"
   },
-  "i18n_show_warning" : {
-    "message" : "解压缩EPUB文件时显示警告消息"
+  "replace_dlg_title": {
+    "message": "检测到冲突"
   },
-  "i18n_details" : {
-    "message" : "详细信息"
+  "replace_dlg_message": {
+    "message": "若继续，那么下列EPUB电子书将会被您正在导入的覆盖"
   },
-  "i18n_read" : {
-    "message" : "阅读"
+  "import_dlg_title": {
+    "message": "EPUB导入中"
   },
-  "i18n_delete" : {
-    "message" : "删除"
+  "import_dlg_message": {
+    "message": "EPUB检查内容中..."
   },
-  "i18n_author" : {
-    "message" : "作者: "
+  "storing_file": {
+    "message": "保存文件中"
   },
-  "i18n_publisher" : {
-    "message" : "出版社: "
+  "err_unknown": {
+    "message": "未知错误（可在浏览器Console中查看更多报错信息）"
   },
-  "i18n_source" : {
-    "message" : "源自: "
+  "err_storage": {
+    "message": "无法访问存储"
   },
-  "i18n_pub_date" : {
-    "message" : "出版日期: "
+  "err_epub_corrupt": {
+    "message": "无效或损坏的EPUB文件"
   },
-  "i18n_modified_date" : {
-    "message" : "更新日期: "
+  "err_ajax": {
+    "message": "Ajax异步请求异常"
   },
-  "i18n_id" : {
-    "message" : "ID: "
+  "err_dlg_title": {
+    "message": "出现错误"
   },
-  "i18n_epub_version" : {
-    "message" : "EPUB版本: "
+  "replace": {
+    "message": "替换"
   },
-  "i18n_created_at" : {
-    "message" : "创建日期: "
+  "gethelp": {
+    "message": "如果你遇到任何异常和疑问，或者单纯想唠唠，欢迎访问 <a href=\"http://idpf.org/forums/readium\">我们的论坛</a>"
   },
-  "i18n_format" : {
-    "message" : "格式: "
+  "i18n_readium_library": {
+    "message": "Readium书库"
   },
-  "i18n_added" : {
-    "message" : "添加: "
+  "i18n_loading": {
+    "message": "加载书库"
   },
-  "i18n_unknown" : {
-    "message" : "未知"
+  "i18n_readium_options": {
+    "message": "Readium选项:"
   },
-  "i18n_sorry" : {
-    "message" : "目前EPUB不支持此内容的媒体格式"
+  "i18n_save_changes": {
+    "message": "保存更改"
   },
-  "i18n_add_items" : {
-    "message" : "点击这里添加新书"
+  "i18n_close": {
+    "message": "关闭"
   },
-  "i18n_extracting" : {
-    "message" : "解压中: "
+  "i18n_keyboard_shortcuts": {
+    "message": "快捷键"
   },
-  "i18n_are_you_sure" : {
-    "message" : "确定永久删除 "
+  "i18n_keyboard_reload": {
+    "message": "刷新本页后，新的快捷键方可生效。"
   },
-  "i18n_add_book_to_readium_library" : {
-    "message" : "添加新书到Readium书库:"
+  "i18n_keyboard_onerror_reset": {
+    "message": "请注意：任何被标记为「重复」或「无效」的快捷键将会被充值未默认配置。"
   },
-  "i18n_add_book" : {
-    "message" : "添加"
+  "i18n_reset_key": {
+    "message": "重置默认值"
   },
-  "i18n_cancel" : {
-    "message" : "取消"
+  "i18n_reset_key_all": {
+    "message": "重置全部快捷键"
   },
-  "i18n_from_the_web" : {
-    "message" : "从网络:"
+  "i18n_duplicate_keyboard_shortcut": {
+    "message": "重复"
   },
-  "i18n_from_local_file" : {
-    "message" : "从本地文件:"
+  "i18n_invalid_keyboard_shortcut": {
+    "message": "无效"
   },
-  "i18n_enter_a_url" : {
-    "message" : "请输入一个.EPUB文件的URL"
+  "i18n_paginate_all": {
+    "message": "分页显示所有可重排版EPUB文件"
   },
-  "i18n_unpacked_directory" : {
-    "message" : "未打包目录:"
+  "i18n_automatically": {
+    "message": "自动用Readium打开*.epub网址"
   },
-  "i18n_validate" : {
-    "message" : "验证:"
+  "i18n_show_warning": {
+    "message": "解压缩EPUB文件时显示警告消息"
   },
-  "i18n_confirm_that_this_book" : {
-    "message" : "确认这本书是否符合EPUB标准"
+  "i18n_details": {
+    "message": "详细信息"
   },
-  "i18n_single_pages" : {
-    "message" : "单页"
+  "i18n_read": {
+    "message": "阅读"
   },
-  "i18n_double_pages" : {
-    "message" : "双页"
+  "i18n_delete": {
+    "message": "删除"
   },
-  "i18n_save_settings" : {
-    "message" : "保存设置"
+  "i18n_author": {
+    "message": "作者: "
   },
-  "i18n_font_size" : {
-    "message" : "字体大小"
+  "i18n_publisher": {
+    "message": "出版社: "
   },
-  "i18n_margins" : {
-    "message" : "页边距"
+  "i18n_source": {
+    "message": "源自: "
   },
-  "i18n_text_and_background_color" : {
-    "message" : "字体和背景颜色"
+  "i18n_pub_date": {
+    "message": "出版日期: "
   },
-  "i18n_black_and_white" : {
-    "message" : "Black and White"
+  "i18n_modified_date": {
+    "message": "更新日期: "
   },
-  "i18n_arabian_nights" : {
-    "message" : "Arabian Nights"
+  "i18n_id": {
+    "message": "ID: "
   },
-  "i18n_sands_of_dune" : {
-    "message" : "Sands of Dune"
+  "i18n_epub_version": {
+    "message": "EPUB版本: "
   },
-  "i18n_ballard_blues" : {
-    "message" : "Ballard Blues"
+  "i18n_created_at": {
+    "message": "创建日期: "
   },
-  "i18n_vancouver_mist" : {
-    "message" : "Vancouver Mist"
+  "i18n_format": {
+    "message": "格式: "
   },
-  "i18n_display_format" : {
-    "message" : "显示格式"
+  "i18n_added": {
+    "message": "添加: "
   },
-  "i18n_html_readium_tm_a_project" : {
-    "message" : "Readium<sup>TM</sup>，是一个International Digital Publishing Forum (IDPF)和技术支持者们共同开发的项目，也是一个开放源代码的EPUB格式出版物的渲染引擎。要了解更多信息，请访问<a href=\"http://readium.org/\">项目主页</a>。迄今为止，该项目的开发一直由<a href=\"http://evidentpoint.com/\">Evident Point</a>和<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>来领导。要贡献请访问<a href=\"https://github.com/readium/readium-js-viewer\">GitHub资料库</a>"
+  "i18n_unknown": {
+    "message": "未知"
   },
-  "chrome_accept_languages": {
-    "message": "$CHROME$ accepts $languages$ languages",
-    "placeholders": {
-      "chrome": {
-        "content": "Chrome",
-        "example": "Chrome"
-      },
-      "languages": {
-        "content": "$1",
-        "example": "en-US,ja,sr,de,zh_CN"
-      }
-    }
+  "i18n_sorry": {
+    "message": "目前EPUB不支持此内容的媒体格式"
+  },
+  "i18n_add_items": {
+    "message": "点击这里添加新书"
+  },
+  "i18n_extracting": {
+    "message": "解压中: "
+  },
+  "i18n_are_you_sure": {
+    "message": "确定永久删除 "
+  },
+  "i18n_add_book_to_readium_library": {
+    "message": "添加新书到Readium书库:"
+  },
+  "i18n_add_book": {
+    "message": "添加"
+  },
+  "i18n_cancel": {
+    "message": "取消"
+  },
+  "i18n_from_the_web": {
+    "message": "从网络:"
+  },
+  "i18n_from_local_file": {
+    "message": "从本地文件:"
+  },
+  "i18n_enter_a_url": {
+    "message": "请输入一个.EPUB文件的URL"
+  },
+  "i18n_unpacked_directory": {
+    "message": "未打包目录:"
+  },
+  "i18n_validate": {
+    "message": "验证:"
+  },
+  "i18n_confirm_that_this_book": {
+    "message": "确认这本书是否符合EPUB标准"
+  },
+  "i18n_single_pages": {
+    "message": "单页"
+  },
+  "i18n_double_pages": {
+    "message": "双页"
+  },
+  "i18n_save_settings": {
+    "message": "保存设置"
+  },
+  "i18n_font_size": {
+    "message": "字体大小"
+  },
+  "i18n_font_selection": {
+    "message": "正文字体"
+  },
+  "i18n_fonttype_default": {
+    "message": "默认字体"
+  },
+  "i18n_margins": {
+    "message": "页边距"
+  },
+  "i18n_pageMaxWidth": {
+    "message": "页面边距"
+  },
+  "i18n_pageMaxWidth_Disabled": {
+    "message": "关闭 (无上限)"
+  },
+  "i18n_text_and_background_color": {
+    "message": "主题配色"
+  },
+  "i18n_author_theme": {
+    "message": "默认 (电子书自带主题)"
+  },
+  "i18n_black_and_white": {
+    "message": "白底黑字"
+  },
+  "i18n_arabian_nights": {
+    "message": "静夜黑"
+  },
+  "i18n_sands_of_dune": {
+    "message": "沙丘黄"
+  },
+  "i18n_ballard_blues": {
+    "message": "天空蓝"
+  },
+  "i18n_vancouver_mist": {
+    "message": "雾霾灰"
+  },
+  "i18n_display_format": {
+    "message": "页面模式"
+  },
+  "i18n_spread_auto": {
+    "message": "自动"
+  },
+  "i18n_scroll_mode": {
+    "message": "翻页方式"
+  },
+  "i18n_scroll_mode_auto": {
+    "message": "自动"
+  },
+  "i18n_scroll_mode_doc": {
+    "message": "左右翻页"
+  },
+  "i18n_scroll_mode_continuous": {
+    "message": "上下滑动"
+  },
+  "i18n_page_transition": {
+    "message": "翻页效果"
+  },
+  "i18n_page_transition_none": {
+    "message": "关闭"
+  },
+  "i18n_page_transition_fade": {
+    "message": "渐进"
+  },
+  "i18n_page_transition_slide": {
+    "message": "翻页"
+  },
+  "i18n_page_transition_swoosh": {
+    "message": "平滑"
+  },
+  "i18n_page_transition_butterfly": {
+    "message": "蝶舞"
+  },
+  "i18n_html_readium_tm_a_project": {
+    "message": "Readium<sup>TM</sup>，是一个International Digital Publishing Forum (IDPF)和技术支持者们共同开发的项目，也是一个开放源代码的EPUB格式出版物的渲染引擎。要了解更多信息，请访问<a href=\"http://readium.org/\">项目主页</a>。迄今为止，该项目的开发一直由<a href=\"http://evidentpoint.com/\">Evident Point</a>和<a href=\"http://www.bluefirereader.com/\">Bluefire Productions</a>来领导。要贡献请访问<a href=\"https://github.com/readium/readium-js-viewer\">GitHub资料库</a>"
+  },
+  "i18n_alt_about_logos": {
+    "message": "HTML5, i d p f, ePUB"
+  },
+  "i18n_toolbar": {
+    "message": "工具栏"
+  },
+  "i18n_toolbar_show": {
+    "message": "显示工具栏"
+  },
+  "i18n_toolbar_hide": {
+    "message": "隐藏工具栏"
+  },
+  "i18n_audio_play": {
+    "message": "播放"
+  },
+  "i18n_audio_pause": {
+    "message": "暂停"
+  },
+  "i18n_audio_play_background": {
+    "message": "播放背景音乐"
+  },
+  "i18n_audio_pause_background": {
+    "message": "暂停背景音乐"
+  },
+  "i18n_audio_previous": {
+    "message": "上一首"
+  },
+  "i18n_audio_next": {
+    "message": "下一首"
+  },
+  "i18n_audio_volume": {
+    "message": "音量"
+  },
+  "i18n_audio_volume_increase": {
+    "message": "增大音量"
+  },
+  "i18n_audio_volume_decrease": {
+    "message": "减小音量"
+  },
+  "i18n_audio_mute": {
+    "message": "静音"
+  },
+  "i18n_audio_unmute": {
+    "message": "取消静音"
+  },
+  "i18n_audio_expand": {
+    "message": "显示高级音频控制项"
+  },
+  "i18n_audio_collapse": {
+    "message": "关闭高级音频控制项"
+  },
+  "i18n_audio_esc": {
+    "message": "跳过当月音频上下文"
+  },
+  "i18n_audio_rate": {
+    "message": "音频播放速度"
+  },
+  "i18n_audio_rate_increase": {
+    "message": "加快音频播放速度"
+  },
+  "i18n_audio_rate_decrease": {
+    "message": "减缓音频播放速度"
+  },
+  "i18n_audio_rate_reset": {
+    "message": "重设为正常播放速度"
+  },
+  "i18n_page_previous": {
+    "message": "上一页"
+  },
+  "i18n_page_next": {
+    "message": "下一页"
+  },
+  "i18n_page_navigation": {
+    "message": "页面导航"
+  },
+  "i18n_ChromeApp_deprecated_dialog_title": {
+    "message": "Readium Chrome App - 警告"
   }
 }
